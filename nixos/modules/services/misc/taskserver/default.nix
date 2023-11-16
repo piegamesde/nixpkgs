@@ -461,7 +461,9 @@ in
         };
       };
 
-      users.groups = optionalAttrs (cfg.group == "taskd") { taskd.gid = config.ids.gids.taskd; };
+      users.groups = optionalAttrs (cfg.group == "taskd") {
+        taskd.gid = config.ids.gids.taskd;
+      };
 
       services.taskserver.config = {
         # systemd related
@@ -500,11 +502,17 @@ in
               {
                 cert = "${cfg.pki.manual.server.cert}";
                 key = "${cfg.pki.manual.server.key}";
-                ${mapNullable (_: "crl") cfg.pki.manual.server.crl} = "${cfg.pki.manual.server.crl}";
+                ${
+                  mapNullable (_: "crl") cfg.pki.manual.server.crl
+                } = "${cfg.pki.manual.server.crl}";
               }
           );
 
-        ca.cert = if needToCreateCA then "${cfg.dataDir}/keys/ca.cert" else "${cfg.pki.manual.ca.cert}";
+        ca.cert =
+          if needToCreateCA then
+            "${cfg.dataDir}/keys/ca.cert"
+          else
+            "${cfg.pki.manual.ca.cert}";
       };
 
       systemd.services.taskserver-init = {

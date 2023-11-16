@@ -89,7 +89,8 @@ stdenv.mkDerivation rec {
   postPatch =
     with lib;
     let
-      branchCaptialized = (lib.toUpper (lib.substring 0 1 branch) + lib.substring 1 (-1) branch);
+      branchCaptialized =
+        (lib.toUpper (lib.substring 0 1 branch) + lib.substring 1 (-1) branch);
     in
     ''
       # Fix file not found when looking in var/empty instead of opt

@@ -32,7 +32,9 @@ in
       openFirewall = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Open ports in the firewall for the Radarr web interface.";
+        description =
+          lib.mdDoc
+            "Open ports in the firewall for the Radarr web interface.";
       };
 
       user = mkOption {
@@ -50,7 +52,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules = [
+      "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -"
+    ];
 
     systemd.services.radarr = {
       description = "Radarr";
@@ -76,6 +80,8 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "radarr") { radarr.gid = config.ids.gids.radarr; };
+    users.groups = mkIf (cfg.group == "radarr") {
+      radarr.gid = config.ids.gids.radarr;
+    };
   };
 }

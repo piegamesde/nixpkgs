@@ -5,7 +5,8 @@
   callPackage,
   flutter,
   supportsLinuxDesktop ? stdenv.hostPlatform.isLinux,
-  supportsAndroid ? (stdenv.hostPlatform.isx86_64 || stdenv.hostPlatform.isDarwin),
+  supportsAndroid ?
+    (stdenv.hostPlatform.isx86_64 || stdenv.hostPlatform.isDarwin),
   supportsDarwin ? stdenv.hostPlatform.isDarwin,
   supportsIOS ? stdenv.hostPlatform.isDarwin,
   includedEngineArtifacts ? {
@@ -121,19 +122,25 @@ let
       variant ? null,
     }:
     let
-      artifactDirectory = "${os}-${architecture}${lib.optionalString (variant != null) "-${variant}"}";
+      artifactDirectory = "${os}-${architecture}${
+          lib.optionalString (variant != null) "-${variant}"
+        }";
     in
     ''
       mkdir -p $out/artifacts/engine/${artifactDirectory}
       lndir -silent ${artifact} $out/artifacts/engine/${artifactDirectory}
     '';
   engineArtifactDirectory =
-    runCommandLocal "flutter-engine-artifacts-${flutter.version}" { nativeBuildInputs = [ lndir ]; }
+    runCommandLocal "flutter-engine-artifacts-${flutter.version}"
+      { nativeBuildInputs = [ lndir ]; }
       (
         builtins.concatStringsSep "\n" (
-          (map (name: mkCommonArtifactLinkCommand { artifact = engineArtifacts.common.${name}; }) (
-            includedEngineArtifacts.common or [ ]
-          ))
+          (map
+            (
+              name: mkCommonArtifactLinkCommand { artifact = engineArtifacts.common.${name}; }
+            )
+            (includedEngineArtifacts.common or [ ])
+          )
           ++ (builtins.foldl'
             (
               commands: os:
@@ -161,7 +168,8 @@ let
                         engineArtifacts.platform.${os}.${architecture}.variants.${variant}
                       )
                     )
-                    (map (artifact: mkPlatformArtifactLinkCommand { inherit artifact os architecture; })
+                    (map
+                      (artifact: mkPlatformArtifactLinkCommand { inherit artifact os architecture; })
                       engineArtifacts.platform.${os}.${architecture}.base
                     )
                     includedEngineArtifacts.platform.${os}.${architecture}
@@ -221,8 +229,11 @@ let
       # https://discourse.nixos.org/t/handling-transitive-c-dependencies/5942/3
       deps =
         pkg:
-        builtins.filter lib.isDerivation ((pkg.buildInputs or [ ]) ++ (pkg.propagatedBuildInputs or [ ]));
-      collect = pkg: lib.unique ([ pkg ] ++ deps pkg ++ builtins.concatMap collect (deps pkg));
+        builtins.filter lib.isDerivation (
+          (pkg.buildInputs or [ ]) ++ (pkg.propagatedBuildInputs or [ ])
+        );
+      collect =
+        pkg: lib.unique ([ pkg ] ++ deps pkg ++ builtins.concatMap collect (deps pkg));
     in
     builtins.concatMap collect appRuntimeDeps;
 
@@ -245,12 +256,15 @@ let
   ];
 
   # Nix-specific compiler configuration.
-  pkgConfigPackages = map (lib.getOutput "dev") (appBuildDeps ++ extraPkgConfigPackages);
+  pkgConfigPackages = map (lib.getOutput "dev") (
+    appBuildDeps ++ extraPkgConfigPackages
+  );
   includeFlags = map (pkg: "-isystem ${lib.getOutput "dev" pkg}/include") (
     appStaticBuildDeps ++ extraIncludes
   );
   linkerFlags =
-    (map (pkg: "-rpath,${lib.getOutput "lib" pkg}/lib") appRuntimeDeps) ++ extraLinkerFlags;
+    (map (pkg: "-rpath,${lib.getOutput "lib" pkg}/lib") appRuntimeDeps)
+    ++ extraLinkerFlags;
 in
 (callPackage ./sdk-symlink.nix { }) (
   stdenv.mkDerivation {
@@ -301,9 +315,15 @@ in
         --suffix PATH : '${lib.makeBinPath (tools ++ buildTools)}' \
         --suffix PKG_CONFIG_PATH : "$FLUTTER_PKG_CONFIG_PATH" \
         --suffix LIBRARY_PATH : '${lib.makeLibraryPath appStaticBuildDeps}' \
-        --prefix CXXFLAGS "	" '${builtins.concatStringsSep " " (includeFlags ++ extraCxxFlags)}' \
-        --prefix CFLAGS "	" '${builtins.concatStringsSep " " (includeFlags ++ extraCFlags)}' \
-        --prefix LDFLAGS "	" '${builtins.concatStringsSep " " (map (flag: "-Wl,${flag}") linkerFlags)}' \
+        --prefix CXXFLAGS "	" '${
+          builtins.concatStringsSep " " (includeFlags ++ extraCxxFlags)
+        }' \
+        --prefix CFLAGS "	" '${
+          builtins.concatStringsSep " " (includeFlags ++ extraCFlags)
+        }' \
+        --prefix LDFLAGS "	" '${
+          builtins.concatStringsSep " " (map (flag: "-Wl,${flag}") linkerFlags)
+        }' \
         ''${gappsWrapperArgs[@]}
 
       runHook postInstall

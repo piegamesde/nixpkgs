@@ -27,7 +27,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OrlNE1A71q4XAauYNfumV1Ev1wBpFIBxPiw7aF++yjM=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ] ++ lib.optional stdenv.isLinux pkg-config;
+  nativeBuildInputs = [
+    autoreconfHook
+  ] ++ lib.optional stdenv.isLinux pkg-config;
 
   buildInputs =
     [ ncurses ]
@@ -53,7 +55,8 @@ stdenv.mkDerivation rec {
 
   postFixup =
     let
-      optionalPatch = pred: so: lib.optionalString pred "patchelf --add-needed ${so} $out/bin/htop";
+      optionalPatch =
+        pred: so: lib.optionalString pred "patchelf --add-needed ${so} $out/bin/htop";
     in
     lib.optionalString (!stdenv.hostPlatform.isStatic) ''
       ${optionalPatch sensorsSupport "${lm_sensors}/lib/libsensors.so"}

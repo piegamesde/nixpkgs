@@ -194,7 +194,9 @@ in
           "net.ipv4.conf.all.forwarding" = mkOverride 98 true;
           "net.ipv4.conf.default.forwarding" = mkOverride 98 true;
         };
-        environment.systemPackages = [ cfg.package ] ++ optional cfg.enableNvidia pkgs.nvidia-docker;
+        environment.systemPackages = [
+          cfg.package
+        ] ++ optional cfg.enableNvidia pkgs.nvidia-docker;
         users.groups.docker.gid = config.ids.gids.docker;
         systemd.packages = [ cfg.package ];
 
@@ -260,7 +262,8 @@ in
         assertions = [
           {
             assertion =
-              cfg.enableNvidia && pkgs.stdenv.isx86_64 -> config.hardware.opengl.driSupport32Bit or false;
+              cfg.enableNvidia && pkgs.stdenv.isx86_64
+              -> config.hardware.opengl.driSupport32Bit or false;
             message = "Option enableNvidia on x86_64 requires 32bit support libraries";
           }
         ];

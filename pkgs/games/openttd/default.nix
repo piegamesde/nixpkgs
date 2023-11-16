@@ -135,7 +135,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = ''Open source clone of the Microprose game "Transport Tycoon Deluxe"'';
+    description = ''
+      Open source clone of the Microprose game "Transport Tycoon Deluxe"'';
     longDescription = ''
       OpenTTD is a transportation economics simulator. In single player mode,
       players control a transportation business, and use rail, road, sea, and air

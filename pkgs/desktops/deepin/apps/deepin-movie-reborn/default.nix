@@ -65,9 +65,15 @@ stdenv.mkDerivation rec {
     # This affects the preview plugin for dde-file-manager
 
     substituteInPlace src/libdmr/{filefilter.cpp,playlist_model.cpp,gstutils.cpp} \
-      --replace 'LibraryLoader::libPath("libavcodec.so")' '"${lib.getLib ffmpeg}/lib/libavcodec.so"' \
-      --replace 'LibraryLoader::libPath("libavformat.so")' '"${lib.getLib ffmpeg}/lib/libavformat.so"' \
-      --replace 'LibraryLoader::libPath("libavutil.so")' '"${lib.getLib ffmpeg}/lib/libavutil.so"' \
+      --replace 'LibraryLoader::libPath("libavcodec.so")' '"${
+        lib.getLib ffmpeg
+      }/lib/libavcodec.so"' \
+      --replace 'LibraryLoader::libPath("libavformat.so")' '"${
+        lib.getLib ffmpeg
+      }/lib/libavformat.so"' \
+      --replace 'LibraryLoader::libPath("libavutil.so")' '"${
+        lib.getLib ffmpeg
+      }/lib/libavutil.so"' \
       --replace 'LibraryLoader::libPath("libffmpegthumbnailer.so")' '"${
         lib.getLib ffmpegthumbnailer
       }/lib/libffmpegthumbnailer.so"' \

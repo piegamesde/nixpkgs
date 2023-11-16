@@ -93,7 +93,9 @@ in
             secretFile = pkgs.writeText "secret" "Aig5zaic";
             otpFile = pkgs.writeText "otpsecret" "Riew9mue";
             dbFile = pkgs.writeText "dbsecret" "we2quaeZ";
-            jwsFile = pkgs.runCommand "oidcKeyBase" { } "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+            jwsFile =
+              pkgs.runCommand "oidcKeyBase" { }
+                "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
           };
         };
       };
@@ -181,7 +183,9 @@ in
         }
       );
 
-      newIssue = pkgs.writeText "new-issue.json" (builtins.toJSON { title = "useful issue title"; });
+      newIssue = pkgs.writeText "new-issue.json" (
+        builtins.toJSON { title = "useful issue title"; }
+      );
 
       closeIssue = pkgs.writeText "close-issue.json" (
         builtins.toJSON {

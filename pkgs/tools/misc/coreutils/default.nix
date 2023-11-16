@@ -137,7 +137,8 @@ stdenv.mkDerivation rec {
   configureFlags =
     [ "--with-packager=https://nixos.org" ]
     ++ optional (singleBinary != false) (
-      "--enable-single-binary" + optionalString (isString singleBinary) "=${singleBinary}"
+      "--enable-single-binary"
+      + optionalString (isString singleBinary) "=${singleBinary}"
     )
     ++ optional withOpenssl "--with-openssl"
     ++ optional stdenv.hostPlatform.isSunOS "ac_cv_func_inotify_init=no"

@@ -13,7 +13,10 @@ let
 
   addCheckDesc =
     desc: elemType: check:
-    types.addCheck elemType check // { description = "${elemType.description} (with check: ${desc})"; };
+    types.addCheck elemType check
+    // {
+      description = "${elemType.description} (with check: ${desc})";
+    };
 
   isNonEmpty =
     s:
@@ -47,9 +50,9 @@ let
     "devpts"
   ];
 
-  nonEmptyWithoutTrailingSlash = addCheckDesc "non-empty without trailing slash" types.str (
-    s: isNonEmpty s && (builtins.match ".+/" s) == null
-  );
+  nonEmptyWithoutTrailingSlash =
+    addCheckDesc "non-empty without trailing slash" types.str
+      (s: isNonEmpty s && (builtins.match ".+/" s) == null);
 
   coreFileSystemOpts =
     { name, config, ... }:
@@ -218,7 +221,11 @@ let
         ];
       isBindMount = fs: builtins.elem "bind" fs.options;
       skipCheck =
-        fs: fs.noCheck || fs.device == "none" || builtins.elem fs.fsType fsToSkipCheck || isBindMount fs;
+        fs:
+        fs.noCheck
+        || fs.device == "none"
+        || builtins.elem fs.fsType fsToSkipCheck
+        || isBindMount fs;
       # https://wiki.archlinux.org/index.php/fstab#Filepath_spaces
       escape =
         string:
@@ -378,7 +385,8 @@ in
           "btrfs"
           "xfs"
         ];
-        notAutoResizable = fs: fs.autoResize && !(builtins.elem fs.fsType resizableFSes);
+        notAutoResizable =
+          fs: fs.autoResize && !(builtins.elem fs.fsType resizableFSes);
       in
       [
         {
@@ -441,7 +449,9 @@ in
             ++ optional (sw.priority != null) "pri=${toString sw.priority}"
             ++
               optional (sw.discardPolicy != null)
-                "discard${optionalString (sw.discardPolicy != "both") "=${toString sw.discardPolicy}"}"
+                "discard${
+                  optionalString (sw.discardPolicy != "both") "=${toString sw.discardPolicy}"
+                }"
           );
       in
       ''
@@ -465,7 +475,8 @@ in
 
     boot.initrd.systemd.storePaths = [ initrdFstab ];
     boot.initrd.systemd.managerEnvironment.SYSTEMD_SYSROOT_FSTAB = initrdFstab;
-    boot.initrd.systemd.services.initrd-parse-etc.environment.SYSTEMD_SYSROOT_FSTAB = initrdFstab;
+    boot.initrd.systemd.services.initrd-parse-etc.environment.SYSTEMD_SYSROOT_FSTAB =
+      initrdFstab;
 
     # Provide a target that pulls in all filesystems.
     systemd.targets.fs = {

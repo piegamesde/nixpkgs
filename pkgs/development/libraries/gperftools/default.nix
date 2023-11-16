@@ -32,12 +32,17 @@ stdenv.mkDerivation rec {
 
   # tcmalloc uses libunwind in a way that works correctly only on non-ARM dynamically linked linux
   buildInputs =
-    lib.optional (stdenv.isLinux && !(stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isStatic))
+    lib.optional
+      (
+        stdenv.isLinux && !(stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isStatic)
+      )
       libunwind;
 
   # Disable general dynamic TLS on AArch to support dlopen()'ing the library:
   # https://bugzilla.redhat.com/show_bug.cgi?id=1483558
-  configureFlags = lib.optional stdenv.hostPlatform.isAarch "--disable-general-dynamic-tls";
+  configureFlags =
+    lib.optional stdenv.hostPlatform.isAarch
+      "--disable-general-dynamic-tls";
 
   prePatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace Makefile.am --replace stdc++ c++

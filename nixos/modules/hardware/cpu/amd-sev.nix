@@ -53,9 +53,9 @@ with lib; {
         options kvm_amd sev=1
       '';
 
-      users.groups = optionalAttrs (cfgSev.group == options.hardware.cpu.amd.sev.group.default) {
-        "${cfgSev.group}" = { };
-      };
+      users.groups =
+        optionalAttrs (cfgSev.group == options.hardware.cpu.amd.sev.group.default)
+          { "${cfgSev.group}" = { }; };
 
       services.udev.extraRules = with cfgSev; ''
         KERNEL=="sev", OWNER="${user}", GROUP="${group}", MODE="${mode}"
@@ -78,7 +78,8 @@ with lib; {
       ];
 
       users.groups =
-        optionalAttrs (cfgSevGuest.group == options.hardware.cpu.amd.sevGuest.group.default)
+        optionalAttrs
+          (cfgSevGuest.group == options.hardware.cpu.amd.sevGuest.group.default)
           { "${cfgSevGuest.group}" = { }; };
 
       services.udev.extraRules = with cfgSevGuest; ''

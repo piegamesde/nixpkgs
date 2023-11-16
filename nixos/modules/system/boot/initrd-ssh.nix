@@ -98,7 +98,9 @@ in
     authorizedKeys = mkOption {
       type = types.listOf types.str;
       default = config.users.users.root.openssh.authorizedKeys.keys;
-      defaultText = literalExpression "config.users.users.root.openssh.authorizedKeys.keys";
+      defaultText =
+        literalExpression
+          "config.users.users.root.openssh.authorizedKeys.keys";
       description = lib.mdDoc ''
         Authorized keys for the root user on initrd.
       '';
@@ -151,7 +153,9 @@ in
           let
             name = builtins.baseNameOf path;
           in
-          builtins.unsafeDiscardStringContext ("/etc/ssh/" + substring 1 (stringLength name) name);
+          builtins.unsafeDiscardStringContext (
+            "/etc/ssh/" + substring 1 (stringLength name) name
+          );
 
       sshdCfg = config.services.openssh;
 
@@ -204,26 +208,30 @@ in
         }
       ];
 
-      warnings = lib.optional (config.boot.initrd.systemd.enable && cfg.shell != null) ''
-        Please set 'boot.initrd.systemd.users.root.shell' instead of 'boot.initrd.network.ssh.shell'
-      '';
+      warnings =
+        lib.optional (config.boot.initrd.systemd.enable && cfg.shell != null)
+          ''
+            Please set 'boot.initrd.systemd.users.root.shell' instead of 'boot.initrd.network.ssh.shell'
+          '';
 
       boot.initrd.extraUtilsCommands = mkIf (!config.boot.initrd.systemd.enable) ''
         copy_bin_and_libs ${package}/bin/sshd
         cp -pv ${pkgs.glibc.out}/lib/libnss_files.so.* $out/lib
       '';
 
-      boot.initrd.extraUtilsCommandsTest = mkIf (!config.boot.initrd.systemd.enable) ''
-        # sshd requires a host key to check config, so we pass in the test's
-        tmpkey="$(mktemp initrd-ssh-testkey.XXXXXXXXXX)"
-        cp "${../../../tests/initrd-network-ssh/ssh_host_ed25519_key}" "$tmpkey"
-        # keys from Nix store are world-readable, which sshd doesn't like
-        chmod 600 "$tmpkey"
-        echo -n ${escapeShellArg sshdConfig} |
-          $out/bin/sshd -t -f /dev/stdin \
-          -h "$tmpkey"
-        rm "$tmpkey"
-      '';
+      boot.initrd.extraUtilsCommandsTest =
+        mkIf (!config.boot.initrd.systemd.enable)
+          ''
+            # sshd requires a host key to check config, so we pass in the test's
+            tmpkey="$(mktemp initrd-ssh-testkey.XXXXXXXXXX)"
+            cp "${../../../tests/initrd-network-ssh/ssh_host_ed25519_key}" "$tmpkey"
+            # keys from Nix store are world-readable, which sshd doesn't like
+            chmod 600 "$tmpkey"
+            echo -n ${escapeShellArg sshdConfig} |
+              $out/bin/sshd -t -f /dev/stdin \
+              -h "$tmpkey"
+            rm "$tmpkey"
+          '';
 
       boot.initrd.network.postCommands = mkIf (!config.boot.initrd.systemd.enable) ''
         echo '${shell}' > /etc/shells

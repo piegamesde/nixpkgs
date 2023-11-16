@@ -16,6 +16,8 @@ in
       to periodically collect random data from the device and mix it
       into the kernel's RNG.
     '')
-    (removed "debug" "The rngd module was removed, so its debug option does nothing.")
+    (removed "debug"
+      "The rngd module was removed, so its debug option does nothing."
+    )
   ];
 }

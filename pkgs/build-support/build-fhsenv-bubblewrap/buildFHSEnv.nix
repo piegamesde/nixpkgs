@@ -45,7 +45,8 @@ let
 
   # list of packages (usually programs) which are only be installed for the
   # host's architecture
-  targetPaths = targetPkgs pkgs ++ (if multiPkgs == null then [ ] else multiPkgs pkgs);
+  targetPaths =
+    targetPkgs pkgs ++ (if multiPkgs == null then [ ] else multiPkgs pkgs);
 
   # list of packages which are installed for both x86 and x86_64 on x86_64
   # systems
@@ -79,7 +80,10 @@ let
   ldconfig = writeShellScriptBin "ldconfig" ''
     # due to a glibc bug, 64-bit ldconfig complains about patchelf'd 32-bit libraries, so we're using 32-bit ldconfig
     exec ${
-      if stdenv.system == "x86_64-linux" then pkgsi686Linux.glibc.bin else pkgs.glibc.bin
+      if stdenv.system == "x86_64-linux" then
+        pkgsi686Linux.glibc.bin
+      else
+        pkgs.glibc.bin
     }/bin/ldconfig -f /etc/ld.so.conf -C /etc/ld.so.cache "$@"
   '';
 

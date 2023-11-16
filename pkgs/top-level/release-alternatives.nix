@@ -142,7 +142,11 @@ let
     builtins.listToAttrs (
       map
         (name: {
-          name = if builtins.isList name then builtins.elemAt name (builtins.length name - 1) else name;
+          name =
+            if builtins.isList name then
+              builtins.elemAt name (builtins.length name - 1)
+            else
+              name;
           value = f name;
         })
         xs
@@ -159,7 +163,9 @@ in
       mapListToAttrs (blasProviders system) (
         provider:
         let
-          isILP64 = builtins.elem provider ([ "mkl64" ] ++ lib.optional system.is64bit "openblas");
+          isILP64 = builtins.elem provider (
+            [ "mkl64" ] ++ lib.optional system.is64bit "openblas"
+          );
           pkgs = pkgsFun {
             config = {
               inherit allowUnfree;
@@ -168,20 +174,28 @@ in
             overlays = [
               (self: super: {
                 lapack = super.lapack.override {
-                  lapackProvider = if provider == "mkl64" then super.mkl else builtins.getAttr provider super;
+                  lapackProvider =
+                    if provider == "mkl64" then super.mkl else builtins.getAttr provider super;
                   inherit isILP64;
                 };
                 blas = super.blas.override {
-                  blasProvider = if provider == "mkl64" then super.mkl else builtins.getAttr provider super;
+                  blasProvider =
+                    if provider == "mkl64" then super.mkl else builtins.getAttr provider super;
                   inherit isILP64;
                 };
               })
             ];
           };
         in
-        mapListToAttrs (if builtins.elem provider blas64Providers then blas64Users else blasUsers) (
-          attr: if builtins.isList attr then lib.getAttrFromPath attr pkgs else builtins.getAttr attr pkgs
-        )
+        mapListToAttrs
+          (if builtins.elem provider blas64Providers then blas64Users else blasUsers)
+          (
+            attr:
+            if builtins.isList attr then
+              lib.getAttrFromPath attr pkgs
+            else
+              builtins.getAttr attr pkgs
+          )
 
         // {
           recurseForDerivations = true;

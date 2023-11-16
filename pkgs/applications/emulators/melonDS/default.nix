@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
-  qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libpcap ]}" ];
+  qtWrapperArgs = [
+    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libpcap ]}"
+  ];
 
   meta = with lib; {
     homepage = "https://melonds.kuribo64.net/";

@@ -69,7 +69,9 @@ let
       # check in passthru.tests.pytest because all packages are required to run the tests
       doCheck = false;
 
-      passthru.tests = lib.optionalAttrs (pname == "wasmer") { pytest = callPackage ./tests.nix { }; };
+      passthru.tests = lib.optionalAttrs (pname == "wasmer") {
+        pytest = callPackage ./tests.nix { };
+      };
 
       pythonImportsCheck = [ "${lib.replaceStrings [ "-" ] [ "_" ] pname}" ];
 

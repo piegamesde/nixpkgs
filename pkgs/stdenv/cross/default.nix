@@ -48,7 +48,11 @@ lib.init bootStages
   (
     buildPackages:
     let
-      adaptStdenv = if crossSystem.isStatic then buildPackages.stdenvAdapters.makeStatic else lib.id;
+      adaptStdenv =
+        if crossSystem.isStatic then
+          buildPackages.stdenvAdapters.makeStatic
+        else
+          lib.id;
     in
     {
       inherit config;
@@ -95,7 +99,9 @@ lib.init bootStages
 
             extraNativeBuildInputs =
               old.extraNativeBuildInputs
-              ++ lib.optionals (hostPlatform.isLinux && !buildPlatform.isLinux) [ buildPackages.patchelf ]
+              ++ lib.optionals (hostPlatform.isLinux && !buildPlatform.isLinux) [
+                buildPackages.patchelf
+              ]
               ++
                 lib.optional
                   (

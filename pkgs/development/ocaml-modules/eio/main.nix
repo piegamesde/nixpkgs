@@ -15,5 +15,7 @@ buildDunePackage {
 
   dontStrip = true;
 
-  propagatedBuildInputs = [ eio_posix ] ++ lib.optionals stdenv.isLinux [ eio_linux ];
+  propagatedBuildInputs = [
+    eio_posix
+  ] ++ lib.optionals stdenv.isLinux [ eio_linux ];
 }

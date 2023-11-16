@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
   version = "3.0.6";
 
   src =
-    srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    srcs.${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   dontUnpack = true;
   dontBuild = true;

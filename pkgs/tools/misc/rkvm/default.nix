@@ -34,7 +34,9 @@ rustPlatform.buildRustPackage rec {
     install -Dm444 example/server.toml "$out/etc/rkvm/server.example.toml"
     install -Dm444 example/client.toml "$out/etc/rkvm/client.example.toml"
 
-    wrapProgram $out/bin/rkvm-certificate-gen --prefix PATH : ${lib.makeBinPath [ openssl ]}
+    wrapProgram $out/bin/rkvm-certificate-gen --prefix PATH : ${
+      lib.makeBinPath [ openssl ]
+    }
   '';
 
   passthru.tests = {

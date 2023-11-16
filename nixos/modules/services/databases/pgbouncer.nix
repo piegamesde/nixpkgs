@@ -24,14 +24,17 @@ let
       )}
 
       [peers]
-      ${concatStringsSep "\n" (mapAttrsToList (peerid: settings: "${peerid} = ${settings}") cfg.peers)}
+      ${concatStringsSep "\n" (
+        mapAttrsToList (peerid: settings: "${peerid} = ${settings}") cfg.peers
+      )}
 
       [pgbouncer]
       # general
       ${optionalString (cfg.ignoreStartupParameters != null)
         "ignore_startup_parameters = ${cfg.ignoreStartupParameters}"}
       listen_port = ${toString cfg.listenPort}
-      ${optionalString (cfg.listenAddress != null) "listen_addr = ${cfg.listenAddress}"}
+      ${optionalString (cfg.listenAddress != null)
+        "listen_addr = ${cfg.listenAddress}"}
       pool_mode = ${cfg.poolMode}
       max_client_conn = ${toString cfg.maxClientConn}
       default_pool_size = ${toString cfg.defaultPoolSize}
@@ -61,7 +64,8 @@ let
       ''}
 
       # log
-      ${optionalString (cfg.logFile != null) "logfile = ${cfg.homeDir}/${cfg.logFile}"}
+      ${optionalString (cfg.logFile != null)
+        "logfile = ${cfg.homeDir}/${cfg.logFile}"}
       ${optionalString (cfg.syslog != null) ''
         syslog = ${if cfg.syslog.enable then "1" else "0"}
         syslog_ident = ${cfg.syslog.syslogIdent}
@@ -448,17 +452,23 @@ in
             certFile = mkOption {
               type = types.path;
               example = "/secrets/pgbouncer.key";
-              description = lib.mdDoc "Path to certificate for private key. Clients can validate it";
+              description =
+                lib.mdDoc
+                  "Path to certificate for private key. Clients can validate it";
             };
             keyFile = mkOption {
               type = types.path;
               example = "/secrets/pgbouncer.crt";
-              description = lib.mdDoc "Path to private key for PgBouncer to accept client connections";
+              description =
+                lib.mdDoc
+                  "Path to private key for PgBouncer to accept client connections";
             };
             caFile = mkOption {
               type = types.path;
               example = "/secrets/pgbouncer.crt";
-              description = lib.mdDoc "Path to root certificate file to validate client certificates";
+              description =
+                lib.mdDoc
+                  "Path to root certificate file to validate client certificates";
             };
           };
         }
@@ -509,17 +519,23 @@ in
             certFile = mkOption {
               type = types.path;
               example = "/secrets/pgbouncer_server.key";
-              description = lib.mdDoc "Certificate for private key. PostgreSQL server can validate it.";
+              description =
+                lib.mdDoc
+                  "Certificate for private key. PostgreSQL server can validate it.";
             };
             keyFile = mkOption {
               type = types.path;
               example = "/secrets/pgbouncer_server.crt";
-              description = lib.mdDoc "Private key for PgBouncer to authenticate against PostgreSQL server.";
+              description =
+                lib.mdDoc
+                  "Private key for PgBouncer to authenticate against PostgreSQL server.";
             };
             caFile = mkOption {
               type = types.path;
               example = "/secrets/pgbouncer_server.crt";
-              description = lib.mdDoc "Root certificate file to validate PostgreSQL server certificates.";
+              description =
+                lib.mdDoc
+                  "Root certificate file to validate PostgreSQL server certificates.";
             };
           };
         }

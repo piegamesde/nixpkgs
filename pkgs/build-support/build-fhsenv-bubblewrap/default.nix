@@ -134,7 +134,10 @@ let
     '';
 
   indentLines =
-    str: lib.concatLines (map (s: "  " + s) (filter (s: s != "") (lib.splitString "\n" str)));
+    str:
+    lib.concatLines (
+      map (s: "  " + s) (filter (s: s != "") (lib.splitString "\n" str))
+    );
   bwrapCmd =
     {
       initArgs ? "",

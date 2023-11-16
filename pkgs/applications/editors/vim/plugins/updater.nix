@@ -30,7 +30,9 @@ buildPythonApplication {
     cp ${./update.py} $out/bin/vim-plugins-updater
     cp ${./get-plugins.nix} $out/get-plugins.nix
     cp ${./nvim-treesitter/update.py} $out/lib/treesitter.py
-    cp ${../../../../../maintainers/scripts/pluginupdate.py} $out/lib/pluginupdate.py
+    cp ${
+      ../../../../../maintainers/scripts/pluginupdate.py
+    } $out/lib/pluginupdate.py
 
     # wrap python scripts
     makeWrapperArgs+=( --prefix PATH : "${

@@ -243,12 +243,16 @@ in
                 Invalid machine specifications:
             ''
             + "      "
-            + (concatStringsSep "\n      " (map (m: m.hostName) (filter (badMachine) cfg.buildMachines)));
+            + (concatStringsSep "\n      " (
+              map (m: m.hostName) (filter (badMachine) cfg.buildMachines)
+            ));
         }
       ];
 
     # List of machines for distributed Nix builds
-    environment.etc."nix/machines" = mkIf (cfg.buildMachines != [ ]) { text = buildMachinesText; };
+    environment.etc."nix/machines" = mkIf (cfg.buildMachines != [ ]) {
+      text = buildMachinesText;
+    };
 
     # Legacy configuration conversion.
     nix.settings = mkIf (!cfg.distributedBuilds) { builders = null; };

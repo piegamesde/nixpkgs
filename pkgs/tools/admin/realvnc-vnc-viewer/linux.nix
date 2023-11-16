@@ -22,7 +22,8 @@ stdenv.mkDerivation (
           sha256 = "sha256-Ull9iNi8NxB12YwEThWE0P9k1xOV2LZnebuRrVH/zwI=";
         };
       }
-      .${stdenv.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+      .${stdenv.system}
+        or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
     nativeBuildInputs = [
       autoPatchelfHook

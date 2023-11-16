@@ -10,7 +10,8 @@ in
 {
   options.services.openwebrx = with lib; {
     enable = mkEnableOption (
-      lib.mdDoc "OpenWebRX Web interface for Software-Defined Radios on http://localhost:8073"
+      lib.mdDoc
+        "OpenWebRX Web interface for Software-Defined Radios on http://localhost:8073"
     );
 
     package = mkOption {

@@ -33,7 +33,8 @@ let
       )
       { };
 
-  selectHighestVersion = a: b: if lib.versionOlder a.version b.version then b else a;
+  selectHighestVersion =
+    a: b: if lib.versionOlder a.version b.version then b else a;
 in
 rec {
   mkDriver = generic;
@@ -42,7 +43,8 @@ rec {
   # Branch/Maturity data - http://people.freedesktop.org/~aplattner/nvidia-versions.txt
 
   # Policy: use the highest stable version as the default (on our master).
-  stable = if stdenv.hostPlatform.system == "i686-linux" then legacy_390 else latest;
+  stable =
+    if stdenv.hostPlatform.system == "i686-linux" then legacy_390 else latest;
 
   production = generic {
     version = "535.129.03";

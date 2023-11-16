@@ -24,7 +24,9 @@ flutter.buildFlutterApplication rec {
     hash = "sha256-NgzijuvyWNl9sFQzq1Jzk1povF8c/rKuVyVKeve+Vic=";
   };
 
-  passthru.helper = python3.pkgs.callPackage ./helper.nix { inherit src version meta; };
+  passthru.helper = python3.pkgs.callPackage ./helper.nix {
+    inherit src version meta;
+  };
 
   pubspecLockFile = ./pubspec.lock;
   depsListFile = ./deps.json;
@@ -33,7 +35,9 @@ flutter.buildFlutterApplication rec {
   postPatch = ''
     rm -f pubspec.lock
     ln -s "${
-      writeText "${pname}-overrides.yaml" (builtins.toJSON { dependency_overrides.intl = "^0.18.1"; })
+      writeText "${pname}-overrides.yaml" (
+        builtins.toJSON { dependency_overrides.intl = "^0.18.1"; }
+      )
     }" pubspec_overrides.yaml
 
     substituteInPlace linux/CMakeLists.txt \

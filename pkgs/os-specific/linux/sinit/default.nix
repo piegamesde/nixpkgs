@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
       ''sed -re 's@(rcinitcmd[^"]*")[^"]*"@\1${rcinit}"@' -i config.def.h; ''
     )
     + (lib.optionalString (rcshutdown != null)
-      ''sed -re 's@(rc(reboot|poweroff)cmd[^"]*")[^"]*"@\1${rcshutdown}"@' -i config.def.h; ''
+      ''
+        sed -re 's@(rc(reboot|poweroff)cmd[^"]*")[^"]*"@\1${rcshutdown}"@' -i config.def.h; ''
     )
     + (lib.optionalString (rcreboot != null)
       ''sed -re 's@(rc(reboot)cmd[^"]*")[^"]*"@\1${rcreboot}"@' -i config.def.h; ''

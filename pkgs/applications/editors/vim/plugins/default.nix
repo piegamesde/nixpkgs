@@ -36,7 +36,8 @@ let
     inherit llvmPackages luaPackages;
   };
 
-  aliases = if config.allowAliases then (import ./aliases.nix lib) else final: prev: { };
+  aliases =
+    if config.allowAliases then (import ./aliases.nix lib) else final: prev: { };
 
   extensible-self = lib.makeExtensible (
     extends aliases (extends overrides (extends plugins initialPackages))

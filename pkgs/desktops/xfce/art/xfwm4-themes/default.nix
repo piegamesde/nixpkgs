@@ -16,7 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MhTV8A6XA7XoyefDKH1gbe3scoXOtNXbMy6TraZv1XU=";
   };
 
-  passthru.updateScript = httpTwoLevelsUpdater { url = "https://archive.xfce.org/src/art/${pname}"; };
+  passthru.updateScript = httpTwoLevelsUpdater {
+    url = "https://archive.xfce.org/src/art/${pname}";
+  };
 
   meta = with lib; {
     homepage = "https://www.xfce.org/";

@@ -49,7 +49,8 @@ stdenv.mkDerivation (
       glibcLocales
     ];
 
-    nativeImageBuildArgs = nativeImageBuildArgs ++ extraNativeImageBuildArgs ++ [ graalvmXmx ];
+    nativeImageBuildArgs =
+      nativeImageBuildArgs ++ extraNativeImageBuildArgs ++ [ graalvmXmx ];
 
     buildPhase =
       args.buildPhase or ''

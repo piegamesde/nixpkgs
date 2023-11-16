@@ -105,7 +105,10 @@ rec {
           let
             x = builtins.head argList;
           in
-          if (head x) == name then (head (tail x)) else (getValue attrSet (tail argList) name)
+          if (head x) == name then
+            (head (tail x))
+          else
+            (getValue attrSet (tail argList) name)
       )
       attrSet
     );
@@ -239,7 +242,8 @@ rec {
           }
         );
 
-  closePropagationSlow = list: (uniqList { inputList = (innerClosePropagation [ ] list); });
+  closePropagationSlow =
+    list: (uniqList { inputList = (innerClosePropagation [ ] list); });
 
   # This is an optimisation of lib.closePropagation which avoids the O(n^2) behavior
   # Using a list of derivations, it generates the full closure of the propagatedXXXBuildInputs
@@ -276,11 +280,18 @@ rec {
                 else
                   [ ]
               )
-              ((item.val.propagatedBuildInputs or [ ]) ++ (item.val.propagatedNativeBuildInputs or [ ]));
+              (
+                (item.val.propagatedBuildInputs or [ ])
+                ++ (item.val.propagatedNativeBuildInputs or [ ])
+              );
       }
     );
 
-  closePropagation = if builtins ? genericClosure then closePropagationFast else closePropagationSlow;
+  closePropagation =
+    if builtins ? genericClosure then
+      closePropagationFast
+    else
+      closePropagationSlow;
 
   # calls a function (f attr value ) for each record item. returns a list
   mapAttrsFlatten = f: r: map (attr: f attr r.${attr}) (attrNames r);
@@ -304,13 +315,15 @@ rec {
   # exists in both sets
   mergeAttrsWithFunc =
     f: set1: set2:
-    foldr (n: set: if set ? ${n} then setAttr set n (f set.${n} set2.${n}) else set) (set2 // set1) (
-      attrNames set2
-    );
+    foldr (n: set: if set ? ${n} then setAttr set n (f set.${n} set2.${n}) else set)
+      (set2 // set1)
+      (attrNames set2);
 
   # merging two attribute set concatenating the values of same attribute names
   # eg { a = 7; } {  a = [ 2 3 ]; } becomes { a = [ 7 2 3 ]; }
-  mergeAttrsConcatenateValues = mergeAttrsWithFunc (a: b: (toList a) ++ (toList b));
+  mergeAttrsConcatenateValues = mergeAttrsWithFunc (
+    a: b: (toList a) ++ (toList b)
+  );
 
   # merges attributes using //, if a name exists in both attributes
   # an error will be triggered unless its listed in mergeLists
@@ -340,7 +353,8 @@ rec {
             else if elem n overrideSnd then
               attrs1.${n}
             else
-              throw "error mergeAttrsNoOverride, attribute ${n} given in both attributes - no merge func defined"
+              throw
+                "error mergeAttrsNoOverride, attribute ${n} given in both attributes - no merge func defined"
           else
             attrs2.${n} # add attribute not existing in attr1
         )
@@ -390,7 +404,8 @@ rec {
       )
     ];
   mergeAttrsByFuncDefaults = foldl mergeAttrByFunc { inherit mergeAttrBy; };
-  mergeAttrsByFuncDefaultsClean = list: removeAttrs (mergeAttrsByFuncDefaults list) [ "mergeAttrBy" ];
+  mergeAttrsByFuncDefaultsClean =
+    list: removeAttrs (mergeAttrsByFuncDefaults list) [ "mergeAttrBy" ];
 
   # sane defaults (same name as attr name so that inherit can be used)
   mergeAttrBy = # { buildInputs = concatList; [...]; passthru = mergeAttr; [..]; }

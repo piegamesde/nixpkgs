@@ -307,7 +307,9 @@ runCommand "Platforms" { } ''
   platform=$out/${xcodePlatform}.platform
 
   install -D ${writeText "Info.plist" (toPlist { } Info)} $platform/Info.plist
-  install -D ${writeText "version.plist" (toPlist { } Version)} $platform/version.plist
+  install -D ${
+    writeText "version.plist" (toPlist { } Version)
+  } $platform/version.plist
   install -D ${
     writeText "Architectures.xcspec" (toPlist { } Architectures)
   } $platform/Developer/Library/Xcode/Specifications/Architectures.xcspec

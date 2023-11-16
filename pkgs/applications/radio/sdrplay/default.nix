@@ -57,8 +57,12 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/{bin,lib,include,lib/udev/rules.d}
-    majorVersion="${lib.concatStringsSep "." (lib.take 1 (builtins.splitVersion version))}"
-    majorMinorVersion="${lib.concatStringsSep "." (lib.take 2 (builtins.splitVersion version))}"
+    majorVersion="${
+      lib.concatStringsSep "." (lib.take 1 (builtins.splitVersion version))
+    }"
+    majorMinorVersion="${
+      lib.concatStringsSep "." (lib.take 2 (builtins.splitVersion version))
+    }"
     libName="libsdrplay_api"
     cp "${arch}/$libName.so.$majorMinorVersion" $out/lib/
     ln -s "$out/lib/$libName.so.$majorMinorVersion" "$out/lib/$libName.so.$majorVersion"

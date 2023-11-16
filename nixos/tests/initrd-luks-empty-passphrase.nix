@@ -20,7 +20,9 @@ import ./make-test-python.nix (
     nodes.machine =
       { pkgs, ... }:
       {
-        imports = lib.optionals (!systemdStage1) [ ./common/auto-format-root-device.nix ];
+        imports = lib.optionals (!systemdStage1) [
+          ./common/auto-format-root-device.nix
+        ];
 
         virtualisation = {
           emptyDiskImages = [ 512 ];

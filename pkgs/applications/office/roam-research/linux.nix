@@ -74,7 +74,9 @@ let
 in
 stdenv.mkDerivation rec {
   inherit (common) pname version;
-  src = common.sources.${system} or (throw "Source for ${pname} is not available for ${system}");
+  src =
+    common.sources.${system}
+      or (throw "Source for ${pname} is not available for ${system}");
 
   nativeBuildInputs = [ dpkg ];
 

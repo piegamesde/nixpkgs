@@ -16,22 +16,30 @@ let
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
-  removeDistribute = alias: with lib; if isDerivation alias then dontDistribute alias else alias;
+  removeDistribute =
+    alias: with lib; if isDerivation alias then dontDistribute alias else alias;
 
   # Make sure that we are not shadowing something from
   # all-packages.nix.
   checkInPkgs =
-    n: alias: if builtins.hasAttr n prev then throw "Alias ${n} is still in vim-plugins" else alias;
+    n: alias:
+    if builtins.hasAttr n prev then
+      throw "Alias ${n} is still in vim-plugins"
+    else
+      alias;
 
   mapAliases =
     aliases:
-    lib.mapAttrs (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
+    lib.mapAttrs
+      (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
       aliases;
 
   deprecations =
     lib.mapAttrs
       (
-        old: info: throw "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}."
+        old: info:
+        throw
+          "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}."
       )
       (lib.importJSON ./deprecated.json);
 in
@@ -134,7 +142,9 @@ mapAliases (
     unite = unite-vim;
     UltiSnips = ultisnips;
     vim-addon-vim2nix = vim2nix;
-    vim-sourcetrail = throw "vim-sourcetrail has been removed: abandoned by upstream"; # Added 2022-08-14
+    vim-sourcetrail =
+      throw
+        "vim-sourcetrail has been removed: abandoned by upstream"; # Added 2022-08-14
     vimproc = vimproc-vim;
     vimshell = vimshell-vim;
     vinegar = vim-vinegar;

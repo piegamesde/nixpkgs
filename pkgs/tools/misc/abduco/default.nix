@@ -17,7 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "0a3p8xljhpk7zh203s75248blfir15smgw5jmszwbmdpy4mqzd53";
   };
 
-  preBuild = lib.optionalString (conf != null) "cp ${writeText "config.def.h" conf} config.def.h";
+  preBuild =
+    lib.optionalString (conf != null)
+      "cp ${writeText "config.def.h" conf} config.def.h";
 
   installFlags = [ "install-completion" ];
   CFLAGS = lib.optionalString stdenv.isDarwin "-D_DARWIN_C_SOURCE";

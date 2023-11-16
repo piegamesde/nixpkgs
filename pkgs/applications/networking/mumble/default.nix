@@ -131,7 +131,9 @@ let
           ++ lib.optional (!pipewireSupport) "-D pipewire=OFF"
           ++ lib.optional jackSupport "-D alsa=OFF -D jackaudio=ON";
 
-        env.NIX_CFLAGS_COMPILE = lib.optionalString speechdSupport "-I${speechd}/include/speech-dispatcher";
+        env.NIX_CFLAGS_COMPILE =
+          lib.optionalString speechdSupport
+            "-I${speechd}/include/speech-dispatcher";
 
         postFixup = ''
           wrapProgram $out/bin/mumble \

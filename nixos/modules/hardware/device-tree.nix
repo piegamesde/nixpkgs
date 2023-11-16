@@ -103,7 +103,8 @@ let
           in
           if o.dtboFile == null then
             let
-              dtsFile = if o.dtsFile == null then (pkgs.writeText "dts" o.dtsText) else o.dtsFile;
+              dtsFile =
+                if o.dtsFile == null then (pkgs.writeText "dts" o.dtsText) else o.dtsFile;
             in
             pkgs.deviceTree.compileDTS {
               name = "${o.name}-dtbo";
@@ -240,7 +241,8 @@ in
 
     assertions =
       let
-        invalidOverlay = o: (o.dtsFile == null) && (o.dtsText == null) && (o.dtboFile == null);
+        invalidOverlay =
+          o: (o.dtsFile == null) && (o.dtsText == null) && (o.dtboFile == null);
       in
       lib.singleton {
         assertion = lib.all (o: !invalidOverlay o) cfg.overlays;

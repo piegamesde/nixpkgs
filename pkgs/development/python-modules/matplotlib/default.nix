@@ -101,7 +101,8 @@ buildPythonPackage rec {
   # script.
   postPatch =
     let
-      tcl_tk_cache = ''"${tk}/lib", "${tcl}/lib", "${lib.strings.substring 0 3 tk.version}"'';
+      tcl_tk_cache = ''
+        "${tk}/lib", "${tcl}/lib", "${lib.strings.substring 0 3 tk.version}"'';
     in
     lib.optionalString enableTk ''
       sed -i '/self.tcl_tk_cache = None/s|None|${tcl_tk_cache}|' setupext.py
@@ -191,7 +192,9 @@ buildPythonPackage rec {
       };
   };
 
-  env.MPLSETUPCFG = writeText "mplsetup.cfg" (lib.generators.toINI { } passthru.config);
+  env.MPLSETUPCFG = writeText "mplsetup.cfg" (
+    lib.generators.toINI { } passthru.config
+  );
 
   # Matplotlib needs to be built against a specific version of freetype in
   # order for all of the tests to pass.

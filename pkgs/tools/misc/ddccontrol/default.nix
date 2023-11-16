@@ -45,7 +45,9 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  configureFlags = [ "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system" ];
+  configureFlags = [
+    "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
+  ];
 
   prePatch = ''
     substituteInPlace configure.ac              \

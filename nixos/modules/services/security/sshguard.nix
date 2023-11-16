@@ -21,7 +21,11 @@ let
         ]
         ++ (map (name: "-t ${escapeShellArg name}") cfg.services)
       );
-      backend = if config.networking.nftables.enable then "sshg-fw-nft-sets" else "sshg-fw-ipset";
+      backend =
+        if config.networking.nftables.enable then
+          "sshg-fw-nft-sets"
+        else
+          "sshg-fw-ipset";
     in
     pkgs.writeText "sshguard.conf" ''
       BACKEND="${pkgs.sshguard}/libexec/${backend}"
@@ -152,20 +156,26 @@ in
           ${pkgs.ipset}/bin/ipset -quiet create -exist sshguard4 hash:net family inet
           ${pkgs.iptables}/bin/iptables  -I INPUT -m set --match-set sshguard4 src -j DROP
         ''
-        + optionalString (config.networking.firewall.enable && config.networking.enableIPv6) ''
-          ${pkgs.ipset}/bin/ipset -quiet create -exist sshguard6 hash:net family inet6
-          ${pkgs.iptables}/bin/ip6tables -I INPUT -m set --match-set sshguard6 src -j DROP
-        '';
+        +
+          optionalString
+            (config.networking.firewall.enable && config.networking.enableIPv6)
+            ''
+              ${pkgs.ipset}/bin/ipset -quiet create -exist sshguard6 hash:net family inet6
+              ${pkgs.iptables}/bin/ip6tables -I INPUT -m set --match-set sshguard6 src -j DROP
+            '';
 
       postStop =
         optionalString config.networking.firewall.enable ''
           ${pkgs.iptables}/bin/iptables  -D INPUT -m set --match-set sshguard4 src -j DROP
           ${pkgs.ipset}/bin/ipset -quiet destroy sshguard4
         ''
-        + optionalString (config.networking.firewall.enable && config.networking.enableIPv6) ''
-          ${pkgs.iptables}/bin/ip6tables -D INPUT -m set --match-set sshguard6 src -j DROP
-          ${pkgs.ipset}/bin/ipset -quiet destroy sshguard6
-        '';
+        +
+          optionalString
+            (config.networking.firewall.enable && config.networking.enableIPv6)
+            ''
+              ${pkgs.iptables}/bin/ip6tables -D INPUT -m set --match-set sshguard6 src -j DROP
+              ${pkgs.ipset}/bin/ipset -quiet destroy sshguard6
+            '';
 
       unitConfig.Documentation = "man:sshguard(8)";
 

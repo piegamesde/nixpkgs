@@ -31,7 +31,9 @@ stdenv.mkDerivation (
       "-DTBB_ROOT=${tbb.out}"
     ];
 
-    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isAarch64 "-flax-vector-conversions";
+    env.NIX_CFLAGS_COMPILE =
+      lib.optionalString stdenv.isAarch64
+        "-flax-vector-conversions";
 
     meta = {
       description = "Intel Open Path Guiding Library";

@@ -88,7 +88,9 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "webdav") { webdav.gid = config.ids.gids.webdav; };
+    users.groups = mkIf (cfg.group == "webdav") {
+      webdav.gid = config.ids.gids.webdav;
+    };
 
     systemd.services.webdav = {
       description = "WebDAV server";

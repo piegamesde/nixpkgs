@@ -16,7 +16,9 @@
   xfce4-panel,
 }:
 
-assert desktopSupport == "gnomeflashback" || desktopSupport == "mate" || desktopSupport == "xfce4";
+assert desktopSupport == "gnomeflashback"
+  || desktopSupport == "mate"
+  || desktopSupport == "xfce4";
 
 stdenv.mkDerivation rec {
   version = "unstable-2017-09-15";

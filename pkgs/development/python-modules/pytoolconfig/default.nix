@@ -53,7 +53,9 @@ buildPythonPackage rec {
       --replace "packaging>=22.0" "packaging"
   '';
 
-  propagatedBuildInputs = [ packaging ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [
+    packaging
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   passthru.optional-dependencies = {
     validation = [ pydantic ];

@@ -42,7 +42,9 @@ stdenv.mkDerivation (
     dontWrapQtApps = true;
 
     preFixup = ''
-      wrapProgram "$out/bin/noson-app" --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libpulseaudio ]}
+      wrapProgram "$out/bin/noson-app" --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [ libpulseaudio ]
+      }
       wrapQtApp "$out/lib/noson/noson-gui"
     '';
 

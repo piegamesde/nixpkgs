@@ -61,11 +61,15 @@ let
   # Contains both melpa stable & unstable
   melpaGeneric =
     { pkgs, lib }:
-    import ../applications/editors/emacs/elisp-packages/melpa-packages.nix { inherit lib pkgs; };
+    import ../applications/editors/emacs/elisp-packages/melpa-packages.nix {
+      inherit lib pkgs;
+    };
 
   mkManualPackages =
     { pkgs, lib }:
-    import ../applications/editors/emacs/elisp-packages/manual-packages.nix { inherit lib pkgs; };
+    import ../applications/editors/emacs/elisp-packages/manual-packages.nix {
+      inherit lib pkgs;
+    };
 
   emacsWithPackages =
     { pkgs, lib }:
@@ -125,9 +129,13 @@ makeScope pkgs'.newScope (
             }
           );
 
-          trivialBuild = pkgs.callPackage ../build-support/emacs/trivial.nix { inherit (self) emacs; };
+          trivialBuild = pkgs.callPackage ../build-support/emacs/trivial.nix {
+            inherit (self) emacs;
+          };
 
-          melpaBuild = pkgs.callPackage ../build-support/emacs/melpa.nix { inherit (self) emacs; };
+          melpaBuild = pkgs.callPackage ../build-support/emacs/melpa.nix {
+            inherit (self) emacs;
+          };
 
           emacsWithPackages = emacsWithPackages { inherit pkgs lib; } self;
           withPackages = emacsWithPackages { inherit pkgs lib; } self;

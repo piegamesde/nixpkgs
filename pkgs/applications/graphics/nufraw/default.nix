@@ -60,7 +60,9 @@ stdenv.mkDerivation rec {
 
   postInstall = lib.optionalString addThumbnailer ''
     mkdir -p $out/share/thumbnailers
-    substituteAll ${./nufraw.thumbnailer} $out/share/thumbnailers/${pname}.thumbnailer
+    substituteAll ${
+      ./nufraw.thumbnailer
+    } $out/share/thumbnailers/${pname}.thumbnailer
   '';
 
   patches =

@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
         sha256 = "cef3591e436f528852db0e8c145d3842f920e0c89bcfb219c466797cb7b18879";
       }
     else
-      throw "nvidia-cg-toolkit does not support platform ${stdenv.hostPlatform.system}";
+      throw
+        "nvidia-cg-toolkit does not support platform ${stdenv.hostPlatform.system}";
 
   installPhase = ''
     for b in cgc cgfxcat cginfo

@@ -81,7 +81,9 @@ rustPlatform.buildRustPackage rec {
     (placeholder "out")
     "--set"
     "bin-src"
-    "target/${rust.lib.toRustTargetSpecShort stdenv.hostPlatform}/release/cosmic-edit"
+    "target/${
+      rust.lib.toRustTargetSpecShort stdenv.hostPlatform
+    }/release/cosmic-edit"
   ];
 
   postInstall = ''

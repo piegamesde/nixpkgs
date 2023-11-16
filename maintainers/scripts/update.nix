@@ -86,7 +86,8 @@ let
               || evaluatedPathContent.recurseForRelease or false
             then
               dedupResults (
-                lib.mapAttrsToList (name: elem: packagesWithPathInner (path ++ [ name ]) elem) evaluatedPathContent
+                lib.mapAttrsToList (name: elem: packagesWithPathInner (path ++ [ name ]) elem)
+                  evaluatedPathContent
               )
             else
               [ ]
@@ -102,7 +103,8 @@ let
 
   # Recursively find all packages in `pkgs` with updateScript matching given predicate.
   packagesWithUpdateScriptMatchingPredicate =
-    cond: packagesWith (path: pkg: builtins.hasAttr "updateScript" pkg && cond path pkg);
+    cond:
+    packagesWith (path: pkg: builtins.hasAttr "updateScript" pkg && cond path pkg);
 
   # Recursively find all packages in `pkgs` with updateScript by given maintainer.
   packagesWithUpdateScriptAndMaintainer =
@@ -140,7 +142,8 @@ let
     if pathContent == null then
       builtins.throw "Attribute path `${path}` does not exist."
     else
-      packagesWithPath prefix (path: pkg: builtins.hasAttr "updateScript" pkg) pathContent;
+      packagesWithPath prefix (path: pkg: builtins.hasAttr "updateScript" pkg)
+        pathContent;
 
   # Find a package under `path` in `pkgs` and require that it has an updateScript.
   packageByName =
@@ -226,7 +229,9 @@ let
     };
 
   # JSON file with data for update.py.
-  packagesJson = pkgs.writeText "packages.json" (builtins.toJSON (map packageData packages));
+  packagesJson = pkgs.writeText "packages.json" (
+    builtins.toJSON (map packageData packages)
+  );
 
   optionalArgs =
     lib.optional (max-workers != null) "--max-workers=${max-workers}"
@@ -249,6 +254,8 @@ pkgs.stdenv.mkDerivation {
   '';
   shellHook = ''
     unset shellHook # do not contaminate nested shells
-    exec ${pkgs.python3.interpreter} ${./update.py} ${builtins.concatStringsSep " " args}
+    exec ${pkgs.python3.interpreter} ${./update.py} ${
+      builtins.concatStringsSep " " args
+    }
   '';
 }

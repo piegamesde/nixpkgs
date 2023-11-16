@@ -21,7 +21,9 @@ perlPackages.buildPerlPackage rec {
     sha256 = "sha256-i8lDK5/Whi5uo2/Qqh5jgJGLuuHn7kdrfvr+9Ktzp/8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals stdenv.isDarwin [ shortenPerlShebang ];
+  nativeBuildInputs = [
+    makeWrapper
+  ] ++ lib.optionals stdenv.isDarwin [ shortenPerlShebang ];
 
   buildInputs = with perlPackages; [
     CryptPassphrase

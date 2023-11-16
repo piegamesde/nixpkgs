@@ -21,15 +21,21 @@ let
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
-  removeDistribute = alias: with lib; if isDerivation alias then dontDistribute alias else alias;
+  removeDistribute =
+    alias: with lib; if isDerivation alias then dontDistribute alias else alias;
 
   # Make sure that we are not shadowing something from node-packages.nix.
   checkInPkgs =
-    n: alias: if builtins.hasAttr n super then throw "Alias ${n} is still in generated.nix" else alias;
+    n: alias:
+    if builtins.hasAttr n super then
+      throw "Alias ${n} is still in generated.nix"
+    else
+      alias;
 
   mapAliases =
     aliases:
-    lib.mapAttrs (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
+    lib.mapAttrs
+      (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
       aliases;
 in
 

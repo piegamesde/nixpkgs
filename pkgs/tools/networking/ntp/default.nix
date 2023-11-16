@@ -13,7 +13,9 @@ stdenv.mkDerivation rec {
   version = "4.2.8p17";
 
   src = fetchurl {
-    url = "https://archive.ntp.org/ntp4/ntp-${lib.versions.majorMinor version}/ntp-${version}.tar.gz";
+    url = "https://archive.ntp.org/ntp4/ntp-${
+        lib.versions.majorMinor version
+      }/ntp-${version}.tar.gz";
     hash = "sha256-ED3ScuambFuN8H3OXpoCVV/NbxOXvft4IjcyjonTqGY=";
   };
 

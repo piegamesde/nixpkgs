@@ -10,7 +10,9 @@ rec {
     drv:
     drv
     // {
-      rtp = lib.warn "`rtp` attribute is deprecated, use `outPath` instead." drv.outPath;
+      rtp =
+        lib.warn "`rtp` attribute is deprecated, use `outPath` instead."
+          drv.outPath;
       overrideAttrs = f: addRtp (drv.overrideAttrs f);
     };
 

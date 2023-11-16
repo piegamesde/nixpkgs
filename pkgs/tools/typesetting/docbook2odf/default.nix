@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
           libxslt
         ]
       }" \
-      --prefix PERL5PATH : "${perlPackages.makePerlPath [ perlPackages.ImageMagick ]}"
+      --prefix PERL5PATH : "${
+        perlPackages.makePerlPath [ perlPackages.ImageMagick ]
+      }"
   '';
 
   meta = with lib; {

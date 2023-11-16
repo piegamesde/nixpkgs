@@ -19,13 +19,15 @@
 
 let
   # Mosquitto needs external poll enabled in libwebsockets.
-  libwebsockets' = (libwebsockets.override { withExternalPoll = true; }).overrideAttrs (
-    old: {
-      # Avoid bug in firefox preventing websockets being created over http/2 connections
-      # https://github.com/eclipse/mosquitto/issues/1211#issuecomment-958137569
-      cmakeFlags = old.cmakeFlags ++ [ "-DLWS_WITH_HTTP2=OFF" ];
-    }
-  );
+  libwebsockets' =
+    (libwebsockets.override { withExternalPoll = true; }).overrideAttrs
+      (
+        old: {
+          # Avoid bug in firefox preventing websockets being created over http/2 connections
+          # https://github.com/eclipse/mosquitto/issues/1211#issuecomment-958137569
+          cmakeFlags = old.cmakeFlags ++ [ "-DLWS_WITH_HTTP2=OFF" ];
+        }
+      );
 in
 stdenv.mkDerivation rec {
   pname = "mosquitto";

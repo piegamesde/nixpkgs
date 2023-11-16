@@ -87,7 +87,11 @@ assert cryptopp != null || (nss != null && nspr != null);
 
 let
   shouldUsePkg =
-    pkg: if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then pkg else null;
+    pkg:
+    if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then
+      pkg
+    else
+      null;
 
   optYasm = shouldUsePkg yasm;
   optExpat = shouldUsePkg expat;
@@ -407,7 +411,11 @@ rec {
     passthru = {
       inherit version;
       tests = {
-        inherit (nixosTests) ceph-multi-node ceph-single-node ceph-single-node-bluestore;
+        inherit (nixosTests)
+          ceph-multi-node
+          ceph-single-node
+          ceph-single-node-bluestore
+        ;
       };
     };
   };

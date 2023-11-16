@@ -25,7 +25,9 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/d-spy/${lib.versions.majorMinor version}/d-spy-${version}.tar.xz";
+    url = "mirror://gnome/sources/d-spy/${
+        lib.versions.majorMinor version
+      }/d-spy-${version}.tar.xz";
     sha256 = "otCiEFE7tGRw0A40VEeRIIMwFT9Ms0+FhxcpEaxPiv0=";
   };
 

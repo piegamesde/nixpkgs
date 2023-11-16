@@ -76,7 +76,9 @@ let
   '';
 in
 {
-  meta = with lib; { maintainers = with maintainers; [ ] ++ teams.pantheon.members; };
+  meta = with lib; {
+    maintainers = with maintainers; [ ] ++ teams.pantheon.members;
+  };
 
   # Note: the order in which lightdm greeter modules are imported
   # here determines the default: later modules (if enable) are
@@ -218,7 +220,8 @@ in
         '';
       }
       {
-        assertion = !cfg.greeter.enable -> (dmcfg.autoLogin.enable && cfg.autoLogin.timeout == 0);
+        assertion =
+          !cfg.greeter.enable -> (dmcfg.autoLogin.enable && cfg.autoLogin.timeout == 0);
         message = ''
           LightDM can only run without greeter if automatic login is enabled and the timeout for it
           is set to zero.

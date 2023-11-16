@@ -71,12 +71,16 @@ in
     hardware.bluetooth = {
       enable = mkEnableOption (lib.mdDoc "support for Bluetooth");
 
-      hsphfpd.enable = mkEnableOption (lib.mdDoc "support for hsphfpd[-prototype] implementation");
+      hsphfpd.enable = mkEnableOption (
+        lib.mdDoc "support for hsphfpd[-prototype] implementation"
+      );
 
       powerOnBoot = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc "Whether to power up the default Bluetooth controller on boot.";
+        description =
+          lib.mdDoc
+            "Whether to power up the default Bluetooth controller on boot.";
       };
 
       package = mkOption {
@@ -102,7 +106,9 @@ in
             ControllerMode = "bredr";
           };
         };
-        description = lib.mdDoc "Set configuration for system-wide bluetooth (/etc/bluetooth/main.conf).";
+        description =
+          lib.mdDoc
+            "Set configuration for system-wide bluetooth (/etc/bluetooth/main.conf).";
       };
 
       input = mkOption {
@@ -114,7 +120,9 @@ in
             ClassicBondedOnly = true;
           };
         };
-        description = lib.mdDoc "Set configuration for the input service (/etc/bluetooth/input.conf).";
+        description =
+          lib.mdDoc
+            "Set configuration for the input service (/etc/bluetooth/input.conf).";
       };
 
       network = mkOption {
@@ -125,7 +133,9 @@ in
             DisableSecurity = true;
           };
         };
-        description = lib.mdDoc "Set configuration for the network service (/etc/bluetooth/network.conf).";
+        description =
+          lib.mdDoc
+            "Set configuration for the network service (/etc/bluetooth/network.conf).";
       };
     };
   };
@@ -133,15 +143,23 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ package ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
+    environment.systemPackages = [
+      package
+    ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
 
-    environment.etc."bluetooth/input.conf".source = cfgFmt.generate "input.conf" cfg.input;
-    environment.etc."bluetooth/network.conf".source = cfgFmt.generate "network.conf" cfg.network;
+    environment.etc."bluetooth/input.conf".source =
+      cfgFmt.generate "input.conf"
+        cfg.input;
+    environment.etc."bluetooth/network.conf".source =
+      cfgFmt.generate "network.conf"
+        cfg.network;
     environment.etc."bluetooth/main.conf".source = cfgFmt.generate "main.conf" (
       recursiveUpdate defaults cfg.settings
     );
     services.udev.packages = [ package ];
-    services.dbus.packages = [ package ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
+    services.dbus.packages = [
+      package
+    ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
     systemd.packages = [ package ];
 
     systemd.services =
@@ -152,10 +170,13 @@ in
             # will in fact load the configuration file at /etc/bluetooth/main.conf
             # so force it here to avoid any ambiguity and things suddenly breaking
             # if/when the bluez derivation is changed.
-            args = [
-              "-f"
-              "/etc/bluetooth/main.conf"
-            ] ++ optional hasDisabledPlugins "--noplugin=${concatStringsSep "," cfg.disabledPlugins}";
+            args =
+              [
+                "-f"
+                "/etc/bluetooth/main.conf"
+              ]
+              ++ optional hasDisabledPlugins
+                "--noplugin=${concatStringsSep "," cfg.disabledPlugins}";
           in
           {
             wantedBy = [ "bluetooth.target" ];

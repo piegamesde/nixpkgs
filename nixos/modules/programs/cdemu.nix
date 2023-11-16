@@ -69,13 +69,17 @@ in
     systemd.user.services.cdemu-daemon.serviceConfig = {
       Type = "dbus";
       BusName = "net.sf.cdemu.CDEmuDaemon";
-      ExecStart = ''${pkgs.cdemu-daemon}/bin/cdemu-daemon --config-file "%h/.config/cdemu-daemon"'';
+      ExecStart = ''
+        ${pkgs.cdemu-daemon}/bin/cdemu-daemon --config-file "%h/.config/cdemu-daemon"'';
       Restart = "no";
     };
 
-    environment.systemPackages = [
-      pkgs.cdemu-daemon
-      pkgs.cdemu-client
-    ] ++ optional cfg.gui pkgs.gcdemu ++ optional cfg.image-analyzer pkgs.image-analyzer;
+    environment.systemPackages =
+      [
+        pkgs.cdemu-daemon
+        pkgs.cdemu-client
+      ]
+      ++ optional cfg.gui pkgs.gcdemu
+      ++ optional cfg.image-analyzer pkgs.image-analyzer;
   };
 }

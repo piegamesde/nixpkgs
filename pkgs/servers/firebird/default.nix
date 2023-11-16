@@ -38,7 +38,9 @@ let
 
     LD_LIBRARY_PATH = lib.makeLibraryPath [ icu ];
 
-    configureFlags = [ "--with-system-editline" ] ++ (lib.optional superServer "--enable-superserver");
+    configureFlags = [
+      "--with-system-editline"
+    ] ++ (lib.optional superServer "--enable-superserver");
 
     installPhase = ''
       runHook preInstall

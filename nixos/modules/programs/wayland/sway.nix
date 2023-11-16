@@ -151,7 +151,8 @@ in
           }
         ];
         environment = {
-          systemPackages = optional (cfg.package != null) cfg.package ++ cfg.extraPackages;
+          systemPackages =
+            optional (cfg.package != null) cfg.package ++ cfg.extraPackages;
           # Needed for the default wallpaper:
           pathsToLink = optionals (cfg.package != null) [ "/share/backgrounds/sway" ];
           etc =
@@ -167,7 +168,9 @@ in
             };
         };
         # To make a Sway session available if a display manager like SDDM is enabled:
-        services.xserver.displayManager.sessionPackages = optionals (cfg.package != null) [ cfg.package ];
+        services.xserver.displayManager.sessionPackages =
+          optionals (cfg.package != null)
+            [ cfg.package ];
       }
       (import ./wayland-session.nix { inherit lib pkgs; })
     ]

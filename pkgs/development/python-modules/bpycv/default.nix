@@ -56,7 +56,9 @@ buildPythonPackage rec {
           };
         }
         ''
-          ${blender.withPackages (ps: [ ps.bpycv ])}/bin/blender-wrapped -b -P ${./bpycv-test.py}
+          ${blender.withPackages (ps: [ ps.bpycv ])}/bin/blender-wrapped -b -P ${
+            ./bpycv-test.py
+          }
         '';
   };
 

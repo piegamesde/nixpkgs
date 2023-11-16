@@ -18,15 +18,15 @@ let
     }:
     let
       masterName = head (
-        filter (machineName: any (role: role == "master") machines.${machineName}.roles) (
-          attrNames machines
-        )
+        filter (machineName: any (role: role == "master") machines.${machineName}.roles)
+          (attrNames machines)
       );
       master = machines.${masterName};
       extraHosts = ''
         ${master.ip}  etcd.${domain}
         ${master.ip}  api.${domain}
-        ${concatMapStringsSep "\n" (machineName: "${machines.${machineName}.ip}  ${machineName}.${domain}")
+        ${concatMapStringsSep "\n"
+          (machineName: "${machines.${machineName}.ip}  ${machineName}.${domain}")
           (attrNames machines)}
       '';
       wrapKubectl =
@@ -166,5 +166,9 @@ let
     );
 in
 {
-  inherit mkKubernetesBaseTest mkKubernetesSingleNodeTest mkKubernetesMultiNodeTest;
+  inherit
+    mkKubernetesBaseTest
+    mkKubernetesSingleNodeTest
+    mkKubernetesMultiNodeTest
+  ;
 }

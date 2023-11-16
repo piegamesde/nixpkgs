@@ -36,7 +36,9 @@ stdenv.mkDerivation rec {
     install -D vms-empire -t ${placeholder "out"}/bin/
     install -D vms-empire.html -t ${placeholder "out"}/share/doc/${pname}/
     install -D vms-empire.desktop -t ${placeholder "out"}/share/applications/
-    install -D vms-empire.png -t ${placeholder "out"}/share/icons/hicolor/48x48/apps/
+    install -D vms-empire.png -t ${
+      placeholder "out"
+    }/share/icons/hicolor/48x48/apps/
     install -D vms-empire.xml -t ${placeholder "out"}/share/appdata/
     installManPage empire.6
     runHook postInstall

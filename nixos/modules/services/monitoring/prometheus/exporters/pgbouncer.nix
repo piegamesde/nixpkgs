@@ -141,13 +141,21 @@ in
               ++ optionals (cfg.telemetryPath != null) [
                 "--web.telemetry-path ${escapeShellArg cfg.telemetryPath}"
               ]
-              ++ optionals (cfg.pidFile != null) [ "--pgBouncer.pid-file= ${escapeShellArg cfg.pidFile}" ]
-              ++ optionals (cfg.logLevel != null) [ "--log.level ${escapeShellArg cfg.logLevel}" ]
-              ++ optionals (cfg.logFormat != null) [ "--log.format ${escapeShellArg cfg.logFormat}" ]
+              ++ optionals (cfg.pidFile != null) [
+                "--pgBouncer.pid-file= ${escapeShellArg cfg.pidFile}"
+              ]
+              ++ optionals (cfg.logLevel != null) [
+                "--log.level ${escapeShellArg cfg.logLevel}"
+              ]
+              ++ optionals (cfg.logFormat != null) [
+                "--log.format ${escapeShellArg cfg.logFormat}"
+              ]
               ++ optionals (cfg.webSystemdSocket != false) [
                 "--web.systemd-socket ${escapeShellArg cfg.webSystemdSocket}"
               ]
-              ++ optionals (cfg.webConfigFile != null) [ "--web.config.file ${escapeShellArg cfg.webConfigFile}" ]
+              ++ optionals (cfg.webConfigFile != null) [
+                "--web.config.file ${escapeShellArg cfg.webConfigFile}"
+              ]
               ++ cfg.extraFlags
             )}";
       in

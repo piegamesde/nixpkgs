@@ -25,7 +25,8 @@ evalConfigArgs@{
   # !!! See comment about args in lib/modules.nix
   specialArgs ? { },
   modules,
-  modulesLocation ? (builtins.unsafeGetAttrPos "modules" evalConfigArgs).file or null,
+  modulesLocation ? (builtins.unsafeGetAttrPos "modules" evalConfigArgs).file
+    or null,
   # !!! See comment about check in lib/modules.nix
   check ? true,
   prefix ? [ ],
@@ -122,7 +123,9 @@ let
     };
   };
 
-  nixosWithUserModules = noUserModules.extendModules { modules = allUserModules; };
+  nixosWithUserModules = noUserModules.extendModules {
+    modules = allUserModules;
+  };
 
   withExtraAttrs =
     configuration:

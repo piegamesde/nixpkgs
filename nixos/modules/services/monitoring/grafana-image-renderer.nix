@@ -27,7 +27,9 @@ in
 
     verbose = mkEnableOption (lib.mdDoc "verbosity for the service");
 
-    provisionGrafana = mkEnableOption (lib.mdDoc "Grafana configuration for grafana-image-renderer");
+    provisionGrafana = mkEnableOption (
+      lib.mdDoc "Grafana configuration for grafana-image-renderer"
+    );
 
     settings = mkOption {
       type = types.submodule {

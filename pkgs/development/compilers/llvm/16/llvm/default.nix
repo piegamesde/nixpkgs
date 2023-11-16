@@ -43,7 +43,8 @@ let
   inherit (lib) optional optionals optionalString;
 
   # Used when creating a version-suffixed symlink of libLLVM.dylib
-  shortVersion = with lib; concatStringsSep "." (take 1 (splitString "." release_version));
+  shortVersion =
+    with lib; concatStringsSep "." (take 1 (splitString "." release_version));
 
   # Ordinarily we would just the `doCheck` and `checkDeps` functionality
   # `mkDerivation` gives us to manage our test dependencies (instead of breaking
@@ -194,7 +195,9 @@ stdenv.mkDerivation (
         # This test tries to call `sw_vers` by absolute path (`/usr/bin/sw_vers`)
         # and thus fails under the sandbox:
         substituteInPlace unittests/TargetParser/Host.cpp \
-          --replace '/usr/bin/sw_vers' "${(builtins.toString darwin.DarwinTools) + "/bin/sw_vers"}"
+          --replace '/usr/bin/sw_vers' "${
+            (builtins.toString darwin.DarwinTools) + "/bin/sw_vers"
+          }"
 
         # This test tries to call the intrinsics `@llvm.roundeven.f32` and
         # `@llvm.roundeven.f64` which seem to (incorrectly?) lower to `roundevenf`
@@ -324,7 +327,9 @@ stdenv.mkDerivation (
       '';
 
     # E.g. mesa.drivers use the build-id as a cache key (see #93946):
-    LDFLAGS = optionalString (enableSharedLibraries && !stdenv.isDarwin) "-Wl,--build-id=sha1";
+    LDFLAGS =
+      optionalString (enableSharedLibraries && !stdenv.isDarwin)
+        "-Wl,--build-id=sha1";
 
     cmakeBuildType = if debugVersion then "Debug" else "Release";
 

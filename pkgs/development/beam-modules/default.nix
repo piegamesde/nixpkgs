@@ -26,7 +26,10 @@ let
       inherit callPackage erlang;
       beamPackages = self;
 
-      inherit (callPackage ../tools/build-managers/rebar3 { }) rebar3 rebar3WithPlugins;
+      inherit (callPackage ../tools/build-managers/rebar3 { })
+        rebar3
+        rebar3WithPlugins
+      ;
       rebar = callPackage ../tools/build-managers/rebar { };
 
       pc = callPackage ./pc { };
@@ -88,7 +91,9 @@ let
       elixir-ls = callPackage ./elixir-ls { inherit elixir fetchMixDeps mixRelease; };
 
       lfe = lfe_2_1;
-      lfe_2_1 = lib'.callLFE ../interpreters/lfe/2.1.nix { inherit erlang buildRebar3 buildHex; };
+      lfe_2_1 = lib'.callLFE ../interpreters/lfe/2.1.nix {
+        inherit erlang buildRebar3 buildHex;
+      };
 
       # Non hex packages. Examples how to build Rebar/Mix packages with and
       # without helper functions buildRebar3 and buildMix.

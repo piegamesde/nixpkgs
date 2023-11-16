@@ -23,7 +23,9 @@ in
     enable = mkOption {
       default = false;
       type = types.bool;
-      description = lib.mdDoc "Whether to enable the VirtualBox service and other guest additions.";
+      description =
+        lib.mdDoc
+          "Whether to enable the VirtualBox service and other guest additions.";
     };
 
     x11 = mkOption {

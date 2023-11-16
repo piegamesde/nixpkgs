@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.jitsi-videobridge;
-  attrsToArgs = a: concatStringsSep " " (mapAttrsToList (k: v: "${k}=${toString v}") a);
+  attrsToArgs =
+    a: concatStringsSep " " (mapAttrsToList (k: v: "${k}=${toString v}") a);
 
   # HOCON is a JSON superset that videobridge2 uses for configuration.
   # It can substitute environment variables which we use for passwords here.
@@ -32,7 +33,10 @@ let
   # from an attribute name, which may not be a valid bash identifier.
   toVarName =
     s:
-    "XMPP_PASSWORD_" + stringAsChars (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_") s;
+    "XMPP_PASSWORD_"
+    +
+      stringAsChars (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_")
+        s;
 
   defaultJvbConfig = {
     videobridge = {
@@ -79,7 +83,9 @@ in
     )
   ];
   options.services.jitsi-videobridge = with types; {
-    enable = mkEnableOption (lib.mdDoc "Jitsi Videobridge, a WebRTC compatible video router");
+    enable = mkEnableOption (
+      lib.mdDoc "Jitsi Videobridge, a WebRTC compatible video router"
+    );
 
     config = mkOption {
       type = attrs;
@@ -238,10 +244,12 @@ in
   config = mkIf cfg.enable {
     users.groups.jitsi-meet = { };
 
-    services.jitsi-videobridge.extraProperties = optionalAttrs (cfg.nat.localAddress != null) {
-      "org.ice4j.ice.harvest.NAT_HARVESTER_LOCAL_ADDRESS" = cfg.nat.localAddress;
-      "org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS" = cfg.nat.publicAddress;
-    };
+    services.jitsi-videobridge.extraProperties =
+      optionalAttrs (cfg.nat.localAddress != null)
+        {
+          "org.ice4j.ice.harvest.NAT_HARVESTER_LOCAL_ADDRESS" = cfg.nat.localAddress;
+          "org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS" = cfg.nat.publicAddress;
+        };
 
     systemd.services.jitsi-videobridge2 =
       let
@@ -316,8 +324,12 @@ in
     boot.kernel.sysctl."net.core.rmem_max" = mkDefault 10485760;
     boot.kernel.sysctl."net.core.netdev_max_backlog" = mkDefault 100000;
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ jvbConfig.videobridge.ice.tcp.port ];
-    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ jvbConfig.videobridge.ice.udp.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
+      jvbConfig.videobridge.ice.tcp.port
+    ];
+    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [
+      jvbConfig.videobridge.ice.udp.port
+    ];
 
     assertions = [
       {

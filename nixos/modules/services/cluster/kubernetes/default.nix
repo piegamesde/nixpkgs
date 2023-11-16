@@ -113,20 +113,26 @@ let
     };
 
     caFile = mkOption {
-      description = lib.mdDoc "${prefix} certificate authority file used to connect to kube-apiserver.";
+      description =
+        lib.mdDoc
+          "${prefix} certificate authority file used to connect to kube-apiserver.";
       type = types.nullOr types.path;
       default = cfg.caFile;
       defaultText = literalExpression "config.${opt.caFile}";
     };
 
     certFile = mkOption {
-      description = lib.mdDoc "${prefix} client certificate file used to connect to kube-apiserver.";
+      description =
+        lib.mdDoc
+          "${prefix} client certificate file used to connect to kube-apiserver.";
       type = types.nullOr types.path;
       default = null;
     };
 
     keyFile = mkOption {
-      description = lib.mdDoc "${prefix} client key file used to connect to kube-apiserver.";
+      description =
+        lib.mdDoc
+          "${prefix} client key file used to connect to kube-apiserver.";
       type = types.nullOr types.path;
       default = null;
     };
@@ -205,7 +211,9 @@ in
     };
 
     easyCerts = mkOption {
-      description = lib.mdDoc "Automatically setup x509 certificates and keys for the entire cluster.";
+      description =
+        lib.mdDoc
+          "Automatically setup x509 certificates and keys for the entire cluster.";
       default = false;
       type = types.bool;
     };
@@ -233,7 +241,9 @@ in
     };
 
     clusterCidr = mkOption {
-      description = lib.mdDoc "Kubernetes controller manager and proxy CIDR Range for Pods in cluster.";
+      description =
+        lib.mdDoc
+          "Kubernetes controller manager and proxy CIDR Range for Pods in cluster.";
       default = "10.1.0.0/16";
       type = types.nullOr types.str;
     };
@@ -249,7 +259,9 @@ in
     };
 
     secretsPath = mkOption {
-      description = lib.mdDoc "Default location for kubernetes secrets. Not a store location.";
+      description =
+        lib.mdDoc
+          "Default location for kubernetes secrets. Not a store location.";
       type = types.path;
       default = cfg.dataDir + "/secrets";
       defaultText = literalExpression ''
@@ -304,7 +316,9 @@ in
     })
 
     (mkIf cfg.apiserver.enable {
-      services.kubernetes.pki.etcClusterAdminKubeconfig = mkDefault "kubernetes/cluster-admin.kubeconfig";
+      services.kubernetes.pki.etcClusterAdminKubeconfig =
+        mkDefault
+          "kubernetes/cluster-admin.kubeconfig";
       services.kubernetes.apiserver.etcd.servers = mkDefault etcdEndpoints;
     })
 

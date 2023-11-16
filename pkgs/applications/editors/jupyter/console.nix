@@ -39,7 +39,9 @@ in
   withSingleKernel =
     definition:
     mkConsole {
-      definitions = lib.listToAttrs [ (lib.nameValuePair definition.language definition) ];
+      definitions = lib.listToAttrs [
+        (lib.nameValuePair definition.language definition)
+      ];
       kernel = definition.language;
     };
 }

@@ -25,7 +25,9 @@ runCommand "gdk-pixbuf-loaders.cache" { preferLocalBuild = true; } ''
         exit 1
       fi
       GDK_PIXBUF_MODULEDIR="$module_dir" \
-        ${stdenv.hostPlatform.emulator buildPackages} ${gdk-pixbuf.dev}/bin/gdk-pixbuf-query-loaders
+        ${
+          stdenv.hostPlatform.emulator buildPackages
+        } ${gdk-pixbuf.dev}/bin/gdk-pixbuf-query-loaders
     done
   ) > "$out"
 ''

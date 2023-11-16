@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
 
   patches =
     [ ./0001-Drop-baked-in-build-date-for-r13y.patch ]
-    ++ lib.optional stdenv.hostPlatform.isDarwin ./0002-Prepend-libSDL.dylib-to-macOS-SDL-loader.patch;
+    ++ lib.optional stdenv.hostPlatform.isDarwin
+      ./0002-Prepend-libSDL.dylib-to-macOS-SDL-loader.patch;
 
   nativeBuildInputs = [
     acme

@@ -13,7 +13,9 @@ in
 
     enable = mkEnableOption (lib.mdDoc "hledger-web service");
 
-    serveApi = mkEnableOption (lib.mdDoc "serving only the JSON web API, without the web UI");
+    serveApi = mkEnableOption (
+      lib.mdDoc "serving only the JSON web API, without the web UI"
+    );
 
     host = mkOption {
       type = types.str;
@@ -110,7 +112,9 @@ in
       let
         capabilityString =
           with cfg.capabilities;
-          concatStringsSep "," ((optional view "view") ++ (optional add "add") ++ (optional manage "manage"));
+          concatStringsSep "," (
+            (optional view "view") ++ (optional add "add") ++ (optional manage "manage")
+          );
         serverArgs =
           with cfg;
           escapeShellArgs (
@@ -140,7 +144,9 @@ in
             Group = "hledger";
             PrivateTmp = true;
           }
-          (mkIf (cfg.stateDir == "/var/lib/hledger-web") { StateDirectory = "hledger-web"; })
+          (mkIf (cfg.stateDir == "/var/lib/hledger-web") {
+            StateDirectory = "hledger-web";
+          })
         ];
       };
   };

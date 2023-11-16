@@ -155,13 +155,16 @@ in
         cat >>/var/lib/infinoted/infinoted.conf <<EOF
         [infinoted]
         ${optionalString (cfg.keyFile != null) "key-file=${cfg.keyFile}"}
-        ${optionalString (cfg.certificateFile != null) "certificate-file=${cfg.certificateFile}"}
-        ${optionalString (cfg.certificateChain != null) "certificate-chain=${cfg.certificateChain}"}
+        ${optionalString (cfg.certificateFile != null)
+          "certificate-file=${cfg.certificateFile}"}
+        ${optionalString (cfg.certificateChain != null)
+          "certificate-chain=${cfg.certificateChain}"}
         port=${toString cfg.port}
         security-policy=${cfg.securityPolicy}
         root-directory=${cfg.rootDirectory}
         plugins=${concatStringsSep ";" cfg.plugins}
-        ${optionalString (cfg.passwordFile != null) "password=$(head -n 1 ${cfg.passwordFile})"}
+        ${optionalString (cfg.passwordFile != null)
+          "password=$(head -n 1 ${cfg.passwordFile})"}
 
         ${cfg.extraConfig}
         EOF

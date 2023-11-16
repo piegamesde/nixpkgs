@@ -12,7 +12,8 @@ let
       x86_64-linux = "linux64";
       aarch64-linux = "linux64";
     }
-    ."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    ."${stdenv.hostPlatform.system}"
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 in
 stdenv.mkDerivation {
   pname = "picat";

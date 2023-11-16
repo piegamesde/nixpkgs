@@ -67,13 +67,16 @@ stdenv.mkDerivation (
     # the libxcrypt port has been installed.
     #
     # Without libxcrypt, Perl will still find FreeBSD's crypt functions.
-    propagatedBuildInputs = lib.optional (enableCrypt && !stdenv.isFreeBSD) libxcrypt;
+    propagatedBuildInputs =
+      lib.optional (enableCrypt && !stdenv.isFreeBSD)
+        libxcrypt;
 
     disallowedReferences = [ stdenv.cc ];
 
     patches =
       # Enable TLS/SSL verification in HTTP::Tiny by default
-      lib.optional (lib.versionOlder version "5.38.0") ./http-tiny-verify-ssl-by-default.patch
+      lib.optional (lib.versionOlder version "5.38.0")
+        ./http-tiny-verify-ssl-by-default.patch
 
       # Do not look in /usr etc. for dependencies.
       ++ lib.optional (lib.versionOlder version "5.38.0") ./no-sys-dirs-5.31.patch
@@ -151,7 +154,9 @@ stdenv.mkDerivation (
         "-Dman3dir=${placeholder "out"}/share/man/man3"
       ];
 
-    configureScript = lib.optionalString (!crossCompiling) "${stdenv.shell} ./Configure";
+    configureScript =
+      lib.optionalString (!crossCompiling)
+        "${stdenv.shell} ./Configure";
 
     dontAddStaticConfigureFlags = true;
 
@@ -206,7 +211,9 @@ stdenv.mkDerivation (
     passthru =
       let
         # When we override the interpreter we also need to override the spliced versions of the interpreter
-        inputs' = lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs;
+        inputs' =
+          lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
+            inputs;
         override =
           attr:
           let
@@ -222,7 +229,10 @@ stdenv.mkDerivation (
         perlOnBuildForTarget = override pkgsBuildTarget.${perlAttr};
         perlOnHostForHost = override pkgsHostHost.${perlAttr};
         perlOnTargetForTarget =
-          if lib.hasAttr perlAttr pkgsTargetTarget then (override pkgsTargetTarget.${perlAttr}) else { };
+          if lib.hasAttr perlAttr pkgsTargetTarget then
+            (override pkgsTargetTarget.${perlAttr})
+          else
+            { };
       };
 
     doCheck = false; # some tests fail, expensive
@@ -239,7 +249,9 @@ stdenv.mkDerivation (
         # TODO: removing those paths would be cleaner than overwriting with nonsense.
         substituteInPlace "$out"/lib/perl5/*/*/Config_heavy.pl \
           --replace "${libcInc}" /no-such-path \
-          --replace "${if stdenv.hasCC then stdenv.cc else "/no-such-path"}" /no-such-path \
+          --replace "${
+            if stdenv.hasCC then stdenv.cc else "/no-such-path"
+          }" /no-such-path \
           --replace "${
             if stdenv.hasCC && stdenv.cc.cc != null then stdenv.cc.cc else "/no-such-path"
           }" /no-such-path \

@@ -25,7 +25,9 @@ stdenv.mkDerivation (
     ];
 
     passthru = {
-      hook = callPackage ./hook.nix { teensy-cmake-macros = finalAttrs.finalPackage; };
+      hook = callPackage ./hook.nix {
+        teensy-cmake-macros = finalAttrs.finalPackage;
+      };
     };
 
     meta = with lib; {

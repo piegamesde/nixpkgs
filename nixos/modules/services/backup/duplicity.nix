@@ -12,7 +12,10 @@ let
   stateDirectory = "/var/lib/duplicity";
 
   localTarget =
-    if hasPrefix "file://" cfg.targetUrl then removePrefix "file://" cfg.targetUrl else null;
+    if hasPrefix "file://" cfg.targetUrl then
+      removePrefix "file://" cfg.targetUrl
+    else
+      null;
 in
 {
   options.services.duplicity = {
@@ -162,11 +165,17 @@ in
             set -x
             ${dup} cleanup ${target} --force ${extra}
             ${lib.optionalString (cfg.cleanup.maxAge != null)
-              "${dup} remove-older-than ${lib.escapeShellArg cfg.cleanup.maxAge} ${target} --force ${extra}"}
+              "${dup} remove-older-than ${
+                lib.escapeShellArg cfg.cleanup.maxAge
+              } ${target} --force ${extra}"}
             ${lib.optionalString (cfg.cleanup.maxFull != null)
-              "${dup} remove-all-but-n-full ${toString cfg.cleanup.maxFull} ${target} --force ${extra}"}
+              "${dup} remove-all-but-n-full ${
+                toString cfg.cleanup.maxFull
+              } ${target} --force ${extra}"}
             ${lib.optionalString (cfg.cleanup.maxIncr != null)
-              "${dup} remove-all-inc-of-but-n-full ${toString cfg.cleanup.maxIncr} ${target} --force ${extra}"}
+              "${dup} remove-all-inc-of-but-n-full ${
+                toString cfg.cleanup.maxIncr
+              } ${target} --force ${extra}"}
             exec ${dup} ${if cfg.fullIfOlderThan == "always" then "full" else "incr"} ${
               lib.escapeShellArgs (
                 [
@@ -187,10 +196,13 @@ in
                       p
                     ])
                     cfg.exclude
-                ++ (lib.optionals (cfg.fullIfOlderThan != "never" && cfg.fullIfOlderThan != "always") [
-                  "--full-if-older-than"
-                  cfg.fullIfOlderThan
-                ])
+                ++ (lib.optionals
+                  (cfg.fullIfOlderThan != "never" && cfg.fullIfOlderThan != "always")
+                  [
+                    "--full-if-older-than"
+                    cfg.fullIfOlderThan
+                  ]
+                )
               )
             } ${extra}
           '';
@@ -205,7 +217,9 @@ in
           // optionalAttrs (cfg.secretFile != null) { EnvironmentFile = cfg.secretFile; };
       } // optionalAttrs (cfg.frequency != null) { startAt = cfg.frequency; };
 
-      tmpfiles.rules = optional (localTarget != null) "d ${localTarget} 0700 root root -";
+      tmpfiles.rules =
+        optional (localTarget != null)
+          "d ${localTarget} 0700 root root -";
     };
 
     assertions = singleton {

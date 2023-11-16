@@ -83,6 +83,8 @@ stdenv.mkDerivation rec {
     license = licenses.unfree;
     maintainers = [ maintainers.rsynnest ];
     platforms = [ "x86_64-linux" ];
-    knownVulnerabilities = [ "Upstream support for Unifi Video ended January 1st, 2021." ];
+    knownVulnerabilities = [
+      "Upstream support for Unifi Video ended January 1st, 2021."
+    ];
   };
 }

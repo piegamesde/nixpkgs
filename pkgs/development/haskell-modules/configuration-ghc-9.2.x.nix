@@ -41,7 +41,10 @@ self: super: {
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
   terminfo =
-    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
+    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
+      null
+    else
+      self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -64,9 +67,13 @@ self: super: {
     algebraic-graphs = dontCheck self.algebraic-graphs_0_6_1;
   };
 
-  hls-cabal-plugin = super.hls-cabal-plugin.override { Cabal-syntax = self.Cabal-syntax_3_8_1_0; };
+  hls-cabal-plugin = super.hls-cabal-plugin.override {
+    Cabal-syntax = self.Cabal-syntax_3_8_1_0;
+  };
 
-  ormolu = self.ormolu_0_5_2_0.override { Cabal-syntax = self.Cabal-syntax_3_8_1_0; };
+  ormolu = self.ormolu_0_5_2_0.override {
+    Cabal-syntax = self.Cabal-syntax_3_8_1_0;
+  };
 
   stylish-haskell = doJailbreak super.stylish-haskell_0_14_4_0;
 
@@ -122,7 +129,12 @@ self: super: {
 
   # https://github.com/fpco/inline-c/pull/131
   inline-c-cpp =
-    (if isDarwin then appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ] else x: x)
+    (
+      if isDarwin then
+        appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ]
+      else
+        x: x
+    )
       super.inline-c-cpp;
 
   # A given major version of ghc-exactprint only supports one version of GHC.

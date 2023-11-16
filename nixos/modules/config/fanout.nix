@@ -8,9 +8,11 @@ let
   cfg = config.services.fanout;
   mknodCmds =
     n:
-    lib.lists.imap0 (i: s: "mknod /dev/fanout${builtins.toString i} c $MAJOR ${builtins.toString i}") (
-      lib.lists.replicate n ""
-    );
+    lib.lists.imap0
+      (
+        i: s: "mknod /dev/fanout${builtins.toString i} c $MAJOR ${builtins.toString i}"
+      )
+      (lib.lists.replicate n "");
 in
 {
   options.services.fanout = {

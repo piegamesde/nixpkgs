@@ -97,14 +97,16 @@ let
 
       testfun =
         name: attrs:
-        runCommand "${python.name}-tests-${name}" ({ inherit (python) pythonVersion; } // attrs) ''
-          cp -r ${./tests/test_environments} tests
-          chmod -R +w tests
-          substituteAllInPlace tests/test_python.py
-          ${attrs.interpreter} -m unittest discover --verbose tests #/test_python.py
-          mkdir $out
-          touch $out/success
-        '';
+        runCommand "${python.name}-tests-${name}"
+          ({ inherit (python) pythonVersion; } // attrs)
+          ''
+            cp -r ${./tests/test_environments} tests
+            chmod -R +w tests
+            substituteAllInPlace tests/test_python.py
+            ${attrs.interpreter} -m unittest discover --verbose tests #/test_python.py
+            mkdir $out
+            touch $out/success
+          '';
     in
     lib.mapAttrs testfun envs;
 
@@ -117,7 +119,9 @@ let
     }
     // lib.optionalAttrs (python.pythonAtLeast "3.7") {
       # Before the addition of NIX_PYTHONPREFIX mypy was broken with typed packages
-      nix-pythonprefix-mypy = callPackage ./tests/test_nix_pythonprefix { interpreter = python; };
+      nix-pythonprefix-mypy = callPackage ./tests/test_nix_pythonprefix {
+        interpreter = python;
+      };
       # Make sure tkinter is importable. See https://github.com/NixOS/nixpkgs/issues/238990
       tkinter = callPackage ./tests/test_tkinter { interpreter = python; };
     }

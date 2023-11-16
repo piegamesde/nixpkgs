@@ -84,7 +84,9 @@ stdenv.mkDerivation {
 
     wrapProgram $out/bin/rofi-pass \
       --prefix PATH : "$wrapperPath" \
-      --set-default ROFI_PASS_BACKEND ${if backend == "wayland" then "wtype" else "xdotool"} \
+      --set-default ROFI_PASS_BACKEND ${
+        if backend == "wayland" then "wtype" else "xdotool"
+      } \
       --set-default ROFI_PASS_CLIPBOARD_BACKEND ${
         if backend == "wayland" then "wl-clipboard" else "xclip"
       }

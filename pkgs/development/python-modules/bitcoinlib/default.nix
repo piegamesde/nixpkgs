@@ -23,7 +23,9 @@ buildPythonPackage rec {
   postPatch = ''
     substituteInPlace bitcoin/core/key.py --replace \
       "ctypes.util.find_library('ssl.35') or ctypes.util.find_library('ssl') or ctypes.util.find_library('libeay32')" \
-      "'${lib.getLib openssl}/lib/libssl${stdenv.hostPlatform.extensions.sharedLibrary}'"
+      "'${
+        lib.getLib openssl
+      }/lib/libssl${stdenv.hostPlatform.extensions.sharedLibrary}'"
   '';
 
   pythonImportsCheck = [

@@ -12,7 +12,9 @@ let
   fpm = config.services.phpfpm.pools.roundcube;
   localDB = cfg.database.host == "localhost";
   user = cfg.database.username;
-  phpWithPspell = pkgs.php81.withExtensions ({ enabled, all }: [ all.pspell ] ++ enabled);
+  phpWithPspell = pkgs.php81.withExtensions (
+    { enabled, all }: [ all.pspell ] ++ enabled
+  );
 in
 {
   options.services.roundcube = {
@@ -117,7 +119,8 @@ in
         Note: Since roundcube only uses 70% of max upload values configured in php
         30% is added automatically to [](#opt-services.roundcube.maxAttachmentSize).
       '';
-      apply = configuredMaxAttachmentSize: "${toString (configuredMaxAttachmentSize * 1.3)}M";
+      apply =
+        configuredMaxAttachmentSize: "${toString (configuredMaxAttachmentSize * 1.3)}M";
     };
 
     extraConfig = mkOption {
@@ -129,9 +132,9 @@ in
 
   config = mkIf cfg.enable {
     # backward compatibility: if password is set but not passwordFile, make one.
-    services.roundcube.database.passwordFile = mkIf (!localDB && cfg.database.password != "") (
-      mkDefault ("${pkgs.writeText "roundcube-password" cfg.database.password}")
-    );
+    services.roundcube.database.passwordFile =
+      mkIf (!localDB && cfg.database.password != "")
+        (mkDefault ("${pkgs.writeText "roundcube-password" cfg.database.password}"));
     warnings =
       lib.optional (!localDB && cfg.database.password != "")
         "services.roundcube.database.password is deprecated and insecure; use services.roundcube.database.passwordFile instead";
@@ -150,7 +153,9 @@ in
       $config = array();
       $config['db_dsnw'] = 'pgsql://${cfg.database.username}${
         lib.optionalString (!localDB) ":' . $password . '"
-      }@${if localDB then "unix(/run/postgresql)" else cfg.database.host}/${cfg.database.dbname}';
+      }@${
+        if localDB then "unix(/run/postgresql)" else cfg.database.host
+      }/${cfg.database.dbname}';
       $config['log_driver'] = 'syslog';
       $config['max_message_size'] =  '${cfg.maxAttachmentSize}';
       $config['plugins'] = [${concatMapStringsSep "," (p: "'${p}'") cfg.plugins}];
@@ -243,7 +248,9 @@ in
         "catch_workers_output" = true;
       };
       phpPackage = phpWithPspell;
-      phpEnv.ASPELL_CONF = "dict-dir ${pkgs.aspellWithDicts (_: cfg.dicts)}/lib/aspell";
+      phpEnv.ASPELL_CONF = "dict-dir ${
+          pkgs.aspellWithDicts (_: cfg.dicts)
+        }/lib/aspell";
     };
     systemd.services.phpfpm-roundcube.after = [ "roundcube-setup.service" ];
 
@@ -266,7 +273,8 @@ in
             psql = "${
                 lib.optionalString (!localDB) "PGPASSFILE=${cfg.database.passwordFile}"
               } ${pkgs.postgresql}/bin/psql ${
-                lib.optionalString (!localDB) "-h ${cfg.database.host} -U ${cfg.database.username} "
+                lib.optionalString (!localDB)
+                  "-h ${cfg.database.host} -U ${cfg.database.username} "
               } ${cfg.database.dbname}";
           in
           ''

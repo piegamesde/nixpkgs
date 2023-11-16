@@ -9,7 +9,9 @@ with lib;
 
 let
   cfg = config.services.ananicy;
-  configFile = pkgs.writeText "ananicy.conf" (generators.toKeyValue { } cfg.settings);
+  configFile = pkgs.writeText "ananicy.conf" (
+    generators.toKeyValue { } cfg.settings
+  );
   extraRules = pkgs.writeText "extraRules" (
     concatMapStringsSep "\n" (l: builtins.toJSON l) cfg.extraRules
   );
@@ -20,7 +22,10 @@ let
     concatMapStringsSep "\n" (l: builtins.toJSON l) cfg.extraCgroups
   );
   servicename =
-    if ((lib.getName cfg.package) == (lib.getName pkgs.ananicy-cpp)) then "ananicy-cpp" else "ananicy";
+    if ((lib.getName cfg.package) == (lib.getName pkgs.ananicy-cpp)) then
+      "ananicy-cpp"
+    else
+      "ananicy";
 in
 {
   options = {
@@ -140,7 +145,8 @@ in
         cp ${configFile} $out/ananicy.conf
         ${optionalString (cfg.extraRules != [ ]) "cp ${extraRules} $out/nixRules.rules"}
         ${optionalString (cfg.extraTypes != [ ]) "cp ${extraTypes} $out/nixTypes.types"}
-        ${optionalString (cfg.extraCgroups != [ ]) "cp ${extraCgroups} $out/nixCgroups.cgroups"}
+        ${optionalString (cfg.extraCgroups != [ ])
+          "cp ${extraCgroups} $out/nixCgroups.cgroups"}
       '';
     };
 

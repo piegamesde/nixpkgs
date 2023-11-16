@@ -174,7 +174,9 @@ in
             "systemd-journal"
           ];
         StateDirectory = "grafana-agent";
-        LoadCredential = lib.mapAttrsToList (key: value: "${key}:${value}") cfg.credentials;
+        LoadCredential =
+          lib.mapAttrsToList (key: value: "${key}:${value}")
+            cfg.credentials;
         Type = "simple";
       };
     };

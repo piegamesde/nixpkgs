@@ -51,7 +51,9 @@
           debug = "cee6bc3c2a634b41728f2af8da54d9bf8cc14099";
           pal-gc = "0227d7c0074f2d0ac935631990da8ec5914597b4";
         }
-        .${variant} or (throw "Unsupported romVariant ${variant}. Valid options are 'debug' and 'pal-gc'.");
+        .${variant} or (throw
+          "Unsupported romVariant ${variant}. Valid options are 'debug' and 'pal-gc'."
+        );
     };
   },
 
@@ -172,7 +174,8 @@ stdenv.mkDerivation rec {
     cp ${gamecontrollerdb} ${gamecontrollerdb.name}
 
     pushd ../OTRExporter
-    ${lib.optionalString oot.enable "python3 ./extract_assets.py -z ../build/ZAPD/ZAPD.out ${oot.rom}"}
+    ${lib.optionalString oot.enable
+      "python3 ./extract_assets.py -z ../build/ZAPD/ZAPD.out ${oot.rom}"}
     ${lib.optionalString ootMq.enable
       "python3 ./extract_assets.py -z ../build/ZAPD/ZAPD.out ${ootMq.rom}"}
     popd

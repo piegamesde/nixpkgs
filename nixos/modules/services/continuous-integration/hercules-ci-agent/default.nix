@@ -93,7 +93,9 @@ in
 
     # Trusted user allows simplified configuration and better performance
     # when operating in a cluster.
-    nix.settings.trusted-users = [ config.systemd.services.hercules-ci-agent.serviceConfig.User ];
+    nix.settings.trusted-users = [
+      config.systemd.services.hercules-ci-agent.serviceConfig.User
+    ];
     services.hercules-ci-agent = {
       settings = {
         nixUserIsTrusted = true;

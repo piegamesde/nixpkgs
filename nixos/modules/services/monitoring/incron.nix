@@ -88,7 +88,9 @@ in
     environment.etc."incron.allow" = mkIf (cfg.allow != null) {
       text = concatStringsSep "\n" cfg.allow;
     };
-    environment.etc."incron.deny" = mkIf (cfg.deny != null) { text = concatStringsSep "\n" cfg.deny; };
+    environment.etc."incron.deny" = mkIf (cfg.deny != null) {
+      text = concatStringsSep "\n" cfg.deny;
+    };
 
     systemd.services.incron = {
       description = "File System Events Scheduler";

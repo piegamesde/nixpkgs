@@ -39,7 +39,9 @@ let
         ]
       );
   };
-  configFile = pkgs.writeText "pixelfed-env" (lib.generators.toKeyValue { } cfg.settings);
+  configFile = pkgs.writeText "pixelfed-env" (
+    lib.generators.toKeyValue { } cfg.settings
+  );
   # Management script
   pixelfed-manage = pkgs.writeShellScriptBin "pixelfed-manage" ''
     cd ${pixelfed}
@@ -131,7 +133,9 @@ in
 
       nginx = mkOption {
         type = types.nullOr (
-          types.submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
+          types.submodule (
+            import ../web-servers/nginx/vhost-options.nix { inherit config lib; }
+          )
         );
         default = null;
         example = lib.literalExpression ''
@@ -153,15 +157,19 @@ in
       };
 
       redis.createLocally =
-        mkEnableOption (lib.mdDoc "a local Redis database using UNIX socket authentication")
+        mkEnableOption (
+          lib.mdDoc "a local Redis database using UNIX socket authentication"
+        )
         // {
           default = true;
         };
 
       database = {
-        createLocally = mkEnableOption (lib.mdDoc "a local database using UNIX socket authentication") // {
-          default = true;
-        };
+        createLocally =
+          mkEnableOption (lib.mdDoc "a local database using UNIX socket authentication")
+          // {
+            default = true;
+          };
         automaticMigrations =
           mkEnableOption (lib.mdDoc "automatic migrations for database schema and data")
           // {
@@ -300,43 +308,49 @@ in
 
     environment.systemPackages = [ pixelfed-manage ];
 
-    services.mysql = mkIf (cfg.database.createLocally && cfg.database.type == "mysql") {
-      enable = mkDefault true;
-      package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [
+    services.mysql =
+      mkIf (cfg.database.createLocally && cfg.database.type == "mysql")
         {
-          name = user;
-          ensurePermissions = {
-            "${cfg.database.name}.*" = "ALL PRIVILEGES";
-          };
-        }
-      ];
-    };
+          enable = mkDefault true;
+          package = mkDefault pkgs.mariadb;
+          ensureDatabases = [ cfg.database.name ];
+          ensureUsers = [
+            {
+              name = user;
+              ensurePermissions = {
+                "${cfg.database.name}.*" = "ALL PRIVILEGES";
+              };
+            }
+          ];
+        };
 
-    services.postgresql = mkIf (cfg.database.createLocally && cfg.database.type == "pgsql") {
-      enable = mkDefault true;
-      ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [
+    services.postgresql =
+      mkIf (cfg.database.createLocally && cfg.database.type == "pgsql")
         {
-          name = user;
-          ensurePermissions = { };
-        }
-      ];
-    };
+          enable = mkDefault true;
+          ensureDatabases = [ cfg.database.name ];
+          ensureUsers = [
+            {
+              name = user;
+              ensurePermissions = { };
+            }
+          ];
+        };
 
     # Make each individual option overridable with lib.mkDefault.
-    services.pixelfed.poolConfig = lib.mapAttrs' (n: v: lib.nameValuePair n (lib.mkDefault v)) {
-      "pm" = "dynamic";
-      "php_admin_value[error_log]" = "stderr";
-      "php_admin_flag[log_errors]" = true;
-      "catch_workers_output" = true;
-      "pm.max_children" = "32";
-      "pm.start_servers" = "2";
-      "pm.min_spare_servers" = "2";
-      "pm.max_spare_servers" = "4";
-      "pm.max_requests" = "500";
-    };
+    services.pixelfed.poolConfig =
+      lib.mapAttrs' (n: v: lib.nameValuePair n (lib.mkDefault v))
+        {
+          "pm" = "dynamic";
+          "php_admin_value[error_log]" = "stderr";
+          "php_admin_flag[log_errors]" = true;
+          "catch_workers_output" = true;
+          "pm.max_children" = "32";
+          "pm.start_servers" = "2";
+          "pm.min_spare_servers" = "2";
+          "pm.max_spare_servers" = "4";
+          "pm.max_requests" = "500";
+        };
 
     services.phpfpm.pools.pixelfed = {
       inherit user group;

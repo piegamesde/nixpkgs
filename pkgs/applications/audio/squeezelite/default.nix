@@ -119,6 +119,9 @@ stdenv.mkDerivation {
     mainProgram = binName;
     maintainers = with maintainers; [ adamcstephens ];
     platforms =
-      if (audioBackend == "pulse") then platforms.linux else platforms.linux ++ platforms.darwin;
+      if (audioBackend == "pulse") then
+        platforms.linux
+      else
+        platforms.linux ++ platforms.darwin;
   };
 }

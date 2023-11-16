@@ -98,7 +98,11 @@ let
     substituteInPlace ./configuration/configuration.md \
       --replace \
           '@MODULE_CHAPTERS@' \
-          ${lib.escapeShellArg (lib.concatMapStringsSep "\n" (p: "${p.value}") config.meta.doc)}
+          ${
+            lib.escapeShellArg (
+              lib.concatMapStringsSep "\n" (p: "${p.value}") config.meta.doc
+            )
+          }
     substituteInPlace ./nixos-options.md \
       --replace \
         '@NIXOS_OPTIONS_JSON@' \

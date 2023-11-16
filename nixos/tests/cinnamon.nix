@@ -19,14 +19,18 @@ import ./make-test-python.nix (
       { nodes, ... }:
       let
         user = nodes.machine.users.users.alice;
-        env = "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${toString user.uid}/bus DISPLAY=:0";
+        env = "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${
+            toString user.uid
+          }/bus DISPLAY=:0";
         su = command: "su - ${user.name} -c '${env} ${command}'";
 
         # Call javascript in cinnamon (the shell), returns a tuple (success, output),
         # where `success` is true if the dbus call was successful and `output` is what
         # the javascript evaluates to.
         eval =
-          name: su "gdbus call --session -d org.Cinnamon -o /org/Cinnamon -m org.Cinnamon.Eval ${name}";
+          name:
+          su
+            "gdbus call --session -d org.Cinnamon -o /org/Cinnamon -m org.Cinnamon.Eval ${name}";
       in
       ''
         machine.wait_for_unit("display-manager.service")
@@ -86,7 +90,8 @@ import ./make-test-python.nix (
 
         with subtest("Open virtual keyboard"):
             machine.succeed("${
-              su "dbus-send --print-reply --dest=org.Cinnamon /org/Cinnamon org.Cinnamon.ToggleKeyboard"
+              su
+                "dbus-send --print-reply --dest=org.Cinnamon /org/Cinnamon org.Cinnamon.ToggleKeyboard"
             }")
             machine.wait_for_text('(Ctrl|Alt)')
             machine.sleep(2)

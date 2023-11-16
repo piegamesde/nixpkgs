@@ -15,7 +15,8 @@
 let
   featuresSubcommand = ''
     ${
-      lib.optionalString (extraFeatures != [ ]) "--features=${lib.concatStringsSep "," extraFeatures}"
+      lib.optionalString (extraFeatures != [ ])
+        "--features=${lib.concatStringsSep "," extraFeatures}"
     } \
     ${lib.optionalString (disabledFeatures != [ ])
       "--features-disabled=${lib.concatStringsSep "," disabledFeatures}"}
@@ -57,7 +58,8 @@ stdenv.mkDerivation rec {
           install -m 0500 "$1" "providers/"
         fi
       }
-      ${lib.concatMapStringsSep "\n" (pl: "install_plugin ${lib.escapeShellArg pl}") plugins}
+      ${lib.concatMapStringsSep "\n" (pl: "install_plugin ${lib.escapeShellArg pl}")
+        plugins}
     ''
     + ''
       patchShebangs bin/kc.sh

@@ -29,7 +29,9 @@ buildNpmPackage rec {
 
   makeCacheWritable = true;
 
-  nativeBuildInputs = [ python3 ] ++ lib.optionals stdenv.isDarwin [ darwin.cctools ];
+  nativeBuildInputs = [
+    python3
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.cctools ];
 
   meta = {
     description = "Download sheet music";

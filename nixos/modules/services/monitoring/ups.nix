@@ -92,7 +92,9 @@ let
             ''desc = "${config.description}"''
             "sdorder = ${toString config.shutdownOrder}"
           ]
-          ++ (optional (config.maxStartDelay != null) "maxstartdelay = ${toString config.maxStartDelay}")
+          ++ (optional (config.maxStartDelay != null)
+            "maxstartdelay = ${toString config.maxStartDelay}"
+          )
         );
 
         summary = concatStringsSep "\n      " ([ "[${name}]" ] ++ config.directives);
@@ -224,7 +226,8 @@ in
       "nut/ups.conf".source = pkgs.writeText "ups.conf" ''
         maxstartdelay = ${toString cfg.maxStartDelay}
 
-        ${flip concatStringsSep (forEach (attrValues cfg.ups) (ups: ups.summary)) "\n\n          "}
+        ${flip concatStringsSep (forEach (attrValues cfg.ups) (ups: ups.summary))
+          "\n\n          "}
       '';
       "nut/upssched.conf".source = cfg.schedulerRules;
       # These file are containing private information and thus should not

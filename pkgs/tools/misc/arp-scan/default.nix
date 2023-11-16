@@ -37,7 +37,9 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     for binary in get-{oui,iab}; do
-      wrapProgram "$out/bin/$binary" --set PERL5LIB "${perlPackages.makeFullPerlPath perlModules}"
+      wrapProgram "$out/bin/$binary" --set PERL5LIB "${
+        perlPackages.makeFullPerlPath perlModules
+      }"
     done;
   '';
 

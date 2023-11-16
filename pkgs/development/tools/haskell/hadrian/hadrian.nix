@@ -36,7 +36,9 @@ mkDerivation {
   postUnpack = ''
     sourceRoot="$sourceRoot/hadrian"
   '';
-  patches = lib.optionals (!enableHyperlinkedSource) [ ./disable-hyperlinked-source.patch ];
+  patches = lib.optionals (!enableHyperlinkedSource) [
+    ./disable-hyperlinked-source.patch
+  ];
   # Overwrite UserSettings.hs with a provided custom one
   postPatch = lib.optionalString (userSettings != null) ''
     install -m644 "${writeText "UserSettings.hs" userSettings}" src/UserSettings.hs

@@ -69,7 +69,9 @@ stdenv.mkDerivation rec {
     mv $out/c0-mode/ $out/share/emacs/site-lisp/
   '';
 
-  passthru.updateScript = unstableGitUpdater { url = "https://bitbucket.org/c0-lang/c0.git"; };
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://bitbucket.org/c0-lang/c0.git";
+  };
 
   meta = with lib; {
     description = "A small safe subset of the C programming language, augmented with contracts";

@@ -14,7 +14,8 @@ in
 with haskellLib;
 self: super:
 let
-  jailbreakForCurrentVersion = p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
+  jailbreakForCurrentVersion =
+    p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
 in
 {
   llvmPackages = lib.dontRecurseIntoAttrs self.ghc.llvmPackages;
@@ -52,7 +53,10 @@ in
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
   terminfo =
-    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
+    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
+      null
+    else
+      self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -133,7 +137,9 @@ in
         };
       in
       lib.mapAttrs (_: pkg: doDistribute (pkg.overrideScope hls_overlay)) {
-        haskell-language-server = allowInconsistentDependencies super.haskell-language-server;
+        haskell-language-server =
+          allowInconsistentDependencies
+            super.haskell-language-server;
         # Tests fail due to the newly-build fourmolu not being in PATH
         # https://github.com/fourmolu/fourmolu/issues/231
         fourmolu = dontCheck super.fourmolu_0_14_0_0;

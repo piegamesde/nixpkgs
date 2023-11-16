@@ -24,7 +24,8 @@ let
       boot.loader.grub.enable = true;
       boot.loader.grub.efiSupport = partitionTableType == "efi";
       boot.loader.grub.efiInstallAsRemovable = partitionTableType == "efi";
-      boot.loader.grub.device = if partitionTableType == "efi" then "nodev" else "/dev/vda";
+      boot.loader.grub.device =
+        if partitionTableType == "efi" then "nodev" else "/dev/vda";
 
       boot.growPartition = true;
 

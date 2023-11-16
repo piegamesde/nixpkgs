@@ -33,7 +33,8 @@ let
       discoverTests (val { inherit system pkgs; })
     else
       val;
-  handleTest = path: args: discoverTests (import path ({ inherit system pkgs; } // args));
+  handleTest =
+    path: args: discoverTests (import path ({ inherit system pkgs; } // args));
   handleTestOn =
     systems: path: args:
     if elem system systems then handleTest path args else { };
@@ -95,7 +96,9 @@ in
 
   # Testing the test driver
   nixos-test-driver = {
-    extra-python-packages = handleTest ./nixos-test-driver/extra-python-packages.nix { };
+    extra-python-packages =
+      handleTest ./nixos-test-driver/extra-python-packages.nix
+        { };
     lib-extend =
       handleTestOn
         [
@@ -225,8 +228,12 @@ in
   calibre-web = handleTest ./calibre-web.nix { };
   calibre-server = handleTest ./calibre-server.nix { };
   castopod = handleTest ./castopod.nix { };
-  cassandra_3_0 = handleTest ./cassandra.nix { testPackage = pkgs.cassandra_3_0; };
-  cassandra_3_11 = handleTest ./cassandra.nix { testPackage = pkgs.cassandra_3_11; };
+  cassandra_3_0 = handleTest ./cassandra.nix {
+    testPackage = pkgs.cassandra_3_0;
+  };
+  cassandra_3_11 = handleTest ./cassandra.nix {
+    testPackage = pkgs.cassandra_3_11;
+  };
   cassandra_4 = handleTest ./cassandra.nix { testPackage = pkgs.cassandra_4; };
   ceph-multi-node =
     handleTestOn
@@ -320,12 +327,18 @@ in
   containers-macvlans = handleTest ./containers-macvlans.nix { };
   containers-names = handleTest ./containers-names.nix { };
   containers-nested = handleTest ./containers-nested.nix { };
-  containers-physical_interfaces = handleTest ./containers-physical_interfaces.nix { };
+  containers-physical_interfaces =
+    handleTest ./containers-physical_interfaces.nix
+      { };
   containers-portforward = handleTest ./containers-portforward.nix { };
   containers-reloadable = handleTest ./containers-reloadable.nix { };
-  containers-restart_networking = handleTest ./containers-restart_networking.nix { };
+  containers-restart_networking =
+    handleTest ./containers-restart_networking.nix
+      { };
   containers-tmpfs = handleTest ./containers-tmpfs.nix { };
-  containers-unified-hierarchy = handleTest ./containers-unified-hierarchy.nix { };
+  containers-unified-hierarchy =
+    handleTest ./containers-unified-hierarchy.nix
+      { };
   convos = handleTest ./convos.nix { };
   corerad = handleTest ./corerad.nix { };
   coturn = handleTest ./coturn.nix { };
@@ -383,9 +396,13 @@ in
       ]
       ./docker-tools-cross.nix
       { };
-  docker-tools-overlay = handleTestOn [ "x86_64-linux" ] ./docker-tools-overlay.nix { };
+  docker-tools-overlay =
+    handleTestOn [ "x86_64-linux" ] ./docker-tools-overlay.nix
+      { };
   documize = handleTest ./documize.nix { };
-  documentation = pkgs.callPackage ../modules/misc/documentation/test.nix { inherit nixosLib; };
+  documentation = pkgs.callPackage ../modules/misc/documentation/test.nix {
+    inherit nixosLib;
+  };
   doh-proxy-rust = handleTest ./doh-proxy-rust.nix { };
   dokuwiki = handleTest ./dokuwiki.nix { };
   dolibarr = handleTest ./dolibarr.nix { };
@@ -394,8 +411,10 @@ in
   drbd = handleTest ./drbd.nix { };
   earlyoom = handleTestOn [ "x86_64-linux" ] ./earlyoom.nix { };
   early-mount-options = handleTest ./early-mount-options.nix { };
-  ec2-config = (handleTestOn [ "x86_64-linux" ] ./ec2.nix { }).boot-ec2-config or { };
-  ec2-nixops = (handleTestOn [ "x86_64-linux" ] ./ec2.nix { }).boot-ec2-nixops or { };
+  ec2-config =
+    (handleTestOn [ "x86_64-linux" ] ./ec2.nix { }).boot-ec2-config or { };
+  ec2-nixops =
+    (handleTestOn [ "x86_64-linux" ] ./ec2.nix { }).boot-ec2-nixops or { };
   ecryptfs = handleTest ./ecryptfs.nix { };
   fscrypt = handleTest ./fscrypt.nix { };
   fastnetmon-advanced = runTest ./fastnetmon-advanced.nix;
@@ -413,7 +432,9 @@ in
   ergochat = handleTest ./ergochat.nix { };
   eris-server = handleTest ./eris-server.nix { };
   esphome = handleTest ./esphome.nix { };
-  etc = pkgs.callPackage ../modules/system/etc/test.nix { inherit evalMinimalConfig; };
+  etc = pkgs.callPackage ../modules/system/etc/test.nix {
+    inherit evalMinimalConfig;
+  };
   activation = pkgs.callPackage ../modules/system/activation/test.nix { };
   activation-var = runTest ./activation/var.nix;
   activation-nix-channel = runTest ./activation/nix-channel.nix;
@@ -432,9 +453,13 @@ in
   ferretdb = handleTest ./ferretdb.nix { };
   firefox = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox; };
   firefox-beta = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-beta; };
-  firefox-devedition = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-devedition; };
+  firefox-devedition = handleTest ./firefox.nix {
+    firefoxPackage = pkgs.firefox-devedition;
+  };
   firefox-esr = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr; }; # used in `tested` job
-  firefox-esr-115 = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr-115; };
+  firefox-esr-115 = handleTest ./firefox.nix {
+    firefoxPackage = pkgs.firefox-esr-115;
+  };
   firejail = handleTest ./firejail.nix { };
   firewall = handleTest ./firewall.nix { nftables = false; };
   firewall-nftables = handleTest ./firewall.nix { nftables = true; };
@@ -558,7 +583,9 @@ in
   influxdb2 = handleTest ./influxdb2.nix { };
   initrd-network-openvpn = handleTest ./initrd-network-openvpn { };
   initrd-network-ssh = handleTest ./initrd-network-ssh { };
-  initrd-luks-empty-passphrase = handleTest ./initrd-luks-empty-passphrase.nix { };
+  initrd-luks-empty-passphrase =
+    handleTest ./initrd-luks-empty-passphrase.nix
+      { };
   initrdNetwork = handleTest ./initrd-network.nix { };
   initrd-secrets = handleTest ./initrd-secrets.nix { };
   initrd-secrets-changing = handleTest ./initrd-secrets-changing.nix { };
@@ -586,7 +613,9 @@ in
   karma = handleTest ./karma.nix { };
   kavita = handleTest ./kavita.nix { };
   kbd-setfont-decompress = handleTest ./kbd-setfont-decompress.nix { };
-  kbd-update-search-paths-patch = handleTest ./kbd-update-search-paths-patch.nix { };
+  kbd-update-search-paths-patch =
+    handleTest ./kbd-update-search-paths-patch.nix
+      { };
   kea = handleTest ./kea.nix { };
   keepalived = handleTest ./keepalived.nix { };
   keepassxc = handleTest ./keepassxc.nix { };
@@ -645,7 +674,9 @@ in
   lorri = handleTest ./lorri/default.nix { };
   maddy = discoverTests (import ./maddy { inherit handleTest; });
   maestral = handleTest ./maestral.nix { };
-  magic-wormhole-mailbox-server = handleTest ./magic-wormhole-mailbox-server.nix { };
+  magic-wormhole-mailbox-server =
+    handleTest ./magic-wormhole-mailbox-server.nix
+      { };
   magnetico = handleTest ./magnetico.nix { };
   mailcatcher = handleTest ./mailcatcher.nix { };
   mailhog = handleTest ./mailhog.nix { };
@@ -764,13 +795,17 @@ in
   nixos-rebuild-specialisations =
     handleTestOn [ "x86_64-linux" ] ./nixos-rebuild-specialisations.nix
       { };
-  nixpkgs = pkgs.callPackage ../modules/misc/nixpkgs/test.nix { inherit evalMinimalConfig; };
+  nixpkgs = pkgs.callPackage ../modules/misc/nixpkgs/test.nix {
+    inherit evalMinimalConfig;
+  };
   node-red = handleTest ./node-red.nix { };
   nomad = handleTest ./nomad.nix { };
   non-default-filesystems = handleTest ./non-default-filesystems.nix { };
   non-switchable-system = runTest ./non-switchable-system.nix;
   noto-fonts = handleTest ./noto-fonts.nix { };
-  noto-fonts-cjk-qt-default-weight = handleTest ./noto-fonts-cjk-qt-default-weight.nix { };
+  noto-fonts-cjk-qt-default-weight =
+    handleTest ./noto-fonts-cjk-qt-default-weight.nix
+      { };
   novacomd = handleTestOn [ "x86_64-linux" ] ./novacomd.nix { };
   nscd = handleTest ./nscd.nix { };
   nsd = handleTest ./nsd.nix { };
@@ -1030,19 +1065,25 @@ in
   systemd-initrd-btrfs-raid = handleTest ./systemd-initrd-btrfs-raid.nix { };
   systemd-initrd-luks-fido2 = handleTest ./systemd-initrd-luks-fido2.nix { };
   systemd-initrd-luks-keyfile = handleTest ./systemd-initrd-luks-keyfile.nix { };
-  systemd-initrd-luks-empty-passphrase = handleTest ./initrd-luks-empty-passphrase.nix {
-    systemdStage1 = true;
-  };
-  systemd-initrd-luks-password = handleTest ./systemd-initrd-luks-password.nix { };
+  systemd-initrd-luks-empty-passphrase =
+    handleTest ./initrd-luks-empty-passphrase.nix
+      { systemdStage1 = true; };
+  systemd-initrd-luks-password =
+    handleTest ./systemd-initrd-luks-password.nix
+      { };
   systemd-initrd-luks-tpm2 = handleTest ./systemd-initrd-luks-tpm2.nix { };
   systemd-initrd-modprobe = handleTest ./systemd-initrd-modprobe.nix { };
-  systemd-initrd-shutdown = handleTest ./systemd-shutdown.nix { systemdStage1 = true; };
+  systemd-initrd-shutdown = handleTest ./systemd-shutdown.nix {
+    systemdStage1 = true;
+  };
   systemd-initrd-simple = handleTest ./systemd-initrd-simple.nix { };
   systemd-initrd-swraid = handleTest ./systemd-initrd-swraid.nix { };
   systemd-initrd-vconsole = handleTest ./systemd-initrd-vconsole.nix { };
   systemd-initrd-networkd = handleTest ./systemd-initrd-networkd.nix { };
   systemd-initrd-networkd-ssh = handleTest ./systemd-initrd-networkd-ssh.nix { };
-  systemd-initrd-networkd-openvpn = handleTest ./initrd-network-openvpn { systemdStage1 = true; };
+  systemd-initrd-networkd-openvpn = handleTest ./initrd-network-openvpn {
+    systemdStage1 = true;
+  };
   systemd-initrd-vlan = handleTest ./systemd-initrd-vlan.nix { };
   systemd-journal = handleTest ./systemd-journal.nix { };
   systemd-machinectl = handleTest ./systemd-machinectl.nix { };
@@ -1098,8 +1139,12 @@ in
       ./traefik.nix
       { };
   trafficserver = handleTest ./trafficserver.nix { };
-  transmission = handleTest ./transmission.nix { transmission = pkgs.transmission; };
-  transmission_4 = handleTest ./transmission.nix { transmission = pkgs.transmission_4; };
+  transmission = handleTest ./transmission.nix {
+    transmission = pkgs.transmission;
+  };
+  transmission_4 = handleTest ./transmission.nix {
+    transmission = pkgs.transmission_4;
+  };
   # tracee requires bpf
   tracee = handleTestOn [ "x86_64-linux" ] ./tracee.nix { };
   trezord = handleTest ./trezord.nix { };

@@ -192,7 +192,8 @@ with prev; {
       '';
       meta.broken = luaOlder "5.1" || luaAtLeast "5.3";
 
-      propagatedBuildInputs = with lib; oa.propagatedBuildInputs ++ optional (!isLuaJIT) luaffi;
+      propagatedBuildInputs =
+        with lib; oa.propagatedBuildInputs ++ optional (!isLuaJIT) luaffi;
     }
   );
 
@@ -281,7 +282,9 @@ with prev; {
     }
   );
 
-  lrexlib-gnu = prev.lrexlib-gnu.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ gnulib ]; });
+  lrexlib-gnu = prev.lrexlib-gnu.overrideAttrs (
+    oa: { buildInputs = oa.buildInputs ++ [ gnulib ]; }
+  );
 
   lrexlib-pcre = prev.lrexlib-pcre.overrideAttrs (
     oa: {
@@ -298,9 +301,13 @@ with prev; {
     oa: { buildInputs = oa.buildInputs ++ [ glibc.dev ]; }
   );
 
-  lua-curl = prev.lua-curl.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ curl.dev ]; });
+  lua-curl = prev.lua-curl.overrideAttrs (
+    oa: { buildInputs = oa.buildInputs ++ [ curl.dev ]; }
+  );
 
-  lua-iconv = prev.lua-iconv.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ libiconv ]; });
+  lua-iconv = prev.lua-iconv.overrideAttrs (
+    oa: { buildInputs = oa.buildInputs ++ [ libiconv ]; }
+  );
 
   lua-lsp = prev.lua-lsp.overrideAttrs (
     oa: {
@@ -451,9 +458,13 @@ with prev; {
     oa: lib.optionalAttrs stdenv.isLinux { buildInputs = [ glibc.out ]; }
   );
 
-  luazip = prev.luazip.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ zziplib ]; });
+  luazip = prev.luazip.overrideAttrs (
+    oa: { buildInputs = oa.buildInputs ++ [ zziplib ]; }
+  );
 
-  lua-yajl = prev.lua-yajl.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ yajl ]; });
+  lua-yajl = prev.lua-yajl.overrideAttrs (
+    oa: { buildInputs = oa.buildInputs ++ [ yajl ]; }
+  );
 
   luaunbound = prev.luaunbound.overrideAttrs (
     oa: {
@@ -689,7 +700,9 @@ with prev; {
     }
   );
 
-  vstruct = prev.vstruct.overrideAttrs (_: { meta.broken = (luaOlder "5.1" || luaAtLeast "5.4"); });
+  vstruct = prev.vstruct.overrideAttrs (
+    _: { meta.broken = (luaOlder "5.1" || luaAtLeast "5.4"); }
+  );
 
   vusted = prev.vusted.overrideAttrs (
     _: {

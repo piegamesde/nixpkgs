@@ -26,7 +26,9 @@ stdenv.mkDerivation {
     cp xclock.man $out/share/man/man1/xclock.1
   '';
 
-  makeFlags = [ "DESTINATION=$(out)/bin/" ] ++ lib.optional withAudioTracking "WITH_TEMPO_TRACKER=1";
+  makeFlags = [
+    "DESTINATION=$(out)/bin/"
+  ] ++ lib.optional withAudioTracking "WITH_TEMPO_TRACKER=1";
 
   buildInputs =
     [

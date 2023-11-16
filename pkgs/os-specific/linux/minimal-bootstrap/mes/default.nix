@@ -146,7 +146,8 @@ let
 
   CC = toString ([ cc ] ++ ccArgs);
 
-  stripExt = source: lib.replaceStrings [ ".c" ] [ "" ] (builtins.baseNameOf source);
+  stripExt =
+    source: lib.replaceStrings [ ".c" ] [ "" ] (builtins.baseNameOf source);
 
   compile =
     source:
@@ -160,8 +161,12 @@ let
 
   getRes = suffix: res: "${res}/${res.name}${suffix}";
 
-  archive = out: sources: "catm ${out} ${lib.concatMapStringsSep " " (getRes ".o") sources}";
-  sourceArchive = out: sources: "catm ${out} ${lib.concatMapStringsSep " " (getRes ".s") sources}";
+  archive =
+    out: sources:
+    "catm ${out} ${lib.concatMapStringsSep " " (getRes ".o") sources}";
+  sourceArchive =
+    out: sources:
+    "catm ${out} ${lib.concatMapStringsSep " " (getRes ".s") sources}";
 
   mkLib =
     libname: sources:

@@ -19,7 +19,9 @@ with pkgs.lib;
         { args, name }:
         pkgs.writeScriptBin name ''
           #!${pkgs.runtimeShell}
-          exec ${pkgs.ctags}/bin/ctags ${concatStringsSep " " (map escapeShellArg args)} "$@"
+          exec ${pkgs.ctags}/bin/ctags ${
+            concatStringsSep " " (map escapeShellArg args)
+          } "$@"
         ''
       )
       {
@@ -74,7 +76,9 @@ with pkgs.lib;
   # {
   # a : function () {}
   # only recognize names up 100 characters. Else you'll be in trouble scanning compressed .js files.
-  jsLang = [ "--regex-JavaScript=/([^ \\t]{1,100})[ \\t]*:[ \\t]*function[ \\t]*\\(/\\1/f/" ];
+  jsLang = [
+    "--regex-JavaScript=/([^ \\t]{1,100})[ \\t]*:[ \\t]*function[ \\t]*\\(/\\1/f/"
+  ];
 
   # find foo in "foo =", don't think we can do a lot better
   nixLang = [

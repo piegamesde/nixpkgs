@@ -88,12 +88,16 @@ in
         description = mdDoc "Extra plugins for the Budgie desktop";
         type = types.listOf types.package;
         default = [ ];
-        example = literalExpression "[ pkgs.budgiePlugins.budgie-analogue-clock-applet ]";
+        example =
+          literalExpression
+            "[ pkgs.budgiePlugins.budgie-analogue-clock-applet ]";
       };
     };
 
     environment.budgie.excludePackages = mkOption {
-      description = mdDoc "Which packages Budgie should exclude from the default environment.";
+      description =
+        mdDoc
+          "Which packages Budgie should exclude from the default environment.";
       type = types.listOf types.package;
       default = [ ];
       example = literalExpression "[ pkgs.mate-terminal ]";
@@ -101,7 +105,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.xserver.displayManager.sessionPackages = with pkgs; [ budgie.budgie-desktop ];
+    services.xserver.displayManager.sessionPackages =
+      with pkgs; [ budgie.budgie-desktop ];
 
     services.xserver.displayManager.lightdm.greeters.slick = {
       enable = mkDefault true;
@@ -119,7 +124,9 @@ in
       };
     };
 
-    services.xserver.desktopManager.budgie.sessionPath = [ pkgs.budgie.budgie-desktop-view ];
+    services.xserver.desktopManager.budgie.sessionPath = [
+      pkgs.budgie.budgie-desktop-view
+    ];
 
     environment.extraInit = ''
       ${concatMapStrings
@@ -160,7 +167,9 @@ in
         # Update user directories.
         xdg-user-dirs
       ]
-      ++ lib.optional config.networking.networkmanager.enable pkgs.networkmanagerapplet
+      ++
+        lib.optional config.networking.networkmanager.enable
+          pkgs.networkmanagerapplet
       ++ (utils.removePackagesByName
         [
           cinnamon.nemo

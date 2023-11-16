@@ -74,7 +74,9 @@ let
             builtins.readDir (baseDirectory + "/${shard}")
           );
     in
-    builtins.foldl' (acc: el: acc // el) { } (map namesForShard (builtins.attrNames entries));
+    builtins.foldl' (acc: el: acc // el) { } (
+      map namesForShard (builtins.attrNames entries)
+    );
 
   # Turns autoCalledPackageFiles into an overlay that `callPackage`'s all of them
   autoCalledPackages =
@@ -84,7 +86,9 @@ let
       # See a more detailed description in pkgs/top-level/by-name-overlay.nix
       _internalCallByNamePackageFile = file: self.callPackage file { };
     }
-    // builtins.mapAttrs (name: self._internalCallByNamePackageFile) autoCalledPackageFiles;
+    //
+      builtins.mapAttrs (name: self._internalCallByNamePackageFile)
+        autoCalledPackageFiles;
 
   # A list optionally containing the `all-packages.nix` file from the test case as an overlay
   optionalAllPackagesOverlay =

@@ -54,7 +54,9 @@
 }:
 
 let
-  pythonForDocs = python3.pythonOnBuildForHost.withPackages (pkgs: with pkgs; [ pygobject3 ]);
+  pythonForDocs = python3.pythonOnBuildForHost.withPackages (
+    pkgs: with pkgs; [ pygobject3 ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "networkmanager";
@@ -169,24 +171,28 @@ stdenv.mkDerivation rec {
     libgcrypt
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    gettext
-    pkg-config
-    vala
-    gobject-introspection
-    perl
-    elfutils # used to find jansson soname
-    # Docs
-    gtk-doc
-    libxslt
-    docbook_xsl
-    docbook_xml_dtd_412
-    docbook_xml_dtd_42
-    docbook_xml_dtd_43
-    pythonForDocs
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      gettext
+      pkg-config
+      vala
+      gobject-introspection
+      perl
+      elfutils # used to find jansson soname
+      # Docs
+      gtk-doc
+      libxslt
+      docbook_xsl
+      docbook_xml_dtd_412
+      docbook_xml_dtd_42
+      docbook_xml_dtd_43
+      pythonForDocs
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   doCheck = false; # requires /sys, the net
 

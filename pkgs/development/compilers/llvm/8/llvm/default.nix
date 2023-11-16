@@ -18,7 +18,9 @@
   zlib,
   buildLlvmTools,
   debugVersion ? false,
-  doCheck ? stdenv.isLinux && (!stdenv.isx86_32) && (stdenv.hostPlatform == stdenv.buildPlatform),
+  doCheck ? stdenv.isLinux
+    && (!stdenv.isx86_32)
+    && (stdenv.hostPlatform == stdenv.buildPlatform),
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
   # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
@@ -31,7 +33,8 @@ let
   inherit (lib) optional optionals optionalString;
 
   # Used when creating a version-suffixed symlink of libLLVM.dylib
-  shortVersion = with lib; concatStringsSep "." (take 1 (splitVersion release_version));
+  shortVersion =
+    with lib; concatStringsSep "." (take 1 (splitVersion release_version));
 
   # Ordinarily we would just the `doCheck` and `checkDeps` functionality
   # `mkDerivation` gives us to manage our test dependencies (instead of breaking
@@ -65,7 +68,9 @@ stdenv.mkDerivation (
     inherit version;
 
     src = fetch "llvm" "1rvm5gqp5v8hfn17kqws3zhk94w4kxndal12bqa0y57p09nply24";
-    polly_src = fetch "polly" "1lfjdz3ilj5xmjxvicd8f5ykybks67ry2pdb777352r3mzlgg8g8";
+    polly_src =
+      fetch "polly"
+        "1lfjdz3ilj5xmjxvicd8f5ykybks67ry2pdb777352r3mzlgg8g8";
 
     unpackPhase =
       ''
@@ -240,7 +245,9 @@ stdenv.mkDerivation (
         "-DSPHINX_OUTPUT_HTML=OFF"
         "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
       ]
-      ++ optionals (enableGoldPlugin) [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ]
+      ++ optionals (enableGoldPlugin) [
+        "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
+      ]
       ++ optionals (isDarwin) [
         "-DLLVM_ENABLE_LIBCXX=ON"
         "-DCAN_TARGET_i386=false"

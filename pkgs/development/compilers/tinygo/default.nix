@@ -100,7 +100,11 @@ buildGoModule rec {
 
   allowGoReference = true;
   tags = [ "llvm${llvmMajor}" ];
-  ldflags = [ "-X github.com/tinygo-org/tinygo/goenv.TINYGOROOT=${placeholder "out"}/share/tinygo" ];
+  ldflags = [
+    "-X github.com/tinygo-org/tinygo/goenv.TINYGOROOT=${
+      placeholder "out"
+    }/share/tinygo"
+  ];
   subPackages = [ "." ];
 
   # Output contains static libraries for different arm cpus

@@ -42,7 +42,9 @@ let
       };
       description = mkOption {
         type = types.str;
-        description = lib.mdDoc "A short description of the endpoint you want to advertise";
+        description =
+          lib.mdDoc
+            "A short description of the endpoint you want to advertise";
       };
     };
   };
@@ -107,7 +109,9 @@ let
     pep = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc "Enables users to publish their mood, activity, playing music and more";
+      description =
+        lib.mdDoc
+          "Enables users to publish their mood, activity, playing music and more";
     };
 
     private = mkOption {
@@ -131,7 +135,9 @@ let
     vcard_legacy = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc "Converts users profiles and Avatars between old and new formats";
+      description =
+        lib.mdDoc
+          "Converts users profiles and Avatars between old and new formats";
     };
 
     bookmarks = mkOption {
@@ -178,20 +184,26 @@ let
     mam = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc "Store messages in an archive and allow users to access it";
+      description =
+        lib.mdDoc
+          "Store messages in an archive and allow users to access it";
     };
 
     smacks = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc "Allow a client to resume a disconnected session, and prevent message loss";
+      description =
+        lib.mdDoc
+          "Allow a client to resume a disconnected session, and prevent message loss";
     };
 
     # Admin interfaces
     admin_adhoc = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc "Allows administration via an XMPP client that supports ad-hoc commands";
+      description =
+        lib.mdDoc
+          "Allows administration via an XMPP client that supports ad-hoc commands";
     };
 
     http_files = mkOption {
@@ -203,7 +215,9 @@ let
     proxy65 = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc "Enables a file transfer proxy service which clients behind NAT can use";
+      description =
+        lib.mdDoc
+          "Enables a file transfer proxy service which clients behind NAT can use";
     };
 
     admin_telnet = mkOption {
@@ -271,7 +285,9 @@ let
     legacyauth = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc "Legacy authentication. Only used by some old clients and bots";
+      description =
+        lib.mdDoc
+          "Legacy authentication. Only used by some old clients and bots";
     };
   };
 
@@ -294,7 +310,9 @@ let
       key = "${o.key}";
       certificate = "${o.cert}";
       ${
-        concatStringsSep "\n" (mapAttrsToList (name: value: "${name} = ${toLua value};") o.extraOptions)
+        concatStringsSep "\n" (
+          mapAttrsToList (name: value: "${name} = ${toLua value};") o.extraOptions
+        )
       }
     };
   '';
@@ -327,7 +345,9 @@ let
         maxHistoryMessages = mkOption {
           type = types.int;
           default = 20;
-          description = lib.mdDoc "Specifies a limit on what each room can be configured to keep";
+          description =
+            lib.mdDoc
+              "Specifies a limit on what each room can be configured to keep";
         };
         roomLocking = mkOption {
           type = types.bool;
@@ -372,7 +392,9 @@ let
         vcard_muc = mkOption {
           type = types.bool;
           default = true;
-          description = lib.mdDoc "Adds the ability to set vCard for Multi User Chat rooms";
+          description =
+            lib.mdDoc
+              "Adds the ability to set vCard for Multi User Chat rooms";
         };
 
         # Extra parameters. Defaulting to prosody default values.
@@ -388,7 +410,9 @@ let
         roomDefaultMembersOnly = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc "If set, the MUC rooms will only be accessible to the members by default.";
+          description =
+            lib.mdDoc
+              "If set, the MUC rooms will only be accessible to the members by default.";
         };
         roomDefaultModerated = mkOption {
           type = types.bool;
@@ -398,17 +422,23 @@ let
         roomDefaultPublicJids = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc "If set, the MUC rooms will display the public JIDs by default.";
+          description =
+            lib.mdDoc
+              "If set, the MUC rooms will display the public JIDs by default.";
         };
         roomDefaultChangeSubject = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc "If set, the rooms will display the public JIDs by default.";
+          description =
+            lib.mdDoc
+              "If set, the rooms will display the public JIDs by default.";
         };
         roomDefaultHistoryLength = mkOption {
           type = types.int;
           default = 20;
-          description = lib.mdDoc "Number of history message sent to participants by default.";
+          description =
+            lib.mdDoc
+              "Number of history message sent to participants by default.";
         };
         roomDefaultLanguage = mkOption {
           type = types.str;
@@ -853,12 +883,16 @@ in
               lib.mapAttrsToList (name: val: optionalString val "${toLua name};") cfg.modules
             )
           }
-          ${lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.package.communityModules)}
+          ${
+            lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.package.communityModules)
+          }
           ${lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.extraModules)}
         };
 
         disco_items = {
-        ${lib.concatStringsSep "\n" (builtins.map (x: ''{ "${x.url}", "${x.description}"};'') discoItems)}
+        ${lib.concatStringsSep "\n" (
+          builtins.map (x: ''{ "${x.url}", "${x.description}"};'') discoItems
+        )}
         };
 
         allow_registration = ${toLua cfg.allowRegistration}
@@ -888,7 +922,9 @@ in
         ${lib.concatMapStrings
           (muc: ''
             Component ${toLua muc.domain} "muc"
-                modules_enabled = { "muc_mam"; ${optionalString muc.vcard_muc ''"vcard_muc";''} }
+                modules_enabled = { "muc_mam"; ${
+                  optionalString muc.vcard_muc ''"vcard_muc";''
+                } }
                 name = ${toLua muc.name}
                 restrict_room_creation = ${toLua muc.restrictRoomCreation}
                 max_history_messages = ${toLua muc.maxHistoryMessages}
@@ -938,7 +974,9 @@ in
       home = cfg.dataDir;
     };
 
-    users.groups.prosody = mkIf (cfg.group == "prosody") { gid = config.ids.gids.prosody; };
+    users.groups.prosody = mkIf (cfg.group == "prosody") {
+      gid = config.ids.gids.prosody;
+    };
 
     systemd.services.prosody = {
       description = "Prosody XMPP server";

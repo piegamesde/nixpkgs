@@ -114,8 +114,11 @@ in
               ++ optional cfg.compression.enable "--compress"
               ++
 
-                optional (cfg.retention.size != null) "--store-size-limit ${toString cfg.retention.size}"
-              ++ optional (cfg.retention.time != null) "--retain-for-s ${toString cfg.retention.time}"
+                optional (cfg.retention.size != null)
+                  "--store-size-limit ${toString cfg.retention.size}"
+              ++
+                optional (cfg.retention.time != null)
+                  "--retain-for-s ${toString cfg.retention.time}"
             ))
           )
         ];

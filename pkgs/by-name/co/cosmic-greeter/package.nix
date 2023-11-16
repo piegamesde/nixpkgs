@@ -55,7 +55,9 @@ rustPlatform.buildRustPackage rec {
     (placeholder "out")
     "--set"
     "bin-src"
-    "target/${rust.lib.toRustTargetSpecShort stdenv.hostPlatform}/release/cosmic-greeter"
+    "target/${
+      rust.lib.toRustTargetSpecShort stdenv.hostPlatform
+    }/release/cosmic-greeter"
   ];
 
   meta = with lib; {

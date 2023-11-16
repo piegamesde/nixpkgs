@@ -47,7 +47,8 @@ let
 
   pname = if enableNpm then "nodejs" else "nodejs-slim";
 
-  useSharedHttpParser = !stdenv.isDarwin && lib.versionOlder "${majorVersion}.${minorVersion}" "11.4";
+  useSharedHttpParser =
+    !stdenv.isDarwin && lib.versionOlder "${majorVersion}.${minorVersion}" "11.4";
 
   sharedLibDeps = {
     inherit openssl zlib libuv;
@@ -158,7 +159,9 @@ let
             throw "unsupported cpu ${stdenv.hostPlatform.uname.processor}"
         }"
       ])
-      ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "fpu" gcc) [ "--with-arm-fpu=${gcc.fpu}" ])
+      ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "fpu" gcc) [
+        "--with-arm-fpu=${gcc.fpu}"
+      ])
       ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "float-abi" gcc) [
         "--with-arm-float-abi=${gcc.float-abi}"
       ])
@@ -298,7 +301,9 @@ let
       #
       # We may be missing something here, but it doesn’t look like it is
       # possible to cross-compile between different operating systems.
-      broken = stdenv.buildPlatform.parsed.kernel.name != stdenv.hostPlatform.parsed.kernel.name;
+      broken =
+        stdenv.buildPlatform.parsed.kernel.name
+        != stdenv.hostPlatform.parsed.kernel.name;
     };
 
     passthru.python = python; # to ensure nodeEnv uses the same version

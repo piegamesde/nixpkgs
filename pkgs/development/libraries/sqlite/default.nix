@@ -31,7 +31,9 @@ stdenv.mkDerivation rec {
   # nixpkgs-update: no auto update
   # NB! Make sure to update ./tools.nix src (in the same directory).
   src = fetchurl {
-    url = "https://sqlite.org/2023/sqlite-autoconf-${archiveVersion version}.tar.gz";
+    url = "https://sqlite.org/2023/sqlite-autoconf-${
+        archiveVersion version
+      }.tar.gz";
     hash = "sha256-ORFslOdmMPItVM2Cw86jCFZfFxX3FtGyUn8cnJabpNk=";
   };
 
@@ -54,7 +56,9 @@ stdenv.mkDerivation rec {
     patchShebangs configure
   '';
 
-  configureFlags = [ "--enable-threadsafe" ] ++ lib.optional interactive "--enable-readline";
+  configureFlags = [
+    "--enable-threadsafe"
+  ] ++ lib.optional interactive "--enable-readline";
 
   env.NIX_CFLAGS_COMPILE = toString (
     [
@@ -127,7 +131,9 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    changelog = "https://www.sqlite.org/releaselog/${lib.replaceStrings [ "." ] [ "_" ] version}.html";
+    changelog = "https://www.sqlite.org/releaselog/${
+        lib.replaceStrings [ "." ] [ "_" ] version
+      }.html";
     description = "A self-contained, serverless, zero-configuration, transactional SQL database engine";
     downloadPage = "https://sqlite.org/download.html";
     homepage = "https://www.sqlite.org/";

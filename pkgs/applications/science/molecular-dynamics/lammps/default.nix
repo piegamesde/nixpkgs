@@ -71,14 +71,18 @@ stdenv.mkDerivation (
     passthru = {
       # Remove these at some point - perhaps after release 23.11. See discussion at:
       # https://github.com/NixOS/nixpkgs/pull/238771#discussion_r1235459961
-      mpi = throw "`lammps-mpi.passthru.mpi` was removed in favor of `extraBuildInputs`";
+      mpi =
+        throw
+          "`lammps-mpi.passthru.mpi` was removed in favor of `extraBuildInputs`";
       inherit packages;
       inherit extraCmakeFlags;
       inherit extraBuildInputs;
     };
     cmakeFlags =
       [ ]
-      ++ (builtins.map (p: "-DPKG_${p}=ON") (builtins.attrNames (lib.filterAttrs (n: v: v) packages)))
+      ++ (builtins.map (p: "-DPKG_${p}=ON") (
+        builtins.attrNames (lib.filterAttrs (n: v: v) packages)
+      ))
       ++ (lib.mapAttrsToList (n: v: "-D${n}=${v}") extraCmakeFlags);
 
     buildInputs = [

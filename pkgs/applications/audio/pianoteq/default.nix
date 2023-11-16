@@ -27,7 +27,10 @@ let
       startupWMClass,
       src,
       version,
-      archdir ? if (stdenv.hostPlatform.system == "aarch64-linux") then "arm-64bit" else "x86-64bit",
+      archdir ? if (stdenv.hostPlatform.system == "aarch64-linux") then
+        "arm-64bit"
+      else
+        "x86-64bit",
       ...
     }:
     stdenv.mkDerivation rec {
@@ -91,7 +94,9 @@ let
             }
           fi
         done
-        install -Dm644 ${./pianoteq.svg} $out/share/icons/hicolor/scalable/apps/pianoteq.svg
+        install -Dm644 ${
+          ./pianoteq.svg
+        } $out/share/icons/hicolor/scalable/apps/pianoteq.svg
         for size in 16 22 32 48 64 128 256; do
           dir=$out/share/icons/hicolor/"$size"x"$size"/apps
           mkdir -p $dir

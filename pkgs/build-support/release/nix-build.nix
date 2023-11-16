@@ -152,7 +152,10 @@ stdenv.mkDerivation (
 
     meta = (lib.optionalAttrs (args ? meta) args.meta) // {
       description =
-        if doCoverageAnalysis then "Coverage analysis" else "Nix package for ${stdenv.hostPlatform.system}";
+        if doCoverageAnalysis then
+          "Coverage analysis"
+        else
+          "Nix package for ${stdenv.hostPlatform.system}";
     };
   }
 

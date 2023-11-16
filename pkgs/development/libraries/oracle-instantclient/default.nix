@@ -110,7 +110,9 @@ let
     map
       (
         component:
-        (fetcher (srcFilename component arch version rels.${component} or "") hashes.${component} or "")
+        (fetcher (srcFilename component arch version rels.${component} or "")
+          hashes.${component} or ""
+        )
       )
       components;
 
@@ -124,10 +126,13 @@ stdenv.mkDerivation {
     stdenv.cc.cc.lib
   ] ++ optional stdenv.isLinux libaio ++ optional odbcSupport unixODBC;
 
-  nativeBuildInputs = [
-    makeWrapper
-    unzip
-  ] ++ optional stdenv.isLinux autoPatchelfHook ++ optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs =
+    [
+      makeWrapper
+      unzip
+    ]
+    ++ optional stdenv.isLinux autoPatchelfHook
+    ++ optional stdenv.isDarwin fixDarwinDylibNames;
 
   outputs = [
     "out"

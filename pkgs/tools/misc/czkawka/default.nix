@@ -54,7 +54,8 @@ rustPlatform.buildRustPackage rec {
     runHook postCheck
   '';
 
-  doCheck = stdenv.hostPlatform.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform);
+  doCheck =
+    stdenv.hostPlatform.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform);
 
   passthru.tests.version = testers.testVersion {
     package = czkawka;

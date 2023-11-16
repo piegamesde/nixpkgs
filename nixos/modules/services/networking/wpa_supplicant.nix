@@ -11,7 +11,10 @@ with lib;
 
 let
   package =
-    if cfg.allowAuxiliaryImperativeNetworks then pkgs.wpa_supplicant_ro_ssids else pkgs.wpa_supplicant;
+    if cfg.allowAuxiliaryImperativeNetworks then
+      pkgs.wpa_supplicant_ro_ssids
+    else
+      pkgs.wpa_supplicant;
 
   cfg = config.networking.wireless;
   opt = options.networking.wireless;
@@ -37,15 +40,20 @@ let
     };
 
   # Creates a WPA2 fallback network
-  mkWPA2Fallback = opts: opts // { authProtocols = subtractLists wpa3Protocols opts.authProtocols; };
+  mkWPA2Fallback =
+    opts:
+    opts // { authProtocols = subtractLists wpa3Protocols opts.authProtocols; };
 
   # Networks attrset as a list
-  networkList = mapAttrsToList (ssid: opts: opts // { inherit ssid; }) cfg.networks;
+  networkList =
+    mapAttrsToList (ssid: opts: opts // { inherit ssid; })
+      cfg.networks;
 
   # List of all networks (normal + generated fallbacks)
   allNetworks =
     if cfg.fallbackToWPA2 then
-      map increaseWPA3Priority networkList ++ map mkWPA2Fallback (filter hasMixedWPA networkList)
+      map increaseWPA3Priority networkList
+      ++ map mkWPA2Fallback (filter hasMixedWPA networkList)
     else
       networkList;
 
@@ -64,7 +72,8 @@ let
     ++ optional (cfg.extraConfig != "") cfg.extraConfig
   );
 
-  configIsGenerated = with cfg; networks != { } || extraConfig != "" || userControlled.enable;
+  configIsGenerated =
+    with cfg; networks != { } || extraConfig != "" || userControlled.enable;
 
   # the original configuration file
   configFile =
@@ -96,7 +105,9 @@ let
         ]
         ++ optional opts.hidden "scan_ssid=1"
         ++ optional (pskString != null) "psk=${pskString}"
-        ++ optionals (opts.auth != null) (filter (x: x != "") (splitString "\n" opts.auth))
+        ++ optionals (opts.auth != null) (
+          filter (x: x != "") (splitString "\n" opts.auth)
+        )
         ++ optional (opts.priority != null) "priority=${toString opts.priority}"
         ++ optional (opts.extraConfig != "") opts.extraConfig;
     in
@@ -120,7 +131,9 @@ let
           "-c ${finalConfig}";
     in
     {
-      description = "WPA Supplicant instance" + optionalString (iface != null) " for interface ${iface}";
+      description =
+        "WPA Supplicant instance"
+        + optionalString (iface != null) " for interface ${iface}";
 
       after = deviceUnit;
       before = [ "network.target" ];
@@ -154,7 +167,9 @@ let
           touch "${finalConfig}"
         fi
 
-        iface_args="-s ${optionalString cfg.dbusControlled "-u"} -D${cfg.driver} ${configStr}"
+        iface_args="-s ${
+          optionalString cfg.dbusControlled "-u"
+        } -D${cfg.driver} ${configStr}"
 
         ${if iface == null then
           ''
@@ -533,7 +548,8 @@ in
               pskRaw
               auth
             ] <= 1;
-          message = ''options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
+          message = ''
+            options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
         }
       )
       ++ [
@@ -571,7 +587,9 @@ in
       if cfg.interfaces == [ ] then
         { wpa_supplicant = mkUnit null; }
       else
-        listToAttrs (map (i: nameValuePair "wpa_supplicant-${i}" (mkUnit i)) cfg.interfaces);
+        listToAttrs (
+          map (i: nameValuePair "wpa_supplicant-${i}" (mkUnit i)) cfg.interfaces
+        );
 
     # Restart wpa_supplicant after resuming from sleep
     powerManagement.resumeCommands = concatStringsSep "\n" (

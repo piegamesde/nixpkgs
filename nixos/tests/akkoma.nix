@@ -20,14 +20,17 @@ import ./make-test-python.nix (
       pleroma_ctl user new jamy jamy@nixos.test --password '${userPassword}' --moderator --admin -y
     '';
 
-    tlsCert = pkgs.runCommand "selfSignedCerts" { nativeBuildInputs = with pkgs; [ openssl ]; } ''
-      mkdir -p $out
-      openssl req -x509 \
-        -subj '/CN=akkoma.nixos.test/' -days 49710 \
-        -addext 'subjectAltName = DNS:akkoma.nixos.test' \
-        -keyout "$out/key.pem" -newkey ed25519 \
-        -out "$out/cert.pem" -noenc
-    '';
+    tlsCert =
+      pkgs.runCommand "selfSignedCerts"
+        { nativeBuildInputs = with pkgs; [ openssl ]; }
+        ''
+          mkdir -p $out
+          openssl req -x509 \
+            -subj '/CN=akkoma.nixos.test/' -days 49710 \
+            -addext 'subjectAltName = DNS:akkoma.nixos.test' \
+            -keyout "$out/key.pem" -newkey ed25519 \
+            -out "$out/cert.pem" -noenc
+        '';
 
     sendToot = pkgs.writers.writeBashBin "sendToot" ''
       set -eu -o errtrace -o pipefail

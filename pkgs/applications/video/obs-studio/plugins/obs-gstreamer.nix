@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
   passthru.obsWrapperArguments =
     let
       gstreamerHook =
-        package: "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${lib.getLib package}/lib/gstreamer-1.0";
+        package:
+        "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${lib.getLib package}/lib/gstreamer-1.0";
     in
     with gst_all_1;
     builtins.map gstreamerHook [

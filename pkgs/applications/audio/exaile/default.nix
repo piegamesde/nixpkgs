@@ -91,7 +91,9 @@ stdenv.mkDerivation rec {
     ++ lib.optional lastfmSupport python3.pkgs.pylast
     ++ lib.optional lyricsManiaSupport python3.pkgs.lxml
     ++ lib.optional multimediaKeySupport keybinder3
-    ++ lib.optional (musicBrainzSupport || cdMetadataSupport) python3.pkgs.musicbrainzngs
+    ++
+      lib.optional (musicBrainzSupport || cdMetadataSupport)
+        python3.pkgs.musicbrainzngs
     ++ lib.optional podcastSupport python3.pkgs.feedparser
     ++ lib.optional wikipediaSupport webkitgtk;
 
@@ -110,7 +112,9 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/exaile \
       --set PYTHONPATH $PYTHONPATH \
       --prefix PATH : ${
-        lib.makeBinPath ([ python3 ] ++ lib.optionals streamripperSupport [ streamripper ])
+        lib.makeBinPath (
+          [ python3 ] ++ lib.optionals streamripperSupport [ streamripper ]
+        )
       }
   '';
 

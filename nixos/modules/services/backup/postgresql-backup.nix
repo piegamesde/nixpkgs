@@ -173,13 +173,23 @@ in
         {
           assertion =
             cfg.compression == "none"
-            || (cfg.compression == "gzip" && cfg.compressionLevel >= 1 && cfg.compressionLevel <= 9)
-            || (cfg.compression == "zstd" && cfg.compressionLevel >= 1 && cfg.compressionLevel <= 19);
+            || (
+              cfg.compression == "gzip"
+              && cfg.compressionLevel >= 1
+              && cfg.compressionLevel <= 9
+            )
+            || (
+              cfg.compression == "zstd"
+              && cfg.compressionLevel >= 1
+              && cfg.compressionLevel <= 19
+            );
           message = "config.services.postgresqlBackup.compressionLevel must be set between 1 and 9 for gzip and 1 and 19 for zstd";
         }
       ];
     }
-    (mkIf cfg.enable { systemd.tmpfiles.rules = [ "d '${cfg.location}' 0700 postgres - - -" ]; })
+    (mkIf cfg.enable {
+      systemd.tmpfiles.rules = [ "d '${cfg.location}' 0700 postgres - - -" ];
+    })
     (mkIf (cfg.enable && cfg.backupAll) {
       systemd.services.postgresqlBackup = postgresqlBackupService "all" "pg_dumpall";
     })

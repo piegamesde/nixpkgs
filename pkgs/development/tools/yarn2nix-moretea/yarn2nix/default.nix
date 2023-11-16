@@ -24,7 +24,11 @@ let
   # https://docs.npmjs.com/files/package.json#license
   # TODO: support expression syntax (OR, AND, etc)
   getLicenseFromSpdxId =
-    licstr: if licstr == "UNLICENSED" then lib.licenses.unfree else lib.getLicenseFromSpdxId licstr;
+    licstr:
+    if licstr == "UNLICENSED" then
+      lib.licenses.unfree
+    else
+      lib.getLicenseFromSpdxId licstr;
 in
 rec {
   # Export yarn again to make it easier to find out which yarn was used.
@@ -96,9 +100,9 @@ rec {
       packageResolutions ? { },
     }:
     let
-      extraNativeBuildInputs = lib.concatMap (key: pkgConfig.${key}.nativeBuildInputs or [ ]) (
-        builtins.attrNames pkgConfig
-      );
+      extraNativeBuildInputs =
+        lib.concatMap (key: pkgConfig.${key}.nativeBuildInputs or [ ])
+          (builtins.attrNames pkgConfig);
       extraBuildInputs = lib.concatMap (key: pkgConfig.${key}.buildInputs or [ ]) (
         builtins.attrNames pkgConfig
       );
@@ -184,7 +188,9 @@ rec {
         ${workspaceDependencyLinks}
 
         yarn install ${
-          lib.escapeShellArgs (defaultYarnFlags ++ lib.optional ignoreScripts "--ignore-scripts" ++ yarnFlags)
+          lib.escapeShellArgs (
+            defaultYarnFlags ++ lib.optional ignoreScripts "--ignore-scripts" ++ yarnFlags
+          )
         }
 
         ${lib.concatStringsSep "\n" postInstall}
@@ -223,7 +229,10 @@ rec {
       package = lib.importJSON packageJSON;
 
       packageGlobs =
-        if lib.isList package.workspaces then package.workspaces else package.workspaces.packages;
+        if lib.isList package.workspaces then
+          package.workspaces
+        else
+          package.workspaces.packages;
 
       packageResolutions = package.resolutions or { };
 
@@ -242,12 +251,15 @@ rec {
           children = lib.attrNames (
             lib.filterAttrs (name: type: type == "directory") (builtins.readDir base)
           );
-          matchingChildren = lib.filter (child: builtins.match elemRegex child != null) children;
+          matchingChildren =
+            lib.filter (child: builtins.match elemRegex child != null)
+              children;
         in
         if globElems == [ ] then
           [ base ]
         else
-          lib.concatMap (child: expandGlobList (base + ("/" + child)) rest) matchingChildren;
+          lib.concatMap (child: expandGlobList (base + ("/" + child)) rest)
+            matchingChildren;
 
       # Path -> PathGlob -> [Path]
       expandGlob = base: glob: expandGlobList base (splitGlob glob);
@@ -280,7 +292,8 @@ rec {
                   [
                     (lib.filter (x: x != null))
                     (lib.mapAttrsToList (
-                      pname: _version: lib.findFirst (package: package.pname == pname) null packageList
+                      pname: _version:
+                      lib.findFirst (package: package.pname == pname) null packageList
                     ))
                   ]
                   allDependencies;
@@ -341,7 +354,9 @@ rec {
       baseName = unlessNull name "${safeName}-${version}";
 
       workspaceDependenciesTransitive = lib.unique (
-        (lib.flatten (builtins.map (dep: dep.workspaceDependencies) workspaceDependencies))
+        (lib.flatten (
+          builtins.map (dep: dep.workspaceDependencies) workspaceDependencies
+        ))
         ++ workspaceDependencies
       );
 
@@ -461,7 +476,9 @@ rec {
             mv node_modules $out/libexec/${package.name}/node_modules
             mv deps $out/libexec/${package.name}/deps
 
-            node ${./internal/fixup_bin.js} $out/bin $out/libexec/${package.name}/node_modules ${
+            node ${
+              ./internal/fixup_bin.js
+            } $out/bin $out/libexec/${package.name}/node_modules ${
               lib.concatStringsSep " " publishBinsFor_
             }
 
@@ -490,7 +507,9 @@ rec {
           }
           // lib.optionalAttrs (package ? description) { inherit (package) description; }
           // lib.optionalAttrs (package ? homepage) { inherit (package) homepage; }
-          // lib.optionalAttrs (package ? license) { license = getLicenseFromSpdxId package.license; }
+          // lib.optionalAttrs (package ? license) {
+            license = getLicenseFromSpdxId package.license;
+          }
           // (attrs.meta or { });
       }
     );
@@ -563,15 +582,17 @@ rec {
     '';
   };
 
-  fixup_yarn_lock = runCommandLocal "fixup_yarn_lock" { buildInputs = [ nodejs ]; } ''
-    mkdir -p $out/lib
-    mkdir -p $out/bin
+  fixup_yarn_lock =
+    runCommandLocal "fixup_yarn_lock" { buildInputs = [ nodejs ]; }
+      ''
+        mkdir -p $out/lib
+        mkdir -p $out/bin
 
-    cp ${./lib/urlToName.js} $out/lib/urlToName.js
-    cp ${./internal/fixup_yarn_lock.js} $out/bin/fixup_yarn_lock
+        cp ${./lib/urlToName.js} $out/lib/urlToName.js
+        cp ${./internal/fixup_yarn_lock.js} $out/bin/fixup_yarn_lock
 
-    patchShebangs $out
-  '';
+        patchShebangs $out
+      '';
 }
 // lib.optionalAttrs allowAliases {
   # Aliases

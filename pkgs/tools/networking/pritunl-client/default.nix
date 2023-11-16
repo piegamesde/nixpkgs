@@ -84,12 +84,14 @@ let
             systemd
             iproute2
           ];
-        openvpn-wrapped = runCommand "openvpn-wrapped" { nativeBuildInputs = [ makeWrapper ]; } ''
-          mkdir -p $out/bin
-          makeWrapper ${openvpn}/bin/openvpn $out/bin/openvpn \
-            --prefix PATH : ${lib.makeBinPath hookScriptsDeps} \
-            --add-flags "--setenv PATH \$PATH"
-        '';
+        openvpn-wrapped =
+          runCommand "openvpn-wrapped" { nativeBuildInputs = [ makeWrapper ]; }
+            ''
+              mkdir -p $out/bin
+              makeWrapper ${openvpn}/bin/openvpn $out/bin/openvpn \
+                --prefix PATH : ${lib.makeBinPath hookScriptsDeps} \
+                --add-flags "--setenv PATH \$PATH"
+            '';
       in
       lib.optionalString stdenv.isLinux ''
         wrapProgram $out/bin/pritunl-client-service \

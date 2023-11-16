@@ -16,7 +16,9 @@
 
   weechat-grep = callPackage ./weechat-grep { };
 
-  weechat-matrix-bridge = callPackage ./weechat-matrix-bridge { inherit (luaPackages) cjson luaffi; };
+  weechat-matrix-bridge = callPackage ./weechat-matrix-bridge {
+    inherit (luaPackages) cjson luaffi;
+  };
 
   weechat-matrix = python3Packages.callPackage ./weechat-matrix { };
 

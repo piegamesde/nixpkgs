@@ -67,7 +67,9 @@ buildPythonPackage (
         pythonPackages.setuptools
       ]
       ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ qtdeclarative ]
-      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+        autoSignDarwinBinariesHook
+      ];
 
     buildInputs =
       [
@@ -106,7 +108,9 @@ buildPythonPackage (
       description = "Python bindings for Qt5";
       homepage = "http://www.riverbankcomputing.co.uk";
       license = licenses.gpl3;
-      hydraPlatforms = lib.lists.intersectLists qtwebengine.meta.platforms platforms.mesaPlatforms;
+      hydraPlatforms =
+        lib.lists.intersectLists qtwebengine.meta.platforms
+          platforms.mesaPlatforms;
     };
   }
   // lib.optionalAttrs (stdenv.buildPlatform != stdenv.hostPlatform) {

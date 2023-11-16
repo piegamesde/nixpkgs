@@ -54,7 +54,9 @@ in
   meta.maintainers = with lib.maintainers; [ adamcstephens ];
 
   options = {
-    virtualisation.lxd.agent.enable = lib.mkEnableOption (lib.mdDoc "Enable LXD agent");
+    virtualisation.lxd.agent.enable = lib.mkEnableOption (
+      lib.mdDoc "Enable LXD agent"
+    );
   };
 
   config = lib.mkIf cfg.enable {

@@ -14,7 +14,9 @@ let
   loopback = cfg.jackd.enable && cfg.loopback.enable;
 
   enable32BitAlsaPlugins =
-    cfg.alsa.support32Bit && pkgs.stdenv.isx86_64 && pkgs.pkgsi686Linux.alsa-lib != null;
+    cfg.alsa.support32Bit
+    && pkgs.stdenv.isx86_64
+    && pkgs.pkgsi686Linux.alsa-lib != null;
 
   umaskNeeded = versionOlder cfg.jackd.package.version "1.9.12";
   bridgeNeeded = versionAtLeast cfg.jackd.package.version "1.9.12";
@@ -263,9 +265,12 @@ in
         serviceConfig = {
           User = "jackaudio";
           SupplementaryGroups =
-            lib.optional (config.hardware.pulseaudio.enable && !config.hardware.pulseaudio.systemWide)
+            lib.optional
+              (config.hardware.pulseaudio.enable && !config.hardware.pulseaudio.systemWide)
               "users";
-          ExecStart = "${cfg.jackd.package}/bin/jackd ${lib.escapeShellArgs cfg.jackd.extraOptions}";
+          ExecStart = "${cfg.jackd.package}/bin/jackd ${
+              lib.escapeShellArgs cfg.jackd.extraOptions
+            }";
           LimitRTPRIO = 99;
           LimitMEMLOCK = "infinity";
         } // optionalAttrs umaskNeeded { UMask = "007"; };

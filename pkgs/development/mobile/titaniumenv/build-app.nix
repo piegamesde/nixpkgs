@@ -37,7 +37,10 @@
 }@args:
 
 assert (release && target == "android")
-  -> androidKeyStore != null && androidKeyAlias != null && androidKeyStorePassword != null;
+  ->
+    androidKeyStore != null
+    && androidKeyAlias != null
+    && androidKeyStorePassword != null;
 assert (release && target == "iphone")
   ->
     iosMobileProvisioningProfile != null

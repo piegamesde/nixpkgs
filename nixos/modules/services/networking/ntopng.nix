@@ -106,7 +106,9 @@ in
 
       redis.createInstance = mkOption {
         type = types.nullOr types.str;
-        default = optionalString (versionAtLeast config.system.stateVersion "22.05") "ntopng";
+        default =
+          optionalString (versionAtLeast config.system.stateVersion "22.05")
+            "ntopng";
         description = lib.mdDoc ''
           Local Redis instance name. Set to `null` to disable
           local Redis instance. Defaults to `""` for

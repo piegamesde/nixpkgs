@@ -7,9 +7,12 @@
 }:
 let
 
-  makeXinePluginPath = l: lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l);
+  makeXinePluginPath =
+    l: lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l);
 
-  requiredXinePlugins = lib.flatten (map (p: p.passthru.requiredXinePlugins or [ ]) plugins);
+  requiredXinePlugins = lib.flatten (
+    map (p: p.passthru.requiredXinePlugins or [ ]) plugins
+  );
 in
 symlinkJoin {
 
@@ -22,12 +25,17 @@ symlinkJoin {
   postBuild = ''
     wrapProgram $out/bin/vdr \
       --add-flags "-L $out/lib/vdr --localedir=$out/share/locale" \
-      --prefix XINE_PLUGIN_PATH ":" ${lib.escapeShellArg (makeXinePluginPath requiredXinePlugins)}
+      --prefix XINE_PLUGIN_PATH ":" ${
+        lib.escapeShellArg (makeXinePluginPath requiredXinePlugins)
+      }
   '';
 
   meta = with vdr.meta; {
     inherit license homepage;
     description =
-      description + " (with plugins: " + lib.concatStringsSep ", " (map (x: "" + x.name) plugins) + ")";
+      description
+      + " (with plugins: "
+      + lib.concatStringsSep ", " (map (x: "" + x.name) plugins)
+      + ")";
   };
 }

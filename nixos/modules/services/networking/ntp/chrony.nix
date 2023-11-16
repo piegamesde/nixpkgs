@@ -18,18 +18,28 @@ let
 
   configFile = pkgs.writeText "chrony.conf" ''
     ${concatMapStringsSep "\n"
-      (server: "server " + server + " " + cfg.serverOption + optionalString (cfg.enableNTS) " nts")
+      (
+        server:
+        "server "
+        + server
+        + " "
+        + cfg.serverOption
+        + optionalString (cfg.enableNTS) " nts"
+      )
       cfg.servers}
 
     ${optionalString (cfg.initstepslew.enabled && (cfg.servers != [ ]))
-      "initstepslew ${toString cfg.initstepslew.threshold} ${concatStringsSep " " cfg.servers}"}
+      "initstepslew ${toString cfg.initstepslew.threshold} ${
+        concatStringsSep " " cfg.servers
+      }"}
 
     driftfile ${driftFile}
     keyfile ${keyFile}
     ${optionalString (cfg.enableRTCTrimming) "rtcfile ${rtcFile}"}
     ${optionalString (cfg.enableNTS) "ntsdumpdir ${stateDir}"}
 
-    ${optionalString (cfg.enableRTCTrimming) "rtcautotrim ${builtins.toString cfg.autotrimThreshold}"}
+    ${optionalString (cfg.enableRTCTrimming)
+      "rtcautotrim ${builtins.toString cfg.autotrimThreshold}"}
     ${optionalString (!config.time.hardwareClockInLocalTime) "rtconutc"}
 
     ${cfg.extraConfig}
@@ -93,7 +103,8 @@ in
       enableMemoryLocking = mkOption {
         type = types.bool;
         default = config.environment.memoryAllocator.provider != "graphene-hardened";
-        defaultText = ''config.environment.memoryAllocator.provider != "graphene-hardened"'';
+        defaultText = ''
+          config.environment.memoryAllocator.provider != "graphene-hardened"'';
         description = lib.mdDoc ''
           Whether to add the `-m` flag to lock memory.
         '';
@@ -201,17 +212,23 @@ in
     services.timesyncd.enable = mkForce false;
 
     # If chrony controls and tracks the RTC, writing it externally causes clock error.
-    systemd.services.save-hwclock = lib.mkIf cfg.enableRTCTrimming { enable = lib.mkForce false; };
+    systemd.services.save-hwclock = lib.mkIf cfg.enableRTCTrimming {
+      enable = lib.mkForce false;
+    };
 
     systemd.services.systemd-timedated.environment = {
       SYSTEMD_TIMEDATED_NTP_SERVICES = "chronyd.service";
     };
 
-    systemd.tmpfiles.rules = [
-      "d ${stateDir} 0750 chrony chrony - -"
-      "f ${driftFile} 0640 chrony chrony - -"
-      "f ${keyFile} 0640 chrony chrony - -"
-    ] ++ lib.optionals cfg.enableRTCTrimming [ "f ${rtcFile} 0640 chrony chrony - -" ];
+    systemd.tmpfiles.rules =
+      [
+        "d ${stateDir} 0750 chrony chrony - -"
+        "f ${driftFile} 0640 chrony chrony - -"
+        "f ${keyFile} 0640 chrony chrony - -"
+      ]
+      ++ lib.optionals cfg.enableRTCTrimming [
+        "f ${rtcFile} 0640 chrony chrony - -"
+      ];
 
     systemd.services.chronyd = {
       description = "chrony NTP daemon";

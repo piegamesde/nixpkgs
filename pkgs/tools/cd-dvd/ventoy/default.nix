@@ -52,7 +52,8 @@ let
       aarch64-linux = "aarch64";
       mipsel-linux = "mips64el";
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported platform ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "Unsupported platform ${stdenv.hostPlatform.system}");
 in
 stdenv.mkDerivation (
   finalAttrs: {
@@ -79,10 +80,13 @@ stdenv.mkDerivation (
           WebUI/static/js/languages.js tool/languages.json
     '';
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      makeWrapper
-    ] ++ optional (withQt5 || withGtk3) copyDesktopItems ++ optional withQt5 wrapQtAppsHook;
+    nativeBuildInputs =
+      [
+        autoPatchelfHook
+        makeWrapper
+      ]
+      ++ optional (withQt5 || withGtk3) copyDesktopItems
+      ++ optional withQt5 wrapQtAppsHook;
 
     buildInputs =
       [

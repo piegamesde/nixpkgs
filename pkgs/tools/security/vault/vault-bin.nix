@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
   src =
     let
       inherit (stdenv.hostPlatform) system;
-      selectSystem = attrs: attrs.${system} or (throw "Unsupported system: ${system}");
+      selectSystem =
+        attrs: attrs.${system} or (throw "Unsupported system: ${system}");
       suffix = selectSystem {
         x86_64-linux = "linux_amd64";
         aarch64-linux = "linux_arm64";

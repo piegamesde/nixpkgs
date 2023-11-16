@@ -98,8 +98,12 @@ stdenv.mkDerivation rec {
       "--with-ssl=${openssl.dev}"
       "--with-gc=${boehmgc.dev}"
     ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "ac_cv_func_setpgrp_void=yes" ]
-    ++ lib.optional graphicsSupport "--enable-image=${lib.optionalString x11Support "x11,"}fb"
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      "ac_cv_func_setpgrp_void=yes"
+    ]
+    ++
+      lib.optional graphicsSupport
+        "--enable-image=${lib.optionalString x11Support "x11,"}fb"
     ++ lib.optional (graphicsSupport && !x11Support) "--without-x";
 
   preConfigure = ''

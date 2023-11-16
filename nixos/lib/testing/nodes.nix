@@ -32,7 +32,12 @@ let
         key = "nodes";
         _module.args.nodes = config.nodesCompat;
       }
-      ({ config, ... }: { virtualisation.qemu.package = testModuleArgs.config.qemu.package; })
+      (
+        { config, ... }:
+        {
+          virtualisation.qemu.package = testModuleArgs.config.qemu.package;
+        }
+      )
       (
         { options, ... }:
         {

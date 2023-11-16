@@ -75,7 +75,9 @@ import ./make-test-python.nix (
             ]
         }
 
-        response = requests.post("http://localhost:${toString port}/v1/logs", json=event)
+        response = requests.post("http://localhost:${
+          toString port
+        }/v1/logs", json=event)
         assert response.status_code == 200
         assert flag in machine.execute("journalctl -u opentelemetry-collector")[-1]
       '';

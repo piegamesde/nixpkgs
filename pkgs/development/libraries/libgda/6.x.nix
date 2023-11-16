@@ -75,14 +75,17 @@ stdenv.mkDerivation rec {
     yelp-tools
   ];
 
-  buildInputs = [
-    gtk3
-    json-glib
-    isocodes
-    openssl
-    libgee
-    sqlite
-  ] ++ lib.optionals mysqlSupport [ libmysqlclient ] ++ lib.optionals postgresSupport [ postgresql ];
+  buildInputs =
+    [
+      gtk3
+      json-glib
+      isocodes
+      openssl
+      libgee
+      sqlite
+    ]
+    ++ lib.optionals mysqlSupport [ libmysqlclient ]
+    ++ lib.optionals postgresSupport [ postgresql ];
 
   postPatch = ''
     patchShebangs \

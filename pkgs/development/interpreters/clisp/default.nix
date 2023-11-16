@@ -142,11 +142,14 @@ stdenv.mkDerivation {
   doCheck = true;
 
   postInstall = lib.optionalString (withModules != [ ]) (
-    ''./clisp-link add "$out"/lib/clisp*/base "$(dirname "$out"/lib/clisp*/base)"/full''
+    ''
+      ./clisp-link add "$out"/lib/clisp*/base "$(dirname "$out"/lib/clisp*/base)"/full''
     + lib.concatMapStrings (x: " " + x) withModules
   );
 
-  env.NIX_CFLAGS_COMPILE = "-O0 -falign-functions=${if stdenv.is64bit then "8" else "4"}";
+  env.NIX_CFLAGS_COMPILE = "-O0 -falign-functions=${
+      if stdenv.is64bit then "8" else "4"
+    }";
 
   meta = {
     description = "ANSI Common Lisp Implementation";

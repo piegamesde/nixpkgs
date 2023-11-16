@@ -50,7 +50,11 @@ let
       end
     '')
     + (optionalString
-      (cfg.roles.database.enable && cfg.roles.backup.enable && (!cfg.roles.backup.enableFabs))
+      (
+        cfg.roles.database.enable
+        && cfg.roles.backup.enable
+        && (!cfg.roles.backup.enableFabs)
+      )
       ''
         bnode simple buserver 1
         parm ${openafsSrv}/libexec/openafs/buserver ${cfg.roles.backup.buserverArgs} ${
@@ -60,10 +64,16 @@ let
       ''
     )
     + (optionalString
-      (cfg.roles.database.enable && cfg.roles.backup.enable && cfg.roles.backup.enableFabs)
+      (
+        cfg.roles.database.enable
+        && cfg.roles.backup.enable
+        && cfg.roles.backup.enableFabs
+      )
       ''
         bnode simple buserver 1
-        parm ${lib.getBin pkgs.fabs}/bin/fabsys server --config ${fabsConfFile} ${cfg.roles.backup.fabsArgs}
+        parm ${
+          lib.getBin pkgs.fabs
+        }/bin/fabsys server --config ${fabsConfFile} ${cfg.roles.backup.fabsArgs}
         end
       ''
     )
@@ -87,7 +97,8 @@ let
     mkCellServDB cfg.cellName cfg.roles.backup.cellServDB
   );
 
-  useBuCellServDB = (cfg.roles.backup.cellServDB != [ ]) && (!cfg.roles.backup.enableFabs);
+  useBuCellServDB =
+    (cfg.roles.backup.cellServDB != [ ]) && (!cfg.roles.backup.enableFabs);
 
   cfg = config.services.openafsServer;
 
@@ -133,7 +144,9 @@ in
       advertisedAddresses = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description = lib.mdDoc "List of IP addresses this server is advertised under. See NetInfo(5)";
+        description =
+          lib.mdDoc
+            "List of IP addresses this server is advertised under. See NetInfo(5)";
       };
 
       cellName = mkOption {
@@ -146,7 +159,9 @@ in
       cellServDB = mkOption {
         default = [ ];
         type = with types; listOf (submodule [ { options = cellServDBConfig; } ]);
-        description = lib.mdDoc "Definition of all cell-local database server machines.";
+        description =
+          lib.mdDoc
+            "Definition of all cell-local database server machines.";
       };
 
       package = mkOption {
@@ -161,33 +176,43 @@ in
           enable = mkOption {
             default = true;
             type = types.bool;
-            description = lib.mdDoc "Fileserver role, serves files and volumes from its local storage.";
+            description =
+              lib.mdDoc
+                "Fileserver role, serves files and volumes from its local storage.";
           };
 
           fileserverArgs = mkOption {
             default = "-vattachpar 128 -vhashsize 11 -L -rxpck 400 -cb 1000000";
             type = types.str;
-            description = lib.mdDoc "Arguments to the dafileserver process. See its man page.";
+            description =
+              lib.mdDoc
+                "Arguments to the dafileserver process. See its man page.";
           };
 
           volserverArgs = mkOption {
             default = "";
             type = types.str;
-            description = lib.mdDoc "Arguments to the davolserver process. See its man page.";
+            description =
+              lib.mdDoc
+                "Arguments to the davolserver process. See its man page.";
             example = "-sync never";
           };
 
           salvageserverArgs = mkOption {
             default = "";
             type = types.str;
-            description = lib.mdDoc "Arguments to the salvageserver process. See its man page.";
+            description =
+              lib.mdDoc
+                "Arguments to the salvageserver process. See its man page.";
             example = "-showlog";
           };
 
           salvagerArgs = mkOption {
             default = "";
             type = types.str;
-            description = lib.mdDoc "Arguments to the dasalvager process. See its man page.";
+            description =
+              lib.mdDoc
+                "Arguments to the dasalvager process. See its man page.";
             example = "-showlog -showmounts";
           };
         };

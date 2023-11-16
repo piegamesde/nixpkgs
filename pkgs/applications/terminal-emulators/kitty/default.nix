@@ -170,7 +170,8 @@ buildPythonApplication rec {
     in
     ''
       runHook preBuild
-      ${lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) "export MACOSX_DEPLOYMENT_TARGET=11"}
+      ${lib.optionalString (stdenv.isDarwin && stdenv.isx86_64)
+        "export MACOSX_DEPLOYMENT_TARGET=11"}
       ${if stdenv.isDarwin then
         ''
           ${python.pythonOnBuildForHost.interpreter} setup.py build ${darwinOptions}

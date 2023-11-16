@@ -36,7 +36,9 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  propagatedBuildInputs = lib.optional enableButteraugli libjxl ++ lib.optional enableVmaf libvmaf;
+  propagatedBuildInputs =
+    lib.optional enableButteraugli libjxl
+    ++ lib.optional enableVmaf libvmaf;
 
   preConfigure = ''
     # build uses `git describe` to set the build version

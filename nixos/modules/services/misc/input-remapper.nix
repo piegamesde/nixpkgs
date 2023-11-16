@@ -14,7 +14,8 @@ in
   options = {
     services.input-remapper = {
       enable = mkEnableOption (
-        lib.mdDoc "input-remapper, an easy to use tool to change the mapping of your input device buttons"
+        lib.mdDoc
+          "input-remapper, an easy to use tool to change the mapping of your input device buttons"
       );
       package = mkPackageOptionMD pkgs "input-remapper" { };
       enableUdevRules = mkEnableOption (
@@ -25,7 +26,9 @@ in
         default = [ "graphical.target" ];
         example = [ "multi-user.target" ];
         type = types.listOf types.str;
-        description = lib.mdDoc "Specifies the WantedBy setting for the input-remapper service.";
+        description =
+          lib.mdDoc
+            "Specifies the WantedBy setting for the input-remapper service.";
       };
     };
   };

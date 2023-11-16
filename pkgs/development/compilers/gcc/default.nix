@@ -104,7 +104,13 @@ in
 assert !atLeast6 -> (cloog != null -> isl != null);
 
 assert langJava
-  -> !atLeast7 && zip != null && unzip != null && zlib != null && boehmgc != null && perl != null; # for `--enable-java-home'
+  ->
+    !atLeast7
+    && zip != null
+    && unzip != null
+    && zlib != null
+    && boehmgc != null
+    && perl != null; # for `--enable-java-home'
 
 # Make sure we get GNU sed.
 assert stdenv.buildPlatform.isDarwin -> gnused != null;
@@ -129,7 +135,8 @@ with builtins;
 
 let
   inherit version;
-  disableBootstrap = atLeast11 && !stdenv.hostPlatform.isDarwin && (atLeast12 -> !profiledCompiler);
+  disableBootstrap =
+    atLeast11 && !stdenv.hostPlatform.isDarwin && (atLeast12 -> !profiledCompiler);
 
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
@@ -307,7 +314,9 @@ lib.pipe
                 "mirror://gnu/gcc/gcc-${version}/gcc-${version}.tar.xz"
               else
                 "mirror://gnu/gcc/gcc-${version}/gcc-${version}.tar.bz2";
-            ${if is10 || is11 || is13 then "hash" else "sha256"} = versions.srcHashForVersion version;
+            ${if is10 || is11 || is13 then "hash" else "sha256"} =
+              versions.srcHashForVersion
+                version;
           };
 
       inherit patches;
@@ -321,7 +330,10 @@ lib.pipe
           ]
           ++ lib.optional (!langJit) "lib"
         else if
-          atLeast49 && (langJava || langGo || (if atLeast6 then langJit else targetPlatform.isDarwin))
+          atLeast49
+          && (
+            langJava || langGo || (if atLeast6 then langJit else targetPlatform.isDarwin)
+          )
         then
           [
             "out"
@@ -377,7 +389,9 @@ lib.pipe
                 echo "fixing the {GLIBC,UCLIBC,MUSL}_DYNAMIC_LINKER macros..."
                           for header in "gcc/config/"*-gnu.h "gcc/config/"*"/"*.h
                           do
-                            grep -q ${lib.optionalString (!atLeast6) "LIBC"}_DYNAMIC_LINKER "$header" || continue
+                            grep -q ${
+                              lib.optionalString (!atLeast6) "LIBC"
+                            }_DYNAMIC_LINKER "$header" || continue
                             echo "  fixing $header..."
                             sed -i "$header" \
                                 -e 's|define[[:blank:]]*\([UCG]\+\)LIBC_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define \1LIBC_DYNAMIC_LINKER\2 "${libc.out}\3"|g' \
@@ -432,7 +446,8 @@ lib.pipe
         ++ optional (is7 && targetPlatform.isAarch64) "--enable-fix-cortex-a53-843419"
         ++ optional (is7 && targetPlatform.isNetBSD) "--disable-libcilkrts";
 
-      targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
+      targetConfig =
+        if targetPlatform != hostPlatform then targetPlatform.config else null;
 
       buildFlags =
         # we do not yet have Nix-driven profiling
@@ -443,7 +458,11 @@ lib.pipe
               lib.optionalString (profiledCompiler) "profiled"
               +
                 lib.optionalString
-                  (targetPlatform == hostPlatform && hostPlatform == buildPlatform && !disableBootstrap)
+                  (
+                    targetPlatform == hostPlatform
+                    && hostPlatform == buildPlatform
+                    && !disableBootstrap
+                  )
                   "bootstrap";
           in
           lib.optional (target != "") target
@@ -452,7 +471,11 @@ lib.pipe
             if profiledCompiler then "profiledbootstrap" else "bootstrap"
           );
 
-      inherit (callFile ./common/strip-attributes.nix { }) stripDebugList stripDebugListTarget preFixup;
+      inherit (callFile ./common/strip-attributes.nix { })
+        stripDebugList
+        stripDebugListTarget
+        preFixup
+      ;
 
       # https://gcc.gnu.org/PR109898
       enableParallelInstalling = false;
@@ -520,7 +543,9 @@ lib.pipe
           isGNU = true;
         }
         // lib.optionalAttrs (!atLeast12) {
-          hardeningUnsupportedFlags = lib.optionals is48 [ "stackprotector" ] ++ [ "fortify3" ];
+          hardeningUnsupportedFlags = lib.optionals is48 [ "stackprotector" ] ++ [
+            "fortify3"
+          ];
         };
 
       enableParallelBuilding = true;
@@ -538,7 +563,8 @@ lib.pipe
           ;
         }
         // lib.optionalAttrs (!atLeast11) {
-          badPlatforms = if !(is48 || is49) then [ "aarch64-darwin" ] else lib.platforms.darwin;
+          badPlatforms =
+            if !(is48 || is49) then [ "aarch64-darwin" ] else lib.platforms.darwin;
         };
     }
     // optionalAttrs is7 {
@@ -549,21 +575,27 @@ lib.pipe
     // lib.optionalAttrs (!atLeast10 && stdenv.hostPlatform.isDarwin) {
       # GCC <10 requires default cctools `strip` instead of `llvm-strip` used by Darwin bintools.
       preBuild = ''
-        makeFlagsArray+=('STRIP=${lib.getBin darwin.cctools-port}/bin/${stdenv.cc.targetPrefix}strip')
+        makeFlagsArray+=('STRIP=${
+          lib.getBin darwin.cctools-port
+        }/bin/${stdenv.cc.targetPrefix}strip')
       '';
     }
     // optionalAttrs (!atLeast7) { env.langJava = langJava; }
-    // optionalAttrs atLeast6 { NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm"; }
+    // optionalAttrs atLeast6 {
+      NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
+    }
     // optionalAttrs (!atLeast8) {
       doCheck = false; # requires a lot of tools, causes a dependency cycle for stdenv
     }
     // optionalAttrs enableMultilib { dontMoveLib64 = true; }
-    // optionalAttrs (((is49 && !stdenv.hostPlatform.isDarwin) || is6) && langJava) {
-      postFixup = ''
-        target="$(echo "$out/libexec/gcc"/*/*/ecj*)"
-        patchelf --set-rpath "$(patchelf --print-rpath "$target"):$out/lib" "$target"
-      '';
-    }
+    //
+      optionalAttrs (((is49 && !stdenv.hostPlatform.isDarwin) || is6) && langJava)
+        {
+          postFixup = ''
+            target="$(echo "$out/libexec/gcc"/*/*/ecj*)"
+            patchelf --set-rpath "$(patchelf --print-rpath "$target"):$out/lib" "$target"
+          '';
+        }
   ))
   (
     [
@@ -581,5 +613,7 @@ lib.pipe
         ;
       })
     ]
-    ++ optionals atLeast11 [ (callPackage ./common/checksum.nix { inherit langC langCC; }) ]
+    ++ optionals atLeast11 [
+      (callPackage ./common/checksum.nix { inherit langC langCC; })
+    ]
   )

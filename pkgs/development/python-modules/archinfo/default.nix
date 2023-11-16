@@ -24,7 +24,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.11") [ backports-strenum ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.11") [
+    backports-strenum
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

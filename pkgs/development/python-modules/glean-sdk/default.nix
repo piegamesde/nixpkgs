@@ -66,7 +66,10 @@ buildPythonPackage rec {
 
   postInstallCheck =
     lib.optionalString
-      (stdenv.hostPlatform.parsed.kernel.execFormat == lib.systems.parse.execFormats.elf)
+      (
+        stdenv.hostPlatform.parsed.kernel.execFormat
+        == lib.systems.parse.execFormats.elf
+      )
       ''
         readelf -a $out/${python.sitePackages}/glean/libglean_ffi.so | grep -F 'Shared library: [liblmdb.so'
       '';

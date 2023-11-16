@@ -15,7 +15,8 @@ let
 
   toUnderscore = str: lib.replaceStrings [ "." ] [ "_" ] str;
 
-  majorMinorPatch = str: lib.concatStringsSep "." (lib.take 3 (lib.splitVersion str));
+  majorMinorPatch =
+    str: lib.concatStringsSep "." (lib.take 3 (lib.splitVersion str));
 
   tensorRTPackages =
     with lib;
@@ -35,7 +36,9 @@ let
         mapAttrs'
           (
             version: file:
-            nameValuePair (computeName version) (buildTensorRTPackage (removeAttrs file [ "fileVersionCuda" ]))
+            nameValuePair (computeName version) (
+              buildTensorRTPackage (removeAttrs file [ "fileVersionCuda" ])
+            )
           )
           supportedVersions;
       # Set the default attributes, e.g. tensorrt = tensorrt_8_4;
@@ -44,7 +47,8 @@ let
           if allBuilds ? ${computeName tensorRTDefaultVersion} then
             allBuilds.${computeName tensorRTDefaultVersion}
           else
-            throw "tensorrt-${tensorRTDefaultVersion} does not support your cuda version ${cudaVersion}";
+            throw
+              "tensorrt-${tensorRTDefaultVersion} does not support your cuda version ${cudaVersion}";
       };
     in
     { inherit buildTensorRTPackage; } // allBuilds // defaultBuild;

@@ -23,7 +23,10 @@ let
   srcs = import ./binary-hashes.nix version;
   unavailable = throw "libtorch is not available for this platform";
   libcxx-for-libtorch =
-    if stdenv.hostPlatform.system == "x86_64-darwin" then libcxx else stdenv.cc.cc.lib;
+    if stdenv.hostPlatform.system == "x86_64-darwin" then
+      libcxx
+    else
+      stdenv.cc.cc.lib;
 in
 stdenv.mkDerivation {
   inherit version;

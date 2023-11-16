@@ -67,7 +67,9 @@ stdenv.mkDerivation rec {
       echo Fixing interpreter and rpath paths in $i ...
       patchelf                                                                                   \
         --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)"                                \
-        --set-rpath ${makeLibraryPath buildInputs}:$(cat $NIX_CC/nix-support/orig-cc)/${libDir}  \
+        --set-rpath ${
+          makeLibraryPath buildInputs
+        }:$(cat $NIX_CC/nix-support/orig-cc)/${libDir}  \
         $i
     done
   '';

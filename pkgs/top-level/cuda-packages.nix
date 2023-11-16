@@ -18,7 +18,9 @@ let
 
       addBuildInputs =
         drv: buildInputs:
-        drv.overrideAttrs (oldAttrs: { buildInputs = (oldAttrs.buildInputs or [ ]) ++ buildInputs; });
+        drv.overrideAttrs (
+          oldAttrs: { buildInputs = (oldAttrs.buildInputs or [ ]) ++ buildInputs; }
+        );
     }
   );
 
@@ -27,7 +29,9 @@ let
     let
       ### CuTensor
 
-      buildCuTensorPackage = final.callPackage ../development/libraries/science/math/cutensor/generic.nix;
+      buildCuTensorPackage =
+        final.callPackage
+          ../development/libraries/science/math/cutensor/generic.nix;
 
       cuTensorVersions = {
         "1.2.2.5" = {
@@ -44,7 +48,9 @@ let
         version = if cudaMajorMinorVersion == "10.1" then "1.2.2.5" else "1.5.0.3";
         inherit (cuTensorVersions.${version}) hash;
         # This can go into generic.nix
-        libPath = "lib/${if cudaMajorVersion == "10" then cudaMajorMinorVersion else cudaMajorVersion}";
+        libPath = "lib/${
+            if cudaMajorVersion == "10" then cudaMajorMinorVersion else cudaMajorVersion
+          }";
       };
     in
     {
@@ -55,7 +61,9 @@ let
 
     nccl = final.callPackage ../development/libraries/science/math/nccl { };
 
-    nccl-tests = final.callPackage ../development/libraries/science/math/nccl/tests.nix { };
+    nccl-tests =
+      final.callPackage ../development/libraries/science/math/nccl/tests.nix
+        { };
 
     autoAddOpenGLRunpathHook =
       final.callPackage

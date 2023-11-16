@@ -19,7 +19,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-Ps2pRLpPxw+OS1ungQtVQ8beoKpc8pjzQEndMNni08k=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.Cocoa ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk_11_0.frameworks.Cocoa
+  ];
 
   preBuild = lib.optionalString stdenv.isDarwin ''
     export HOME=$(mktemp -d)

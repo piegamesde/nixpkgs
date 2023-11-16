@@ -19,7 +19,11 @@ let
   # versionAtLeast statement remains set to 21.03 for backwards compatibility.
   # See https://github.com/NixOS/nixpkgs/pull/108899 and
   # https://github.com/NixOS/rfcs/blob/master/rfcs/0080-nixos-release-schedule.md.
-  name = if lib.versionAtLeast config.system.stateVersion "21.03" then "hedgedoc" else "codimd";
+  name =
+    if lib.versionAtLeast config.system.stateVersion "21.03" then
+      "hedgedoc"
+    else
+      "codimd";
 
   settingsFormat = pkgs.formats.json { };
 in
@@ -155,7 +159,8 @@ in
           };
           allowOrigin = mkOption {
             type = with types; listOf str;
-            default = with cfg.settings; [ host ] ++ lib.optionals (domain != null) [ domain ];
+            default =
+              with cfg.settings; [ host ] ++ lib.optionals (domain != null) [ domain ];
             defaultText = literalExpression ''
               with config.services.hedgedoc.settings; [ host ] ++ lib.optionals (domain != null) [ domain ]
             '';
@@ -300,7 +305,9 @@ in
       after = [ "networking.target" ];
       preStart =
         let
-          configFile = settingsFormat.generate "hedgedoc-config.json" { production = cfg.settings; };
+          configFile = settingsFormat.generate "hedgedoc-config.json" {
+            production = cfg.settings;
+          };
         in
         ''
           ${pkgs.envsubst}/bin/envsubst \
@@ -317,10 +324,14 @@ in
         RuntimeDirectory = [ name ];
         StateDirectory = [ name ];
         WorkingDirectory = "/run/${name}";
-        ReadWritePaths = [
-          "-${cfg.settings.uploadsPath}"
-        ] ++ lib.optionals (cfg.settings.db ? "storage") [ "-${cfg.settings.db.storage}" ];
-        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+        ReadWritePaths =
+          [ "-${cfg.settings.uploadsPath}" ]
+          ++ lib.optionals (cfg.settings.db ? "storage") [
+            "-${cfg.settings.db.storage}"
+          ];
+        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [
+          cfg.environmentFile
+        ];
         Environment = [
           "CMD_CONFIG_FILE=/run/${name}/config.json"
           "NODE_ENV=production"

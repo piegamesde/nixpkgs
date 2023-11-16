@@ -91,13 +91,21 @@ let
     let
       ff = f origArgs;
       overrideWith =
-        newArgs: origArgs // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs);
+        newArgs:
+        origArgs // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs);
     in
     if builtins.isAttrs ff then
-      (ff // { overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs); })
+      (
+        ff
+        // {
+          overrideLispAttrs =
+            newArgs: makeOverridableLispPackage f (overrideWith newArgs);
+        }
+      )
     else if builtins.isFunction ff then
       {
-        overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs);
+        overrideLispAttrs =
+          newArgs: makeOverridableLispPackage f (overrideWith newArgs);
         __functor = self: ff;
       }
     else
@@ -192,7 +200,10 @@ let
             let
               libs = concatMap (x: x.nativeLibs) libsFlat;
               paths = filter (x: x != "") (map (x: x.LD_LIBRARY_PATH) libsFlat);
-              path = makeLibraryPath libs + optionalString (length paths != 0) ":" + concatStringsSep ":" paths;
+              path =
+                makeLibraryPath libs
+                + optionalString (length paths != 0) ":"
+                + concatStringsSep ":" paths;
             in
             concatStringsSep ":" (unique (splitString ":" path));
 
@@ -374,7 +385,8 @@ let
     let
       # Make it possible to reuse generated attrs without recursing into oblivion
       packages = (lib.filterAttrs (n: v: n != qlPkg.pname) manualPackages);
-      substituteLib = pkg: if lib.hasAttr pkg.pname packages then packages.${pkg.pname} else pkg;
+      substituteLib =
+        pkg: if lib.hasAttr pkg.pname packages then packages.${pkg.pname} else pkg;
       pkg = substituteLib qlPkg;
     in
     pkg // { lispLibs = map substituteLib pkg.lispLibs; };
@@ -430,7 +442,9 @@ let
               ${head (split " " o.lisp)} \
               $out/bin/${baseNameOf (head (split " " o.lisp))} \
               --prefix CL_SOURCE_REGISTRY : "${o.CL_SOURCE_REGISTRY}" \
-              --prefix ASDF_OUTPUT_TRANSLATIONS : ${concatStringsSep "::" (flattenedDeps o.lispLibs)}: \
+              --prefix ASDF_OUTPUT_TRANSLATIONS : ${
+                concatStringsSep "::" (flattenedDeps o.lispLibs)
+              }: \
               --prefix LD_LIBRARY_PATH : "${o.LD_LIBRARY_PATH}" \
               --prefix LD_LIBRARY_PATH : "${makeLibraryPath o.nativeLibs}" \
               --prefix CLASSPATH : "${o.CLASSPATH}" \

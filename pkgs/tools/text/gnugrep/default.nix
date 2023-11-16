@@ -30,7 +30,10 @@ stdenv.mkDerivation {
   # - on Musl: https://github.com/NixOS/nixpkgs/pull/228714
   # - on x86_64-darwin: https://github.com/NixOS/nixpkgs/pull/228714#issuecomment-1576826330
   postPatch =
-    if stdenv.hostPlatform.isMusl || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64) then
+    if
+      stdenv.hostPlatform.isMusl
+      || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64)
+    then
       ''
         sed -i 's:gnulib-tests::g' Makefile.in
       ''
@@ -55,7 +58,9 @@ stdenv.mkDerivation {
   # freebsd: FAIL mb-non-UTF8-performance
   # x86_64-darwin: fails 'stack-overflow' tests on Rosetta 2 emulator
   doCheck =
-    !stdenv.isCygwin && !stdenv.isFreeBSD && !(stdenv.isDarwin && stdenv.hostPlatform.isx86_64);
+    !stdenv.isCygwin
+    && !stdenv.isFreeBSD
+    && !(stdenv.isDarwin && stdenv.hostPlatform.isx86_64);
 
   # On macOS, force use of mkdir -p, since Grep's fallback
   # (./install-sh) is broken.

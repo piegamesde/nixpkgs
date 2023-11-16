@@ -23,7 +23,9 @@ assert withGUI -> qtbase != null && wrapQtAppsHook != null;
 
 stdenv.mkDerivation (
   finalAttrs: {
-    pname = "alice-tools" + lib.optionalString withGUI "-qt${lib.versions.major qtbase.version}";
+    pname =
+      "alice-tools"
+      + lib.optionalString withGUI "-qt${lib.versions.major qtbase.version}";
     version = "0.13.0";
 
     src = fetchFromGitHub {
@@ -34,14 +36,16 @@ stdenv.mkDerivation (
       hash = "sha256-DazWnBeI5XShkIx41GFZLP3BbE0O8T9uflvKIZUXCHo=";
     };
 
-    postPatch = lib.optionalString (withGUI && lib.versionAtLeast qtbase.version "6.0") ''
-      # Use Meson's Qt6 module
-      substituteInPlace src/meson.build \
-        --replace qt5 qt6
+    postPatch =
+      lib.optionalString (withGUI && lib.versionAtLeast qtbase.version "6.0")
+        ''
+          # Use Meson's Qt6 module
+          substituteInPlace src/meson.build \
+            --replace qt5 qt6
 
-      # For some reason Meson uses QMake instead of pkg-config detection method for Qt6 on Darwin, which gives wrong search paths for tools
-      export PATH=${qtbase.dev}/libexec:$PATH
-    '';
+          # For some reason Meson uses QMake instead of pkg-config detection method for Qt6 on Darwin, which gives wrong search paths for tools
+          export PATH=${qtbase.dev}/libexec:$PATH
+        '';
 
     mesonFlags =
       lib.optionals (withGUI && lib.versionAtLeast qtbase.version "6.0")

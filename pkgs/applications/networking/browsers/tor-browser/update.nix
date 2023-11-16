@@ -20,7 +20,8 @@
 }:
 
 let
-  versionMatch = if prerelease then "[0-9]+(\\.[0-9]+)*.*" else "[0-9]+(\\.[0-9]+)*";
+  versionMatch =
+    if prerelease then "[0-9]+(\\.[0-9]+)*.*" else "[0-9]+(\\.[0-9]+)*";
 in
 writeShellScript "update-${pname}" ''
   PATH="${

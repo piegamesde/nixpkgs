@@ -27,8 +27,9 @@ let
     aarch64-darwin = x86_64-darwin;
   };
   src =
-    srcs.${stdenv.hostPlatform.system}
-      or (throw "Unsupported system for package localsend: ${stdenv.hostPlatform.system}");
+    srcs.${stdenv.hostPlatform.system} or (throw
+      "Unsupported system for package localsend: ${stdenv.hostPlatform.system}"
+    );
 
   appimageContents = appimageTools.extract { inherit pname version src; };
 

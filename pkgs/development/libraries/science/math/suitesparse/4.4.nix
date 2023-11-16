@@ -75,7 +75,9 @@ stdenv.mkDerivation rec {
           if enableCuda then "nvcc" else "cc"
         } *.o ${
           if stdenv.isDarwin then "-dynamiclib" else "--shared"
-        } -o "$out/lib/libsuitesparse${SHLIB_EXT}" -lblas ${lib.optionalString enableCuda "-lcublas"}
+        } -o "$out/lib/libsuitesparse${SHLIB_EXT}" -lblas ${
+          lib.optionalString enableCuda "-lcublas"
+        }
     )
     for i in umfpack cholmod amd camd colamd spqr; do
       ln -s libsuitesparse${SHLIB_EXT} "$out"/lib/lib$i${SHLIB_EXT}

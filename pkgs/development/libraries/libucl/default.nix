@@ -44,13 +44,15 @@ stdenv.mkDerivation rec {
   buildInputs =
     with lib;
     concatLists (
-      mapAttrsToList (feat: enabled: optionals enabled (featureDeps."${feat}" or [ ])) features
+      mapAttrsToList (feat: enabled: optionals enabled (featureDeps."${feat}" or [ ]))
+        features
     );
 
   enableParallelBuilding = true;
 
   configureFlags =
-    with lib; mapAttrsToList (feat: enabled: strings.enableFeature enabled feat) features;
+    with lib;
+    mapAttrsToList (feat: enabled: strings.enableFeature enabled feat) features;
 
   meta = with lib; {
     description = "Universal configuration library parser";

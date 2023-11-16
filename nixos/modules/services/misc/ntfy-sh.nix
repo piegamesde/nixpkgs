@@ -15,7 +15,9 @@ in
 
 {
   options.services.ntfy-sh = {
-    enable = mkEnableOption (mdDoc "[ntfy-sh](https://ntfy.sh), a push notification service");
+    enable = mkEnableOption (
+      mdDoc "[ntfy-sh](https://ntfy.sh), a push notification service"
+    );
 
     package = mkOption {
       type = types.package;

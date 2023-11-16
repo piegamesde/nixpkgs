@@ -24,7 +24,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ] ++ lib.optionals withQt [ wrapQtAppsHook ];
 
-  buildInputs = lib.optionals withQt [ qtbase ] ++ lib.optionals withCurses ncurses;
+  buildInputs =
+    lib.optionals withQt [ qtbase ]
+    ++ lib.optionals withCurses ncurses;
 
   cmakeFlags =
     lib.optional withQt [ "-DQT=ON" ]
@@ -39,9 +41,9 @@ stdenv.mkDerivation rec {
 
     ''
     + lib.concatStringsSep "\n" (
-      lib.mapAttrsToList (name: params: "ln -s ${fetchurl params} $PWD/build/_deps/${name}") (
-        import ./deps.nix
-      )
+      lib.mapAttrsToList
+        (name: params: "ln -s ${fetchurl params} $PWD/build/_deps/${name}")
+        (import ./deps.nix)
     );
 
   meta = with lib; {

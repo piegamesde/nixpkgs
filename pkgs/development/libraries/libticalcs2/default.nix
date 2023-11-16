@@ -27,14 +27,17 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    glib
-    libticonv
-    libtifiles2
-    libticables2
-    xz
-    bzip2
-  ] ++ lib.optionals stdenv.isLinux [ acl ] ++ lib.optionals stdenv.isDarwin [ libobjc ];
+  buildInputs =
+    [
+      glib
+      libticonv
+      libtifiles2
+      libticables2
+      xz
+      bzip2
+    ]
+    ++ lib.optionals stdenv.isLinux [ acl ]
+    ++ lib.optionals stdenv.isDarwin [ libobjc ];
 
   meta = with lib; {
     changelog = "http://lpg.ticalc.org/prj_tilp/news.html";

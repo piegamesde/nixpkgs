@@ -41,7 +41,9 @@ let
         node_capacity_release_rate = 1;
       };
   };
-  configFile = format.generate "syncstorage.toml" (lib.recursiveUpdate settings cfg.settings);
+  configFile = format.generate "syncstorage.toml" (
+    lib.recursiveUpdate settings cfg.settings
+  );
   setupScript = pkgs.writeShellScript "firefox-syncserver-setup" ''
     set -euo pipefail
     shopt -s inherit_errexit
@@ -59,7 +61,9 @@ let
           ON DUPLICATE KEY UPDATE service='sync-1.5', pattern='{node}/1.5/{uid}';
         INSERT INTO `nodes` (`id`, `service`, `node`, `available`, `current_load`,
                              `capacity`, `downed`, `backoff`)
-          VALUES (1, 1, '${cfg.singleNode.url}', ${toString cfg.singleNode.capacity},
+          VALUES (1, 1, '${cfg.singleNode.url}', ${
+            toString cfg.singleNode.capacity
+          },
           0, ${toString cfg.singleNode.capacity}, 0, 0)
           ON DUPLICATE KEY UPDATE node = '${cfg.singleNode.url}', capacity=${
             toString cfg.singleNode.capacity
@@ -173,7 +177,9 @@ in
       };
 
       singleNode = {
-        enable = lib.mkEnableOption (lib.mdDoc "auto-configuration for a simple single-node setup");
+        enable = lib.mkEnableOption (
+          lib.mdDoc "auto-configuration for a simple single-node setup"
+        );
 
         enableTLS = lib.mkEnableOption (lib.mdDoc "automatic TLS setup");
 
@@ -198,7 +204,9 @@ in
 
         url = lib.mkOption {
           type = lib.types.str;
-          default = "${if cfg.singleNode.enableTLS then "https" else "http"}://${cfg.singleNode.hostname}";
+          default = "${
+              if cfg.singleNode.enableTLS then "https" else "http"
+            }://${cfg.singleNode.hostname}";
           defaultText = lib.literalExpression ''
             ''${if cfg.singleNode.enableTLS then "https" else "http"}://''${config.${opt.singleNode.hostname}}
           '';
@@ -315,8 +323,12 @@ in
 
     systemd.services.firefox-syncserver-setup = lib.mkIf cfg.singleNode.enable {
       wantedBy = [ "firefox-syncserver.service" ];
-      requires = [ "firefox-syncserver.service" ] ++ lib.optional dbIsLocal "mysql.service";
-      after = [ "firefox-syncserver.service" ] ++ lib.optional dbIsLocal "mysql.service";
+      requires = [
+        "firefox-syncserver.service"
+      ] ++ lib.optional dbIsLocal "mysql.service";
+      after = [
+        "firefox-syncserver.service"
+      ] ++ lib.optional dbIsLocal "mysql.service";
       path = [ config.services.mysql.package ];
       serviceConfig.ExecStart = [ "${setupScript}" ];
     };

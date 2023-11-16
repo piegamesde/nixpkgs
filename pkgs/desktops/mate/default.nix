@@ -48,7 +48,9 @@ let
       mate-sensors-applet = callPackage ./mate-sensors-applet { };
       mate-session-manager = callPackage ./mate-session-manager { };
       mate-settings-daemon = callPackage ./mate-settings-daemon { };
-      mate-settings-daemon-wrapped = callPackage ./mate-settings-daemon/wrapped.nix { };
+      mate-settings-daemon-wrapped =
+        callPackage ./mate-settings-daemon/wrapped.nix
+          { };
       mate-screensaver = callPackage ./mate-screensaver { };
       mate-system-monitor = callPackage ./mate-system-monitor { };
       mate-terminal = callPackage ./mate-terminal { };

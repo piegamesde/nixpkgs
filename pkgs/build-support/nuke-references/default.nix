@@ -14,7 +14,8 @@
 let
   stdenv = stdenvNoCC;
 
-  darwinCodeSign = stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64;
+  darwinCodeSign =
+    stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64;
 in
 
 stdenvNoCC.mkDerivation {

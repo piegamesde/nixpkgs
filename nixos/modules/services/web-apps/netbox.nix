@@ -236,7 +236,9 @@ in
           };
         };
 
-        REMOTE_AUTH_BACKEND = lib.mkIf cfg.enableLdap "netbox.authentication.LDAPBackend";
+        REMOTE_AUTH_BACKEND =
+          lib.mkIf cfg.enableLdap
+            "netbox.authentication.LDAPBackend";
 
         LOGGING = lib.mkDefault {
           version = 1;
@@ -414,6 +416,8 @@ in
       group = "netbox";
     };
     users.groups.netbox = { };
-    users.groups."${config.services.redis.servers.netbox.user}".members = [ "netbox" ];
+    users.groups."${config.services.redis.servers.netbox.user}".members = [
+      "netbox"
+    ];
   };
 }

@@ -22,7 +22,8 @@ let
       name: attrs:
       pkgs.writeText name (
         lib.strings.concatStringsSep "\n" (
-          lib.attrsets.mapAttrsToList (key: value: "${key}=${builtins.toJSON value}") attrs
+          lib.attrsets.mapAttrsToList (key: value: "${key}=${builtins.toJSON value}")
+            attrs
         )
       );
   };

@@ -153,12 +153,14 @@ in
       nginx = mkOption {
         type = types.nullOr (
           types.submodule (
-            recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) {
-              # enable encryption by default,
-              # as sensitive login and Matomo data should not be transmitted in clear text.
-              options.forceSSL.default = true;
-              options.enableACME.default = true;
-            }
+            recursiveUpdate
+              (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
+              {
+                # enable encryption by default,
+                # as sensitive login and Matomo data should not be transmitted in clear text.
+                options.forceSSL.default = true;
+                options.enableACME.default = true;
+              }
           )
         );
         default = null;

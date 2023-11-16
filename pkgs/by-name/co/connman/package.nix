@@ -37,7 +37,8 @@
   enableNetworkManagerCompatibility ? if enableNetworkManager == null then
     false
   else
-    lib.warn "enableNetworkManager option is deprecated; use enableNetworkManagerCompatibility instead"
+    lib.warn
+      "enableNetworkManager option is deprecated; use enableNetworkManagerCompatibility instead"
       enableNetworkManager,
   enableOfono ? true,
   enableOpenconnect ? true,
@@ -177,7 +178,9 @@ stdenv.mkDerivation (
         (withFeatureAs true "systemdunitdir" "${placeholder "out"}/systemd/system")
         (withFeatureAs true "dns-backend" "${dnsType}")
         (withFeatureAs true "firewall" "${firewallType}")
-        (withFeatureAs enableOpenconnect "openconnect" "${openconnect}/sbin/openconnect")
+        (withFeatureAs enableOpenconnect "openconnect"
+          "${openconnect}/sbin/openconnect"
+        )
         (withFeatureAs enableOpenvpn "openvpn" "${openvpn}/sbin/openvpn")
         (withFeatureAs enableVpnc "vpnc" "${vpnc}/sbin/vpnc")
         (withFeatureAs enablePptp "pptp" "${pptp}/sbin/pptp")

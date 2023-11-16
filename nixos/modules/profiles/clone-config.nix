@@ -43,7 +43,8 @@ let
   # device configuration could be rebuild.
   relocatedModuleFiles =
     let
-      relocateNixOS = path: "<nixpkgs/nixos" + removePrefix nixosPath (toString path) + ">";
+      relocateNixOS =
+        path: "<nixpkgs/nixos" + removePrefix nixosPath (toString path) + ">";
     in
     {
       nixos = map relocateNixOS partitionedModuleFiles.nixos;
@@ -98,7 +99,8 @@ in
 
   config = {
 
-    installer.cloneConfigIncludes = relocatedModuleFiles.nixos ++ relocatedModuleFiles.others;
+    installer.cloneConfigIncludes =
+      relocatedModuleFiles.nixos ++ relocatedModuleFiles.others;
 
     boot.postBootCommands = ''
       # Provide a mount point for nixos-install.

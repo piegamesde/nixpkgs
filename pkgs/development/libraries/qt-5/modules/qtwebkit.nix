@@ -85,7 +85,9 @@ qtModule {
     [ "-DPORT=Qt" ]
     ++ lib.optionals stdenv.isDarwin [
       "-DQt5Multimedia_DIR=${lib.getDev qtmultimedia}/lib/cmake/Qt5Multimedia"
-      "-DQt5MultimediaWidgets_DIR=${lib.getDev qtmultimedia}/lib/cmake/Qt5MultimediaWidgets"
+      "-DQt5MultimediaWidgets_DIR=${
+        lib.getDev qtmultimedia
+      }/lib/cmake/Qt5MultimediaWidgets"
       "-DMACOS_FORCE_SYSTEM_XML_LIBRARIES=OFF"
     ];
 
@@ -98,7 +100,9 @@ qtModule {
     ++ lib.optional stdenv.cc.isGNU "-Wno-class-memaccess"
     # with clang this warning blows the log over Hydra's limit
     ++ lib.optional stdenv.isDarwin "-Wno-inconsistent-missing-override"
-    ++ lib.optional (!stdenv.isDarwin) ''-DNIXPKGS_LIBUDEV="${lib.getLib systemd}/lib/libudev"''
+    ++
+      lib.optional (!stdenv.isDarwin)
+        ''-DNIXPKGS_LIBUDEV="${lib.getLib systemd}/lib/libudev"''
   );
 
   doCheck = false; # fails 13 out of 13 tests (ctest)

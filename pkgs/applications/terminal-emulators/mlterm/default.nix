@@ -95,7 +95,9 @@ let
   withFeaturesList =
     featureName: attrset:
     let
-      commaSepList = lib.concatStringsSep "," (builtins.attrNames (lib.filterAttrs (n: v: v) attrset));
+      commaSepList = lib.concatStringsSep "," (
+        builtins.attrNames (lib.filterAttrs (n: v: v) attrset)
+      );
     in
     lib.withFeatureAs (commaSepList != "") featureName commaSepList;
 in
@@ -167,7 +169,9 @@ stdenv.mkDerivation (
         (withFeaturesList "gui" enableGuis)
         (lib.withFeature enableX11 "x")
       ]
-      ++ lib.optionals (gtk != null) [ "--with-gtk=${lib.versions.major gtk.version}.0" ]
+      ++ lib.optionals (gtk != null) [
+        "--with-gtk=${lib.versions.major gtk.version}.0"
+      ]
       ++ (lib.mapAttrsToList (n: v: lib.enableFeature v n) enableFeatures)
       ++ [ ];
 

@@ -19,7 +19,9 @@ let
         optional (whitelistUrl != null) "whitelist url = ${whitelistUrl}"
         ++ optional (proxy != null) "aesm proxy = ${proxy}"
         ++ optional (proxyType != null) "proxy type = ${proxyType}"
-        ++ optional (defaultQuotingType != null) "default quoting type = ${defaultQuotingType}"
+        ++
+          optional (defaultQuotingType != null)
+            "default quoting type = ${defaultQuotingType}"
         ++
           # Newline at end of file
           [ "" ]
@@ -39,7 +41,9 @@ in
     environment = mkOption {
       type = with types; attrsOf str;
       default = { };
-      description = mdDoc "Additional environment variables to pass to the AESM service.";
+      description =
+        mdDoc
+          "Additional environment variables to pass to the AESM service.";
       # Example environment variable for `sgx-azure-dcap-client` provider library
       example = {
         AZDCAP_COLLATERAL_VERSION = "v2";

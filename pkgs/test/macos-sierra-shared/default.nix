@@ -45,7 +45,9 @@ let
         #include <cstdlib>
         #include <iostream>
 
-        ${toString (lib.genList (i: ''extern "C" unsigned int asdf_${toString i}(void); '') count)}
+        ${toString (
+          lib.genList (i: ''extern "C" unsigned int asdf_${toString i}(void); '') count
+        )}
 
         unsigned int (*funs[])(void) = {
           ${toString (lib.genList (i: "asdf_${toString i},") count)}
@@ -65,7 +67,9 @@ let
         EOF
       '';
       buildPhase = ''
-        $CXX -std=c++11 main.cxx ${toString (map (x: "-l${x.name}") sillyLibs)} -o ${prefix}-asdf
+        $CXX -std=c++11 main.cxx ${
+          toString (map (x: "-l${x.name}") sillyLibs)
+        } -o ${prefix}-asdf
       '';
       buildInputs = sillyLibs;
       installPhase = ''

@@ -22,7 +22,8 @@ let
   optionalNullInt = o: i: optional (i != null) (intOpt o i);
   optionalEmptyList = o: l: optional ([ ] != l) (lstOpt o l);
 
-  mkEnableTrueOption = name: mkEnableOption (lib.mdDoc name) // { default = true; };
+  mkEnableTrueOption =
+    name: mkEnableOption (lib.mdDoc name) // { default = true; };
 
   mkEndpointOpt = name: addr: port: {
     enable = mkEnableOption (lib.mdDoc name);
@@ -199,11 +200,17 @@ let
               ++ (optionals (proto ? auth) (optionalNullBool "auth" proto.auth))
               ++ (optionals (proto ? user) (optionalNullString "user" proto.user))
               ++ (optionals (proto ? pass) (optionalNullString "pass" proto.pass))
-              ++ (optionals (proto ? strictHeaders) (optionalNullBool "strictheaders" proto.strictHeaders))
+              ++ (optionals (proto ? strictHeaders) (
+                optionalNullBool "strictheaders" proto.strictHeaders
+              ))
               ++ (optionals (proto ? hostname) (optionalNullString "hostname" proto.hostname))
               ++ (optionals (proto ? outproxy) (optionalNullString "outproxy" proto.outproxy))
-              ++ (optionals (proto ? outproxyPort) (optionalNullInt "outproxyport" proto.outproxyPort))
-              ++ (optionals (proto ? outproxyEnable) (optionalNullBool "outproxy.enabled" proto.outproxyEnable));
+              ++ (optionals (proto ? outproxyPort) (
+                optionalNullInt "outproxyport" proto.outproxyPort
+              ))
+              ++ (optionals (proto ? outproxyEnable) (
+                optionalNullBool "outproxy.enabled" proto.outproxyEnable
+              ));
           in
           (concatStringsSep "\n" protoOpts)
         ));
@@ -224,13 +231,23 @@ let
                 (intOpt "port" tun.port)
                 (strOpt "destination" tun.destination)
               ]
-              ++ (optionals (tun ? destinationPort) (optionalNullInt "destinationport" tun.destinationPort))
+              ++ (optionals (tun ? destinationPort) (
+                optionalNullInt "destinationport" tun.destinationPort
+              ))
               ++ (optionals (tun ? keys) (optionalNullString "keys" tun.keys))
               ++ (optionals (tun ? address) (optionalNullString "address" tun.address))
-              ++ (optionals (tun ? inbound.length) (optionalNullInt "inbound.length" tun.inbound.length))
-              ++ (optionals (tun ? inbound.quantity) (optionalNullInt "inbound.quantity" tun.inbound.quantity))
-              ++ (optionals (tun ? outbound.length) (optionalNullInt "outbound.length" tun.outbound.length))
-              ++ (optionals (tun ? outbound.quantity) (optionalNullInt "outbound.quantity" tun.outbound.quantity))
+              ++ (optionals (tun ? inbound.length) (
+                optionalNullInt "inbound.length" tun.inbound.length
+              ))
+              ++ (optionals (tun ? inbound.quantity) (
+                optionalNullInt "inbound.quantity" tun.inbound.quantity
+              ))
+              ++ (optionals (tun ? outbound.length) (
+                optionalNullInt "outbound.length" tun.outbound.length
+              ))
+              ++ (optionals (tun ? outbound.quantity) (
+                optionalNullInt "outbound.quantity" tun.outbound.quantity
+              ))
               ++ (optionals (tun ? crypto.tagsToSend) (
                 optionalNullInt "crypto.tagstosend" tun.crypto.tagsToSend
               ));
@@ -247,10 +264,14 @@ let
                 (intOpt "port" tun.port)
                 (strOpt "host" tun.address)
               ]
-              ++ (optionals (tun ? destination) (optionalNullString "destination" tun.destination))
+              ++ (optionals (tun ? destination) (
+                optionalNullString "destination" tun.destination
+              ))
               ++ (optionals (tun ? keys) (optionalNullString "keys" tun.keys))
               ++ (optionals (tun ? inPort) (optionalNullInt "inport" tun.inPort))
-              ++ (optionals (tun ? accessList) (optionalEmptyList "accesslist" tun.accessList));
+              ++ (optionals (tun ? accessList) (
+                optionalEmptyList "accesslist" tun.accessList
+              ));
           in
           concatStringsSep "\n" inTunOpts
         ))
@@ -325,7 +346,9 @@ in
         '';
       };
 
-      logCLFTime = mkEnableOption (lib.mdDoc "full CLF-formatted date and time to log");
+      logCLFTime = mkEnableOption (
+        lib.mdDoc "full CLF-formatted date and time to log"
+      );
 
       address = mkOption {
         type = with types; nullOr str;
@@ -647,26 +670,30 @@ in
         };
       };
 
-      proto.httpProxy = (mkKeyedEndpointOpt "httpproxy" "127.0.0.1" 4444 "httpproxy-keys.dat") // {
-        outproxy = mkOption {
-          type = with types; nullOr str;
-          default = null;
-          description = lib.mdDoc "Upstream outproxy bind address.";
+      proto.httpProxy =
+        (mkKeyedEndpointOpt "httpproxy" "127.0.0.1" 4444 "httpproxy-keys.dat")
+        // {
+          outproxy = mkOption {
+            type = with types; nullOr str;
+            default = null;
+            description = lib.mdDoc "Upstream outproxy bind address.";
+          };
         };
-      };
-      proto.socksProxy = (mkKeyedEndpointOpt "socksproxy" "127.0.0.1" 4447 "socksproxy-keys.dat") // {
-        outproxyEnable = mkEnableOption (lib.mdDoc "SOCKS outproxy");
-        outproxy = mkOption {
-          type = types.str;
-          default = "127.0.0.1";
-          description = lib.mdDoc "Upstream outproxy bind address.";
+      proto.socksProxy =
+        (mkKeyedEndpointOpt "socksproxy" "127.0.0.1" 4447 "socksproxy-keys.dat")
+        // {
+          outproxyEnable = mkEnableOption (lib.mdDoc "SOCKS outproxy");
+          outproxy = mkOption {
+            type = types.str;
+            default = "127.0.0.1";
+            description = lib.mdDoc "Upstream outproxy bind address.";
+          };
+          outproxyPort = mkOption {
+            type = types.int;
+            default = 4444;
+            description = lib.mdDoc "Upstream outproxy bind port.";
+          };
         };
-        outproxyPort = mkOption {
-          type = types.int;
-          default = 4444;
-          description = lib.mdDoc "Upstream outproxy bind port.";
-        };
-      };
 
       proto.sam = mkEndpointOpt "sam" "127.0.0.1" 7656;
       proto.bob = mkEndpointOpt "bob" "127.0.0.1" 2827;
@@ -716,7 +743,9 @@ in
                   accessList = mkOption {
                     type = with types; listOf str;
                     default = [ ];
-                    description = lib.mdDoc "I2P nodes that are allowed to connect to this service.";
+                    description =
+                      lib.mdDoc
+                        "I2P nodes that are allowed to connect to this service.";
                   };
                 } // commonTunOpts name;
                 config = {

@@ -13,7 +13,9 @@ in
 {
   ###### interface
   options = {
-    services.xserver.windowManager.windowmaker.enable = mkEnableOption (lib.mdDoc "windowmaker");
+    services.xserver.windowManager.windowmaker.enable = mkEnableOption (
+      lib.mdDoc "windowmaker"
+    );
   };
 
   ###### implementation

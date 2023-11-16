@@ -7,15 +7,17 @@
 with lib;
 let
   cfg = config.services.mmsd;
-  dbusServiceFile = pkgs.writeTextDir "share/dbus-1/services/org.ofono.mms.service" ''
-    [D-BUS Service]
-    Name=org.ofono.mms
-    SystemdService=dbus-org.ofono.mms.service
+  dbusServiceFile =
+    pkgs.writeTextDir "share/dbus-1/services/org.ofono.mms.service"
+      ''
+        [D-BUS Service]
+        Name=org.ofono.mms
+        SystemdService=dbus-org.ofono.mms.service
 
-    # Exec= is still required despite SystemdService= being used:
-    # https://github.com/freedesktop/dbus/blob/ef55a3db0d8f17848f8a579092fb05900cc076f5/test/data/systemd-activation/com.example.SystemdActivatable1.service
-    Exec=${pkgs.coreutils}/bin/false mmsd
-  '';
+        # Exec= is still required despite SystemdService= being used:
+        # https://github.com/freedesktop/dbus/blob/ef55a3db0d8f17848f8a579092fb05900cc076f5/test/data/systemd-activation/com.example.SystemdActivatable1.service
+        Exec=${pkgs.coreutils}/bin/false mmsd
+      '';
 in
 {
   options.services.mmsd = {

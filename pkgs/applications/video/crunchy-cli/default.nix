@@ -25,7 +25,9 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
 
   nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = [
+    openssl
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   meta = with lib; {
     description = "A pure Rust written Crunchyroll cli client and downloader";

@@ -18,7 +18,9 @@ in
   options.services.rkvm = {
     enable = mkOption {
       default = cfg.server.enable || cfg.client.enable;
-      defaultText = literalExpression "config.${opt.server.enable} || config.${opt.client.enable}";
+      defaultText =
+        literalExpression
+          "config.${opt.server.enable} || config.${opt.client.enable}";
       type = types.bool;
       description = mdDoc ''
         Whether to enable rkvm, a Virtual KVM switch for Linux machines.

@@ -11,7 +11,9 @@ in
   meta.maintainers = with lib.maintainers; [ rewine ];
 
   options.programs.wayfire = {
-    enable = lib.mkEnableOption (lib.mdDoc "Wayfire, a wayland compositor based on wlroots");
+    enable = lib.mkEnableOption (
+      lib.mdDoc "Wayfire, a wayland compositor based on wlroots"
+    );
 
     package = lib.mkPackageOptionMD pkgs "wayfire" { };
 
@@ -21,7 +23,9 @@ in
         wcm
         wf-shell
       ];
-      defaultText = lib.literalExpression "with pkgs.wayfirePlugins; [ wcm wf-shell ]";
+      defaultText =
+        lib.literalExpression
+          "with pkgs.wayfirePlugins; [ wcm wf-shell ]";
       example = lib.literalExpression ''
         with pkgs.wayfirePlugins; [
           wcm

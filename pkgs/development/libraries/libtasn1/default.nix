@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  preCheck = if stdenv.isDarwin then "export DYLD_LIBRARY_PATH=`pwd`/lib/.libs" else null;
+  preCheck =
+    if stdenv.isDarwin then "export DYLD_LIBRARY_PATH=`pwd`/lib/.libs" else null;
 
   passthru.tests = {
     inherit gnutls samba qemu;

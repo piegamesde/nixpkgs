@@ -43,29 +43,33 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ErHy+shxZQ/aCryGhovmJ6KmAMt9OZeQGDbHIkC0vUE=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    gettext
-    gtk-doc
-    docbook-xsl-nons
-    docbook_xml_dtd_412
-    libxml2 # for xmllint for stripping GResources
-    libxslt # for xsltproc for building docs
-    gobject-introspection
-    wrapGAppsNoGuiHook
-    python3.pkgs.wrapPython
-    # checkInput but cheked for during the configuring
-    (python3.pythonOnBuildForHost.withPackages (
-      ps:
-      with ps; [
-        pygobject3
-        dbus-python
-        python-dbusmock
-      ]
-    ))
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      meson
+      ninja
+      gettext
+      gtk-doc
+      docbook-xsl-nons
+      docbook_xml_dtd_412
+      libxml2 # for xmllint for stripping GResources
+      libxslt # for xsltproc for building docs
+      gobject-introspection
+      wrapGAppsNoGuiHook
+      python3.pkgs.wrapPython
+      # checkInput but cheked for during the configuring
+      (python3.pythonOnBuildForHost.withPackages (
+        ps:
+        with ps; [
+          pygobject3
+          dbus-python
+          python-dbusmock
+        ]
+      ))
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [
     libgudev
@@ -91,12 +95,16 @@ stdenv.mkDerivation rec {
   mesonFlags = [
     "-Dsystemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
     "-Dgtk_doc=true"
-    "-Dtests=${lib.boolToString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)}"
+    "-Dtests=${
+      lib.boolToString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    }"
   ];
 
   doCheck = true;
 
-  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR = "${placeholder "out"}/share/polkit-1/actions";
+  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR = "${
+      placeholder "out"
+    }/share/polkit-1/actions";
 
   # Avoid double wrapping
   dontWrapGApps = true;

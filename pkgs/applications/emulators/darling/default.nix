@@ -224,7 +224,9 @@ stdenv.mkDerivation {
       exit 1
     fi
 
-    patchelf --add-rpath "${lib.makeLibraryPath wrappedLibs}:${addOpenGLRunpath.driverLink}/lib" \
+    patchelf --add-rpath "${
+      lib.makeLibraryPath wrappedLibs
+    }:${addOpenGLRunpath.driverLink}/lib" \
       $out/libexec/darling/usr/libexec/darling/mldr
   '';
 

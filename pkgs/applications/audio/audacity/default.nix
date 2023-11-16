@@ -83,7 +83,10 @@ stdenv.mkDerivation rec {
     ''
     +
       lib.optionalString
-        (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11.0")
+        (
+          stdenv.isDarwin
+          && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11.0"
+        )
         ''
           sed -z -i "s/NSAppearanceName.*systemAppearance//" src/AudacityApp.mm
         '';
@@ -182,7 +185,9 @@ stdenv.mkDerivation rec {
   postInstall =
     lib.optionalString stdenv.isLinux ''
       wrapProgram "$out/bin/audacity" \
-        --prefix LD_LIBRARY_PATH : "$out/lib/audacity":${lib.makeLibraryPath [ ffmpeg_4 ]} \
+        --prefix LD_LIBRARY_PATH : "$out/lib/audacity":${
+          lib.makeLibraryPath [ ffmpeg_4 ]
+        } \
         --suffix AUDACITY_MODULES_PATH : "$out/lib/audacity/modules" \
         --suffix AUDACITY_PATH : "$out/share/audacity"
     ''

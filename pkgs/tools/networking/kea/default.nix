@@ -53,7 +53,9 @@ stdenv.mkDerivation rec {
       "--with-openssl=${lib.getDev openssl}"
     ]
     ++ lib.optional withPostgres "--with-pgsql=${postgresql}/bin/pg_config"
-    ++ lib.optional withMysql "--with-mysql=${lib.getDev libmysqlclient}/bin/mysql_config";
+    ++
+      lib.optional withMysql
+        "--with-mysql=${lib.getDev libmysqlclient}/bin/mysql_config";
 
   postConfigure = ''
     # Mangle embedded paths to dev-only inputs.

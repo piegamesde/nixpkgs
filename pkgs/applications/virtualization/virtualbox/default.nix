@@ -150,7 +150,9 @@ stdenv.mkDerivation {
   prePatch = ''
     set -x
     sed -e 's@MKISOFS --version@MKISOFS -version@' \
-        -e 's@PYTHONDIR=.*@PYTHONDIR=${lib.optionalString pythonBindings python3}@' \
+        -e 's@PYTHONDIR=.*@PYTHONDIR=${
+          lib.optionalString pythonBindings python3
+        }@' \
         -e 's@CXX_FLAGS="\(.*\)"@CXX_FLAGS="-std=c++11 \1"@' \
         ${
           optionalString (!headless) ''
@@ -161,7 +163,10 @@ stdenv.mkDerivation {
     ls kBuild/bin/linux.amd64/k* tools/linux.amd64/bin/* | xargs -n 1 patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux-x86-64.so.2
 
     grep 'libpulse\.so\.0'      src include -rI --files-with-match | xargs sed -i -e '
-      ${optionalString pulseSupport ''s@"libpulse\.so\.0"@"${libpulseaudio.out}/lib/libpulse.so.0"@g''}'
+      ${
+        optionalString pulseSupport
+          ''s@"libpulse\.so\.0"@"${libpulseaudio.out}/lib/libpulse.so.0"@g''
+      }'
 
     grep 'libdbus-1\.so\.3'     src include -rI --files-with-match | xargs sed -i -e '
       s@"libdbus-1\.so\.3"@"${dbus.lib}/lib/libdbus-1.so.3"@g'
@@ -253,7 +258,9 @@ stdenv.mkDerivation {
       ${optionalString (!enableHardening) "--disable-hardening"} \
       ${optionalString (!enable32bitGuests) "--disable-vmmraw"} \
       ${optionalString enableWebService "--enable-webservice"} \
-      ${optionalString (open-watcom-bin != null) "--with-ow-dir=${open-watcom-bin}"} \
+      ${
+        optionalString (open-watcom-bin != null) "--with-ow-dir=${open-watcom-bin}"
+      } \
       --disable-kmods
     sed -e 's@PKG_CONFIG_PATH=.*@PKG_CONFIG_PATH=${libIDL}/lib/pkgconfig:${glib.dev}/lib/pkgconfig ${libIDL}/bin/libIDL-config-2@' \
         -i AutoConfig.kmk

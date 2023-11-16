@@ -28,7 +28,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-eySVpmCVWBJfyAkTQv+LqojWMO/3r6kBYP1a4z+FYHY=";
 
-  buildInputs = lib.optional stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ Security ]);
+  buildInputs = lib.optional stdenv.isDarwin (
+    with darwin.apple_sdk.frameworks; [ Security ]
+  );
   nativeBuildInputs = [ makeWrapper ];
 
   # (Almost) all tests require internet

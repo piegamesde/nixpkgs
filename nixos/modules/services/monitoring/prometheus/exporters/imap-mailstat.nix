@@ -57,12 +57,18 @@ let
       description = lib.mdDoc description;
     };
   accountOptions.options = {
-    mailaddress = mkOpt types.str "Your email address (at the moment used as login name)";
+    mailaddress =
+      mkOpt types.str
+        "Your email address (at the moment used as login name)";
     username = mkOpt types.str "If empty string mailaddress value is used";
     password = mkOpt types.str "";
     serveraddress = mkOpt types.str "mailserver name or address";
-    serverport = mkOpt types.int "imap port number (at the moment only tls connection is supported)";
-    starttls = mkOpt types.bool "set to true for using STARTTLS to start a TLS connection";
+    serverport =
+      mkOpt types.int
+        "imap port number (at the moment only tls connection is supported)";
+    starttls =
+      mkOpt types.bool
+        "set to true for using STARTTLS to start a TLS connection";
   };
 in
 {

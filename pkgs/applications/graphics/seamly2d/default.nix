@@ -66,11 +66,17 @@ stdenv.mkDerivation rec {
       --replace '$$[QT_INSTALL_HEADERS]/' '${lib.getDev qtbase}/include/' \
       --replace '$$[QT_INSTALL_HEADERS]' '${lib.getDev qtbase}'
     substituteInPlace src/app/translations.pri \
-      --replace '$$[QT_INSTALL_BINS]/$$LRELEASE' '${lib.getDev qttools}/bin/lrelease'
+      --replace '$$[QT_INSTALL_BINS]/$$LRELEASE' '${
+        lib.getDev qttools
+      }/bin/lrelease'
     substituteInPlace src/app/seamly2d/mainwindowsnogui.cpp \
-      --replace 'define PDFTOPS "pdftops"' 'define PDFTOPS "${lib.getBin poppler_utils}/bin/pdftops"'
+      --replace 'define PDFTOPS "pdftops"' 'define PDFTOPS "${
+        lib.getBin poppler_utils
+      }/bin/pdftops"'
     substituteInPlace src/libs/vwidgets/export_format_combobox.cpp \
-      --replace 'define PDFTOPS "pdftops"' 'define PDFTOPS "${lib.getBin poppler_utils}/bin/pdftops"'
+      --replace 'define PDFTOPS "pdftops"' 'define PDFTOPS "${
+        lib.getBin poppler_utils
+      }/bin/pdftops"'
     substituteInPlace src/app/seamlyme/mapplication.cpp \
       --replace 'diagrams.rcc' '../share/diagrams.rcc'
   '';

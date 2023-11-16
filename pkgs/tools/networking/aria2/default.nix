@@ -53,7 +53,9 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt"
     "--enable-libaria2"
-    "--with-bashcompletiondir=${placeholder "bin"}/share/bash-completion/completions"
+    "--with-bashcompletiondir=${
+      placeholder "bin"
+    }/share/bash-completion/completions"
   ];
 
   prePatch = ''

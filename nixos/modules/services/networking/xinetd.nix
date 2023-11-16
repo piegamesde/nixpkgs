@@ -46,7 +46,9 @@ in
 
   options = {
 
-    services.xinetd.enable = mkEnableOption (lib.mdDoc "the xinetd super-server daemon");
+    services.xinetd.enable = mkEnableOption (
+      lib.mdDoc "the xinetd super-server daemon"
+    );
 
     services.xinetd.extraDefaults = mkOption {
       default = "";
@@ -125,7 +127,9 @@ in
               extraConfig = mkOption {
                 type = types.lines;
                 default = "";
-                description = lib.mdDoc "Extra configuration-lines added to the section of the service.";
+                description =
+                  lib.mdDoc
+                    "Extra configuration-lines added to the section of the service.";
               };
             };
           })

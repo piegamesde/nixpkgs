@@ -22,7 +22,9 @@ let
 
     prefixLength = mkOption {
       default = pref;
-      type = types.addCheck types.int (n: n >= 0 && n <= (if v == 4 then 32 else 128));
+      type = types.addCheck types.int (
+        n: n >= 0 && n <= (if v == 4 then 32 else 128)
+      );
       description = lib.mdDoc ''
         Subnet mask of the ${name} address, specified as the number of
         bits in the prefix (`${if v == 4 then "24" else "64"}`).
@@ -38,19 +40,21 @@ let
         (
           { runCommandNoCC, squashfsTools }:
 
-          runCommandNoCC "${cfg.image.name}-modified.img" { nativeBuildInputs = [ squashfsTools ]; } ''
-            echo "-> Extracting Anbox root image..."
-            unsquashfs -dest rootfs ${cfg.image}
+          runCommandNoCC "${cfg.image.name}-modified.img"
+            { nativeBuildInputs = [ squashfsTools ]; }
+            ''
+              echo "-> Extracting Anbox root image..."
+              unsquashfs -dest rootfs ${cfg.image}
 
-            echo "-> Modifying Anbox root image..."
-            (
-            cd rootfs
-            ${cfg.imageModifications}
-            )
+              echo "-> Modifying Anbox root image..."
+              (
+              cd rootfs
+              ${cfg.imageModifications}
+              )
 
-            echo "-> Packing modified Anbox root image..."
-            mksquashfs rootfs $out -comp xz -no-xattrs -all-root
-          ''
+              echo "-> Packing modified Anbox root image..."
+              mksquashfs rootfs $out -comp xz -no-xattrs -all-root
+            ''
         )
         { }
       );
@@ -108,7 +112,8 @@ in
   config = mkIf cfg.enable {
 
     assertions = singleton {
-      assertion = with config.boot.kernelPackages; kernelAtLeast "5.5" && kernelOlder "5.18";
+      assertion =
+        with config.boot.kernelPackages; kernelAtLeast "5.5" && kernelOlder "5.18";
       message = "Anbox needs a kernel with binder and ashmem support";
     };
 

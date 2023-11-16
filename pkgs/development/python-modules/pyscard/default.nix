@@ -49,7 +49,9 @@ buildPythonPackage rec {
         substituteInPlace setup.py --replace "pkg-config" "$PKG_CONFIG"
         substituteInPlace smartcard/scard/winscarddll.c \
           --replace "libpcsclite.so.1" \
-                    "${lib.getLib pcsclite}/lib/libpcsclite${stdenv.hostPlatform.extensions.sharedLibrary}"
+                    "${
+                      lib.getLib pcsclite
+                    }/lib/libpcsclite${stdenv.hostPlatform.extensions.sharedLibrary}"
       '';
 
   preCheck = ''

@@ -45,7 +45,9 @@ stdenv.mkDerivation {
       }"
   '';
 
-  passthru.updateScript = unstableGitUpdater { url = "https://github.com/chubin/cheat.sh.git"; };
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/chubin/cheat.sh.git";
+  };
 
   meta = with lib; {
     description = "CLI client for cheat.sh, a community driven cheat sheet";

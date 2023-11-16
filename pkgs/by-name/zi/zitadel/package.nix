@@ -138,7 +138,8 @@ buildGo121Module rec {
 
   passthru = {
     console =
-      callPackage (import ./console.nix { inherit generateProtobufCode version zitadelRepo; })
+      callPackage
+        (import ./console.nix { inherit generateProtobufCode version zitadelRepo; })
         { };
   };
 

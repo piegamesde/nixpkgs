@@ -58,7 +58,8 @@ let
           x86_64-linux = "x86_64-unknown-linux-musl";
           aarch64-linux = "aarch64-unknown-linux-musl";
         }
-        ."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+        ."${stdenv.hostPlatform.system}"
+          or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
       name = "buck2-${version}-${suffix}.zst";
       hash = buildHashes."${stdenv.hostPlatform.system}";

@@ -39,7 +39,12 @@ let
   finalDrv = toVimPlugin (
     luaDrv.overrideAttrs (
       oa:
-      attrs // { nativeBuildInputs = oa.nativeBuildInputs or [ ] ++ [ lua.pkgs.luarocksMoveDataFolder ]; }
+      attrs
+      // {
+        nativeBuildInputs = oa.nativeBuildInputs or [ ] ++ [
+          lua.pkgs.luarocksMoveDataFolder
+        ];
+      }
     )
   );
 in

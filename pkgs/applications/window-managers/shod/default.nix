@@ -35,7 +35,10 @@ stdenv.mkDerivation rec {
   postPatch =
     let
       configFile =
-        if lib.isDerivation conf || builtins.isPath conf then conf else writeText "config.h" conf;
+        if lib.isDerivation conf || builtins.isPath conf then
+          conf
+        else
+          writeText "config.h" conf;
     in
     lib.optionalString (conf != null) "cp ${configFile} config.h";
 

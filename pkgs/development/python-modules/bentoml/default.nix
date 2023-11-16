@@ -94,7 +94,14 @@ let
   io = io-json ++ io-image ++ io-pandas ++ io-file;
   tracing = tracing-otlp; # ++ tracing-zipkin ++ tracing-jaeger
   optional-dependencies = {
-    all = aws ++ io ++ grpc ++ grpc-reflection ++ grpc-channelz ++ tracing ++ monitor-otlp;
+    all =
+      aws
+      ++ io
+      ++ grpc
+      ++ grpc-reflection
+      ++ grpc-channelz
+      ++ tracing
+      ++ monitor-otlp;
     inherit
       aws
       grpc
@@ -109,9 +116,10 @@ let
       tracing-otlp
       tracing
     ;
-    triton = [
-      tritonclient
-    ] ++ tritonclient.optional-dependencies.http ++ tritonclient.optional-dependencies.grpc;
+    triton =
+      [ tritonclient ]
+      ++ tritonclient.optional-dependencies.http
+      ++ tritonclient.optional-dependencies.grpc;
   };
 in
 buildPythonPackage {

@@ -61,11 +61,15 @@ in
       environment = mapAttrs (_: toString) cfg.settings;
       serviceConfig = {
         ExecStart = getExe cfg.package;
-        AmbientCapabilities = mkIf (cfg.settings.PORT < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = mkIf (cfg.settings.PORT < 1024) [
+          "CAP_NET_BIND_SERVICE"
+        ];
         DynamicUser = true;
         Restart = "on-failure";
         RestartSec = "5s";
-        CapabilityBoundingSet = [ (optionalString (cfg.settings.PORT < 1024) "CAP_NET_BIND_SERVICE") ];
+        CapabilityBoundingSet = [
+          (optionalString (cfg.settings.PORT < 1024) "CAP_NET_BIND_SERVICE")
+        ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;

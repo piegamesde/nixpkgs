@@ -23,7 +23,8 @@ let
     PDF Studio is an easy to use, full-featured PDF editing software. This is the standard/pro edition, which requires a license. For the free PDF Studio Viewer see the package pdfstudioviewer.
   '';
   pname = if (program == "pdfstudio") then "${program}${year}" else program;
-  desktopName = if (program == "pdfstudio") then "PDF Studio ${year}" else "PDF Studio Viewer";
+  desktopName =
+    if (program == "pdfstudio") then "PDF Studio ${year}" else "PDF Studio Viewer";
   dot2dash = str: builtins.replaceStrings [ "." ] [ "_" ] str;
 in
 {
@@ -55,7 +56,9 @@ in
     ;
     version = "${year}.2.2";
     src = fetchurl {
-      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${dot2dash version}_linux64.deb";
+      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${
+          dot2dash version
+        }_linux64.deb";
       sha256 = "sha256-HdkwRMqwquAaW6l3AukGReFtw2f5n36tZ8vXo6QiPvU=";
     };
     extraBuildInputs = [
@@ -74,7 +77,9 @@ in
     ;
     version = "${year}.2.5";
     src = fetchurl {
-      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${dot2dash version}_linux64.deb";
+      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${
+          dot2dash version
+        }_linux64.deb";
       sha256 = "sha256-3faZyWUnFe//S+gOskWhsZ6jzHw67FRsv/xP77R1jj4=";
     };
     extraBuildInputs = [
@@ -93,7 +98,9 @@ in
     ;
     version = "${year}.0.3";
     src = fetchurl {
-      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${dot2dash version}_linux64.deb";
+      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${
+          dot2dash version
+        }_linux64.deb";
       sha256 = "sha256-Po7BMmEWoC46rP7tUwZT9Ji/Wi8lKc6WN8x47fx2DXg=";
     };
     jdk = jdk17;

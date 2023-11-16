@@ -46,7 +46,9 @@ buildNpmPackage {
     + ''
       npm exec electron-builder -- \
         --dir \
-        -c.electronDist=${if stdenv.isDarwin then "." else "${electron}/libexec/electron"} \
+        -c.electronDist=${
+          if stdenv.isDarwin then "." else "${electron}/libexec/electron"
+        } \
         -c.electronVersion=${electron.version}
     '';
 

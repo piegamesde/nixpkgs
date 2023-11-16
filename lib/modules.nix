@@ -50,11 +50,15 @@ let
 
   showDeclPrefix =
     loc: decl: prefix:
-    " - option(s) with prefix `${showOption (loc ++ [ prefix ])}' in module `${decl._file}'";
+    " - option(s) with prefix `${
+       showOption (loc ++ [ prefix ])
+     }' in module `${decl._file}'";
   showRawDecls =
     loc: decls:
     concatStringsSep "\n" (
-      sort (a: b: a < b) (concatMap (decl: map (showDeclPrefix loc decl) (attrNames decl.options)) decls)
+      sort (a: b: a < b) (
+        concatMap (decl: map (showDeclPrefix loc decl) (attrNames decl.options)) decls
+      )
     );
 
   /* See https://nixos.org/manual/nixpkgs/unstable/#module-system-lib-evalModules
@@ -234,7 +238,8 @@ let
       merged =
         let
           collected =
-            collectModules class (specialArgs.modulesPath or "") (regularModules ++ [ internalModule ])
+            collectModules class (specialArgs.modulesPath or "")
+              (regularModules ++ [ internalModule ])
               (
                 {
                   inherit
@@ -268,7 +273,10 @@ let
                   })
                   merged.unmatchedDefns;
             in
-            if defs == [ ] then { } else declaredConfig._module.freeformType.merge prefix defs;
+            if defs == [ ] then
+              { }
+            else
+              declaredConfig._module.freeformType.merge prefix defs;
         in
         if declaredConfig._module.freeformType == null then
           declaredConfig
@@ -279,7 +287,11 @@ let
           recursiveUpdate freeformConfig declaredConfig;
 
       checkUnmatched =
-        if config._module.check && config._module.freeformType == null && merged.unmatchedDefns != [ ] then
+        if
+          config._module.check
+          && config._module.freeformType == null
+          && merged.unmatchedDefns != [ ]
+        then
           let
             firstDef = head merged.unmatchedDefns;
             baseMsg =
@@ -289,9 +301,8 @@ let
                   builtins.addErrorContext
                     "while evaluating the error message for definitions for `${optText}', which is an option that does not exist"
                     (
-                      builtins.addErrorContext "while evaluating a definition from `${firstDef.file}'" (
-                        showDefs [ firstDef ]
-                      )
+                      builtins.addErrorContext "while evaluating a definition from `${firstDef.file}'"
+                        (showDefs [ firstDef ])
                     );
               in
               "The option `${optText}' does not exist. Definition values:${defText}";
@@ -310,7 +321,9 @@ let
               throw ''
                 ${baseMsg}
 
-                However there are no options defined in `${showOption prefix}'. Are you sure you've
+                However there are no options defined in `${
+                  showOption prefix
+                }'. Are you sure you've
                 declared your options properly? This can happen if you e.g. declared your options in `types.submodule'
                 under `config' rather than `options'.
               ''
@@ -370,8 +383,12 @@ let
             loadModule args fallbackFile fallbackKey { config = m; }
           else
             throw (
-              "Could not load a value as a module, because it is of type ${lib.strings.escapeNixString m._type}"
-              + lib.optionalString (fallbackFile != unknownModule) ", in file ${toString fallbackFile}."
+              "Could not load a value as a module, because it is of type ${
+                lib.strings.escapeNixString m._type
+              }"
+              +
+                lib.optionalString (fallbackFile != unknownModule)
+                  ", in file ${toString fallbackFile}."
               + lib.optionalString (m._type == "configuration") ''
                  If you do intend to import this configuration, please only import the modules that make up the configuration. You may have to create a `let` binding, file or attribute to give yourself access to the relevant modules.
                 While loading a configuration into the module system is a very sensible idea, it can not be done cleanly in practice.''
@@ -401,7 +418,10 @@ let
           if m._class != null -> m._class == class then
             m
           else
-            throw "The module ${m._file or m.key} was imported into ${class} instead of ${m._class}."
+            throw
+              "The module ${
+                m._file or m.key
+              } was imported into ${class} instead of ${m._class}."
         else
           m: m;
 
@@ -442,8 +462,12 @@ let
             (
               n: x:
               let
-                module = checkModule (loadModule args parentFile "${parentKey}:anon-${toString n}" x);
-                collectedImports = collectStructuredModules module._file module.key module.imports args;
+                module = checkModule (
+                  loadModule args parentFile "${parentKey}:anon-${toString n}" x
+                );
+                collectedImports =
+                  collectStructuredModules module._file module.key module.imports
+                    args;
               in
               {
                 key = module.key;
@@ -501,7 +525,9 @@ let
                   toString file
                 }` is none of that, but is of type ${builtins.typeOf m}.";
 
-          disabledKeys = concatMap ({ file, disabled }: map (moduleKey file) disabled) disabled;
+          disabledKeys =
+            concatMap ({ file, disabled }: map (moduleKey file) disabled)
+              disabled;
           keyFilter = filter (attrs: !elem attrs.key disabledKeys);
         in
         map (attrs: attrs.module) (
@@ -512,7 +538,9 @@ let
         );
     in
     modulesPath: initialModules: args:
-    filterModules modulesPath (collectStructuredModules unknownModule "" initialModules args);
+    filterModules modulesPath (
+      collectStructuredModules unknownModule "" initialModules args
+    );
 
   # Wrap a module with a default location for reporting errors.
   setDefaultModuleLocation = file: m: {
@@ -578,25 +606,27 @@ let
         }
     else
       # shorthand syntax
-      lib.throwIfNot (isAttrs m) "module ${file} (${key}) does not look like a module." {
-        _file = toString m._file or file;
-        _class = m._class or null;
-        key = toString m.key or key;
-        disabledModules = m.disabledModules or [ ];
-        imports = m.require or [ ] ++ m.imports or [ ];
-        options = { };
-        config = addFreeformType (
-          removeAttrs m [
-            "_class"
-            "_file"
-            "key"
-            "disabledModules"
-            "require"
-            "imports"
-            "freeformType"
-          ]
-        );
-      };
+      lib.throwIfNot (isAttrs m)
+        "module ${file} (${key}) does not look like a module."
+        {
+          _file = toString m._file or file;
+          _class = m._class or null;
+          key = toString m.key or key;
+          disabledModules = m.disabledModules or [ ];
+          imports = m.require or [ ] ++ m.imports or [ ];
+          options = { };
+          config = addFreeformType (
+            removeAttrs m [
+              "_class"
+              "_file"
+              "key"
+              "disabledModules"
+              "require"
+              "imports"
+              "freeformType"
+            ]
+          );
+        };
 
   applyModuleArgsIfFunction =
     key: f:
@@ -632,7 +662,12 @@ let
       context = name: ''while evaluating the module argument `${name}' in "${key}":'';
       extraArgs =
         builtins.mapAttrs
-          (name: _: builtins.addErrorContext (context name) (args.${name} or config._module.args.${name}))
+          (
+            name: _:
+            builtins.addErrorContext (context name) (
+              args.${name} or config._module.args.${name}
+            )
+          )
           (lib.functionArgs f);
     in
     # Note: we append in the opposite order such that we can add an error
@@ -719,7 +754,9 @@ let
               #       options, so maybe that's why this is here.
               isAttrs c.config
               || throw ''
-                In module `${c.file}', you're trying to define a value of type `${builtins.typeOf c.config}'
+                In module `${c.file}', you're trying to define a value of type `${
+                  builtins.typeOf c.config
+                }'
                 rather than an attribute set for the option
                 `${builtins.concatStringsSep "." prefix}'!
 
@@ -800,7 +837,10 @@ let
                   (
                     m:
                     m.options ? _type
-                    && (m.options._type == "option" || throwDeclarationTypeError loc m.options._type m._file)
+                    && (
+                      m.options._type == "option"
+                      || throwDeclarationTypeError loc m.options._type m._file
+                    )
                   )
                   decls;
             in
@@ -937,7 +977,8 @@ let
           t' = opt.options.type;
           mergedType = t.typeMerge t'.functor;
           typesMergeable = mergedType != null;
-          typeSet = if (bothHave "type") && typesMergeable then { type = mergedType; } else { };
+          typeSet =
+            if (bothHave "type") && typesMergeable then { type = mergedType; } else { };
           bothHave = k: opt.options ? ${k} && res ? ${k};
         in
         if
@@ -1014,11 +1055,14 @@ let
             # For a better error message, evaluate all readOnly definitions as
             # if they were the only definition.
             separateDefs =
-              map (def: def // { value = (mergeDefinitions loc opt.type [ def ]).mergedValue; })
+              map
+                (def: def // { value = (mergeDefinitions loc opt.type [ def ]).mergedValue; })
                 defs';
           in
           throw
-            "The option `${showOption loc}' is read-only, but it's set multiple times. Definition values:${
+            "The option `${
+              showOption loc
+            }' is read-only, but it's set multiple times. Definition values:${
               showDefs separateDefs
             }"
         else
@@ -1036,7 +1080,9 @@ let
     in
     warnDeprecation opt
     // {
-      value = builtins.addErrorContext "while evaluating the option `${showOption loc}':" value;
+      value =
+        builtins.addErrorContext "while evaluating the option `${showOption loc}':"
+          value;
       inherit (res.defsFinal') highestPrio;
       definitions = map (def: def.value) res.defsFinal;
       files = map (def: def.file) res.defsFinal;
@@ -1097,7 +1143,9 @@ let
           throw
             "A definition for option `${
               showOption loc
-            }' is not of type `${type.description}'. Definition values:${showDefs allInvalid}"
+            }' is not of type `${type.description}'. Definition values:${
+              showDefs allInvalid
+            }"
       else
         # (nixos-option detects this specific error message and gives it special
         # handling.  If changed here, please change it there too.)
@@ -1130,7 +1178,9 @@ let
     else if cfg._type or "" == "if" then
       map (mapAttrs (n: v: mkIf cfg.condition v)) (pushDownProperties cfg.content)
     else if cfg._type or "" == "override" then
-      map (mapAttrs (n: v: mkOverride cfg.priority v)) (pushDownProperties cfg.content)
+      map (mapAttrs (n: v: mkOverride cfg.priority v)) (
+        pushDownProperties cfg.content
+      )
     else # FIXME: handle mkOrder?
       [ cfg ];
 
@@ -1181,13 +1231,23 @@ let
     defs:
     let
       getPrio =
-        def: if def.value._type or "" == "override" then def.value.priority else defaultOverridePriority;
+        def:
+        if def.value._type or "" == "override" then
+          def.value.priority
+        else
+          defaultOverridePriority;
       highestPrio = foldl' (prio: def: min (getPrio def) prio) 9999 defs;
       strip =
-        def: if def.value._type or "" == "override" then def // { value = def.value.content; } else def;
+        def:
+        if def.value._type or "" == "override" then
+          def // { value = def.value.content; }
+        else
+          def;
     in
     {
-      values = concatMap (def: if getPrio def == highestPrio then [ (strip def) ] else [ ]) defs;
+      values =
+        concatMap (def: if getPrio def == highestPrio then [ (strip def) ] else [ ])
+          defs;
       inherit highestPrio;
     };
 
@@ -1209,7 +1269,9 @@ let
         else
           def;
       defs' = map strip defs;
-      compare = a: b: (a.priority or defaultOrderPriority) < (b.priority or defaultOrderPriority);
+      compare =
+        a: b:
+        (a.priority or defaultOrderPriority) < (b.priority or defaultOrderPriority);
     in
     sort compare defs';
 
@@ -1262,7 +1324,9 @@ let
       (
         k: v:
         let
-          merging = lib.mergeDefinitions (opt.loc ++ [ k ]) opt.type.nestedTypes.elemType v;
+          merging =
+            lib.mergeDefinitions (opt.loc ++ [ k ]) opt.type.nestedTypes.elemType
+              v;
         in
         {
           value = merging.mergedValue;
@@ -1347,7 +1411,8 @@ let
   # mkDefault properties of the previous option.
   #
   mkAliasDefinitions = mkAliasAndWrapDefinitions id;
-  mkAliasAndWrapDefinitions = wrap: option: mkAliasIfDef option (wrap (mkMerge option.definitions));
+  mkAliasAndWrapDefinitions =
+    wrap: option: mkAliasIfDef option (wrap (mkMerge option.definitions));
 
   # Similar to mkAliasAndWrapDefinitions but copies over the priority from the
   # option as well.
@@ -1436,7 +1501,9 @@ let
       warn = true;
       use =
         builtins.trace
-          "Obsolete option `${showOption from}' is used. It was renamed to `${showOption to}'.";
+          "Obsolete option `${showOption from}' is used. It was renamed to `${
+            showOption to
+          }'.";
     };
 
   mkRenamedOptionModuleWith =
@@ -1458,7 +1525,9 @@ let
       warn = lib.isInOldestRelease sinceRelease;
       use =
         lib.warnIf (lib.isInOldestRelease sinceRelease)
-          "Obsolete option `${showOption from}' is used. It was renamed to `${showOption to}'.";
+          "Obsolete option `${showOption from}' is used. It was renamed to `${
+            showOption to
+          }'.";
     };
 
   /* Return a module that causes a warning to be shown if any of the "from"
@@ -1519,7 +1588,9 @@ let
                   opt = getAttrFromPath f options;
                 in
                 optionalString (val != "_mkMergedOptionModule")
-                  "The option `${showOption f}' defined in ${showFiles opt.files} has been changed to `${
+                  "The option `${showOption f}' defined in ${
+                    showFiles opt.files
+                  } has been changed to `${
                     showOption to
                   }' that has a different type. Please read `${
                     showOption to
@@ -1530,7 +1601,9 @@ let
         }
         // setAttrByPath to (
           mkMerge (
-            optional (any (f: (getAttrFromPath f config) != "_mkMergedOptionModule") from) (mergeFn config)
+            optional (any (f: (getAttrFromPath f config) != "_mkMergedOptionModule") from) (
+              mergeFn config
+            )
           )
         );
     };
@@ -1593,7 +1666,8 @@ let
   # to all messages that report option locations "this value was derived from <full option name>
   # which was defined in <locations>". It can provide a trace of options that contributed
   # to definitions.
-  mkDerivedConfig = opt: f: mkOverride (opt.highestPrio or defaultOverridePriority) (f opt.value);
+  mkDerivedConfig =
+    opt: f: mkOverride (opt.highestPrio or defaultOverridePriority) (f opt.value);
 
   doRename =
     {
@@ -1607,7 +1681,9 @@ let
     { config, options, ... }:
     let
       fromOpt = getAttrFromPath from options;
-      toOf = attrByPath to (abort "Renaming error: option `${showOption to}' does not exist.");
+      toOf = attrByPath to (
+        abort "Renaming error: option `${showOption to}' does not exist."
+      );
       toType =
         let
           opt = attrByPath to { } options;
@@ -1627,9 +1703,9 @@ let
         (optionalAttrs (options ? warnings) {
           warnings =
             optional (warn && fromOpt.isDefined)
-              "The option `${showOption from}' defined in ${showFiles fromOpt.files} has been renamed to `${
-                showOption to
-              }'.";
+              "The option `${showOption from}' defined in ${
+                showFiles fromOpt.files
+              } has been renamed to `${showOption to}'.";
         })
         (
           if withPriority then

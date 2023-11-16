@@ -35,15 +35,19 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  patches = [
-    (fetchpatch {
-      # Backported from LLVM 12, avoids clashes with commonly used "block.h" header.
-      url = "https://github.com/llvm/llvm-project/commit/19bc9ea480b60b607a3e303f20c7a3a2ea553369.patch";
-      sha256 = "sha256-aWa66ogmPkG0xHzSfcpD0qZyZQcNKwLV44js4eiun78=";
-      stripLen = 1;
-    })
-    ./gnu-install-dirs.patch
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [ ../../libcxx-0001-musl-hacks.patch ];
+  patches =
+    [
+      (fetchpatch {
+        # Backported from LLVM 12, avoids clashes with commonly used "block.h" header.
+        url = "https://github.com/llvm/llvm-project/commit/19bc9ea480b60b607a3e303f20c7a3a2ea553369.patch";
+        sha256 = "sha256-aWa66ogmPkG0xHzSfcpD0qZyZQcNKwLV44js4eiun78=";
+        stripLen = 1;
+      })
+      ./gnu-install-dirs.patch
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
+      ../../libcxx-0001-musl-hacks.patch
+    ];
 
   # Prevent errors like "error: 'foo' is unavailable: introduced in macOS yy.zz"
   postPatch = ''
@@ -66,7 +70,9 @@ stdenv.mkDerivation {
     [ "-DLIBCXX_CXX_ABI=${cxxabi.pname}" ]
     ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
       "-DLIBCXX_HAS_MUSL_LIBC=1"
-    ++ lib.optional (stdenv.hostPlatform.useLLVM or false) "-DLIBCXX_USE_COMPILER_RT=ON"
+    ++
+      lib.optional (stdenv.hostPlatform.useLLVM or false)
+        "-DLIBCXX_USE_COMPILER_RT=ON"
     ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXX_ENABLE_THREADS=OFF"
       "-DLIBCXX_ENABLE_FILESYSTEM=OFF"

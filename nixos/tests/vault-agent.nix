@@ -14,7 +14,9 @@ import ./make-test-python.nix (
               method = [
                 {
                   type = "token_file";
-                  config.token_file_path = pkgs.writeText "vault-token" config.environment.variables.VAULT_TOKEN;
+                  config.token_file_path =
+                    pkgs.writeText "vault-token"
+                      config.environment.variables.VAULT_TOKEN;
                 }
               ];
             }

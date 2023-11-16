@@ -184,7 +184,8 @@ rec {
 
     meta = redshift.meta // {
       name = "${pname}-${version}";
-      longDescription = "Gammastep" + lib.removePrefix "Redshift" redshift.meta.longDescription;
+      longDescription =
+        "Gammastep" + lib.removePrefix "Redshift" redshift.meta.longDescription;
       homepage = "https://gitlab.com/chinstrap/gammastep";
       mainProgram = "gammastep";
       maintainers =

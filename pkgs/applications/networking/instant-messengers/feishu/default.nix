@@ -171,7 +171,8 @@ stdenv.mkDerivation rec {
         --prefix LD_LIBRARY_PATH  :  ${rpath}:$out/opt/bytedance/feishu:${addOpenGLRunpath.driverLink}/share \
         --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
         ${
-          lib.optionalString (commandLineArgs != "") "--add-flags ${lib.escapeShellArg commandLineArgs}"
+          lib.optionalString (commandLineArgs != "")
+            "--add-flags ${lib.escapeShellArg commandLineArgs}"
         }
     done
 

@@ -22,7 +22,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-NYdxDFUBOBC3nTZB8STdZfOz3Dw0htFCqE0qBRMzQvw=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.Security
+  ];
 
   checkFlags = [
     # fails even outside the Nix sandbox

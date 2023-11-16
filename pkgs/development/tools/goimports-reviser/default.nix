@@ -26,7 +26,9 @@ buildGoModule rec {
     "-X=main.Tag=${src.rev}"
   ];
 
-  checkFlags = [ "-skip=TestSourceFile_Fix_WithAliasForVersionSuffix/success_with_set_alias" ];
+  checkFlags = [
+    "-skip=TestSourceFile_Fix_WithAliasForVersionSuffix/success_with_set_alias"
+  ];
 
   preCheck = ''
     # unset to run all tests

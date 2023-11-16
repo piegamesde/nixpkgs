@@ -17,7 +17,8 @@ let
       ''
         # Insert secrets
         ${concatStringsSep "\n" (
-          mapAttrsToList (k: v: ''export ${k}="$(cat "${v}" | tr -d '\n')"'') cfg.configReplaces
+          mapAttrsToList (k: v: ''export ${k}="$(cat "${v}" | tr -d '\n')"'')
+            cfg.configReplaces
         )}
 
         ${pkgs.perl}/bin/perl -p ${

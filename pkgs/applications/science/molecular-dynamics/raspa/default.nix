@@ -57,16 +57,18 @@ stdenv.mkDerivation rec {
       --set RASPA_DIR "$out"
   '';
 
-  passthru.tests.run-an-example = runCommandLocal "raspa-test-run-an-example" { } ''
-    set -eu -o pipefail
-    exampleDir="${raspa-data}/share/raspa/examples/Basic/1_MC_Methane_in_Box"
-    exampleDirWritable="$(basename "$exampleDir")"
-    cp -rT "$exampleDir" "./$exampleDirWritable"
-    chmod u+rw -R "$exampleDirWritable"
-    cd "$exampleDirWritable"
-    ${raspa}/bin/simulate
-    touch "$out"
-  '';
+  passthru.tests.run-an-example =
+    runCommandLocal "raspa-test-run-an-example" { }
+      ''
+        set -eu -o pipefail
+        exampleDir="${raspa-data}/share/raspa/examples/Basic/1_MC_Methane_in_Box"
+        exampleDirWritable="$(basename "$exampleDir")"
+        cp -rT "$exampleDir" "./$exampleDirWritable"
+        chmod u+rw -R "$exampleDirWritable"
+        cd "$exampleDirWritable"
+        ${raspa}/bin/simulate
+        touch "$out"
+      '';
 
   meta = with lib; {
     description = "A general purpose classical molecular simulation package";

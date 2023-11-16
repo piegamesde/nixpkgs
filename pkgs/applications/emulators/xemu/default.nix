@@ -120,7 +120,10 @@ stdenv.mkDerivation (
           ''
             ;
           ''
-          (res: "install -Dm644 -T ../ui/icons/xemu_${res}.png $out/share/icons/hicolor/${res}/apps/xemu.png")
+          (
+            res:
+            "install -Dm644 -T ../ui/icons/xemu_${res}.png $out/share/icons/hicolor/${res}/apps/xemu.png"
+          )
           [
             "16x16"
             "24x24"

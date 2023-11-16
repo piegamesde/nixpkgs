@@ -8,7 +8,8 @@
   audiofile,
   libcap,
   libiconv,
-  libGLSupported ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
+  libGLSupported ?
+    lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
   openglSupport ? libGLSupported,
   libGL,
   libGLU,
@@ -18,7 +19,8 @@
   libXext,
   libICE,
   libXrandr,
-  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  pulseaudioSupport ?
+    config.pulseaudio or stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
   libpulseaudio,
   OpenGL,
   GLUT,

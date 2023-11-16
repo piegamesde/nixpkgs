@@ -26,7 +26,9 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.11") [ "test_compile__compile_restricted_exec__5" ];
+  disabledTests = lib.optionals (pythonAtLeast "3.11") [
+    "test_compile__compile_restricted_exec__5"
+  ];
 
   pythonImportsCheck = [ "RestrictedPython" ];
 

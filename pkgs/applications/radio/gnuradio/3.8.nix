@@ -299,7 +299,9 @@ stdenv.mkDerivation (
           "-DLIBGSM_LIBRARIES=${gsm}/lib/libgsm${stdenv.hostPlatform.extensions.sharedLibrary}"
           "-DLIBGSM_INCLUDE_DIRS=${gsm}/include/gsm"
         ]
-        ++ lib.optionals (hasFeature "volk" && volk != null) [ "-DENABLE_INTERNAL_VOLK=OFF" ];
+        ++ lib.optionals (hasFeature "volk" && volk != null) [
+          "-DENABLE_INTERNAL_VOLK=OFF"
+        ];
 
       postInstall =
         shared.postInstall

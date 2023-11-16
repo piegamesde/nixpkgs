@@ -111,7 +111,9 @@ let
     lib.optionals final [
       # tlnet-final snapshot; used when texlive.tlpdb is frozen
       # the TeX Live yearly freeze typically happens in mid-March
-      "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${toString texliveYear}/tlnet-final"
+      "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${
+        toString texliveYear
+      }/tlnet-final"
       "ftp://tug.org/texlive/historic/${toString texliveYear}/tlnet-final"
     ]
     ++ [
@@ -170,9 +172,12 @@ let
           # NOTE: the fixed naming scheme must match generate-fixed-hashes.nix
           // {
             inherit mirrors pname;
-            fixedHashes = fixedHashes."${pname}-${toString revision}${extraRevision}" or { };
+            fixedHashes =
+              fixedHashes."${pname}-${toString revision}${extraRevision}" or { };
           }
-          // lib.optionalAttrs (args ? deps) { deps = map (n: tl.${n}) (args.deps or [ ]); }
+          // lib.optionalAttrs (args ? deps) {
+            deps = map (n: tl.${n}) (args.deps or [ ]);
+          }
         )
       )
       overriddenTlpdb;
@@ -207,13 +212,18 @@ let
     drv:
     if drv.outputSpecified or false then
       let
-        tlType = drv.tlType or tlOutToType.${drv.tlOutputName or drv.outputName} or null;
+        tlType =
+          drv.tlType or tlOutToType.${drv.tlOutputName or drv.outputName} or null;
       in
       lib.optional (tlType != null) (drv // { inherit tlType; })
     else
       [ (drv.tex // { tlType = "run"; }) ]
       ++ lib.optional (drv ? texdoc) (
-        drv.texdoc // { tlType = "doc"; } // lib.optionalAttrs (drv ? man) { hasManpages = true; }
+        drv.texdoc
+        // {
+          tlType = "doc";
+        }
+        // lib.optionalAttrs (drv ? man) { hasManpages = true; }
       )
       ++ lib.optional (drv ? texsource) (drv.texsource // { tlType = "source"; })
       ++ lib.optional (drv ? tlpkg) (drv.tlpkg // { tlType = "tlpkg"; })
@@ -249,7 +259,9 @@ let
       mainDrv = set.out or set.tex or set.tlpkg or set.texdoc or set.texsource;
     in
     builtins.removeAttrs mainDrv [ "outputSpecified" ];
-  toTLPkgSets = { pkgs, ... }: lib.mapAttrsToList toTLPkgSet (builtins.groupBy (p: p.pname) pkgs);
+  toTLPkgSets =
+    { pkgs, ... }:
+    lib.mapAttrsToList toTLPkgSet (builtins.groupBy (p: p.pname) pkgs);
 
   # export TeX packages as { pkgs = [ ... ]; } in the top attribute set
   allPkgLists = lib.mapAttrs (n: drv: { pkgs = toTLPkgList drv; }) tl;
@@ -535,7 +547,8 @@ let
         pname:
         (buildTeXEnv {
           __extraName = "combined" + lib.removePrefix "scheme" pname;
-          __extraVersion = with version; if final then "-final" else ".${year}${month}${day}";
+          __extraVersion =
+            with version; if final then "-final" else ".${year}${month}${day}";
           requiredTeXPackages = ps: [ ps.${pname} ];
           # to maintain full backward compatibility, enable texlive.combine behavior
           __combine = true;
@@ -553,9 +566,11 @@ let
     map
       (s: {
         name = "texlive" + s;
-        value = lib.addMetaAttrs { license = licenses.${"scheme-" + (lib.toLower s)}; } (
-          buildTeXEnv { requiredTeXPackages = ps: [ ps.${"scheme-" + (lib.toLower s)} ]; }
-        );
+        value =
+          lib.addMetaAttrs { license = licenses.${"scheme-" + (lib.toLower s)}; }
+            (
+              buildTeXEnv { requiredTeXPackages = ps: [ ps.${"scheme-" + (lib.toLower s)} ]; }
+            );
       })
       [
         "Basic"

@@ -32,10 +32,12 @@ stdenv.mkDerivation {
   ] ++ patches;
 
   # the 9yacc script needs to be executed to build other items
-  preBuild = lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    substituteInPlace ./yacc/9yacc \
-      --replace "../yacc/yacc" "${lib.getExe' pkgsBuildHost._9base "yacc"}"
-  '';
+  preBuild =
+    lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+      ''
+        substituteInPlace ./yacc/9yacc \
+          --replace "../yacc/yacc" "${lib.getExe' pkgsBuildHost._9base "yacc"}"
+      '';
 
   enableParallelBuilding = true;
   strictDeps = true;

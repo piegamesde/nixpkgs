@@ -34,12 +34,15 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DWITH_SYSTEMD=${if withSystemd then "ON" else "OFF"}" ];
 
-  buildInputs = [
-    libjpeg
-    openssl
-    libgcrypt
-    libpng
-  ] ++ lib.optionals withSystemd [ systemd ] ++ lib.optionals stdenv.isDarwin [ Carbon ];
+  buildInputs =
+    [
+      libjpeg
+      openssl
+      libgcrypt
+      libpng
+    ]
+    ++ lib.optionals withSystemd [ systemd ]
+    ++ lib.optionals stdenv.isDarwin [ Carbon ];
 
   propagatedBuildInputs = [ zlib ];
 

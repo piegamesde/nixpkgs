@@ -16,7 +16,9 @@ let
     file:
     with lib; ''
       patchelf --set-interpreter \
-        ${stdenv.cc.libc}/lib/ld-linux${optionalString stdenv.is64bit "-x86-64"}.so.2 \
+        ${stdenv.cc.libc}/lib/ld-linux${
+          optionalString stdenv.is64bit "-x86-64"
+        }.so.2 \
         ${file}
     '';
   system = stdenv.hostPlatform.system;

@@ -14,15 +14,21 @@ let
   ## Stage 1 ##
   # Projects
   llvm = callPackage ./stage-1/llvm.nix { inherit rocmUpdateScript; };
-  clang-unwrapped = callPackage ./stage-1/clang-unwrapped.nix { inherit rocmUpdateScript llvm; };
+  clang-unwrapped = callPackage ./stage-1/clang-unwrapped.nix {
+    inherit rocmUpdateScript llvm;
+  };
   lld = callPackage ./stage-1/lld.nix { inherit rocmUpdateScript llvm; };
 
   # Runtimes
-  runtimes = callPackage ./stage-1/runtimes.nix { inherit rocmUpdateScript llvm; };
+  runtimes = callPackage ./stage-1/runtimes.nix {
+    inherit rocmUpdateScript llvm;
+  };
 
   ## Stage 2 ##
   # Helpers
-  bintools-unwrapped = callPackage ./stage-2/bintools-unwrapped.nix { inherit llvm lld; };
+  bintools-unwrapped = callPackage ./stage-2/bintools-unwrapped.nix {
+    inherit llvm lld;
+  };
   bintools = wrapBintoolsWith { bintools = bintools-unwrapped; };
   rStdenv = callPackage ./stage-2/rstdenv.nix {
     inherit

@@ -79,7 +79,9 @@ stdenv.mkDerivation rec {
     rm -rf $out/usr
 
     patchelf \
-      --set-rpath "$(patchelf --print-rpath $out/bin/.glava-unwrapped):${makeLibraryPath [ libGL ]}" \
+      --set-rpath "$(patchelf --print-rpath $out/bin/.glava-unwrapped):${
+        makeLibraryPath [ libGL ]
+      }" \
       $out/bin/.glava-unwrapped
 
     substitute ${wrapperScript} $out/bin/glava --subst-var out

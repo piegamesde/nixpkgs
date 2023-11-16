@@ -17,7 +17,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-HiydWqOHz4LJJwJTclRlQfOphE1W03HTMjCtqr1XnJs=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.Security
+  ];
 
   env = {
     RUNE_VERSION = version;

@@ -142,9 +142,12 @@ let
 
       optionalLocation =
         let
-          pos = builtins.unsafeGetAttrPos (if attrs ? "pname" then "pname" else "name") attrs;
+          pos =
+            builtins.unsafeGetAttrPos (if attrs ? "pname" then "pname" else "name")
+              attrs;
         in
-        lib.optionalString (pos != null) " at ${pos.file}:${toString pos.line}:${toString pos.column}";
+        lib.optionalString (pos != null)
+          " at ${pos.file}:${toString pos.line}:${toString pos.column}";
 
       leftPadName =
         name: against:
@@ -181,12 +184,19 @@ let
             * If ${theirName} provides executables that are called at run time, pass its
               bin path to makeWrapperArgs:
 
-                  makeWrapperArgs = [ "--prefix PATH : ''${lib.makeBinPath [ ${lib.getName drv} ] }" ];
+                  makeWrapperArgs = [ "--prefix PATH : ''${lib.makeBinPath [ ${
+                    lib.getName drv
+                  } ] }" ];
 
           ${optionalLocation}
         '';
 
-      checkDrv = drv: if (isPythonModule drv) && (isMismatchedPython drv) then throwMismatch drv else drv;
+      checkDrv =
+        drv:
+        if (isPythonModule drv) && (isMismatchedPython drv) then
+          throwMismatch drv
+        else
+          drv;
     in
     inputs:
     builtins.map (checkDrv) inputs;
@@ -241,7 +251,8 @@ let
             ensureNewerSourcesForZipFilesHook # move to wheel installer (pip) or builder (setuptools, flit, ...)?
             pythonRemoveTestsDirHook
           ]
-          ++ lib.optionals (catchConflicts && !isBootstrapPackage && !isSetuptoolsDependency)
+          ++ lib.optionals
+            (catchConflicts && !isBootstrapPackage && !isSetuptoolsDependency)
             [
               #
               # 1. When building a package that is also part of the bootstrap chain, we
@@ -276,7 +287,9 @@ let
           ++ lib.optionals (format' != "other") [
             (
               if isBootstrapInstallPackage then
-                pypaInstallHook.override { inherit (python.pythonOnBuildForHost.pkgs.bootstrap) installer; }
+                pypaInstallHook.override {
+                  inherit (python.pythonOnBuildForHost.pkgs.bootstrap) installer;
+                }
               else
                 pypaInstallHook
             )
@@ -335,9 +348,9 @@ let
           + attrs.postFixup or "";
 
         # Python packages built through cross-compilation are always for the host platform.
-        disallowedReferences = lib.optionals (python.stdenv.hostPlatform != python.stdenv.buildPlatform) [
-          python.pythonOnBuildForHost
-        ];
+        disallowedReferences =
+          lib.optionals (python.stdenv.hostPlatform != python.stdenv.buildPlatform)
+            [ python.pythonOnBuildForHost ];
 
         outputs = outputs ++ lib.optional withDistOutput "dist";
 

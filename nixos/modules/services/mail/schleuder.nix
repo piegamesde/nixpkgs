@@ -8,14 +8,19 @@ let
   cfg = config.services.schleuder;
   settingsFormat = pkgs.formats.yaml { };
   postfixMap =
-    entries: lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "${name} ${value}") entries);
+    entries:
+    lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (name: value: "${name} ${value}") entries
+    );
   writePostfixMap = name: entries: pkgs.writeText name (postfixMap entries);
   configScript = pkgs.writeScript "schleuder-cfg" ''
     #!${pkgs.runtimeShell}
     set -exuo pipefail
     umask 0077
     ${pkgs.yq}/bin/yq \
-      --slurpfile overrides <(${pkgs.yq}/bin/yq . <${lib.escapeShellArg cfg.extraSettingsFile}) \
+      --slurpfile overrides <(${pkgs.yq}/bin/yq . <${
+        lib.escapeShellArg cfg.extraSettingsFile
+      }) \
       < ${settingsFormat.generate "schleuder.yml" cfg.settings} \
       '. * $overrides[0]' \
       > /etc/schleuder/schleuder.yml
@@ -25,9 +30,11 @@ in
 {
   options.services.schleuder = {
     enable = lib.mkEnableOption (lib.mdDoc "Schleuder secure remailer");
-    enablePostfix = lib.mkEnableOption (lib.mdDoc "automatic postfix integration") // {
-      default = true;
-    };
+    enablePostfix =
+      lib.mkEnableOption (lib.mdDoc "automatic postfix integration")
+      // {
+        default = true;
+      };
     lists = lib.mkOption {
       description = lib.mdDoc ''
         List of list addresses that should be handled by Schleuder.
@@ -98,7 +105,8 @@ in
         '';
       }
       {
-        assertion = !(lib.any (db: db ? password) (lib.attrValues cfg.settings.database or { }));
+        assertion =
+          !(lib.any (db: db ? password) (lib.attrValues cfg.settings.database or { }));
         message = ''
           A password is defined for at least one database in services.schleuder.settings.database. Defining passwords via NixOS config results in them being copied to the world-readable Nix store. Please use the extraSettingsFile option to store database passwords in a non-public location.
         '';
@@ -113,7 +121,9 @@ in
         schleuder  unix  -       n       n       -       -       pipe
           flags=DRhu user=schleuder argv=/${pkgs.schleuder}/bin/schleuder work ''${recipient}
       '';
-      transport = lib.mkIf (cfg.lists != [ ]) (postfixMap (lib.genAttrs cfg.lists (_: "schleuder:")));
+      transport = lib.mkIf (cfg.lists != [ ]) (
+        postfixMap (lib.genAttrs cfg.lists (_: "schleuder:"))
+      );
       extraConfig = ''
         schleuder_destination_recipient_limit = 1
       '';
@@ -167,9 +177,9 @@ in
         };
       };
 
-    environment.etc."schleuder/schleuder.yml" = lib.mkIf (cfg.extraSettingsFile == null) {
-      source = settingsFormat.generate "schleuder.yml" cfg.settings;
-    };
+    environment.etc."schleuder/schleuder.yml" =
+      lib.mkIf (cfg.extraSettingsFile == null)
+        { source = settingsFormat.generate "schleuder.yml" cfg.settings; };
     environment.etc."schleuder/list-defaults.yml".source =
       settingsFormat.generate "list-defaults.yml"
         cfg.listDefaults;
@@ -177,7 +187,9 @@ in
     services.schleuder = {
       #lists_dir = "/var/lib/schleuder.lists";
       settings.filters_dir = lib.mkDefault "/var/lib/schleuder/filters";
-      settings.keyword_handlers_dir = lib.mkDefault "/var/lib/schleuder/keyword_handlers";
+      settings.keyword_handlers_dir =
+        lib.mkDefault
+          "/var/lib/schleuder/keyword_handlers";
     };
   };
 }

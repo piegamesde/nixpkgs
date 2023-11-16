@@ -29,7 +29,9 @@ stdenv.mkDerivation {
       })
     ];
 
-  buildInputs = lib.optional (with stdenv.hostPlatform; isx86 && isLinux) libsmbios;
+  buildInputs =
+    lib.optional (with stdenv.hostPlatform; isx86 && isLinux)
+      libsmbios;
   nativeBuildInputs = [ autoreconfHook ];
   autoreconfPhase = ''
     autoreconf -i -I src/missing/m4

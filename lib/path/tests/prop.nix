@@ -36,13 +36,16 @@ let
     in
     # Check the lib.path.subpath.normalise property to only error on invalid subpaths
     assert assertMsg (originalValid -> tryOnce.success)
-        ''Even though string "${str}" is valid as a subpath, the normalisation for it failed'';
+        ''
+          Even though string "${str}" is valid as a subpath, the normalisation for it failed'';
     assert assertMsg (!originalValid -> !tryOnce.success)
-        ''Even though string "${str}" is invalid as a subpath, the normalisation for it succeeded'';
+        ''
+          Even though string "${str}" is invalid as a subpath, the normalisation for it succeeded'';
 
     # Check normalisation idempotency
     assert assertMsg (originalValid -> tryTwice.success)
-        ''For valid subpath "${str}", the normalisation "${tryOnce.value}" was not a valid subpath'';
+        ''
+          For valid subpath "${str}", the normalisation "${tryOnce.value}" was not a valid subpath'';
     assert assertMsg (originalValid -> tryOnce.value == tryTwice.value)
         ''
           For valid subpath "${str}", normalising it once gives "${tryOnce.value}" but normalising it twice gives a different result: "${tryTwice.value}"'';

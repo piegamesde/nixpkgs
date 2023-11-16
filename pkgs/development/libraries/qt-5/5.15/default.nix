@@ -229,7 +229,9 @@ let
         inherit patches;
         # Use a variant of mkDerivation that does not include wrapQtApplications
         # to avoid cyclic dependencies between Qt modules.
-        mkDerivation = (callPackage ../mkDerivation.nix { wrapQtAppsHook = null; }) stdenv.mkDerivation;
+        mkDerivation =
+          (callPackage ../mkDerivation.nix { wrapQtAppsHook = null; })
+            stdenv.mkDerivation;
       };
 
       callPackage = self.newScope {
@@ -252,7 +254,9 @@ let
 
       mkDerivationWith = callPackage ../mkDerivation.nix { };
 
-      mkDerivation = callPackage ({ mkDerivationWith }: mkDerivationWith stdenv.mkDerivation) { };
+      mkDerivation =
+        callPackage ({ mkDerivationWith }: mkDerivationWith stdenv.mkDerivation)
+          { };
 
       qtbase = callPackage ../modules/qtbase.nix {
         inherit (srcs.qtbase) src version;
@@ -303,7 +307,9 @@ let
       qtlocation = callPackage ../modules/qtlocation.nix { };
       qtlottie = callPackage ../modules/qtlottie.nix { };
       qtmacextras = callPackage ../modules/qtmacextras.nix { };
-      qtmultimedia = callPackage ../modules/qtmultimedia.nix { inherit gstreamer gst-plugins-base; };
+      qtmultimedia = callPackage ../modules/qtmultimedia.nix {
+        inherit gstreamer gst-plugins-base;
+      };
       qtnetworkauth = callPackage ../modules/qtnetworkauth.nix { };
       qtpim = callPackage ../modules/qtpim.nix { };
       qtpositioning = callPackage ../modules/qtpositioning.nix { };
@@ -472,8 +478,13 @@ let
       # qttranslations causes eval-time infinite recursion when
       # cross-compiling; disabled for now.
       qttranslations =
-        if stdenv.buildPlatform == stdenv.hostPlatform then bootstrapScope.qttranslations else null;
-      qutebrowser = final.callPackage ../../../../applications/networking/browsers/qutebrowser { };
+        if stdenv.buildPlatform == stdenv.hostPlatform then
+          bootstrapScope.qttranslations
+        else
+          null;
+      qutebrowser =
+        final.callPackage ../../../../applications/networking/browsers/qutebrowser
+          { };
     }
   );
 in

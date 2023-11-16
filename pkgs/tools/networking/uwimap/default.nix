@@ -43,14 +43,18 @@ stdenv.mkDerivation rec {
   postPatch = ''
     sed -i src/osdep/unix/Makefile -e 's,/usr/local/ssl,${openssl.dev},'
     sed -i src/osdep/unix/Makefile -e 's,^SSLCERTS=.*,SSLCERTS=/etc/ssl/certs,'
-    sed -i src/osdep/unix/Makefile -e 's,^SSLLIB=.*,SSLLIB=${lib.getLib openssl}/lib,'
+    sed -i src/osdep/unix/Makefile -e 's,^SSLLIB=.*,SSLLIB=${
+      lib.getLib openssl
+    }/lib,'
   '';
 
   preConfigure = ''
     makeFlagsArray+=("ARRC=${stdenv.cc.targetPrefix}ar rc")
   '';
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-I${openssl.dev}/include/openssl";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin
+      "-I${openssl.dev}/include/openssl";
 
   installPhase = ''
     mkdir -p $out/bin $out/lib $out/include/c-client

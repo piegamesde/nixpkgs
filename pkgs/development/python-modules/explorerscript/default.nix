@@ -48,7 +48,9 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies.pygments = [ pygments ];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.pygments;
+  nativeCheckInputs = [
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.pygments;
 
   pythonImportsCheck = [ "explorerscript" ];
 

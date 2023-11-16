@@ -17,7 +17,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-XBk4x3L6GJz1v6g46ODEOJN2J565O4IA8pOlhUD3bRE=";
 
-  ldflags = [ "-X=github.com/phrase/phrase-cli/cmd.PHRASE_CLIENT_VERSION=${version}" ];
+  ldflags = [
+    "-X=github.com/phrase/phrase-cli/cmd.PHRASE_CLIENT_VERSION=${version}"
+  ];
 
   postInstall = ''
     ln -s $out/bin/phrase-cli $out/bin/phrase

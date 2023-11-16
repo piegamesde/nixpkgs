@@ -51,7 +51,9 @@ writeScript "update-electrum" ''
   export GNUPGHOME=$PWD/gnupg
   mkdir -m 700 -p "$GNUPGHOME"
 
-  gpg --batch --recv-keys ${lib.concatStringsSep " " (map (x: "'${x}'") signingKeys)}
+  gpg --batch --recv-keys ${
+    lib.concatStringsSep " " (map (x: "'${x}'") signingKeys)
+  }
   gpg --batch --verify "$sigFile" "$srcFile"
 
   sha256=$(nix-prefetch-url --type sha256 "file://$PWD/$srcFile")

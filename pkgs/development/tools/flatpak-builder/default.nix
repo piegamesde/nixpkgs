@@ -44,8 +44,12 @@
 }:
 
 let
-  installed_testdir = "${placeholder "installedTests"}/libexec/installed-tests/flatpak-builder";
-  installed_test_metadir = "${placeholder "installedTests"}/share/installed-tests/flatpak-builder";
+  installed_testdir = "${
+      placeholder "installedTests"
+    }/libexec/installed-tests/flatpak-builder";
+  installed_test_metadir = "${
+      placeholder "installedTests"
+    }/share/installed-tests/flatpak-builder";
 in
 stdenv.mkDerivation rec {
   pname = "flatpak-builder";

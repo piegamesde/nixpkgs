@@ -45,12 +45,15 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-    qtbase
-    qtwayland
-  ] ++ lib.optionals (!useQt6) [ adwaita-qt ] ++ lib.optionals useQt6 [ adwaita-qt6 ];
+  buildInputs =
+    [
+      glib
+      gtk3
+      qtbase
+      qtwayland
+    ]
+    ++ lib.optionals (!useQt6) [ adwaita-qt ]
+    ++ lib.optionals useQt6 [ adwaita-qt6 ];
 
   # Qt setup hook complains about missing `wrapQtAppsHook` otherwise.
   dontWrapQtApps = true;

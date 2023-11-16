@@ -173,7 +173,11 @@ in
 
             DB_NAME = mkOption {
               type = types.str;
-              default = if settings.config.DB == "sqlite" then "${cfg.dataDir}/healthchecks.sqlite" else "hc";
+              default =
+                if settings.config.DB == "sqlite" then
+                  "${cfg.dataDir}/healthchecks.sqlite"
+                else
+                  "hc";
               defaultText = lib.literalExpression ''
                 if config.${settings.options.DB} == "sqlite"
                 then "''${config.${opt.dataDir}}/healthchecks.sqlite"

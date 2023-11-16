@@ -39,14 +39,17 @@ let
   colorScript = ./color.sh;
 in
 
-lib.checkListOfEnum "Invalid accent, valid accents are ${toString validAccents}" validAccents
+lib.checkListOfEnum "Invalid accent, valid accents are ${toString validAccents}"
+  validAccents
   accents
   lib.checkListOfEnum
   "Invalid flavour, valid flavours are ${toString validFlavours}"
   validFlavours
   flavour
   lib.checkListOfEnum
-  "Invalid window decoration style, valid styles are ${toString validWinDecStyles}"
+  "Invalid window decoration style, valid styles are ${
+    toString validWinDecStyles
+  }"
   validWinDecStyles
   winDecStyles
 

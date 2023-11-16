@@ -90,7 +90,9 @@ stdenv.mkDerivation (
       "-DNNG_ENABLE_TLS=ON"
     ];
 
-    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-return-type";
+    env.NIX_CFLAGS_COMPILE =
+      lib.optionalString stdenv.cc.isClang
+        "-Wno-return-type";
 
     # disabled by default - not 100% reliable and making nanomq depend on
     # mosquitto would annoy people
@@ -123,7 +125,9 @@ stdenv.mkDerivation (
     '';
 
     passthru.tests = {
-      withInstallChecks = finalAttrs.finalPackage.overrideAttrs (_: { doInstallCheck = true; });
+      withInstallChecks = finalAttrs.finalPackage.overrideAttrs (
+        _: { doInstallCheck = true; }
+      );
     };
 
     meta = with lib; {

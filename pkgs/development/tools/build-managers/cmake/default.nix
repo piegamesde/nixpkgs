@@ -69,7 +69,9 @@ stdenv.mkDerivation (
       ]
       ++ lib.optional stdenv.isCygwin ./004-cygwin.diff
       # Derived from https://github.com/curl/curl/commit/31f631a142d855f069242f3e0c643beec25d1b51
-      ++ lib.optional (stdenv.isDarwin && isBootstrap) ./005-remove-systemconfiguration-dep.diff
+      ++
+        lib.optional (stdenv.isDarwin && isBootstrap)
+          ./005-remove-systemconfiguration-dep.diff
       # On Darwin, always set CMAKE_SHARED_LIBRARY_RUNTIME_C_FLAG.
       ++ lib.optional stdenv.isDarwin ./006-darwin-always-set-runtime-c-flag.diff;
 
@@ -157,9 +159,15 @@ stdenv.mkDerivation (
         # package being built.
         "-DCMAKE_CXX_COMPILER=${stdenv.cc.targetPrefix}c++"
         "-DCMAKE_C_COMPILER=${stdenv.cc.targetPrefix}cc"
-        "-DCMAKE_AR=${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar"
-        "-DCMAKE_RANLIB=${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ranlib"
-        "-DCMAKE_STRIP=${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}strip"
+        "-DCMAKE_AR=${
+          lib.getBin stdenv.cc.bintools.bintools
+        }/bin/${stdenv.cc.targetPrefix}ar"
+        "-DCMAKE_RANLIB=${
+          lib.getBin stdenv.cc.bintools.bintools
+        }/bin/${stdenv.cc.targetPrefix}ranlib"
+        "-DCMAKE_STRIP=${
+          lib.getBin stdenv.cc.bintools.bintools
+        }/bin/${stdenv.cc.targetPrefix}strip"
 
         "-DCMAKE_USE_OPENSSL=${if useOpenSSL then "ON" else "OFF"}"
         # Avoid depending on frameworks.
@@ -190,9 +198,9 @@ stdenv.mkDerivation (
         configuration files, and generate native makefiles and workspaces that can
         be used in the compiler environment of your choice.
       '';
-      changelog = "https://cmake.org/cmake/help/v${lib.versions.majorMinor finalAttrs.version}/release/${
+      changelog = "https://cmake.org/cmake/help/v${
           lib.versions.majorMinor finalAttrs.version
-        }.html";
+        }/release/${lib.versions.majorMinor finalAttrs.version}.html";
       license = lib.licenses.bsd3;
       maintainers = with lib.maintainers; [
         ttuegel

@@ -62,10 +62,12 @@
 let
   # run gsettings with desktop schemas for using in "kcm_access" kcm
   # and in kaccess
-  gsettings-wrapper = runCommandLocal "gsettings-wrapper" { nativeBuildInputs = [ makeWrapper ]; } ''
-    mkdir -p $out/bin
-    makeWrapper ${glib}/bin/gsettings $out/bin/gsettings --prefix XDG_DATA_DIRS : ${gsettings-desktop-schemas.out}/share/gsettings-schemas/${gsettings-desktop-schemas.name}
-  '';
+  gsettings-wrapper =
+    runCommandLocal "gsettings-wrapper" { nativeBuildInputs = [ makeWrapper ]; }
+      ''
+        mkdir -p $out/bin
+        makeWrapper ${glib}/bin/gsettings $out/bin/gsettings --prefix XDG_DATA_DIRS : ${gsettings-desktop-schemas.out}/share/gsettings-schemas/${gsettings-desktop-schemas.name}
+      '';
 in
 mkDerivation {
   pname = "plasma-desktop";

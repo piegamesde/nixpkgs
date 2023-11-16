@@ -133,7 +133,9 @@ stdenvNoCC.mkDerivation (
         }/*${shlibExt}* $out/lib
         cp -a opt/intel/oneapi/compiler/${mklVersion}/${
           if stdenvNoCC.isDarwin then "mac" else "linux"
-        }/compiler/lib/${lib.optionalString stdenvNoCC.isLinux "intel64_lin"}/*${shlibExt}* $out/lib
+        }/compiler/lib/${
+          lib.optionalString stdenvNoCC.isLinux "intel64_lin"
+        }/*${shlibExt}* $out/lib
         cp -a opt/intel/oneapi/tbb/${tbbVersion}/lib/${
           lib.optionalString stdenvNoCC.isLinux "intel64/gcc4.8"
         }/*${shlibExt}* $out/lib

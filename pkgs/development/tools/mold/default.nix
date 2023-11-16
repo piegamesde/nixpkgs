@@ -49,7 +49,9 @@ stdenv.mkDerivation rec {
     "-DMOLD_USE_SYSTEM_TBB:BOOL=ON"
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [ "-faligned-allocation" ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals stdenv.isDarwin [ "-faligned-allocation" ]
+  );
 
   passthru = {
     updateScript = nix-update-script { };
@@ -95,15 +97,20 @@ stdenv.mkDerivation rec {
         version = testers.testVersion { package = mold; };
       }
       // lib.optionalAttrs stdenv.isLinux {
-        adapter-gcc = helloTest "adapter-gcc" (hello.override (old: { stdenv = useMoldLinker gccStdenv; }));
+        adapter-gcc = helloTest "adapter-gcc" (
+          hello.override (old: { stdenv = useMoldLinker gccStdenv; })
+        );
         adapter-llvm = helloTest "adapter-llvm" (
           hello.override (old: { stdenv = useMoldLinker clangStdenv; })
         );
         wrapped = helloTest "wrapped" (
           hello.overrideAttrs (
             previousAttrs: {
-              nativeBuildInputs = (previousAttrs.nativeBuildInputs or [ ]) ++ [ mold-wrapped ];
-              NIX_CFLAGS_LINK = toString (previousAttrs.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold";
+              nativeBuildInputs = (previousAttrs.nativeBuildInputs or [ ]) ++ [
+                mold-wrapped
+              ];
+              NIX_CFLAGS_LINK =
+                toString (previousAttrs.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold";
             }
           )
         );

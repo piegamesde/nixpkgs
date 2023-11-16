@@ -78,7 +78,9 @@ in
       pam.enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "If enabled, protect logins with Duo Security using PAM support.";
+        description =
+          lib.mdDoc
+            "If enabled, protect logins with Duo Security using PAM support.";
       };
 
       integrationKey = mkOption {

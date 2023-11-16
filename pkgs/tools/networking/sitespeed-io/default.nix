@@ -13,7 +13,8 @@
 
   # chromedriver is more efficient than geckodriver, but is available on less platforms.
 
-  withChromium ? (lib.elem stdenv.hostPlatform.system chromedriver.meta.platforms),
+  withChromium ?
+    (lib.elem stdenv.hostPlatform.system chromedriver.meta.platforms),
   chromedriver,
   chromium,
 
@@ -90,8 +91,12 @@ buildNpmPackage rec {
         } \
         ${lib.optionalString withChromium "--add-flags '${chromiumArgs}'"} \
         ${lib.optionalString withFirefox "--add-flags '${firefoxArgs}'"} \
-        ${lib.optionalString (!withFirefox && withChromium) "--add-flags '-b chrome'"} \
-        ${lib.optionalString (withFirefox && !withChromium) "--add-flags '-b firefox'"}
+        ${
+          lib.optionalString (!withFirefox && withChromium) "--add-flags '-b chrome'"
+        } \
+        ${
+          lib.optionalString (withFirefox && !withChromium) "--add-flags '-b firefox'"
+        }
     '';
 
   meta = with lib; {
@@ -99,7 +104,9 @@ buildNpmPackage rec {
     homepage = "https://sitespeed.io";
     license = licenses.mit;
     maintainers = with maintainers; [ misterio77 ];
-    platforms = lib.unique (geckodriver.meta.platforms ++ chromedriver.meta.platforms);
+    platforms = lib.unique (
+      geckodriver.meta.platforms ++ chromedriver.meta.platforms
+    );
     mainProgram = "sitespeed-io";
   };
 }

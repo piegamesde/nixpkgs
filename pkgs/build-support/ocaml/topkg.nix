@@ -19,7 +19,11 @@
   ...
 }@args:
 
-lib.throwIf (args ? minimalOCamlVersion && lib.versionOlder ocaml.version args.minimalOCamlVersion)
+lib.throwIf
+  (
+    args ? minimalOCamlVersion
+    && lib.versionOlder ocaml.version args.minimalOCamlVersion
+  )
   "${pname}-${version} is not available for OCaml ${ocaml.version}"
 
   stdenv.mkDerivation

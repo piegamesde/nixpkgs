@@ -56,7 +56,9 @@ stdenv.mkDerivation {
 
   postPatch = ''
     substituteInPlace src/wl_init.c \
-      --replace "libxkbcommon.so.0" "${lib.getLib libxkbcommon}/lib/libxkbcommon.so.0"
+      --replace "libxkbcommon.so.0" "${
+        lib.getLib libxkbcommon
+      }/lib/libxkbcommon.so.0"
 
     substituteInPlace src/wl_init.c \
       --replace "libdecor-0.so.0" "${lib.getLib libdecor}/lib/libdecor-0.so.0"

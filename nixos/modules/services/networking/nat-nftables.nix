@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.networking.nat;
 
-  mkDest = externalIP: if externalIP == null then "masquerade" else "snat ${externalIP}";
+  mkDest =
+    externalIP: if externalIP == null then "masquerade" else "snat ${externalIP}";
   dest = mkDest cfg.externalIP;
   destIPv6 = mkDest cfg.externalIPv6;
 
@@ -20,7 +21,9 @@ let
   ifaceSet = toNftSet (map (x: ''"${x}"'') cfg.internalInterfaces);
   ipSet = toNftSet cfg.internalIPs;
   ipv6Set = toNftSet cfg.internalIPv6s;
-  oifExpr = optionalString (cfg.externalInterface != null) ''oifname "${cfg.externalInterface}"'';
+  oifExpr =
+    optionalString (cfg.externalInterface != null)
+      ''oifname "${cfg.externalInterface}"'';
 
   # Whether given IP (plus optional port) is an IPv6.
   isIPv6 = ip: length (lib.splitString ":" ip) > 2;
@@ -49,7 +52,9 @@ let
       # e.g. "dnat th dport map { 80 : 10.0.0.1 . 80, 443 : 10.0.0.2 . 900-1000 }"
       # So we split them.
       fwdPorts = filter (x: length (splitString "-" x.destination) == 1) forwardPorts;
-      fwdPortsRange = filter (x: length (splitString "-" x.destination) > 1) forwardPorts;
+      fwdPortsRange =
+        filter (x: length (splitString "-" x.destination) > 1)
+          forwardPorts;
 
       # nftables maps for port forward
       # l4proto . dport : addr . port
@@ -91,7 +96,9 @@ let
       # nftables set for port forward loopback snat
       # daddr . l4proto . dport
       fwdLoopSnatSet = toNftSet (
-        map (fwd: with (splitIPPorts fwd.destination); "${IP} . ${fwd.proto} . ${ports}") forwardPorts
+        map
+          (fwd: with (splitIPPorts fwd.destination); "${IP} . ${fwd.proto} . ${ports}")
+          forwardPorts
       );
     in
     ''
@@ -207,16 +214,18 @@ in
       };
     };
 
-    networking.firewall.extraForwardRules = optionalString config.networking.firewall.filterForward ''
-      ${optionalString (ifaceSet != "") ''
-        iifname { ${ifaceSet} } ${oifExpr} accept comment "from internal interfaces"
-      ''}
-      ${optionalString (ipSet != "") ''
-        ip saddr { ${ipSet} } ${oifExpr} accept comment "from internal IPs"
-      ''}
-      ${optionalString (ipv6Set != "") ''
-        ip6 saddr { ${ipv6Set} } ${oifExpr} accept comment "from internal IPv6s"
-      ''}
-    '';
+    networking.firewall.extraForwardRules =
+      optionalString config.networking.firewall.filterForward
+        ''
+          ${optionalString (ifaceSet != "") ''
+            iifname { ${ifaceSet} } ${oifExpr} accept comment "from internal interfaces"
+          ''}
+          ${optionalString (ipSet != "") ''
+            ip saddr { ${ipSet} } ${oifExpr} accept comment "from internal IPs"
+          ''}
+          ${optionalString (ipv6Set != "") ''
+            ip6 saddr { ${ipv6Set} } ${oifExpr} accept comment "from internal IPv6s"
+          ''}
+        '';
   };
 }

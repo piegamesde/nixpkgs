@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.bird-lg;
 
-  stringOrConcat = sep: v: if builtins.isString v then v else concatStringsSep sep v;
+  stringOrConcat =
+    sep: v: if builtins.isString v then v else concatStringsSep sep v;
 
   frontend_args =
     let
@@ -58,7 +59,8 @@ let
   filterNull = filterAttrs (_: v: v != "" && v != null && v != [ ]);
 
   argsAttrToList =
-    args: mapAttrsToList (name: value: "${name} " + mkArgValue value) (filterNull args);
+    args:
+    mapAttrsToList (name: value: "${name} " + mkArgValue value) (filterNull args);
 in
 {
   options = {
@@ -159,7 +161,9 @@ in
           type = types.str;
           default = "";
           example = "^ospf";
-          description = lib.mdDoc "Protocol names to hide in summary tables (RE2 syntax),";
+          description =
+            lib.mdDoc
+              "Protocol names to hide in summary tables (RE2 syntax),";
         };
 
         timeout = mkOption {
@@ -273,9 +277,10 @@ in
   config = {
 
     warnings =
-      lib.optional (cfg.frontend.enable && builtins.isString cfg.frontend.extraArgs) ''
-        Passing strings to `services.bird-lg.frontend.extraOptions' is deprecated. Please pass a list of strings instead.
-      ''
+      lib.optional (cfg.frontend.enable && builtins.isString cfg.frontend.extraArgs)
+        ''
+          Passing strings to `services.bird-lg.frontend.extraOptions' is deprecated. Please pass a list of strings instead.
+        ''
       ++ lib.optional (cfg.proxy.enable && builtins.isString cfg.proxy.extraArgs) ''
         Passing strings to `services.bird-lg.proxy.extraOptions' is deprecated. Please pass a list of strings instead.
       '';

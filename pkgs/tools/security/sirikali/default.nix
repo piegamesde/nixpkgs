@@ -32,18 +32,21 @@ stdenv.mkDerivation rec {
     hash = "sha256-1bY8cCMMK4Jie4+9c7eUEBrPEYDaOqFHZ5252TPSotA=";
   };
 
-  buildInputs = [
-    qtbase
-    libpwquality
-    hicolor-icon-theme
-    libgcrypt
-    cryfs
-    encfs
-    fscrypt-experimental
-    gocryptfs
-    securefs
-    sshfs
-  ] ++ lib.optionals withKWallet [ libsecret ] ++ lib.optionals withLibsecret [ kwallet ];
+  buildInputs =
+    [
+      qtbase
+      libpwquality
+      hicolor-icon-theme
+      libgcrypt
+      cryfs
+      encfs
+      fscrypt-experimental
+      gocryptfs
+      securefs
+      sshfs
+    ]
+    ++ lib.optionals withKWallet [ libsecret ]
+    ++ lib.optionals withLibsecret [ kwallet ];
 
   nativeBuildInputs = [
     wrapQtAppsHook

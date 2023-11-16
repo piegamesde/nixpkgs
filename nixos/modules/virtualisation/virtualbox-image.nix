@@ -239,11 +239,18 @@ in
         echo "creating VirtualBox VM..."
         vmName="${cfg.vmName}";
         VBoxManage createvm --name "$vmName" --register \
-          --ostype ${if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then "Linux26_64" else "Linux26"}
+          --ostype ${
+            if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then
+              "Linux26_64"
+            else
+              "Linux26"
+          }
         VBoxManage modifyvm "$vmName" \
           --memory ${toString cfg.memorySize} \
           ${lib.cli.toGNUCommandLineShell { } cfg.params}
-        VBoxManage storagectl "$vmName" ${lib.cli.toGNUCommandLineShell { } cfg.storageController}
+        VBoxManage storagectl "$vmName" ${
+          lib.cli.toGNUCommandLineShell { } cfg.storageController
+        }
         VBoxManage storageattach "$vmName" --storagectl ${cfg.storageController.name} --port 0 --device 0 --type hdd \
           --medium disk.vdi
         ${optionalString (cfg.extraDisk != null) ''
@@ -254,7 +261,9 @@ in
         echo "exporting VirtualBox VM..."
         mkdir -p $out
         fn="$out/${cfg.vmFileName}"
-        VBoxManage export "$vmName" --output "$fn" --options manifest ${escapeShellArgs cfg.exportParams}
+        VBoxManage export "$vmName" --output "$fn" --options manifest ${
+          escapeShellArgs cfg.exportParams
+        }
         ${cfg.postExportCommands}
 
         rm -v $diskImage

@@ -11,11 +11,13 @@ let
   cfg = config.services.dgraph;
   settingsFormat = pkgs.formats.json { };
   configFile = settingsFormat.generate "config.json" cfg.settings;
-  dgraphWithNode = pkgs.runCommand "dgraph" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
-    mkdir -p $out/bin
-    makeWrapper ${cfg.package}/bin/dgraph $out/bin/dgraph \
-      --prefix PATH : "${lib.makeBinPath [ pkgs.nodejs ]}" \
-  '';
+  dgraphWithNode =
+    pkgs.runCommand "dgraph" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+      ''
+        mkdir -p $out/bin
+        makeWrapper ${cfg.package}/bin/dgraph $out/bin/dgraph \
+          --prefix PATH : "${lib.makeBinPath [ pkgs.nodejs ]}" \
+      '';
   securityOptions = {
     NoNewPrivileges = true;
 
@@ -65,7 +67,9 @@ in
 {
   options = {
     services.dgraph = {
-      enable = mkEnableOption (lib.mdDoc "Dgraph native GraphQL database with a graph backend");
+      enable = mkEnableOption (
+        lib.mdDoc "Dgraph native GraphQL database with a graph backend"
+      );
 
       package = lib.mkPackageOptionMD pkgs "dgraph" { };
 
@@ -127,7 +131,9 @@ in
         StateDirectory = "dgraph-zero";
         WorkingDirectory = "/var/lib/dgraph-zero";
         DynamicUser = true;
-        ExecStart = "${cfg.package}/bin/dgraph zero --my ${cfg.zero.host}:${toString cfg.zero.port}";
+        ExecStart = "${cfg.package}/bin/dgraph zero --my ${cfg.zero.host}:${
+            toString cfg.zero.port
+          }";
         Restart = "on-failure";
       } // securityOptions;
     };

@@ -48,7 +48,9 @@ in
   };
   serviceOpts = {
     serviceConfig = {
-      LoadCredential = lib.optionalString (cfg.apiKeyFile != null) "api-key:${cfg.apiKeyFile}";
+      LoadCredential =
+        lib.optionalString (cfg.apiKeyFile != null)
+          "api-key:${cfg.apiKeyFile}";
       ExecStart = ''${cfg.package}/bin/exportarr ${type} "$@"'';
       ProcSubset = "pid";
       ProtectProc = "invisible";

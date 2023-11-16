@@ -18,7 +18,10 @@ let
   overrides = callPackage ./overrides.nix { };
   baseName = lib.getName name;
   override =
-    if builtins.hasAttr baseName overrides then builtins.getAttr baseName overrides else lib.id;
+    if builtins.hasAttr baseName overrides then
+      builtins.getAttr baseName overrides
+    else
+      lib.id;
 in
 (stdenv.mkDerivation (
   {
@@ -36,7 +39,9 @@ in
 
     buildPhase = ''
       runHook preBuild
-      chicken-install -cached -no-install -host ${lib.escapeShellArgs chickenInstallFlags}
+      chicken-install -cached -no-install -host ${
+        lib.escapeShellArgs chickenInstallFlags
+      }
       runHook postBuild
     '';
 
@@ -44,7 +49,9 @@ in
       runHook preInstall
 
       export CHICKEN_INSTALL_PREFIX=$out
-      export CHICKEN_INSTALL_REPOSITORY=$out/lib/chicken/${toString chicken.binaryVersion}
+      export CHICKEN_INSTALL_REPOSITORY=$out/lib/chicken/${
+        toString chicken.binaryVersion
+      }
       chicken-install -cached -host ${lib.escapeShellArgs chickenInstallFlags}
 
       for f in $out/bin/*

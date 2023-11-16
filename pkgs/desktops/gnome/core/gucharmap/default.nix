@@ -65,23 +65,27 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    wrapGAppsHook
-    unzip
-    intltool
-    itstool
-    gtk-doc
-    docbook_xsl
-    docbook_xml_dtd_412
-    yelp-tools
-    libxml2
-    desktop-file-utils
-    gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      python3
+      wrapGAppsHook
+      unzip
+      intltool
+      itstool
+      gtk-doc
+      docbook_xsl
+      docbook_xml_dtd_412
+      yelp-tools
+      libxml2
+      desktop-file-utils
+      gobject-introspection
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [
     gtk3

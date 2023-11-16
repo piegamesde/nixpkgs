@@ -90,7 +90,9 @@ in
       mailFrom = mkOption {
         type = types.str;
         default = "journalwatch@${config.networking.hostName}";
-        defaultText = literalExpression ''"journalwatch@''${config.networking.hostName}"'';
+        defaultText =
+          literalExpression
+            ''"journalwatch@''${config.networking.hostName}"'';
         description = lib.mdDoc ''
           Mail address to send journalwatch reports from.
         '';

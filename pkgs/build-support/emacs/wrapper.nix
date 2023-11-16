@@ -39,12 +39,14 @@
 self:
 let
   inherit (self) emacs;
-  withNativeCompilation = emacs.withNativeCompilation or emacs.nativeComp or false;
+  withNativeCompilation =
+    emacs.withNativeCompilation or emacs.nativeComp or false;
   withTreeSitter = emacs.withTreeSitter or emacs.treeSitter or false;
 in
 packagesFun: # packages explicitly requested by the user
 let
-  explicitRequires = if lib.isFunction packagesFun then packagesFun self else packagesFun;
+  explicitRequires =
+    if lib.isFunction packagesFun then packagesFun self else packagesFun;
 in
 runCommand (lib.appendToName "with-packages" emacs).name
   {

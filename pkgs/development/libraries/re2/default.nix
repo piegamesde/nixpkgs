@@ -44,7 +44,9 @@ stdenv.mkDerivation rec {
   # BUILD already exists.
   cmakeBuildDir = "build_dir";
 
-  cmakeFlags = lib.optional (!stdenv.hostPlatform.isStatic) "-DBUILD_SHARED_LIBS:BOOL=ON";
+  cmakeFlags =
+    lib.optional (!stdenv.hostPlatform.isStatic)
+      "-DBUILD_SHARED_LIBS:BOOL=ON";
 
   # This installs a pkg-config definition.
   postInstall = ''

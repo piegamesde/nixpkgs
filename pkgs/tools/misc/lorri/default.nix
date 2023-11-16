@@ -64,7 +64,9 @@ in
     updater = writers.writeBash "copy-runtime-nix.sh" ''
       set -euo pipefail
       cp ${src}/nix/runtime.nix ${toString ./runtime.nix}
-      cp ${src}/nix/runtime-closure.nix.template ${toString ./runtime-closure.nix.template}
+      cp ${src}/nix/runtime-closure.nix.template ${
+        toString ./runtime-closure.nix.template
+      }
     '';
     tests = {
       nixos = nixosTests.lorri;

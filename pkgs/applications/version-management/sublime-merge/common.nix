@@ -39,10 +39,16 @@ let
   primaryBinary = "sublime_merge";
   primaryBinaryAliases = [ "smerge" ];
   crashHandlerBinary =
-    if lib.versionAtLeast buildVersion "2086" then "crash_handler" else "crash_reporter";
+    if lib.versionAtLeast buildVersion "2086" then
+      "crash_handler"
+    else
+      "crash_reporter";
   downloadUrl =
-    arch: "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz";
-  versionUrl = "https://www.sublimemerge.com/${if dev then "dev" else "download"}";
+    arch:
+    "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz";
+  versionUrl = "https://www.sublimemerge.com/${
+      if dev then "dev" else "download"
+    }";
   versionFile = builtins.toString ./default.nix;
 
   neededLibraries = [
@@ -83,7 +89,9 @@ let
       for binary in ${builtins.concatStringsSep " " binaries}; do
         patchelf \
           --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-          --set-rpath ${lib.makeLibraryPath neededLibraries}:${libGL}/lib:${stdenv.cc.cc.lib}/lib${
+          --set-rpath ${
+            lib.makeLibraryPath neededLibraries
+          }:${libGL}/lib:${stdenv.cc.cc.lib}/lib${
             lib.optionalString stdenv.is64bit "64"
           } \
           $binary

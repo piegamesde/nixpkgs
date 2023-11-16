@@ -305,7 +305,9 @@ stdenv.mkDerivation (
           echo "QMAKE_LFLAGS=''${LDFLAGS}" >> mkspecs/devices/${
             qtPlatformCross stdenv.hostPlatform
           }/qmake.conf
-          echo "QMAKE_CFLAGS=''${CFLAGS}" >> mkspecs/devices/${qtPlatformCross stdenv.hostPlatform}/qmake.conf
+          echo "QMAKE_CFLAGS=''${CFLAGS}" >> mkspecs/devices/${
+            qtPlatformCross stdenv.hostPlatform
+          }/qmake.conf
           echo "QMAKE_CXXFLAGS=''${CXXFLAGS}" >> mkspecs/devices/${
             qtPlatformCross stdenv.hostPlatform
           }/qmake.conf
@@ -377,9 +379,13 @@ stdenv.mkDerivation (
       # PostgreSQL autodetection fails sporadically because Qt omits the "-lpq" flag
       # if dependency paths contain the string "pq", which can occur in the hash.
       # To prevent these failures, we need to override PostgreSQL detection.
-      PSQL_LIBS = lib.optionalString (postgresql != null) "-L${postgresql.lib}/lib -lpq";
+      PSQL_LIBS =
+        lib.optionalString (postgresql != null)
+          "-L${postgresql.lib}/lib -lpq";
     }
-    // lib.optionalAttrs (stdenv.buildPlatform != stdenv.hostPlatform) { configurePlatforms = [ ]; }
+    // lib.optionalAttrs (stdenv.buildPlatform != stdenv.hostPlatform) {
+      configurePlatforms = [ ];
+    }
     // {
       # TODO Remove obsolete and useless flags once the build will be totally mastered
       configureFlags =
@@ -420,7 +426,9 @@ stdenv.mkDerivation (
           "-developer-build"
           "-no-warnings-are-errors"
         ]
-        ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "-no-warnings-are-errors" ]
+        ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+          "-no-warnings-are-errors"
+        ]
         ++ (
           if (!stdenv.hostPlatform.isx86_64) then
             [ "-no-sse2" ]

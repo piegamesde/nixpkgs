@@ -35,7 +35,9 @@ buildPythonApplication rec {
     ./trusted_certificates.patch
   ];
 
-  buildInputs = lib.optionals enableGUI [ (if stdenv.isLinux then qt6.qtwayland else qt6.qtbase) ];
+  buildInputs = lib.optionals enableGUI [
+    (if stdenv.isLinux then qt6.qtwayland else qt6.qtbase)
+  ];
   propagatedBuildInputs =
     [
       certifi

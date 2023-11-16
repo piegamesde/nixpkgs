@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
         sha256 = "0ia9a4h7w0n5rg57fkl1kzcyj500ymfwq3qsd2r7l82288dgfpy2";
       };
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   # Julia’s source files are in different locations for source and binary
   # releases. Thus we temporarily create a symlink to allow us to share patches

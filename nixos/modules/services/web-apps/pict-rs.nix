@@ -72,7 +72,10 @@ in
   config = lib.mkIf cfg.enable {
     services.pict-rs.package = lib.mkDefault (
       # An incompatible db change happened in the transition from 0.3 to 0.4.
-      if lib.versionAtLeast config.system.stateVersion "23.11" then pkgs.pict-rs else pkgs.pict-rs_0_3
+      if lib.versionAtLeast config.system.stateVersion "23.11" then
+        pkgs.pict-rs
+      else
+        pkgs.pict-rs_0_3
     );
 
     # Account for config differences between 0.3 and 0.4
@@ -95,8 +98,10 @@ in
           }
         else
           {
-            PICTRS__REPO__PATH = if cfg.repoPath != null then cfg.repoPath else "${cfg.dataDir}/sled-repo";
-            PICTRS__STORE__PATH = if cfg.storePath != null then cfg.storePath else "${cfg.dataDir}/files";
+            PICTRS__REPO__PATH =
+              if cfg.repoPath != null then cfg.repoPath else "${cfg.dataDir}/sled-repo";
+            PICTRS__STORE__PATH =
+              if cfg.storePath != null then cfg.storePath else "${cfg.dataDir}/files";
             PICTRS__SERVER__ADDR = "${cfg.address}:${toString cfg.port}";
           };
       wantedBy = [ "multi-user.target" ];

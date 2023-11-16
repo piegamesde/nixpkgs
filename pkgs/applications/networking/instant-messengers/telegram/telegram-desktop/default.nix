@@ -72,7 +72,9 @@
 # - https://github.com/void-linux/void-packages/blob/master/srcpkgs/telegram-desktop/template
 
 let
-  tg_owt = callPackage ./tg_owt.nix { abseil-cpp = abseil-cpp.override { cxxStandard = "20"; }; };
+  tg_owt = callPackage ./tg_owt.nix {
+    abseil-cpp = abseil-cpp.override { cxxStandard = "20"; };
+  };
   glibmm = glibmm_2_68.overrideAttrs (
     attrs: {
       version = "2.78.0";

@@ -65,8 +65,14 @@ lib.checkListOfEnum "${pname}: color variants"
       mkdir -p $out/share/themes
 
       name= ./install.sh \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
+        ${
+          lib.optionalString (colorVariants != [ ]) "--color "
+          + builtins.toString colorVariants
+        } \
+        ${
+          lib.optionalString (themeVariants != [ ]) "--theme "
+          + builtins.toString themeVariants
+        } \
         --dest $out/share/themes
 
       mkdir -p $out/share/doc/${pname}

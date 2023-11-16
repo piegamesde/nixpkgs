@@ -108,7 +108,10 @@ stdenv.mkDerivation rec {
   preFixup = ''
     wrapProgram $out/bin/melt \
       --prefix FREI0R_PATH : ${frei0r}/lib/frei0r-1 \
-      ${lib.optionalString enableJackrack "--prefix LADSPA_PATH : ${ladspaPlugins}/lib/ladspa"} \
+      ${
+        lib.optionalString enableJackrack
+          "--prefix LADSPA_PATH : ${ladspaPlugins}/lib/ladspa"
+      } \
       ${lib.optionalString enableQt "\${qtWrapperArgs[@]}"}
 
   '';

@@ -77,7 +77,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configureFlags = [ "--disable-server" ] ++ lib.optionals headless [ "--disable-manager" ];
+  configureFlags = [
+    "--disable-server"
+  ] ++ lib.optionals headless [ "--disable-manager" ];
 
   postInstall = ''
     install --mode=444 -D 'client/scripts/boinc-client.service' "$out/etc/systemd/system/boinc.service"

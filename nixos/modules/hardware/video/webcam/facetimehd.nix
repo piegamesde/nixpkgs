@@ -16,7 +16,9 @@ in
 
 {
 
-  options.hardware.facetimehd.enable = mkEnableOption (lib.mdDoc "the facetimehd kernel module");
+  options.hardware.facetimehd.enable = mkEnableOption (
+    lib.mdDoc "the facetimehd kernel module"
+  );
 
   options.hardware.facetimehd.withCalibration = mkOption {
     default = false;

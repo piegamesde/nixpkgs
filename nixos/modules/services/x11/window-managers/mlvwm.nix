@@ -31,13 +31,17 @@ in
       {
         name = "mlvwm";
         start = ''
-          ${pkgs.mlvwm}/bin/mlvwm ${optionalString (cfg.configFile != null) "-f /etc/mlvwm/mlvwmrc"} &
+          ${pkgs.mlvwm}/bin/mlvwm ${
+            optionalString (cfg.configFile != null) "-f /etc/mlvwm/mlvwmrc"
+          } &
           waitPID=$!
         '';
       }
     ];
 
-    environment.etc."mlvwm/mlvwmrc" = mkIf (cfg.configFile != null) { source = cfg.configFile; };
+    environment.etc."mlvwm/mlvwmrc" = mkIf (cfg.configFile != null) {
+      source = cfg.configFile;
+    };
 
     environment.systemPackages = [ pkgs.mlvwm ];
   };

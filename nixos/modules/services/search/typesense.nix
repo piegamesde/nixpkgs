@@ -22,7 +22,10 @@ let
     listToValue = concatMapStringsSep " " (generators.mkValueStringDefault { });
     mkKeyValue =
       generators.mkKeyValueDefault
-        { mkValueString = v: if v == null then "" else generators.mkValueStringDefault { } v; }
+        {
+          mkValueString =
+            v: if v == null then "" else generators.mkValueStringDefault { } v;
+        }
         "=";
   };
   configFile = settingsFormatIni.generate "typesense.ini" cfg.settings;

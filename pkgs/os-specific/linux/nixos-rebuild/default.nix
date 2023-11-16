@@ -12,7 +12,9 @@
   installShellFiles,
 }:
 let
-  fallback = import ./../../../../nixos/modules/installer/tools/nix-fallback-paths.nix;
+  fallback =
+    import
+      ./../../../../nixos/modules/installer/tools/nix-fallback-paths.nix;
 in
 substituteAll {
   name = "nixos-rebuild";

@@ -85,7 +85,9 @@ in
   options.services.beesd = {
     filesystems = mkOption {
       type = with types; attrsOf (submodule fsOptions);
-      description = lib.mdDoc "BTRFS filesystems to run block-level deduplication on.";
+      description =
+        lib.mdDoc
+          "BTRFS filesystems to run block-level deduplication on.";
       default = { };
       example = literalExpression ''
         {

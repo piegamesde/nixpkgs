@@ -21,7 +21,9 @@ qtModule {
   # fixQtBuiltinPaths overwrites a builtin path we should keep
   postPatch = ''
     sed -i "src/linguist/linguist.pro" \
-        -e '/^cmake_linguist_config_version_file.input =/ s|$$\[QT_HOST_DATA.*\]|${lib.getDev qtbase}|'
+        -e '/^cmake_linguist_config_version_file.input =/ s|$$\[QT_HOST_DATA.*\]|${
+          lib.getDev qtbase
+        }|'
     sed -i "src/qtattributionsscanner/qtattributionsscanner.pro" \
         -e '/^cmake_qattributionsscanner_config_version_file.input =/ s|$$\[QT_HOST_DATA.*\]|${
           lib.getDev qtbase

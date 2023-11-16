@@ -6,8 +6,11 @@
   themeConfig ? { },
 }:
 let
-  customToString = x: if builtins.isBool x then lib.boolToString x else toString x;
-  configLines = lib.mapAttrsToList (name: value: lib.nameValuePair name value) themeConfig;
+  customToString =
+    x: if builtins.isBool x then lib.boolToString x else toString x;
+  configLines =
+    lib.mapAttrsToList (name: value: lib.nameValuePair name value)
+      themeConfig;
   configureTheme =
     ''
       cp theme.conf theme.conf.orig 

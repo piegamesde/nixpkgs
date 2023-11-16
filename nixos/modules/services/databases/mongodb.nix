@@ -21,7 +21,8 @@ let
       systemLog.destination: syslog
       storage.dbPath: ${cfg.dbpath}
       ${optionalString cfg.enableAuth "security.authorization: enabled"}
-      ${optionalString (cfg.replSetName != "") "replication.replSetName: ${cfg.replSetName}"}
+      ${optionalString (cfg.replSetName != "")
+        "replication.replSetName: ${cfg.replSetName}"}
       ${cfg.extraConfig}
     '';
 in
@@ -144,7 +145,9 @@ in
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart = "${mongodb}/bin/mongod --config ${mongoCnf cfg} --fork --pidfilepath ${cfg.pidFile}";
+        ExecStart = "${mongodb}/bin/mongod --config ${
+            mongoCnf cfg
+          } --fork --pidfilepath ${cfg.pidFile}";
         User = cfg.user;
         PIDFile = cfg.pidFile;
         Type = "forking";

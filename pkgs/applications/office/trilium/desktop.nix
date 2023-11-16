@@ -89,7 +89,9 @@ let
     # LD_LIBRARY_PATH "shouldn't" be needed, remove when possible :)
     # Error: libstdc++.so.6: cannot open shared object file: No such file or directory
     preFixup = ''
-      gappsWrapperArgs+=(--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath buildInputs})
+      gappsWrapperArgs+=(--prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath buildInputs
+      })
     '';
 
     dontStrip = true;

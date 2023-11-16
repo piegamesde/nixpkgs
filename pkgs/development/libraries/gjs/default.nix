@@ -46,7 +46,9 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gjs/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gjs/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "sha256-99jJ1lPqb9eK/kpQcg4EaqK/wHj9pjXdEwZ90ZnGJdQ=";
   };
 
@@ -58,16 +60,20 @@ stdenv.mkDerivation rec {
     ./installed-tests-path.patch
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    makeWrapper
-    which # for locale detection
-    libxml2 # for xml-stripblanks
-    dbus # for dbus-run-session
-    gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      makeWrapper
+      which # for locale detection
+      libxml2 # for xml-stripblanks
+      dbus # for dbus-run-session
+      gobject-introspection
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [
     cairo
@@ -80,9 +86,11 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ glib ];
 
-  mesonFlags = [
-    "-Dinstalled_test_prefix=${placeholder "installedTests"}"
-  ] ++ lib.optionals (!stdenv.isLinux || stdenv.hostPlatform.isMusl) [ "-Dprofiler=disabled" ];
+  mesonFlags =
+    [ "-Dinstalled_test_prefix=${placeholder "installedTests"}" ]
+    ++ lib.optionals (!stdenv.isLinux || stdenv.hostPlatform.isMusl) [
+      "-Dprofiler=disabled"
+    ];
 
   doCheck = !stdenv.isDarwin;
 
@@ -119,7 +127,9 @@ stdenv.mkDerivation rec {
   postFixup = ''
     wrapProgram "$installedTests/libexec/installed-tests/gjs/minijasmine" \
       --prefix XDG_DATA_DIRS : "$installedTestsSchemaDatadir" \
-      --prefix GI_TYPELIB_PATH : "${lib.makeSearchPath "lib/girepository-1.0" testDeps}"
+      --prefix GI_TYPELIB_PATH : "${
+        lib.makeSearchPath "lib/girepository-1.0" testDeps
+      }"
   '';
 
   checkPhase = ''

@@ -38,7 +38,11 @@ stdenv.mkDerivation {
     install -D "${input}" "${placeholder "out"}/share/ppds/test.ppd"
   '';
   postFixup = ''
-    diff --color --report-identical-files "${output}" "${placeholder "out"}/share/cups/model/test.ppd"
-    diff --color --report-identical-files "${output}" "${placeholder "out"}/share/ppds/test.ppd"
+    diff --color --report-identical-files "${output}" "${
+      placeholder "out"
+    }/share/cups/model/test.ppd"
+    diff --color --report-identical-files "${output}" "${
+      placeholder "out"
+    }/share/ppds/test.ppd"
   '';
 }

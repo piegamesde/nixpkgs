@@ -10,7 +10,9 @@ let
 in
 {
   options.programs.river = {
-    enable = mkEnableOption (lib.mdDoc "river, a dynamic tiling Wayland compositor");
+    enable = mkEnableOption (
+      lib.mdDoc "river, a dynamic tiling Wayland compositor"
+    );
 
     package = mkOption {
       type = with types; nullOr package;
@@ -49,10 +51,13 @@ in
   config = mkIf cfg.enable (
     mkMerge [
       {
-        environment.systemPackages = optional (cfg.package != null) cfg.package ++ cfg.extraPackages;
+        environment.systemPackages =
+          optional (cfg.package != null) cfg.package ++ cfg.extraPackages;
 
         # To make a river session available if a display manager like SDDM is enabled:
-        services.xserver.displayManager.sessionPackages = optionals (cfg.package != null) [ cfg.package ];
+        services.xserver.displayManager.sessionPackages =
+          optionals (cfg.package != null)
+            [ cfg.package ];
       }
       (import ./wayland-session.nix { inherit lib pkgs; })
     ]

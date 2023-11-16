@@ -16,7 +16,9 @@ in
 
   options = {
     services.uptime-kuma = {
-      enable = mkEnableOption (mdDoc "Uptime Kuma, this assumes a reverse proxy to be set");
+      enable = mkEnableOption (
+        mdDoc "Uptime Kuma, this assumes a reverse proxy to be set"
+      );
 
       package = mkOption {
         type = types.package;

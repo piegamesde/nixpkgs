@@ -71,14 +71,26 @@ import ./make-test-python.nix (
       test_as_regular('${busybox pkgs}/bin/busybox id -rg', '${toString usersGid}')
 
       test_as_regular('/run/wrappers/bin/suid_root_busybox id -u', '0')
-      test_as_regular('/run/wrappers/bin/suid_root_busybox id -ru', '${toString userUid}')
-      test_as_regular('/run/wrappers/bin/suid_root_busybox id -g', '${toString usersGid}')
-      test_as_regular('/run/wrappers/bin/suid_root_busybox id -rg', '${toString usersGid}')
+      test_as_regular('/run/wrappers/bin/suid_root_busybox id -ru', '${
+        toString userUid
+      }')
+      test_as_regular('/run/wrappers/bin/suid_root_busybox id -g', '${
+        toString usersGid
+      }')
+      test_as_regular('/run/wrappers/bin/suid_root_busybox id -rg', '${
+        toString usersGid
+      }')
 
-      test_as_regular('/run/wrappers/bin/sgid_root_busybox id -u', '${toString userUid}')
-      test_as_regular('/run/wrappers/bin/sgid_root_busybox id -ru', '${toString userUid}')
+      test_as_regular('/run/wrappers/bin/sgid_root_busybox id -u', '${
+        toString userUid
+      }')
+      test_as_regular('/run/wrappers/bin/sgid_root_busybox id -ru', '${
+        toString userUid
+      }')
       test_as_regular('/run/wrappers/bin/sgid_root_busybox id -g', '0')
-      test_as_regular('/run/wrappers/bin/sgid_root_busybox id -rg', '${toString usersGid}')
+      test_as_regular('/run/wrappers/bin/sgid_root_busybox id -rg', '${
+        toString usersGid
+      }')
 
       test_as_regular_in_userns_mapped_as_root('/run/wrappers/bin/suid_root_busybox id -u', '0')
       test_as_regular_in_userns_mapped_as_root('/run/wrappers/bin/suid_root_busybox id -ru', '0')

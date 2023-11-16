@@ -5,7 +5,8 @@ lib.makeScope pkgs.newScope (
   let
     gconf = pkgs.gnome2.GConf;
     inherit (self) callPackage;
-    stdenv = if pkgs.stdenv.isDarwin then pkgs.darwin.apple_sdk_11_0.stdenv else pkgs.stdenv;
+    stdenv =
+      if pkgs.stdenv.isDarwin then pkgs.darwin.apple_sdk_11_0.stdenv else pkgs.stdenv;
     inheritedArgs = {
       inherit gconf;
       inherit stdenv;

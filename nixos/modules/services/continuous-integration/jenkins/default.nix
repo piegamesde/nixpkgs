@@ -187,7 +187,9 @@ in
         };
     };
 
-    users.groups = optionalAttrs (cfg.group == "jenkins") { jenkins.gid = config.ids.gids.jenkins; };
+    users.groups = optionalAttrs (cfg.group == "jenkins") {
+      jenkins.gid = config.ids.gids.jenkins;
+    };
 
     users.users = optionalAttrs (cfg.user == "jenkins") {
       jenkins = {
@@ -227,7 +229,9 @@ in
         let
           replacePlugins = optionalString (cfg.plugins != null) (
             let
-              pluginCmds = lib.attrsets.mapAttrsToList (n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi") cfg.plugins;
+              pluginCmds =
+                lib.attrsets.mapAttrsToList (n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi")
+                  cfg.plugins;
             in
             ''
               rm -r ${cfg.home}/plugins || true
@@ -249,7 +253,9 @@ in
                                                   --httpPort=${toString cfg.port} \
                                                   --prefix=${cfg.prefix} \
                                                   -Djava.awt.headless=true \
-                                                  ${concatStringsSep " " cfg.extraOptions}
+                                                  ${
+                                                    concatStringsSep " " cfg.extraOptions
+                                                  }
       '';
 
       postStart = ''

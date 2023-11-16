@@ -63,27 +63,30 @@ lib.warnIf (useHardenedMalloc != null)
     let
       libPath = lib.makeLibraryPath libPkgs;
 
-      libPkgs = [
-        alsa-lib
-        atk
-        cairo
-        dbus
-        dbus-glib
-        fontconfig
-        freetype
-        gdk-pixbuf
-        glib
-        gtk3
-        libxcb
-        libX11
-        libXext
-        libXrender
-        libXt
-        pango
-        stdenv.cc.cc
-        stdenv.cc.libc
-        zlib
-      ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ] ++ lib.optionals mediaSupport [ ffmpeg ];
+      libPkgs =
+        [
+          alsa-lib
+          atk
+          cairo
+          dbus
+          dbus-glib
+          fontconfig
+          freetype
+          gdk-pixbuf
+          glib
+          gtk3
+          libxcb
+          libX11
+          libXext
+          libXrender
+          libXt
+          pango
+          stdenv.cc.cc
+          stdenv.cc.libc
+          zlib
+        ]
+        ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
+        ++ lib.optionals mediaSupport [ ffmpeg ];
 
       version = "13.0.1";
 
@@ -120,7 +123,9 @@ lib.warnIf (useHardenedMalloc != null)
         }
       );
 
-      policiesJson = writeText "policies.json" (builtins.toJSON { policies.DisableAppUpdate = true; });
+      policiesJson = writeText "policies.json" (
+        builtins.toJSON { policies.DisableAppUpdate = true; }
+      );
     in
     stdenv.mkDerivation rec {
       pname = "tor-browser";
@@ -232,7 +237,9 @@ lib.warnIf (useHardenedMalloc != null)
 
         // Optionally disable multiprocess support.  We always set this to ensure that
         // toggling the pref takes effect.
-        lockPref("browser.tabs.remote.autostart.2", ${if disableContentSandbox then "false" else "true"});
+        lockPref("browser.tabs.remote.autostart.2", ${
+          if disableContentSandbox then "false" else "true"
+        });
 
         // Allow sandbox access to sound devices if using ALSA directly
         ${if (audioSupport && !pulseaudioSupport) then

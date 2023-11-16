@@ -32,12 +32,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    importlib-metadata
-    markdown-it-py
-    rich
-    typing-extensions
-  ] ++ markdown-it-py.optional-dependencies.plugins ++ markdown-it-py.optional-dependencies.linkify;
+  propagatedBuildInputs =
+    [
+      importlib-metadata
+      markdown-it-py
+      rich
+      typing-extensions
+    ]
+    ++ markdown-it-py.optional-dependencies.plugins
+    ++ markdown-it-py.optional-dependencies.linkify;
 
   passthru.optional-dependencies = {
     syntax = [

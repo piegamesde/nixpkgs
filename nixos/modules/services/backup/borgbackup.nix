@@ -29,7 +29,9 @@ let
     cfg:
     # If cfg.prune.keep e.g. has a yearly attribute,
     # its content is passed on as --keep-yearly
-    concatStringsSep " " (mapAttrsToList (x: y: "--keep-${x}=${toString y}") cfg.prune.keep);
+    concatStringsSep " " (
+      mapAttrsToList (x: y: "--keep-${x}=${toString y}") cfg.prune.keep
+    );
 
   mkBackupScript =
     name: cfg:
@@ -62,7 +64,10 @@ let
       + ''
         (
           set -o pipefail
-          ${optionalString (cfg.dumpCommand != null) "${escapeShellArg cfg.dumpCommand} | \\"}
+          ${
+            optionalString (cfg.dumpCommand != null)
+              "${escapeShellArg cfg.dumpCommand} | \\"
+          }
           borg create $extraArgs \
             --compression ${cfg.compression} \
             --exclude-from ${mkExcludeFile cfg} \
@@ -83,7 +88,8 @@ let
         borg prune $extraArgs \
           ${mkKeepArgs cfg} \
           ${
-            optionalString (cfg.prune.prefix != null) "--glob-archives ${escapeShellArg "${cfg.prune.prefix}*"}"
+            optionalString (cfg.prune.prefix != null)
+              "--glob-archives ${escapeShellArg "${cfg.prune.prefix}*"}"
           } \
           $extraPruneArgs
         borg compact $extraArgs $extraCompactArgs
@@ -163,7 +169,9 @@ let
         OnCalendar = cfg.startAt;
       };
       # if remote-backup wait for network
-      after = optional (cfg.persistentTimer && !isLocalPath cfg.repo) "network-online.target";
+      after =
+        optional (cfg.persistentTimer && !isLocalPath cfg.repo)
+          "network-online.target";
     };
 
   # utility function around makeWrapper
@@ -173,12 +181,17 @@ let
       name,
       set ? { },
     }:
-    pkgs.runCommand "${name}-wrapper" { nativeBuildInputs = [ pkgs.makeWrapper ]; } (
-      with lib; ''
-        makeWrapper "${original}" "$out/bin/${name}" \
-          ${concatStringsSep " \\\n " (mapAttrsToList (name: value: ''--set ${name} "${value}"'') set)}
-      ''
-    );
+    pkgs.runCommand "${name}-wrapper" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+      (
+        with lib; ''
+          makeWrapper "${original}" "$out/bin/${name}" \
+            ${
+              concatStringsSep " \\\n " (
+                mapAttrsToList (name: value: ''--set ${name} "${value}"'') set
+              )
+            }
+        ''
+      );
 
   mkBorgWrapper =
     name: cfg:
@@ -213,7 +226,9 @@ let
     );
 
   mkPassAssertion = name: cfg: {
-    assertion = with cfg.encryption; mode != "none" -> passCommand != null || passphrase != null;
+    assertion =
+      with cfg.encryption;
+      mode != "none" -> passCommand != null || passphrase != null;
     message =
       "passCommand or passphrase has to be specified because"
       + ''borgbackup.jobs.${name}.encryption != "none"'';
@@ -239,7 +254,9 @@ let
     let
       # Because of the following line, clients do not need to specify an absolute repo path
       cdCommand = "cd ${escapeShellArg cfg.path}";
-      restrictedArg = "--restrict-to-${if cfg.allowSubRepos then "path" else "repository"} .";
+      restrictedArg = "--restrict-to-${
+          if cfg.allowSubRepos then "path" else "repository"
+        } .";
       appendOnlyArg = optionalString appendOnly "--append-only";
       quotaArg = optionalString (cfg.quota != null) "--storage-quota ${cfg.quota}";
       serveCommand = "borg serve ${restrictedArg} ${appendOnlyArg} ${quotaArg}";
@@ -262,7 +279,9 @@ let
 
   mkKeysAssertion = name: cfg: {
     assertion = cfg.authorizedKeys != [ ] || cfg.authorizedKeysAppendOnly != [ ];
-    message = "borgbackup.repos.${name} does not make sense" + " without at least one public key";
+    message =
+      "borgbackup.repos.${name} does not make sense"
+      + " without at least one public key";
   };
 
   mkSourceAssertions = name: cfg: {
@@ -370,7 +389,9 @@ in
             removableDevice = mkOption {
               type = types.bool;
               default = false;
-              description = lib.mdDoc "Whether the repo (which must be local) is a removable device.";
+              description =
+                lib.mdDoc
+                  "Whether the repo (which must be local) is a removable device.";
             };
 
             archiveBaseName = mkOption {
@@ -494,7 +515,9 @@ in
               # "auto" is optional,
               # compression mode must be given,
               # compression level is optional
-              type = types.strMatching "none|(auto,)?(lz4|zstd|zlib|lzma)(,[[:digit:]]{1,2})?";
+              type =
+                types.strMatching
+                  "none|(auto,)?(lz4|zstd|zlib|lzma)(,[[:digit:]]{1,2})?";
               description = lib.mdDoc ''
                 Compression method to use. Refer to
                 {command}`borg help compression`
@@ -837,7 +860,9 @@ in
 
       # A job named "foo" is mapped to systemd.timers.borgbackup-job-foo
       # only generate the timer if interval (startAt) is set
-      systemd.timers = mapAttrs' mkBackupTimers (filterAttrs (_: cfg: cfg.startAt != [ ]) jobs);
+      systemd.timers = mapAttrs' mkBackupTimers (
+        filterAttrs (_: cfg: cfg.startAt != [ ]) jobs
+      );
 
       users = mkMerge (mapAttrsToList mkUsersConfig repos);
 

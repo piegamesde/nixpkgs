@@ -31,7 +31,8 @@ let
 
   # as of 2.0.10 a suffix is being added. That may or may not disappear and then
   # come back, so just leave this here.
-  majorMinorPatch = v: builtins.concatStringsSep "." (lib.take 3 (lib.splitVersion v));
+  majorMinorPatch =
+    v: builtins.concatStringsSep "." (lib.take 3 (lib.splitVersion v));
 
   overrides = writeText "revision.inc" (
     lib.concatStringsSep "\n" (

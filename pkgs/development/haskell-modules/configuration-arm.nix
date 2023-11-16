@@ -110,7 +110,9 @@ self: super:
   hls-call-hierarchy-plugin = dontCheck super.hls-call-hierarchy-plugin;
   hls-module-name-plugin = dontCheck super.hls-module-name-plugin;
   hls-brittany-plugin = dontCheck super.hls-brittany-plugin;
-  hls-qualify-imported-names-plugin = dontCheck super.hls-qualify-imported-names-plugin;
+  hls-qualify-imported-names-plugin =
+    dontCheck
+      super.hls-qualify-imported-names-plugin;
   hls-class-plugin = dontCheck super.hls-class-plugin;
   hls-selection-range-plugin = dontCheck super.hls-selection-range-plugin;
 

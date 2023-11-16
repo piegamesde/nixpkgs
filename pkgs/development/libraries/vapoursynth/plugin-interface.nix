@@ -22,14 +22,19 @@ let
         (
           pkg:
           let
-            cleanPropagatedBuildInputs = lib.filter lib.isDerivation pkg.propagatedBuildInputs;
+            cleanPropagatedBuildInputs =
+              lib.filter lib.isDerivation
+                pkg.propagatedBuildInputs;
           in
-          cleanPropagatedBuildInputs ++ (getRecursivePropagatedBuildInputs cleanPropagatedBuildInputs)
+          cleanPropagatedBuildInputs
+          ++ (getRecursivePropagatedBuildInputs cleanPropagatedBuildInputs)
         )
         pkgs
     );
 
-  deepPlugins = lib.unique (plugins ++ (getRecursivePropagatedBuildInputs plugins));
+  deepPlugins = lib.unique (
+    plugins ++ (getRecursivePropagatedBuildInputs plugins)
+  );
 
   pluginsEnv = buildEnv {
     name = "vapoursynth-plugins-env";
@@ -41,7 +46,8 @@ let
     let
       source = writeText "vapoursynth-nix-plugins.c" ''
         void VSLoadPluginsNix(void (*load)(void *data, const char *path), void *data) {
-        ${lib.concatMapStringsSep "" (path: ''load(data, "${path}/lib/vapoursynth");'') deepPlugins}
+        ${lib.concatMapStringsSep "" (path: ''load(data, "${path}/lib/vapoursynth");'')
+          deepPlugins}
         }
       '';
     in

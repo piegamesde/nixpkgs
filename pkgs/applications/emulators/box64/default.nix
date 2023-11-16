@@ -12,7 +12,8 @@
 }:
 
 # Currently only supported on ARM & RISC-V
-assert withDynarec -> (stdenv.hostPlatform.isAarch64 || stdenv.hostPlatform.isRiscV64);
+assert withDynarec
+  -> (stdenv.hostPlatform.isAarch64 || stdenv.hostPlatform.isRiscV64);
 
 stdenv.mkDerivation (
   finalAttrs: {
@@ -50,7 +51,9 @@ stdenv.mkDerivation (
         "-DARM64=${lib.boolToString stdenv.hostPlatform.isAarch64}"
         "-DRV64=${lib.boolToString stdenv.hostPlatform.isRiscV64}"
         "-DPPC64LE=${
-          lib.boolToString (stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian)
+          lib.boolToString (
+            stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
+          )
         }"
         "-DLARCH64=${lib.boolToString stdenv.hostPlatform.isLoongArch64}"
       ]
@@ -61,8 +64,12 @@ stdenv.mkDerivation (
       ]
       ++ [
         # Arch dynarec
-        "-DARM_DYNAREC=${lib.boolToString (withDynarec && stdenv.hostPlatform.isAarch64)}"
-        "-DRV64_DYNAREC=${lib.boolToString (withDynarec && stdenv.hostPlatform.isRiscV64)}"
+        "-DARM_DYNAREC=${
+          lib.boolToString (withDynarec && stdenv.hostPlatform.isAarch64)
+        }"
+        "-DRV64_DYNAREC=${
+          lib.boolToString (withDynarec && stdenv.hostPlatform.isRiscV64)
+        }"
       ];
 
     installPhase = ''
@@ -91,11 +98,14 @@ stdenv.mkDerivation (
 
     passthru = {
       updateScript = gitUpdater { rev-prefix = "v"; };
-      tests.hello = runCommand "box64-test-hello" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
-        # There is no actual "Hello, world!" with any of the logging enabled, and with all logging disabled it's hard to
-        # tell what problems the emulator has run into.
-        BOX64_NOBANNER=0 BOX64_LOG=1 box64 ${hello-x86_64}/bin/hello --version | tee $out
-      '';
+      tests.hello =
+        runCommand "box64-test-hello"
+          { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
+          ''
+            # There is no actual "Hello, world!" with any of the logging enabled, and with all logging disabled it's hard to
+            # tell what problems the emulator has run into.
+            BOX64_NOBANNER=0 BOX64_LOG=1 box64 ${hello-x86_64}/bin/hello --version | tee $out
+          '';
     };
 
     meta = with lib; {

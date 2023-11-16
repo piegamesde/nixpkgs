@@ -26,5 +26,7 @@ buildDunePackage (
       license = lib.licenses.bsd3;
     };
   }
-  // lib.optionalAttrs (!lib.versionAtLeast ocaml.version "4.08") { duneVersion = "1"; }
+  // lib.optionalAttrs (!lib.versionAtLeast ocaml.version "4.08") {
+    duneVersion = "1";
+  }
 )

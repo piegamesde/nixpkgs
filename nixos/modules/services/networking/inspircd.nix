@@ -58,7 +58,9 @@ in
       serviceConfig = {
         Type = "simple";
         ExecStart = ''
-          ${lib.getBin cfg.package}/bin/inspircd start --config ${configFile} --nofork --nopid
+          ${
+            lib.getBin cfg.package
+          }/bin/inspircd start --config ${configFile} --nofork --nopid
         '';
         DynamicUser = true;
       };

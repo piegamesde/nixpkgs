@@ -11,7 +11,9 @@ let
   configDir = pkgs.linkFarm "certspotter-config" (
     lib.toList {
       name = "watchlist";
-      path = pkgs.writeText "certspotter-watchlist" (builtins.concatStringsSep "\n" cfg.watchlist);
+      path = pkgs.writeText "certspotter-watchlist" (
+        builtins.concatStringsSep "\n" cfg.watchlist
+      );
     }
     ++ lib.optional (cfg.emailRecipients != [ ]) {
       name = "email_recipients";
@@ -35,7 +37,9 @@ let
 in
 {
   options.services.certspotter = {
-    enable = lib.mkEnableOption "Cert Spotter, a Certificate Transparency log monitor";
+    enable =
+      lib.mkEnableOption
+        "Cert Spotter, a Certificate Transparency log monitor";
 
     package = lib.mkPackageOptionMD pkgs "certspotter" { };
 
@@ -137,14 +141,19 @@ in
       wantedBy = [ "multi-user.target" ];
       environment.CERTSPOTTER_CONFIG_DIR = configDir;
       environment.SENDMAIL_PATH =
-        if cfg.sendmailPath != null then cfg.sendmailPath else "/run/current-system/sw/bin/false";
+        if cfg.sendmailPath != null then
+          cfg.sendmailPath
+        else
+          "/run/current-system/sw/bin/false";
       script = ''
         export CERTSPOTTER_STATE_DIR="$STATE_DIRECTORY"
         cd "$CERTSPOTTER_STATE_DIR"
         ${lib.optionalString cfg.startAtEnd ''
           if [[ ! -d logs ]]; then
             # Don't download certificates issued before the first launch
-            exec ${cfg.package}/bin/certspotter -start_at_end ${lib.escapeShellArgs cfg.extraFlags}
+            exec ${cfg.package}/bin/certspotter -start_at_end ${
+              lib.escapeShellArgs cfg.extraFlags
+            }
           fi
         ''}
         exec ${cfg.package}/bin/certspotter ${lib.escapeShellArgs cfg.extraFlags}

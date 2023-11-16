@@ -37,12 +37,16 @@
 
 assert lib.assertMsg (enable16Bit || enable32Bit)
     "Must enable 16-Bit and/or 32-Bit system variant.";
-assert lib.assertMsg (enableSDL || enableX11) "Must enable SDL and/or X11 graphics interfaces.";
+assert lib.assertMsg (enableSDL || enableX11)
+    "Must enable SDL and/or X11 graphics interfaces.";
 assert lib.assertOneOf "withSDLVersion" withSDLVersion [
   "1"
   "2"
 ];
-assert enableHAXM -> (lib.assertMsg enableX11 "Must enable X11 graphics interface for HAXM build.");
+assert enableHAXM
+  -> (lib.assertMsg enableX11
+    "Must enable X11 graphics interface for HAXM build."
+  );
 let
   inherit (lib) optional optionals optionalString;
   inherit (lib.strings) concatStringsSep concatMapStringsSep;
@@ -70,13 +74,17 @@ let
   sdlMakefiles = concatMapStringsSep " " (x: x + "." + sdlMakefileSuffix) (
     optionals enable16Bit [ "Makefile" ] ++ optionals enable32Bit [ "Makefile21" ]
   );
-  sdlBuildFlags = concatStringsSep " " (optionals enableSDL [ "SDL_VERSION=${withSDLVersion}" ]);
+  sdlBuildFlags = concatStringsSep " " (
+    optionals enableSDL [ "SDL_VERSION=${withSDLVersion}" ]
+  );
   sdlBins = concatStringsSep " " (
     optionals enable16Bit [ "np2kai" ] ++ optionals enable32Bit [ "np21kai" ]
   );
   x11ConfigureFlags = concatStringsSep " " (
     (
-      if ((enableHAXM && (enable16Bit || enable32Bit)) || (enable16Bit && enable32Bit)) then
+      if
+        ((enableHAXM && (enable16Bit || enable32Bit)) || (enable16Bit && enable32Bit))
+      then
         [ "--enable-build-all" ]
       else if enableHAXM then
         [ "--enable-haxm" ]
@@ -99,7 +107,8 @@ let
     "SDL2_CONFIG=sdl2-config"
     "SDL_CONFIG=sdl-config"
     ''SDL_CFLAGS="$(sdl${sdlInfix}-config --cflags)"''
-    ''SDL_LIBS="$(sdl${sdlInfix}-config --libs) -lSDL${sdlInfix}_mixer -lSDL${sdlInfix}_ttf"''
+    ''
+      SDL_LIBS="$(sdl${sdlInfix}-config --libs) -lSDL${sdlInfix}_mixer -lSDL${sdlInfix}_ttf"''
   ];
   x11Bins = concatStringsSep " " (
     optionals enable16Bit [ "xnp2kai" ]
@@ -157,7 +166,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   # TODO Remove when bumping past rev22
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin "-D_DARWIN_C_SOURCE";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.hostPlatform.isDarwin
+      "-D_DARWIN_C_SOURCE";
 
   buildPhase =
     optionalString enableSDL ''

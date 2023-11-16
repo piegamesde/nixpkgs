@@ -12,11 +12,14 @@
 }:
 
 let
-  jdk = openjdk20.override (lib.optionalAttrs stdenv.isLinux { enableJavaFX = true; });
+  jdk = openjdk20.override (
+    lib.optionalAttrs stdenv.isLinux { enableJavaFX = true; }
+  );
   maven' = maven.override { inherit jdk; };
   selectSystem =
     attrs:
-    attrs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    attrs.${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 in
 maven'.buildMavenPackage rec {
   pname = "scenebuilder";

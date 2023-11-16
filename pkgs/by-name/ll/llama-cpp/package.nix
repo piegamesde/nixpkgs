@@ -109,7 +109,8 @@ stdenv.mkDerivation (
         cp "$f" $out/bin/llama-cpp-"$(basename "$f")"
       done
 
-      ${lib.optionalString metalSupport "cp ./bin/ggml-metal.metal $out/bin/ggml-metal.metal"}
+      ${lib.optionalString metalSupport
+        "cp ./bin/ggml-metal.metal $out/bin/ggml-metal.metal"}
 
       runHook postInstall
     '';

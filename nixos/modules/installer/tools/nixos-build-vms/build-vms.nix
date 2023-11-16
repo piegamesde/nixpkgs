@@ -25,13 +25,14 @@ let
     }).test.driverInteractive;
 in
 
-pkgs.runCommand "nixos-build-vms" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
-  mkdir -p $out/bin
-  ln -s ${interactiveDriver}/bin/nixos-test-driver $out/bin/nixos-test-driver
-  ln -s ${interactiveDriver}/bin/nixos-test-driver $out/bin/nixos-run-vms
-  wrapProgram $out/bin/nixos-test-driver \
-    --add-flags "--interactive"
-  wrapProgram $out/bin/nixos-run-vms \
-     --set testScript "${pkgs.writeText "start-all" "start_all(); join_all();"}" \
-     --add-flags "--no-interactive"
-''
+pkgs.runCommand "nixos-build-vms" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+  ''
+    mkdir -p $out/bin
+    ln -s ${interactiveDriver}/bin/nixos-test-driver $out/bin/nixos-test-driver
+    ln -s ${interactiveDriver}/bin/nixos-test-driver $out/bin/nixos-run-vms
+    wrapProgram $out/bin/nixos-test-driver \
+      --add-flags "--interactive"
+    wrapProgram $out/bin/nixos-run-vms \
+       --set testScript "${pkgs.writeText "start-all" "start_all(); join_all();"}" \
+       --add-flags "--no-interactive"
+  ''

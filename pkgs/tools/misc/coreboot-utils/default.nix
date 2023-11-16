@@ -188,7 +188,9 @@ utils
   coreboot-utils =
     (buildEnv {
       name = "coreboot-utils-${version}";
-      paths = lib.filter (lib.meta.availableOn stdenv.hostPlatform) (lib.attrValues utils);
+      paths = lib.filter (lib.meta.availableOn stdenv.hostPlatform) (
+        lib.attrValues utils
+      );
       postBuild = "rm -rf $out/sbin";
     })
     // {

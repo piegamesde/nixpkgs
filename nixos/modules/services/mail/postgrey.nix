@@ -15,7 +15,9 @@ let
 
   socket =
     with types;
-    addCheck (either (submodule unixSocket) (submodule inetSocket)) (x: x ? path || x ? port);
+    addCheck (either (submodule unixSocket) (submodule inetSocket)) (
+      x: x ? path || x ? port
+    );
 
   inetSocket = with types; {
     options = {
@@ -124,7 +126,9 @@ in
       greylistAction = mkOption {
         type = str;
         default = "DEFER_IF_PERMIT";
-        description = lib.mdDoc "Response status for greylisted messages (see access(5))";
+        description =
+          lib.mdDoc
+            "Response status for greylisted messages (see access(5))";
       };
       greylistHeader = mkOption {
         type = str;
@@ -141,7 +145,9 @@ in
       maxAge = mkOption {
         type = natural;
         default = 35;
-        description = lib.mdDoc "Delete entries from whitelist if they haven't been seen for N days";
+        description =
+          lib.mdDoc
+            "Delete entries from whitelist if they haven't been seen for N days";
       };
       retryWindow = mkOption {
         type = either str natural;
@@ -161,12 +167,16 @@ in
       IPv4CIDR = mkOption {
         type = natural;
         default = 24;
-        description = lib.mdDoc "Strip N bits from IPv4 addresses if lookupBySubnet is true";
+        description =
+          lib.mdDoc
+            "Strip N bits from IPv4 addresses if lookupBySubnet is true";
       };
       IPv6CIDR = mkOption {
         type = natural;
         default = 64;
-        description = lib.mdDoc "Strip N bits from IPv6 addresses if lookupBySubnet is true";
+        description =
+          lib.mdDoc
+            "Strip N bits from IPv6 addresses if lookupBySubnet is true";
       };
       privacy = mkOption {
         type = bool;
@@ -176,7 +186,9 @@ in
       autoWhitelist = mkOption {
         type = nullOr natural';
         default = 5;
-        description = lib.mdDoc "Whitelist clients after successful delivery of N messages";
+        description =
+          lib.mdDoc
+            "Whitelist clients after successful delivery of N messages";
       };
       whitelistClients = mkOption {
         type = listOf path;
@@ -239,8 +251,12 @@ in
                       --delay=${toString cfg.delay} \
                       --max-age=${toString cfg.maxAge} \
                       --retry-window=${toString cfg.retryWindow} \
-                      ${if cfg.lookupBySubnet then "--lookup-by-subnet" else "--lookup-by-host"} \
-                      --ipv4cidr=${toString cfg.IPv4CIDR} --ipv6cidr=${toString cfg.IPv6CIDR} \
+                      ${
+                        if cfg.lookupBySubnet then "--lookup-by-subnet" else "--lookup-by-host"
+                      } \
+                      --ipv4cidr=${toString cfg.IPv4CIDR} --ipv6cidr=${
+                        toString cfg.IPv6CIDR
+                      } \
                       ${optionalString cfg.privacy "--privacy"} \
                       --auto-whitelist-clients=${
                         toString (if cfg.autoWhitelist == null then 0 else cfg.autoWhitelist)
@@ -248,8 +264,13 @@ in
                       --greylist-action=${cfg.greylistAction} \
                       --greylist-text="${cfg.greylistText}" \
                       --x-greylist-header="${cfg.greylistHeader}" \
-                      ${concatMapStringsSep " " (x: "--whitelist-clients=" + x) cfg.whitelistClients} \
-                      ${concatMapStringsSep " " (x: "--whitelist-recipients=" + x) cfg.whitelistRecipients}
+                      ${
+                        concatMapStringsSep " " (x: "--whitelist-clients=" + x) cfg.whitelistClients
+                      } \
+                      ${
+                        concatMapStringsSep " " (x: "--whitelist-recipients=" + x)
+                          cfg.whitelistRecipients
+                      }
           '';
           Restart = "always";
           RestartSec = 5;

@@ -48,7 +48,9 @@ stdenv.mkDerivation rec {
     # Using a value of 48 should work on both emulated and native x86_64-darwin.
     ++ lib.optional (stdenv.isDarwin && stdenv.isx86_64) "--with-lg-vaddr=48";
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-Wno-error=array-bounds";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin
+      "-Wno-error=array-bounds";
   env.NIX_LDFLAGS =
     lib.optionalString (stdenv.cc.libcxx != null)
       "-l${stdenv.cc.libcxx.cxxabi.libName}";

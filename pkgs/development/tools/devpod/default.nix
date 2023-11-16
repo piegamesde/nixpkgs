@@ -135,10 +135,13 @@ rec {
           mv tauri.conf.json.merged tauri.conf.json
         '';
 
-      nativeBuildInputs = [
-        copyDesktopItems
-        pkg-config
-      ] ++ lib.optionals stdenv.isLinux [ jq ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
+      nativeBuildInputs =
+        [
+          copyDesktopItems
+          pkg-config
+        ]
+        ++ lib.optionals stdenv.isLinux [ jq ]
+        ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
 
       buildInputs =
         [

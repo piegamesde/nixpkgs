@@ -8,10 +8,12 @@ let
   cfg = config.boot.bcache;
 in
 {
-  options.boot.bcache.enable = lib.mkEnableOption (lib.mdDoc "bcache mount support") // {
-    default = true;
-    example = false;
-  };
+  options.boot.bcache.enable =
+    lib.mkEnableOption (lib.mdDoc "bcache mount support")
+    // {
+      default = true;
+      example = false;
+    };
   options.boot.initrd.services.bcache.enable =
     lib.mkEnableOption (lib.mdDoc "bcache support in the initrd")
     // {
@@ -28,9 +30,11 @@ in
 
     services.udev.packages = [ pkgs.bcache-tools ];
 
-    boot.initrd.extraUdevRulesCommands = lib.mkIf (!config.boot.initrd.systemd.enable) ''
-      cp -v ${pkgs.bcache-tools}/lib/udev/rules.d/*.rules $out/
-    '';
+    boot.initrd.extraUdevRulesCommands =
+      lib.mkIf (!config.boot.initrd.systemd.enable)
+        ''
+          cp -v ${pkgs.bcache-tools}/lib/udev/rules.d/*.rules $out/
+        '';
 
     boot.initrd.services.udev = lib.mkIf config.boot.initrd.services.bcache.enable {
       packages = [ pkgs.bcache-tools ];

@@ -38,11 +38,14 @@ stdenv.mkDerivation (
       makeWrapper
     ] ++ lib.optional stdenv.isLinux autoPatchelfHook ++ extraNativeBuildInputs;
 
-    buildInputs = [
-      stdenv.cc.cc.lib # libstdc++.so.6
-      zlib
-      libxcrypt-legacy # libcrypt.so.1 (default is .2 now)
-    ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Foundation ++ extraBuildInputs;
+    buildInputs =
+      [
+        stdenv.cc.cc.lib # libstdc++.so.6
+        zlib
+        libxcrypt-legacy # libcrypt.so.1 (default is .2 now)
+      ]
+      ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Foundation
+      ++ extraBuildInputs;
 
     unpackPhase = ''
       runHook preUnpack

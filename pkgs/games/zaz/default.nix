@@ -35,7 +35,9 @@ stdenv.mkDerivation rec {
   ];
 
   # Fix SDL include problems
-  env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL}/include/SDL -I${SDL_image}/include/SDL";
+  env.NIX_CFLAGS_COMPILE = "-I${
+      lib.getDev SDL
+    }/include/SDL -I${SDL_image}/include/SDL";
   # Fix linking errors
   makeFlags = [
     "ZAZ_LIBS+=-lSDL"

@@ -25,7 +25,10 @@ let
   sortedPackages = builtins.sort (x: y: builtins.lessThan x.name y.name) packages;
 
   mkXmlAttrs =
-    attrs: lib.concatStrings (lib.mapAttrsToList (name: value: " ${name}=\"${value}\"") attrs);
+    attrs:
+    lib.concatStrings (
+      lib.mapAttrsToList (name: value: " ${name}=\"${value}\"") attrs
+    );
   mkXmlValues =
     attrs:
     lib.concatStrings (
@@ -35,7 +38,10 @@ let
           let
             tag = builtins.head (builtins.match "([^:]+).*" name);
           in
-          if builtins.typeOf value == "string" then "<${tag}>${value}</${tag}>" else mkXmlDoc name value
+          if builtins.typeOf value == "string" then
+            "<${tag}>${value}</${tag}>"
+          else
+            mkXmlDoc name value
         )
         attrs
     );
@@ -75,7 +81,9 @@ let
       <license id="${package.license}" type="text">${
         lib.concatStringsSep "---" (mkLicenses package.license)
       }</license>
-      <localPackage path="${builtins.replaceStrings [ "/" ] [ ";" ] package.path}" obsolete="${
+      <localPackage path="${
+        builtins.replaceStrings [ "/" ] [ ";" ] package.path
+      }" obsolete="${
         if (lib.hasAttrByPath [ "obsolete" ] package) then package.obsolete else "false"
       }">
         ${mkXmlDoc "type-details" package.type-details}
@@ -94,8 +102,12 @@ in
 stdenv.mkDerivation (
   {
     inherit buildInputs;
-    pname = "android-sdk-${lib.concatMapStringsSep "-" (package: package.name) sortedPackages}";
-    version = lib.concatMapStringsSep "-" (package: package.revision) sortedPackages;
+    pname = "android-sdk-${
+        lib.concatMapStringsSep "-" (package: package.name) sortedPackages
+      }";
+    version =
+      lib.concatMapStringsSep "-" (package: package.revision)
+        sortedPackages;
     src =
       map
         (
@@ -156,7 +168,9 @@ stdenv.mkDerivation (
     dontAutoPatchelf = true;
 
     meta = {
-      description = lib.concatMapStringsSep "\n" (package: package.displayName) packages;
+      description =
+        lib.concatMapStringsSep "\n" (package: package.displayName)
+          packages;
     } // meta;
   }
   // extraParams

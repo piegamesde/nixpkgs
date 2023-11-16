@@ -24,23 +24,26 @@
 }:
 let
   dist =
-    dists.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    dists.${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   arch =
     {
       "aarch64" = "aarch64";
       "x86_64" = "x64";
     }
-    .${stdenv.hostPlatform.parsed.cpu.name}
-      or (throw "Unsupported architecture: ${stdenv.hostPlatform.parsed.cpu.name}");
+    .${stdenv.hostPlatform.parsed.cpu.name} or (throw
+      "Unsupported architecture: ${stdenv.hostPlatform.parsed.cpu.name}"
+    );
 
   platform =
     {
       "darwin" = "macosx";
       "linux" = "linux";
     }
-    .${stdenv.hostPlatform.parsed.kernel.name}
-      or (throw "Unsupported platform: ${stdenv.hostPlatform.parsed.kernel.name}");
+    .${stdenv.hostPlatform.parsed.kernel.name} or (throw
+      "Unsupported platform: ${stdenv.hostPlatform.parsed.kernel.name}"
+    );
 
   runtimeDependencies =
     [ cups ]
@@ -96,7 +99,9 @@ let
       mv * $out
 
       unzip ${jce-policies}
-      mv -f ZuluJCEPolicies/*.jar $out/${lib.optionalString isJdk8 "jre/"}lib/security/
+      mv -f ZuluJCEPolicies/*.jar $out/${
+        lib.optionalString isJdk8 "jre/"
+      }lib/security/
 
       # jni.h expects jni_md.h to be in the header search path.
       ln -s $out/include/${stdenv.hostPlatform.parsed.kernel.name}/*_md.h $out/include/
@@ -109,8 +114,12 @@ let
 
     preFixup =
       ''
-        # Propagate the setJavaClassPath setup hook from the ${if isJdk8 then "JRE" else "JDK"} so that
-        # any package that depends on the ${if isJdk8 then "JRE" else "JDK"} has $CLASSPATH set up
+        # Propagate the setJavaClassPath setup hook from the ${
+          if isJdk8 then "JRE" else "JDK"
+        } so that
+        # any package that depends on the ${
+          if isJdk8 then "JRE" else "JDK"
+        } has $CLASSPATH set up
         # properly.
         mkdir -p $out/nix-support
         printWords ${setJavaClassPath} > $out/nix-support/propagated-build-inputs
@@ -140,7 +149,9 @@ let
     # fixupPhase is moving the man to share/man which breaks it because it's a
     # relative symlink.
     postFixup = lib.optionalString stdenv.isDarwin ''
-      ln -nsf ../zulu-${lib.versions.major version}.jdk/Contents/Home/man $out/share/man
+      ln -nsf ../zulu-${
+        lib.versions.major version
+      }.jdk/Contents/Home/man $out/share/man
     '';
 
     passthru = (lib.optionalAttrs isJdk8 { jre = jdk; }) // {

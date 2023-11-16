@@ -26,7 +26,9 @@ stdenv.mkDerivation (
       (if stdenv.hostPlatform.isx86 then "--enable-mmx" else "--disable-mmx")
     ] ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
-    passthru.tests.pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+    passthru.tests.pkg-config = testers.hasPkgConfigModules {
+      package = finalAttrs.finalPackage;
+    };
 
     meta = with lib; {
       description = "SDL graphics drawing primitives and support functions";

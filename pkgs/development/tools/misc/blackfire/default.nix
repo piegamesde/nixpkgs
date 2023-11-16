@@ -14,8 +14,9 @@ stdenv.mkDerivation rec {
   version = "2.22.0";
 
   src =
-    passthru.sources.${stdenv.hostPlatform.system}
-      or (throw "Unsupported platform for blackfire: ${stdenv.hostPlatform.system}");
+    passthru.sources.${stdenv.hostPlatform.system} or (throw
+      "Unsupported platform for blackfire: ${stdenv.hostPlatform.system}"
+    );
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ dpkg ];
 

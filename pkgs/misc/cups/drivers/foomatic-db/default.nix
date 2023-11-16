@@ -88,7 +88,9 @@ stdenv.mkDerivation rec {
   # compress ppd files
   postFixup = ''
     echo 'compressing ppd files'
-    find -H "${placeholder "out"}/share/cups/model/foomatic-db" -type f -iname '*.ppd' -print0  \
+    find -H "${
+      placeholder "out"
+    }/share/cups/model/foomatic-db" -type f -iname '*.ppd' -print0  \
       | xargs -0r -n 64 -P "$NIX_BUILD_CORES" gzip -9n
   '';
 

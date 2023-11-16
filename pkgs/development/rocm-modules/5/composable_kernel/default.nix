@@ -20,9 +20,10 @@ stdenv.mkDerivation (
     pname = "composable_kernel";
     version = "5.7.1";
 
-    outputs = [
-      "out"
-    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildExamples [ "example" ];
+    outputs =
+      [ "out" ]
+      ++ lib.optionals buildTests [ "test" ]
+      ++ lib.optionals buildExamples [ "example" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";

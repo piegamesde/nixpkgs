@@ -56,7 +56,9 @@ stdenv.mkDerivation {
 
   cmakeFlags =
     lib.optionals standalone [ "-DLLVM_ENABLE_LIBCXX=ON" ]
-    ++ lib.optionals (standalone && withLibunwind) [ "-DLIBCXXABI_USE_LLVM_UNWINDER=ON" ]
+    ++ lib.optionals (standalone && withLibunwind) [
+      "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
+    ]
     ++ lib.optional (!enableShared) "-DLIBCXXABI_ENABLE_SHARED=OFF";
 
   preInstall = lib.optionalString stdenv.isDarwin ''
@@ -83,7 +85,9 @@ stdenv.mkDerivation {
 
   postInstall = ''
     mkdir -p "$dev/include"
-    install -m 644 ../include/${if stdenv.isDarwin then "*" else "cxxabi.h"} "$dev/include"
+    install -m 644 ../include/${
+      if stdenv.isDarwin then "*" else "cxxabi.h"
+    } "$dev/include"
   '';
 
   passthru = {

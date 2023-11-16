@@ -92,7 +92,8 @@ let
   # It's necessary to consistently use backendStdenv when building with CUDA
   # support, otherwise we get libstdc++ errors downstream
   stdenv = throw "Use effectiveStdenv instead";
-  effectiveStdenv = if enableCuda then cudaPackages.backendStdenv else inputs.stdenv;
+  effectiveStdenv =
+    if enableCuda then cudaPackages.backendStdenv else inputs.stdenv;
 
   src = fetchFromGitHub {
     owner = "opencv";
@@ -139,7 +140,8 @@ let
       else if effectiveStdenv.hostPlatform.system == "x86_64-darwin" then
         { ${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2"; }
       else
-        throw "ICV is not available for this platform (or not yet supported by this package)";
+        throw
+          "ICV is not available for this platform (or not yet supported by this package)";
     dst = ".cache/ippicv";
   };
 
@@ -321,7 +323,9 @@ effectiveStdenv.mkDerivation {
       protobuf3_21
     ]
     ++ lib.optional enablePython pythonPackages.python
-    ++ lib.optional (effectiveStdenv.buildPlatform == effectiveStdenv.hostPlatform) hdf5
+    ++
+      lib.optional (effectiveStdenv.buildPlatform == effectiveStdenv.hostPlatform)
+        hdf5
     ++ lib.optional enableGtk2 gtk2
     ++ lib.optional enableGtk3 gtk3
     ++ lib.optional enableVtk vtk
@@ -407,7 +411,9 @@ effectiveStdenv.mkDerivation {
     ]
     ++ lib.optionals enableCuda [ cudaPackages.cuda_nvcc ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString enableEXR "-I${ilmbase.dev}/include/OpenEXR";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString enableEXR
+      "-I${ilmbase.dev}/include/OpenEXR";
 
   # Configure can't find the library without this.
   OpenBLAS_HOME = lib.optionalString withOpenblas openblas_.dev;
@@ -486,7 +492,9 @@ effectiveStdenv.mkDerivation {
       "-DBUILD_PNG=OFF"
       "-DBUILD_WEBP=OFF"
     ]
-    ++ lib.optionals (!effectiveStdenv.isDarwin) [ "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so" ]
+    ++ lib.optionals (!effectiveStdenv.isDarwin) [
+      "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so"
+    ]
     ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ];
 
   postBuild = lib.optionalString enableDocs ''
@@ -557,7 +565,9 @@ effectiveStdenv.mkDerivation {
         };
       }
       // lib.optionalAttrs (enableCuda) {
-        no-libstdcxx-errors = callPackage ./libstdcxx-test.nix { attrName = "opencv4"; };
+        no-libstdcxx-errors = callPackage ./libstdcxx-test.nix {
+          attrName = "opencv4";
+        };
       };
   } // lib.optionalAttrs enablePython { pythonPath = [ ]; };
 

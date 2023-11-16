@@ -21,7 +21,9 @@ perlPackages.buildPerlPackage rec {
     hash = "sha256-KuDNngHOoeEHJExEHoLdNO95ZUvLx8TWiAOTmRKHtmQ=";
   };
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
+  nativeBuildInputs = [
+    makeWrapper
+  ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
   buildInputs = [ perl ];
   propagatedBuildInputs = with perlPackages; [
     LWP

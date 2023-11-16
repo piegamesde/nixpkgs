@@ -73,59 +73,62 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  propagatedBuildInputs = [
-    attrs
-    beautifulsoup4
-    bitarray
-    boolean-py
-    chardet
-    click
-    colorama
-    commoncode
-    container-inspector
-    debian-inspector
-    dparse2
-    extractcode
-    extractcode-7z
-    extractcode-libarchive
-    fasteners
-    fingerprints
-    ftfy
-    gemfileparser2
-    html5lib
-    importlib-metadata
-    intbitset
-    jaraco-functools
-    javaproperties
-    jinja2
-    jsonstreams
-    license-expression
-    lxml
-    markupsafe
-    packageurl-python
-    packaging
-    parameter-expansion-patched
-    pefile
-    pip-requirements-parser
-    pkginfo2
-    pluggy
-    plugincode
-    publicsuffix2
-    pyahocorasick
-    pycryptodome
-    pygmars
-    pygments
-    pymaven-patch
-    requests
-    saneyaml
-    spdx-tools
-    text-unidecode
-    toml
-    typecode
-    typecode-libmagic
-    urlpy
-    xmltodict
-  ] ++ lib.optionals (pythonOlder "3.9") [ zipp ] ++ lib.optionals (pythonOlder "3.7") [ typing ];
+  propagatedBuildInputs =
+    [
+      attrs
+      beautifulsoup4
+      bitarray
+      boolean-py
+      chardet
+      click
+      colorama
+      commoncode
+      container-inspector
+      debian-inspector
+      dparse2
+      extractcode
+      extractcode-7z
+      extractcode-libarchive
+      fasteners
+      fingerprints
+      ftfy
+      gemfileparser2
+      html5lib
+      importlib-metadata
+      intbitset
+      jaraco-functools
+      javaproperties
+      jinja2
+      jsonstreams
+      license-expression
+      lxml
+      markupsafe
+      packageurl-python
+      packaging
+      parameter-expansion-patched
+      pefile
+      pip-requirements-parser
+      pkginfo2
+      pluggy
+      plugincode
+      publicsuffix2
+      pyahocorasick
+      pycryptodome
+      pygmars
+      pygments
+      pymaven-patch
+      requests
+      saneyaml
+      spdx-tools
+      text-unidecode
+      toml
+      typecode
+      typecode-libmagic
+      urlpy
+      xmltodict
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ zipp ]
+    ++ lib.optionals (pythonOlder "3.7") [ typing ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

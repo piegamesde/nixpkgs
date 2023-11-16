@@ -14,8 +14,9 @@
 
 let
   hashes =
-    (import ./hashes.nix).${engineVersion}
-      or (throw "There are no known artifact hashes for Flutter engine version ${engineVersion}.");
+    (import ./hashes.nix).${engineVersion} or (throw
+      "There are no known artifact hashes for Flutter engine version ${engineVersion}."
+    );
   noticeText = stdenvNoCC.mkDerivation (
     finalAttrs: {
       pname = "flutter-notice";
@@ -213,7 +214,9 @@ let
           null
         else
           "${platform}${lib.optionalString (variant != null) "-${variant}"}";
-      archiveBasename = lib.removeSuffix ".${(lib.last (lib.splitString "." archive))}" archive;
+      archiveBasename =
+        lib.removeSuffix ".${(lib.last (lib.splitString "." archive))}"
+          archive;
       overrideUnpackCmd = builtins.elem archive [
         "FlutterEmbedder.framework.zip"
         "FlutterMacOS.framework.zip"
@@ -226,7 +229,9 @@ let
           }-${archiveBasename}";
         version = engineVersion;
 
-        nativeBuildInputs = [ unzip ] ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+        nativeBuildInputs = [
+          unzip
+        ] ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
 
         src =
           if overrideUnpackCmd then
@@ -234,7 +239,9 @@ let
               url = "https://storage.googleapis.com/flutter_infra_release/flutter/${engineVersion}${
                   lib.optionalString (platform != null) "/${artifactDirectory}"
                 }/${archive}";
-              hash = (if artifactDirectory == null then hashes else hashes.${artifactDirectory}).${archive};
+              hash =
+                (if artifactDirectory == null then hashes else hashes.${artifactDirectory})
+                .${archive};
             })
           else
             (fetchzip {
@@ -242,7 +249,9 @@ let
                   lib.optionalString (platform != null) "/${artifactDirectory}"
                 }/${archive}";
               stripRoot = false;
-              hash = (if artifactDirectory == null then hashes else hashes.${artifactDirectory}).${archive};
+              hash =
+                (if artifactDirectory == null then hashes else hashes.${artifactDirectory})
+                .${archive};
             });
 
         sourceRoot = if overrideUnpackCmd then "." else null;
@@ -291,7 +300,10 @@ let
                   (
                     args:
                     mkArtifactDerivation (
-                      { platform = "${os}${lib.optionalString (architecture != "") "-${architecture}"}"; } // args
+                      {
+                        platform = "${os}${lib.optionalString (architecture != "") "-${architecture}"}";
+                      }
+                      // args
                     )
                   )
                   variants.base;

@@ -56,7 +56,11 @@ stdenv.mkDerivation rec {
 
   installPhase =
     let
-      targetDir = if stdenv.hostPlatform.system == "i686-linux" then "XMind_i386" else "XMind_amd64";
+      targetDir =
+        if stdenv.hostPlatform.system == "i686-linux" then
+          "XMind_i386"
+        else
+          "XMind_amd64";
     in
     ''
       mkdir -p $out/{bin,libexec/configuration/,share/{applications/,fonts/,icons/hicolor/scalable/apps/}}

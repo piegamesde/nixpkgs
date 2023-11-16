@@ -34,7 +34,9 @@ in
     highlightStyle = mkOption {
       type = types.str;
       default = "fg=8"; # https://github.com/zsh-users/zsh-autosuggestions/tree/v0.4.3#suggestion-highlight-style
-      description = lib.mdDoc "Highlight style for suggestions ({fore,back}ground color)";
+      description =
+        lib.mdDoc
+          "Highlight style for suggestions ({fore,back}ground color)";
       example = "fg=cyan";
     };
 
@@ -88,7 +90,9 @@ in
       export ZSH_AUTOSUGGEST_STRATEGY=(${concatStringsSep " " cfg.strategy})
       ${optionalString (!cfg.async) "unset ZSH_AUTOSUGGEST_USE_ASYNC"}
 
-      ${concatStringsSep "\n" (mapAttrsToList (key: value: ''export ${key}="${value}"'') cfg.extraConfig)}
+      ${concatStringsSep "\n" (
+        mapAttrsToList (key: value: ''export ${key}="${value}"'') cfg.extraConfig
+      )}
     '';
   };
 }

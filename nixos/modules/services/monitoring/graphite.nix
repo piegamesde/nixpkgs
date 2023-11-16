@@ -66,7 +66,9 @@ let
   carbonEnv = {
     PYTHONPATH =
       let
-        cenv = pkgs.python3.buildEnv.override { extraLibs = [ pkgs.python3Packages.carbon ]; };
+        cenv = pkgs.python3.buildEnv.override {
+          extraLibs = [ pkgs.python3Packages.carbon ];
+        };
       in
       "${cenv}/${pkgs.python3.sitePackages}";
     GRAPHITE_ROOT = dataDir;
@@ -161,13 +163,17 @@ in
       };
 
       enableCache = mkOption {
-        description = lib.mdDoc "Whether to enable carbon cache, the graphite storage daemon.";
+        description =
+          lib.mdDoc
+            "Whether to enable carbon cache, the graphite storage daemon.";
         default = false;
         type = types.bool;
       };
 
       storageAggregation = mkOption {
-        description = lib.mdDoc "Defines how to aggregate data to lower-precision retentions.";
+        description =
+          lib.mdDoc
+            "Defines how to aggregate data to lower-precision retentions.";
         default = null;
         type = types.nullOr types.str;
         example = ''
@@ -190,7 +196,9 @@ in
       };
 
       blacklist = mkOption {
-        description = lib.mdDoc "Any metrics received which match one of the expressions will be dropped.";
+        description =
+          lib.mdDoc
+            "Any metrics received which match one of the expressions will be dropped.";
         default = null;
         type = types.nullOr types.str;
         example = "^some\\.noisy\\.metric\\.prefix\\..*";
@@ -228,7 +236,9 @@ in
       };
 
       relayRules = mkOption {
-        description = lib.mdDoc "Relay rules are used to send certain metrics to a certain backend.";
+        description =
+          lib.mdDoc
+            "Relay rules are used to send certain metrics to a certain backend.";
         default = null;
         type = types.nullOr types.str;
         example = ''
@@ -239,13 +249,17 @@ in
       };
 
       enableAggregator = mkOption {
-        description = lib.mdDoc "Whether to enable carbon aggregator, the carbon buffering service.";
+        description =
+          lib.mdDoc
+            "Whether to enable carbon aggregator, the carbon buffering service.";
         default = false;
         type = types.bool;
       };
 
       aggregationRules = mkOption {
-        description = lib.mdDoc "Defines if and how received metrics will be aggregated.";
+        description =
+          lib.mdDoc
+            "Defines if and how received metrics will be aggregated.";
         default = null;
         type = types.nullOr types.str;
         example = ''
@@ -270,7 +284,9 @@ in
 
       seyrenUrl = mkOption {
         default = "http://localhost:${toString cfg.seyren.port}/";
-        defaultText = literalExpression ''"http://localhost:''${toString config.${opt.seyren.port}}/"'';
+        defaultText =
+          literalExpression
+            ''"http://localhost:''${toString config.${opt.seyren.port}}/"'';
         description = lib.mdDoc "Host where seyren is accessible.";
         type = types.str;
       };
@@ -279,14 +295,17 @@ in
         default = "http://${cfg.web.listenAddress}:${toString cfg.web.port}";
         defaultText =
           literalExpression
-            ''"http://''${config.${opt.web.listenAddress}}:''${toString config.${opt.web.port}}"'';
+            ''
+              "http://''${config.${opt.web.listenAddress}}:''${toString config.${opt.web.port}}"'';
         description = lib.mdDoc "Host where graphite service runs.";
         type = types.str;
       };
 
       mongoUrl = mkOption {
         default = "mongodb://${config.services.mongodb.bind_ip}:27017/seyren";
-        defaultText = literalExpression ''"mongodb://''${config.services.mongodb.bind_ip}:27017/seyren"'';
+        defaultText =
+          literalExpression
+            ''"mongodb://''${config.services.mongodb.bind_ip}:27017/seyren"'';
         description = lib.mdDoc "Mongodb connection string.";
         type = types.str;
       };
@@ -377,9 +396,12 @@ in
         };
     })
 
-    (mkIf (cfg.carbon.enableCache || cfg.carbon.enableAggregator || cfg.carbon.enableRelay) {
-      environment.systemPackages = [ pkgs.python3Packages.carbon ];
-    })
+    (mkIf
+      (
+        cfg.carbon.enableCache || cfg.carbon.enableAggregator || cfg.carbon.enableRelay
+      )
+      { environment.systemPackages = [ pkgs.python3Packages.carbon ]; }
+    )
 
     (mkIf cfg.web.enable ({
       systemd.services.graphiteWeb = {
@@ -390,7 +412,9 @@ in
         environment = {
           PYTHONPATH =
             let
-              penv = pkgs.python3.buildEnv.override { extraLibs = [ pkgs.python3Packages.graphite-web ]; };
+              penv = pkgs.python3.buildEnv.override {
+                extraLibs = [ pkgs.python3Packages.graphite-web ];
+              };
               penvPack = "${penv}/${pkgs.python3.sitePackages}";
             in
             concatStringsSep ":" [

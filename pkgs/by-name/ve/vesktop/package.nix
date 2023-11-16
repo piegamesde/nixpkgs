@@ -64,7 +64,8 @@ stdenv.mkDerivation rec {
         "aarch64-linux" = "sha256-OcAQbUi+wpBAumncYxP3qtTzjyxiHL69kbQefwaeBfg=";
         "x86_64-linux" = "sha256-R5/2MSH/jXHrj2x1Ap2OoOFLBLQp3Sq91o01uW8hWOw=";
       }
-      .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+      .${stdenv.hostPlatform.system}
+        or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
   nativeBuildInputs = [

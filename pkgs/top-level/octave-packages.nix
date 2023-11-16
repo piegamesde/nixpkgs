@@ -27,11 +27,13 @@ makeScope newScope (
   let
     callPackage = self.callPackage;
 
-    buildOctavePackage = callPackage ../development/interpreters/octave/build-octave-package.nix {
-      inherit lib stdenv;
-      inherit octave;
-      inherit computeRequiredOctavePackages;
-    };
+    buildOctavePackage =
+      callPackage ../development/interpreters/octave/build-octave-package.nix
+        {
+          inherit lib stdenv;
+          inherit octave;
+          inherit computeRequiredOctavePackages;
+        };
 
     # Given a list of required Octave package derivations, get a list of
     # ALL required Octave packages needed for the ones specified to run.
@@ -48,7 +50,9 @@ makeScope newScope (
 
     inherit callPackage buildOctavePackage computeRequiredOctavePackages;
 
-    inherit (callPackage ../development/interpreters/octave/hooks { }) writeRequiredOctavePackagesHook;
+    inherit (callPackage ../development/interpreters/octave/hooks { })
+      writeRequiredOctavePackagesHook
+    ;
 
     arduino = callPackage ../development/octave-modules/arduino {
       inherit (pkgs) arduino-core-unwrapped;
@@ -92,11 +96,15 @@ makeScope newScope (
 
     fpl = callPackage ../development/octave-modules/fpl { };
 
-    fuzzy-logic-toolkit = callPackage ../development/octave-modules/fuzzy-logic-toolkit { };
+    fuzzy-logic-toolkit =
+      callPackage ../development/octave-modules/fuzzy-logic-toolkit
+        { };
 
     ga = callPackage ../development/octave-modules/ga { };
 
-    general = callPackage ../development/octave-modules/general { nettle = pkgs.nettle; };
+    general = callPackage ../development/octave-modules/general {
+      nettle = pkgs.nettle;
+    };
 
     generate_html = callPackage ../development/octave-modules/generate_html { };
 
@@ -106,11 +114,17 @@ makeScope newScope (
 
     image = callPackage ../development/octave-modules/image { };
 
-    image-acquisition = callPackage ../development/octave-modules/image-acquisition { };
+    image-acquisition =
+      callPackage ../development/octave-modules/image-acquisition
+        { };
 
-    instrument-control = callPackage ../development/octave-modules/instrument-control { };
+    instrument-control =
+      callPackage ../development/octave-modules/instrument-control
+        { };
 
-    io = callPackage ../development/octave-modules/io { inherit (octave) enableJava; };
+    io = callPackage ../development/octave-modules/io {
+      inherit (octave) enableJava;
+    };
 
     interval = callPackage ../development/octave-modules/interval { };
 
@@ -147,7 +161,9 @@ makeScope newScope (
 
     ncarray = callPackage ../development/octave-modules/ncarray { };
 
-    netcdf = callPackage ../development/octave-modules/netcdf { inherit (pkgs) netcdf; };
+    netcdf = callPackage ../development/octave-modules/netcdf {
+      inherit (pkgs) netcdf;
+    };
 
     nurbs = callPackage ../development/octave-modules/nurbs { };
 
@@ -185,7 +201,9 @@ makeScope newScope (
 
     struct = callPackage ../development/octave-modules/struct { };
 
-    symbolic = callPackage ../development/octave-modules/symbolic { inherit (octave) python; };
+    symbolic = callPackage ../development/octave-modules/symbolic {
+      inherit (octave) python;
+    };
 
     tisean = callPackage ../development/octave-modules/tisean { };
 
@@ -203,6 +221,8 @@ makeScope newScope (
 
     windows = callPackage ../development/octave-modules/windows { };
 
-    zeromq = callPackage ../development/octave-modules/zeromq { inherit (pkgs) zeromq autoreconfHook; };
+    zeromq = callPackage ../development/octave-modules/zeromq {
+      inherit (pkgs) zeromq autoreconfHook;
+    };
   }
 )

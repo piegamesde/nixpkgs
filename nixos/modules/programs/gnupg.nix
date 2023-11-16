@@ -221,7 +221,9 @@ in
       wantedBy = [ "sockets.target" ];
     };
 
-    services.dbus.packages = mkIf (cfg.agent.pinentryFlavor == "gnome3") [ pkgs.gcr ];
+    services.dbus.packages = mkIf (cfg.agent.pinentryFlavor == "gnome3") [
+      pkgs.gcr
+    ];
 
     environment.systemPackages = with pkgs; [ cfg.package ];
 

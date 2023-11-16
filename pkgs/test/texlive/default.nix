@@ -871,10 +871,15 @@ rec {
   # also builds a derivation, even though it is essentially an eval-time assertion.
   licenses =
     let
-      concatLicenses = builtins.foldl' (acc: el: if builtins.elem el acc then acc else acc ++ [ el ]);
+      concatLicenses = builtins.foldl' (
+        acc: el: if builtins.elem el acc then acc else acc ++ [ el ]
+      );
       # converts a license to its attribute name in lib.licenses
       licenseToAttrName =
-        license: builtins.head (builtins.attrNames (lib.filterAttrs (n: v: license == v) lib.licenses));
+        license:
+        builtins.head (
+          builtins.attrNames (lib.filterAttrs (n: v: license == v) lib.licenses)
+        );
       lt = (a: b: a < b);
 
       savedLicenses = scheme: scheme.meta.license;
@@ -882,20 +887,28 @@ rec {
 
       correctLicenses =
         scheme:
-        builtins.foldl' (acc: pkg: concatLicenses acc (lib.toList (pkg.meta.license or [ ]))) [ ]
+        builtins.foldl'
+          (acc: pkg: concatLicenses acc (lib.toList (pkg.meta.license or [ ])))
+          [ ]
           scheme.passthru.requiredTeXPackages;
-      correctLicensesAttrNames = scheme: lib.sort lt (map licenseToAttrName (correctLicenses scheme));
+      correctLicensesAttrNames =
+        scheme: lib.sort lt (map licenseToAttrName (correctLicenses scheme));
 
       hasLicenseMismatch =
         scheme:
-        (lib.isDerivation scheme) && (savedLicensesAttrNames scheme) != (correctLicensesAttrNames scheme);
-      incorrectSchemes = lib.filterAttrs (n: hasLicenseMismatch) (texlive.combined // texlive.schemes);
+        (lib.isDerivation scheme)
+        && (savedLicensesAttrNames scheme) != (correctLicensesAttrNames scheme);
+      incorrectSchemes = lib.filterAttrs (n: hasLicenseMismatch) (
+        texlive.combined // texlive.schemes
+      );
       prettyPrint = name: scheme: ''
         license info for ${name} is incorrect! Note that order is enforced.
         saved: [ ${lib.concatStringsSep " " (savedLicensesAttrNames scheme)} ]
         correct: [ ${lib.concatStringsSep " " (correctLicensesAttrNames scheme)} ]
       '';
-      errorText = lib.concatStringsSep "\n\n" (lib.mapAttrsToList prettyPrint incorrectSchemes);
+      errorText = lib.concatStringsSep "\n\n" (
+        lib.mapAttrsToList prettyPrint incorrectSchemes
+      );
     in
     runCommand "texlive-test-license" { inherit errorText; } (
       if (incorrectSchemes == { }) then

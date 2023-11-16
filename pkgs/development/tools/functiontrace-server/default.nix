@@ -17,7 +17,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-3tLjW7yiS1dNsV81KUZbfN2pvYT9kqiC62nWFid2NH8=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreFoundation ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.CoreFoundation
+  ];
 
   meta = with lib; {
     description = "Server for FunctionTrace, a graphical Python profiler";

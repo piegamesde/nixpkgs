@@ -16,7 +16,9 @@ let
 
       short = builtins.substring 0 7 rev;
 
-      appendShort = lib.optionalString ((builtins.match "[a-f0-9]*" rev) != null) "-${short}";
+      appendShort =
+        lib.optionalString ((builtins.match "[a-f0-9]*" rev) != null)
+          "-${short}";
     in
     "${if matched == null then base else builtins.head matched}${appendShort}";
 in

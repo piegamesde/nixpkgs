@@ -34,7 +34,9 @@ stdenv.mkDerivation rec {
   outputBin = "dev";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "kFvNuFhH1rj4hh5WswzW3GHq5n7O9M2ZSp+SWiaiwf4=";
   };
 
@@ -48,16 +50,20 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    gobject-introspection
-    gtk-doc
-    docbook_xsl
-    docbook_xml_dtd_412
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      gettext
+      gobject-introspection
+      gtk-doc
+      docbook_xsl
+      docbook_xml_dtd_412
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [
     libX11

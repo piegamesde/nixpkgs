@@ -78,17 +78,19 @@ lib.recurseIntoAttrs {
     );
 
     haskell = expectSuccessBin (
-      writeHaskellBin "test-writers-haskell-bin" { libraries = [ haskellPackages.acme-default ]; } ''
-        import Data.Default
+      writeHaskellBin "test-writers-haskell-bin"
+        { libraries = [ haskellPackages.acme-default ]; }
+        ''
+          import Data.Default
 
-        int :: Int
-        int = def
+          int :: Int
+          int = def
 
-        main :: IO ()
-        main = case int of
-          18871 -> putStrLn $ id "success"
-          _ -> print "fail"
-      ''
+          main :: IO ()
+          main = case int of
+            18871 -> putStrLn $ id "success"
+            _ -> print "fail"
+        ''
     );
 
     js = expectSuccessBin (
@@ -104,43 +106,48 @@ lib.recurseIntoAttrs {
     );
 
     perl = expectSuccessBin (
-      writePerlBin "test-writers-perl-bin" { libraries = [ perlPackages.boolean ]; } ''
-        use boolean;
-        print "success\n" if true;
-      ''
+      writePerlBin "test-writers-perl-bin" { libraries = [ perlPackages.boolean ]; }
+        ''
+          use boolean;
+          print "success\n" if true;
+        ''
     );
 
     pypy2 = expectSuccessBin (
-      writePyPy2Bin "test-writers-pypy2-bin" { libraries = [ pypy2Packages.enum ]; } ''
-        from enum import Enum
+      writePyPy2Bin "test-writers-pypy2-bin" { libraries = [ pypy2Packages.enum ]; }
+        ''
+          from enum import Enum
 
-        class Test(Enum):
-            a = "success"
+          class Test(Enum):
+              a = "success"
 
-        print Test.a
-      ''
+          print Test.a
+        ''
     );
 
     python3 = expectSuccessBin (
-      writePython3Bin "test-writers-python3-bin" { libraries = [ python3Packages.pyyaml ]; } ''
-        import yaml
+      writePython3Bin "test-writers-python3-bin"
+        { libraries = [ python3Packages.pyyaml ]; }
+        ''
+          import yaml
 
-        y = yaml.safe_load("""
-          - test: success
-        """)
-        print(y[0]['test'])
-      ''
+          y = yaml.safe_load("""
+            - test: success
+          """)
+          print(y[0]['test'])
+        ''
     );
 
     pypy3 = expectSuccessBin (
-      writePyPy3Bin "test-writers-pypy3-bin" { libraries = [ pypy3Packages.pyyaml ]; } ''
-        import yaml
+      writePyPy3Bin "test-writers-pypy3-bin" { libraries = [ pypy3Packages.pyyaml ]; }
+        ''
+          import yaml
 
-        y = yaml.safe_load("""
-          - test: success
-        """)
-        print(y[0]['test'])
-      ''
+          y = yaml.safe_load("""
+            - test: success
+          """)
+          print(y[0]['test'])
+        ''
     );
   };
 
@@ -166,17 +173,19 @@ lib.recurseIntoAttrs {
     );
 
     haskell = expectSuccess (
-      writeHaskell "test-writers-haskell" { libraries = [ haskellPackages.acme-default ]; } ''
-        import Data.Default
+      writeHaskell "test-writers-haskell"
+        { libraries = [ haskellPackages.acme-default ]; }
+        ''
+          import Data.Default
 
-        int :: Int
-        int = def
+          int :: Int
+          int = def
 
-        main :: IO ()
-        main = case int of
-          18871 -> putStrLn $ id "success"
-          _ -> print "fail"
-      ''
+          main :: IO ()
+          main = case int of
+            18871 -> putStrLn $ id "success"
+            _ -> print "fail"
+        ''
     );
 
     js = expectSuccess (
@@ -210,14 +219,15 @@ lib.recurseIntoAttrs {
     );
 
     python3 = expectSuccess (
-      writePython3 "test-writers-python3" { libraries = [ python3Packages.pyyaml ]; } ''
-        import yaml
+      writePython3 "test-writers-python3" { libraries = [ python3Packages.pyyaml ]; }
+        ''
+          import yaml
 
-        y = yaml.safe_load("""
-          - test: success
-        """)
-        print(y[0]['test'])
-      ''
+          y = yaml.safe_load("""
+            - test: success
+          """)
+          print(y[0]['test'])
+        ''
     );
 
     pypy3 = expectSuccess (
@@ -300,19 +310,21 @@ lib.recurseIntoAttrs {
     );
 
     haskell = expectSuccess (
-      writeHaskell "test-writers-haskell-path" { libraries = [ haskellPackages.acme-default ]; } (
-        writeText "test" ''
-          import Data.Default
+      writeHaskell "test-writers-haskell-path"
+        { libraries = [ haskellPackages.acme-default ]; }
+        (
+          writeText "test" ''
+            import Data.Default
 
-          int :: Int
-          int = def
+            int :: Int
+            int = def
 
-          main :: IO ()
-          main = case int of
-            18871 -> putStrLn $ id "success"
-            _ -> print "fail"
-        ''
-      )
+            main :: IO ()
+            main = case int of
+              18871 -> putStrLn $ id "success"
+              _ -> print "fail"
+          ''
+        )
     );
   };
 

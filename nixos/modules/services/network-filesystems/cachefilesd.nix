@@ -24,7 +24,9 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable cachefilesd network filesystems caching daemon.";
+        description =
+          lib.mdDoc
+            "Whether to enable cachefilesd network filesystems caching daemon.";
       };
 
       cacheDir = mkOption {

@@ -121,7 +121,9 @@ stdenv.mkDerivation rec {
       done
 
       patchShebangs build/unix/
-      ln -s ${lib.getDev stdenv.cc.libc}/include/AvailabilityMacros.h cint/cint/include/
+      ln -s ${
+        lib.getDev stdenv.cc.libc
+      }/include/AvailabilityMacros.h cint/cint/include/
 
       # __malloc_hook is deprecated
       substituteInPlace misc/memstat/src/TMemStatHook.cxx \
@@ -138,41 +140,44 @@ stdenv.mkDerivation rec {
       substituteInPlace rootx/src/rootx.cxx --replace "gNoLogo = false" "gNoLogo = true"
     '';
 
-  cmakeFlags = [
-    "-Drpath=ON"
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-    "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    "-DCMAKE_CXX_FLAGS=-std=c++11"
-    "-Dalien=OFF"
-    "-Dbonjour=OFF"
-    "-Dcastor=OFF"
-    "-Dchirp=OFF"
-    "-Ddavix=OFF"
-    "-Ddcache=OFF"
-    "-Dfftw3=OFF"
-    "-Dfitsio=OFF"
-    "-Dfortran=OFF"
-    "-Dgfal=OFF"
-    "-Dgsl_shared=ON"
-    "-Dgviz=OFF"
-    "-Dhdfs=OFF"
-    "-Dkrb5=OFF"
-    "-Dldap=OFF"
-    "-Dmathmore=ON"
-    "-Dmonalisa=OFF"
-    "-Dmysql=OFF"
-    "-Dodbc=OFF"
-    "-Dopengl=ON"
-    "-Doracle=OFF"
-    "-Dpgsql=OFF"
-    "-Dpythia6=OFF"
-    "-Dpythia8=OFF"
-    "-Drfio=OFF"
-    "-Dsqlite=OFF"
-    "-Dssl=OFF"
-    "-Dxml=ON"
-    "-Dxrootd=OFF"
-  ] ++ lib.optional stdenv.isDarwin "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks";
+  cmakeFlags =
+    [
+      "-Drpath=ON"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+      "-DCMAKE_CXX_FLAGS=-std=c++11"
+      "-Dalien=OFF"
+      "-Dbonjour=OFF"
+      "-Dcastor=OFF"
+      "-Dchirp=OFF"
+      "-Ddavix=OFF"
+      "-Ddcache=OFF"
+      "-Dfftw3=OFF"
+      "-Dfitsio=OFF"
+      "-Dfortran=OFF"
+      "-Dgfal=OFF"
+      "-Dgsl_shared=ON"
+      "-Dgviz=OFF"
+      "-Dhdfs=OFF"
+      "-Dkrb5=OFF"
+      "-Dldap=OFF"
+      "-Dmathmore=ON"
+      "-Dmonalisa=OFF"
+      "-Dmysql=OFF"
+      "-Dodbc=OFF"
+      "-Dopengl=ON"
+      "-Doracle=OFF"
+      "-Dpgsql=OFF"
+      "-Dpythia6=OFF"
+      "-Dpythia8=OFF"
+      "-Drfio=OFF"
+      "-Dsqlite=OFF"
+      "-Dssl=OFF"
+      "-Dxml=ON"
+      "-Dxrootd=OFF"
+    ]
+    ++ lib.optional stdenv.isDarwin
+      "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks";
 
   setupHook = ./setup-hook.sh;
 

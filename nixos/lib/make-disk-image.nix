@@ -232,17 +232,23 @@ assert (lib.assertMsg
   (
     touchEFIVars
     ->
-      partitionTableType == "hybrid" || partitionTableType == "efi" || partitionTableType == "legacy+gpt"
+      partitionTableType == "hybrid"
+      || partitionTableType == "efi"
+      || partitionTableType == "legacy+gpt"
   )
   "EFI variables can be used only with a partition table of type: hybrid, efi or legacy+gpt."
 );
 # If only Nix store image, then: contents must be empty, configFile must be unset, and we should no install bootloader.
-assert (lib.assertMsg (onlyNixStore -> contents == [ ] && configFile == null && !installBootLoader)
+assert (lib.assertMsg
+  (onlyNixStore -> contents == [ ] && configFile == null && !installBootLoader)
   "In a only Nix store image, the contents must be empty, no configuration must be provided and no bootloader should be installed."
 );
 # Either both or none of {user,group} need to be set
 assert (lib.assertMsg
-  (lib.all (attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null)) contents)
+  (lib.all
+    (attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null))
+    contents
+  )
   "Contents of the disk image should set none of {user, group} or both at the same time."
 );
 
@@ -381,7 +387,9 @@ let
   users = map (x: x.user or "''") contents;
   groups = map (x: x.group or "''") contents;
 
-  basePaths = [ config.system.build.toplevel ] ++ lib.optional copyChannel channelSources;
+  basePaths = [
+    config.system.build.toplevel
+  ] ++ lib.optional copyChannel channelSources;
 
   additionalPaths' = subtractLists basePaths additionalPaths;
 
@@ -479,7 +487,9 @@ let
     echo "running nixos-install..."
     nixos-install --root $root --no-bootloader --no-root-passwd \
       --system ${config.system.build.toplevel} \
-      ${if copyChannel then "--channel ${channelSources}" else "--no-channel-copy"} \
+      ${
+        if copyChannel then "--channel ${channelSources}" else "--no-channel-copy"
+      } \
       --substituters ""
 
     ${optionalString (additionalPaths' != [ ]) ''
@@ -568,7 +578,9 @@ let
       ''}
 
     echo "copying staging root to image..."
-    cptofs -p ${optionalString (partitionTableType != "none") "-P ${rootPartition}"} \
+    cptofs -p ${
+      optionalString (partitionTableType != "none") "-P ${rootPartition}"
+    } \
            -t ${fsType} \
            -i $diskImage \
            $root${optionalString onlyNixStore builtins.storeDir}/* / ||
@@ -604,21 +616,28 @@ let
         ];
         postVM = moveOrConvertImage + postVM;
         QEMU_OPTS = concatStringsSep " " (
-          lib.optional useEFIBoot "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
-          ++ lib.optionals touchEFIVars [ "-drive if=pflash,format=raw,unit=1,file=$efiVars" ]
+          lib.optional useEFIBoot
+            "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
+          ++ lib.optionals touchEFIVars [
+            "-drive if=pflash,format=raw,unit=1,file=$efiVars"
+          ]
         );
         inherit memSize;
       }
       ''
         export PATH=${binPath}:$PATH
 
-        rootDisk=${if partitionTableType != "none" then "/dev/vda${rootPartition}" else "/dev/vda"}
+        rootDisk=${
+          if partitionTableType != "none" then "/dev/vda${rootPartition}" else "/dev/vda"
+        }
 
         # It is necessary to set root filesystem unique identifier in advance, otherwise
         # bootloader might get the wrong one and fail to boot.
         # At the end, we reset again because we want deterministic timestamps.
         ${optionalString (fsType == "ext4" && deterministic) ''
-          tune2fs -T now ${optionalString deterministic "-U ${rootFSUID}"} -c 0 -i 0 $rootDisk
+          tune2fs -T now ${
+            optionalString deterministic "-U ${rootFSUID}"
+          } -c 0 -i 0 $rootDisk
         ''}
         # make systemd-boot find ESP without udev
         mkdir /dev/block
@@ -630,13 +649,15 @@ let
 
         # Create the ESP and mount it. Unlike e2fsprogs, mkfs.vfat doesn't support an
         # '-E offset=X' option, so we can't do this outside the VM.
-        ${optionalString (partitionTableType == "efi" || partitionTableType == "hybrid") ''
-          mkdir -p /mnt/boot
-          mkfs.vfat -n ESP /dev/vda1
-          mount /dev/vda1 /mnt/boot
+        ${optionalString (partitionTableType == "efi" || partitionTableType == "hybrid")
+          ''
+            mkdir -p /mnt/boot
+            mkfs.vfat -n ESP /dev/vda1
+            mount /dev/vda1 /mnt/boot
 
-          ${optionalString touchEFIVars "mount -t efivarfs efivarfs /sys/firmware/efi/efivars"}
-        ''}
+            ${optionalString touchEFIVars
+              "mount -t efivarfs efivarfs /sys/firmware/efi/efivars"}
+          ''}
 
         # Install a configuration.nix
         mkdir -p /mnt/etc/nixos
@@ -647,10 +668,12 @@ let
         ${lib.optionalString installBootLoader ''
           # In this throwaway resource, we only have /dev/vda, but the actual VM may refer to another disk for bootloader, e.g. /dev/vdb
           # Use this option to create a symlink from vda to any arbitrary device you want.
-          ${optionalString (config.boot.loader.grub.enable && config.boot.loader.grub.device != "/dev/vda") ''
-            mkdir -p $(dirname ${config.boot.loader.grub.device})
-            ln -s /dev/vda ${config.boot.loader.grub.device}
-          ''}
+          ${optionalString
+            (config.boot.loader.grub.enable && config.boot.loader.grub.device != "/dev/vda")
+            ''
+              mkdir -p $(dirname ${config.boot.loader.grub.device})
+              ln -s /dev/vda ${config.boot.loader.grub.device}
+            ''}
 
           # Set up core system link, bootloader (sd-boot, GRUB, uboot, etc.), etc.
           NIXOS_INSTALL_BOOTLOADER=1 nixos-enter --root $mountPoint -- /nix/var/nix/profiles/system/bin/switch-to-configuration boot
@@ -683,7 +706,9 @@ let
         # This two-step approach is necessary otherwise `tune2fs` will want a fresher filesystem to perform
         # some changes.
         ${optionalString (fsType == "ext4") ''
-          tune2fs -T now ${optionalString deterministic "-U ${rootFSUID}"} -c 0 -i 0 $rootDisk
+          tune2fs -T now ${
+            optionalString deterministic "-U ${rootFSUID}"
+          } -c 0 -i 0 $rootDisk
           ${optionalString deterministic "tune2fs -f -T 19700101 $rootDisk"}
         ''}
       ''

@@ -173,7 +173,9 @@ rec {
                                ^final        ^prev         ^overrides     ^final        ^prev         ^overrides
      ```
   */
-  composeManyExtensions = lib.foldr (x: y: composeExtensions x y) (final: prev: { });
+  composeManyExtensions = lib.foldr (x: y: composeExtensions x y) (
+    final: prev: { }
+  );
 
   /* Create an overridable, recursive attribute set. For example:
 
@@ -205,7 +207,8 @@ rec {
       self:
       (rattrs self)
       // {
-        ${extenderName} = f: makeExtensibleWithCustomName extenderName (extends f rattrs);
+        ${extenderName} =
+          f: makeExtensibleWithCustomName extenderName (extends f rattrs);
       }
     );
 }

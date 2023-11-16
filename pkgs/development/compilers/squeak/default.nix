@@ -80,11 +80,15 @@ stdenv.mkDerivation {
     owner = "OpenSmalltalk";
     repo = "opensmalltalk-vm";
     rev = squeakVmVersionRelease;
-    hash = nullableOr args.squeakVmHash or null "sha256-rNJn5ya+7ggC21MpwSrl2ByJDjVycONKHADboH7dQLM=";
+    hash =
+      nullableOr args.squeakVmHash or null
+        "sha256-rNJn5ya+7ggC21MpwSrl2ByJDjVycONKHADboH7dQLM=";
   };
   imageSrc =
     let
-      squeakImageName = "Squeak${squeakVersionBase}-${squeakImageVersion}-${toString bits}bit";
+      squeakImageName = "Squeak${squeakVersionBase}-${squeakImageVersion}-${
+          toString bits
+        }bit";
     in
     fetchzip {
       url = "https://files.squeak.org/${squeakVersionBase}/${squeakImageName}/${squeakImageName}.zip";

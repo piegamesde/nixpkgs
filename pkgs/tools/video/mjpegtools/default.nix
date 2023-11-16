@@ -43,7 +43,9 @@ stdenv.mkDerivation rec {
       SDL_gfx
     ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString (!withMinimal) "-I${lib.getDev SDL}/include/SDL";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString (!withMinimal)
+      "-I${lib.getDev SDL}/include/SDL";
 
   postPatch = ''
     sed -i -e '/ARCHFLAGS=/s:=.*:=:' configure

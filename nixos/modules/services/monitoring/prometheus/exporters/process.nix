@@ -9,7 +9,9 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.process;
-  configFile = pkgs.writeText "process-exporter.yaml" (builtins.toJSON cfg.settings);
+  configFile = pkgs.writeText "process-exporter.yaml" (
+    builtins.toJSON cfg.settings
+  );
 in
 {
   port = 9256;

@@ -78,6 +78,8 @@ in
         # Global htop configuration
         # To change set: programs.htop.settings.KEY = VALUE;
       ''
-      + concatStringsSep "\n" (mapAttrsToList (key: value: "${key}=${fmt value}") cfg.settings);
+      + concatStringsSep "\n" (
+        mapAttrsToList (key: value: "${key}=${fmt value}") cfg.settings
+      );
   };
 }

@@ -29,10 +29,14 @@ python3Packages.buildPythonPackage rec {
     substituteInPlace pyproject.toml \
       --replace 'cryptography = ">=2.1, <39"' 'cryptography = ">=2.1"'
     substituteInPlace "ykman/pcsc/__init__.py" \
-      --replace 'pkill' '${if stdenv.isLinux then "${procps}" else "/usr"}/bin/pkill'
+      --replace 'pkill' '${
+        if stdenv.isLinux then "${procps}" else "/usr"
+      }/bin/pkill'
   '';
 
-  nativeBuildInputs = [ installShellFiles ] ++ (with python3Packages; [ poetry-core ]);
+  nativeBuildInputs = [
+    installShellFiles
+  ] ++ (with python3Packages; [ poetry-core ]);
 
   propagatedBuildInputs =
     with python3Packages;

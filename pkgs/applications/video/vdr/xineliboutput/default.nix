@@ -18,7 +18,8 @@
   makeWrapper,
 }:
 let
-  makeXinePluginPath = l: lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l);
+  makeXinePluginPath =
+    l: lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l);
 
   self = stdenv.mkDerivation rec {
     pname = "vdr-xineliboutput";

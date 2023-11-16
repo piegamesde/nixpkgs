@@ -47,7 +47,9 @@ stdenv.mkDerivation (
     ];
 
     postInstall = ''
-      wrapProgram $out/bin/mftrace --prefix PATH : ${lib.makeBinPath finalAttrs.buildInputs}
+      wrapProgram $out/bin/mftrace --prefix PATH : ${
+        lib.makeBinPath finalAttrs.buildInputs
+      }
     '';
 
     # experimental texlive.combine support

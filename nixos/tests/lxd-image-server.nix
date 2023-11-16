@@ -9,8 +9,10 @@ import ./make-test-python.nix (
       };
     };
 
-    lxd-image-metadata = lxd-image.lxdContainerMeta.${pkgs.stdenv.hostPlatform.system};
-    lxd-image-rootfs = lxd-image.lxdContainerImage.${pkgs.stdenv.hostPlatform.system};
+    lxd-image-metadata =
+      lxd-image.lxdContainerMeta.${pkgs.stdenv.hostPlatform.system};
+    lxd-image-rootfs =
+      lxd-image.lxdContainerImage.${pkgs.stdenv.hostPlatform.system};
   in
   {
     name = "lxd-image-server";
@@ -35,7 +37,9 @@ import ./make-test-python.nix (
           lxd.enable = true;
         };
 
-        security.pki.certificates = [ (builtins.readFile ./common/acme/server/ca.cert.pem) ];
+        security.pki.certificates = [
+          (builtins.readFile ./common/acme/server/ca.cert.pem)
+        ];
 
         services.nginx = {
           enable = true;

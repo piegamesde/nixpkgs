@@ -26,7 +26,8 @@ let
         sha256 = "sha256-yr7PtBUBE0tB0giAE8aQCNJvxS/tMzlLWpJ3NyosQZk=";
       };
     }
-    .${stdenv.system} or (throw "${pname}-${version}: ${stdenv.system} is unsupported.");
+    .${stdenv.system}
+      or (throw "${pname}-${version}: ${stdenv.system} is unsupported.");
 
   linux = appimageTools.wrapType2 rec {
     inherit

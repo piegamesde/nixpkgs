@@ -18,14 +18,19 @@ stdenv.mkDerivation rec {
     sha256 = "1k77kxqszdwgrb50w7algj22pb4fy5b9649cjb08zq9fqrzxcbz7";
   };
 
-  cmakeFlags = [
-    "-DCMAKE_OSX_ARCHITECTURES=${
-      if stdenv.hostPlatform.system == "x86_64-darwin" then "x86_64" else "arm64"
-    }"
-    "-DENABLE_CLI=ON"
-  ] ++ lib.optional (!stdenv.isAarch64) "-DCMAKE_LIBRARY_PATH=${darwin.apple_sdk.sdk}/usr/lib";
+  cmakeFlags =
+    [
+      "-DCMAKE_OSX_ARCHITECTURES=${
+        if stdenv.hostPlatform.system == "x86_64-darwin" then "x86_64" else "arm64"
+      }"
+      "-DENABLE_CLI=ON"
+    ]
+    ++ lib.optional (!stdenv.isAarch64)
+      "-DCMAKE_LIBRARY_PATH=${darwin.apple_sdk.sdk}/usr/lib";
 
-  buildInputs = [ openpam ] ++ lib.optional (!stdenv.isAarch64) darwin.apple_sdk.sdk;
+  buildInputs = [
+    openpam
+  ] ++ lib.optional (!stdenv.isAarch64) darwin.apple_sdk.sdk;
 
   nativeBuildInputs = [ cmake ];
 

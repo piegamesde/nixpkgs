@@ -49,7 +49,9 @@ stdenv.mkDerivation rec {
     ln -s $out/lib/gurobi-javadoc.jar $out/share/java/
   '';
 
-  passthru.libSuffix = lib.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version);
+  passthru.libSuffix = lib.replaceStrings [ "." ] [ "" ] (
+    lib.versions.majorMinor version
+  );
 
   meta = with lib; {
     description = "Optimization solver for mathematical programming";

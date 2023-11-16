@@ -5,24 +5,35 @@ let
   zeroPad =
     n:
     lib.optionalString (n < 16) "0"
-    + (if n > 255 then throw "Can't have more than 255 nets or nodes!" else lib.toHexString n);
+    + (
+      if n > 255 then
+        throw "Can't have more than 255 nets or nodes!"
+      else
+        lib.toHexString n
+    );
 in
 
 rec {
   qemuNicMac = net: machine: "52:54:00:12:${zeroPad net}:${zeroPad machine}";
 
   qemuNICFlags = nic: net: machine: [
-    "-device virtio-net-pci,netdev=vlan${toString nic},mac=${qemuNicMac net machine}"
+    "-device virtio-net-pci,netdev=vlan${toString nic},mac=${
+      qemuNicMac net machine
+    }"
     ''-netdev vde,id=vlan${toString nic},sock="$QEMU_VDE_SOCKET_${toString net}"''
   ];
 
   qemuSerialDevice =
-    if with pkgs.stdenv.hostPlatform; isx86 || isLoongArch64 || isMips64 || isRiscV then
+    if
+      with pkgs.stdenv.hostPlatform;
+      isx86 || isLoongArch64 || isMips64 || isRiscV
+    then
       "ttyS0"
     else if (with pkgs.stdenv.hostPlatform; isAarch || isPower) then
       "ttyAMA0"
     else
-      throw "Unknown QEMU serial device for system '${pkgs.stdenv.hostPlatform.system}'";
+      throw
+        "Unknown QEMU serial device for system '${pkgs.stdenv.hostPlatform.system}'";
 
   qemuBinary =
     qemuPkg:
@@ -54,7 +65,9 @@ rec {
           supportedSystems = [ "linux" ] ++ (lib.attrNames otherHostGuestMatrix);
         in
         throw
-          "Unsupported host system ${hostSystem}, supported: ${lib.concatStringsSep ", " supportedSystems}";
+          "Unsupported host system ${hostSystem}, supported: ${
+            lib.concatStringsSep ", " supportedSystems
+          }";
       throwUnsupportedGuestSystem =
         guestMap:
         throw

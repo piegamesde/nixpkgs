@@ -130,10 +130,12 @@ let
         mkdir externals_cache
 
         ${lib.concatStringsSep "\n" (
-          lib.mapAttrsToList (dst: src: "cp -r --no-preserve=mode ${src} ${dst}") externals
+          lib.mapAttrsToList (dst: src: "cp -r --no-preserve=mode ${src} ${dst}")
+            externals
         )}
 
-        ${lib.optionalString (externals ? "addons/mp3") "bash contrib/scripts/get_mp3_source.sh || true"}
+        ${lib.optionalString (externals ? "addons/mp3")
+          "bash contrib/scripts/get_mp3_source.sh || true"}
 
         chmod -w externals_cache
         ${lib.optionalString withOpus ''
@@ -171,7 +173,8 @@ let
       postInstall = ''
         # Install sample configuration files for this version of Asterisk
         make samples
-        ${lib.optionalString (lib.versionAtLeast version "17.0.0") "make install-headers"}
+        ${lib.optionalString (lib.versionAtLeast version "17.0.0")
+          "make install-headers"}
       '';
 
       meta = with lib; {

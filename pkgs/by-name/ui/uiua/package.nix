@@ -32,16 +32,20 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs =
     lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ]
-    ++ lib.optionals (audioSupport && stdenv.isDarwin) [ darwin.apple_sdk.frameworks.AudioUnit ]
+    ++ lib.optionals (audioSupport && stdenv.isDarwin) [
+      darwin.apple_sdk.frameworks.AudioUnit
+    ]
     ++ lib.optionals (audioSupport && stdenv.isLinux) [ alsa-lib ];
 
   buildFeatures = lib.optional audioSupport "audio";
 
-  passthru.tests.run = runCommand "uiua-test-run" { nativeBuildInputs = [ uiua ]; } ''
-    uiua init;
-    diff -U3 --color=auto <(uiua run main.ua) <(echo '"Hello, World!"')
-    touch $out;
-  '';
+  passthru.tests.run =
+    runCommand "uiua-test-run" { nativeBuildInputs = [ uiua ]; }
+      ''
+        uiua init;
+        diff -U3 --color=auto <(uiua run main.ua) <(echo '"Hello, World!"')
+        touch $out;
+      '';
 
   meta = {
     changelog = "https://github.com/uiua-lang/uiua/releases/tag/${src.rev}";

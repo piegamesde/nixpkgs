@@ -54,7 +54,9 @@ buildPythonPackage rec {
     # relevant strings ourselves, using `sed` commands, in extraPostFetch.
     hash = "sha256-ktFBjzd2vEahdr86lhVLVFEadCIhPP3hRF/EuZhHCC4=";
   };
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin
+      "-I${lib.getDev libcxx}/include/c++/v1";
 
   nativeBuildInputs = [ numpy ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 

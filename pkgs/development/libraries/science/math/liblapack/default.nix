@@ -28,7 +28,9 @@ stdenv.mkDerivation (
     ];
 
     # Configure stage fails on aarch64-darwin otherwise, due to either clang 11 or gfortran 10.
-    hardeningDisable = lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ "stackprotector" ];
+    hardeningDisable = lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+      "stackprotector"
+    ];
 
     cmakeFlags =
       [
@@ -54,7 +56,9 @@ stdenv.mkDerivation (
       let
         canonicalExtension =
           if stdenv.hostPlatform.isLinux then
-            "${stdenv.hostPlatform.extensions.sharedLibrary}.${lib.versions.major finalAttrs.version}"
+            "${stdenv.hostPlatform.extensions.sharedLibrary}.${
+              lib.versions.major finalAttrs.version
+            }"
           else
             stdenv.hostPlatform.extensions.sharedLibrary;
       in
@@ -77,7 +81,9 @@ stdenv.mkDerivation (
     #
     # Upstream issue to track:
     # * https://github.com/Reference-LAPACK/lapack/issues/440
-    ctestArgs = lib.optionalString stdenv.isDarwin "-E '^(CBLAS-(x[sdcz]cblat[23]))$'";
+    ctestArgs =
+      lib.optionalString stdenv.isDarwin
+        "-E '^(CBLAS-(x[sdcz]cblat[23]))$'";
 
     checkPhase = ''
       runHook preCheck

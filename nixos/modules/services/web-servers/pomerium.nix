@@ -66,17 +66,24 @@ in
     let
       cfg = config.services.pomerium;
       cfgFile =
-        if cfg.configFile != null then cfg.configFile else (format.generate "pomerium.yaml" cfg.settings);
+        if cfg.configFile != null then
+          cfg.configFile
+        else
+          (format.generate "pomerium.yaml" cfg.settings);
     in
     mkIf cfg.enable ({
       systemd.services.pomerium = {
         description = "Pomerium authenticating reverse proxy";
-        wants = [
-          "network.target"
-        ] ++ (optional (cfg.useACMEHost != null) "acme-finished-${cfg.useACMEHost}.target");
-        after = [
-          "network.target"
-        ] ++ (optional (cfg.useACMEHost != null) "acme-finished-${cfg.useACMEHost}.target");
+        wants =
+          [ "network.target" ]
+          ++ (optional (cfg.useACMEHost != null)
+            "acme-finished-${cfg.useACMEHost}.target"
+          );
+        after =
+          [ "network.target" ]
+          ++ (optional (cfg.useACMEHost != null)
+            "acme-finished-${cfg.useACMEHost}.target"
+          );
         wantedBy = [ "multi-user.target" ];
         environment = optionalAttrs (cfg.useACMEHost != null) {
           CERTIFICATE_FILE = "fullchain.pem";

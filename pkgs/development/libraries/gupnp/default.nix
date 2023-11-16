@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gupnp/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gupnp/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "sha256-N2GxXLBjYh+Efz7/t9djfwMXUA/Ka9oeGQT3OSF1Ch8=";
   };
 
@@ -78,7 +80,9 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  mesonFlags = [ "-Dgtk_doc=${lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)}" ];
+  mesonFlags = [
+    "-Dgtk_doc=${lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)}"
+  ];
 
   # Bail out! ERROR:../tests/test-bugs.c:168:test_on_timeout: code should not be reached
   doCheck = !stdenv.isDarwin;

@@ -45,7 +45,9 @@ stdenv.mkDerivation (
 
     __impureHostDeps = [ privateFrameworks ];
 
-    passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+    passthru.tests.version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+    };
 
     meta = {
       description = "Install and debug iPhone apps from the command line, without using Xcode";

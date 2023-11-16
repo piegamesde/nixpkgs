@@ -42,7 +42,10 @@
           addDot = zone: zone + lib.optionalString (!lib.hasSuffix "." zone) ".";
           mkNsdZoneNames = zones: map addDot (lib.attrNames zones);
           mkBindZoneNames = zones: map (zone: addDot zone.name) zones;
-          getZones = cfg: mkNsdZoneNames cfg.services.nsd.zones ++ mkBindZoneNames cfg.services.bind.zones;
+          getZones =
+            cfg:
+            mkNsdZoneNames cfg.services.nsd.zones
+            ++ mkBindZoneNames cfg.services.bind.zones;
 
           getZonesForNode = attrs: {
             ip = attrs.config.networking.primaryIPAddress;

@@ -153,7 +153,9 @@ mkDerivation {
     "dev"
   ];
 
-  cmakeFlags = [ "-DNIXPKGS_BREEZE_WALLPAPERS=${getBin breeze-qt5}/share/wallpapers" ];
+  cmakeFlags = [
+    "-DNIXPKGS_BREEZE_WALLPAPERS=${getBin breeze-qt5}/share/wallpapers"
+  ];
 
   patches = [
     ./0001-startkde.patch
@@ -183,7 +185,10 @@ mkDerivation {
   env.NIX_CFLAGS_COMPILE = toString [
     ''-DNIXPKGS_XMESSAGE="${getBin xmessage}/bin/xmessage"''
     ''-DNIXPKGS_XSETROOT="${getBin xsetroot}/bin/xsetroot"''
-    ''-DNIXPKGS_START_KDEINIT_WRAPPER="${getLib kinit}/libexec/kf5/start_kdeinit_wrapper"''
+    ''
+      -DNIXPKGS_START_KDEINIT_WRAPPER="${
+        getLib kinit
+      }/libexec/kf5/start_kdeinit_wrapper"''
     ''-DNIXPKGS_KDEINIT5_SHUTDOWN="${getBin kinit}/bin/kdeinit5_shutdown"''
   ];
 }

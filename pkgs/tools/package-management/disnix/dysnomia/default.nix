@@ -65,12 +65,29 @@ stdenv.mkDerivation rec {
     (if enableAxis2WebService then "--with-axis2" else "--without-axis2")
     (if enableEjabberdDump then "--with-ejabberd" else "--without-ejabberd")
     (if enableMySQLDatabase then "--with-mysql" else "--without-mysql")
-    (if enablePostgreSQLDatabase then "--with-postgresql" else "--without-postgresql")
-    (if enableSubversionRepository then "--with-subversion" else "--without-subversion")
-    (if enableTomcatWebApplication then "--with-tomcat=${catalinaBaseDir}" else "--without-tomcat")
+    (
+      if enablePostgreSQLDatabase then "--with-postgresql" else "--without-postgresql"
+    )
+    (
+      if enableSubversionRepository then
+        "--with-subversion"
+      else
+        "--without-subversion"
+    )
+    (
+      if enableTomcatWebApplication then
+        "--with-tomcat=${catalinaBaseDir}"
+      else
+        "--without-tomcat"
+    )
     (if enableMongoDatabase then "--with-mongodb" else "--without-mongodb")
     (if enableInfluxDatabase then "--with-influxdb" else "--without-influxdb")
-    (if enableSupervisordProgram then "--with-supervisord" else "--without-supervisord")
+    (
+      if enableSupervisordProgram then
+        "--with-supervisord"
+      else
+        "--without-supervisord"
+    )
     (if enableDockerContainer then "--with-docker" else "--without-docker")
     (if enableNginxWebApplication then "--with-nginx" else "--without-nginx")
     (if enableXinetdService then "--with-xinetd" else "--without-xinetd")

@@ -29,7 +29,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  CPPFLAGS = "-I${lib.getDev SDL}/include -I${lib.getDev SDL}/include/SDL -I${SDL_mixer}/include";
+  CPPFLAGS = "-I${lib.getDev SDL}/include -I${
+      lib.getDev SDL
+    }/include/SDL -I${SDL_mixer}/include";
 
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [

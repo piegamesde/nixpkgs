@@ -50,7 +50,9 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  mesonFlags = [ "-Dgtk_doc=true" ] ++ lib.optionals (!doCheck) [ "-Dtests=false" ];
+  mesonFlags = [
+    "-Dgtk_doc=true"
+  ] ++ lib.optionals (!doCheck) [ "-Dtests=false" ];
 
   buildInputs =
     [ fribidi ]
@@ -61,7 +63,9 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ gtk4 ];
 
-  nativeCheckInputs = [ gnome.adwaita-icon-theme ] ++ lib.optionals (!stdenv.isDarwin) [ xvfb-run ];
+  nativeCheckInputs = [
+    gnome.adwaita-icon-theme
+  ] ++ lib.optionals (!stdenv.isDarwin) [ xvfb-run ];
 
   # Tests had to be disabled on Darwin because test-button-content fails
   #
@@ -84,7 +88,9 @@ stdenv.mkDerivation rec {
       # Tests need a cache directory
       "HOME=$TMPDIR"
     )
-    env "''${testEnvironment[@]}" ${lib.optionalString (!stdenv.isDarwin) "xvfb-run"} \
+    env "''${testEnvironment[@]}" ${
+      lib.optionalString (!stdenv.isDarwin) "xvfb-run"
+    } \
       meson test --print-errorlogs
 
     runHook postCheck

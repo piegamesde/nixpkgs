@@ -15,7 +15,9 @@ let
     +
       optionalString (cfg.extraModules != [ ])
         " -p vmod_path='${
-           makeSearchPathOutput "lib" "lib/varnish/vmods" ([ cfg.package ] ++ cfg.extraModules)
+           makeSearchPathOutput "lib" "lib/varnish/vmods" (
+             [ cfg.package ] ++ cfg.extraModules
+           )
          }' -r vmod_path";
 in
 {
@@ -23,9 +25,11 @@ in
     services.varnish = {
       enable = mkEnableOption (lib.mdDoc "Varnish Server");
 
-      enableConfigCheck = mkEnableOption (lib.mdDoc "checking the config during build time") // {
-        default = true;
-      };
+      enableConfigCheck =
+        mkEnableOption (lib.mdDoc "checking the config during build time")
+        // {
+          default = true;
+        };
 
       package = mkOption {
         type = types.package;
@@ -54,7 +58,9 @@ in
       stateDir = mkOption {
         type = types.path;
         default = "/var/spool/varnish/${config.networking.hostName}";
-        defaultText = literalExpression ''"/var/spool/varnish/''${config.networking.hostName}"'';
+        defaultText =
+          literalExpression
+            ''"/var/spool/varnish/''${config.networking.hostName}"'';
         description = lib.mdDoc ''
           Directory holding all state for Varnish to run.
         '';

@@ -80,10 +80,16 @@ stdenv.mkDerivation rec {
   installPhase =
     let
       vst3Dir =
-        if stdenv.hostPlatform.isDarwin then "$out/Library/Audio/Plug-Ins/VST3" else "$out/lib/vst3";
+        if stdenv.hostPlatform.isDarwin then
+          "$out/Library/Audio/Plug-Ins/VST3"
+        else
+          "$out/lib/vst3";
       # this one's a guess, don't know where ppl have agreed to put them yet
       clapDir =
-        if stdenv.hostPlatform.isDarwin then "$out/Library/Audio/Plug-Ins/CLAP" else "$out/lib/clap";
+        if stdenv.hostPlatform.isDarwin then
+          "$out/Library/Audio/Plug-Ins/CLAP"
+        else
+          "$out/lib/clap";
       auDir = "$out/Library/Audio/Plug-Ins/Components";
     in
     ''

@@ -15,7 +15,9 @@
 }:
 
 let
-  configOverrides = writeText "cinny-config-overrides.json" (builtins.toJSON conf);
+  configOverrides = writeText "cinny-config-overrides.json" (
+    builtins.toJSON conf
+  );
 in
 buildNpmPackage rec {
   pname = "cinny";

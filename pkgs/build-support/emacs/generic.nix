@@ -25,7 +25,9 @@ let
       broken = false;
       platforms = emacs.meta.platforms;
     }
-    // lib.optionalAttrs ((args.src.meta.homepage or "") != "") { homepage = args.src.meta.homepage; };
+    // lib.optionalAttrs ((args.src.meta.homepage or "") != "") {
+      homepage = args.src.meta.homepage;
+    };
 in
 
 stdenv.mkDerivation (

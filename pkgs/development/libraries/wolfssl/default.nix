@@ -12,7 +12,8 @@
   # requiring to build a special variant for that software. Example: 'haproxy'
   variant ? "all",
   extraConfigureFlags ? [ ],
-  enableLto ? !(stdenv.isDarwin || stdenv.hostPlatform.isStatic || stdenv.cc.isClang),
+  enableLto ?
+    !(stdenv.isDarwin || stdenv.hostPlatform.isStatic || stdenv.cc.isClang),
 }:
 stdenv.mkDerivation (
   finalAttrs: {
@@ -62,7 +63,8 @@ stdenv.mkDerivation (
 
         # Use WolfSSL's Single Precision Math with timing-resistant cryptography.
         "--enable-sp=yes${
-          lib.optionalString (stdenv.hostPlatform.isx86_64 || stdenv.hostPlatform.isAarch) ",asm"
+          lib.optionalString (stdenv.hostPlatform.isx86_64 || stdenv.hostPlatform.isAarch)
+            ",asm"
         }"
         "--enable-sp-math-all"
         "--enable-harden"

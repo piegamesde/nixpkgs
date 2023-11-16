@@ -9,7 +9,9 @@
 with pkgs;
 
 let
-  locationsJSON = import ./lib-function-locations.nix { inherit pkgs nixpkgs libsets; };
+  locationsJSON = import ./lib-function-locations.nix {
+    inherit pkgs nixpkgs libsets;
+  };
 in
 stdenv.mkDerivation {
   name = "nixpkgs-lib-docs";

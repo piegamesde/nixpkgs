@@ -187,7 +187,10 @@ stdenv.mkDerivation rec {
       "-Dv4l2=disabled" # Linux-only
     ]
     ++ (
-      if raspiCameraSupport then [ "-Drpi-lib-dir=${libraspberrypi}/lib" ] else [ "-Drpicamsrc=disabled" ]
+      if raspiCameraSupport then
+        [ "-Drpi-lib-dir=${libraspberrypi}/lib" ]
+      else
+        [ "-Drpicamsrc=disabled" ]
     );
 
   postPatch = ''

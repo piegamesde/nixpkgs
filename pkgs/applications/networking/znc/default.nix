@@ -40,13 +40,16 @@ stdenv.mkDerivation rec {
     ++ lib.optional withUnicode icu
     ++ lib.optional withZlib zlib;
 
-  configureFlags = [
-    (lib.enableFeature withPerl "perl")
-    (lib.enableFeature withPython "python")
-    (lib.enableFeature withTcl "tcl")
-    (lib.withFeatureAs withTcl "tcl" "${tcl}/lib")
-    (lib.enableFeature withCyrus "cyrus")
-  ] ++ lib.optionals (!withIPv6) [ "--disable-ipv6" ] ++ lib.optionals withDebug [ "--enable-debug" ];
+  configureFlags =
+    [
+      (lib.enableFeature withPerl "perl")
+      (lib.enableFeature withPython "python")
+      (lib.enableFeature withTcl "tcl")
+      (lib.withFeatureAs withTcl "tcl" "${tcl}/lib")
+      (lib.enableFeature withCyrus "cyrus")
+    ]
+    ++ lib.optionals (!withIPv6) [ "--disable-ipv6" ]
+    ++ lib.optionals withDebug [ "--enable-debug" ];
 
   enableParallelBuilding = true;
 

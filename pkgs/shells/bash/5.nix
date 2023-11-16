@@ -110,9 +110,10 @@ stdenv.mkDerivation rec {
   strictDeps = true;
   # Note: Bison is needed because the patches above modify parse.y.
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [
-    bison
-  ] ++ lib.optional withDocs texinfo ++ lib.optional stdenv.hostPlatform.isDarwin stdenv.cc.bintools;
+  nativeBuildInputs =
+    [ bison ]
+    ++ lib.optional withDocs texinfo
+    ++ lib.optional stdenv.hostPlatform.isDarwin stdenv.cc.bintools;
 
   buildInputs = lib.optional interactive readline;
 

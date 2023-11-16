@@ -14,7 +14,9 @@ in
 {
   options = {
     services.prometheus.sachet = {
-      enable = mkEnableOption (lib.mdDoc "Sachet, an SMS alerting tool for the Prometheus Alertmanager");
+      enable = mkEnableOption (
+        lib.mdDoc "Sachet, an SMS alerting tool for the Prometheus Alertmanager"
+      );
 
       configuration = mkOption {
         type = types.nullOr types.attrs;

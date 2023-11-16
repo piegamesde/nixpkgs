@@ -70,9 +70,11 @@ stdenv.mkDerivation (
     strictDeps = true;
     depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-    nativeBuildInputs = [
-      pkg-config
-    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ buildPackages.ncurses ];
+    nativeBuildInputs =
+      [ pkg-config ]
+      ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+        buildPackages.ncurses
+      ];
 
     buildInputs = lib.optional (mouseSupport && stdenv.isLinux) gpm;
 
@@ -105,7 +107,10 @@ stdenv.mkDerivation (
     postFixup =
       let
         abiVersion-extension =
-          if stdenv.isDarwin then "${abiVersion}.$dylibtype" else "$dylibtype.${abiVersion}";
+          if stdenv.isDarwin then
+            "${abiVersion}.$dylibtype"
+          else
+            "$dylibtype.${abiVersion}";
       in
       ''
         # Determine what suffixes our libraries have
@@ -173,9 +178,11 @@ stdenv.mkDerivation (
         moveToOutput "bin/infocmp" "$out"
       '';
 
-    preFixup = lib.optionalString (!stdenv.hostPlatform.isCygwin && !enableStatic) ''
-      rm "$out"/lib/*.a
-    '';
+    preFixup =
+      lib.optionalString (!stdenv.hostPlatform.isCygwin && !enableStatic)
+        ''
+          rm "$out"/lib/*.a
+        '';
 
     meta = with lib; {
       homepage = "https://www.gnu.org/software/ncurses/";

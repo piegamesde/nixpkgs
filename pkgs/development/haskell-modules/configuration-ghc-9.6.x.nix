@@ -6,7 +6,10 @@ let
   inherit (pkgs) lib;
 
   jailbreakWhileRevision =
-    rev: overrideCabal (old: { jailbreak = assert old.revision or "0" == toString rev; true; });
+    rev:
+    overrideCabal (
+      old: { jailbreak = assert old.revision or "0" == toString rev; true; }
+    );
   checkAgainAfter =
     pkg: ver: msg: act:
     if builtins.compareVersions pkg.version ver <= 0 then
@@ -14,10 +17,13 @@ let
     else
       builtins.throw
         "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
-  jailbreakForCurrentVersion = p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
+  jailbreakForCurrentVersion =
+    p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
 
   # Workaround for a ghc-9.6 issue: https://gitlab.haskell.org/ghc/ghc/-/issues/23392
-  disableParallelBuilding = overrideCabal (drv: { enableParallelBuilding = false; });
+  disableParallelBuilding = overrideCabal (
+    drv: { enableParallelBuilding = false; }
+  );
 in
 
 self: super: {
@@ -56,7 +62,10 @@ self: super: {
   template-haskell = null;
   # terminfo is not built if GHC is a cross compiler
   terminfo =
-    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_5;
+    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
+      null
+    else
+      self.terminfo_0_4_1_5;
   text = null;
   time = null;
   transformers = null;
@@ -182,7 +191,9 @@ self: super: {
 
   # 2023-04-03: plugins disabled for hls 1.10.0.0 based on
   #
-  haskell-language-server = super.haskell-language-server.override { hls-floskell-plugin = null; };
+  haskell-language-server = super.haskell-language-server.override {
+    hls-floskell-plugin = null;
+  };
 
   # Newer version of servant required for GHC 9.6
   servant = self.servant_0_20_1;
@@ -303,5 +314,8 @@ self: super: {
   # for these sorts of situations even on 9.2 and 9.4).
   # https://gitlab.haskell.org/ghc/ghc/-/issues/23746#note_525318
   tls =
-    if pkgs.stdenv.hostPlatform.isAarch64 then self.forceLlvmCodegenBackend super.tls else super.tls;
+    if pkgs.stdenv.hostPlatform.isAarch64 then
+      self.forceLlvmCodegenBackend super.tls
+    else
+      super.tls;
 }

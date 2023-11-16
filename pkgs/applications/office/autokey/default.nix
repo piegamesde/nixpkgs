@@ -52,7 +52,9 @@ python3Packages.buildPythonApplication rec {
   dontWrapGApps = true;
 
   preFixup = ''
-    makeWrapperArgs+=(''${gappsWrapperArgs[@]} --prefix PATH : ${lib.makeBinPath runtimeDeps})
+    makeWrapperArgs+=(''${gappsWrapperArgs[@]} --prefix PATH : ${
+      lib.makeBinPath runtimeDeps
+    })
   '';
 
   postInstall = ''

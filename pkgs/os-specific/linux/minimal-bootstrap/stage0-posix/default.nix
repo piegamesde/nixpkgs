@@ -11,7 +11,10 @@ lib.makeScope newScope (
       baseAddress
     ;
 
-    inherit (self.callPackage ./bootstrap-sources.nix { }) version minimal-bootstrap-sources;
+    inherit (self.callPackage ./bootstrap-sources.nix { })
+      version
+      minimal-bootstrap-sources
+    ;
 
     src = minimal-bootstrap-sources;
 

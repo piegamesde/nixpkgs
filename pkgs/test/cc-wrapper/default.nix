@@ -13,10 +13,14 @@ let
     && !stdenv.isDarwin
     && !stdenv.hostPlatform.isMusl
     && (
-      (stdenv.cc.isClang && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "5.0.0")
+      (
+        stdenv.cc.isClang && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "5.0.0"
+      )
       || (stdenv.cc.isGNU && stdenv.isLinux)
     );
-  staticLibc = lib.optionalString (stdenv.hostPlatform.libc == "glibc") "-L ${glibc.static}/lib";
+  staticLibc =
+    lib.optionalString (stdenv.hostPlatform.libc == "glibc")
+      "-L ${glibc.static}/lib";
   emulator = stdenv.hostPlatform.emulator buildPackages;
   isCxx = stdenv.cc.libcxx != null;
   libcxxStdenvSuffix = lib.optionalString isCxx "-libcxx";
@@ -53,7 +57,9 @@ stdenv.mkDerivation {
       # https://github.com/NixOS/nixpkgs/issues/91285
       echo "checking whether libatomic.so can be linked... " >&2
       $CXX -shared -o atomics.so ${./atomics.cc} -latomic ${
-        lib.optionalString (stdenv.cc.isClang && lib.versionOlder stdenv.cc.version "6.0.0") "-std=c++17"
+        lib.optionalString
+          (stdenv.cc.isClang && lib.versionOlder stdenv.cc.version "6.0.0")
+          "-std=c++17"
       }
       $READELF -d ./atomics.so | grep libatomic.so && echo "ok" >&2 || echo "failed" >&2
     ''}
@@ -61,7 +67,9 @@ stdenv.mkDerivation {
     ${lib.optionalString (stdenv.isDarwin && stdenv.cc.isClang) ''
       echo "checking whether compiler can build with CoreFoundation.framework... " >&2
       mkdir -p foo/lib
-      $CC -framework CoreFoundation -o core-foundation-check ${./core-foundation-main.c}
+      $CC -framework CoreFoundation -o core-foundation-check ${
+        ./core-foundation-main.c
+      }
       ${emulator} ./core-foundation-check
     ''}
 
@@ -70,7 +78,8 @@ stdenv.mkDerivation {
       echo "checking whether compiler builds valid static C binaries... " >&2
       $CC ${staticLibc} -static -o cc-static ${./cc-main.c}
       ${emulator} ./cc-static
-      ${lib.optionalString (stdenv.cc.isGNU && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "8.0.0")
+      ${lib.optionalString
+        (stdenv.cc.isGNU && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "8.0.0")
         ''
           echo "checking whether compiler builds valid static pie C binaries... " >&2
           $CC ${staticLibc} -static-pie -o cc-static-pie ${./cc-main.c}
@@ -103,13 +112,17 @@ stdenv.mkDerivation {
     echo "checking whether compiler uses NIX_CFLAGS_COMPILE... " >&2
     mkdir -p foo/include
     cp ${./foo.c} foo/include/foo.h
-    NIX_CFLAGS_COMPILE="-Ifoo/include -DVALUE=42" $CC -o cflags-check ${./cflags-main.c}
+    NIX_CFLAGS_COMPILE="-Ifoo/include -DVALUE=42" $CC -o cflags-check ${
+      ./cflags-main.c
+    }
     ${emulator} ./cflags-check
 
     echo "checking whether compiler uses NIX_LDFLAGS... " >&2
     mkdir -p foo/lib
     $CC -shared \
-      ${lib.optionalString stdenv.isDarwin "-Wl,-install_name,@rpath/libfoo.dylib"} \
+      ${
+        lib.optionalString stdenv.isDarwin "-Wl,-install_name,@rpath/libfoo.dylib"
+      } \
       -DVALUE=42 \
       -o foo/lib/libfoo${stdenv.hostPlatform.extensions.sharedLibrary} \
       ${./foo.c}

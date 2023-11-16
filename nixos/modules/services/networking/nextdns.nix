@@ -16,7 +16,9 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable the NextDNS DNS/53 to DoH Proxy service.";
+        description =
+          lib.mdDoc
+            "Whether to enable the NextDNS DNS/53 to DoH Proxy service.";
       };
       arguments = mkOption {
         type = types.listOf types.str;
@@ -40,7 +42,9 @@ in
       startLimitIntervalSec = 5;
       startLimitBurst = 10;
       serviceConfig = {
-        ExecStart = "${pkgs.nextdns}/bin/nextdns run ${escapeShellArgs config.services.nextdns.arguments}";
+        ExecStart = "${pkgs.nextdns}/bin/nextdns run ${
+            escapeShellArgs config.services.nextdns.arguments
+          }";
         RestartSec = 120;
         LimitMEMLOCK = "infinity";
       };

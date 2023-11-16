@@ -39,12 +39,16 @@ stdenv.mkDerivation rec {
   # fixed properly
   patches = [ ./cmake-fix-libxml2-find-package.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    flex
-    bison
-    pkg-config
-  ] ++ lib.optionals pythonSupport ([ python ] ++ lib.optional python.isPy3k python.pkgs.setuptools);
+  nativeBuildInputs =
+    [
+      cmake
+      flex
+      bison
+      pkg-config
+    ]
+    ++ lib.optionals pythonSupport (
+      [ python ] ++ lib.optional python.isPy3k python.pkgs.setuptools
+    );
 
   buildInputs =
     [

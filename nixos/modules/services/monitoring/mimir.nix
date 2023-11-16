@@ -88,7 +88,9 @@ in
               cfg.configFile;
         in
         {
-          ExecStart = "${cfg.package}/bin/mimir --config.file=${conf} ${escapeShellArgs cfg.extraFlags}";
+          ExecStart = "${cfg.package}/bin/mimir --config.file=${conf} ${
+              escapeShellArgs cfg.extraFlags
+            }";
           DynamicUser = true;
           Restart = "always";
           ProtectSystem = "full";

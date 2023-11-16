@@ -7,12 +7,15 @@
   nasm,
 
   # NUMA support enabled by default on NUMA platforms:
-  numaSupport ?
-    (stdenv.hostPlatform.isLinux && (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)),
+  numaSupport ? (
+    stdenv.hostPlatform.isLinux
+    && (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)
+  ),
   numactl,
 
   # Multi bit-depth support (8bit+10bit+12bit):
-  multibitdepthSupport ? (stdenv.is64bit && !(stdenv.isAarch64 && stdenv.isLinux)),
+  multibitdepthSupport ?
+    (stdenv.is64bit && !(stdenv.isAarch64 && stdenv.isLinux)),
 
   # Other options:
   cliSupport ? true # Build standalone CLI application
@@ -36,15 +39,18 @@ let
 
   isCross = stdenv.buildPlatform != stdenv.hostPlatform;
 
-  cmakeCommonFlags = [
-    "-Wno-dev"
-    (mkFlag custatsSupport "DETAILED_CU_STATS")
-    (mkFlag debugSupport "CHECKED_BUILD")
-    (mkFlag ppaSupport "ENABLE_PPA")
-    (mkFlag vtuneSupport "ENABLE_VTUNE")
-    (mkFlag werrorSupport "WARNINGS_AS_ERRORS")
-    # Potentially riscv cross could be fixed by providing the correct CMAKE_SYSTEM_PROCESSOR flag
-  ] ++ lib.optional (isCross && stdenv.hostPlatform.isRiscV) "-DENABLE_ASSEMBLY=OFF";
+  cmakeCommonFlags =
+    [
+      "-Wno-dev"
+      (mkFlag custatsSupport "DETAILED_CU_STATS")
+      (mkFlag debugSupport "CHECKED_BUILD")
+      (mkFlag ppaSupport "ENABLE_PPA")
+      (mkFlag vtuneSupport "ENABLE_VTUNE")
+      (mkFlag werrorSupport "WARNINGS_AS_ERRORS")
+      # Potentially riscv cross could be fixed by providing the correct CMAKE_SYSTEM_PROCESSOR flag
+    ]
+    ++ lib.optional (isCross && stdenv.hostPlatform.isRiscV)
+      "-DENABLE_ASSEMBLY=OFF";
 
   cmakeStaticLibFlags =
     [
@@ -115,7 +121,9 @@ stdenv.mkDerivation rec {
   # Builds 10bits and 12bits static libs on the side if multi bit-depth is wanted
   # (we are in x265_<version>/source/build)
   preBuild = lib.optionalString (multibitdepthSupport) ''
-    cmake -S ../ -B ../build-10bits ${toString cmakeCommonFlags} ${toString cmakeStaticLibFlags}
+    cmake -S ../ -B ../build-10bits ${toString cmakeCommonFlags} ${
+      toString cmakeStaticLibFlags
+    }
     make -C ../build-10bits -j $NIX_BUILD_CORES
     cmake -S ../ -B ../build-12bits ${toString cmakeCommonFlags} ${
       toString cmakeStaticLibFlags

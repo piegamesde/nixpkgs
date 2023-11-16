@@ -43,7 +43,9 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/cheese/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/cheese/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "XyGFxMmeVN3yuLr2DIKBmVDlSVLhMuhjmHXz7cv49o4=";
   };
 

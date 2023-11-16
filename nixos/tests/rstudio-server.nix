@@ -28,7 +28,9 @@ import ./make-test-python.nix (
       {
         services.rstudio-server = {
           enable = true;
-          package = pkgs.rstudioServerWrapper.override { packages = [ pkgs.rPackages.ggplot2 ]; };
+          package = pkgs.rstudioServerWrapper.override {
+            packages = [ pkgs.rPackages.ggplot2 ];
+          };
         };
       };
 

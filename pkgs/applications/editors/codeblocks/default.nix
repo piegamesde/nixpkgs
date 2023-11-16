@@ -150,7 +150,8 @@ stdenv.mkDerivation rec {
     [ "--enable-pch=no" ]
     ++ lib.optionals contribPlugins [
       (
-        "--with-contrib-plugins" + lib.optionalString stdenv.isDarwin "=all,-FileManager,-NassiShneiderman"
+        "--with-contrib-plugins"
+        + lib.optionalString stdenv.isDarwin "=all,-FileManager,-NassiShneiderman"
       )
       "--with-boost-libdir=${boost}/lib"
     ];

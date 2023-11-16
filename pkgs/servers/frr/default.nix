@@ -107,20 +107,23 @@ lib.warnIf (!(stdenv.buildPlatform.canExecute stdenv.hostPlatform))
       protobufc
     ];
 
-    buildInputs = [
-      c-ares
-      json_c
-      libelf
-      libunwind
-      libyang
-      openssl
-      pam
-      pcre2
-      python3
-      readline
-      rtrlib
-      protobufc
-    ] ++ lib.optionals stdenv.isLinux [ libcap ] ++ lib.optionals snmpSupport [ net-snmp ];
+    buildInputs =
+      [
+        c-ares
+        json_c
+        libelf
+        libunwind
+        libyang
+        openssl
+        pam
+        pcre2
+        python3
+        readline
+        rtrlib
+        protobufc
+      ]
+      ++ lib.optionals stdenv.isLinux [ libcap ]
+      ++ lib.optionals snmpSupport [ net-snmp ];
 
     # otherwise in cross-compilation: "configure: error: no working python version found"
     depsBuildBuild = [ buildPackages.python3 ];
@@ -234,7 +237,8 @@ lib.warnIf (!(stdenv.buildPlatform.canExecute stdenv.hostPlatform))
         thillux
       ];
       # adapt to platforms stated in http://docs.frrouting.org/en/latest/overview.html#supported-platforms
-      platforms = (platforms.linux ++ platforms.freebsd ++ platforms.netbsd ++ platforms.openbsd);
+      platforms =
+        (platforms.linux ++ platforms.freebsd ++ platforms.netbsd ++ platforms.openbsd);
     };
 
     passthru.tests = {

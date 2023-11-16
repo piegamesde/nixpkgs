@@ -31,7 +31,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ cython ];
-  propagatedBuildInputs = [ alure2 ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [
+    alure2
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   doCheck = false; # FIXME: tests need an audio device
   pythonImportsCheck = [ "palace" ];

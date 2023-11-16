@@ -144,7 +144,9 @@ in
           else
             null;
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
-        description = lib.mdDoc "Path to the unix socket file to use for authentication.";
+        description =
+          lib.mdDoc
+            "Path to the unix socket file to use for authentication.";
       };
 
       createLocally = mkOption {
@@ -259,7 +261,8 @@ in
         encryptionnonce = cfg.encryptionNonce;
         encryptionsecretboxkey = cfg.encryptionKey;
         force_ssl =
-          mkIf (cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL)
+          mkIf
+            (cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL)
             "on";
         config.defaultlang = "en";
       };
@@ -341,7 +344,9 @@ in
     systemd.services.limesurvey-init = {
       wantedBy = [ "multi-user.target" ];
       before = [ "phpfpm-limesurvey.service" ];
-      after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
+      after =
+        optional mysqlLocal "mysql.service"
+        ++ optional pgsqlLocal "postgresql.service";
       environment.DBENGINE = "${cfg.database.dbEngine}";
       environment.LIMESURVEY_CONFIG = limesurveyConfig;
       script = ''

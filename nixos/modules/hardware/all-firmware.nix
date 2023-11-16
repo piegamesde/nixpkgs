@@ -69,7 +69,9 @@ in
 
   options = {
 
-    hardware.enableAllFirmware = mkEnableOption "all firmware regardless of license";
+    hardware.enableAllFirmware =
+      mkEnableOption
+        "all firmware regardless of license";
 
     hardware.enableRedistributableFirmware =
       mkEnableOption "firmware with a license allowing redistribution"
@@ -107,7 +109,9 @@ in
           libreelec-dvb-firmware
         ]
         ++ optional pkgs.stdenv.hostPlatform.isAarch raspberrypiWirelessFirmware
-        ++ optionals (versionOlder config.boot.kernelPackages.kernel.version "4.13") [ rtl8723bs-firmware ];
+        ++ optionals (versionOlder config.boot.kernelPackages.kernel.version "4.13") [
+          rtl8723bs-firmware
+        ];
     })
     (mkIf cfg.enableAllFirmware {
       assertions = [
@@ -133,6 +137,8 @@ in
           facetimehd-firmware
         ];
     })
-    (mkIf cfg.wirelessRegulatoryDatabase { hardware.firmware = [ pkgs.wireless-regdb ]; })
+    (mkIf cfg.wirelessRegulatoryDatabase {
+      hardware.firmware = [ pkgs.wireless-regdb ];
+    })
   ];
 }

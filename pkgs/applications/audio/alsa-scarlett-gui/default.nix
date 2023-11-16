@@ -38,7 +38,9 @@ stdenv.mkDerivation rec {
     alsa-lib
   ];
   postInstall = ''
-    wrapProgram $out/bin/alsa-scarlett-gui --prefix PATH : ${lib.makeBinPath [ alsa-utils ]}
+    wrapProgram $out/bin/alsa-scarlett-gui --prefix PATH : ${
+      lib.makeBinPath [ alsa-utils ]
+    }
 
     substituteInPlace $out/share/applications/vu.b4.alsa-scarlett-gui.desktop \
       --replace "Exec=/bin/alsa-scarlett-gui" "Exec=$out/bin/alsa-scarlett-gui"

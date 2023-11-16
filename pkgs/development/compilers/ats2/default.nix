@@ -57,7 +57,9 @@ stdenv.mkDerivation rec {
     let
       hookFiles = [ ./setup-hook.sh ] ++ optional withContrib ./setup-contrib-hook.sh;
     in
-    builtins.toFile "setupHook.sh" (concatMapStringsSep "\n" builtins.readFile hookFiles);
+    builtins.toFile "setupHook.sh" (
+      concatMapStringsSep "\n" builtins.readFile hookFiles
+    );
 
   postInstall = postInstallContrib + postInstallEmacs;
 

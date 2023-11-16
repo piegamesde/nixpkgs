@@ -18,7 +18,9 @@
 }:
 
 let
-  pythonEnv = python3.pythonOnBuildForHost.withPackages (ps: with ps; [ setuptools ]);
+  pythonEnv = python3.pythonOnBuildForHost.withPackages (
+    ps: with ps; [ setuptools ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "gusb";

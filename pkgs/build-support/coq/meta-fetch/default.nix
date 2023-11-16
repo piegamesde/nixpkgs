@@ -35,7 +35,9 @@ let
             }
             {
               cond = pr != null && (match "^github.*" domain) != null;
-              out = "https://api.${domain}/repos/${owner}/${repo}/${fmt}/pull/${head pr}/head";
+              out = "https://api.${domain}/repos/${owner}/${repo}/${fmt}/pull/${
+                  head pr
+                }/head";
             }
             {
               cond = pr == null && (match "^gitlab.*" domain) != null;
@@ -47,7 +49,9 @@ let
             }
           ]
           (throw "meta-fetch: no fetcher found for domain ${domain} on ${rev}");
-      fetch = x: if args ? sha256 then fetchzip (x // { inherit sha256; }) else fetchTarball x;
+      fetch =
+        x:
+        if args ? sha256 then fetchzip (x // { inherit sha256; }) else fetchTarball x;
     in
     fetch { inherit url; };
 in
@@ -62,7 +66,9 @@ let
   shortVersion =
     x:
     if (isString x && match "^/.*" x == null) then
-      findFirst (v: versions.majorMinor v == x) null (sort versionAtLeast (attrNames release))
+      findFirst (v: versions.majorMinor v == x) null (
+        sort versionAtLeast (attrNames release)
+      )
     else
       null;
   isShortVersion = x: shortVersion x != null;
@@ -116,7 +122,11 @@ switch arg
         {
           inherit version;
           src = fetcher (
-            location // { inherit rev; } // (optionalAttrs has-owner { owner = head splitted; })
+            location
+            // {
+              inherit rev;
+            }
+            // (optionalAttrs has-owner { owner = head splitted; })
           );
         };
     }

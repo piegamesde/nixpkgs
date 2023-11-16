@@ -26,18 +26,20 @@ in
         do, but for image based systems, this may not be needed or not be desirable.
       '';
     };
-    system.activatableSystemBuilderCommands = options.system.systemBuilderCommands // {
-      description = lib.mdDoc ''
-        Like `system.systemBuilderCommands`, but only for the commands that are
-        needed *both* when the system is activatable and when it isn't.
+    system.activatableSystemBuilderCommands =
+      options.system.systemBuilderCommands
+      // {
+        description = lib.mdDoc ''
+          Like `system.systemBuilderCommands`, but only for the commands that are
+          needed *both* when the system is activatable and when it isn't.
 
-        Disclaimer: This option might go away in the future. It might be
-        superseded by separating switch-to-configuration into a separate script
-        which will make this option superfluous. See
-        https://github.com/NixOS/nixpkgs/pull/263462#discussion_r1373104845 for
-        a discussion.
-      '';
-    };
+          Disclaimer: This option might go away in the future. It might be
+          superseded by separating switch-to-configuration into a separate script
+          which will make this option superfluous. See
+          https://github.com/NixOS/nixpkgs/pull/263462#discussion_r1373104845 for
+          a discussion.
+        '';
+      };
     system.build.separateActivationScript = mkOption {
       type = types.package;
       description = ''

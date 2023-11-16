@@ -62,11 +62,14 @@ let
           + lib.optionalString (lib.versionAtLeast version "1.1.1") ''
             substituteInPlace config --replace '/usr/bin/env' '${buildPackages.coreutils}/bin/env'
           ''
-          + lib.optionalString (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isMusl) ''
-            substituteInPlace crypto/async/arch/async_posix.h \
-              --replace '!defined(__ANDROID__) && !defined(__OpenBSD__)' \
-                        '!defined(__ANDROID__) && !defined(__OpenBSD__) && 0'
-          ''
+          +
+            lib.optionalString
+              (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isMusl)
+              ''
+                substituteInPlace crypto/async/arch/async_posix.h \
+                  --replace '!defined(__ANDROID__) && !defined(__OpenBSD__)' \
+                            '!defined(__ANDROID__) && !defined(__OpenBSD__) && 0'
+              ''
           # Move ENGINESDIR into OPENSSLDIR for static builds, in order to move
           # it to the separate etc output.
           + lib.optionalString static ''
@@ -91,13 +94,17 @@ let
           ++ lib.optional static "etc";
         setOutputFlags = false;
         separateDebugInfo =
-          !stdenv.hostPlatform.isDarwin && !(stdenv.hostPlatform.useLLVM or false) && stdenv.cc.isGNU;
+          !stdenv.hostPlatform.isDarwin
+          && !(stdenv.hostPlatform.useLLVM or false)
+          && stdenv.cc.isGNU;
 
         nativeBuildInputs =
           lib.optional (!stdenv.hostPlatform.isWindows) makeWrapper
           ++ [ perl ]
           ++ lib.optionals static [ removeReferencesTo ];
-        buildInputs = lib.optional withCryptodev cryptodev ++ lib.optional withZlib zlib;
+        buildInputs =
+          lib.optional withCryptodev cryptodev
+          ++ lib.optional withZlib zlib;
 
         # TODO(@Ericson2314): Improve with mass rebuild
         configurePlatforms = [ ];
@@ -120,7 +127,9 @@ let
                 "./Configure BSD-x86_64"
               else if stdenv.hostPlatform.isx86_32 then
                 "./Configure BSD-x86"
-                + lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") "-elf"
+                +
+                  lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
+                    "-elf"
               else
                 "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
             else if stdenv.hostPlatform.isMinGW then
@@ -171,7 +180,10 @@ let
           # We select KTLS here instead of the configure-time detection (which we patch out).
           # KTLS should work on FreeBSD 13+ as well, so we could enable it if someone tests it.
           ++ lib.optional (lib.versionAtLeast version "3.0.0" && enableKTLS) "enable-ktls"
-          ++ lib.optional (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isAarch64) "no-afalgeng"
+          ++
+            lib.optional
+              (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isAarch64)
+              "no-afalgeng"
           # OpenSSL needs a specific `no-shared` configure flag.
           # See https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_Options
           # for a comprehensive list of configuration options.
@@ -297,7 +309,10 @@ in
       ./1.1/nix-ssl-cert-file.patch
 
       (
-        if stdenv.hostPlatform.isDarwin then ./use-etc-ssl-certs-darwin.patch else ./use-etc-ssl-certs.patch
+        if stdenv.hostPlatform.isDarwin then
+          ./use-etc-ssl-certs-darwin.patch
+        else
+          ./use-etc-ssl-certs.patch
       )
     ];
     withDocs = true;
@@ -319,7 +334,10 @@ in
       ./3.0/openssl-disable-kernel-detection.patch
 
       (
-        if stdenv.hostPlatform.isDarwin then ./use-etc-ssl-certs-darwin.patch else ./use-etc-ssl-certs.patch
+        if stdenv.hostPlatform.isDarwin then
+          ./use-etc-ssl-certs-darwin.patch
+        else
+          ./use-etc-ssl-certs.patch
       )
     ];
 

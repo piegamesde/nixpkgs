@@ -141,7 +141,9 @@ in
                 service = mkOption {
                   type = nullOr str;
                   default = null;
-                  description = lib.mdDoc "The service on which to perform <action> after fetching.";
+                  description =
+                    lib.mdDoc
+                      "The service on which to perform <action> after fetching.";
                 };
 
                 action = mkOption {

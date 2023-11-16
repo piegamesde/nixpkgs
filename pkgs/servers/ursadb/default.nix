@@ -24,7 +24,9 @@ stdenv.mkDerivation (
         --replace "target_link_libraries(ursadb_test ursa)" "" \
         --replace "target_enable_ipo(ursadb_test)" "" \
         --replace "target_clangformat_setup(ursadb_test)" "" \
-        --replace 'target_include_directories(ursadb_test PUBLIC ${"$"}{CMAKE_SOURCE_DIR})' "" \
+        --replace 'target_include_directories(ursadb_test PUBLIC ${
+          "$"
+        }{CMAKE_SOURCE_DIR})' "" \
         --replace "ursadb_test" ""
     '';
 

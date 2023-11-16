@@ -12,12 +12,15 @@ let
   cfg = config.services.neo4j;
   opt = options.services.neo4j;
   certDirOpt = options.services.neo4j.directories.certificates;
-  isDefaultPathOption = opt: isOption opt && opt.type == types.path && opt.highestPrio >= 1500;
+  isDefaultPathOption =
+    opt: isOption opt && opt.type == types.path && opt.highestPrio >= 1500;
 
   sslPolicies =
     mapAttrsToList
       (name: conf: ''
-        dbms.ssl.policy.${name}.allow_key_generation=${boolToString conf.allowKeyGeneration}
+        dbms.ssl.policy.${name}.allow_key_generation=${
+          boolToString conf.allowKeyGeneration
+        }
         dbms.ssl.policy.${name}.base_directory=${conf.baseDirectory}
         ${optionalString (conf.ciphers != null) ''
           dbms.ssl.policy.${name}.ciphers=${concatStringsSep "," conf.ciphers}
@@ -368,7 +371,9 @@ in
       certificates = mkOption {
         type = types.path;
         default = "${cfg.directories.home}/certificates";
-        defaultText = literalExpression ''"''${config.${opt.directories.home}}/certificates"'';
+        defaultText =
+          literalExpression
+            ''"''${config.${opt.directories.home}}/certificates"'';
         description = lib.mdDoc ''
           Directory for storing certificates to be used by Neo4j for
           TLS connections.
@@ -416,7 +421,9 @@ in
       imports = mkOption {
         type = types.path;
         default = "${cfg.directories.home}/import";
-        defaultText = literalExpression ''"''${config.${opt.directories.home}}/import"'';
+        defaultText =
+          literalExpression
+            ''"''${config.${opt.directories.home}}/import"'';
         description = lib.mdDoc ''
           The root directory for file URLs used with the Cypher
           `LOAD CSV` clause. Only meaningful when
@@ -432,7 +439,9 @@ in
       plugins = mkOption {
         type = types.path;
         default = "${cfg.directories.home}/plugins";
-        defaultText = literalExpression ''"''${config.${opt.directories.home}}/plugins"'';
+        defaultText =
+          literalExpression
+            ''"''${config.${opt.directories.home}}/plugins"'';
         description = lib.mdDoc ''
           Path of the database plugin directory. Compiled Java JAR files that
           contain database procedures will be loaded if they are placed in
@@ -547,7 +556,9 @@ in
                 baseDirectory = mkOption {
                   type = types.path;
                   default = "${cfg.directories.certificates}/${name}";
-                  defaultText = literalExpression ''"''${config.${opt.directories.certificates}}/''${name}"'';
+                  defaultText =
+                    literalExpression
+                      ''"''${config.${opt.directories.certificates}}/''${name}"'';
                   description = lib.mdDoc ''
                     The mandatory base directory for cryptographic objects of this
                     policy. This path is only automatically generated when this
@@ -611,7 +622,9 @@ in
                 revokedDir = mkOption {
                   type = types.path;
                   default = "${config.baseDirectory}/revoked";
-                  defaultText = literalExpression ''"''${config.${options.baseDirectory}}/revoked"'';
+                  defaultText =
+                    literalExpression
+                      ''"''${config.${options.baseDirectory}}/revoked"'';
                   description = lib.mdDoc ''
                     Path to directory of CRLs (Certificate Revocation Lists) in
                     PEM format. Must be an absolute path. The existence of this
@@ -647,7 +660,9 @@ in
                 trustedDir = mkOption {
                   type = types.path;
                   default = "${config.baseDirectory}/trusted";
-                  defaultText = literalExpression ''"''${config.${options.baseDirectory}}/trusted"'';
+                  defaultText =
+                    literalExpression
+                      ''"''${config.${options.baseDirectory}}/trusted"'';
                   description = lib.mdDoc ''
                     Path to directory of X.509 certificates in PEM format for
                     trusted parties. Must be an absolute path. The existence of this
@@ -678,7 +693,8 @@ in
               };
 
               config.directoriesToCreate =
-                optionals (certDirOpt.highestPrio >= 1500 && options.baseDirectory.highestPrio >= 1500)
+                optionals
+                  (certDirOpt.highestPrio >= 1500 && options.baseDirectory.highestPrio >= 1500)
                   (map (opt: opt.value) (filter isDefaultPathOption (attrValues options)));
             }
           )
@@ -708,7 +724,9 @@ in
       defaultDirectoriesToCreate = map (opt: opt.value) (
         filter isDefaultPathOption (attrValues options.services.neo4j.directories)
       );
-      policyDirectoriesToCreate = concatMap (pol: pol.directoriesToCreate) (attrValues cfg.ssl.policies);
+      policyDirectoriesToCreate = concatMap (pol: pol.directoriesToCreate) (
+        attrValues cfg.ssl.policies
+      );
     in
 
     mkIf cfg.enable {

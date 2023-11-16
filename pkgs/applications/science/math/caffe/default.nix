@@ -38,7 +38,10 @@ let
   # However, this caffe does not build with CUDNN 8.x, so we use CUDNN 7.6.5 instead.
   # Earlier versions of cudatoolkit use pre-8.x CUDNN, so we use the default.
   cudnn =
-    if lib.versionOlder cudatoolkit.version "10.1" then cudaPackages.cudnn else cudaPackages.cudnn_7_6;
+    if lib.versionOlder cudatoolkit.version "10.1" then
+      cudaPackages.cudnn
+    else
+      cudaPackages.cudnn_7_6;
 in
 
 assert leveldbSupport -> (leveldb != null && snappy != null);
@@ -75,7 +78,12 @@ stdenv.mkDerivation rec {
     # It's important that caffe is passed the major and minor version only because that's what
     # boost_python expects
     [
-      (if pythonSupport then "-Dpython_version=${python.pythonVersion}" else "-DBUILD_python=OFF")
+      (
+        if pythonSupport then
+          "-Dpython_version=${python.pythonVersion}"
+        else
+          "-DBUILD_python=OFF"
+      )
       "-DBLAS=open"
     ]
     ++ (
@@ -174,10 +182,12 @@ stdenv.mkDerivation rec {
         'SetTotalBytesLimit(kProtoReadBytesLimit, 536870912)' \
         'SetTotalBytesLimit(kProtoReadBytesLimit)'
     ''
-    + lib.optionalString (cudaSupport && lib.versionAtLeast cudatoolkit.version "9.0") ''
-      # CUDA 9.0 doesn't support sm_20
-      sed -i 's,20 21(20) ,,' cmake/Cuda.cmake
-    '';
+    +
+      lib.optionalString (cudaSupport && lib.versionAtLeast cudatoolkit.version "9.0")
+        ''
+          # CUDA 9.0 doesn't support sm_20
+          sed -i 's,20 21(20) ,,' cmake/Cuda.cmake
+        '';
 
   preConfigure = lib.optionalString pythonSupport ''
     # We need this when building with Python bindings

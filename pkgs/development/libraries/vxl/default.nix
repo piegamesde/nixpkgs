@@ -36,7 +36,9 @@ stdenv.mkDerivation (
     ];
 
     # test failure on aarch64-linux; unknown reason:
-    cmakeFlags = lib.optionals stdenv.isAarch64 [ "-DCMAKE_CTEST_ARGUMENTS='-E vgl_test_frustum_3d'" ];
+    cmakeFlags = lib.optionals stdenv.isAarch64 [
+      "-DCMAKE_CTEST_ARGUMENTS='-E vgl_test_frustum_3d'"
+    ];
 
     doCheck = true;
 

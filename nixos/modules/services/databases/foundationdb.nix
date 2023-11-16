@@ -12,7 +12,8 @@ let
   pkg = cfg.package;
 
   # used for initial cluster configuration
-  initialIpAddr = if (cfg.publicAddress != "auto") then cfg.publicAddress else "127.0.0.1";
+  initialIpAddr =
+    if (cfg.publicAddress != "auto") then cfg.publicAddress else "127.0.0.1";
 
   fdbServers =
     n:
@@ -20,7 +21,8 @@ let
       map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]") (range 0 (n - 1))
     );
 
-  backupAgents = n: concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n));
+  backupAgents =
+    n: concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n));
 
   configFile = pkgs.writeText "foundationdb.conf" ''
     [general]
@@ -54,10 +56,14 @@ let
       tls_verify_peers     = ${cfg.tls.allowedPeers}
     ''}
 
-    ${optionalString (cfg.locality.machineId != null) "locality_machineid=${cfg.locality.machineId}"}
-    ${optionalString (cfg.locality.zoneId != null) "locality_zoneid=${cfg.locality.zoneId}"}
-    ${optionalString (cfg.locality.datacenterId != null) "locality_dcid=${cfg.locality.datacenterId}"}
-    ${optionalString (cfg.locality.dataHall != null) "locality_data_hall=${cfg.locality.dataHall}"}
+    ${optionalString (cfg.locality.machineId != null)
+      "locality_machineid=${cfg.locality.machineId}"}
+    ${optionalString (cfg.locality.zoneId != null)
+      "locality_zoneid=${cfg.locality.zoneId}"}
+    ${optionalString (cfg.locality.datacenterId != null)
+      "locality_dcid=${cfg.locality.datacenterId}"}
+    ${optionalString (cfg.locality.dataHall != null)
+      "locality_data_hall=${cfg.locality.dataHall}"}
 
     ${fdbServers cfg.serverProcesses}
 
@@ -117,7 +123,9 @@ in
     dataDir = mkOption {
       type = types.path;
       default = "/var/lib/foundationdb";
-      description = lib.mdDoc "Data directory. All cluster data will be put under here.";
+      description =
+        lib.mdDoc
+          "Data directory. All cluster data will be put under here.";
     };
 
     logDir = mkOption {
@@ -184,7 +192,9 @@ in
     backupProcesses = mkOption {
       type = types.int;
       default = 1;
-      description = lib.mdDoc "Number of backup_agent processes to run for snapshots.";
+      description =
+        lib.mdDoc
+          "Number of backup_agent processes to run for snapshots.";
     };
 
     memory = mkOption {
@@ -354,7 +364,8 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = lib.versionOlder cfg.package.version "6.1" -> cfg.traceFormat == "xml";
+        assertion =
+          lib.versionOlder cfg.package.version "6.1" -> cfg.traceFormat == "xml";
         message =
           ''
             Versions of FoundationDB before 6.1 do not support configurable trace formats (only XML is supported).
@@ -444,7 +455,9 @@ in
             cf=/etc/foundationdb/fdb.cluster
             desc=$(tr -dc A-Za-z0-9 </dev/urandom 2>/dev/null | head -c8)
             rand=$(tr -dc A-Za-z0-9 </dev/urandom 2>/dev/null | head -c8)
-            echo ''${desc}:''${rand}@${initialIpAddr}:${builtins.toString cfg.listenPortStart} > $cf
+            echo ''${desc}:''${rand}@${initialIpAddr}:${
+              builtins.toString cfg.listenPortStart
+            } > $cf
             chmod 0664 $cf
             touch "${cfg.dataDir}/.first_startup"
         fi

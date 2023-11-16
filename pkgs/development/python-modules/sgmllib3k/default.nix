@@ -23,7 +23,9 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.10") [ "test_declaration_junk_chars" ];
+  disabledTests = lib.optionals (pythonAtLeast "3.10") [
+    "test_declaration_junk_chars"
+  ];
 
   pythonImportsCheck = [ "sgmllib" ];
 

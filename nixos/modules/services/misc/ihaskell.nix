@@ -60,7 +60,8 @@ in
       serviceConfig = {
         User = config.users.users.ihaskell.name;
         Group = config.users.groups.ihaskell.name;
-        ExecStart = ''${pkgs.runtimeShell} -c "cd $HOME;${ihaskell}/bin/ihaskell-notebook"'';
+        ExecStart = ''
+          ${pkgs.runtimeShell} -c "cd $HOME;${ihaskell}/bin/ihaskell-notebook"'';
       };
     };
   };

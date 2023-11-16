@@ -24,13 +24,19 @@ let
   crowdPropertiesFile = pkgs.writeText "crowd.properties" ''
     application.name                        crowd-openid-server
     application.password @NIXOS_CROWD_OPENID_PW@
-    application.base.url                    http://localhost:${toString cfg.listenPort}/openidserver
-    application.login.url                   http://localhost:${toString cfg.listenPort}/openidserver
+    application.base.url                    http://localhost:${
+      toString cfg.listenPort
+    }/openidserver
+    application.login.url                   http://localhost:${
+      toString cfg.listenPort
+    }/openidserver
     application.login.url.template          http://localhost:${
       toString cfg.listenPort
     }/openidserver?returnToUrl=''${RETURN_TO_URL}
 
-    crowd.server.url                        http://localhost:${toString cfg.listenPort}/crowd/services/
+    crowd.server.url                        http://localhost:${
+      toString cfg.listenPort
+    }/crowd/services/
 
     session.isauthenticated                 session.isauthenticated
     session.tokenkey                        session.tokenkey
@@ -83,7 +89,9 @@ in
       openidPasswordFile = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = lib.mdDoc "Path to the file containing the application password for OpenID server.";
+        description =
+          lib.mdDoc
+            "Path to the file containing the application password for OpenID server.";
       };
 
       catalinaOptions = mkOption {
@@ -122,7 +130,9 @@ in
         secure = mkOption {
           type = types.bool;
           default = true;
-          description = lib.mdDoc "Whether the connections to the proxy should be considered secure.";
+          description =
+            lib.mdDoc
+              "Whether the connections to the proxy should be considered secure.";
         };
       };
 
@@ -137,7 +147,9 @@ in
         type = types.package;
         default = pkgs.oraclejre8;
         defaultText = literalExpression "pkgs.oraclejre8";
-        description = lib.mdDoc "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
+        description =
+          lib.mdDoc
+            "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
       };
     };
   };
@@ -173,7 +185,9 @@ in
         JAVA_HOME = "${cfg.jrePackage}";
         CATALINA_OPTS = concatStringsSep " " cfg.catalinaOptions;
         CATALINA_TMPDIR = "/tmp";
-        JAVA_OPTS = mkIf (cfg.openidPasswordFile != null) "-Dcrowd.properties=${cfg.home}/crowd.properties";
+        JAVA_OPTS =
+          mkIf (cfg.openidPasswordFile != null)
+            "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 
       preStart =
@@ -181,7 +195,9 @@ in
           rm -rf ${cfg.home}/work
           mkdir -p ${cfg.home}/{logs,database,work}
 
-          sed -e 's,port="8095",port="${toString cfg.listenPort}" address="${cfg.listenAddress}",' \
+          sed -e 's,port="8095",port="${
+            toString cfg.listenPort
+          }" address="${cfg.listenAddress}",' \
         ''
         + (lib.optionalString cfg.proxy.enable ''
           -e 's,compression="on",compression="off" protocol="HTTP/1.1" proxyName="${cfg.proxy.name}" proxyPort="${

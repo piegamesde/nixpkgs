@@ -46,7 +46,9 @@ in
     configDir = mkOption {
       default = "/var/lib/minio/config";
       type = types.path;
-      description = lib.mdDoc "The config directory, for the access keys and other settings.";
+      description =
+        lib.mdDoc
+          "The config directory, for the access keys and other settings.";
     };
 
     accessKey = mkOption {
@@ -111,7 +113,9 @@ in
       {
         tmpfiles.rules =
           [ "d '${cfg.configDir}' - minio minio - -" ]
-          ++ (map (x: "d '" + x + "' - minio minio - - ") (builtins.filter lib.types.path.check cfg.dataDir));
+          ++ (map (x: "d '" + x + "' - minio minio - - ") (
+            builtins.filter lib.types.path.check cfg.dataDir
+          ));
 
         services.minio = {
           description = "Minio Object Storage";

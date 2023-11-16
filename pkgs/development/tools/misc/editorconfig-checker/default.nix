@@ -30,7 +30,9 @@ buildGoModule rec {
     installManPage docs/editorconfig-checker.1
   '';
 
-  passthru.tests.version = testers.testVersion { package = editorconfig-checker; };
+  passthru.tests.version = testers.testVersion {
+    package = editorconfig-checker;
+  };
 
   meta = with lib; {
     changelog = "https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/${src.rev}";

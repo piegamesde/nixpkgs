@@ -34,7 +34,8 @@ let
   mkKeyValue = k: v: "${k}=${mkValue v}";
 
   # "it's recommended to always specify the filesystem type"  -- man snapper-configs
-  defaultOf = k: if k == "FSTYPE" then null else configOptions.${k}.default or null;
+  defaultOf =
+    k: if k == "FSTYPE" then null else configOptions.${k}.default or null;
 
   safeStr =
     types.strMatching ''
@@ -213,7 +214,9 @@ in
             )
             cfg.configs
           )
-          // (lib.optionalAttrs (cfg.filters != null) { "snapper/filters/default.txt".text = cfg.filters; });
+          // (lib.optionalAttrs (cfg.filters != null) {
+            "snapper/filters/default.txt".text = cfg.filters;
+          });
       };
 
       services.dbus.packages = [ pkgs.snapper ];

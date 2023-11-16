@@ -22,7 +22,9 @@ let
     ];
 
     buildInputs = [ git ];
-    nativeBuildInputs = [ ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.DarwinTools ];
+    nativeBuildInputs =
+      [ ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.DarwinTools ];
 
     preConfigure = ''
       if [ "$(< bin/internal/engine.version)" != '${engineVersion}' ]; then

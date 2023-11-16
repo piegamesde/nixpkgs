@@ -119,7 +119,9 @@ rec {
           slightFix = replaceStrings [ "\\]" ] [ "]" ];
         in
         concatStringsSep "" (
-          map (rl: if isList rl then slightFix (elemAt rl 0) else f rl) (split "(\\[([^\\\\]|\\\\.)+])" r)
+          map (rl: if isList rl then slightFix (elemAt rl 0) else f rl) (
+            split "(\\[([^\\\\]|\\\\.)+])" r
+          )
         );
 
       # regex -> regex
@@ -130,7 +132,8 @@ rec {
           findSlash = l: lib.optionalString ((match ".+/.+" l) == null) l;
           hasSlash = mapAroundCharclass findSlash l != l;
         in
-        (if (elemAt split 0) == "/" || hasSlash then "^" else "(^|.*/)") + (elemAt split 1);
+        (if (elemAt split 0) == "/" || hasSlash then "^" else "(^|.*/)")
+        + (elemAt split 1);
 
       # regex -> regex
       handleSlashSuffix =
@@ -150,7 +153,12 @@ rec {
       (
         l: # `l' for "line"
         mapPat
-          (l: handleSlashSuffix (handleSlashPrefix (handleHashesBangs (mapAroundCharclass substWildcards l))))
+          (
+            l:
+            handleSlashSuffix (
+              handleSlashPrefix (handleHashesBangs (mapAroundCharclass substWildcards l))
+            )
+          )
           (computeNegation l)
       )
       (filter (l: !isList l && !isComment l) (split "\n" gitignore));
@@ -168,7 +176,8 @@ rec {
 
   gitignoreFilterPure =
     filter: patterns: root: name: type:
-    gitignoreFilter (gitignoreCompileIgnore patterns root) root name type && filter name type;
+    gitignoreFilter (gitignoreCompileIgnore patterns root) root name type
+    && filter name type;
 
   # This is a very hacky way of programming this!
   # A better way would be to reuse existing filtering by making multiple gitignore functions per each root.
@@ -178,7 +187,8 @@ rec {
   compileRecursiveGitignore =
     root:
     let
-      dirOrIgnore = file: type: baseNameOf file == ".gitignore" || type == "directory";
+      dirOrIgnore =
+        file: type: baseNameOf file == ".gitignore" || type == "directory";
       ignores = builtins.filterSource dirOrIgnore root;
     in
     readFile (
@@ -216,10 +226,12 @@ rec {
       ''
     );
 
-  withGitignoreFile = patterns: root: lib.toList patterns ++ [ ".git" ] ++ [ (root + "/.gitignore") ];
+  withGitignoreFile =
+    patterns: root: lib.toList patterns ++ [ ".git" ] ++ [ (root + "/.gitignore") ];
 
   withRecursiveGitignoreFile =
-    patterns: root: lib.toList patterns ++ [ ".git" ] ++ [ (compileRecursiveGitignore root) ];
+    patterns: root:
+    lib.toList patterns ++ [ ".git" ] ++ [ (compileRecursiveGitignore root) ];
 
   # filterSource derivatives
 
@@ -233,7 +245,8 @@ rec {
 
   gitignoreFilterRecursiveSource =
     filter: patterns: root:
-    gitignoreFilterSourcePure filter (withRecursiveGitignoreFile patterns root) root;
+    gitignoreFilterSourcePure filter (withRecursiveGitignoreFile patterns root)
+      root;
 
   # "Filter"-less alternatives
 

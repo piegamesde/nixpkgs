@@ -45,10 +45,12 @@ let
       };
   };
 in
-runCommand "documentation-check" { inherit (sys.config.system.build.manual) optionsJSON; } ''
-  json="$optionsJSON/share/doc/nixos/options.json"
-  echo checking $json
+runCommand "documentation-check"
+  { inherit (sys.config.system.build.manual) optionsJSON; }
+  ''
+    json="$optionsJSON/share/doc/nixos/options.json"
+    echo checking $json
 
-  grep 'The foobar option was added via specialArgs' <"$json" >/dev/null
-  touch $out
-''
+    grep 'The foobar option was added via specialArgs' <"$json" >/dev/null
+    touch $out
+  ''

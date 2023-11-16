@@ -21,7 +21,8 @@
   xcbSupport ? x11Support,
   libxcb,
   xcbutil, # no longer experimental since 1.12
-  libGLSupported ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
+  libGLSupported ?
+    lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
   glSupport ? x11Support && config.cairo.gl or (libGLSupported && stdenv.isLinux),
   libGL, # libGLU libGL is no longer a big dependency
   pdfSupport ? true,
@@ -43,7 +44,10 @@ stdenv.mkDerivation (
 
     src = fetchurl {
       url = "https://cairographics.org/${
-          if lib.mod (builtins.fromJSON (lib.versions.minor version)) 2 == 0 then "releases" else "snapshots"
+          if lib.mod (builtins.fromJSON (lib.versions.minor version)) 2 == 0 then
+            "releases"
+          else
+            "snapshots"
         }/${pname}-${version}.tar.xz";
       sha256 = "0c930mk5xr2bshbdljv005j3j8zr47gqmkry3q6qgvqky6rjjysy";
     };
@@ -212,10 +216,13 @@ stdenv.mkDerivation (
         lgpl2Plus
         mpl10
       ];
-      pkgConfigModules = [
-        "cairo-ps"
-        "cairo-svg"
-      ] ++ lib.optional gobjectSupport "cairo-gobject" ++ lib.optional pdfSupport "cairo-pdf";
+      pkgConfigModules =
+        [
+          "cairo-ps"
+          "cairo-svg"
+        ]
+        ++ lib.optional gobjectSupport "cairo-gobject"
+        ++ lib.optional pdfSupport "cairo-pdf";
       platforms = platforms.all;
     };
   }

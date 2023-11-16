@@ -255,7 +255,9 @@ stdenv.mkDerivation rec {
           # error: 'path' is unavailable: introduced in macOS 10.15
           "-DQT_FEATURE_cxx17_filesystem=OFF"
         ]
-    ++ lib.optional (qttranslations != null) "-DINSTALL_TRANSLATIONSDIR=${qttranslations}/translations";
+    ++
+      lib.optional (qttranslations != null)
+        "-DINSTALL_TRANSLATIONSDIR=${qttranslations}/translations";
 
   NIX_LDFLAGS = toString (
     lib.optionals stdenv.isDarwin

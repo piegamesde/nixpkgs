@@ -6,7 +6,9 @@
   withTeensyduino ? false,
 }:
 let
-  arduino-unwrapped = arduino-core-unwrapped.override { inherit withGui withTeensyduino; };
+  arduino-unwrapped = arduino-core-unwrapped.override {
+    inherit withGui withTeensyduino;
+  };
 in
 buildFHSEnv {
   name = "arduino";

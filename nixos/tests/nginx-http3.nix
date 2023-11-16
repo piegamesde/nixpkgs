@@ -27,7 +27,9 @@ import ./make-test-python.nix (
             firewall.allowedUDPPorts = [ 443 ];
           };
 
-          security.pki.certificates = [ (builtins.readFile ./common/acme/server/ca.cert.pem) ];
+          security.pki.certificates = [
+            (builtins.readFile ./common/acme/server/ca.cert.pem)
+          ];
 
           services.nginx = {
             enable = true;
@@ -73,7 +75,9 @@ import ./make-test-python.nix (
             extraHosts = hosts;
           };
 
-          security.pki.certificates = [ (builtins.readFile ./common/acme/server/ca.cert.pem) ];
+          security.pki.certificates = [
+            (builtins.readFile ./common/acme/server/ca.cert.pem)
+          ];
         };
     };
 

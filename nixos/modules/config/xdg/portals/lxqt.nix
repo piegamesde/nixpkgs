@@ -46,7 +46,9 @@ in
   config = mkIf cfg.enable {
     xdg.portal = {
       enable = true;
-      extraPortals = [ (pkgs.lxqt.xdg-desktop-portal-lxqt.override { extraQtStyles = cfg.styles; }) ];
+      extraPortals = [
+        (pkgs.lxqt.xdg-desktop-portal-lxqt.override { extraQtStyles = cfg.styles; })
+      ];
     };
 
     environment.systemPackages = cfg.styles;

@@ -31,7 +31,9 @@ stdenv.mkDerivation rec {
   version = "40.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/bijiben/${lib.versions.major version}/bijiben-${version}.tar.xz";
+    url = "mirror://gnome/sources/bijiben/${
+        lib.versions.major version
+      }/bijiben-${version}.tar.xz";
     sha256 = "1gvvb2klkzbmyzwkjgmscdiqcl8lyz9b0rxb4igjz079csq6z805";
   };
 

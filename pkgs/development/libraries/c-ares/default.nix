@@ -50,7 +50,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A C library for asynchronous DNS requests";
     homepage = "https://c-ares.haxx.se";
-    changelog = "https://c-ares.org/changelog.html#${lib.replaceStrings [ "." ] [ "_" ] version}";
+    changelog = "https://c-ares.org/changelog.html#${
+        lib.replaceStrings [ "." ] [ "_" ] version
+      }";
     license = licenses.mit;
     platforms = platforms.all;
   };

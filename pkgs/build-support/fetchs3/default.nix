@@ -28,7 +28,9 @@ let
       AWS_SESSION_TOKEN = session_token;
     };
 
-  credentialAttrs = lib.optionalAttrs (credentials != null) (mkCredentials credentials);
+  credentialAttrs = lib.optionalAttrs (credentials != null) (
+    mkCredentials credentials
+  );
 in
 runCommand name
   (

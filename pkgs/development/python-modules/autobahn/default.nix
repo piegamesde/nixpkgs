@@ -91,7 +91,16 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "autobahn" ];
 
   passthru.optional-dependencies = rec {
-    all = accelerate ++ compress ++ encryption ++ nvx ++ serialization ++ scram ++ twisted ++ ui ++ xbr;
+    all =
+      accelerate
+      ++ compress
+      ++ encryption
+      ++ nvx
+      ++ serialization
+      ++ scram
+      ++ twisted
+      ++ ui
+      ++ xbr;
     accelerate =
       [
         # wsaccel

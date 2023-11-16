@@ -20,7 +20,8 @@ let
     organization = ${cfg.certOrg}
     gen-certs = ${lib.boolToString cfg.genCerts}
     regen-certs = ${lib.boolToString cfg.regenCerts}
-    ${lib.optionalString (cfg.certLifetime != "") "cert-lifetime = ${cfg.certLifetime}"}
+    ${lib.optionalString (cfg.certLifetime != "")
+      "cert-lifetime = ${cfg.certLifetime}"}
 
   '';
   genINI = lib.generators.toINI { };
@@ -69,7 +70,9 @@ in
     ipLogPartial = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = lib.mdDoc "Log partial client IP addresses in the connection log.";
+      description =
+        lib.mdDoc
+          "Log partial client IP addresses in the connection log.";
     };
 
     requestTimeout = lib.mkOption {
@@ -230,7 +233,9 @@ in
       };
     };
 
-    users.groups = lib.optionalAttrs (cfg.group == "stargazer") { stargazer = { }; };
+    users.groups = lib.optionalAttrs (cfg.group == "stargazer") {
+      stargazer = { };
+    };
   };
 
   meta.maintainers = with lib.maintainers; [ gaykitty ];

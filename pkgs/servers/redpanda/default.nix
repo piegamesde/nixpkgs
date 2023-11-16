@@ -26,9 +26,12 @@ buildGoModule rec {
   vendorHash = "sha256-mLMMw48d1FOvIIjDNza0rZSWP55lP1AItR/hT3lYXDg=";
 
   ldflags = [
-    ''-X "github.com/redpanda-data/redpanda/src/go/rpk/pkg/cli/cmd/version.version=${version}"''
-    ''-X "github.com/redpanda-data/redpanda/src/go/rpk/pkg/cli/cmd/version.rev=v${version}"''
-    ''-X "github.com/redpanda-data/redpanda/src/go/rpk/pkg/cli/cmd/container/common.tag=v${version}"''
+    ''
+      -X "github.com/redpanda-data/redpanda/src/go/rpk/pkg/cli/cmd/version.version=${version}"''
+    ''
+      -X "github.com/redpanda-data/redpanda/src/go/rpk/pkg/cli/cmd/version.rev=v${version}"''
+    ''
+      -X "github.com/redpanda-data/redpanda/src/go/rpk/pkg/cli/cmd/container/common.tag=v${version}"''
   ];
 
   nativeBuildInputs = [ installShellFiles ];

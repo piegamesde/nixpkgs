@@ -49,7 +49,9 @@ stdenv.mkDerivation rec {
   # - ignore test_screen because it assumes vt terminals exist
   checkPhase = ''
     pytest . \
-      ${lib.optionalString stdenv.hostPlatform.isAarch "--ignore=test/t/test_gcc.py"} \
+      ${
+        lib.optionalString stdenv.hostPlatform.isAarch "--ignore=test/t/test_gcc.py"
+      } \
       --ignore=test/t/test_chsh.py \
       --ignore=test/t/test_ether_wake.py \
       --ignore=test/t/test_ifdown.py \

@@ -34,9 +34,9 @@ stdenv.mkDerivation rec {
       ninja
       pkg-config
     ]
-    ++ lib.optionals (withDocs && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
-    ];
+    ++ lib.optionals
+      (withDocs && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+      [ mesonEmulatorHook ];
   buildInputs = [ glib ];
 
   mesonFlags = [

@@ -29,17 +29,27 @@
 let
   versions = callPackage ./versions.nix { };
 
-  matching-versions = lib.sort (v1: v2: lib.versionAtLeast v1.version v2.version) (
-    lib.filter (v: v.lang == lang && (version == null || isMatching v.version version) && matchesDoc v)
-      versions
-  );
+  matching-versions =
+    lib.sort (v1: v2: lib.versionAtLeast v1.version v2.version)
+      (
+        lib.filter
+          (
+            v:
+            v.lang == lang
+            && (version == null || isMatching v.version version)
+            && matchesDoc v
+          )
+          versions
+      );
 
   found-version =
     if matching-versions == [ ] then
       throw (
         "No registered Mathematica version found to match"
         + " version=${toString version} and language=${lang},"
-        + " ${if webdoc then "using web documentation" else "and with local documentation"}"
+        + " ${
+             if webdoc then "using web documentation" else "and with local documentation"
+           }"
       )
     else
       lib.head matching-versions;
@@ -60,7 +70,8 @@ let
 
   matchesDoc =
     v:
-    builtins.match (if webdoc then ".*[0-9]_LINUX.sh" else ".*[0-9]_BNDL_LINUX.sh") v.src.name != null;
+    builtins.match (if webdoc then ".*[0-9]_LINUX.sh" else ".*[0-9]_BNDL_LINUX.sh")
+      v.src.name != null;
 in
 
 callPackage real-drv {

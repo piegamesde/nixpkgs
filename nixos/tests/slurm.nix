@@ -5,7 +5,9 @@ import ./make-test-python.nix (
       services.slurm = {
         controlMachine = "control";
         nodeName = [ "node[1-3] CPUs=1 State=UNKNOWN" ];
-        partitionName = [ "debug Nodes=node[1-3] Default=YES MaxTime=INFINITE State=UP" ];
+        partitionName = [
+          "debug Nodes=node[1-3] Default=YES MaxTime=INFINITE State=UP"
+        ];
         extraConfig = ''
           AccountingStorageHost=dbd
           AccountingStorageType=accounting_storage/slurmdbd

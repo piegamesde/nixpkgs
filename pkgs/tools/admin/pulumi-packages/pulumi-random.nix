@@ -8,7 +8,9 @@ mkPulumiPackage rec {
   vendorHash = "sha256-YDuF89F9+pxVq4TNe5l3JlbcqpnJwSTPAP4TwWTriWA=";
   cmdGen = "pulumi-tfgen-random";
   cmdRes = "pulumi-resource-random";
-  extraLdflags = [ "-X github.com/pulumi/${repo}/provider/v4/pkg/version.Version=v${version}" ];
+  extraLdflags = [
+    "-X github.com/pulumi/${repo}/provider/v4/pkg/version.Version=v${version}"
+  ];
   __darwinAllowLocalNetworking = true;
   meta = with lib; {
     description = "A Pulumi provider that safely enables randomness for resources";

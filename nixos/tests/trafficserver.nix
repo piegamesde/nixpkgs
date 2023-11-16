@@ -107,7 +107,8 @@ import ./make-test-python.nix (
           networking.firewall.allowedTCPPorts = [ 80 ];
         };
 
-      client = { pkgs, lib, ... }: { environment.systemPackages = with pkgs; [ curl ]; };
+      client =
+        { pkgs, lib, ... }: { environment.systemPackages = with pkgs; [ curl ]; };
     };
 
     testScript =

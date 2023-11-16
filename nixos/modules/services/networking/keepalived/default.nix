@@ -123,9 +123,13 @@ let
 
   notNullOrEmpty = s: !(s == null || s == "");
 
-  vrrpScripts = mapAttrsToList (name: config: { inherit name; } // config) cfg.vrrpScripts;
+  vrrpScripts =
+    mapAttrsToList (name: config: { inherit name; } // config)
+      cfg.vrrpScripts;
 
-  vrrpInstances = mapAttrsToList (iName: iConfig: { name = iName; } // iConfig) cfg.vrrpInstances;
+  vrrpInstances =
+    mapAttrsToList (iName: iConfig: { name = iName; } // iConfig)
+      cfg.vrrpInstances;
 
   vrrpInstanceAssertions =
     i:
@@ -260,13 +264,17 @@ in
       };
 
       vrrpScripts = mkOption {
-        type = types.attrsOf (types.submodule (import ./vrrp-script-options.nix { inherit lib; }));
+        type = types.attrsOf (
+          types.submodule (import ./vrrp-script-options.nix { inherit lib; })
+        );
         default = { };
         description = lib.mdDoc "Declarative vrrp script config";
       };
 
       vrrpInstances = mkOption {
-        type = types.attrsOf (types.submodule (import ./vrrp-instance-options.nix { inherit lib; }));
+        type = types.attrsOf (
+          types.submodule (import ./vrrp-instance-options.nix { inherit lib; })
+        );
         default = { };
         description = lib.mdDoc "Declarative vhost config";
       };
@@ -325,7 +333,10 @@ in
     systemd.services.keepalived =
       let
         finalConfigFile =
-          if cfg.secretFile == null then keepalivedConf else "/run/keepalived/keepalived.conf";
+          if cfg.secretFile == null then
+            keepalivedConf
+          else
+            "/run/keepalived/keepalived.conf";
       in
       {
         description = "Keepalive Daemon (LVS and VRRP)";

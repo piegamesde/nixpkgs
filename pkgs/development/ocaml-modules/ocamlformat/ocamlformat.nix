@@ -14,7 +14,8 @@ let
   inherit (callPackage ./generic.nix args) src version library_deps;
 in
 
-lib.throwIf (lib.versionAtLeast ocaml.version "5.0" && !lib.versionAtLeast version "0.23")
+lib.throwIf
+  (lib.versionAtLeast ocaml.version "5.0" && !lib.versionAtLeast version "0.23")
   "ocamlformat ${version} is not available for OCaml ${ocaml.version}"
 
   buildDunePackage
@@ -24,7 +25,8 @@ lib.throwIf (lib.versionAtLeast ocaml.version "5.0" && !lib.versionAtLeast versi
 
     minimalOCamlVersion = "4.08";
 
-    nativeBuildInputs = if lib.versionAtLeast version "0.25.1" then [ ] else [ menhir ];
+    nativeBuildInputs =
+      if lib.versionAtLeast version "0.25.1" then [ ] else [ menhir ];
 
     buildInputs =
       [ re ]

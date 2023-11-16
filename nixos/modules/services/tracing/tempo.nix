@@ -79,7 +79,9 @@ in
               cfg.configFile;
         in
         {
-          ExecStart = "${pkgs.tempo}/bin/tempo --config.file=${conf} ${lib.escapeShellArgs cfg.extraFlags}";
+          ExecStart = "${pkgs.tempo}/bin/tempo --config.file=${conf} ${
+              lib.escapeShellArgs cfg.extraFlags
+            }";
           DynamicUser = true;
           Restart = "always";
           ProtectSystem = "full";

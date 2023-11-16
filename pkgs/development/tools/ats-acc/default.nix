@@ -18,7 +18,9 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace Makefile \
-      --replace "mv acc \$(PATSHOME)/bin/" "install -Dm755 acc ${placeholder "out"}/bin/"
+      --replace "mv acc \$(PATSHOME)/bin/" "install -Dm755 acc ${
+        placeholder "out"
+      }/bin/"
   '';
 
   nativeBuildInputs = [ ats2 ];

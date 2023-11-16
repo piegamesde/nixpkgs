@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
     libgee
   ];
 
-  PKG_CONFIG_DBUS_1_SESSION_BUS_SERVICES_DIR = "${placeholder "out"}/share/dbus-1/services";
+  PKG_CONFIG_DBUS_1_SESSION_BUS_SERVICES_DIR = "${
+      placeholder "out"
+    }/share/dbus-1/services";
 
   passthru = {
     updateScript = nix-update-script { };

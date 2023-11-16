@@ -8,7 +8,8 @@
   pkg-config,
   gobject-introspection,
   buildPackages,
-  withIntrospection ? lib.meta.availableOn stdenv.hostPlatform gobject-introspection
+  withIntrospection ?
+    lib.meta.availableOn stdenv.hostPlatform gobject-introspection
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
   gsettings-desktop-schemas,
   makeWrapper,

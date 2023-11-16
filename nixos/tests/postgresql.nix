@@ -45,7 +45,8 @@ let
       testScript =
         let
           backupName = if backup-all then "all" else "postgres";
-          backupService = if backup-all then "postgresqlBackup" else "postgresqlBackup-postgres";
+          backupService =
+            if backup-all then "postgresqlBackup" else "postgresqlBackup-postgres";
           backupFileBase = "/var/backup/postgresql/${backupName}";
         in
         ''
@@ -225,7 +226,9 @@ in
 concatMapAttrs
   (name: package: {
     ${name} = make-postgresql-test name package false;
-    ${name + "-backup-all"} = make-postgresql-test "${name + "-backup-all"}" package true;
+    ${name + "-backup-all"} =
+      make-postgresql-test "${name + "-backup-all"}" package
+        true;
     ${name + "-clauses"} = mk-ensure-clauses-test name package;
   })
   postgresql-versions

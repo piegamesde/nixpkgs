@@ -23,7 +23,9 @@ with lib; {
 
         buildCommand =
           let
-            includeFlagsStr = lib.concatMapStringsSep " " (includePath: "-I${includePath}") includePaths;
+            includeFlagsStr =
+              lib.concatMapStringsSep " " (includePath: "-I${includePath}")
+                includePaths;
             extraPreprocessorFlagsStr = lib.concatStringsSep " " extraPreprocessorFlags;
           in
           ''

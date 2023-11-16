@@ -92,11 +92,14 @@ stdenv.mkDerivation (
       substituteInPlace CMakeLists.txt --replace 'find_package(UtfCpp)' 'find_package(utf8cpp)'
     '';
 
-    nativeBuildInputs = [
-      pkg-config
-      cmake
-      python3
-    ] ++ lib.optionals enableGTK3 [ wrapGAppsHook ] ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ];
+    nativeBuildInputs =
+      [
+        pkg-config
+        cmake
+        python3
+      ]
+      ++ lib.optionals enableGTK3 [ wrapGAppsHook ]
+      ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ];
 
     buildInputs =
       [

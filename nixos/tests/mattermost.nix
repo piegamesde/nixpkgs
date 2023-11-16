@@ -88,7 +88,9 @@ import ./make-test-python.nix (
           pkgs.writeShellScript "set-config" ''
             set -euo pipefail
             mattermostConfig=/var/lib/mattermost/config/config.json
-            newConfig="$(${pkgs.jq}/bin/jq -r ${lib.escapeShellArg jqExpression} $mattermostConfig)"
+            newConfig="$(${pkgs.jq}/bin/jq -r ${
+              lib.escapeShellArg jqExpression
+            } $mattermostConfig)"
             rm -f $mattermostConfig
             echo "$newConfig" > "$mattermostConfig"
           '';
@@ -102,19 +104,26 @@ import ./make-test-python.nix (
 
         # Get the initial config
         mutable.succeed("${
-          expectConfig ''.AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''
+          expectConfig
+            ''
+              .AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''
         }")
 
         # Edit the config
-        mutable.succeed("${setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''}")
-        mutable.succeed("${setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''}")
+        mutable.succeed("${
+          setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''
+        }")
+        mutable.succeed("${
+          setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
+        }")
         mutable.systemctl("restart mattermost.service")
         mutable.wait_for_open_port(8065)
 
         # AboutLink and HelpLink should be changed
         mutable.succeed("${
           expectConfig
-            ''.AboutLink == "https://mattermost.com" and .HelpLink == "https://nixos.org/nixos/manual"''
+            ''
+              .AboutLink == "https://mattermost.com" and .HelpLink == "https://nixos.org/nixos/manual"''
         }")
 
         ## Mostly mutable node tests ##
@@ -125,7 +134,9 @@ import ./make-test-python.nix (
         mostlyMutable.succeed("${expectConfig ''.AboutLink == "https://nixos.org"''}")
 
         # Edit the config
-        mostlyMutable.succeed("${setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''}")
+        mostlyMutable.succeed("${
+          setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''
+        }")
         mostlyMutable.succeed("${
           setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
         }")
@@ -134,7 +145,9 @@ import ./make-test-python.nix (
 
         # AboutLink should be overridden by NixOS configuration; HelpLink should be what we set above
         mostlyMutable.succeed("${
-          expectConfig ''.AboutLink == "https://nixos.org" and .HelpLink == "https://nixos.org/nixos/manual"''
+          expectConfig
+            ''
+              .AboutLink == "https://nixos.org" and .HelpLink == "https://nixos.org/nixos/manual"''
         }")
 
         ## Immutable node tests ##
@@ -143,18 +156,26 @@ import ./make-test-python.nix (
 
         # Get the initial config
         immutable.succeed("${
-          expectConfig ''.AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''
+          expectConfig
+            ''
+              .AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''
         }")
 
         # Edit the config
-        immutable.succeed("${setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''}")
-        immutable.succeed("${setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''}")
+        immutable.succeed("${
+          setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''
+        }")
+        immutable.succeed("${
+          setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
+        }")
         immutable.systemctl("restart mattermost.service")
         immutable.wait_for_open_port(8065)
 
         # Our edits should be ignored on restart
         immutable.succeed("${
-          expectConfig ''.AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''
+          expectConfig
+            ''
+              .AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''
         }")
 
 

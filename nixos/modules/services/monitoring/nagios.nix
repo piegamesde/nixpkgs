@@ -44,7 +44,9 @@ let
         illegal_macro_output_chars = ''`~$&|'"<>'';
         retain_state_information = "1";
       };
-      lines = mapAttrsToList (key: value: "${key}=${value}") (default // cfg.extraConfig);
+      lines = mapAttrsToList (key: value: "${key}=${value}") (
+        default // cfg.extraConfig
+      );
       content = concatStringsSep "\n" lines;
       file = pkgs.writeText "nagios.cfg" content;
       validated = pkgs.runCommand "nagios-checked.cfg" { preferLocalBuild = true; } ''
@@ -122,7 +124,9 @@ in
           msmtp
           mailutils
         ];
-        defaultText = literalExpression "[pkgs.monitoring-plugins pkgs.msmtp pkgs.mailutils]";
+        defaultText =
+          literalExpression
+            "[pkgs.monitoring-plugins pkgs.msmtp pkgs.mailutils]";
         description = lib.mdDoc ''
           Packages to be added to the Nagios {env}`PATH`.
           Typically used to add plugins, but can be anything.
@@ -150,7 +154,9 @@ in
       validateConfig = mkOption {
         type = types.bool;
         default = pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform;
-        defaultText = literalExpression "pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform";
+        defaultText =
+          literalExpression
+            "pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform";
         description =
           lib.mdDoc
             "if true, the syntax of the nagios configuration file is checked at build time";

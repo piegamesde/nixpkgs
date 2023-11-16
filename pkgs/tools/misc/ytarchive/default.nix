@@ -28,7 +28,9 @@ buildGoModule rec {
   ];
 
   postInstall = ''
-    wrapProgram $out/bin/ytarchive --prefix PATH : ${lib.makeBinPath [ ffmpeg-headless ]}
+    wrapProgram $out/bin/ytarchive --prefix PATH : ${
+      lib.makeBinPath [ ffmpeg-headless ]
+    }
   '';
 
   meta = with lib; {

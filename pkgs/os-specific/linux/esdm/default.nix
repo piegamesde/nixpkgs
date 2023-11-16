@@ -125,13 +125,17 @@ stdenv.mkDerivation rec {
     (lib.mesonOption "crypto_backend" cryptoBackend)
     (lib.mesonEnable "linux-devfiles" linuxDevFiles)
     (lib.mesonEnable "linux-getrandom" linuxGetRandom)
-    (lib.mesonOption "client-connect-timeout-exponent" (toString connectTimeoutExponent))
+    (lib.mesonOption "client-connect-timeout-exponent" (
+      toString connectTimeoutExponent
+    ))
     (lib.mesonOption "client-rx-tx-timeout-exponent" (toString rxTxTimeoutExponent))
     (lib.mesonOption "client-reconnect-attempts" (toString reconnectAttempts))
     (lib.mesonEnable "es_jent" esJitterRng)
     (lib.mesonOption "es_jent_entropy_rate" (toString esJitterRngEntropyRate))
     (lib.mesonEnable "es_jent_kernel" esJitterRngKernel)
-    (lib.mesonOption "es_jent_kernel_entropy_rate" (toString esJitterRngKernelEntropyRate))
+    (lib.mesonOption "es_jent_kernel_entropy_rate" (
+      toString esJitterRngKernelEntropyRate
+    ))
     (lib.mesonEnable "es_cpu" esCPU)
     (lib.mesonOption "es_cpu_entropy_rate" (toString esCPUEntropyRate))
     (lib.mesonEnable "es_kernel" esKernel)

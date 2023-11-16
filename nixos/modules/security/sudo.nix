@@ -14,10 +14,12 @@ let
   inherit (config.security.pam) enableSSHAgentAuth;
 
   toUserString = user: if (isInt user) then "#${toString user}" else "${user}";
-  toGroupString = group: if (isInt group) then "%#${toString group}" else "%${group}";
+  toGroupString =
+    group: if (isInt group) then "%#${toString group}" else "%${group}";
 
   toCommandOptionsString =
-    options: "${concatStringsSep ":" options}${optionalString (length options != 0) ":"} ";
+    options:
+    "${concatStringsSep ":" options}${optionalString (length options != 0) ":"} ";
 
   toCommandsString =
     commands:
@@ -277,11 +279,21 @@ in
           (map (
             rule: [
               (map
-                (user: "${toUserString user}     ${rule.host}=(${rule.runAs})    ${toCommandsString rule.commands}")
+                (
+                  user:
+                  "${toUserString user}     ${rule.host}=(${rule.runAs})    ${
+                    toCommandsString rule.commands
+                  }"
+                )
                 rule.users
               )
               (map
-                (group: "${toGroupString group}  ${rule.host}=(${rule.runAs})    ${toCommandsString rule.commands}")
+                (
+                  group:
+                  "${toGroupString group}  ${rule.host}=(${rule.runAs})    ${
+                    toCommandsString rule.commands
+                  }"
+                )
                 rule.groups
               )
             ]

@@ -261,7 +261,9 @@ buildPythonPackage rec {
         --replace "set(ROCM_PATH \$ENV{ROCM_PATH})" \
           "set(ROCM_PATH \$ENV{ROCM_PATH})
       set(ROCM_VERSION ${
-        lib.concatStrings (lib.intersperse "0" (lib.splitString "." rocmPackages.clr.version))
+        lib.concatStrings (
+          lib.intersperse "0" (lib.splitString "." rocmPackages.clr.version)
+        )
       })"
     ''
     # Detection of NCCL version doesn't work particularly well when using the static binary.
@@ -282,7 +284,10 @@ buildPythonPackage rec {
     # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
     +
       lib.optionalString
-        (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0")
+        (
+          stdenv.isDarwin
+          && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0"
+        )
         ''
           substituteInPlace third_party/pocketfft/pocketfft_hdronly.h --replace '#if __cplusplus >= 201703L
           inline void *aligned_alloc(size_t align, size_t size)' '#if __cplusplus >= 201703L && 0
@@ -375,16 +380,18 @@ buildPythonPackage rec {
       # Suppress gcc regression: avx512 math function raises uninitialized variable warning
       # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
       # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
-      ++ lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0") [
-        "-Wno-error=maybe-uninitialized"
-        "-Wno-error=uninitialized"
-      ]
+      ++
+        lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0")
+          [
+            "-Wno-error=maybe-uninitialized"
+            "-Wno-error=uninitialized"
+          ]
       # Since pytorch 2.0:
       # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
       # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
-      ++ lib.optionals (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12") [
-        "-Wno-error=free-nonheap-object"
-      ]
+      ++
+        lib.optionals (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12")
+          [ "-Wno-error=free-nonheap-object" ]
     )
   );
 
@@ -459,32 +466,35 @@ buildPythonPackage rec {
       libobjc
     ];
 
-  propagatedBuildInputs = [
-    cffi
-    click
-    numpy
-    pyyaml
+  propagatedBuildInputs =
+    [
+      cffi
+      click
+      numpy
+      pyyaml
 
-    # From install_requires:
-    filelock
-    typing-extensions
-    sympy
-    networkx
-    jinja2
+      # From install_requires:
+      filelock
+      typing-extensions
+      sympy
+      networkx
+      jinja2
 
-    # the following are required for tensorboard support
-    pillow
-    six
-    future
-    tensorboard
-    protobuf
+      # the following are required for tensorboard support
+      pillow
+      six
+      future
+      tensorboard
+      protobuf
 
-    # ROCm build and `torch.compile` requires openai-triton
-    openai-triton
+      # ROCm build and `torch.compile` requires openai-triton
+      openai-triton
 
-    # torch/csrc requires `pybind11` at runtime
-    pybind11
-  ] ++ lib.optionals MPISupport [ mpi ] ++ lib.optionals rocmSupport [ rocmtoolkit_joined ];
+      # torch/csrc requires `pybind11` at runtime
+      pybind11
+    ]
+    ++ lib.optionals MPISupport [ mpi ]
+    ++ lib.optionals rocmSupport [ rocmtoolkit_joined ];
 
   # Tests take a long time and may be flaky, so just sanity-check imports
   doCheck = false;
@@ -589,7 +599,8 @@ buildPythonPackage rec {
       thoughtpolice
       tscholak
     ]; # tscholak esp. for darwin-related builds
-    platforms = with platforms; linux ++ lib.optionals (!cudaSupport && !rocmSupport) darwin;
+    platforms =
+      with platforms; linux ++ lib.optionals (!cudaSupport && !rocmSupport) darwin;
     broken = builtins.any trivial.id (builtins.attrValues brokenConditions);
   };
 }

@@ -19,7 +19,10 @@ substituteAll {
   inherit coreutils getopt;
 
   uSystem =
-    if stdenv.buildPlatform.uname.system != null then stdenv.buildPlatform.uname.system else "unknown";
+    if stdenv.buildPlatform.uname.system != null then
+      stdenv.buildPlatform.uname.system
+    else
+      "unknown";
   inherit (stdenv.buildPlatform.uname) processor;
 
   # uname -o

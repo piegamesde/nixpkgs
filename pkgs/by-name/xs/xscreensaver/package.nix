@@ -85,10 +85,14 @@ stdenv.mkDerivation (
         -i driver/Makefile.in po/Makefile.in.in
     '';
 
-    configureFlags = [ "--with-app-defaults=${placeholder "out"}/share/xscreensaver/app-defaults" ];
+    configureFlags = [
+      "--with-app-defaults=${placeholder "out"}/share/xscreensaver/app-defaults"
+    ];
 
     # "marbling" has NEON code that mixes signed and unsigned vector types
-    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isAarch "-flax-vector-conversions";
+    env.NIX_CFLAGS_COMPILE =
+      lib.optionalString stdenv.hostPlatform.isAarch
+        "-flax-vector-conversions";
 
     postInstall =
       ''

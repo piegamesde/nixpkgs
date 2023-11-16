@@ -22,7 +22,9 @@ stdenv.mkDerivation rec {
     export GNULIBHEADERS_OVERRIDE_WINT_T=0
   '';
 
-  configureFlags = [ "--${if withShishi then "enable" else "disable"}-kerberos5" ];
+  configureFlags = [
+    "--${if withShishi then "enable" else "disable"}-kerberos5"
+  ];
 
   doCheck = true;
 

@@ -138,7 +138,11 @@ let
 
     xcodebuild = pkgs.xcbuild.override {
       inherit (pkgs.darwin.apple_sdk_11_0) stdenv;
-      inherit (pkgs.darwin.apple_sdk_11_0.frameworks) CoreServices CoreGraphics ImageIO;
+      inherit (pkgs.darwin.apple_sdk_11_0.frameworks)
+        CoreServices
+        CoreGraphics
+        ImageIO
+      ;
     };
 
     rustPlatform =

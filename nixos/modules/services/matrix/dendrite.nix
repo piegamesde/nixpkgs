@@ -103,7 +103,9 @@ in
             '';
           };
           private_key = lib.mkOption {
-            type = lib.types.either lib.types.path (lib.types.strMatching "^\\$CREDENTIALS_DIRECTORY/.+");
+            type = lib.types.either lib.types.path (
+              lib.types.strMatching "^\\$CREDENTIALS_DIRECTORY/.+"
+            );
             example = "$CREDENTIALS_DIRECTORY/private_key";
             description = lib.mdDoc ''
               The path to the signing private key file, used to sign
@@ -280,7 +282,8 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.httpsPort != null -> (cfg.tlsCert != null && cfg.tlsKey != null);
+        assertion =
+          cfg.httpsPort != null -> (cfg.tlsCert != null && cfg.tlsKey != null);
         message = ''
           If Dendrite is configured to use https, tlsCert and tlsKey must be provided.
 
@@ -315,7 +318,9 @@ in
             "${pkgs.dendrite}/bin/dendrite"
             "--config /run/dendrite/dendrite.yaml"
           ]
-          ++ lib.optionals (cfg.httpPort != null) [ "--http-bind-address :${builtins.toString cfg.httpPort}" ]
+          ++ lib.optionals (cfg.httpPort != null) [
+            "--http-bind-address :${builtins.toString cfg.httpPort}"
+          ]
           ++ lib.optionals (cfg.httpsPort != null) [
             "--https-bind-address :${builtins.toString cfg.httpsPort}"
             "--tls-cert ${cfg.tlsCert}"

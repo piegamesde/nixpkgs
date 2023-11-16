@@ -50,16 +50,20 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  buildInputs = [
-    libgpg-error
-  ] ++ lib.optional stdenv.isDarwin gettext ++ lib.optional enableCapabilities libcap;
+  buildInputs =
+    [ libgpg-error ]
+    ++ lib.optional stdenv.isDarwin gettext
+    ++ lib.optional enableCapabilities libcap;
 
   strictDeps = true;
 
   configureFlags =
     [ "--with-libgpg-error-prefix=${libgpg-error.dev}" ]
     ++ lib.optional
-      (stdenv.hostPlatform.isMusl || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64))
+      (
+        stdenv.hostPlatform.isMusl
+        || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
+      )
       "--disable-asm"; # for darwin see https://dev.gnupg.org/T5157
 
   # Necessary to generate correct assembly when compiling for aarch32 on

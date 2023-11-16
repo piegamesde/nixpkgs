@@ -25,33 +25,35 @@ rec {
   #   writeJSON = makeDataWriter { input = builtins.toJSON; output = "cp $inputPath $out"; };
   #   myConfig = writeJSON "config.json" { hello = "world"; }
   #
-  makeDataWriter = lib.warn "pkgs.writers.makeDataWriter is deprecated. Use pkgs.writeTextFile." (
-    {
-      input ? lib.id,
-      output ? "cp $inputPath $out",
-    }:
-    nameOrPath: data:
-    assert lib.or (types.path.check nameOrPath) (
-      builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null
-    );
-    let
-      name = last (builtins.split "/" nameOrPath);
-    in
-    runCommand name
-      {
-        input = input data;
-        passAsFile = [ "input" ];
-      }
-      ''
-        ${output}
+  makeDataWriter =
+    lib.warn "pkgs.writers.makeDataWriter is deprecated. Use pkgs.writeTextFile."
+      (
+        {
+          input ? lib.id,
+          output ? "cp $inputPath $out",
+        }:
+        nameOrPath: data:
+        assert lib.or (types.path.check nameOrPath) (
+          builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null
+        );
+        let
+          name = last (builtins.split "/" nameOrPath);
+        in
+        runCommand name
+          {
+            input = input data;
+            passAsFile = [ "input" ];
+          }
+          ''
+            ${output}
 
-        ${optionalString (types.path.check nameOrPath) ''
-          mv $out tmp
-          mkdir -p $out/$(dirname "${nameOrPath}")
-          mv tmp $out/${nameOrPath}
-        ''}
-      ''
-  );
+            ${optionalString (types.path.check nameOrPath) ''
+              mv $out tmp
+              mkdir -p $out/$(dirname "${nameOrPath}")
+              mv tmp $out/${nameOrPath}
+            ''}
+          ''
+      );
 
   inherit (pkgs) writeText;
 

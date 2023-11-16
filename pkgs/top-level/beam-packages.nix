@@ -28,7 +28,8 @@ let
       "erlangR${version}" = self.interpreters."erlang_${version}";
       "erlangR${version}_odbc" = self.interpreters."erlang_${version}_odbc";
       "erlangR${version}_javac" = self.interpreters."erlang_${version}_javac";
-      "erlangR${version}_odbc_javac" = self.interpreters."erlang_${version}_odbc_javac";
+      "erlangR${version}_odbc_javac" =
+        self.interpreters."erlang_${version}_odbc_javac";
     }
   );
 
@@ -110,7 +111,8 @@ in
   } // interpretersAliases;
 
   # Helper function to generate package set with a specific Erlang version.
-  packagesWith = erlang: callPackage ../development/beam-modules { inherit erlang; };
+  packagesWith =
+    erlang: callPackage ../development/beam-modules { inherit erlang; };
 
   # Each field in this tuple represents all Beam packages in nixpkgs built with
   # appropriate Erlang/OTP version.

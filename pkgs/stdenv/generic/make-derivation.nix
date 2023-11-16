@@ -109,7 +109,8 @@ let
             if builtins.isFunction x then f0 self super else x;
         in
         makeDerivationExtensible (
-          self: attrs // (if builtins.isFunction f0 || f0 ? __functor then f self attrs else f0)
+          self:
+          attrs // (if builtins.isFunction f0 || f0 ? __functor then f self attrs else f0)
         )
       )
       attrs;
@@ -176,11 +177,15 @@ let
       # Including it then would cause needless mass rebuilds.
       #
       # TODO(@Ericson2314): Make [ "build" "host" ] always the default / resolve #87909
-      configurePlatforms ?
-        optionals (stdenv.hostPlatform != stdenv.buildPlatform || config.configurePlatformsByDefault) [
-          "build"
-          "host"
-        ],
+      configurePlatforms ? optionals
+          (
+            stdenv.hostPlatform != stdenv.buildPlatform
+            || config.configurePlatformsByDefault
+          )
+          [
+            "build"
+            "host"
+          ],
 
       # TODO(@Ericson2314): Make unconditional / resolve #33599
       # Check phase
@@ -192,8 +197,10 @@ let
 
       ,
       # TODO(@Ericson2314): Make always true and remove / resolve #178468
-      strictDeps ?
-        if config.strictDepsByDefault then true else stdenv.hostPlatform != stdenv.buildPlatform,
+      strictDeps ? if config.strictDepsByDefault then
+        true
+      else
+        stdenv.hostPlatform != stdenv.buildPlatform,
 
       enableParallelBuilding ? config.enableParallelBuildingByDefault,
 
@@ -221,7 +228,8 @@ let
 
       patches ? [ ],
 
-      __contentAddressed ? (!attrs ? outputHash) # Fixed-output drvs can't be content addressed too
+      __contentAddressed ?
+        (!attrs ? outputHash) # Fixed-output drvs can't be content addressed too
         && config.contentAddressedByDefault,
 
       # Experimental.  For simple packages mostly just works,
@@ -240,14 +248,18 @@ let
         let
           algo = attrs.outputHashAlgo or (head (splitString "-" attrs.outputHash));
         in
-        if algo == "md5" then throw "Rejected insecure ${algo} hash '${attrs.outputHash}'" else true
+        if algo == "md5" then
+          throw "Rejected insecure ${algo} hash '${attrs.outputHash}'"
+        else
+          true
       );
 
     let
       # TODO(@oxij, @Ericson2314): This is here to keep the old semantics, remove when
       # no package has `doCheck = true`.
       doCheck' = doCheck && stdenv.buildPlatform.canExecute stdenv.hostPlatform;
-      doInstallCheck' = doInstallCheck && stdenv.buildPlatform.canExecute stdenv.hostPlatform;
+      doInstallCheck' =
+        doInstallCheck && stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
       separateDebugInfo' = separateDebugInfo && stdenv.hostPlatform.isLinux;
       outputs' = outputs ++ optional separateDebugInfo' "debug";
@@ -255,7 +267,11 @@ let
       # Turn a derivation into its outPath without a string context attached.
       # See the comment at the usage site.
       unsafeDerivationToUntrackedOutpath =
-        drv: if isDerivation drv then builtins.unsafeDiscardStringContext drv.outPath else drv;
+        drv:
+        if isDerivation drv then
+          builtins.unsafeDiscardStringContext drv.outPath
+        else
+          drv;
 
       noNonNativeDeps =
         builtins.length (
@@ -319,7 +335,9 @@ let
         positions: name: deps:
         flip imap1 deps (
           index: dep:
-          if isDerivation dep || dep == null || builtins.isString dep || builtins.isPath dep then
+          if
+            isDerivation dep || dep == null || builtins.isString dep || builtins.isPath dep
+          then
             dep
           else if isList dep then
             checkDependencyList' ([ index ] ++ positions) name dep
@@ -347,22 +365,33 @@ let
         doCheck = doCheck';
         doInstallCheck = doInstallCheck';
         buildInputs' =
-          buildInputs ++ optionals doCheck checkInputs ++ optionals doInstallCheck installCheckInputs;
+          buildInputs
+          ++ optionals doCheck checkInputs
+          ++ optionals doInstallCheck installCheckInputs;
         nativeBuildInputs' =
           nativeBuildInputs
-          ++ optional separateDebugInfo' ../../build-support/setup-hooks/separate-debug-info.sh
-          ++ optional stdenv.hostPlatform.isWindows ../../build-support/setup-hooks/win-dll-link.sh
+          ++
+            optional separateDebugInfo'
+              ../../build-support/setup-hooks/separate-debug-info.sh
+          ++
+            optional stdenv.hostPlatform.isWindows
+              ../../build-support/setup-hooks/win-dll-link.sh
           ++ optionals doCheck nativeCheckInputs
           ++ optionals doInstallCheck nativeInstallCheckInputs;
 
         outputs = outputs';
 
         references =
-          nativeBuildInputs ++ buildInputs ++ propagatedNativeBuildInputs ++ propagatedBuildInputs;
+          nativeBuildInputs
+          ++ buildInputs
+          ++ propagatedNativeBuildInputs
+          ++ propagatedBuildInputs;
 
         dependencies = map (map chooseDevOutputs) [
           [
-            (map (drv: drv.__spliced.buildBuild or drv) (checkDependencyList "depsBuildBuild" depsBuildBuild))
+            (map (drv: drv.__spliced.buildBuild or drv) (
+              checkDependencyList "depsBuildBuild" depsBuildBuild
+            ))
             (map (drv: drv.__spliced.buildHost or drv) (
               checkDependencyList "nativeBuildInputs" nativeBuildInputs'
             ))
@@ -371,8 +400,12 @@ let
             ))
           ]
           [
-            (map (drv: drv.__spliced.hostHost or drv) (checkDependencyList "depsHostHost" depsHostHost))
-            (map (drv: drv.__spliced.hostTarget or drv) (checkDependencyList "buildInputs" buildInputs'))
+            (map (drv: drv.__spliced.hostHost or drv) (
+              checkDependencyList "depsHostHost" depsHostHost
+            ))
+            (map (drv: drv.__spliced.hostTarget or drv) (
+              checkDependencyList "buildInputs" buildInputs'
+            ))
           ]
           [
             (map (drv: drv.__spliced.targetTarget or drv) (
@@ -407,22 +440,30 @@ let
           ]
         ];
 
-        computedSandboxProfile = concatMap (input: input.__propagatedSandboxProfile or [ ]) (
-          stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs ++ concatLists dependencies
-        );
+        computedSandboxProfile =
+          concatMap (input: input.__propagatedSandboxProfile or [ ])
+            (
+              stdenv.extraNativeBuildInputs
+              ++ stdenv.extraBuildInputs
+              ++ concatLists dependencies
+            );
 
-        computedPropagatedSandboxProfile = concatMap (input: input.__propagatedSandboxProfile or [ ]) (
-          concatLists propagatedDependencies
-        );
+        computedPropagatedSandboxProfile =
+          concatMap (input: input.__propagatedSandboxProfile or [ ])
+            (concatLists propagatedDependencies);
 
         computedImpureHostDeps = unique (
           concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
-            stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs ++ concatLists dependencies
+            stdenv.extraNativeBuildInputs
+            ++ stdenv.extraBuildInputs
+            ++ concatLists dependencies
           )
         );
 
         computedPropagatedImpureHostDeps = unique (
-          concatMap (input: input.__propagatedImpureHostDeps or [ ]) (concatLists propagatedDependencies)
+          concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
+            concatLists propagatedDependencies
+          )
         );
 
         envIsExportable = isAttrs env && !isDerivation env;
@@ -455,7 +496,8 @@ let
                 # just used for their side-affects. Those might as well since the
                 # hash can't be the same. See #32986.
                 hostSuffix =
-                  optionalString (stdenv.hostPlatform != stdenv.buildPlatform && !dontAddHostSuffix)
+                  optionalString
+                    (stdenv.hostPlatform != stdenv.buildPlatform && !dontAddHostSuffix)
                     "-${stdenv.hostPlatform.config}";
 
                 # Disambiguate statically built packages. This was originally
@@ -514,9 +556,15 @@ let
             # This parameter is sometimes a string, sometimes null, and sometimes a list, yuck
             configureFlags =
               configureFlags
-              ++ optional (elem "build" configurePlatforms) "--build=${stdenv.buildPlatform.config}"
-              ++ optional (elem "host" configurePlatforms) "--host=${stdenv.hostPlatform.config}"
-              ++ optional (elem "target" configurePlatforms) "--target=${stdenv.targetPlatform.config}";
+              ++
+                optional (elem "build" configurePlatforms)
+                  "--build=${stdenv.buildPlatform.config}"
+              ++
+                optional (elem "host" configurePlatforms)
+                  "--host=${stdenv.hostPlatform.config}"
+              ++
+                optional (elem "target" configurePlatforms)
+                  "--target=${stdenv.targetPlatform.config}";
 
             cmakeFlags =
               cmakeFlags
@@ -566,7 +614,9 @@ let
 
                 crossFile = builtins.toFile "cross-file.conf" ''
                   [properties]
-                  needs_exe_wrapper = ${boolToString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)}
+                  needs_exe_wrapper = ${
+                    boolToString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+                  }
 
                   [host_machine]
                   system = '${stdenv.targetPlatform.parsed.kernel.name}'
@@ -601,14 +651,19 @@ let
             enableParallelChecking = attrs.enableParallelChecking or true;
             enableParallelInstalling = attrs.enableParallelInstalling or true;
           }
-          // optionalAttrs (hardeningDisable != [ ] || hardeningEnable != [ ] || stdenv.hostPlatform.isMusl) {
-            NIX_HARDENING_ENABLE = enabledHardeningOptions;
-          }
-          // optionalAttrs (stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform ? gcc.arch) {
-            requiredSystemFeatures = attrs.requiredSystemFeatures or [ ] ++ [
-              "gccarch-${stdenv.hostPlatform.gcc.arch}"
-            ];
-          }
+          //
+            optionalAttrs
+              (
+                hardeningDisable != [ ] || hardeningEnable != [ ] || stdenv.hostPlatform.isMusl
+              )
+              { NIX_HARDENING_ENABLE = enabledHardeningOptions; }
+          //
+            optionalAttrs (stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform ? gcc.arch)
+              {
+                requiredSystemFeatures = attrs.requiredSystemFeatures or [ ] ++ [
+                  "gccarch-${stdenv.hostPlatform.gcc.arch}"
+                ];
+              }
           // optionalAttrs (stdenv.buildPlatform.isDarwin) {
             inherit __darwinAllowLocalNetworking;
             # TODO: remove `unique` once nix has a list canonicalization primitive
@@ -640,7 +695,8 @@ let
                 "/dev/urandom"
                 "/bin/sh"
               ];
-            __propagatedImpureHostDeps = computedPropagatedImpureHostDeps ++ __propagatedImpureHostDeps;
+            __propagatedImpureHostDeps =
+              computedPropagatedImpureHostDeps ++ __propagatedImpureHostDeps;
           }
           //
             # If we use derivations directly here, they end up as build-time dependencies.
@@ -662,16 +718,24 @@ let
             # having to wait while nix builds a derivation that might not be used.
             # See also https://github.com/NixOS/nix/issues/4629
             optionalAttrs (attrs ? disallowedReferences) {
-              disallowedReferences = map unsafeDerivationToUntrackedOutpath attrs.disallowedReferences;
+              disallowedReferences =
+                map unsafeDerivationToUntrackedOutpath
+                  attrs.disallowedReferences;
             }
           // optionalAttrs (attrs ? disallowedRequisites) {
-            disallowedRequisites = map unsafeDerivationToUntrackedOutpath attrs.disallowedRequisites;
+            disallowedRequisites =
+              map unsafeDerivationToUntrackedOutpath
+                attrs.disallowedRequisites;
           }
           // optionalAttrs (attrs ? allowedReferences) {
-            allowedReferences = mapNullable unsafeDerivationToUntrackedOutpath attrs.allowedReferences;
+            allowedReferences =
+              mapNullable unsafeDerivationToUntrackedOutpath
+                attrs.allowedReferences;
           }
           // optionalAttrs (attrs ? allowedRequisites) {
-            allowedRequisites = mapNullable unsafeDerivationToUntrackedOutpath attrs.allowedRequisites;
+            allowedRequisites =
+              mapNullable unsafeDerivationToUntrackedOutpath
+                attrs.allowedRequisites;
           };
 
         meta = checkMeta.commonMeta {

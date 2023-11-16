@@ -49,7 +49,9 @@ stdenv.mkDerivation (
       sed -i "s/noinst_PROGRAMS +\?=/bin_PROGRAMS +=/g" tools/Makefile.am
     '';
 
-    configureFlags = lib.optionals enableValgrindCheck [ (lib.enableFeature true "valgrind-test") ];
+    configureFlags = lib.optionals enableValgrindCheck [
+      (lib.enableFeature true "valgrind-test")
+    ];
 
     nativeBuildInputs = [
       autoreconfHook

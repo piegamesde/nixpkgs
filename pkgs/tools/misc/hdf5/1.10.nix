@@ -35,7 +35,9 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = optional zlibSupport zlib;
 
-  configureFlags = optional enableShared "--enable-shared" ++ optional javaSupport "--enable-java";
+  configureFlags =
+    optional enableShared "--enable-shared"
+    ++ optional javaSupport "--enable-java";
 
   patches = [ ];
 

@@ -19,7 +19,9 @@ with lib;
 
     services.deepin.dde-daemon = {
 
-      enable = mkEnableOption (lib.mdDoc "daemon for handling the deepin session settings");
+      enable = mkEnableOption (
+        lib.mdDoc "daemon for handling the deepin session settings"
+      );
     };
   };
 

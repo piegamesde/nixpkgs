@@ -142,7 +142,8 @@ python.pkgs.buildPythonApplication rec {
     web = frigate-web;
     inherit python;
     pythonPath =
-      (python.pkgs.makePythonPath propagatedBuildInputs) + ":${frigate}/${python.sitePackages}";
+      (python.pkgs.makePythonPath propagatedBuildInputs)
+      + ":${frigate}/${python.sitePackages}";
     tests = {
       inherit (nixosTests) frigate;
     };

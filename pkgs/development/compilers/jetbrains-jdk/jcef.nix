@@ -80,7 +80,8 @@ let
       "aarch64-linux" = "linuxarm64";
       "x86_64-linux" = "linux64";
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   arches =
     {
       "linuxarm64" = {

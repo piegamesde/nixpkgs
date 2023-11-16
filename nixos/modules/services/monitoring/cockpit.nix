@@ -59,7 +59,9 @@ in
     environment.pathsToLink = [ "/share/cockpit" ];
 
     # generate cockpit settings
-    environment.etc."cockpit/cockpit.conf".source = settingsFormat.generate "cockpit.conf" cfg.settings;
+    environment.etc."cockpit/cockpit.conf".source =
+      settingsFormat.generate "cockpit.conf"
+        cfg.settings;
 
     security.pam.services.cockpit = { };
 

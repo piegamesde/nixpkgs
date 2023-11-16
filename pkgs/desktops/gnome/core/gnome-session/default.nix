@@ -128,7 +128,8 @@ stdenv.mkDerivation rec {
       --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \
       --suffix XDG_DATA_DIRS : "$out/share:$GSETTINGS_SCHEMAS_PATH" \
       ${
-        lib.optionalString gnomeShellSupport ''--suffix XDG_DATA_DIRS : "${gnome.gnome-shell}/share"''
+        lib.optionalString gnomeShellSupport
+          ''--suffix XDG_DATA_DIRS : "${gnome.gnome-shell}/share"''
       } \
       --suffix XDG_CONFIG_DIRS : "${gnome.gnome-settings-daemon}/etc/xdg"
   '';

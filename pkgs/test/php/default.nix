@@ -142,9 +142,13 @@ in
     in
     runTest "php-test-wrapped-overrideAttrs-stacks" ''
       checking "if first override remained"
-      ${check (builtins.match ".*oAs-first.*" customPhp.unwrapped.postInstall != null)}
+      ${check (
+        builtins.match ".*oAs-first.*" customPhp.unwrapped.postInstall != null
+      )}
 
       checking "if second override is there"
-      ${check (builtins.match ".*oAs-second.*" customPhp.unwrapped.postInstall != null)}
+      ${check (
+        builtins.match ".*oAs-second.*" customPhp.unwrapped.postInstall != null
+      )}
     '';
 }

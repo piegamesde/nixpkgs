@@ -105,7 +105,9 @@ stdenv.mkDerivation {
       "-DFAISS_OPT_LEVEL=${optLevel}"
     ]
     ++ lib.optionals cudaSupport [
-      "-DCMAKE_CUDA_ARCHITECTURES=${builtins.concatStringsSep ";" (map dropDot cudaCapabilities)}"
+      "-DCMAKE_CUDA_ARCHITECTURES=${
+        builtins.concatStringsSep ";" (map dropDot cudaCapabilities)
+      }"
       "-DCUDAToolkit_INCLUDE_DIR=${cudaJoined}/include"
     ];
 
@@ -146,14 +148,18 @@ stdenv.mkDerivation {
   passthru = {
     inherit cudaSupport cudaPackages pythonSupport;
 
-    tests = {
-      runDemos =
-        runCommand "${pname}-run-demos" { buildInputs = [ faiss.demos ]; }
-          # There are more demos, we run just the one that documentation mentions
-          ''
-            demo_ivfpq_indexing && touch $out
-          '';
-    } // lib.optionalAttrs pythonSupport { pytest = pythonPackages.callPackage ./tests.nix { }; };
+    tests =
+      {
+        runDemos =
+          runCommand "${pname}-run-demos" { buildInputs = [ faiss.demos ]; }
+            # There are more demos, we run just the one that documentation mentions
+            ''
+              demo_ivfpq_indexing && touch $out
+            '';
+      }
+      // lib.optionalAttrs pythonSupport {
+        pytest = pythonPackages.callPackage ./tests.nix { };
+      };
   };
 
   meta = with lib; {

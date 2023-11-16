@@ -13,7 +13,8 @@ let
       x86_64-linux = "amd64";
       aarch64-linux = "arm64";
     }
-    ."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    ."${stdenv.hostPlatform.system}"
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   hash =
     {
       amd64-linux_hash = "sha256-ZCyAz+XVp2NJVUuMWyv5ubjMaoYBsjPAye/1vO2jv/w=";

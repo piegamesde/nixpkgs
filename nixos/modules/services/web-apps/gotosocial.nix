@@ -125,7 +125,9 @@ in
       isSystemUser = true;
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.port ]; };
+    networking.firewall = lib.mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.settings.port ];
+    };
 
     services.postgresql = lib.mkIf cfg.setupPostgresqlDB {
       enable = true;
@@ -143,7 +145,9 @@ in
     systemd.services.gotosocial = {
       description = "ActivityPub social network server";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ] ++ lib.optional cfg.setupPostgresqlDB "postgresql.service";
+      after = [
+        "network.target"
+      ] ++ lib.optional cfg.setupPostgresqlDB "postgresql.service";
       requires = lib.optional cfg.setupPostgresqlDB "postgresql.service";
       restartTriggers = [ configFile ];
 
@@ -158,7 +162,9 @@ in
 
         # Security options:
         # Based on https://github.com/superseriousbusiness/gotosocial/blob/v0.8.1/example/gotosocial.service
-        AmbientCapabilities = lib.optional (cfg.settings.port < 1024) "CAP_NET_BIND_SERVICE";
+        AmbientCapabilities =
+          lib.optional (cfg.settings.port < 1024)
+            "CAP_NET_BIND_SERVICE";
         NoNewPrivileges = true;
         PrivateTmp = true;
         PrivateDevices = true;

@@ -22,7 +22,8 @@ let
   # user, as expected by nixos-rebuild/nixos-install. FIXME: merge
   # with make-channel.nix.
   channelSources =
-    pkgs.runCommand "nixos-${config.system.nixos.version}" { preferLocalBuild = true; }
+    pkgs.runCommand "nixos-${config.system.nixos.version}"
+      { preferLocalBuild = true; }
       ''
         mkdir -p $out
         cp -prd ${nixpkgs.outPath} $out/nixos

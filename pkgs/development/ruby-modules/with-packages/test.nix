@@ -7,7 +7,9 @@ let
 
   rubyVersions = with pkgs; [ ruby_2_7 ];
 
-  gemTests = (lib.mapAttrs (name: gem: [ name ]) pkgs.ruby.gems) // (import ./require_exceptions.nix);
+  gemTests =
+    (lib.mapAttrs (name: gem: [ name ]) pkgs.ruby.gems)
+    // (import ./require_exceptions.nix);
 
   testWrapper =
     ruby:
@@ -58,7 +60,9 @@ in
 stdenv.mkDerivation {
   name = "test-all-ruby-gems";
   buildInputs =
-    builtins.foldl' (sum: ruby: sum ++ [ (testWrapper ruby) ] ++ (builtins.attrValues (tests ruby))) [ ]
+    builtins.foldl'
+      (sum: ruby: sum ++ [ (testWrapper ruby) ] ++ (builtins.attrValues (tests ruby)))
+      [ ]
       rubyVersions;
   buildCommand = ''
     touch $out

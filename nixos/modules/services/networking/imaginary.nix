@@ -87,7 +87,10 @@ in
           let
             args =
               lib.mapAttrsToList
-                (key: val: "-" + key + "=" + lib.concatStringsSep "," (map toString (lib.toList val)))
+                (
+                  key: val:
+                  "-" + key + "=" + lib.concatStringsSep "," (map toString (lib.toList val))
+                )
                 (
                   cfg.settings
                   // {
@@ -99,7 +102,8 @@ in
           "${pkgs.imaginary}/bin/imaginary ${utils.escapeSystemdExecArgs args}";
         ProtectProc = "invisible";
         BindReadOnlyPaths = lib.optional (cfg.settings ? mount) cfg.settings.mount;
-        CapabilityBoundingSet = if cfg.port < 1024 then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
+        CapabilityBoundingSet =
+          if cfg.port < 1024 then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         AmbientCapabilities = CapabilityBoundingSet;
         NoNewPrivileges = true;
         DynamicUser = true;

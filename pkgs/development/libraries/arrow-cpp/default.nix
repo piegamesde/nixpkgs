@@ -47,7 +47,9 @@
 assert lib.asserts.assertMsg
     (
       (enableS3 && stdenv.isDarwin)
-      -> (lib.versionOlder boost.version "1.69" || lib.versionAtLeast boost.version "1.70")
+      -> (
+        lib.versionOlder boost.version "1.69" || lib.versionAtLeast boost.version "1.70"
+      )
     )
     "S3 on Darwin requires Boost != 1.69";
 
@@ -279,7 +281,9 @@ stdenv.mkDerivation rec {
   installCheckPhase = ''
     runHook preInstallCheck
 
-    ctest -L unittest --exclude-regex '^(${lib.concatStringsSep "|" disabledTests})$'
+    ctest -L unittest --exclude-regex '^(${
+      lib.concatStringsSep "|" disabledTests
+    })$'
 
     runHook postInstallCheck
   '';

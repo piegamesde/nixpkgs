@@ -41,7 +41,9 @@ let
     sha256 = "14nhk0kls83xfb64d5xy14vpi6k8laswjycjg80indq9pkcr2rlv";
   };
 
-  freebsdSetupHook = makeSetupHook { name = "freebsd-setup-hook"; } ./setup-hook.sh;
+  freebsdSetupHook =
+    makeSetupHook { name = "freebsd-setup-hook"; }
+      ./setup-hook.sh;
 
   mkBsdArch =
     stdenv':
@@ -52,7 +54,8 @@ let
       i586 = "i386";
       i686 = "i386";
     }
-    .${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name;
+    .${stdenv'.hostPlatform.parsed.cpu.name}
+      or stdenv'.hostPlatform.parsed.cpu.name;
 
   install-wrapper = ''
     set -eu
@@ -118,7 +121,9 @@ makeScopeWithSplicing' {
               pname = "${attrs.pname or (baseNameOf attrs.path)}-freebsd";
               inherit version;
               src = runCommand "${pname}-filtered-src" { nativeBuildInputs = [ rsync ]; } ''
-                for p in ${lib.concatStringsSep " " ([ attrs.path ] ++ attrs.extraPaths or [ ])}; do
+                for p in ${
+                  lib.concatStringsSep " " ([ attrs.path ] ++ attrs.extraPaths or [ ])
+                }; do
                   set -x
                   path="$out/$p"
                   mkdir -p "$(dirname "$path")"
@@ -409,10 +414,13 @@ makeScopeWithSplicing' {
             ./libnetbsd-do-install.patch
             #./libnetbsd-define-__va_list.patch
           ];
-          makeFlags = [
-            "STRIP=-s" # flag to install, not command
-            "MK_WERROR=no"
-          ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "INSTALL=boot-install";
+          makeFlags =
+            [
+              "STRIP=-s" # flag to install, not command
+              "MK_WERROR=no"
+            ]
+            ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
+              "INSTALL=boot-install";
           buildInputs = with self; compatIfNeeded;
         };
 
@@ -447,11 +455,14 @@ makeScopeWithSplicing' {
                 libmd
                 libnetbsd
               ];
-            makeFlags = [
-              "STRIP=-s" # flag to install, not command
-              "MK_WERROR=no"
-              "TESTSDIR=${builtins.placeholder "test"}"
-            ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "INSTALL=boot-install";
+            makeFlags =
+              [
+                "STRIP=-s" # flag to install, not command
+                "MK_WERROR=no"
+                "TESTSDIR=${builtins.placeholder "test"}"
+              ]
+              ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
+                "INSTALL=boot-install";
             postInstall = ''
               install -D -m 0550 ${binstall} $out/bin/binstall
               substituteInPlace $out/bin/binstall --subst-var out
@@ -552,7 +563,9 @@ makeScopeWithSplicing' {
           postInstall = ''
             make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
           '';
-          extraPaths = [ "share/mk" ] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk";
+          extraPaths = [
+            "share/mk"
+          ] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk";
         };
         mtree = mkDerivation {
           path = "contrib/mtree";

@@ -20,14 +20,18 @@ in
 
       configFile = mkOption {
         type = types.path;
-        example = literalExpression ''"''${pkgs.shibboleth-sp}/etc/shibboleth/shibboleth2.xml"'';
+        example =
+          literalExpression
+            ''"''${pkgs.shibboleth-sp}/etc/shibboleth/shibboleth2.xml"'';
         description = lib.mdDoc "Path to shibboleth config file";
       };
 
       fastcgi.enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to include the shibauthorizer and shibresponder FastCGI processes";
+        description =
+          lib.mdDoc
+            "Whether to include the shibauthorizer and shibresponder FastCGI processes";
       };
 
       fastcgi.shibAuthorizerPort = mkOption {

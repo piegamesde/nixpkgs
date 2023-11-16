@@ -18,7 +18,9 @@ stdenv.mkDerivation {
 
   buildInputs = [ m4 ];
 
-  configureFlags = lib.optionals stdenv.isDarwin [ "--build=x86_64-apple-darwin" ];
+  configureFlags = lib.optionals stdenv.isDarwin [
+    "--build=x86_64-apple-darwin"
+  ];
 
   meta = {
     description = "The Forth implementation of the GNU project (outdated version used to bootstrap)";

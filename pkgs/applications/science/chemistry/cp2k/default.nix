@@ -153,13 +153,21 @@ stdenv.mkDerivation rec {
     ''}
     DFLAGS     = -D__FFTW3 -D__LIBXC -D__LIBINT -D__parallel -D__SCALAPACK \
                  -D__MPI_VERSION=3 -D__F2008 -D__LIBXSMM -D__SPGLIB \
-                 -D__MAX_CONTR=4 -D__LIBVORI ${lib.optionalString enableElpa "-D__ELPA"} \
+                 -D__MAX_CONTR=4 -D__LIBVORI ${
+                   lib.optionalString enableElpa "-D__ELPA"
+                 } \
                  -D__PLUMED2 -D__HDF5 -D__GSL -D__SIRIUS -D__LIBVDWXC -D__SPFFT -D__SPLA \
-                 ${lib.strings.optionalString (gpuBackend == "cuda") "-D__OFFLOAD_CUDA -D__DBCSR_ACC"} \
                  ${
-                   lib.strings.optionalString (gpuBackend == "rocm") "-D__OFFLOAD_HIP -D__DBCSR_ACC -D__NO_OFFLOAD_PW"
+                   lib.strings.optionalString (gpuBackend == "cuda")
+                     "-D__OFFLOAD_CUDA -D__DBCSR_ACC"
+                 } \
+                 ${
+                   lib.strings.optionalString (gpuBackend == "rocm")
+                     "-D__OFFLOAD_HIP -D__DBCSR_ACC -D__NO_OFFLOAD_PW"
                  }
-    CFLAGS    = -fopenmp -I${lib.getDev hdf5-fortran}/include -I${lib.getDev gsl}/include
+    CFLAGS    = -fopenmp -I${lib.getDev hdf5-fortran}/include -I${
+      lib.getDev gsl
+    }/include
     FCFLAGS    = \$(DFLAGS) -O2 -ffree-form -ffree-line-length-none \
                  -ftree-vectorize -funroll-loops -msse2 \
                  -std=f2008 \
@@ -175,14 +183,20 @@ stdenv.mkDerivation rec {
                  -lxcf03 -lxc -lxsmmf -lxsmm -lsymspg \
                  -lint2 -lstdc++ -lvori \
                  -lgomp -lpthread -lm \
-                 -fopenmp ${lib.optionalString enableElpa "$(pkg-config --libs elpa)"} \
-                 -lz -ldl ${lib.optionalString (mpi.pname == "openmpi") "$(mpicxx --showme:link)"} \
+                 -fopenmp ${
+                   lib.optionalString enableElpa "$(pkg-config --libs elpa)"
+                 } \
+                 -lz -ldl ${
+                   lib.optionalString (mpi.pname == "openmpi") "$(mpicxx --showme:link)"
+                 } \
                  -lplumed -lhdf5_fortran -lhdf5_hl -lhdf5 -lgsl -lsirius -lspla -lspfft -lvdwxc \
                  ${
-                   lib.strings.optionalString (gpuBackend == "cuda") "-lcudart -lnvrtc -lcuda -lcublas"
+                   lib.strings.optionalString (gpuBackend == "cuda")
+                     "-lcudart -lnvrtc -lcuda -lcublas"
                  } \
                  ${
-                   lib.strings.optionalString (gpuBackend == "rocm") "-lamdhip64 -lhipfft -lhipblas -lrocblas"
+                   lib.strings.optionalString (gpuBackend == "rocm")
+                     "-lamdhip64 -lhipfft -lhipblas -lrocblas"
                  }
     LDFLAGS    = \$(FCFLAGS) \$(LIBS)
     include ${plumed}/lib/plumed/src/lib/Plumed.inc

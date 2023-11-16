@@ -64,7 +64,9 @@ buildPythonApplication rec {
     + lib.optionalString x11Support "--typer xdotool --clipboarder xclip";
 
   preFixup = ''
-    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath wrapper_paths} --add-flags "${wrapper_flags}")
+    makeWrapperArgs+=(--prefix PATH : ${
+      lib.makeBinPath wrapper_paths
+    } --add-flags "${wrapper_flags}")
   '';
 
   meta = with lib; {

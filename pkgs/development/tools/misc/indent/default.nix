@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optional stdenv.cc.isClang "-Wno-implicit-function-declaration"
     ++
-      lib.optional (stdenv.cc.isClang && lib.versionAtLeast (lib.getVersion stdenv.cc) "13")
+      lib.optional
+        (stdenv.cc.isClang && lib.versionAtLeast (lib.getVersion stdenv.cc) "13")
         "-Wno-unused-but-set-variable"
   );
 

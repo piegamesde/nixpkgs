@@ -21,11 +21,15 @@ in
         dep: langD:
         lib.optionals (targetPlatform != hostPlatform && dep != null && !langD) (
           [ "-O2 -idirafter ${lib.getDev dep}${dep.incdir or "/include"}" ]
-          ++ lib.optionals (!withoutTargetLibc) [ "-B${lib.getLib dep}${dep.libdir or "/lib"}" ]
+          ++ lib.optionals (!withoutTargetLibc) [
+            "-B${lib.getLib dep}${dep.libdir or "/lib"}"
+          ]
         );
     in
     mkFlags libcCross langD
-    ++ lib.optionals (!withoutTargetLibc) (mkFlags (threadsCross.package or null) langD);
+    ++ lib.optionals (!withoutTargetLibc) (
+      mkFlags (threadsCross.package or null) langD
+    );
 
   EXTRA_LDFLAGS_FOR_TARGET =
     let
@@ -44,5 +48,6 @@ in
           )
         );
     in
-    mkFlags libcCross ++ lib.optionals (!withoutTargetLibc) (mkFlags (threadsCross.package or null));
+    mkFlags libcCross
+    ++ lib.optionals (!withoutTargetLibc) (mkFlags (threadsCross.package or null));
 }

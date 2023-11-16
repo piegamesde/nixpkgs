@@ -50,7 +50,9 @@ stdenv.mkDerivation rec {
   version = "1.50.6";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gvfs/${lib.versions.majorMinor version}/gvfs-${version}.tar.xz";
+    url = "mirror://gnome/sources/gvfs/${
+        lib.versions.majorMinor version
+      }/gvfs-${version}.tar.xz";
     hash = "sha256-xPbhH8TqqZM/TbjHo0R14GaM6tK//tloZ9Bhvj053aU=";
   };
 
@@ -159,7 +161,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Virtual Filesystem support library" + optionalString gnomeSupport " (full GNOME support)";
+      "Virtual Filesystem support library"
+      + optionalString gnomeSupport " (full GNOME support)";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
     maintainers = teams.gnome.members;

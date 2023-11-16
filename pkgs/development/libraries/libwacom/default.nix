@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck =
-    stdenv.hostPlatform == stdenv.buildPlatform && lib.meta.availableOn stdenv.hostPlatform valgrind;
+    stdenv.hostPlatform == stdenv.buildPlatform
+    && lib.meta.availableOn stdenv.hostPlatform valgrind;
 
   mesonFlags = [ "-Dtests=${if doCheck then "enabled" else "disabled"}" ];
 

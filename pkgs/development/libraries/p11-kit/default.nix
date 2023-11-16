@@ -34,16 +34,20 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    libtasn1 # asn1Parser
-    libxslt # xsltproc
-    docbook-xsl-nons
-    docbook_xml_dtd_43
-    gettext
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      libtasn1 # asn1Parser
+      libxslt # xsltproc
+      docbook-xsl-nons
+      docbook_xml_dtd_43
+      gettext
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [
     libffi
@@ -55,7 +59,9 @@ stdenv.mkDerivation rec {
     "--sysconfdir=/etc"
     (lib.mesonBool "man" true)
     (lib.mesonEnable "systemd" false)
-    (lib.mesonOption "bashcompdir" "${placeholder "bin"}/share/bash-completion/completions")
+    (lib.mesonOption "bashcompdir"
+      "${placeholder "bin"}/share/bash-completion/completions"
+    )
     (lib.mesonOption "trust_paths" (
       lib.concatStringsSep ":" [
         "/etc/ssl/trust-source" # p11-kit trust source

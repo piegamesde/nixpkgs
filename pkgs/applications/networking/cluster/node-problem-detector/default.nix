@@ -25,7 +25,9 @@ buildGoModule rec {
   # The binary is dynamically linked against systemd libraries, making it a
   # Linux-only feature. See 'ENABLE_JOURNALD' upstream:
   # https://github.com/kubernetes/node-problem-detector/blob/master/Makefile
-  subPackages = [ "cmd/nodeproblemdetector" ] ++ lib.optionals stdenv.isLinux [ "cmd/logcounter" ];
+  subPackages = [
+    "cmd/nodeproblemdetector"
+  ] ++ lib.optionals stdenv.isLinux [ "cmd/logcounter" ];
 
   preBuild = ''
     export CGO_ENABLED=${if stdenv.isLinux then "1" else "0"}

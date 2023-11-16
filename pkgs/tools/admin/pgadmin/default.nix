@@ -60,7 +60,9 @@ let
             })
           ];
           pytestFlagsArray = [ "test_httpbin.py" ];
-          propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ final.pythonPackages.brotlipy ];
+          propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
+            final.pythonPackages.brotlipy
+          ];
         }
       );
       # downgrade needed for older httpbin

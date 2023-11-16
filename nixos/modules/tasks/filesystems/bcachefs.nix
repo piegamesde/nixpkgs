@@ -55,7 +55,9 @@ let
   mkUnits =
     prefix: name: fs:
     let
-      mountUnit = "${utils.escapeSystemdPath (prefix + (lib.removeSuffix "/" fs.mountPoint))}.mount";
+      mountUnit = "${
+          utils.escapeSystemdPath (prefix + (lib.removeSuffix "/" fs.mountPoint))
+        }.mount";
       device = firstDevice fs;
       deviceUnit = "${utils.escapeSystemdPath device}.device";
     in
@@ -91,45 +93,58 @@ in
         # We do not want to include bachefs in the fsPackages for systemd-initrd
         # because we provide the unwrapped version of mount.bcachefs
         # through the extraBin option, which will make it available for use.
-        system.fsPackages = lib.optional (!config.boot.initrd.systemd.enable) pkgs.bcachefs-tools;
-        environment.systemPackages = lib.optional (config.boot.initrd.systemd.enable) pkgs.bcachefs-tools;
+        system.fsPackages =
+          lib.optional (!config.boot.initrd.systemd.enable)
+            pkgs.bcachefs-tools;
+        environment.systemPackages =
+          lib.optional (config.boot.initrd.systemd.enable)
+            pkgs.bcachefs-tools;
 
         # use kernel package with bcachefs support until it's in mainline
         boot.kernelPackages = pkgs.linuxPackages_testing_bcachefs;
 
         systemd.services = lib.mapAttrs' (mkUnits "") (
-          lib.filterAttrs (n: fs: (fs.fsType == "bcachefs") && (!utils.fsNeededForBoot fs)) config.fileSystems
+          lib.filterAttrs
+            (n: fs: (fs.fsType == "bcachefs") && (!utils.fsNeededForBoot fs))
+            config.fileSystems
         );
       }
 
-      (mkIf ((elem "bcachefs" config.boot.initrd.supportedFilesystems) || (bootFs != { })) {
-        # chacha20 and poly1305 are required only for decryption attempts
-        boot.initrd.availableKernelModules = [
-          "bcachefs"
-          "sha256"
-          "chacha20"
-          "poly1305"
-        ];
+      (mkIf
+        ((elem "bcachefs" config.boot.initrd.supportedFilesystems) || (bootFs != { }))
+        {
+          # chacha20 and poly1305 are required only for decryption attempts
+          boot.initrd.availableKernelModules = [
+            "bcachefs"
+            "sha256"
+            "chacha20"
+            "poly1305"
+          ];
 
-        boot.initrd.systemd.extraBin = {
-          "bcachefs" = "${pkgs.bcachefs-tools}/bin/bcachefs";
-          "mount.bcachefs" = "${mountCommand}/bin/mount.bcachefs";
-        };
+          boot.initrd.systemd.extraBin = {
+            "bcachefs" = "${pkgs.bcachefs-tools}/bin/bcachefs";
+            "mount.bcachefs" = "${mountCommand}/bin/mount.bcachefs";
+          };
 
-        boot.initrd.extraUtilsCommands = lib.mkIf (!config.boot.initrd.systemd.enable) ''
-          copy_bin_and_libs ${pkgs.bcachefs-tools}/bin/bcachefs
-          copy_bin_and_libs ${mountCommand}/bin/mount.bcachefs
-        '';
-        boot.initrd.extraUtilsCommandsTest = lib.mkIf (!config.boot.initrd.systemd.enable) ''
-          $out/bin/bcachefs version
-        '';
+          boot.initrd.extraUtilsCommands =
+            lib.mkIf (!config.boot.initrd.systemd.enable)
+              ''
+                copy_bin_and_libs ${pkgs.bcachefs-tools}/bin/bcachefs
+                copy_bin_and_libs ${mountCommand}/bin/mount.bcachefs
+              '';
+          boot.initrd.extraUtilsCommandsTest =
+            lib.mkIf (!config.boot.initrd.systemd.enable)
+              ''
+                $out/bin/bcachefs version
+              '';
 
-        boot.initrd.postDeviceCommands = lib.mkIf (!config.boot.initrd.systemd.enable) (
-          commonFunctions + concatStrings (mapAttrsToList openCommand bootFs)
-        );
+          boot.initrd.postDeviceCommands = lib.mkIf (!config.boot.initrd.systemd.enable) (
+            commonFunctions + concatStrings (mapAttrsToList openCommand bootFs)
+          );
 
-        boot.initrd.systemd.services = lib.mapAttrs' (mkUnits "/sysroot") bootFs;
-      })
+          boot.initrd.systemd.services = lib.mapAttrs' (mkUnits "/sysroot") bootFs;
+        }
+      )
     ]
   );
 }

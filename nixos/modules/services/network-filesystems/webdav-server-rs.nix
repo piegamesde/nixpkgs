@@ -97,11 +97,15 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = hasAttr cfg.user config.users.users && config.users.users."${cfg.user}".uid != null;
+        assertion =
+          hasAttr cfg.user config.users.users
+          && config.users.users."${cfg.user}".uid != null;
         message = "users.users.${cfg.user} and users.users.${cfg.user}.uid must be defined.";
       }
       {
-        assertion = hasAttr cfg.group config.users.groups && config.users.groups."${cfg.group}".gid != null;
+        assertion =
+          hasAttr cfg.group config.users.groups
+          && config.users.groups."${cfg.group}".gid != null;
         message = "users.groups.${cfg.group} and users.groups.${cfg.group}.gid must be defined.";
       }
     ];
@@ -114,7 +118,9 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "webdav") { webdav.gid = config.ids.gids.webdav; };
+    users.groups = optionalAttrs (cfg.group == "webdav") {
+      webdav.gid = config.ids.gids.webdav;
+    };
 
     systemd.services.webdav-server-rs = {
       description = "WebDAV server";

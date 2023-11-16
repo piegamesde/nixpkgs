@@ -24,8 +24,12 @@
 let
   inherit (llvmPackages) stdenv;
   mkDerivation =
-    (if stdenv.isDarwin then darwin.apple_sdk_11_0.llvmPackages_16.stdenv else llvmPackages.stdenv)
-    .mkDerivation;
+    (
+      if stdenv.isDarwin then
+        darwin.apple_sdk_11_0.llvmPackages_16.stdenv
+      else
+        llvmPackages.stdenv
+    ).mkDerivation;
 in
 mkDerivation rec {
   pname = "clickhouse";
@@ -216,7 +220,9 @@ mkDerivation rec {
     maintainers = with maintainers; [ orivej ];
 
     # not supposed to work on 32-bit https://github.com/ClickHouse/ClickHouse/pull/23959#issuecomment-835343685
-    platforms = lib.filter (x: (lib.systems.elaborate x).is64bit) (platforms.linux ++ platforms.darwin);
+    platforms = lib.filter (x: (lib.systems.elaborate x).is64bit) (
+      platforms.linux ++ platforms.darwin
+    );
     broken = stdenv.buildPlatform != stdenv.hostPlatform;
   };
 }

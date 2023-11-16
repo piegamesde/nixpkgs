@@ -13,7 +13,9 @@ in
 {
   ###### interface
   options = {
-    services.xserver.windowManager.leftwm.enable = mkEnableOption (lib.mdDoc "leftwm");
+    services.xserver.windowManager.leftwm.enable = mkEnableOption (
+      lib.mdDoc "leftwm"
+    );
   };
 
   ###### implementation

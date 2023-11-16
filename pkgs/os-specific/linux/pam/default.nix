@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
   ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ flex ] ++ lib.optional stdenv.buildPlatform.isDarwin gettext;
+  nativeBuildInputs = [
+    flex
+  ] ++ lib.optional stdenv.buildPlatform.isDarwin gettext;
 
   buildInputs = [
     cracklib

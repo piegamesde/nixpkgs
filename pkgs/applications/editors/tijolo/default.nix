@@ -21,7 +21,9 @@ crystal.buildCrystalPackage rec {
     hash = "sha256-3TfXvRVP3lu43qF3RWCHnZ3czTaSl5EzrhuTlpnMfKo=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+  ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
   buildInputs = [
     vte
     libgit2

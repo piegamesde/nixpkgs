@@ -51,7 +51,9 @@ stdenv.mkDerivation rec {
   ];
 
   propagatedBuildInputs =
-    [ ] ++ lib.optionals stdenv.isDarwin [ IOKit ] ++ lib.optionals stdenv.isLinux [ udev ];
+    [ ]
+    ++ lib.optionals stdenv.isDarwin [ IOKit ]
+    ++ lib.optionals stdenv.isLinux [ udev ];
 
   meta = with lib; {
     description = "Desktop library for Bluetooth low energy development";

@@ -5,7 +5,8 @@
   fetchFromGitHub,
   nix-update-script,
   pkg-config,
-  libGLSupported ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
+  libGLSupported ?
+    lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
   openglSupport ? libGLSupported,
   libGL,
   alsaSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
@@ -39,7 +40,8 @@
   libdecor,
   pipewireSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
   pipewire, # NOTE: must be built with SDL2 without pipewire support
-  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  pulseaudioSupport ?
+    config.pulseaudio or stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
   libpulseaudio,
   AudioUnit,
   Cocoa,
@@ -110,7 +112,8 @@ stdenv.mkDerivation (
       ++ lib.optionals x11Support [ libX11 ];
 
     propagatedBuildInputs =
-      lib.optionals x11Support [ xorgproto ] ++ finalAttrs.dlopenPropagatedBuildInputs;
+      lib.optionals x11Support [ xorgproto ]
+      ++ finalAttrs.dlopenPropagatedBuildInputs;
 
     dlopenBuildInputs =
       lib.optionals alsaSupport [
@@ -219,7 +222,9 @@ stdenv.mkDerivation (
           "release-(.*)"
         ];
       };
-      tests.pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+      tests.pkg-config = testers.hasPkgConfigModules {
+        package = finalAttrs.finalPackage;
+      };
     };
 
     meta = with lib; {

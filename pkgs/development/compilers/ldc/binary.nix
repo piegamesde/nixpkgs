@@ -15,7 +15,10 @@ let
   inherit (stdenv) hostPlatform;
   OS = if hostPlatform.isDarwin then "osx" else hostPlatform.parsed.kernel.name;
   ARCH =
-    if hostPlatform.isDarwin && hostPlatform.isAarch64 then "arm64" else hostPlatform.parsed.cpu.name;
+    if hostPlatform.isDarwin && hostPlatform.isAarch64 then
+      "arm64"
+    else
+      hostPlatform.parsed.cpu.name;
 in
 stdenv.mkDerivation {
   pname = "ldc-bootstrap";
@@ -24,7 +27,8 @@ stdenv.mkDerivation {
   src = fetchurl rec {
     name = "ldc2-${version}-${OS}-${ARCH}.tar.xz";
     url = "https://github.com/ldc-developers/ldc/releases/download/v${version}/${name}";
-    sha256 = hashes."${OS}-${ARCH}" or (throw "missing bootstrap sha256 for ${OS}-${ARCH}");
+    sha256 =
+      hashes."${OS}-${ARCH}" or (throw "missing bootstrap sha256 for ${OS}-${ARCH}");
   };
 
   dontConfigure = true;

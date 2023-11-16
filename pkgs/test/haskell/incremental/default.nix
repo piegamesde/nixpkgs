@@ -29,7 +29,10 @@ let
   # complete much more quickly than the previous one.
   temporary-incremental-build =
     overrideCabal
-      (drv: { previousIntermediates = temporary-full-build-with-incremental-output.intermediates; })
+      (drv: {
+        previousIntermediates =
+          temporary-full-build-with-incremental-output.intermediates;
+      })
       temporary;
 in
 temporary-incremental-build.overrideAttrs (

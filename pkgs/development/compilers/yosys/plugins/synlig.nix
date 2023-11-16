@@ -20,7 +20,9 @@ stdenv.mkDerivation (
     GIT_VERSION = "2023-10-26-f0252f6";
 
     # Derive our package version from GIT_VERSION, remove hash, just keep date.
-    version = builtins.concatStringsSep "-" (lib.take 3 (builtins.splitVersion finalAttrs.GIT_VERSION));
+    version = builtins.concatStringsSep "-" (
+      lib.take 3 (builtins.splitVersion finalAttrs.GIT_VERSION)
+    );
 
     src = fetchFromGitHub {
       owner = "chipsalliance";

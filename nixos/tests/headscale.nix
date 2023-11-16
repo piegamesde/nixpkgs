@@ -1,15 +1,17 @@
 import ./make-test-python.nix (
   { pkgs, lib, ... }:
   let
-    tls-cert = pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
-      openssl req \
-        -x509 -newkey rsa:4096 -sha256 -days 365 \
-        -nodes -out cert.pem -keyout key.pem \
-        -subj '/CN=headscale' -addext "subjectAltName=DNS:headscale"
+    tls-cert =
+      pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; }
+        ''
+          openssl req \
+            -x509 -newkey rsa:4096 -sha256 -days 365 \
+            -nodes -out cert.pem -keyout key.pem \
+            -subj '/CN=headscale' -addext "subjectAltName=DNS:headscale"
 
-      mkdir -p $out
-      cp key.pem cert.pem $out
-    '';
+          mkdir -p $out
+          cp key.pem cert.pem $out
+        '';
   in
   {
     name = "headscale";

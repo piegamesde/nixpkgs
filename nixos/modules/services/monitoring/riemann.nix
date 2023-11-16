@@ -86,7 +86,9 @@ in
       group = "riemann";
     };
 
-    services.riemann.configFile = mkDefault (writeText "riemann-config.clj" riemannConfig);
+    services.riemann.configFile = mkDefault (
+      writeText "riemann-config.clj" riemannConfig
+    );
 
     systemd.services.riemann = {
       wantedBy = [ "multi-user.target" ];

@@ -87,7 +87,8 @@ stdenv.mkDerivation (
 
     NIX_LDFLAGS = toString (
       # when linking stage1 libstd: cc: undefined reference to `__cxa_begin_catch'
-      optional (stdenv.isLinux && !withBundledLLVM) "--push-state --as-needed -lstdc++ --pop-state"
+      optional (stdenv.isLinux && !withBundledLLVM)
+        "--push-state --as-needed -lstdc++ --pop-state"
       ++ optional (stdenv.isDarwin && !withBundledLLVM) "-lc++ -lc++abi"
       ++ optional stdenv.isDarwin "-rpath ${llvmSharedForHost}/lib"
     );
@@ -207,13 +208,19 @@ stdenv.mkDerivation (
               rust.toRustTargetSpec stdenv.hostPlatform
             }/release/libstd.so\n    ln -s ${rustc}/lib/rustlib/${
               rust.toRustTargetSpec stdenv.hostPlatform
-            }/librustc_driver-*.so build/${rust.toRustTargetSpec stdenv.hostPlatform}/stage0-rustc/${
+            }/librustc_driver-*.so build/${
+              rust.toRustTargetSpec stdenv.hostPlatform
+            }/stage0-rustc/${
               rust.toRustTargetSpec stdenv.hostPlatform
             }/release/librustc.so\n    ln -s ${rustc}/bin/rustc build/${
               rust.toRustTargetSpec stdenv.hostPlatform
-            }/stage0-rustc/${rust.toRustTargetSpec stdenv.hostPlatform}/release/rustc-main\n    touch build/${
+            }/stage0-rustc/${
               rust.toRustTargetSpec stdenv.hostPlatform
-            }/stage0-std/${rust.toRustTargetSpec stdenv.hostPlatform}/release/.libstd.stamp\n    touch build/${
+            }/release/rustc-main\n    touch build/${
+              rust.toRustTargetSpec stdenv.hostPlatform
+            }/stage0-std/${
+              rust.toRustTargetSpec stdenv.hostPlatform
+            }/release/.libstd.stamp\n    touch build/${
               rust.toRustTargetSpec stdenv.hostPlatform
             }/stage0-rustc/${
               rust.toRustTargetSpec stdenv.hostPlatform
@@ -233,7 +240,9 @@ stdenv.mkDerivation (
           ln -s ${rustc}/lib/rustlib/{manifest-rust-std-,}${
             rust.toRustTargetSpec stdenv.hostPlatform
           } $out/lib/rustlib/
-          echo rust-std-${rust.toRustTargetSpec stdenv.hostPlatform} >> $out/lib/rustlib/components
+          echo rust-std-${
+            rust.toRustTargetSpec stdenv.hostPlatform
+          } >> $out/lib/rustlib/components
           lndir ${rustc.doc} $doc
           lndir ${rustc.man} $man
 
@@ -264,19 +273,22 @@ stdenv.mkDerivation (
         # Useful debugging parameter
         # export VERBOSE=1
       ''
-      + lib.optionalString (stdenv.targetPlatform.isMusl && !stdenv.targetPlatform.isStatic) ''
-        # Upstream rustc still assumes that musl = static[1].  The fix for
-        # this is to disable crt-static by default for non-static musl
-        # targets.
-        #
-        # Even though Cargo will build build.rs files for the build platform,
-        # cross-compiling _from_ musl appears to work fine, so we only need
-        # to do this when rustc's target platform is dynamically linked musl.
-        #
-        # [1]: https://github.com/rust-lang/compiler-team/issues/422
-        substituteInPlace compiler/rustc_target/src/spec/linux_musl_base.rs \
-            --replace "base.crt_static_default = true" "base.crt_static_default = false"
-      ''
+      +
+        lib.optionalString
+          (stdenv.targetPlatform.isMusl && !stdenv.targetPlatform.isStatic)
+          ''
+            # Upstream rustc still assumes that musl = static[1].  The fix for
+            # this is to disable crt-static by default for non-static musl
+            # targets.
+            #
+            # Even though Cargo will build build.rs files for the build platform,
+            # cross-compiling _from_ musl appears to work fine, so we only need
+            # to do this when rustc's target platform is dynamically linked musl.
+            #
+            # [1]: https://github.com/rust-lang/compiler-team/issues/422
+            substituteInPlace compiler/rustc_target/src/spec/linux_musl_base.rs \
+                --replace "base.crt_static_default = true" "base.crt_static_default = false"
+          ''
       + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
         # See https://github.com/jemalloc/jemalloc/issues/1997
         # Using a value of 48 should work on both emulated and native x86_64-darwin.
@@ -366,9 +378,13 @@ stdenv.mkDerivation (
     passthru = {
       llvm = llvmShared;
       inherit llvmPackages;
-      tests = {
-        inherit fd ripgrep wezterm;
-      } // lib.optionalAttrs stdenv.hostPlatform.isLinux { inherit firefox thunderbird; };
+      tests =
+        {
+          inherit fd ripgrep wezterm;
+        }
+        // lib.optionalAttrs stdenv.hostPlatform.isLinux {
+          inherit firefox thunderbird;
+        };
     };
 
     meta = with lib; {

@@ -50,13 +50,17 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  buildInputs = [
-    gtk2-x11
-    lesstif
-    cfitsio
-    python3Env
-    ncurses
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ CoreFoundation ]);
+  buildInputs =
+    [
+      gtk2-x11
+      lesstif
+      cfitsio
+      python3Env
+      ncurses
+    ]
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [ CoreFoundation ]
+    );
 
   patches = [
     ./wrapper.patch
@@ -64,7 +68,9 @@ stdenv.mkDerivation rec {
     ./aarch64.patch
   ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.cc.isClang
+      "-Wno-unused-command-line-argument";
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin (
     with darwin.apple_sdk.frameworks; "-F${CoreFoundation}/Library/Frameworks"

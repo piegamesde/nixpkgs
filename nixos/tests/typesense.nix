@@ -23,7 +23,9 @@ import ./make-test-python.nix (
     testScript = ''
       machine.wait_for_unit("typesense.service")
       machine.wait_for_open_port(${toString testPort})
-      assert machine.succeed("curl --fail http://localhost:${toString testPort}/health") == '{"ok":true}'
+      assert machine.succeed("curl --fail http://localhost:${
+        toString testPort
+      }/health") == '{"ok":true}'
     '';
   }
 )

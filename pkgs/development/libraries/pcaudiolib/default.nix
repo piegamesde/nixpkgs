@@ -34,9 +34,10 @@ stdenv.mkDerivation (
       which
     ];
 
-    buildInputs = [
-      portaudio
-    ] ++ lib.optional stdenv.isLinux alsa-lib ++ lib.optional pulseaudioSupport libpulseaudio;
+    buildInputs =
+      [ portaudio ]
+      ++ lib.optional stdenv.isLinux alsa-lib
+      ++ lib.optional pulseaudioSupport libpulseaudio;
 
     # touch ChangeLog to avoid below error on darwin:
     # Makefile.am: error: required file './ChangeLog.md' not found

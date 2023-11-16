@@ -17,24 +17,32 @@ let
   upstreamPostgresqlVersion = lib.getVersion pkgs.postgresql_13;
 
   postgresqlPackage =
-    if config.services.postgresql.enable then config.services.postgresql.package else pkgs.postgresql;
+    if config.services.postgresql.enable then
+      config.services.postgresql.package
+    else
+      pkgs.postgresql;
 
   postgresqlVersion = lib.getVersion postgresqlPackage;
 
   # We only want to create a database if we're actually going to connect to it.
-  databaseActuallyCreateLocally = cfg.database.createLocally && cfg.database.host == null;
+  databaseActuallyCreateLocally =
+    cfg.database.createLocally && cfg.database.host == null;
 
-  tlsEnabled = cfg.enableACME || cfg.sslCertificate != null || cfg.sslCertificateKey != null;
+  tlsEnabled =
+    cfg.enableACME || cfg.sslCertificate != null || cfg.sslCertificateKey != null;
 in
 {
   options = {
     services.discourse = {
-      enable = lib.mkEnableOption (lib.mdDoc "Discourse, an open source discussion platform");
+      enable = lib.mkEnableOption (
+        lib.mdDoc "Discourse, an open source discussion platform"
+      );
 
       package = lib.mkOption {
         type = lib.types.package;
         default = pkgs.discourse;
-        apply = p: p.override { plugins = lib.unique (p.enabledPlugins ++ cfg.plugins); };
+        apply =
+          p: p.override { plugins = lib.unique (p.enabledPlugins ++ cfg.plugins); };
         defaultText = lib.literalExpression "pkgs.discourse";
         description = lib.mdDoc ''
           The discourse package to use.
@@ -346,7 +354,9 @@ in
       mail = {
         notificationEmailAddress = lib.mkOption {
           type = lib.types.str;
-          default = "${if cfg.mail.incoming.enable then "notifications" else "noreply"}@${cfg.hostname}";
+          default = "${
+              if cfg.mail.incoming.enable then "notifications" else "noreply"
+            }@${cfg.hostname}";
           defaultText = lib.literalExpression ''
             "''${if config.services.discourse.mail.incoming.enable then "notifications" else "noreply"}@''${config.services.discourse.hostname}"
           '';
@@ -468,7 +478,9 @@ in
           replyEmailAddress = lib.mkOption {
             type = lib.types.str;
             default = "%{reply_key}@${cfg.hostname}";
-            defaultText = lib.literalExpression ''"%{reply_key}@''${config.services.discourse.hostname}"'';
+            defaultText =
+              lib.literalExpression
+                ''"%{reply_key}@''${config.services.discourse.hostname}"'';
             description = lib.mdDoc ''
               Template for reply by email incoming email address, for
               example: %{reply_key}@reply.example.com or
@@ -549,7 +561,9 @@ in
       {
         assertion =
           cfg.database.ignorePostgresqlVersion
-          || (databaseActuallyCreateLocally -> upstreamPostgresqlVersion == postgresqlVersion);
+          || (
+            databaseActuallyCreateLocally -> upstreamPostgresqlVersion == postgresqlVersion
+          );
         message =
           "The PostgreSQL version recommended for use with Discourse is ${upstreamPostgresqlVersion}, you're using ${postgresqlVersion}. "
           + "Either update your PostgreSQL package to the correct version or set services.discourse.database.ignorePostgresqlVersion. "
@@ -569,7 +583,8 @@ in
       db_port = null;
       db_backup_port = 5432;
       db_name = cfg.database.name;
-      db_username = if databaseActuallyCreateLocally then "discourse" else cfg.database.username;
+      db_username =
+        if databaseActuallyCreateLocally then "discourse" else cfg.database.username;
       db_password = cfg.database.passwordFile;
       db_prepared_statements = false;
       db_replica_host = null;
@@ -772,7 +787,9 @@ in
             };
           };
 
-          discourseConf = pkgs.writeText "discourse.conf" (discourseKeyValue cfg.backendSettings);
+          discourseConf = pkgs.writeText "discourse.conf" (
+            discourseKeyValue cfg.backendSettings
+          );
 
           mkSecretReplacement =
             file:
@@ -1005,64 +1022,70 @@ in
       };
     };
 
-    systemd.services.discourse-mail-receiver-setup = lib.mkIf cfg.mail.incoming.enable (
-      let
-        mail-receiver-environment = {
-          MAIL_DOMAIN = cfg.hostname;
-          DISCOURSE_BASE_URL = "http${lib.optionalString tlsEnabled "s"}://${cfg.hostname}";
-          DISCOURSE_API_KEY = "@api-key@";
-          DISCOURSE_API_USERNAME = "system";
-        };
-        mail-receiver-json = json.generate "mail-receiver.json" mail-receiver-environment;
-      in
-      {
-        before = [ "postfix.service" ];
-        after = [ "discourse.service" ];
-        wantedBy = [ "discourse.service" ];
-        partOf = [ "discourse.service" ];
-        path = [
-          cfg.package.rake
-          pkgs.jq
-        ];
-        preStart = lib.optionalString (cfg.mail.incoming.apiKeyFile == null) ''
-          set -o errexit -o pipefail -o nounset -o errtrace
-          shopt -s inherit_errexit
-
-          if [[ ! -e /var/lib/discourse-mail-receiver/api_key ]]; then
-              discourse-rake api_key:create_master[email-receiver] >/var/lib/discourse-mail-receiver/api_key
-          fi
-        '';
-        script =
+    systemd.services.discourse-mail-receiver-setup =
+      lib.mkIf cfg.mail.incoming.enable
+        (
           let
-            apiKeyPath =
-              if cfg.mail.incoming.apiKeyFile == null then
-                "/var/lib/discourse-mail-receiver/api_key"
-              else
-                cfg.mail.incoming.apiKeyFile;
+            mail-receiver-environment = {
+              MAIL_DOMAIN = cfg.hostname;
+              DISCOURSE_BASE_URL = "http${
+                  lib.optionalString tlsEnabled "s"
+                }://${cfg.hostname}";
+              DISCOURSE_API_KEY = "@api-key@";
+              DISCOURSE_API_USERNAME = "system";
+            };
+            mail-receiver-json =
+              json.generate "mail-receiver.json"
+                mail-receiver-environment;
           in
-          ''
-            set -o errexit -o pipefail -o nounset -o errtrace
-            shopt -s inherit_errexit
+          {
+            before = [ "postfix.service" ];
+            after = [ "discourse.service" ];
+            wantedBy = [ "discourse.service" ];
+            partOf = [ "discourse.service" ];
+            path = [
+              cfg.package.rake
+              pkgs.jq
+            ];
+            preStart = lib.optionalString (cfg.mail.incoming.apiKeyFile == null) ''
+              set -o errexit -o pipefail -o nounset -o errtrace
+              shopt -s inherit_errexit
 
-            api_key=$(<'${apiKeyPath}')
-            export api_key
+              if [[ ! -e /var/lib/discourse-mail-receiver/api_key ]]; then
+                  discourse-rake api_key:create_master[email-receiver] >/var/lib/discourse-mail-receiver/api_key
+              fi
+            '';
+            script =
+              let
+                apiKeyPath =
+                  if cfg.mail.incoming.apiKeyFile == null then
+                    "/var/lib/discourse-mail-receiver/api_key"
+                  else
+                    cfg.mail.incoming.apiKeyFile;
+              in
+              ''
+                set -o errexit -o pipefail -o nounset -o errtrace
+                shopt -s inherit_errexit
 
-            jq <${mail-receiver-json} \
-               '.DISCOURSE_API_KEY = $ENV.api_key' \
-               >'/run/discourse-mail-receiver/mail-receiver-environment.json'
-          '';
+                api_key=$(<'${apiKeyPath}')
+                export api_key
 
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          RuntimeDirectory = "discourse-mail-receiver";
-          RuntimeDirectoryMode = "0700";
-          StateDirectory = "discourse-mail-receiver";
-          User = "discourse";
-          Group = "discourse";
-        };
-      }
-    );
+                jq <${mail-receiver-json} \
+                   '.DISCOURSE_API_KEY = $ENV.api_key' \
+                   >'/run/discourse-mail-receiver/mail-receiver-environment.json'
+              '';
+
+            serviceConfig = {
+              Type = "oneshot";
+              RemainAfterExit = true;
+              RuntimeDirectory = "discourse-mail-receiver";
+              RuntimeDirectoryMode = "0700";
+              StateDirectory = "discourse-mail-receiver";
+              User = "discourse";
+              Group = "discourse";
+            };
+          }
+        );
 
     services.discourse.siteSettings = {
       required = {
@@ -1080,7 +1103,9 @@ in
     services.postfix = lib.mkIf cfg.mail.incoming.enable {
       enable = true;
       sslCert = lib.optionalString (cfg.sslCertificate != null) cfg.sslCertificate;
-      sslKey = lib.optionalString (cfg.sslCertificateKey != null) cfg.sslCertificateKey;
+      sslKey =
+        lib.optionalString (cfg.sslCertificateKey != null)
+          cfg.sslCertificateKey;
 
       origin = cfg.hostname;
       relayDomains = [ cfg.hostname ];

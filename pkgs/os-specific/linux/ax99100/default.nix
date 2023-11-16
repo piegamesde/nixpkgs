@@ -45,7 +45,9 @@ stdenv.mkDerivation {
 
   patchFlags = [ "-p0" ];
 
-  makeFlags = [ "KDIR='${kernel.dev}/lib/modules/${kernel.modDirVersion}/build'" ];
+  makeFlags = [
+    "KDIR='${kernel.dev}/lib/modules/${kernel.modDirVersion}/build'"
+  ];
 
   installPhase = ''
     mkdir -p $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/tty/serial

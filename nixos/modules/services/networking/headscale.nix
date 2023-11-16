@@ -17,7 +17,9 @@ in
 {
   options = {
     services.headscale = {
-      enable = mkEnableOption (lib.mdDoc "headscale, Open Source coordination server for Tailscale");
+      enable = mkEnableOption (
+        lib.mdDoc "headscale, Open Source coordination server for Tailscale"
+      );
 
       package = mkOption {
         type = types.package;
@@ -869,7 +871,9 @@ in
 
       script = ''
         ${optionalString (cfg.settings.db_password_file != null) ''
-          export HEADSCALE_DB_PASS="$(head -n1 ${escapeShellArg cfg.settings.db_password_file})"
+          export HEADSCALE_DB_PASS="$(head -n1 ${
+            escapeShellArg cfg.settings.db_password_file
+          })"
         ''}
 
         exec ${cfg.package}/bin/headscale serve
@@ -877,7 +881,9 @@ in
 
       serviceConfig =
         let
-          capabilityBoundingSet = [ "CAP_CHOWN" ] ++ optional (cfg.port < 1024) "CAP_NET_BIND_SERVICE";
+          capabilityBoundingSet = [
+            "CAP_CHOWN"
+          ] ++ optional (cfg.port < 1024) "CAP_NET_BIND_SERVICE";
         in
         {
           Restart = "always";

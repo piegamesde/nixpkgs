@@ -281,7 +281,9 @@ in
   options = {
 
     services.autorandr = {
-      enable = mkEnableOption (lib.mdDoc "handling of hotplug and sleep events by autorandr");
+      enable = mkEnableOption (
+        lib.mdDoc "handling of hotplug and sleep events by autorandr"
+      );
 
       defaultTarget = mkOption {
         default = "default";
@@ -296,7 +298,9 @@ in
       ignoreLid = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc "Treat outputs as connected even if their lids are closed";
+        description =
+          lib.mdDoc
+            "Treat outputs as connected even if their lids are closed";
       };
 
       hooks = mkOption {

@@ -62,7 +62,13 @@ stdenv.mkDerivation rec {
         src = ./gst-hardcode-plugins.patch;
         load_gst_plugins =
           lib.concatMapStrings
-            (plugin: ''gst_registry_scan_path(gst_registry_get(), "${lib.getLib plugin}/lib/gstreamer-1.0");'')
+            (
+              plugin:
+              ''
+                gst_registry_scan_path(gst_registry_get(), "${
+                  lib.getLib plugin
+                }/lib/gstreamer-1.0");''
+            )
             (gstPlugins gst_all_1);
       })
     ];
@@ -87,7 +93,9 @@ stdenv.mkDerivation rec {
       libgsf
     ]
     ++ lib.optionals rpmSupport [ rpm ]
-    ++ lib.optionals gstreamerSupport ([ gst_all_1.gstreamer ] ++ gstPlugins gst_all_1)
+    ++ lib.optionals gstreamerSupport (
+      [ gst_all_1.gstreamer ] ++ gstPlugins gst_all_1
+    )
     ++ lib.optionals gtkSupport [
       glib
       gtk3

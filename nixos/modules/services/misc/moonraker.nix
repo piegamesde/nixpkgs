@@ -174,14 +174,17 @@ in
       in
       format.generate "moonraker.cfg" fullConfig;
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -"
-    ] ++ lib.optional (cfg.configDir != null) "d '${cfg.configDir}' - ${cfg.user} ${cfg.group} - -";
+    systemd.tmpfiles.rules =
+      [ "d '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -" ]
+      ++ lib.optional (cfg.configDir != null)
+        "d '${cfg.configDir}' - ${cfg.user} ${cfg.group} - -";
 
     systemd.services.moonraker = {
       description = "Moonraker, an API web server for Klipper";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ] ++ optional config.services.klipper.enable "klipper.service";
+      after = [
+        "network.target"
+      ] ++ optional config.services.klipper.enable "klipper.service";
 
       # Moonraker really wants its own config to be writable...
       script = ''

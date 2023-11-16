@@ -61,7 +61,9 @@ in
                   title NixOS
                   linux ${kernelPath}
                   initrd ${initrdPath}
-                  options init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams}
+                  options init=${config.system.build.toplevel}/init ${
+                    toString config.boot.kernelParams
+                  }
                 '';
 
                 "${kernelPath}".source = "${config.boot.kernelPackages.kernel}/${config.system.boot.loader.kernelFile}";

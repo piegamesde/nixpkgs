@@ -36,7 +36,9 @@ in
       services.opensearch.dataDir = "/var/opensearch_test";
       services.opensearch.user = "open_search";
       services.opensearch.group = "open_search";
-      systemd.tmpfiles.rules = [ "d /var/opensearch_test 0700 open_search open_search -" ];
+      systemd.tmpfiles.rules = [
+        "d /var/opensearch_test 0700 open_search open_search -"
+      ];
       users = {
         groups.open_search = { };
         users.open_search = {

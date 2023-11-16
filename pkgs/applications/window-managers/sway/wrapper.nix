@@ -38,7 +38,9 @@ let
       export DBUS_SESSION_BUS_ADDRESS
       exec ${sway}/bin/sway "$@"
     else
-      exec ${lib.optionalString dbusSupport "${dbus}/bin/dbus-run-session"} ${sway}/bin/sway "$@"
+      exec ${
+        lib.optionalString dbusSupport "${dbus}/bin/dbus-run-session"
+      } ${sway}/bin/sway "$@"
     fi
   '';
 in
@@ -65,7 +67,8 @@ symlinkJoin {
     wrapProgram $out/bin/sway \
       ${optionalString withGtkWrapper ''"''${gappsWrapperArgs[@]}"''} \
       ${
-        optionalString (extraOptions != [ ]) "${concatMapStrings (x: " --add-flags " + x) extraOptions}"
+        optionalString (extraOptions != [ ])
+          "${concatMapStrings (x: " --add-flags " + x) extraOptions}"
       }
   '';
 

@@ -32,7 +32,9 @@ stdenv.mkDerivation (
     dontBuild = true;
     dontConfigure = true;
 
-    nativeBuildInputs = [ makeWrapper ] ++ lib.optional (!stdenv.isDarwin) autoPatchelfHook;
+    nativeBuildInputs = [
+      makeWrapper
+    ] ++ lib.optional (!stdenv.isDarwin) autoPatchelfHook;
     buildInputs = lib.optionals (!stdenv.isDarwin) [
       ncurses6
       zlib

@@ -19,13 +19,17 @@ in
       authFile = mkOption {
         default = null;
         type = types.nullOr types.path;
-        description = lib.mdDoc "File mapping user names to pre-shared keys (passwords).";
+        description =
+          lib.mdDoc
+            "File mapping user names to pre-shared keys (passwords).";
       };
 
       port = mkOption {
         type = types.port;
         default = 25826;
-        description = lib.mdDoc "Network address on which to accept collectd binary network packets.";
+        description =
+          lib.mdDoc
+            "Network address on which to accept collectd binary network packets.";
       };
 
       listenAddress = mkOption {
@@ -78,7 +82,9 @@ in
   serviceOpts =
     let
       collectSettingsArgs = optionalString (cfg.collectdBinary.enable) ''
-        --collectd.listen-address ${cfg.collectdBinary.listenAddress}:${toString cfg.collectdBinary.port} \
+        --collectd.listen-address ${cfg.collectdBinary.listenAddress}:${
+          toString cfg.collectdBinary.port
+        } \
         --collectd.security-level ${cfg.collectdBinary.securityLevel} \
       '';
     in

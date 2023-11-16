@@ -158,7 +158,8 @@ stdenv.mkDerivation rec {
     # Gold standard has additional ":R" suffix in result column label
     echo "Output/HB/hb-step-tecplot.cir" >> $EXLUDE_TESTS_FILE
     # This test makes Xyce access /sys/class/net when run with MPI
-    ${lib.optionalString withMPI ''echo "CommandLine/command_line.cir" >> $EXLUDE_TESTS_FILE''}
+    ${lib.optionalString withMPI
+      ''echo "CommandLine/command_line.cir" >> $EXLUDE_TESTS_FILE''}
 
     $TEST_ROOT/TestScripts/run_xyce_regression \
       --output="$(pwd)/Xyce_Test" \
@@ -177,9 +178,9 @@ stdenv.mkDerivation rec {
   postInstall = lib.optionalString enableDocs ''
     local docFiles=("doc/Users_Guide/Xyce_UG"
       "doc/Reference_Guide/Xyce_RG"
-      "doc/Release_Notes/Release_Notes_${lib.versions.majorMinor version}/Release_Notes_${
+      "doc/Release_Notes/Release_Notes_${
         lib.versions.majorMinor version
-      }")
+      }/Release_Notes_${lib.versions.majorMinor version}")
 
     # Release notes refer to an image not in the repo.
     sed -i -E 's/\\includegraphics\[height=(0.5in)\]\{snllineblubrd\}/\\mbox\{\\rule\{0mm\}\{\1\}\}/' ''${docFiles[2]}.tex

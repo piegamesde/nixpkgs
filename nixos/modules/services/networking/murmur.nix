@@ -38,9 +38,11 @@ let
     sendversion=${boolToString cfg.sendVersion}
 
     ${optionalString (cfg.registerName != "") "registerName=${cfg.registerName}"}
-    ${optionalString (cfg.registerPassword == "") "registerPassword=${cfg.registerPassword}"}
+    ${optionalString (cfg.registerPassword == "")
+      "registerPassword=${cfg.registerPassword}"}
     ${optionalString (cfg.registerUrl != "") "registerUrl=${cfg.registerUrl}"}
-    ${optionalString (cfg.registerHostname != "") "registerHostname=${cfg.registerHostname}"}
+    ${optionalString (cfg.registerHostname != "")
+      "registerHostname=${cfg.registerHostname}"}
 
     certrequired=${boolToString cfg.clientCertRequired}
     ${optionalString (cfg.sslCert != "") "sslCert=${cfg.sslCert}"}
@@ -121,7 +123,9 @@ in
         type = types.nullOr types.path;
         default = null;
         example = "/var/log/murmur/murmurd.log";
-        description = lib.mdDoc "Path to the log file for Murmur daemon. Empty means log to journald.";
+        description =
+          lib.mdDoc
+            "Path to the log file for Murmur daemon. Empty means log to journald.";
       };
 
       welcometext = mkOption {
@@ -395,7 +399,9 @@ in
           include <abstractions/base>
           include <abstractions/nameservice>
           include <abstractions/ssl_certs>
-          include "${pkgs.apparmorRulesFromClosure { name = "mumble-server"; } cfg.package}"
+          include "${
+            pkgs.apparmorRulesFromClosure { name = "mumble-server"; } cfg.package
+          }"
           pix ${cfg.package}/bin/.mumble-server-wrapped,
 
           r ${config.environment.etc."os-release".source},

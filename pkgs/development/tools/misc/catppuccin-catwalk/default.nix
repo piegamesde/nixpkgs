@@ -37,7 +37,9 @@ rustPlatform.buildRustPackage {
 
   doInstallCheck =
     !stdenv.hostPlatform.isStatic
-    && stdenv.hostPlatform.parsed.kernel.execFormat == lib.systems.parse.execFormats.elf;
+    &&
+      stdenv.hostPlatform.parsed.kernel.execFormat
+      == lib.systems.parse.execFormats.elf;
   installCheckPhase = ''
     runHook preInstallCheck
     readelf -a $out/bin/catwalk | grep -F 'Shared library: [libwebp.so'

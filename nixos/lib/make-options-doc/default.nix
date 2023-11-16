@@ -121,7 +121,8 @@ rec {
   inherit optionsNix;
 
   optionsAsciiDoc =
-    pkgs.runCommand "options.adoc" { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
+    pkgs.runCommand "options.adoc"
+      { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
       ''
         nixos-render-docs -j $NIX_BUILD_CORES options asciidoc \
           --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
@@ -153,7 +154,11 @@ rec {
         );
         # merge with an empty set if baseOptionsJSON is null to run markdown
         # processing on the input options
-        baseJSON = if baseOptionsJSON == null then builtins.toFile "base.json" "{}" else baseOptionsJSON;
+        baseJSON =
+          if baseOptionsJSON == null then
+            builtins.toFile "base.json" "{}"
+          else
+            baseOptionsJSON;
       }
       ''
           # Export list of options in different format.
@@ -181,16 +186,20 @@ rec {
           echo "file json-br $dst/options.json.br" >> $out/nix-support/hydra-build-products
       '';
 
-  optionsDocBook = lib.warn "optionsDocBook is deprecated since 23.11 and will be removed in 24.05" (
-    pkgs.runCommand "options-docbook.xml" { nativeBuildInputs = [ pkgs.nixos-render-docs ]; } ''
-      nixos-render-docs -j $NIX_BUILD_CORES options docbook \
-        --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
-        --revision ${lib.escapeShellArg revision} \
-        --document-type ${lib.escapeShellArg documentType} \
-        --varlist-id ${lib.escapeShellArg variablelistId} \
-        --id-prefix ${lib.escapeShellArg optionIdPrefix} \
-        ${optionsJSON}/share/doc/nixos/options.json \
-        "$out"
-    ''
-  );
+  optionsDocBook =
+    lib.warn "optionsDocBook is deprecated since 23.11 and will be removed in 24.05"
+      (
+        pkgs.runCommand "options-docbook.xml"
+          { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
+          ''
+            nixos-render-docs -j $NIX_BUILD_CORES options docbook \
+              --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
+              --revision ${lib.escapeShellArg revision} \
+              --document-type ${lib.escapeShellArg documentType} \
+              --varlist-id ${lib.escapeShellArg variablelistId} \
+              --id-prefix ${lib.escapeShellArg optionIdPrefix} \
+              ${optionsJSON}/share/doc/nixos/options.json \
+              "$out"
+          ''
+      );
 }

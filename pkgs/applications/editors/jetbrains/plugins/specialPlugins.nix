@@ -34,7 +34,9 @@
     buildInputs = [ delve ];
     buildPhase =
       let
-        arch = (if stdenv.isLinux then "linux" else "mac") + (if stdenv.isAarch64 then "arm" else "");
+        arch =
+          (if stdenv.isLinux then "linux" else "mac")
+          + (if stdenv.isAarch64 then "arm" else "");
       in
       ''
         runHook preBuild

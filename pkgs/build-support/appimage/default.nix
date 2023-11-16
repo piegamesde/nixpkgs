@@ -57,7 +57,8 @@ rec {
       // {
         inherit name;
 
-        targetPkgs = pkgs: [ appimage-exec ] ++ defaultFhsEnvArgs.targetPkgs pkgs ++ extraPkgs pkgs;
+        targetPkgs =
+          pkgs: [ appimage-exec ] ++ defaultFhsEnvArgs.targetPkgs pkgs ++ extraPkgs pkgs;
 
         runScript = "appimage-exec.sh -w ${src} --";
 

@@ -135,7 +135,9 @@ stdenv.mkDerivation {
     );
 
   # gcc 11 fix
-  CXXFLAGS = lib.optionalString (lib.versionOlder version "0.47.05-r3") "-fpermissive";
+  CXXFLAGS =
+    lib.optionalString (lib.versionOlder version "0.47.05-r3")
+      "-fpermissive";
 
   # As of
   # https://github.com/DFHack/dfhack/commit/56e43a0dde023c5a4595a22b29d800153b31e3c4,

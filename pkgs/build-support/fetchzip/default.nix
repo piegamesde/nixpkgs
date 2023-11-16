@@ -34,7 +34,8 @@
 
 assert (extraPostFetch != "")
   ->
-    lib.warn "use 'postFetch' instead of 'extraPostFetch' with 'fetchzip' and 'fetchFromGitHub'."
+    lib.warn
+      "use 'postFetch' instead of 'extraPostFetch' with 'fetchzip' and 'fetchFromGitHub'."
       true;
 
 let

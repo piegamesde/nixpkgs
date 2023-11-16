@@ -97,10 +97,12 @@ backendStdenv.mkDerivation {
   '';
 
   # Without --add-needed autoPatchelf forgets $ORIGIN on cuda>=8.0.5.
-  postFixup = strings.optionalString (strings.versionAtLeast versionTriple "8.0.5") ''
-    patchelf $lib/lib/libcudnn.so --add-needed libcudnn_cnn_infer.so
-    patchelf $lib/lib/libcudnn_ops_infer.so --add-needed libcublas.so --add-needed libcublasLt.so
-  '';
+  postFixup =
+    strings.optionalString (strings.versionAtLeast versionTriple "8.0.5")
+      ''
+        patchelf $lib/lib/libcudnn.so --add-needed libcudnn_cnn_infer.so
+        patchelf $lib/lib/libcudnn_ops_infer.so --add-needed libcublas.so --add-needed libcublasLt.so
+      '';
 
   # The out output leverages the same functionality which backs the `symlinkJoin` function in
   # Nixpkgs:
@@ -157,7 +159,8 @@ backendStdenv.mkDerivation {
     # you _may_ be able to smudge version constraints, just know that you're
     # embarking into unknown and unsupported territory when doing so.
     broken =
-      strings.versionOlder cudaVersion minCudaVersion || strings.versionOlder maxCudaVersion cudaVersion;
+      strings.versionOlder cudaVersion minCudaVersion
+      || strings.versionOlder maxCudaVersion cudaVersion;
     description = "NVIDIA CUDA Deep Neural Network library (cuDNN)";
     homepage = "https://developer.nvidia.com/cudnn";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

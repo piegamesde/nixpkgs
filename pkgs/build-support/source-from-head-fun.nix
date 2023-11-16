@@ -11,7 +11,8 @@
 localTarName: publishedSrcSnapshot:
 if config.sourceFromHead.useLocalRepos or false then
   "${
-    config.sourceFromHead.managedRepoDir or "/set/sourceFromHead.managedRepoDir/please"
+    config.sourceFromHead.managedRepoDir
+      or "/set/sourceFromHead.managedRepoDir/please"
   }/dist/${localTarName}"
 else
   publishedSrcSnapshot

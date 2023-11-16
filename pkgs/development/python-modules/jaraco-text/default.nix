@@ -37,7 +37,9 @@ buildPythonPackage rec {
     inflect
   ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.optionals (pythonOlder "3.10") [ pathlib2 ];
+  nativeCheckInputs = [
+    pytestCheckHook
+  ] ++ lib.optionals (pythonOlder "3.10") [ pathlib2 ];
 
   pythonImportsCheck = [ "jaraco.text" ];
 

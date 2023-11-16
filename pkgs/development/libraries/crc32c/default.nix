@@ -22,7 +22,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ gflags ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isAarch64 "-march=armv8-a+crc";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isAarch64
+      "-march=armv8-a+crc";
 
   cmakeFlags = [
     "-DCRC32C_INSTALL=1"

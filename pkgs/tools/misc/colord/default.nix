@@ -70,21 +70,25 @@ stdenv.mkDerivation rec {
     "-Ddaemon_user=colord"
   ];
 
-  nativeBuildInputs = [
-    docbook_xml_dtd_412
-    docbook_xsl
-    docbook_xsl_ns
-    gettext
-    gobject-introspection
-    gtk-doc
-    libxslt
-    meson
-    ninja
-    pkg-config
-    shared-mime-info
-    vala
-    wrapGAppsNoGuiHook
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs =
+    [
+      docbook_xml_dtd_412
+      docbook_xsl
+      docbook_xsl_ns
+      gettext
+      gobject-introspection
+      gtk-doc
+      libxslt
+      meson
+      ninja
+      pkg-config
+      shared-mime-info
+      vala
+      wrapGAppsNoGuiHook
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [
     argyllcms
@@ -103,7 +107,9 @@ stdenv.mkDerivation rec {
     glib-compile-schemas $out/share/glib-2.0/schemas
   '';
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";
+  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${
+      placeholder "out"
+    }/lib/systemd/system";
   PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR = "${placeholder "out"}/lib/systemd/user";
   PKG_CONFIG_SYSTEMD_TMPFILESDIR = "${placeholder "out"}/lib/tmpfiles.d";
   PKG_CONFIG_BASH_COMPLETION_COMPLETIONSDIR = "${

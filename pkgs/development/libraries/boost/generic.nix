@@ -59,7 +59,8 @@ let
   );
 
   threading = lib.concatStringsSep "," (
-    lib.optional enableSingleThreaded "single" ++ lib.optional enableMultiThreaded "multi"
+    lib.optional enableSingleThreaded "single"
+    ++ lib.optional enableMultiThreaded "multi"
   );
 
   link = lib.concatStringsSep "," (
@@ -72,7 +73,9 @@ let
   layout = if taggedLayout then "tagged" else "system";
 
   needUserConfig =
-    stdenv.hostPlatform != stdenv.buildPlatform || useMpi || (stdenv.isDarwin && enableShared);
+    stdenv.hostPlatform != stdenv.buildPlatform
+    || useMpi
+    || (stdenv.isDarwin && enableShared);
 
   b2Args = lib.concatStringsSep " " (
     [
@@ -108,7 +111,10 @@ let
           }"
           # env in host triplet for Mach-O is "macho", but boost binary format for Mach-O is "mach-o"
           "binary-format=${
-            if stdenv.hostPlatform.parsed.kernel.execFormat == lib.systems.parse.execFormats.macho then
+            if
+              stdenv.hostPlatform.parsed.kernel.execFormat
+              == lib.systems.parse.execFormats.macho
+            then
               "mach-o"
             else
               toString stdenv.hostPlatform.parsed.kernel.execFormat.name
@@ -135,7 +141,9 @@ let
     ++ lib.optional (toolset != null) "toolset=${toolset}"
     ++ lib.optional (!enablePython) "--without-python"
     ++ lib.optional needUserConfig "--user-config=user-config.jam"
-    ++ lib.optional (stdenv.buildPlatform.isDarwin && stdenv.hostPlatform.isLinux) "pch=off"
+    ++
+      lib.optional (stdenv.buildPlatform.isDarwin && stdenv.hostPlatform.isLinux)
+        "pch=off"
     ++ lib.optionals stdenv.hostPlatform.isMinGW [ "threadapi=win32" ]
     ++ extraB2Args
   );
@@ -262,7 +270,9 @@ stdenv.mkDerivation {
       EOF
     '';
 
-  NIX_CFLAGS_LINK = lib.optionalString stdenv.isDarwin "-headerpad_max_install_names";
+  NIX_CFLAGS_LINK =
+    lib.optionalString stdenv.isDarwin
+      "-headerpad_max_install_names";
 
   enableParallelBuilding = true;
 

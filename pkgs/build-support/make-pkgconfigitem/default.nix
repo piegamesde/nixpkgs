@@ -23,7 +23,9 @@
 
 let
   # only 'out' has to be changed, otherwise it would be replaced by the out of the writeTextFile
-  placeholderToSubstVar = builtins.replaceStrings [ "${placeholder "out"}" ] [ "@out@" ];
+  placeholderToSubstVar = builtins.replaceStrings [ "${placeholder "out"}" ] [
+    "@out@"
+  ];
 
   replacePlaceholderAndListToString =
     x:
@@ -34,7 +36,9 @@ let
 
   keywordsSection =
     let
-      mustBeAList = attr: attrName: lib.throwIfNot (lib.isList attr) "'${attrName}' must be a list" attr;
+      mustBeAList =
+        attr: attrName:
+        lib.throwIfNot (lib.isList attr) "'${attrName}' must be a list" attr;
     in
     {
       "Name" = name;

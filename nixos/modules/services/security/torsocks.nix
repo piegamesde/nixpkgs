@@ -43,7 +43,9 @@ in
       enable = mkOption {
         type = types.bool;
         default = config.services.tor.enable && config.services.tor.client.enable;
-        defaultText = literalExpression "config.services.tor.enable && config.services.tor.client.enable";
+        defaultText =
+          literalExpression
+            "config.services.tor.enable && config.services.tor.client.enable";
         description = lib.mdDoc ''
           Whether to build `/etc/tor/torsocks.conf`
           containing the specified global torsocks configuration.

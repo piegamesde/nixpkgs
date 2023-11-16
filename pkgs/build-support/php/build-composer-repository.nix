@@ -25,14 +25,22 @@ let
     let
       phpDrv = finalAttrs.php or php;
       composer = finalAttrs.composer or phpDrv.packages.composer;
-      composer-local-repo-plugin = callPackage ./pkgs/composer-local-repo-plugin.nix { };
+      composer-local-repo-plugin =
+        callPackage ./pkgs/composer-local-repo-plugin.nix
+          { };
     in
-    assert (lib.assertMsg (previousAttrs ? src) "mkComposerRepository expects src argument.");
+    assert (lib.assertMsg (previousAttrs ? src)
+      "mkComposerRepository expects src argument."
+    );
     assert (lib.assertMsg (previousAttrs ? vendorHash)
       "mkComposerRepository expects vendorHash argument."
     );
-    assert (lib.assertMsg (previousAttrs ? version) "mkComposerRepository expects version argument.");
-    assert (lib.assertMsg (previousAttrs ? pname) "mkComposerRepository expects pname argument.");
+    assert (lib.assertMsg (previousAttrs ? version)
+      "mkComposerRepository expects version argument."
+    );
+    assert (lib.assertMsg (previousAttrs ? pname)
+      "mkComposerRepository expects pname argument."
+    );
     assert (lib.assertMsg (previousAttrs ? composerNoDev)
       "mkComposerRepository expects composerNoDev argument."
     );
@@ -108,7 +116,10 @@ let
 
       outputHashMode = "recursive";
       outputHashAlgo =
-        if (finalAttrs ? vendorHash && finalAttrs.vendorHash != "") then null else "sha256";
+        if (finalAttrs ? vendorHash && finalAttrs.vendorHash != "") then
+          null
+        else
+          "sha256";
       outputHash = finalAttrs.vendorHash or "";
     };
 in

@@ -1695,7 +1695,9 @@ in
       sources."esprima-4.0.1"
       sources."filled-array-1.1.0"
       sources."find-up-1.1.2"
-      (sources."fs-minipass-2.1.0" // { dependencies = [ sources."minipass-3.3.6" ]; })
+      (
+        sources."fs-minipass-2.1.0" // { dependencies = [ sources."minipass-3.3.6" ]; }
+      )
       sources."fs-promise-0.3.1"
       sources."fs.realpath-1.0.0"
       sources."function-bind-1.1.1"
@@ -1766,7 +1768,12 @@ in
       sources."node-status-codes-1.0.0"
       sources."nodejieba-2.5.2"
       sources."nopt-5.0.0"
-      (sources."normalize-package-data-2.5.0" // { dependencies = [ sources."semver-5.7.1" ]; })
+      (
+        sources."normalize-package-data-2.5.0"
+        // {
+          dependencies = [ sources."semver-5.7.1" ];
+        }
+      )
       sources."npmlog-5.0.1"
       sources."number-is-nan-1.0.1"
       sources."object-assign-4.1.1"

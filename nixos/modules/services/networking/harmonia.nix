@@ -11,12 +11,16 @@ in
 {
   options = {
     services.harmonia = {
-      enable = lib.mkEnableOption (lib.mdDoc "Harmonia: Nix binary cache written in Rust");
+      enable = lib.mkEnableOption (
+        lib.mdDoc "Harmonia: Nix binary cache written in Rust"
+      );
 
       signKeyPath = lib.mkOption {
         type = lib.types.nullOr lib.types.path;
         default = null;
-        description = lib.mdDoc "Path to the signing key that will be used for signing the cache";
+        description =
+          lib.mdDoc
+            "Path to the signing key that will be used for signing the cache";
       };
 
       package = lib.mkPackageOptionMD pkgs "harmonia" { };
@@ -60,7 +64,9 @@ in
         DeviceAllow = [ "" ];
         UMask = "0066";
         RuntimeDirectory = "harmonia";
-        LoadCredential = lib.mkIf (cfg.signKeyPath != null) [ "sign-key:${cfg.signKeyPath}" ];
+        LoadCredential = lib.mkIf (cfg.signKeyPath != null) [
+          "sign-key:${cfg.signKeyPath}"
+        ];
         SystemCallFilter = [
           "@system-service"
           "~@privileged"

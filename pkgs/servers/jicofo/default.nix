@@ -30,7 +30,9 @@ stdenv.mkDerivation {
     mkdir -p $out/{share,bin}
     mv usr/share/jicofo $out/share/
     mv etc $out/
-    cp ${./logging.properties-journal} $out/etc/jitsi/jicofo/logging.properties-journal
+    cp ${
+      ./logging.properties-journal
+    } $out/etc/jitsi/jicofo/logging.properties-journal
     ln -s $out/share/jicofo/jicofo.sh $out/bin/jicofo
     runHook postInstall
   '';

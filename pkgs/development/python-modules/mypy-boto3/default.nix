@@ -20,7 +20,9 @@ let
 
       src = fetchPypi { inherit pname version hash; };
 
-      propagatedBuildInputs = [ boto3 ] ++ lib.optionals (pythonOlder "3.12") [ typing-extensions ];
+      propagatedBuildInputs = [
+        boto3
+      ] ++ lib.optionals (pythonOlder "3.12") [ typing-extensions ];
 
       # Project has no tests
       doCheck = false;

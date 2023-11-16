@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
     pkg-config
     lit
   ];
-  buildInputs = [ (if stdenv.buildPlatform == stdenv.hostPlatform then llvm else targetLlvm) ];
+  buildInputs = [
+    (if stdenv.buildPlatform == stdenv.hostPlatform then llvm else targetLlvm)
+  ];
 
   # Unsup:Pass:XFail:Fail
   # 26:267:16:8

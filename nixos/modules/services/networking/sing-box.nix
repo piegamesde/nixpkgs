@@ -29,7 +29,9 @@ in
               geoip.path = lib.mkOption {
                 type = lib.types.path;
                 default = "${pkgs.sing-geoip}/share/sing-box/geoip.db";
-                defaultText = lib.literalExpression "\${pkgs.sing-geoip}/share/sing-box/geoip.db";
+                defaultText =
+                  lib.literalExpression
+                    "\${pkgs.sing-geoip}/share/sing-box/geoip.db";
                 description = lib.mdDoc ''
                   The path to the sing-geoip database.
                 '';
@@ -37,7 +39,9 @@ in
               geosite.path = lib.mkOption {
                 type = lib.types.path;
                 default = "${pkgs.sing-geosite}/share/sing-box/geosite.db";
-                defaultText = lib.literalExpression "\${pkgs.sing-geosite}/share/sing-box/geosite.db";
+                defaultText =
+                  lib.literalExpression
+                    "\${pkgs.sing-geosite}/share/sing-box/geosite.db";
                 description = lib.mdDoc ''
                   The path to the sing-geosite database.
                 '';

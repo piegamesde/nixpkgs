@@ -23,7 +23,8 @@ let
 
   hash = fod: fod.outputHash or (builtins.readFile (computeHash fod));
 
-  hashes = fods: concatMapStrings ({ tlType, ... }@p: ''${tlType}="${hash p}";'') fods;
+  hashes =
+    fods: concatMapStrings ({ tlType, ... }@p: ''${tlType}="${hash p}";'') fods;
 
   hashLine =
     {

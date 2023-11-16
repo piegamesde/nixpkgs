@@ -24,7 +24,9 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-iO8ZozVl1vOOqowQARnRJWSFUFnau46+dKfcMSkyU3o=";
 
-  nativeBuildInputs = [ python3 ] ++ lib.optionals stdenv.isDarwin [ darwin.cctools ];
+  nativeBuildInputs = [
+    python3
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.cctools ];
 
   makeCacheWritable = true;
 

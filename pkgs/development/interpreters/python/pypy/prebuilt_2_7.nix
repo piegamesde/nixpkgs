@@ -66,7 +66,8 @@ stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url = downloadUrls.${stdenv.system} or (throw "Unsupported system: ${stdenv.system}");
+    url =
+      downloadUrls.${stdenv.system} or (throw "Unsupported system: ${stdenv.system}");
     inherit hash;
   };
 
@@ -127,12 +128,16 @@ stdenv.mkDerivation {
           $out/bin/${executable}
       install_name_tool \
         -change \
-          /opt/homebrew${lib.optionalString stdenv.isx86_64 "_x86_64"}/opt/tcl-tk/lib/libtcl8.6.dylib \
+          /opt/homebrew${
+            lib.optionalString stdenv.isx86_64 "_x86_64"
+          }/opt/tcl-tk/lib/libtcl8.6.dylib \
           ${tcl-8_6}/lib/libtcl8.6.dylib \
           $out/lib_pypy/_tkinter/*.so
       install_name_tool \
         -change \
-          /opt/homebrew${lib.optionalString stdenv.isx86_64 "_x86_64"}/opt/tcl-tk/lib/libtk8.6.dylib \
+          /opt/homebrew${
+            lib.optionalString stdenv.isx86_64 "_x86_64"
+          }/opt/tcl-tk/lib/libtk8.6.dylib \
           ${tk-8_6}/lib/libtk8.6.dylib \
           $out/lib_pypy/_tkinter/*.so
     '';
@@ -142,11 +147,13 @@ stdenv.mkDerivation {
   # Check whether importing of (extension) modules functions
   installCheckPhase =
     let
-      modules = [
-        "ssl"
-        "sys"
-        "curses"
-      ] ++ lib.optionals (!isPy3k) [ "Tkinter" ] ++ lib.optionals isPy3k [ "tkinter" ];
+      modules =
+        [
+          "ssl"
+          "sys"
+          "curses"
+        ]
+        ++ lib.optionals (!isPy3k) [ "Tkinter" ] ++ lib.optionals isPy3k [ "tkinter" ];
       imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;
     in
     ''

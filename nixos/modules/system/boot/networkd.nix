@@ -642,7 +642,8 @@ let
                 "routable"
               ];
               operationalStateRanges = concatLists (
-                imap0 (i: min: map (max: "${min}:${max}") (drop i operationalStates)) operationalStates
+                imap0 (i: min: map (max: "${min}:${max}") (drop i operationalStates))
+                  operationalStates
               );
             in
             operationalStates ++ operationalStateRanges
@@ -1410,14 +1411,16 @@ let
         (assertRange "PacketLimit" 1 4294967294)
       ];
 
-      sectionStochasticFairnessQueueing = checkUnitConfig "StochasticFairnessQueueing" [
-        (assertOnlyFields [
-          "Parent"
-          "Handle"
-          "PerturbPeriodSec"
-        ])
-        (assertInt "PerturbPeriodSec")
-      ];
+      sectionStochasticFairnessQueueing =
+        checkUnitConfig "StochasticFairnessQueueing"
+          [
+            (assertOnlyFields [
+              "Parent"
+              "Handle"
+              "PerturbPeriodSec"
+            ])
+            (assertInt "PerturbPeriodSec")
+          ];
 
       sectionBFIFO = checkUnitConfig "BFIFO" [
         (assertOnlyFields [
@@ -1519,68 +1522,78 @@ let
         (assertValueOneOf "ECN" boolValues)
       ];
 
-      sectionDeficitRoundRobinScheduler = checkUnitConfig "DeficitRoundRobinScheduler" [
-        (assertOnlyFields [
-          "Parent"
-          "Handle"
-        ])
-      ];
+      sectionDeficitRoundRobinScheduler =
+        checkUnitConfig "DeficitRoundRobinScheduler"
+          [
+            (assertOnlyFields [
+              "Parent"
+              "Handle"
+            ])
+          ];
 
-      sectionDeficitRoundRobinSchedulerClass = checkUnitConfig "DeficitRoundRobinSchedulerClass" [
-        (assertOnlyFields [
-          "Parent"
-          "Handle"
-          "QuantumBytes"
-        ])
-      ];
+      sectionDeficitRoundRobinSchedulerClass =
+        checkUnitConfig "DeficitRoundRobinSchedulerClass"
+          [
+            (assertOnlyFields [
+              "Parent"
+              "Handle"
+              "QuantumBytes"
+            ])
+          ];
 
-      sectionEnhancedTransmissionSelection = checkUnitConfig "EnhancedTransmissionSelection" [
-        (assertOnlyFields [
-          "Parent"
-          "Handle"
-          "Bands"
-          "StrictBands"
-          "QuantumBytes"
-          "PriorityMap"
-        ])
-        (assertInt "Bands")
-        (assertRange "Bands" 1 16)
-        (assertInt "StrictBands")
-        (assertRange "StrictBands" 1 16)
-      ];
+      sectionEnhancedTransmissionSelection =
+        checkUnitConfig "EnhancedTransmissionSelection"
+          [
+            (assertOnlyFields [
+              "Parent"
+              "Handle"
+              "Bands"
+              "StrictBands"
+              "QuantumBytes"
+              "PriorityMap"
+            ])
+            (assertInt "Bands")
+            (assertRange "Bands" 1 16)
+            (assertInt "StrictBands")
+            (assertRange "StrictBands" 1 16)
+          ];
 
-      sectionGenericRandomEarlyDetection = checkUnitConfig "GenericRandomEarlyDetection" [
-        (assertOnlyFields [
-          "Parent"
-          "Handle"
-          "VirtualQueues"
-          "DefaultVirtualQueue"
-          "GenericRIO"
-        ])
-        (assertInt "VirtualQueues")
-        (assertRange "VirtualQueues" 1 16)
-        (assertInt "DefaultVirtualQueue")
-        (assertRange "DefaultVirtualQueue" 1 16)
-        (assertValueOneOf "GenericRIO" boolValues)
-      ];
+      sectionGenericRandomEarlyDetection =
+        checkUnitConfig "GenericRandomEarlyDetection"
+          [
+            (assertOnlyFields [
+              "Parent"
+              "Handle"
+              "VirtualQueues"
+              "DefaultVirtualQueue"
+              "GenericRIO"
+            ])
+            (assertInt "VirtualQueues")
+            (assertRange "VirtualQueues" 1 16)
+            (assertInt "DefaultVirtualQueue")
+            (assertRange "DefaultVirtualQueue" 1 16)
+            (assertValueOneOf "GenericRIO" boolValues)
+          ];
 
-      sectionFairQueueingControlledDelay = checkUnitConfig "FairQueueingControlledDelay" [
-        (assertOnlyFields [
-          "Parent"
-          "Handle"
-          "PacketLimit"
-          "MemoryLimitBytes"
-          "Flows"
-          "TargetSec"
-          "IntervalSec"
-          "QuantumBytes"
-          "ECN"
-          "CEThresholdSec"
-        ])
-        (assertInt "PacketLimit")
-        (assertInt "Flows")
-        (assertValueOneOf "ECN" boolValues)
-      ];
+      sectionFairQueueingControlledDelay =
+        checkUnitConfig "FairQueueingControlledDelay"
+          [
+            (assertOnlyFields [
+              "Parent"
+              "Handle"
+              "PacketLimit"
+              "MemoryLimitBytes"
+              "Flows"
+              "TargetSec"
+              "IntervalSec"
+              "QuantumBytes"
+              "ECN"
+              "CEThresholdSec"
+            ])
+            (assertInt "PacketLimit")
+            (assertInt "Flows")
+            (assertValueOneOf "ECN" boolValues)
+          ];
 
       sectionFairQueueing = checkUnitConfig "FairQueueing" [
         (assertOnlyFields [
@@ -1780,7 +1793,9 @@ let
     options = {
       l2tpSessionConfig = mkOption {
         default = { };
-        type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionL2TPSession;
+        type =
+          types.addCheck (types.attrsOf unitOption)
+            check.netdev.sectionL2TPSession;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[L2TPSession]` section of the unit.  See
@@ -1794,7 +1809,9 @@ let
     options = {
       wireguardPeerConfig = mkOption {
         default = { };
-        type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionWireGuardPeer;
+        type =
+          types.addCheck (types.attrsOf unitOption)
+            check.netdev.sectionWireGuardPeer;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[WireGuardPeer]` section of the unit.  See
@@ -2058,7 +2075,9 @@ let
         GatewayMode = "server";
         RoutingAlgorithm = "batman-v";
       };
-      type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionBatmanAdvanced;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.netdev.sectionBatmanAdvanced;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[BatmanAdvanced]` section of the unit. See
@@ -2092,7 +2111,9 @@ let
           IncomingInterface = "eth1";
           Family = "both";
         };
-        type = types.addCheck (types.attrsOf unitOption) check.network.sectionRoutingPolicyRule;
+        type =
+          types.addCheck (types.attrsOf unitOption)
+            check.network.sectionRoutingPolicyRule;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[RoutingPolicyRule]` section of the unit.  See
@@ -2126,7 +2147,9 @@ let
         example = {
           Prefix = "fd00::/64";
         };
-        type = types.addCheck (types.attrsOf unitOption) check.network.sectionIPv6Prefix;
+        type =
+          types.addCheck (types.attrsOf unitOption)
+            check.network.sectionIPv6Prefix;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[IPv6Prefix]` section of the unit.  See
@@ -2143,7 +2166,9 @@ let
         example = {
           Route = "fd00::/64";
         };
-        type = types.addCheck (types.attrsOf unitOption) check.network.sectionIPv6RoutePrefix;
+        type =
+          types.addCheck (types.attrsOf unitOption)
+            check.network.sectionIPv6RoutePrefix;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[IPv6RoutePrefix]` section of the unit.  See
@@ -2161,7 +2186,9 @@ let
           MACAddress = "65:43:4a:5b:d8:5f";
           Address = "192.168.1.42";
         };
-        type = types.addCheck (types.attrsOf unitOption) check.network.sectionDHCPServerStaticLease;
+        type =
+          types.addCheck (types.attrsOf unitOption)
+            check.network.sectionDHCPServerStaticLease;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[DHCPServerStaticLease]` section of the unit.  See
@@ -2218,7 +2245,9 @@ let
         example = {
           VLAN = 20;
         };
-        type = types.addCheck (types.attrsOf unitOption) check.network.sectionBridgeVLAN;
+        type =
+          types.addCheck (types.attrsOf unitOption)
+            check.network.sectionBridgeVLAN;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[BridgeVLAN]` section of the unit.  See
@@ -2307,7 +2336,9 @@ let
         SubnetId = "auto";
         Announce = true;
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionDHCPPrefixDelegation;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionDHCPPrefixDelegation;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DHCPPrefixDelegation]` section of the unit. See
@@ -2321,7 +2352,9 @@ let
         UseDNS = true;
         DHCPv6Client = "always";
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionIPv6AcceptRA;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionIPv6AcceptRA;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[IPv6AcceptRA]` section of the unit. See
@@ -2335,7 +2368,9 @@ let
         PoolOffset = 50;
         EmitDNS = false;
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionDHCPServer;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionDHCPServer;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DHCPServer]` section of the unit.  See
@@ -2360,7 +2395,9 @@ let
         Managed = true;
         OtherInformation = true;
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionIPv6SendRA;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionIPv6SendRA;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[IPv6SendRA]` section of the unit.  See
@@ -2522,7 +2559,9 @@ let
         Parent = "ingress";
         DelaySec = "20msec";
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionNetworkEmulator;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionNetworkEmulator;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[NetworkEmulator]` section of the unit.  See
@@ -2536,7 +2575,9 @@ let
         Parent = "ingress";
         Rate = "100k";
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionTokenBucketFilter;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionTokenBucketFilter;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[TokenBucketFilter]` section of the unit.  See
@@ -2564,7 +2605,9 @@ let
         Parent = "ingress";
         PacketLimit = "3847";
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionFlowQueuePIE;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionFlowQueuePIE;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[FlowQueuePIE]` section of the unit.  See
@@ -2578,7 +2621,9 @@ let
         Parent = "ingress";
         PacketLimit = "3847";
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionStochasticFairBlue;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionStochasticFairBlue;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[StochasticFairBlue]` section of the unit.  See
@@ -2592,7 +2637,9 @@ let
         Parent = "ingress";
         PerturbPeriodSec = "30";
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionStochasticFairnessQueueing;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionStochasticFairnessQueueing;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[StochasticFairnessQueueing]` section of the unit.  See
@@ -2634,7 +2681,9 @@ let
         Parent = "ingress";
         PacketLimit = "300";
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionPFIFOHeadDrop;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionPFIFOHeadDrop;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[PFIFOHeadDrop]` section of the unit.  See
@@ -2676,7 +2725,9 @@ let
         Parent = "ingress";
         TargetSec = "20msec";
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionControlledDelay;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionControlledDelay;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[ControlledDelay]` section of the unit.  See
@@ -2689,7 +2740,9 @@ let
       example = {
         Parent = "root";
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionDeficitRoundRobinScheduler;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionDeficitRoundRobinScheduler;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DeficitRoundRobinScheduler]` section of the unit.  See
@@ -2721,7 +2774,9 @@ let
         Bands = 3;
         PriorityMap = "100 200 300";
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionEnhancedTransmissionSelection;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionEnhancedTransmissionSelection;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[EnhancedTransmissionSelection]` section of the unit.  See
@@ -2736,7 +2791,9 @@ let
         VirtualQueues = 5;
         DefaultVirtualQueue = 3;
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionGenericRandomEarlyDetection;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionGenericRandomEarlyDetection;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[GenericRandomEarlyDetection]` section of the unit.  See
@@ -2750,7 +2807,9 @@ let
         Parent = "root";
         Flows = 5;
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionFairQueueingControlledDelay;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionFairQueueingControlledDelay;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[FairQueueingControlledDelay]` section of the unit.  See
@@ -2764,7 +2823,9 @@ let
         Parent = "root";
         FlowLimit = 5;
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionFairQueueing;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionFairQueueing;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[FairQueueing]` section of the unit.  See
@@ -2778,7 +2839,9 @@ let
         Parent = "root";
         Id = 0;
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionTrivialLinkEqualizer;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionTrivialLinkEqualizer;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[TrivialLinkEqualizer]` section of the unit.  See
@@ -2791,7 +2854,9 @@ let
       example = {
         Parent = "root";
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionHierarchyTokenBucket;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionHierarchyTokenBucket;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[HierarchyTokenBucket]` section of the unit.  See
@@ -2805,7 +2870,9 @@ let
         Parent = "root";
         Rate = "10M";
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionHierarchyTokenBucketClass;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionHierarchyTokenBucketClass;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[HierarchyTokenBucketClass]` section of the unit.  See
@@ -2819,7 +2886,9 @@ let
         Parent = "root";
         PacketLimit = 10000;
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionHeavyHitterFilter;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionHeavyHitterFilter;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[HeavyHitterFilter]` section of the unit.  See
@@ -2832,7 +2901,9 @@ let
       example = {
         Parent = "root";
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionQuickFairQueueing;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionQuickFairQueueing;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[QuickFairQueueing]` section of the unit.  See
@@ -2846,7 +2917,9 @@ let
         Parent = "root";
         Weight = 133;
       };
-      type = types.addCheck (types.attrsOf unitOption) check.network.sectionQuickFairQueueingClass;
+      type =
+        types.addCheck (types.attrsOf unitOption)
+          check.network.sectionQuickFairQueueingClass;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[QuickFairQueueingClass]` section of the unit.  See
@@ -3046,7 +3119,9 @@ let
         matchConfig = optionalAttrs (config.name != null) { Name = config.name; };
         networkConfig =
           optionalAttrs (config.DHCP != null) { DHCP = config.DHCP; }
-          // optionalAttrs (config.domains != null) { Domains = concatStringsSep " " config.domains; };
+          // optionalAttrs (config.domains != null) {
+            Domains = concatStringsSep " " config.domains;
+          };
       };
     };
 
@@ -3079,7 +3154,9 @@ let
 
       config = {
         networkConfig = optionalAttrs (config.routeTables != { }) {
-          RouteTable = mapAttrsToList (name: number: "${name}:${toString number}") config.routeTables;
+          RouteTable =
+            mapAttrsToList (name: number: "${name}:${toString number}")
+              config.routeTables;
         };
       };
     };
@@ -3251,7 +3328,9 @@ let
 
       # .link units are honored by udev, no matter if systemd-networkd is enabled or not.
       {
-        systemd.network.units = mapAttrs' (n: v: nameValuePair "${n}.link" (mkUnit linkToUnit v)) cfg.links;
+        systemd.network.units =
+          mapAttrs' (n: v: nameValuePair "${n}.link" (mkUnit linkToUnit v))
+            cfg.links;
 
         systemd.network.wait-online.extraArgs =
           [ "--timeout=${toString cfg.wait-online.timeout}" ]
@@ -3262,8 +3341,10 @@ let
       (mkIf config.systemd.network.enable {
 
         systemd.network.units =
-          mapAttrs' (n: v: nameValuePair "${n}.netdev" (mkUnit netdevToUnit v)) cfg.netdevs
-          // mapAttrs' (n: v: nameValuePair "${n}.network" (mkUnit networkToUnit v)) cfg.networks;
+          mapAttrs' (n: v: nameValuePair "${n}.netdev" (mkUnit netdevToUnit v))
+            cfg.netdevs
+          // mapAttrs' (n: v: nameValuePair "${n}.network" (mkUnit networkToUnit v))
+            cfg.networks;
 
         # systemd-networkd is socket-activated by kernel netlink route change
         # messages. It is important to have systemd buffer those on behalf of
@@ -3321,9 +3402,14 @@ let
 
         systemd.services.systemd-networkd =
           let
-            isReloadableUnitFileName = unitFileName: strings.hasSuffix ".network" unitFileName;
-            reloadableUnitFiles = attrsets.filterAttrs (k: v: isReloadableUnitFileName k) unitFiles;
-            nonReloadableUnitFiles = attrsets.filterAttrs (k: v: !isReloadableUnitFileName k) unitFiles;
+            isReloadableUnitFileName =
+              unitFileName: strings.hasSuffix ".network" unitFileName;
+            reloadableUnitFiles =
+              attrsets.filterAttrs (k: v: isReloadableUnitFileName k)
+                unitFiles;
+            nonReloadableUnitFiles =
+              attrsets.filterAttrs (k: v: !isReloadableUnitFileName k)
+                unitFiles;
             unitFileSources = unitFiles: map (x: x.source) (attrValues unitFiles);
           in
           {
@@ -3335,16 +3421,19 @@ let
             aliases = [ "dbus-org.freedesktop.network1.service" ];
           };
 
-        networking.iproute2 = mkIf (cfg.config.addRouteTablesToIPRoute2 && cfg.config.routeTables != { }) {
-          enable = mkDefault true;
-          rttablesExtraConfig = ''
+        networking.iproute2 =
+          mkIf (cfg.config.addRouteTablesToIPRoute2 && cfg.config.routeTables != { })
+            {
+              enable = mkDefault true;
+              rttablesExtraConfig = ''
 
-            # Extra tables defined in NixOS systemd.networkd.config.routeTables.
-            ${concatStringsSep "\n" (
-              mapAttrsToList (name: number: "${toString number} ${name}") cfg.config.routeTables
-            )}
-          '';
-        };
+                # Extra tables defined in NixOS systemd.networkd.config.routeTables.
+                ${concatStringsSep "\n" (
+                  mapAttrsToList (name: number: "${toString number} ${name}")
+                    cfg.config.routeTables
+                )}
+              '';
+            };
 
         services.resolved.enable = mkDefault true;
       })
@@ -3379,7 +3468,9 @@ let
         # Networkd link files are used early by udev to set up interfaces early.
         # This must be done in stage 1 to avoid race conditions between udev and
         # network daemons.
-        systemd.network.units = lib.filterAttrs (n: _: hasSuffix ".link" n) config.systemd.network.units;
+        systemd.network.units =
+          lib.filterAttrs (n: _: hasSuffix ".link" n)
+            config.systemd.network.units;
         systemd.storePaths = [
           "${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link"
         ];
@@ -3447,7 +3538,8 @@ in
       assertions = [
         {
           assertion =
-            !config.boot.initrd.network.udhcpc.enable && config.boot.initrd.network.udhcpc.extraArgs == [ ];
+            !config.boot.initrd.network.udhcpc.enable
+            && config.boot.initrd.network.udhcpc.extraArgs == [ ];
           message = ''
             systemd stage 1 networking does not support 'boot.initrd.network.udhcpc'. Configure
             DHCP with 'networking.*' options or with 'boot.initrd.systemd.network' options.

@@ -21,7 +21,9 @@ in
   };
 
   options.boot.loader.external = {
-    enable = mkEnableOption (lib.mdDoc "using an external tool to install your bootloader");
+    enable = mkEnableOption (
+      lib.mdDoc "using an external tool to install your bootloader"
+    );
 
     installHook = mkOption {
       type = with types; path;

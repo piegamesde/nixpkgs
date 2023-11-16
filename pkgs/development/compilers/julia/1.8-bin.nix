@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-6oXgSJw2MkxNpiFjqhuC/PL1L3LRc+590hOjqSmSyrc=";
       };
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   patches =
     [

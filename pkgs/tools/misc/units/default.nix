@@ -21,7 +21,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XRPhIHch/ncm2Qa6HZLcDt2qn8JnWe0i47jRp5MSWEg=";
   };
 
-  buildInputs = [ readline ] ++ lib.optionals enableCurrenciesUpdater [ pythonEnv ];
+  buildInputs = [
+    readline
+  ] ++ lib.optionals enableCurrenciesUpdater [ pythonEnv ];
   prePatch = lib.optionalString enableCurrenciesUpdater ''
     substituteInPlace units_cur \
       --replace "#!/usr/bin/env python" ${pythonEnv}/bin/python

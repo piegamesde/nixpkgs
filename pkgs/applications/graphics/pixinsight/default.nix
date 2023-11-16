@@ -155,7 +155,9 @@ stdenv.mkDerivation rec {
   ];
   dontWrapQtApps = true;
   postFixup = ''
-    wrapProgram $out/opt/PixInsight/bin/PixInsight ${builtins.toString qtWrapperArgs}
+    wrapProgram $out/opt/PixInsight/bin/PixInsight ${
+      builtins.toString qtWrapperArgs
+    }
   '';
 
   meta = with lib; {

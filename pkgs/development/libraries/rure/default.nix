@@ -32,7 +32,9 @@ rustPlatform.buildRustPackage {
     install -Dm644 include/rure.h -t "$dev/include"
   '';
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
+    fixDarwinDylibNames
+  ];
 
   passthru.updateScript = ./update.sh;
 

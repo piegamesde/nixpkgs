@@ -59,4 +59,6 @@ let
         )
         generatedJson;
 in
-(lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (selfNC: superNC: { })
+(lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (
+  selfNC: superNC: { }
+)

@@ -11,13 +11,17 @@ let
   cfg = config.services.tremor-rs;
 
   loggerSettingsFormat = pkgs.formats.yaml { };
-  loggerConfigFile = loggerSettingsFormat.generate "logger.yaml" cfg.loggerSettings;
+  loggerConfigFile =
+    loggerSettingsFormat.generate "logger.yaml"
+      cfg.loggerSettings;
 in
 {
 
   options = {
     services.tremor-rs = {
-      enable = lib.mkEnableOption (lib.mdDoc "Tremor event- or stream-processing system");
+      enable = lib.mkEnableOption (
+        lib.mdDoc "Tremor event- or stream-processing system"
+      );
 
       troyFileList = mkOption {
         type = types.listOf types.path;
@@ -28,7 +32,9 @@ in
       tremorLibDir = mkOption {
         type = types.path;
         default = "";
-        description = lib.mdDoc "Directory where to find /lib containing tremor script files";
+        description =
+          lib.mdDoc
+            "Directory where to find /lib containing tremor script files";
       };
 
       host = mkOption {

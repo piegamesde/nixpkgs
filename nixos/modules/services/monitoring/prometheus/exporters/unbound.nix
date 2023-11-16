@@ -84,8 +84,13 @@ in
               --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
               --web.telemetry-path ${cfg.telemetryPath} \
               ${optionalString (cfg.unbound.ca != null) "--unbound.ca ${cfg.unbound.ca}"} \
-              ${optionalString (cfg.unbound.certificate != null) "--unbound.cert ${cfg.unbound.certificate}"} \
-              ${optionalString (cfg.unbound.key != null) "--unbound.key ${cfg.unbound.key}"} \
+              ${
+                optionalString (cfg.unbound.certificate != null)
+                  "--unbound.cert ${cfg.unbound.certificate}"
+              } \
+              ${
+                optionalString (cfg.unbound.key != null) "--unbound.key ${cfg.unbound.key}"
+              } \
               ${toString cfg.extraFlags}
           '';
           RestrictAddressFamilies = [

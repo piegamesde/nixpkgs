@@ -51,7 +51,8 @@ rec {
       }
       // (drv.passthru or { })
       // lib.optionalAttrs (drv ? __spliced) {
-        __spliced = { } // (lib.mapAttrs (_: sDrv: overrideDerivation sDrv f) drv.__spliced);
+        __spliced =
+          { } // (lib.mapAttrs (_: sDrv: overrideDerivation sDrv f) drv.__spliced);
       }
     );
 
@@ -88,7 +89,9 @@ rec {
         result = f origArgs;
 
         # Changes the original arguments with (potentially a function that returns) a set of new attributes
-        overrideWith = newArgs: origArgs // (if lib.isFunction newArgs then newArgs origArgs else newArgs);
+        overrideWith =
+          newArgs:
+          origArgs // (if lib.isFunction newArgs then newArgs origArgs else newArgs);
 
         # Re-call the function but with different arguments
         overrideArgs = mirrorArgs (newArgs: makeOverridable f (overrideWith newArgs));
@@ -105,7 +108,10 @@ rec {
         }
       else if lib.isFunction result then
         # Transform the result into a functor while propagating its arguments
-        lib.setFunctionArgs result (lib.functionArgs result) // { override = overrideArgs; }
+        lib.setFunctionArgs result (lib.functionArgs result)
+        // {
+          override = overrideArgs;
+        }
       else
         result
     );
@@ -186,7 +192,9 @@ rec {
         else if lib.length suggestions == 1 then
           ", did you mean ${lib.elemAt suggestions 0}?"
         else
-          ", did you mean ${lib.concatStringsSep ", " (lib.init suggestions)} or ${lib.last suggestions}?";
+          ", did you mean ${lib.concatStringsSep ", " (lib.init suggestions)} or ${
+            lib.last suggestions
+          }?";
 
       errorForArg =
         arg:
@@ -224,7 +232,8 @@ rec {
       auto = builtins.intersectAttrs (lib.functionArgs f) autoArgs;
       origArgs = auto // args;
       pkgs = f origArgs;
-      mkAttrOverridable = name: _: makeOverridable (newArgs: (f newArgs).${name}) origArgs;
+      mkAttrOverridable =
+        name: _: makeOverridable (newArgs: (f newArgs).${name}) origArgs;
     in
     if lib.isDerivation pkgs then
       throw (
@@ -247,7 +256,10 @@ rec {
       outputs = drv.outputs or [ "out" ];
 
       commonAttrs =
-        drv // (builtins.listToAttrs outputsList) // ({ all = map (x: x.value) outputsList; }) // passthru;
+        drv
+        // (builtins.listToAttrs outputsList)
+        // ({ all = map (x: x.value) outputsList; })
+        // passthru;
 
       outputToAttrListElement = outputName: {
         name = outputName;

@@ -13,7 +13,9 @@ let
   cfg = config.services.irqbalance;
 in
 {
-  options.services.irqbalance.enable = mkEnableOption (lib.mdDoc "irqbalance daemon");
+  options.services.irqbalance.enable = mkEnableOption (
+    lib.mdDoc "irqbalance daemon"
+  );
 
   config = mkIf cfg.enable {
 

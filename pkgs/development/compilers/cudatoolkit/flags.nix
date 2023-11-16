@@ -77,7 +77,8 @@ let
   # Maps the name of a GPU architecture to different versions of that architecture.
   # For example, "Ampere" maps to [ "8.0" "8.6" "8.7" ].
   cudaArchNameToVersions =
-    lists.groupBy' (versions: gpu: versions ++ [ gpu.computeCapability ]) [ ] (gpu: gpu.archName)
+    lists.groupBy' (versions: gpu: versions ++ [ gpu.computeCapability ]) [ ]
+      (gpu: gpu.archName)
       supportedGpus;
 
   # cudaComputeCapabilityToName :: AttrSet String String
@@ -98,7 +99,8 @@ let
   # archMapper :: String -> List String -> List String
   # Maps a feature across a list of architecture versions to produce a list of architectures.
   # For example, "sm" and [ "8.0" "8.6" "8.7" ] produces [ "sm_80" "sm_86" "sm_87" ].
-  archMapper = feat: lists.map (computeCapability: "${feat}_${dropDot computeCapability}");
+  archMapper =
+    feat: lists.map (computeCapability: "${feat}_${dropDot computeCapability}");
 
   # gencodeMapper :: String -> List String -> List String
   # Maps a feature across a list of architecture versions to produce a list of gencode arguments.
@@ -108,7 +110,9 @@ let
     feat:
     lists.map (
       computeCapability:
-      "-gencode=arch=compute_${dropDot computeCapability},code=${feat}_${dropDot computeCapability}"
+      "-gencode=arch=compute_${dropDot computeCapability},code=${feat}_${
+        dropDot computeCapability
+      }"
     );
 
   formatCapabilities =
@@ -121,7 +125,9 @@ let
 
       # archNames :: List String
       # E.g. [ "Turing" "Ampere" ]
-      archNames = lists.unique (builtins.map (cap: cudaComputeCapabilityToName.${cap}) cudaCapabilities);
+      archNames = lists.unique (
+        builtins.map (cap: cudaComputeCapabilityToName.${cap}) cudaCapabilities
+      );
 
       # realArches :: List String
       # The real architectures are physical architectures supported by the CUDA version.
@@ -138,7 +144,9 @@ let
       # By default, build for all supported architectures and forward compatibility via a virtual
       # architecture for the newest supported architecture.
       # E.g. [ "sm_75" "sm_86" "compute_86" ]
-      arches = realArches ++ lists.optional enableForwardCompat (lists.last virtualArches);
+      arches =
+        realArches
+        ++ lists.optional enableForwardCompat (lists.last virtualArches);
 
       # gencode :: List String
       # A list of CUDA gencode arguments to pass to NVCC.

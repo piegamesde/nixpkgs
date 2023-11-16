@@ -43,7 +43,8 @@ let
     isPath
   ;
 
-  prefixUnlessEmpty = prefix: string: optionalString (string != "") "${prefix}${string}";
+  prefixUnlessEmpty =
+    prefix: string: optionalString (string != "") "${prefix}${string}";
 in
 {
   imports = [
@@ -492,8 +493,10 @@ in
     let
       # We only want to create a database if we're actually going to
       # connect to it.
-      databaseActuallyCreateLocally = cfg.database.createLocally && cfg.database.host == "localhost";
-      createLocalPostgreSQL = databaseActuallyCreateLocally && cfg.database.type == "postgresql";
+      databaseActuallyCreateLocally =
+        cfg.database.createLocally && cfg.database.host == "localhost";
+      createLocalPostgreSQL =
+        databaseActuallyCreateLocally && cfg.database.type == "postgresql";
       createLocalMySQL =
         databaseActuallyCreateLocally
         && elem cfg.database.type [
@@ -532,7 +535,8 @@ in
         done
 
         ${concatStringsSep "\n" (
-          mapAttrsToList (name: theme: "linkTheme ${theme} ${escapeShellArg name}") cfg.themes
+          mapAttrsToList (name: theme: "linkTheme ${theme} ${escapeShellArg name}")
+            cfg.themes
         )}
       '';
 
@@ -577,12 +581,14 @@ in
       assertions = [
         {
           assertion =
-            (cfg.database.useSSL && cfg.database.type == "postgresql") -> (cfg.database.caCert != null);
+            (cfg.database.useSSL && cfg.database.type == "postgresql")
+            -> (cfg.database.caCert != null);
           message = "A CA certificate must be specified (in 'services.keycloak.database.caCert') when PostgreSQL is used with SSL";
         }
         {
           assertion =
-            createLocalPostgreSQL -> config.services.postgresql.settings.standard_conforming_strings or true;
+            createLocalPostgreSQL
+            -> config.services.postgresql.settings.standard_conforming_strings or true;
           message = "Setting up a local PostgreSQL db for Keycloak requires `standard_conforming_strings` turned on to work reliably";
         }
       ];
@@ -610,16 +616,20 @@ in
               "trustCertificateKeyStorePassword=notsosecretpassword"
             ]
           );
-          dbProps = if cfg.database.type == "postgresql" then postgresParams else mariadbParams;
+          dbProps =
+            if cfg.database.type == "postgresql" then postgresParams else mariadbParams;
         in
         mkMerge [
           {
-            db = if cfg.database.type == "postgresql" then "postgres" else cfg.database.type;
-            db-username = if databaseActuallyCreateLocally then "keycloak" else cfg.database.username;
+            db =
+              if cfg.database.type == "postgresql" then "postgres" else cfg.database.type;
+            db-username =
+              if databaseActuallyCreateLocally then "keycloak" else cfg.database.username;
             db-password._secret = cfg.database.passwordFile;
             db-url-host = cfg.database.host;
             db-url-port = toString cfg.database.port;
-            db-url-database = if databaseActuallyCreateLocally then "keycloak" else cfg.database.name;
+            db-url-database =
+              if databaseActuallyCreateLocally then "keycloak" else cfg.database.name;
             db-url-properties = prefixUnlessEmpty "?" dbProps;
             db-url = null;
           }
@@ -762,10 +772,12 @@ in
               sed -i '/db-/ s|\\|\\\\|g' /run/keycloak/conf/keycloak.conf
 
             ''
-            + optionalString (cfg.sslCertificate != null && cfg.sslCertificateKey != null) ''
-              mkdir -p /run/keycloak/ssl
-              cp $CREDENTIALS_DIRECTORY/ssl_{cert,key} /run/keycloak/ssl/
-            ''
+            +
+              optionalString (cfg.sslCertificate != null && cfg.sslCertificateKey != null)
+                ''
+                  mkdir -p /run/keycloak/ssl
+                  cp $CREDENTIALS_DIRECTORY/ssl_{cert,key} /run/keycloak/ssl/
+                ''
             + ''
               export KEYCLOAK_ADMIN=admin
               export KEYCLOAK_ADMIN_PASSWORD=${escapeShellArg cfg.initialAdminPassword}

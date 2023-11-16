@@ -19,15 +19,19 @@ let
     ${optionalString cfg.nodump "nodump"}
     ${optionalString cfg.printStats "print-stats"}
     ${optionalString cfg.printStats "humanize-numbers"}
-    ${optionalString (cfg.checkpointBytes != null) ("checkpoint-bytes " + cfg.checkpointBytes)}
+    ${optionalString (cfg.checkpointBytes != null) (
+      "checkpoint-bytes " + cfg.checkpointBytes
+    )}
     ${optionalString cfg.aggressiveNetworking "aggressive-networking"}
     ${concatStringsSep "\n" (map (v: "exclude ${v}") cfg.excludes)}
     ${concatStringsSep "\n" (map (v: "include ${v}") cfg.includes)}
     ${optionalString cfg.lowmem "lowmem"}
     ${optionalString cfg.verylowmem "verylowmem"}
     ${optionalString (cfg.maxbw != null) "maxbw ${toString cfg.maxbw}"}
-    ${optionalString (cfg.maxbwRateUp != null) "maxbw-rate-up ${toString cfg.maxbwRateUp}"}
-    ${optionalString (cfg.maxbwRateDown != null) "maxbw-rate-down ${toString cfg.maxbwRateDown}"}
+    ${optionalString (cfg.maxbwRateUp != null)
+      "maxbw-rate-up ${toString cfg.maxbwRateUp}"}
+    ${optionalString (cfg.maxbwRateDown != null)
+      "maxbw-rate-down ${toString cfg.maxbwRateDown}"}
   '';
 in
 {
@@ -351,7 +355,8 @@ in
 
             script =
               let
-                tarsnap = ''${lib.getExe gcfg.package} --configfile "/etc/tarsnap/${name}.conf"'';
+                tarsnap = ''
+                  ${lib.getExe gcfg.package} --configfile "/etc/tarsnap/${name}.conf"'';
                 run = ''
                   ${tarsnap} -c -f "${name}-$(date +"%Y%m%d%H%M%S")" \
                                           ${optionalString cfg.verbose "-v"} \
@@ -408,7 +413,8 @@ in
 
               script =
                 let
-                  tarsnap = ''${lib.getExe gcfg.package} --configfile "/etc/tarsnap/${name}.conf"'';
+                  tarsnap = ''
+                    ${lib.getExe gcfg.package} --configfile "/etc/tarsnap/${name}.conf"'';
                   lastArchive = "$(${tarsnap} --list-archives | sort | tail -1)";
                   run = ''${tarsnap} -x -f "${lastArchive}" ${optionalString cfg.verbose "-v"}'';
                   cachedir = escapeShellArg cfg.cachedir;
@@ -460,7 +466,10 @@ in
         gcfg.archives;
 
     environment.etc =
-      mapAttrs' (name: cfg: nameValuePair "tarsnap/${name}.conf" { text = configFile name cfg; })
+      mapAttrs'
+        (
+          name: cfg: nameValuePair "tarsnap/${name}.conf" { text = configFile name cfg; }
+        )
         gcfg.archives;
 
     environment.systemPackages = [ gcfg.package ];

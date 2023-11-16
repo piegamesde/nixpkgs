@@ -49,9 +49,15 @@ stdenv.mkDerivation rec {
   ];
 
   postFixup = ''
-    wrapProgram $out/bin/tang-show-keys --prefix PATH ":" ${lib.makeBinPath [ jose ]}
-    wrapProgram $out/libexec/tangd-keygen --prefix PATH ":" ${lib.makeBinPath [ jose ]}
-    wrapProgram $out/libexec/tangd-rotate-keys --prefix PATH ":" ${lib.makeBinPath [ jose ]}
+    wrapProgram $out/bin/tang-show-keys --prefix PATH ":" ${
+      lib.makeBinPath [ jose ]
+    }
+    wrapProgram $out/libexec/tangd-keygen --prefix PATH ":" ${
+      lib.makeBinPath [ jose ]
+    }
+    wrapProgram $out/libexec/tangd-rotate-keys --prefix PATH ":" ${
+      lib.makeBinPath [ jose ]
+    }
   '';
 
   passthru = {

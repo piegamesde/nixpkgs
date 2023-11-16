@@ -79,7 +79,8 @@ let
       ];
     }
   );
-  wxGTK-override' = if wxGTK-override == null then wxGTK-prusa else wxGTK-override;
+  wxGTK-override' =
+    if wxGTK-override == null then wxGTK-prusa else wxGTK-override;
 in
 stdenv.mkDerivation (
   finalAttrs: {

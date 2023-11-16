@@ -39,7 +39,9 @@ stdenv.mkDerivation (
       patchShebangs test
     '';
 
-    passthru.tests.pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+    passthru.tests.pkg-config = testers.hasPkgConfigModules {
+      package = finalAttrs.finalPackage;
+    };
 
     meta = with lib; {
       description = "Fully feature complete YAML parser and emitter, supporting the latest YAML spec and passing the full YAML testsuite";

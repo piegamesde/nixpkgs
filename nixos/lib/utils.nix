@@ -10,9 +10,12 @@ rec {
   # Copy configuration files to avoid having the entire sources in the system closure
   copyFile =
     filePath:
-    pkgs.runCommand (builtins.unsafeDiscardStringContext (builtins.baseNameOf filePath)) { } ''
-      cp ${filePath} $out
-    '';
+    pkgs.runCommand
+      (builtins.unsafeDiscardStringContext (builtins.baseNameOf filePath))
+      { }
+      ''
+        cp ${filePath} $out
+      '';
 
   # Check whenever fileSystem is needed for boot.  NOTE: Make sure
   # pathsNeededForBoot is closed under the parent relationship, i.e. if /a/b/c
@@ -266,7 +269,9 @@ rec {
     + lib.escapeShellArg (
       stringOrDefault
         (concatStringsSep " | " (
-          imap1 (index: name: "${name} = $ENV.secret${toString index}") (attrNames secrets)
+          imap1 (index: name: "${name} = $ENV.secret${toString index}") (
+            attrNames secrets
+          )
         ))
         "."
     )

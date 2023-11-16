@@ -11,7 +11,9 @@ self: super:
 
 let
   inherit (neovimUtils) grammarToPlugin;
-  generatedGrammars = callPackage ./generated.nix { inherit (tree-sitter) buildGrammar; };
+  generatedGrammars = callPackage ./generated.nix {
+    inherit (tree-sitter) buildGrammar;
+  };
 
   generatedDerivations = lib.filterAttrs (_: lib.isDerivation) generatedGrammars;
 
@@ -47,7 +49,9 @@ let
   withPlugins =
     f:
     self.nvim-treesitter.overrideAttrs {
-      passthru.dependencies = map grammarToPlugin (f (tree-sitter.builtGrammars // builtGrammars));
+      passthru.dependencies = map grammarToPlugin (
+        f (tree-sitter.builtGrammars // builtGrammars)
+      );
     };
 
   withAllGrammars = withPlugins (_: allGrammars);
@@ -71,7 +75,9 @@ in
 
     tests.check-queries =
       let
-        nvimWithAllGrammars = neovim.override { configure.packages.all.start = [ withAllGrammars ]; };
+        nvimWithAllGrammars = neovim.override {
+          configure.packages.all.start = [ withAllGrammars ];
+        };
       in
       runCommand "nvim-treesitter-check-queries"
         {

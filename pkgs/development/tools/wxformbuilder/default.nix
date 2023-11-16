@@ -26,7 +26,9 @@ stdenv.mkDerivation (
     postPatch = ''
       substituteInPlace .git-properties \
         --replace "\$Format:%h\$" "${builtins.substring 0 7 finalAttrs.src.rev}" \
-        --replace "\$Format:%(describe)\$" "${builtins.substring 0 7 finalAttrs.src.rev}"
+        --replace "\$Format:%(describe)\$" "${
+          builtins.substring 0 7 finalAttrs.src.rev
+        }"
       sed -i '/fixup_bundle/d' cmake/macros.cmake
     '';
 

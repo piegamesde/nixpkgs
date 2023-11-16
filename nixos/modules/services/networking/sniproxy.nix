@@ -48,7 +48,9 @@ in
       config = mkOption {
         type = types.lines;
         default = "";
-        description = lib.mdDoc "sniproxy.conf configuration excluding the daemon username and pid file.";
+        description =
+          lib.mdDoc
+            "sniproxy.conf configuration excluding the daemon username and pid file.";
         example = ''
           error_log {
             filename /var/log/sniproxy/error.log

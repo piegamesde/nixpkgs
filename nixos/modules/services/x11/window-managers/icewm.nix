@@ -13,7 +13,9 @@ in
 {
   ###### interface
   options = {
-    services.xserver.windowManager.icewm.enable = mkEnableOption (lib.mdDoc "icewm");
+    services.xserver.windowManager.icewm.enable = mkEnableOption (
+      lib.mdDoc "icewm"
+    );
   };
 
   ###### implementation

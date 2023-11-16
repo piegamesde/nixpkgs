@@ -46,9 +46,13 @@ stdenv.mkDerivation rec {
     find "$d" \( -type d -or \( -type f -executable \) \) -execdir chmod 755 {} +
     find "$d" -type f -not -executable -execdir chmod 644 {} +
     makeWrapper ${emacs}/bin/emacs $out/bin/emacspeak \
-        --set DTK_PROGRAM "${placeholder "out"}/share/emacs/site-lisp/emacspeak/servers/espeak" \
+        --set DTK_PROGRAM "${
+          placeholder "out"
+        }/share/emacs/site-lisp/emacspeak/servers/espeak" \
         --set TCLLIBPATH "${tclx}/lib" \
-        --add-flags '-l "${placeholder "out"}/share/emacs/site-lisp/emacspeak/lisp/emacspeak-setup.elc"'
+        --add-flags '-l "${
+          placeholder "out"
+        }/share/emacs/site-lisp/emacspeak/lisp/emacspeak-setup.elc"'
   '';
 
   meta = with lib; {

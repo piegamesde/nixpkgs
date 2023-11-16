@@ -50,7 +50,9 @@ stdenv.mkDerivation (
             sha256 = "sha256-SmwaUjOjjZulg/wgNmR/F5b8rhYA2wkKAjHIOxjcQdQ=";
           })
         ]
-      ++ lib.optionals stdenv.hostPlatform.isStatic [ ./static-executables-have-no-rpath.patch ];
+      ++ lib.optionals stdenv.hostPlatform.isStatic [
+        ./static-executables-have-no-rpath.patch
+      ];
 
     nativeBuildInputs =
       let
@@ -83,9 +85,9 @@ stdenv.mkDerivation (
       ++ lib.optionals enableShared [ "-Dprotobuf_BUILD_SHARED_LIBS=ON" ]
       # Tests fail to build on 32-bit platforms; fixed in 3.22
       # https://github.com/protocolbuffers/protobuf/issues/10418
-      ++ lib.optionals (stdenv.targetPlatform.is32bit && lib.versionOlder version "3.22") [
-        "-Dprotobuf_BUILD_TESTS=OFF"
-      ];
+      ++
+        lib.optionals (stdenv.targetPlatform.is32bit && lib.versionOlder version "3.22")
+          [ "-Dprotobuf_BUILD_TESTS=OFF" ];
 
     # FIXME: investigate.  3.24 and 3.23 have different errors.
     # At least some of it is not reproduced on some other machine; example:
@@ -94,7 +96,9 @@ stdenv.mkDerivation (
 
     passthru = {
       tests = {
-        pythonProtobuf = python3.pkgs.protobuf.override (_: { protobuf = finalAttrs.finalPackage; });
+        pythonProtobuf = python3.pkgs.protobuf.override (
+          _: { protobuf = finalAttrs.finalPackage; }
+        );
         inherit grpc;
       };
 

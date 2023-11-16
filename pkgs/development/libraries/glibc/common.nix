@@ -164,22 +164,28 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         (lib.flip lib.withFeature "fp" (
-          stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft"
+          stdenv.hostPlatform.gcc.float
+            or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft"
         ))
         "--with-__thread"
       ]
-      ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform && stdenv.hostPlatform.isAarch32) [
-        "--host=arm-linux-gnueabi"
-        "--build=arm-linux-gnueabi"
+      ++
+        lib.optionals
+          (stdenv.hostPlatform == stdenv.buildPlatform && stdenv.hostPlatform.isAarch32)
+          [
+            "--host=arm-linux-gnueabi"
+            "--build=arm-linux-gnueabi"
 
-        # To avoid linking with -lgcc_s (dynamic link)
-        # so the glibc does not depend on its compiler store path
-        "libc_cv_as_needed=no"
-      ]
+            # To avoid linking with -lgcc_s (dynamic link)
+            # so the glibc does not depend on its compiler store path
+            "libc_cv_as_needed=no"
+          ]
       ++ lib.optional withGd "--with-gd"
       ++ lib.optional withLibcrypt "--enable-crypt";
 
-    makeFlags = (args.makeFlags or [ ]) ++ [ "OBJCOPY=${stdenv.cc.targetPrefix}objcopy" ];
+    makeFlags = (args.makeFlags or [ ]) ++ [
+      "OBJCOPY=${stdenv.cc.targetPrefix}objcopy"
+    ];
 
     postInstall =
       (args.postInstall or "")

@@ -31,12 +31,14 @@ stdenv.mkDerivation rec {
     procps
   ];
 
-  postPatch = lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    substituteInPlace Makefile.in \
-      --replace '$(DESTDIR)$(bindir)/parallel --shell-completion' '${
-        lib.getExe buildPackages.parallel
-      } --shell-completion'
-  '';
+  postPatch =
+    lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+      ''
+        substituteInPlace Makefile.in \
+          --replace '$(DESTDIR)$(bindir)/parallel --shell-completion' '${
+            lib.getExe buildPackages.parallel
+          } --shell-completion'
+      '';
 
   preInstall = ''
     patchShebangs ./src/parallel

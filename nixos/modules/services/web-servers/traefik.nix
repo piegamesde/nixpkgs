@@ -38,7 +38,9 @@ let
         }
         ''
           remarshal -if json -of toml \
-            < ${pkgs.writeText "dynamic_config.json" (builtins.toJSON cfg.dynamicConfigOptions)} \
+            < ${
+              pkgs.writeText "dynamic_config.json" (builtins.toJSON cfg.dynamicConfigOptions)
+            } \
             > $out
         ''
     else
@@ -55,7 +57,9 @@ let
             < ${
               pkgs.writeText "static_config.json" (
                 builtins.toJSON (
-                  recursiveUpdate cfg.staticConfigOptions { providers.file.filename = "${dynamicConfigFile}"; }
+                  recursiveUpdate cfg.staticConfigOptions {
+                    providers.file.filename = "${dynamicConfigFile}";
+                  }
                 )
               )
             } \
@@ -65,7 +69,10 @@ let
       cfg.staticConfigFile;
 
   finalStaticConfigFile =
-    if cfg.environmentFiles == [ ] then staticConfigFile else "/run/traefik/config.toml";
+    if cfg.environmentFiles == [ ] then
+      staticConfigFile
+    else
+      "/run/traefik/config.toml";
 in
 {
   options.services.traefik = {
@@ -119,7 +126,9 @@ in
           service = "service1";
         };
 
-        http.services.service1.loadBalancer.servers = [ { url = "http://localhost:8080"; } ];
+        http.services.service1.loadBalancer.servers = [
+          { url = "http://localhost:8080"; }
+        ];
       };
     };
 

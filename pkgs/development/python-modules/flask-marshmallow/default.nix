@@ -31,7 +31,9 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.sqlalchemy;
+  nativeCheckInputs = [
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.sqlalchemy;
 
   pythonImportsCheck = [ "flask_marshmallow" ];
 

@@ -23,13 +23,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7aIMYCOkHC/17CHYiEfrxvtSJxTDivrS7BQ32cGiEy0=";
   };
 
-  buildInputs = [
-    boost
-    gfortran
-    gfortran.cc.lib
-    lhapdf
-    yoda
-  ] ++ lib.optional withPython python ++ lib.optional (withPython && python.isPy3k) ncurses;
+  buildInputs =
+    [
+      boost
+      gfortran
+      gfortran.cc.lib
+      lhapdf
+      yoda
+    ]
+    ++ lib.optional withPython python
+    ++ lib.optional (withPython && python.isPy3k) ncurses;
 
   propagatedBuildInputs = [ zlib ] ++ lib.optional withPython swig;
 
@@ -42,7 +45,9 @@ stdenv.mkDerivation rec {
     chmod +x check/fnlo-tk-stattest.pl.in
   '';
 
-  configureFlags = [ "--with-yoda=${yoda}" ] ++ lib.optional withPython "--enable-pyext";
+  configureFlags = [
+    "--with-yoda=${yoda}"
+  ] ++ lib.optional withPython "--enable-pyext";
 
   enableParallelBuilding = true;
 

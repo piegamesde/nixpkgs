@@ -48,7 +48,9 @@ stdenv.mkDerivation rec {
 
   pythonPath = [ python3.pkgs.six ];
 
-  makeWrapperArgs = lib.optionals withGnuplot [ "--prefix PATH : ${lib.makeBinPath [ gnuplot ]}" ];
+  makeWrapperArgs = lib.optionals withGnuplot [
+    "--prefix PATH : ${lib.makeBinPath [ gnuplot ]}"
+  ];
 
   postInstall = ''
     wrapPythonProgramsIn "$out/bin" "$out $pythonPath"

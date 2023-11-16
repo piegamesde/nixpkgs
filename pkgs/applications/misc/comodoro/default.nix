@@ -22,7 +22,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-1WJIIsTzbChWqvdBSR/OpLC1iR8FgLmypJFQEtpalbw=";
 
-  nativeBuildInputs = lib.optional (installManPages || installShellCompletions) installShellFiles;
+  nativeBuildInputs =
+    lib.optional (installManPages || installShellCompletions)
+      installShellFiles;
 
   buildNoDefaultFeatures = true;
   buildFeatures = lib.optional withTcp "tcp";

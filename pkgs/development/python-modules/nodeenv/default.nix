@@ -33,7 +33,9 @@ buildPythonPackage rec {
 
   preFixup = ''
     substituteInPlace $out/${python.sitePackages}/nodeenv.py \
-      --replace '["which", candidate]' '["${lib.getBin which}/bin/which", candidate]'
+      --replace '["which", candidate]' '["${
+        lib.getBin which
+      }/bin/which", candidate]'
   '';
 
   pythonImportsCheck = [ "nodeenv" ];

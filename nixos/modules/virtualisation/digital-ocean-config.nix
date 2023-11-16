@@ -15,7 +15,9 @@ with lib; {
       type = bool;
       default = false;
       example = true;
-      description = lib.mdDoc "Whether to set the root password from the Digital Ocean metadata";
+      description =
+        lib.mdDoc
+          "Whether to set the root password from the Digital Ocean metadata";
     };
     setSshKeys = mkOption {
       type = bool;

@@ -21,7 +21,9 @@ with lib;
       data = mkOption {
         type = types.lines;
         default = "";
-        description = lib.mdDoc "The DNS data to serve, in the format described by tinydns-data(8)";
+        description =
+          lib.mdDoc
+            "The DNS data to serve, in the format described by tinydns-data(8)";
       };
 
       ip = mkOption {

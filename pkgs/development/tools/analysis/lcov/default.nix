@@ -33,7 +33,9 @@ stdenv.mkDerivation rec {
         perlPackages.JSON
       ]
     }
-    wrapProgram $out/bin/genpng --set PERL5LIB ${perlPackages.makeFullPerlPath [ perlPackages.GD ]}
+    wrapProgram $out/bin/genpng --set PERL5LIB ${
+      perlPackages.makeFullPerlPath [ perlPackages.GD ]
+    }
   '';
 
   meta = with lib; {

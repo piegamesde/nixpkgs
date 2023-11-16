@@ -62,7 +62,9 @@ stdenv.mkDerivation rec {
 
   mesonFlags = lib.optional (!withGui) "-Dgui=false";
 
-  postInstall = lib.optionalString withGui "glib-compile-schemas $out/share/glib-2.0/schemas";
+  postInstall =
+    lib.optionalString withGui
+      "glib-compile-schemas $out/share/glib-2.0/schemas";
 
   meta = with lib; {
     description = "Tool for communicating with LXI compatible instruments";

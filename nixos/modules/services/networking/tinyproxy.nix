@@ -23,11 +23,16 @@ let
       mkValueString ? mkValueStringDefault { },
     }:
     sep: k: v:
-    if null == v then "" else "${lib.strings.escape [ sep ] k}${sep}${mkValueString v}";
+    if null == v then
+      ""
+    else
+      "${lib.strings.escape [ sep ] k}${sep}${mkValueString v}";
 
   settingsFormat =
     (pkgs.formats.keyValue {
-      mkKeyValue = mkKeyValueTinyproxy { mkValueString = mkValueStringTinyproxy; } " ";
+      mkKeyValue =
+        mkKeyValueTinyproxy { mkValueString = mkValueStringTinyproxy; }
+          " ";
       listsAsDuplicateKeys = true;
     });
   configFile = settingsFormat.generate "tinyproxy.conf" cfg.settings;
@@ -39,7 +44,9 @@ in
       enable = mkEnableOption (lib.mdDoc "Tinyproxy daemon");
       package = mkPackageOptionMD pkgs "tinyproxy" { };
       settings = mkOption {
-        description = lib.mdDoc "Configuration for [tinyproxy](https://tinyproxy.github.io/).";
+        description =
+          lib.mdDoc
+            "Configuration for [tinyproxy](https://tinyproxy.github.io/).";
         default = { };
         example = literalExpression ''
           {

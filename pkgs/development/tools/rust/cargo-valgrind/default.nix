@@ -27,7 +27,9 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''
-    wrapProgram $out/bin/cargo-valgrind --prefix PATH : ${lib.makeBinPath [ valgrind ]}
+    wrapProgram $out/bin/cargo-valgrind --prefix PATH : ${
+      lib.makeBinPath [ valgrind ]
+    }
   '';
 
   checkFlags = [

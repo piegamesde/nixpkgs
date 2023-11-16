@@ -20,7 +20,9 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [ "-X github.com/vmware-tanzu/carvel-ytt/pkg/version.Version=${version}" ];
+  ldflags = [
+    "-X github.com/vmware-tanzu/carvel-ytt/pkg/version.Version=${version}"
+  ];
 
   subPackages = [ "cmd/ytt" ];
 

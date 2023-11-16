@@ -11,7 +11,9 @@ in
 
     namedPackage = lib.mkPackageOption pkgs "Hello" { default = [ "hello" ]; };
 
-    namedPackageSingletonDefault = lib.mkPackageOption pkgs "Hello" { default = "hello"; };
+    namedPackageSingletonDefault = lib.mkPackageOption pkgs "Hello" {
+      default = "hello";
+    };
 
     pathPackage = lib.mkPackageOption pkgs [ "hello" ] { };
 
@@ -19,7 +21,9 @@ in
       example = "pkgs.hello.override { stdenv = pkgs.clangStdenv; }";
     };
 
-    packageWithPathExample = lib.mkPackageOption pkgs "hello" { example = [ "hello" ]; };
+    packageWithPathExample = lib.mkPackageOption pkgs "hello" {
+      example = [ "hello" ];
+    };
 
     packageWithExtraDescription = lib.mkPackageOption pkgs "hello" {
       extraDescription = "Example extra description.";
@@ -32,7 +36,9 @@ in
       default = null;
     };
 
-    nullablePackageWithDefault = lib.mkPackageOption pkgs "hello" { nullable = true; };
+    nullablePackageWithDefault = lib.mkPackageOption pkgs "hello" {
+      nullable = true;
+    };
 
     packageWithPkgsText = lib.mkPackageOption pkgs "hello" { pkgsText = "myPkgs"; };
 

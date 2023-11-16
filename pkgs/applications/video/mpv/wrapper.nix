@@ -110,7 +110,8 @@ let
             if (builtins.tryEval script.outPath).success then
               script
             else
-              writeTextDir "share/mpv/scripts/${script.scriptName}" "placeholder of ${script.name}"
+              writeTextDir "share/mpv/scripts/${script.scriptName}"
+                "placeholder of ${script.name}"
           ))
         ];
       };

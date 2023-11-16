@@ -146,24 +146,47 @@ nameDrvAfterAttrName (
     # musl implementation is effectively FORTIFY_SOURCE=1-only,
     # clang-on-glibc also only appears to support FORTIFY_SOURCE=1 (!)
     fortifyExplicitEnabledExecTest =
-      brokenIf (stdenv.hostPlatform.isMusl || (stdenv.cc.isClang && stdenv.hostPlatform.libc == "glibc"))
-        (fortifyExecTest (f2exampleWithStdEnv stdenv { hardeningEnable = [ "fortify" ]; }));
+      brokenIf
+        (
+          stdenv.hostPlatform.isMusl
+          || (stdenv.cc.isClang && stdenv.hostPlatform.libc == "glibc")
+        )
+        (
+          fortifyExecTest (
+            f2exampleWithStdEnv stdenv { hardeningEnable = [ "fortify" ]; }
+          )
+        );
 
     fortify3ExplicitEnabled =
-      brokenIf (stdenv.hostPlatform.isMusl || !stdenv.cc.isGNU || lib.versionOlder stdenv.cc.version "12")
+      brokenIf
         (
-          checkTestBin (f3exampleWithStdEnv stdenv { hardeningEnable = [ "fortify3" ]; }) {
-            ignoreFortify = false;
-          }
+          stdenv.hostPlatform.isMusl
+          || !stdenv.cc.isGNU
+          || lib.versionOlder stdenv.cc.version "12"
+        )
+        (
+          checkTestBin (f3exampleWithStdEnv stdenv { hardeningEnable = [ "fortify3" ]; })
+            { ignoreFortify = false; }
         );
 
     # musl implementation is effectively FORTIFY_SOURCE=1-only
     fortify3ExplicitEnabledExecTest =
-      brokenIf (stdenv.hostPlatform.isMusl || !stdenv.cc.isGNU || lib.versionOlder stdenv.cc.version "12")
-        (fortifyExecTest (f3exampleWithStdEnv stdenv { hardeningEnable = [ "fortify3" ]; }));
+      brokenIf
+        (
+          stdenv.hostPlatform.isMusl
+          || !stdenv.cc.isGNU
+          || lib.versionOlder stdenv.cc.version "12"
+        )
+        (
+          fortifyExecTest (
+            f3exampleWithStdEnv stdenv { hardeningEnable = [ "fortify3" ]; }
+          )
+        );
 
     pieExplicitEnabled = brokenIf stdenv.hostPlatform.isStatic (
-      checkTestBin (f2exampleWithStdEnv stdenv { hardeningEnable = [ "pie" ]; }) { ignorePie = false; }
+      checkTestBin (f2exampleWithStdEnv stdenv { hardeningEnable = [ "pie" ]; }) {
+        ignorePie = false;
+      }
     );
 
     relROExplicitEnabled =
@@ -171,9 +194,9 @@ nameDrvAfterAttrName (
         { ignoreRelRO = false; };
 
     stackProtectorExplicitEnabled = brokenIf stdenv.hostPlatform.isStatic (
-      checkTestBin (f2exampleWithStdEnv stdenv { hardeningEnable = [ "stackprotector" ]; }) {
-        ignoreStackProtector = false;
-      }
+      checkTestBin
+        (f2exampleWithStdEnv stdenv { hardeningEnable = [ "stackprotector" ]; })
+        { ignoreStackProtector = false; }
     );
 
     bindNowExplicitDisabled =
@@ -216,12 +239,14 @@ nameDrvAfterAttrName (
         })
         { ignoreFortify = false; };
 
-    pieExplicitDisabled = brokenIf (stdenv.hostPlatform.isMusl && stdenv.cc.isClang) (
-      checkTestBin (f2exampleWithStdEnv stdenv { hardeningDisable = [ "pie" ]; }) {
-        ignorePie = false;
-        expectFailure = true;
-      }
-    );
+    pieExplicitDisabled =
+      brokenIf (stdenv.hostPlatform.isMusl && stdenv.cc.isClang)
+        (
+          checkTestBin (f2exampleWithStdEnv stdenv { hardeningDisable = [ "pie" ]; }) {
+            ignorePie = false;
+            expectFailure = true;
+          }
+        );
 
     # can't force-disable ("partial"?) relro
     relROExplicitDisabled = brokenIf true (
@@ -232,7 +257,8 @@ nameDrvAfterAttrName (
     );
 
     stackProtectorExplicitDisabled =
-      checkTestBin (f2exampleWithStdEnv stdenv { hardeningDisable = [ "stackprotector" ]; })
+      checkTestBin
+        (f2exampleWithStdEnv stdenv { hardeningDisable = [ "stackprotector" ]; })
         {
           ignoreStackProtector = false;
           expectFailure = true;
@@ -245,7 +271,9 @@ nameDrvAfterAttrName (
 
     fortifyStdenvUnsupp =
       checkTestBin
-        (f2exampleWithStdEnv (stdenvUnsupport [ "fortify" ]) { hardeningEnable = [ "fortify" ]; })
+        (f2exampleWithStdEnv (stdenvUnsupport [ "fortify" ]) {
+          hardeningEnable = [ "fortify" ];
+        })
         {
           ignoreFortify = false;
           expectFailure = true;
@@ -253,7 +281,9 @@ nameDrvAfterAttrName (
 
     fortify3StdenvUnsupp =
       checkTestBin
-        (f3exampleWithStdEnv (stdenvUnsupport [ "fortify3" ]) { hardeningEnable = [ "fortify3" ]; })
+        (f3exampleWithStdEnv (stdenvUnsupport [ "fortify3" ]) {
+          hardeningEnable = [ "fortify3" ];
+        })
         {
           ignoreFortify = false;
           expectFailure = true;
@@ -261,7 +291,9 @@ nameDrvAfterAttrName (
 
     fortifyStdenvUnsuppUnsupportsFortify3 =
       checkTestBin
-        (f3exampleWithStdEnv (stdenvUnsupport [ "fortify" ]) { hardeningEnable = [ "fortify3" ]; })
+        (f3exampleWithStdEnv (stdenvUnsupport [ "fortify" ]) {
+          hardeningEnable = [ "fortify3" ];
+        })
         {
           ignoreFortify = false;
           expectFailure = true;
@@ -269,12 +301,16 @@ nameDrvAfterAttrName (
 
     fortify3StdenvUnsuppDoesntUnsuppFortify = brokenIf stdenv.hostPlatform.isMusl (
       checkTestBin
-        (f2exampleWithStdEnv (stdenvUnsupport [ "fortify3" ]) { hardeningEnable = [ "fortify" ]; })
+        (f2exampleWithStdEnv (stdenvUnsupport [ "fortify3" ]) {
+          hardeningEnable = [ "fortify" ];
+        })
         { ignoreFortify = false; }
     );
 
     fortify3StdenvUnsuppDoesntUnsuppFortifyExecTest = fortifyExecTest (
-      f2exampleWithStdEnv (stdenvUnsupport [ "fortify3" ]) { hardeningEnable = [ "fortify" ]; }
+      f2exampleWithStdEnv (stdenvUnsupport [ "fortify3" ]) {
+        hardeningEnable = [ "fortify" ];
+      }
     );
 
     stackProtectorStdenvUnsupp =
@@ -446,12 +482,14 @@ nameDrvAfterAttrName (
         expectFailure = true;
       };
 
-      allExplicitDisabledPie = brokenIf (stdenv.hostPlatform.isMusl && stdenv.cc.isClang) (
-        checkTestBin tb {
-          ignorePie = false;
-          expectFailure = true;
-        }
-      );
+      allExplicitDisabledPie =
+        brokenIf (stdenv.hostPlatform.isMusl && stdenv.cc.isClang)
+          (
+            checkTestBin tb {
+              ignorePie = false;
+              expectFailure = true;
+            }
+          );
 
       # can't force-disable ("partial"?) relro
       allExplicitDisabledRelRO = brokenIf true (

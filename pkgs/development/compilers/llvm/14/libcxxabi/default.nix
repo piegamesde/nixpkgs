@@ -49,7 +49,9 @@ stdenv.mkDerivation rec {
     cmake
     python3
   ];
-  buildInputs = lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm) libunwind;
+  buildInputs =
+    lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm)
+      libunwind;
 
   cmakeFlags =
     [ "-DLIBCXXABI_LIBCXX_INCLUDES=${cxx-headers}/include/c++/v1" ]

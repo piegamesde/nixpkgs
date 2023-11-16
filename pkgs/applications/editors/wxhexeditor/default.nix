@@ -35,7 +35,9 @@ stdenv.mkDerivation rec {
     wxGTK
   ];
 
-  buildInputs = lib.optionals stdenv.cc.isClang [ openmp ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs =
+    lib.optionals stdenv.cc.isClang [ openmp ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   preConfigure = "patchShebangs .";
 

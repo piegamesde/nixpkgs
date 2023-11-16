@@ -25,7 +25,8 @@
   libimobiledevice,
   withDocs ? withIntrospection,
   mesonEmulatorHook,
-  withIntrospection ? lib.meta.availableOn stdenv.hostPlatform gobject-introspection
+  withIntrospection ?
+    lib.meta.availableOn stdenv.hostPlatform gobject-introspection
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
   buildPackages,
   gobject-introspection,
@@ -80,9 +81,9 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals withIntrospection [ gobject-introspection ]
       ++ lib.optionals withDocs [ gtk-doc ]
-      ++ lib.optionals (withDocs && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-        mesonEmulatorHook
-      ];
+      ++
+        lib.optionals (withDocs && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+          [ mesonEmulatorHook ];
 
     buildInputs = [
       libgudev

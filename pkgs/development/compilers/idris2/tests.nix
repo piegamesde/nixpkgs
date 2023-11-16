@@ -15,7 +15,9 @@ let
       packages ? [ ],
     }:
     let
-      packageString = builtins.concatStringsSep " " (map (p: "--package " + p) packages);
+      packageString = builtins.concatStringsSep " " (
+        map (p: "--package " + p) packages
+      );
     in
     stdenv.mkDerivation {
       name = "${pname}-${testName}";

@@ -67,7 +67,8 @@ let
     ln -sr -t "''${!outputInclude}/include/" "''${!outputInclude}"/lib/*/include/* 2>/dev/null || true
   '';
 
-  buildDocs = stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.hostPlatform.isStatic;
+  buildDocs =
+    stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.hostPlatform.isStatic;
 in
 
 stdenv.mkDerivation (
@@ -288,17 +289,19 @@ stdenv.mkDerivation (
       shared-mime-info
     ];
 
-    preCheck = lib.optionalString finalAttrs.doCheck or config.doCheckByDefault or false ''
-      export LD_LIBRARY_PATH="$NIX_BUILD_TOP/glib-${finalAttrs.version}/glib/.libs''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
-      export TZDIR="${tzdata}/share/zoneinfo"
-      export XDG_CACHE_HOME="$TMP"
-      export XDG_RUNTIME_HOME="$TMP"
-      export HOME="$TMP"
-      export XDG_DATA_DIRS="${desktop-file-utils}/share:${shared-mime-info}/share"
-      export G_TEST_DBUS_DAEMON="${dbus}/bin/dbus-daemon"
-      export PATH="$PATH:$(pwd)/gobject"
-      echo "PATH=$PATH"
-    '';
+    preCheck =
+      lib.optionalString finalAttrs.doCheck or config.doCheckByDefault or false
+        ''
+          export LD_LIBRARY_PATH="$NIX_BUILD_TOP/glib-${finalAttrs.version}/glib/.libs''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
+          export TZDIR="${tzdata}/share/zoneinfo"
+          export XDG_CACHE_HOME="$TMP"
+          export XDG_RUNTIME_HOME="$TMP"
+          export HOME="$TMP"
+          export XDG_DATA_DIRS="${desktop-file-utils}/share:${shared-mime-info}/share"
+          export G_TEST_DBUS_DAEMON="${dbus}/bin/dbus-daemon"
+          export PATH="$PATH:$(pwd)/gobject"
+          echo "PATH=$PATH"
+        '';
 
     separateDebugInfo = stdenv.isLinux;
 
@@ -306,7 +309,8 @@ stdenv.mkDerivation (
       gioModuleDir = "lib/gio/modules";
 
       makeSchemaDataDirPath = dir: name: "${dir}/share/gsettings-schemas/${name}";
-      makeSchemaPath = dir: name: "${makeSchemaDataDirPath dir name}/glib-2.0/schemas";
+      makeSchemaPath =
+        dir: name: "${makeSchemaDataDirPath dir name}/glib-2.0/schemas";
       getSchemaPath = pkg: makeSchemaPath pkg pkg.name;
       getSchemaDataDirPath = pkg: makeSchemaDataDirPath pkg pkg.name;
 

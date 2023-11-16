@@ -34,7 +34,8 @@ let
     ++ lib.optional (stdenv.hostPlatform.isDarwin) libiconv
   );
 
-  libEnvVar = lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
+  libEnvVar =
+    lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
 
   glibcDynLinker =
     assert stdenv.isLinux;
@@ -91,7 +92,8 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-tWSsJdPVrCiqDyIKzpBt5DaXb3b6j951tCya584kWs4=";
       };
     }
-    .${stdenv.hostPlatform.system} or (throw "cannot bootstrap GHC on this platform")
+    .${stdenv.hostPlatform.system}
+      or (throw "cannot bootstrap GHC on this platform")
   );
 
   nativeBuildInputs = [ perl ];
@@ -135,7 +137,9 @@ stdenv.mkDerivation rec {
       lib.optionalString stdenv.isLinux ''
         find . -type f -perm -0100 \
             -exec patchelf \
-            --replace-needed libncurses${lib.optionalString stdenv.is64bit "w"}.so.5 libncurses.so \
+            --replace-needed libncurses${
+              lib.optionalString stdenv.is64bit "w"
+            }.so.5 libncurses.so \
             ${
               # This isn't required for x86_64-linux where we use ncurses6
               lib.optionalString (!useNcurses6) "--replace-needed libtinfo.so libtinfo.so.5"

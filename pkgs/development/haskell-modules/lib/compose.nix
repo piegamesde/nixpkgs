@@ -36,7 +36,9 @@ rec {
   */
   overrideCabal =
     f: drv:
-    (drv.override (args: args // { mkDerivation = drv: (args.mkDerivation drv).override f; }))
+    (drv.override (
+      args: args // { mkDerivation = drv: (args.mkDerivation drv).override f; }
+    ))
     // {
       overrideScope = scope: overrideCabal f (drv.overrideScope scope);
     };
@@ -129,7 +131,9 @@ rec {
   doDistribute = overrideCabal (
     drv: {
       # lib.platforms.all is the default value for platforms (since GHC can cross-compile)
-      hydraPlatforms = lib.subtractLists (drv.badPlatforms or [ ]) (drv.platforms or lib.platforms.all);
+      hydraPlatforms = lib.subtractLists (drv.badPlatforms or [ ]) (
+        drv.platforms or lib.platforms.all
+      );
     }
   );
   /* dontDistribute disables the distribution of binaries for the package
@@ -147,10 +151,13 @@ rec {
   */
   appendConfigureFlag = x: appendConfigureFlags [ x ];
   appendConfigureFlags =
-    xs: overrideCabal (drv: { configureFlags = (drv.configureFlags or [ ]) ++ xs; });
+    xs:
+    overrideCabal (drv: { configureFlags = (drv.configureFlags or [ ]) ++ xs; });
 
-  appendBuildFlag = x: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ [ x ]; });
-  appendBuildFlags = xs: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ xs; });
+  appendBuildFlag =
+    x: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ [ x ]; });
+  appendBuildFlags =
+    xs: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ xs; });
 
   /* removeConfigureFlag drv x is a Haskell package like drv, but with
      all cabal configure arguments that are equal to x removed.
@@ -158,32 +165,47 @@ rec {
          > haskell.lib.compose.removeConfigureFlag "--verbose" haskellPackages.servant
   */
   removeConfigureFlag =
-    x: overrideCabal (drv: { configureFlags = lib.remove x (drv.configureFlags or [ ]); });
+    x:
+    overrideCabal (
+      drv: { configureFlags = lib.remove x (drv.configureFlags or [ ]); }
+    );
 
   addBuildTool = x: addBuildTools [ x ];
-  addBuildTools = xs: overrideCabal (drv: { buildTools = (drv.buildTools or [ ]) ++ xs; });
+  addBuildTools =
+    xs: overrideCabal (drv: { buildTools = (drv.buildTools or [ ]) ++ xs; });
 
   addExtraLibrary = x: addExtraLibraries [ x ];
   addExtraLibraries =
-    xs: overrideCabal (drv: { extraLibraries = (drv.extraLibraries or [ ]) ++ xs; });
+    xs:
+    overrideCabal (drv: { extraLibraries = (drv.extraLibraries or [ ]) ++ xs; });
 
   addBuildDepend = x: addBuildDepends [ x ];
-  addBuildDepends = xs: overrideCabal (drv: { buildDepends = (drv.buildDepends or [ ]) ++ xs; });
+  addBuildDepends =
+    xs: overrideCabal (drv: { buildDepends = (drv.buildDepends or [ ]) ++ xs; });
 
   addTestToolDepend = x: addTestToolDepends [ x ];
   addTestToolDepends =
-    xs: overrideCabal (drv: { testToolDepends = (drv.testToolDepends or [ ]) ++ xs; });
+    xs:
+    overrideCabal (drv: { testToolDepends = (drv.testToolDepends or [ ]) ++ xs; });
 
   addPkgconfigDepend = x: addPkgconfigDepends [ x ];
   addPkgconfigDepends =
-    xs: overrideCabal (drv: { pkg-configDepends = (drv.pkg-configDepends or [ ]) ++ xs; });
+    xs:
+    overrideCabal (
+      drv: { pkg-configDepends = (drv.pkg-configDepends or [ ]) ++ xs; }
+    );
 
   addSetupDepend = x: addSetupDepends [ x ];
   addSetupDepends =
-    xs: overrideCabal (drv: { setupHaskellDepends = (drv.setupHaskellDepends or [ ]) ++ xs; });
+    xs:
+    overrideCabal (
+      drv: { setupHaskellDepends = (drv.setupHaskellDepends or [ ]) ++ xs; }
+    );
 
-  enableCabalFlag = x: drv: appendConfigureFlag "-f${x}" (removeConfigureFlag "-f-${x}" drv);
-  disableCabalFlag = x: drv: appendConfigureFlag "-f-${x}" (removeConfigureFlag "-f${x}" drv);
+  enableCabalFlag =
+    x: drv: appendConfigureFlag "-f${x}" (removeConfigureFlag "-f-${x}" drv);
+  disableCabalFlag =
+    x: drv: appendConfigureFlag "-f-${x}" (removeConfigureFlag "-f${x}" drv);
 
   markBroken = overrideCabal (
     drv: {
@@ -195,28 +217,51 @@ rec {
   markBrokenVersion = version: drv: assert drv.version == version; markBroken drv;
   markUnbroken = overrideCabal (drv: { broken = false; });
 
-  enableLibraryProfiling = overrideCabal (drv: { enableLibraryProfiling = true; });
-  disableLibraryProfiling = overrideCabal (drv: { enableLibraryProfiling = false; });
+  enableLibraryProfiling = overrideCabal (
+    drv: { enableLibraryProfiling = true; }
+  );
+  disableLibraryProfiling = overrideCabal (
+    drv: { enableLibraryProfiling = false; }
+  );
 
-  enableExecutableProfiling = overrideCabal (drv: { enableExecutableProfiling = true; });
-  disableExecutableProfiling = overrideCabal (drv: { enableExecutableProfiling = false; });
+  enableExecutableProfiling = overrideCabal (
+    drv: { enableExecutableProfiling = true; }
+  );
+  disableExecutableProfiling = overrideCabal (
+    drv: { enableExecutableProfiling = false; }
+  );
 
-  enableSharedExecutables = overrideCabal (drv: { enableSharedExecutables = true; });
-  disableSharedExecutables = overrideCabal (drv: { enableSharedExecutables = false; });
+  enableSharedExecutables = overrideCabal (
+    drv: { enableSharedExecutables = true; }
+  );
+  disableSharedExecutables = overrideCabal (
+    drv: { enableSharedExecutables = false; }
+  );
 
   enableSharedLibraries = overrideCabal (drv: { enableSharedLibraries = true; });
-  disableSharedLibraries = overrideCabal (drv: { enableSharedLibraries = false; });
+  disableSharedLibraries = overrideCabal (
+    drv: { enableSharedLibraries = false; }
+  );
 
-  enableDeadCodeElimination = overrideCabal (drv: { enableDeadCodeElimination = true; });
-  disableDeadCodeElimination = overrideCabal (drv: { enableDeadCodeElimination = false; });
+  enableDeadCodeElimination = overrideCabal (
+    drv: { enableDeadCodeElimination = true; }
+  );
+  disableDeadCodeElimination = overrideCabal (
+    drv: { enableDeadCodeElimination = false; }
+  );
 
   enableStaticLibraries = overrideCabal (drv: { enableStaticLibraries = true; });
-  disableStaticLibraries = overrideCabal (drv: { enableStaticLibraries = false; });
+  disableStaticLibraries = overrideCabal (
+    drv: { enableStaticLibraries = false; }
+  );
 
-  enableSeparateBinOutput = overrideCabal (drv: { enableSeparateBinOutput = true; });
+  enableSeparateBinOutput = overrideCabal (
+    drv: { enableSeparateBinOutput = true; }
+  );
 
   appendPatch = x: appendPatches [ x ];
-  appendPatches = xs: overrideCabal (drv: { patches = (drv.patches or [ ]) ++ xs; });
+  appendPatches =
+    xs: overrideCabal (drv: { patches = (drv.patches or [ ]) ++ xs; });
 
   # Set a specific build target instead of compiling all targets in the package.
   # For example, imagine we have a .cabal file with a library, and 2 executables "dev" and "server".
@@ -224,7 +269,8 @@ rec {
   #
   #   > setBuildTarget "server" (callCabal2nix "thePackageName" thePackageSrc {})
   #
-  setBuildTargets = xs: overrideCabal (drv: { buildTarget = lib.concatStringsSep " " xs; });
+  setBuildTargets =
+    xs: overrideCabal (drv: { buildTarget = lib.concatStringsSep " " xs; });
   setBuildTarget = x: setBuildTargets [ x ];
 
   doHyperlinkSource = overrideCabal (drv: { hyperlinkSource = true; });
@@ -247,9 +293,9 @@ rec {
     # -g: enables debugging symbols
     # --disable-*-stripping: tell GHC not to strip resulting binaries
     # dontStrip: see above
-    appendConfigureFlag "--ghc-options=-g --disable-executable-stripping --disable-library-stripping" (
-      dontStrip drv
-    );
+    appendConfigureFlag
+      "--ghc-options=-g --disable-executable-stripping --disable-library-stripping"
+      (dontStrip drv);
 
   /* Create a source distribution tarball like those found on hackage,
      instead of building the package.
@@ -356,7 +402,9 @@ rec {
   /* Turn on most of the compiler warnings and fail the build if any
      of them occur.
   */
-  failOnAllWarnings = appendConfigureFlag "--ghc-option=-Wall --ghc-option=-Werror";
+  failOnAllWarnings =
+    appendConfigureFlag
+      "--ghc-option=-Wall --ghc-option=-Werror";
 
   /* Add a post-build check to verify that dependencies declared in
      the cabal file are actually used.
@@ -383,7 +431,8 @@ rec {
               ++ map (pkg: "--ignore-package ${pkg}") ignorePackages
             );
           in
-          "${pkgs.haskellPackages.packunused}/bin/packunused" + optionalString (args != "") " ${args}";
+          "${pkgs.haskellPackages.packunused}/bin/packunused"
+          + optionalString (args != "") " ${args}";
       })
       (appendConfigureFlag "--ghc-option=-ddump-minimal-imports" drv);
 
@@ -392,7 +441,8 @@ rec {
   /* Add a dummy command to trigger a build despite an equivalent
      earlier build that is present in the store or cache.
   */
-  triggerRebuild = i: overrideCabal (drv: { postUnpack = ": trigger rebuild ${toString i}"; });
+  triggerRebuild =
+    i: overrideCabal (drv: { postUnpack = ": trigger rebuild ${toString i}"; });
 
   /* Override the sources for the package and optionally the version.
      This also takes of removing editedCabalFile.
@@ -462,7 +512,9 @@ rec {
 
     self: super:
     let
-      haskellPaths = lib.filter (lib.hasSuffix ".nix") (builtins.attrNames (builtins.readDir directory));
+      haskellPaths = lib.filter (lib.hasSuffix ".nix") (
+        builtins.attrNames (builtins.readDir directory)
+      );
 
       toKeyVal = file: {
         name = builtins.replaceStrings [ ".nix" ] [ "" ] file;
@@ -522,7 +574,9 @@ rec {
   # Don't fail at configure time if there are multiple versions of the
   # same package in the (recursive) dependencies of the package being
   # built. Will delay failures, if any, to compile time.
-  allowInconsistentDependencies = overrideCabal (drv: { allowInconsistentDependencies = true; });
+  allowInconsistentDependencies = overrideCabal (
+    drv: { allowInconsistentDependencies = true; }
+  );
 
   # Work around a Cabal bug requiring pkg-config --static --libs to work even
   # when linking dynamically, affecting Cabal 3.8 and 3.9.
@@ -574,10 +628,18 @@ rec {
     in
     overrideCabal (
       old: {
-        benchmarkPkgconfigDepends = propagatedPlainBuildInputs old.benchmarkPkgconfigDepends or [ ];
-        executablePkgconfigDepends = propagatedPlainBuildInputs old.executablePkgconfigDepends or [ ];
-        libraryPkgconfigDepends = propagatedPlainBuildInputs old.libraryPkgconfigDepends or [ ];
-        testPkgconfigDepends = propagatedPlainBuildInputs old.testPkgconfigDepends or [ ];
+        benchmarkPkgconfigDepends =
+          propagatedPlainBuildInputs
+            old.benchmarkPkgconfigDepends or [ ];
+        executablePkgconfigDepends =
+          propagatedPlainBuildInputs
+            old.executablePkgconfigDepends or [ ];
+        libraryPkgconfigDepends =
+          propagatedPlainBuildInputs
+            old.libraryPkgconfigDepends or [ ];
+        testPkgconfigDepends =
+          propagatedPlainBuildInputs
+            old.testPkgconfigDepends or [ ];
       }
     );
 }

@@ -48,7 +48,9 @@ in
         type = types.nullOr types.str;
         default = null;
         example = "FILESERVER";
-        description = lib.mdDoc "Override (NetBIOS) hostname to be used (default hostname).";
+        description =
+          lib.mdDoc
+            "Override (NetBIOS) hostname to be used (default hostname).";
       };
       domain = mkOption {
         type = types.nullOr types.str;
@@ -91,14 +93,24 @@ in
         DynamicUser = true;
         Type = "simple";
         ExecStart = ''
-          ${pkgs.wsdd}/bin/wsdd ${optionalString (cfg.interface != null) "--interface '${cfg.interface}'"} \
+          ${pkgs.wsdd}/bin/wsdd ${
+            optionalString (cfg.interface != null) "--interface '${cfg.interface}'"
+          } \
                                 ${
                                   optionalString (cfg.hoplimit != null) "--hoplimit '${toString cfg.hoplimit}'"
                                 } \
-                                ${optionalString (cfg.workgroup != null) "--workgroup '${cfg.workgroup}'"} \
-                                ${optionalString (cfg.hostname != null) "--hostname '${cfg.hostname}'"} \
-                                ${optionalString (cfg.domain != null) "--domain '${cfg.domain}'"} \
-                                ${optionalString cfg.discovery "--discovery --listen '${cfg.listen}'"} \
+                                ${
+                                  optionalString (cfg.workgroup != null) "--workgroup '${cfg.workgroup}'"
+                                } \
+                                ${
+                                  optionalString (cfg.hostname != null) "--hostname '${cfg.hostname}'"
+                                } \
+                                ${
+                                  optionalString (cfg.domain != null) "--domain '${cfg.domain}'"
+                                } \
+                                ${
+                                  optionalString cfg.discovery "--discovery --listen '${cfg.listen}'"
+                                } \
                                 ${escapeShellArgs cfg.extraOptions}
         '';
         # Runtime directory and mode

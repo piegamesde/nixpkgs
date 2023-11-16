@@ -44,7 +44,9 @@ mkDerivation {
   ];
 
   qtWrapperArgs = [
-    "--prefix GST_PLUGIN_PATH : ${lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" gst}"
+    "--prefix GST_PLUGIN_PATH : ${
+      lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" gst
+    }"
   ];
 
   meta = {

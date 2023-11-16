@@ -12,7 +12,9 @@ let
   registrationFile = "${dataDir}/telegram-registration.yaml";
   cfg = config.services.mautrix-telegram;
   settingsFormat = pkgs.formats.json { };
-  settingsFile = settingsFormat.generate "mautrix-telegram-config.json" cfg.settings;
+  settingsFile =
+    settingsFormat.generate "mautrix-telegram-config.json"
+      cfg.settings;
 in
 {
   options = {
@@ -128,7 +130,9 @@ in
 
       serviceDependencies = mkOption {
         type = with types; listOf str;
-        default = optional config.services.matrix-synapse.enable config.services.matrix-synapse.serviceUnit;
+        default =
+          optional config.services.matrix-synapse.enable
+            config.services.matrix-synapse.serviceUnit;
         defaultText = literalExpression ''
           optional config.services.matrix-synapse.enable config.services.matrix-synapse.serviceUnit
         '';

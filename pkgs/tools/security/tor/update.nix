@@ -64,7 +64,9 @@ writeScript "update-tor" ''
   export GNUPGHOME=$PWD/gnupg
   mkdir -m 700 -p "$GNUPGHOME"
 
-  gpg --batch --recv-keys ${lib.concatStringsSep " " (map (x: "'${x}'") signingKeys)}
+  gpg --batch --recv-keys ${
+    lib.concatStringsSep " " (map (x: "'${x}'") signingKeys)
+  }
   gpg --batch --verify "$sigFile" "$checksumFile"
 
   sha256sum -c "$checksumFile"

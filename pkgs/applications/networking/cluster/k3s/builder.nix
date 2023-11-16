@@ -360,7 +360,8 @@ buildGoModule rec {
   passthru.mkTests =
     version:
     let
-      k3s_version = "k3s_" + lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor version);
+      k3s_version =
+        "k3s_" + lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor version);
     in
     {
       single-node = nixosTests.k3s.single-node.${k3s_version};

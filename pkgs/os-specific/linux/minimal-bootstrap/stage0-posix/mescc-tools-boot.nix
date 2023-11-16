@@ -43,7 +43,8 @@
 rec {
   out = placeholder "out";
 
-  endianFlag = if hostPlatform.isLittleEndian then "--little-endian" else "--big-endian";
+  endianFlag =
+    if hostPlatform.isLittleEndian then "--little-endian" else "--big-endian";
 
   bloodFlags = lib.optional hostPlatform.is64bit "--64";
 

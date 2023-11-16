@@ -23,17 +23,28 @@ let
     );
 in
 {
-  tensorflow-proto = doJailbreak (setTensorflowSourceRoot "tensorflow-proto" super.tensorflow-proto);
+  tensorflow-proto = doJailbreak (
+    setTensorflowSourceRoot "tensorflow-proto" super.tensorflow-proto
+  );
 
   tensorflow =
-    overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.vector-split ]; })
+    overrideCabal
+      (drv: {
+        libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.vector-split ];
+      })
       (setTensorflowSourceRoot "tensorflow" super.tensorflow);
 
-  tensorflow-core-ops = setTensorflowSourceRoot "tensorflow-core-ops" super.tensorflow-core-ops;
+  tensorflow-core-ops =
+    setTensorflowSourceRoot "tensorflow-core-ops"
+      super.tensorflow-core-ops;
 
-  tensorflow-logging = setTensorflowSourceRoot "tensorflow-logging" super.tensorflow-logging;
+  tensorflow-logging =
+    setTensorflowSourceRoot "tensorflow-logging"
+      super.tensorflow-logging;
 
-  tensorflow-opgen = setTensorflowSourceRoot "tensorflow-opgen" super.tensorflow-opgen;
+  tensorflow-opgen =
+    setTensorflowSourceRoot "tensorflow-opgen"
+      super.tensorflow-opgen;
 
   tensorflow-ops = setTensorflowSourceRoot "tensorflow-ops" super.tensorflow-ops;
 }

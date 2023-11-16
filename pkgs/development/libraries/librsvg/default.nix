@@ -23,7 +23,8 @@
   gnome,
   vala,
   writeScript,
-  withIntrospection ? lib.meta.availableOn stdenv.hostPlatform gobject-introspection
+  withIntrospection ?
+    lib.meta.availableOn stdenv.hostPlatform gobject-introspection
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
   buildPackages,
   gobject-introspection,
@@ -132,7 +133,9 @@ stdenv.mkDerivation (
 
     # librsvg only links Foundation, but it also requiers libobjc. The Framework.tbd in the 11.0 SDK
     # reexports libobjc, but the one in the 10.12 SDK does not, so link it manually.
-    env = lib.optionalAttrs (stdenv.isDarwin && stdenv.isx86_64) { NIX_LDFLAGS = "-lobjc"; };
+    env = lib.optionalAttrs (stdenv.isDarwin && stdenv.isx86_64) {
+      NIX_LDFLAGS = "-lobjc";
+    };
 
     preConfigure = ''
       PKG_CONFIG_VAPIGEN_VAPIGEN="$(type -p vapigen)"

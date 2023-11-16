@@ -61,7 +61,9 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals (enableApp) [ installShellFiles ];
+  nativeBuildInputs = [
+    pkg-config
+  ] ++ lib.optionals (enableApp) [ installShellFiles ];
 
   buildInputs =
     lib.optionals enableApp [

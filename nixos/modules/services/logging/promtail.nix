@@ -11,11 +11,14 @@ let
   prettyJSON =
     conf:
     pkgs.runCommandLocal "promtail-config.json" { } ''
-      echo '${builtins.toJSON conf}' | ${pkgs.buildPackages.jq}/bin/jq 'del(._module)' > $out
+      echo '${
+        builtins.toJSON conf
+      }' | ${pkgs.buildPackages.jq}/bin/jq 'del(._module)' > $out
     '';
 
   allowSystemdJournal =
-    cfg.configuration ? scrape_configs && lib.any (v: v ? journal) cfg.configuration.scrape_configs;
+    cfg.configuration ? scrape_configs
+    && lib.any (v: v ? journal) cfg.configuration.scrape_configs;
 
   allowPositionsFile = !lib.hasPrefix "/var/cache/promtail" positionsFile;
   positionsFile = cfg.configuration.positions.filename;
@@ -43,7 +46,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.promtail.configuration.positions.filename = mkDefault "/var/cache/promtail/positions.yaml";
+    services.promtail.configuration.positions.filename =
+      mkDefault
+        "/var/cache/promtail/positions.yaml";
 
     systemd.services.promtail = {
       description = "Promtail log ingress";
@@ -55,9 +60,9 @@ in
           Restart = "on-failure";
           TimeoutStopSec = 10;
 
-          ExecStart = "${pkgs.promtail}/bin/promtail -config.file=${prettyJSON cfg.configuration} ${
-              escapeShellArgs cfg.extraFlags
-            }";
+          ExecStart = "${pkgs.promtail}/bin/promtail -config.file=${
+              prettyJSON cfg.configuration
+            } ${escapeShellArgs cfg.extraFlags}";
 
           ProtectSystem = "strict";
           ProtectHome = true;

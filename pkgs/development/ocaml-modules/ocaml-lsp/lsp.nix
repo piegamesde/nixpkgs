@@ -40,7 +40,8 @@ buildDunePackage rec {
   pname = "lsp";
   inherit (jsonrpc_v) version src;
   duneVersion = "3";
-  minimalOCamlVersion = if lib.versionAtLeast version "1.7.0" then "4.12" else "4.06";
+  minimalOCamlVersion =
+    if lib.versionAtLeast version "1.7.0" then "4.12" else "4.06";
 
   # unvendor some (not all) dependencies.
   # They are vendored by upstream only because it is then easier to install

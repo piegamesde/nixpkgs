@@ -14,7 +14,9 @@ in
   options.services.unclutter-xfixes = {
 
     enable = mkOption {
-      description = lib.mdDoc "Enable unclutter-xfixes to hide your mouse cursor when inactive.";
+      description =
+        lib.mdDoc
+          "Enable unclutter-xfixes to hide your mouse cursor when inactive.";
       type = types.bool;
       default = false;
     };
@@ -27,7 +29,9 @@ in
     };
 
     timeout = mkOption {
-      description = lib.mdDoc "Number of seconds before the cursor is marked inactive.";
+      description =
+        lib.mdDoc
+          "Number of seconds before the cursor is marked inactive.";
       type = types.int;
       default = 1;
     };
@@ -39,7 +43,9 @@ in
     };
 
     extraOptions = mkOption {
-      description = lib.mdDoc "More arguments to pass to the unclutter-xfixes command.";
+      description =
+        lib.mdDoc
+          "More arguments to pass to the unclutter-xfixes command.";
       type = types.listOf types.str;
       default = [ ];
       example = [

@@ -29,7 +29,9 @@ let
     ++ optionals (elem "social" block) [ "social" ];
 
   hostsPath =
-    "${pkgs.stevenblack-blocklist}/alternates/" + concatStringsSep "-" activatedHosts + "/hosts";
+    "${pkgs.stevenblack-blocklist}/alternates/"
+    + concatStringsSep "-" activatedHosts
+    + "/hosts";
 in
 {
   options.networking.stevenblack = {

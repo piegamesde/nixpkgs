@@ -104,12 +104,18 @@ let
 
       # Wrap PATH of plugins propagatedBuildInputs, plugins may have runtime dependencies on external binaries
       wrapperInputs = lib.unique (
-        lib.flatten (lib.catAttrs "propagatedBuildInputs" (builtins.filter (x: x != null) actualPlugins))
+        lib.flatten (
+          lib.catAttrs "propagatedBuildInputs" (
+            builtins.filter (x: x != null) actualPlugins
+          )
+        )
       );
 
       passthru = {
         withPlugins = newplugins: withPlugins (x: newplugins x ++ actualPlugins);
-        full = withPlugins (p: lib.filter lib.isDerivation (lib.attrValues p.actualProviders));
+        full = withPlugins (
+          p: lib.filter lib.isDerivation (lib.attrValues p.actualProviders)
+        );
 
         # Expose wrappers around the override* functions of the terraform
         # derivation.

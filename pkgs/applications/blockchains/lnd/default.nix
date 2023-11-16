@@ -41,7 +41,8 @@ buildGoModule rec {
         GoVersion = "$(go version | egrep -o 'go[0-9]+[.][^ ]*')";
       };
       buildVarsFlags = lib.concatStringsSep " " (
-        lib.mapAttrsToList (k: v: "-X github.com/lightningnetwork/lnd/build.${k}=${v}") buildVars
+        lib.mapAttrsToList (k: v: "-X github.com/lightningnetwork/lnd/build.${k}=${v}")
+          buildVars
       );
     in
     lib.optionalString (tags != [ ]) ''

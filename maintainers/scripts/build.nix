@@ -28,7 +28,9 @@ let
                 # This happens for pkgs like `python27Packages.djangoql`
                 # that have disabled Python pkgs as dependencies.
                 builtins.seq pkg.outPath [ (return name pkg) ]
-              else if pkg.recurseForDerivations or false || pkg.recurseForRelease or false then
+              else if
+                pkg.recurseForDerivations or false || pkg.recurseForRelease or false
+              then
                 packagesWith cond return pkg
               else
                 [ ]

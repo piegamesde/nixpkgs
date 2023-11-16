@@ -6,7 +6,9 @@
 }:
 
 let
-  php' = php.buildEnv { extensions = { enabled, all }: with all; enabled ++ [ apcu ]; };
+  php' = php.buildEnv {
+    extensions = { enabled, all }: with all; enabled ++ [ apcu ];
+  };
 in
 {
   fpm = import ./fpm.nix {

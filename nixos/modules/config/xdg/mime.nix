@@ -10,7 +10,10 @@ with lib;
 let
   cfg = config.xdg.mime;
   associationOptions =
-    with types; attrsOf (coercedTo (either (listOf str) str) (x: concatStringsSep ";" (toList x)) str);
+    with types;
+    attrsOf (
+      coercedTo (either (listOf str) str) (x: concatStringsSep ";" (toList x)) str
+    );
 in
 
 {
@@ -84,7 +87,11 @@ in
   config = mkIf cfg.enable {
     environment.etc."xdg/mimeapps.list" =
       mkIf
-        (cfg.addedAssociations != { } || cfg.defaultApplications != { } || cfg.removedAssociations != { })
+        (
+          cfg.addedAssociations != { }
+          || cfg.defaultApplications != { }
+          || cfg.removedAssociations != { }
+        )
         {
           text = generators.toINI { } {
             "Added Associations" = cfg.addedAssociations;

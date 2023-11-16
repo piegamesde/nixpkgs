@@ -152,17 +152,26 @@ in
           }) is a string-like value, but it should be a path instead.
               Paths in strings are not supported by `lib.fileset`, use `lib.sources` or derivations instead.''
       else
-        throw "lib.fileset.toSource: `root` is of type ${typeOf root}, but it should be a path instead."
+        throw
+          "lib.fileset.toSource: `root` is of type ${
+            typeOf root
+          }, but it should be a path instead."
     # Currently all Nix paths have the same filesystem root, but this could change in the future.
     # See also ../path/README.md
-    else if !fileset._internalIsEmptyWithoutBase && rootFilesystemRoot != filesetFilesystemRoot then
+    else if
+      !fileset._internalIsEmptyWithoutBase
+      && rootFilesystemRoot != filesetFilesystemRoot
+    then
       throw ''
-        lib.fileset.toSource: Filesystem roots are not the same for `fileset` and `root` (${toString root}):
+        lib.fileset.toSource: Filesystem roots are not the same for `fileset` and `root` (${
+          toString root
+        }):
             `root`: Filesystem root is "${toString rootFilesystemRoot}"
             `fileset`: Filesystem root is "${toString filesetFilesystemRoot}"
             Different filesystem roots are not supported.''
     else if !pathExists root then
-      throw "lib.fileset.toSource: `root` (${toString root}) is a path that does not exist."
+      throw
+        "lib.fileset.toSource: `root` (${toString root}) is a path that does not exist."
     else if pathType root != "directory" then
       throw ''
         lib.fileset.toSource: `root` (${
@@ -172,7 +181,9 @@ in
             - If you want to import the file into the store _with_ a containing directory, set `root` to the containing directory, such as ${
               toString (dirOf root)
             }, and set `fileset` to the file path.''
-    else if !fileset._internalIsEmptyWithoutBase && !hasPrefix root fileset._internalBase then
+    else if
+      !fileset._internalIsEmptyWithoutBase && !hasPrefix root fileset._internalBase
+    then
       throw ''
         lib.fileset.toSource: `fileset` could contain files in ${
           toString fileset._internalBase
@@ -255,7 +266,10 @@ in
             typeOf path
           }, but it should be a path instead."
     else if !pathExists path then
-      throw "lib.fileset.fromSource: The source origin (${toString path}) of the argument does not exist."
+      throw
+        "lib.fileset.fromSource: The source origin (${
+          toString path
+        }) of the argument does not exist."
     else if isFiltered then
       _fromSourceFilter path source.filter
     else
@@ -340,7 +354,10 @@ in
     # which get [implicitly coerced to file sets](#sec-fileset-path-coercion).
     filesets:
     if !isList filesets then
-      throw "lib.fileset.unions: Argument is of type ${typeOf filesets}, but it should be a list instead."
+      throw
+        "lib.fileset.unions: Argument is of type ${
+          typeOf filesets
+        }, but it should be a list instead."
     else
       pipe filesets [
         # Annotate the elements with context, used by _coerceMany for better errors
@@ -411,7 +428,10 @@ in
             typeOf path
           }, but it should be a path instead."
     else if !pathExists path then
-      throw "lib.fileset.fileFilter: Second argument (${toString path}) is a path that does not exist."
+      throw
+        "lib.fileset.fileFilter: Second argument (${
+          toString path
+        }) is a path that does not exist."
     else
       _fileFilter predicate path;
 
@@ -612,7 +632,9 @@ in
         "lib.fileset.gitTracked: This function is currently not supported in pure evaluation mode, since it currently relies on `builtins.fetchGit`. See https://github.com/NixOS/nix/issues/9292."
     else if !isPath path then
       throw
-        "lib.fileset.gitTracked: Expected the argument to be a path, but it's a ${typeOf path} instead."
+        "lib.fileset.gitTracked: Expected the argument to be a path, but it's a ${
+          typeOf path
+        } instead."
     else if !pathExists (path + "/.git") then
       throw
         "lib.fileset.gitTracked: Expected the argument (${
@@ -681,7 +703,9 @@ in
         "lib.fileset.gitTrackedWith: Expected the attribute `recurseSubmodules` of the first argument to be a boolean, but it's a ${
           typeOf recurseSubmodules
         } instead."
-    else if recurseSubmodules && versionOlder nixVersion _fetchGitSubmodulesMinver then
+    else if
+      recurseSubmodules && versionOlder nixVersion _fetchGitSubmodulesMinver
+    then
       throw
         "lib.fileset.gitTrackedWith: Setting the attribute `recurseSubmodules` to `true` is only supported for Nix version ${_fetchGitSubmodulesMinver} and after, but Nix version ${nixVersion} is used."
     else if !isPath path then

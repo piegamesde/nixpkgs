@@ -58,7 +58,9 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-narrowing";
 
-  passthru.updateScript = unstableGitUpdater { url = "https://github.com/sirjuddington/SLADE.git"; };
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/sirjuddington/SLADE.git";
+  };
 
   meta = with lib; {
     description = "Doom editor";

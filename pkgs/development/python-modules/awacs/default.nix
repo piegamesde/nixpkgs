@@ -18,7 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-iflg6tjqFl1gWOzlJhQwGHhAQ/pKm9n8GVvUz6fSboM=";
   };
 
-  propagatedBuildInputs = lib.lists.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = lib.lists.optionals (pythonOlder "3.8") [
+    typing-extensions
+  ];
 
   checkPhase = ''
     ${python.interpreter} -m unittest discover

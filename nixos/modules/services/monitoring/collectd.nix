@@ -19,7 +19,9 @@ let
         echo testing ${unvalidated_conf}
         cp ${unvalidated_conf} collectd.conf
         # collectd -t fails if BaseDir does not exist.
-        substituteInPlace collectd.conf --replace ${lib.escapeShellArgs [ baseDirLine ]} 'BaseDir "."'
+        substituteInPlace collectd.conf --replace ${
+          lib.escapeShellArgs [ baseDirLine ]
+        } 'BaseDir "."'
         ${package}/bin/collectd -t -C collectd.conf
         cp ${unvalidated_conf} $out
       ''

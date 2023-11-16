@@ -37,12 +37,14 @@ buildGoModule rec {
        drivers/*/*_test.go
   '';
 
-  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    installShellCompletion --cmd tbls \
-      --bash <($out/bin/tbls completion bash) \
-      --fish <($out/bin/tbls completion fish) \
-      --zsh <($out/bin/tbls completion zsh)
-  '';
+  postInstall =
+    lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+      ''
+        installShellCompletion --cmd tbls \
+          --bash <($out/bin/tbls completion bash) \
+          --fish <($out/bin/tbls completion fish) \
+          --zsh <($out/bin/tbls completion zsh)
+      '';
 
   passthru.tests.version = testers.testVersion {
     package = tbls;

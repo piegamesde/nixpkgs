@@ -34,9 +34,10 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
   ];
 
-  buildInputs = [
-    zstd
-  ] ++ lib.optionals stdenv.isLinux [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs =
+    [ zstd ]
+    ++ lib.optionals stdenv.isLinux [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ Security ];
 
   env = {
     ZSTD_SYS_USE_PKG_CONFIG = true;

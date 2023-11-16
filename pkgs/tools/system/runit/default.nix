@@ -51,7 +51,9 @@ stdenv.mkDerivation rec {
 
     # Both of these are originally hard-coded to gcc
     echo ${stdenv.cc.targetPrefix}cc > conf-cc
-    echo ${stdenv.cc.targetPrefix}cc ${lib.optionalString stdenv.isDarwin "-Xlinker -x "}> conf-ld
+    echo ${stdenv.cc.targetPrefix}cc ${
+      lib.optionalString stdenv.isDarwin "-Xlinker -x "
+    }> conf-ld
   '';
 
   installPhase = ''

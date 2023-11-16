@@ -52,7 +52,9 @@ in
     };
 
     initialAdvertisePeerUrls = mkOption {
-      description = lib.mdDoc "Etcd list of this member's peer URLs to advertise to rest of the cluster.";
+      description =
+        lib.mdDoc
+          "Etcd list of this member's peer URLs to advertise to rest of the cluster.";
       default = cfg.listenPeerUrls;
       defaultText = literalExpression "config.${opt.listenPeerUrls}";
       type = types.listOf types.str;
@@ -61,7 +63,9 @@ in
     initialCluster = mkOption {
       description = lib.mdDoc "Etcd initial cluster configuration for bootstrapping.";
       default = [ "${cfg.name}=http://127.0.0.1:2380" ];
-      defaultText = literalExpression ''["''${config.${opt.name}}=http://127.0.0.1:2380"]'';
+      defaultText =
+        literalExpression
+          ''["''${config.${opt.name}}=http://127.0.0.1:2380"]'';
       type = types.listOf types.str;
     };
 
@@ -75,7 +79,9 @@ in
     };
 
     initialClusterToken = mkOption {
-      description = lib.mdDoc "Etcd initial cluster token for etcd cluster during bootstrap.";
+      description =
+        lib.mdDoc
+          "Etcd initial cluster token for etcd cluster during bootstrap.";
       default = "etcd-cluster";
       type = types.str;
     };
@@ -125,7 +131,9 @@ in
     };
 
     peerTrustedCaFile = mkOption {
-      description = lib.mdDoc "Certificate authority file to use for peer to peer communication";
+      description =
+        lib.mdDoc
+          "Certificate authority file to use for peer to peer communication";
       default = cfg.trustedCaFile;
       defaultText = literalExpression "config.${opt.trustedCaFile}";
       type = types.nullOr types.path;
@@ -180,7 +188,9 @@ in
           ETCD_ADVERTISE_CLIENT_URLS = concatStringsSep "," cfg.advertiseClientUrls;
           ETCD_LISTEN_CLIENT_URLS = concatStringsSep "," cfg.listenClientUrls;
           ETCD_LISTEN_PEER_URLS = concatStringsSep "," cfg.listenPeerUrls;
-          ETCD_INITIAL_ADVERTISE_PEER_URLS = concatStringsSep "," cfg.initialAdvertisePeerUrls;
+          ETCD_INITIAL_ADVERTISE_PEER_URLS =
+            concatStringsSep ","
+              cfg.initialAdvertisePeerUrls;
           ETCD_PEER_CLIENT_CERT_AUTH = toString cfg.peerClientCertAuth;
           ETCD_PEER_TRUSTED_CA_FILE = cfg.peerTrustedCaFile;
           ETCD_PEER_CERT_FILE = cfg.peerCertFile;

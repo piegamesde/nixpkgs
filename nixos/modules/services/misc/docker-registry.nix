@@ -15,10 +15,14 @@ let
   registryConfig = {
     version = "0.1";
     log.fields.service = "registry";
-    storage = {
-      cache.blobdescriptor = blobCache;
-      delete.enabled = cfg.enableDelete;
-    } // (optionalAttrs (cfg.storagePath != null) { filesystem.rootdirectory = cfg.storagePath; });
+    storage =
+      {
+        cache.blobdescriptor = blobCache;
+        delete.enabled = cfg.enableDelete;
+      }
+      // (optionalAttrs (cfg.storagePath != null) {
+        filesystem.rootdirectory = cfg.storagePath;
+      });
     http = {
       addr = "${cfg.listenAddress}:${builtins.toString cfg.port}";
       headers.X-Content-Type-Options = [ "nosniff" ];

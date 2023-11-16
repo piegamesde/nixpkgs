@@ -32,7 +32,10 @@ writeShellScriptBin "vscodeExts2nix" ''
     publisher=''${BASH_REMATCH[1]}
     version=''${BASH_REMATCH[3]}
 
-    extensions="${lib.concatMapStringsSep "." (e: "${e.publisher}${e.name}@${e.sha256}") extensions}"
+    extensions="${
+      lib.concatMapStringsSep "." (e: "${e.publisher}${e.name}@${e.sha256}")
+        extensions
+    }"
     reCurrentExt=$publisher$name"@([^.]*)"
     if [[ $extensions =~ $reCurrentExt ]]; then
       sha256=''${BASH_REMATCH[1]}

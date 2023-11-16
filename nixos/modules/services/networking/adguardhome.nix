@@ -69,7 +69,9 @@ in
 
     allowDHCP = mkOption {
       default = cfg.settings.dhcp.enabled or false;
-      defaultText = literalExpression "config.services.adguardhome.settings.dhcp.enabled or false";
+      defaultText =
+        literalExpression
+          "config.services.adguardhome.settings.dhcp.enabled or false";
       type = bool;
       description = lib.mdDoc ''
         Allows AdGuard Home to open raw sockets (`CAP_NET_RAW`), which is
@@ -211,7 +213,9 @@ in
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${pkgs.adguardhome}/bin/adguardhome ${args}";
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ] ++ optionals cfg.allowDHCP [ "CAP_NET_RAW" ];
+        AmbientCapabilities = [
+          "CAP_NET_BIND_SERVICE"
+        ] ++ optionals cfg.allowDHCP [ "CAP_NET_RAW" ];
         Restart = "always";
         RestartSec = 10;
         RuntimeDirectory = "AdGuardHome";

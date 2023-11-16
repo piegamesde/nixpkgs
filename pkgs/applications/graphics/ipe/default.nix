@@ -57,7 +57,9 @@ stdenv.mkDerivation rec {
     "IPE_NO_SPELLCHECK=1" # qtSpell is not yet packaged
   ];
 
-  qtWrapperArgs = lib.optionals withTeXLive [ "--prefix PATH : ${lib.makeBinPath [ texliveSmall ]}" ];
+  qtWrapperArgs = lib.optionals withTeXLive [
+    "--prefix PATH : ${lib.makeBinPath [ texliveSmall ]}"
+  ];
 
   enableParallelBuilding = true;
 

@@ -46,7 +46,9 @@ let
     extraConfig = toKeyValue cfg.phpOptions;
   };
 
-  toKeyValue = generators.toKeyValue { mkKeyValue = generators.mkKeyValueDefault { } " = "; };
+  toKeyValue = generators.toKeyValue {
+    mkKeyValue = generators.mkKeyValueDefault { } " = ";
+  };
 
   occ = pkgs.writeScriptBin "nextcloud-occ" ''
     #! ${pkgs.runtimeShell}
@@ -774,8 +776,12 @@ in
             upgradeWarning = major: nixos: ''
               A legacy Nextcloud install (from before NixOS ${nixos}) may be installed.
 
-              After nextcloud${toString major} is installed successfully, you can safely upgrade
-              to ${toString (major + 1)}. The latest version available is Nextcloud${toString latest}.
+              After nextcloud${
+                toString major
+              } is installed successfully, you can safely upgrade
+              to ${toString (major + 1)}. The latest version available is Nextcloud${
+                toString latest
+              }.
 
               Please note that Nextcloud doesn't support upgrades across multiple major versions
               (i.e. an upgrade from 16 is possible to 17, but not 16 to 18).
@@ -788,9 +794,15 @@ in
             Using config.services.nextcloud.poolConfig is deprecated and will become unsupported in a future release.
             Please migrate your configuration to config.services.nextcloud.poolSettings.
           '')
-          ++ (optional (versionOlder cfg.package.version "25") (upgradeWarning 24 "22.11"))
-          ++ (optional (versionOlder cfg.package.version "26") (upgradeWarning 25 "23.05"))
-          ++ (optional (versionOlder cfg.package.version "27") (upgradeWarning 26 "23.11"));
+          ++ (optional (versionOlder cfg.package.version "25") (
+            upgradeWarning 24 "22.11"
+          ))
+          ++ (optional (versionOlder cfg.package.version "26") (
+            upgradeWarning 25 "23.05"
+          ))
+          ++ (optional (versionOlder cfg.package.version "27") (
+            upgradeWarning 26 "23.11"
+          ));
 
         services.nextcloud.package =
           with pkgs;
@@ -867,7 +879,8 @@ in
           nextcloud-setup =
             let
               c = cfg.config;
-              writePhpArray = a: "[${concatMapStringsSep "," (val: ''"${toString val}"'') a}]";
+              writePhpArray =
+                a: "[${concatMapStringsSep "," (val: ''"${toString val}"'') a}]";
               requiresReadSecretFunction = c.dbpassFile != null || c.objectstore.s3.enable;
               objectstoreConfig =
                 let
@@ -887,7 +900,8 @@ in
                       ${optionalString (s3.region != null) "'region' => '${s3.region}',"}
                       'use_path_style' => ${boolToString s3.usePathStyle},
                       ${
-                        optionalString (s3.sseCKeyFile != null) "'sse_c_key' => nix_read_secret('${s3.sseCKeyFile}'),"
+                        optionalString (s3.sseCKeyFile != null)
+                          "'sse_c_key' => nix_read_secret('${s3.sseCKeyFile}'),"
                       }
                     ],
                   ]
@@ -937,18 +951,29 @@ in
                     [ 'path' => '${cfg.home}/apps', 'url' => '/apps', 'writable' => false ],
                     [ 'path' => '${cfg.home}/store-apps', 'url' => '/store-apps', 'writable' => true ],
                   ],
-                  ${optionalString (showAppStoreSetting) "'appstoreenabled' => ${renderedAppStoreSetting},"}
+                  ${
+                    optionalString (showAppStoreSetting)
+                      "'appstoreenabled' => ${renderedAppStoreSetting},"
+                  }
                   'datadirectory' => '${datadir}/data',
                   'skeletondirectory' => '${cfg.skeletonDirectory}',
-                  ${optionalString cfg.caching.apcu "'memcache.local' => '\\OC\\Memcache\\APCu',"}
+                  ${
+                    optionalString cfg.caching.apcu "'memcache.local' => '\\OC\\Memcache\\APCu',"
+                  }
                   'log_type' => '${cfg.logType}',
                   'loglevel' => '${builtins.toString cfg.logLevel}',
-                  ${optionalString (c.overwriteProtocol != null) "'overwriteprotocol' => '${c.overwriteProtocol}',"}
+                  ${
+                    optionalString (c.overwriteProtocol != null)
+                      "'overwriteprotocol' => '${c.overwriteProtocol}',"
+                  }
                   ${optionalString (c.dbname != null) "'dbname' => '${c.dbname}',"}
                   ${optionalString (c.dbhost != null) "'dbhost' => '${c.dbhost}',"}
                   ${optionalString (c.dbport != null) "'dbport' => '${toString c.dbport}',"}
                   ${optionalString (c.dbuser != null) "'dbuser' => '${c.dbuser}',"}
-                  ${optionalString (c.dbtableprefix != null) "'dbtableprefix' => '${toString c.dbtableprefix}',"}
+                  ${
+                    optionalString (c.dbtableprefix != null)
+                      "'dbtableprefix' => '${toString c.dbtableprefix}',"
+                  }
                   ${
                     optionalString (c.dbpassFile != null) ''
                       'dbpassword' => nix_read_secret(
@@ -957,10 +982,13 @@ in
                     ''
                   }
                   'dbtype' => '${c.dbtype}',
-                  'trusted_domains' => ${writePhpArray ([ cfg.hostName ] ++ c.extraTrustedDomains)},
+                  'trusted_domains' => ${
+                    writePhpArray ([ cfg.hostName ] ++ c.extraTrustedDomains)
+                  },
                   'trusted_proxies' => ${writePhpArray (c.trustedProxies)},
                   ${
-                    optionalString (c.defaultPhoneRegion != null) "'default_phone_region' => '${c.defaultPhoneRegion}',"
+                    optionalString (c.defaultPhoneRegion != null)
+                      "'default_phone_region' => '${c.defaultPhoneRegion}',"
                   }
                   ${
                     optionalString (nextcloudGreaterOrEqualThan "23")
@@ -986,7 +1014,8 @@ in
                   mkExport = { arg, value }: "export ${arg}=${value}";
                   dbpass = {
                     arg = "DBPASS";
-                    value = if c.dbpassFile != null then ''"$(<"${toString c.dbpassFile}")"'' else ''""'';
+                    value =
+                      if c.dbpassFile != null then ''"$(<"${toString c.dbpassFile}")"'' else ''""'';
                   };
                   adminpass = {
                     arg = "ADMINPASS";
@@ -1000,7 +1029,8 @@ in
                       # will be omitted.
                       ${if c.dbname != null then "--database-name" else null} = ''"${c.dbname}"'';
                       ${if c.dbhost != null then "--database-host" else null} = ''"${c.dbhost}"'';
-                      ${if c.dbport != null then "--database-port" else null} = ''"${toString c.dbport}"'';
+                      ${if c.dbport != null then "--database-port" else null} = ''
+                        "${toString c.dbport}"'';
                       ${if c.dbuser != null then "--database-user" else null} = ''"${c.dbuser}"'';
                       "--database-pass" = ''"''$${dbpass.arg}"'';
                       "--admin-user" = ''"${c.adminuser}"'';
@@ -1027,8 +1057,12 @@ in
             {
               wantedBy = [ "multi-user.target" ];
               before = [ "phpfpm-nextcloud.service" ];
-              after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
-              requires = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
+              after =
+                optional mysqlLocal "mysql.service"
+                ++ optional pgsqlLocal "postgresql.service";
+              requires =
+                optional mysqlLocal "mysql.service"
+                ++ optional pgsqlLocal "postgresql.service";
               path = [ occ ];
               script = ''
                 ${optionalString (c.dbpassFile != null) ''
@@ -1054,7 +1088,11 @@ in
 
                 # Install extra apps
                 ln -sfT \
-                  ${pkgs.linkFarm "nix-apps" (mapAttrsToList (name: path: { inherit name path; }) cfg.extraApps)} \
+                  ${
+                    pkgs.linkFarm "nix-apps" (
+                      mapAttrsToList (name: path: { inherit name path; }) cfg.extraApps
+                    )
+                  } \
                   ${cfg.home}/nix-apps
 
                 # create nextcloud directories.
@@ -1080,7 +1118,9 @@ in
 
                 ${optionalString (cfg.extraAppsEnable && cfg.extraApps != { }) ''
                   # Try to enable apps
-                  ${occ}/bin/nextcloud-occ app:enable ${concatStringsSep " " (attrNames cfg.extraApps)}
+                  ${occ}/bin/nextcloud-occ app:enable ${
+                    concatStringsSep " " (attrNames cfg.extraApps)
+                  }
                 ''}
 
                 ${occSetTrustedDomainsCmd}
@@ -1089,7 +1129,9 @@ in
               serviceConfig.User = "nextcloud";
               # On Nextcloud ≥ 26, it is not necessary to patch the database files to prevent
               # an automatic creation of the database user.
-              environment.NC_setup_create_db_user = lib.mkIf (nextcloudGreaterOrEqualThan "26") "false";
+              environment.NC_setup_create_db_user =
+                lib.mkIf (nextcloudGreaterOrEqualThan "26")
+                  "false";
             };
           nextcloud-cron = {
             after = [ "nextcloud-setup.service" ];

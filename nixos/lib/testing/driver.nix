@@ -17,12 +17,21 @@ let
   testDriver = hostPkgs.callPackage ../test-driver {
     inherit (config) enableOCR extraPythonPackages;
     qemu_pkg = config.qemu.package;
-    imagemagick_light = hostPkgs.imagemagick_light.override { inherit (hostPkgs) libtiff; };
+    imagemagick_light = hostPkgs.imagemagick_light.override {
+      inherit (hostPkgs) libtiff;
+    };
     tesseract4 = hostPkgs.tesseract4.override { enableLanguages = [ "eng" ]; };
   };
 
   vlans =
-    map (m: (m.virtualisation.vlans ++ (lib.mapAttrsToList (_: v: v.vlan) m.virtualisation.interfaces)))
+    map
+      (
+        m:
+        (
+          m.virtualisation.vlans
+          ++ (lib.mapAttrsToList (_: v: v.vlan) m.virtualisation.interfaces)
+        )
+      )
       (lib.attrValues config.nodes);
   vms = map (m: m.system.build.vm) (lib.attrValues config.nodes);
 
@@ -30,7 +39,10 @@ let
     let
       nodesList = map (c: c.system.name) (lib.attrValues config.nodes);
     in
-    nodesList ++ lib.optional (lib.length nodesList == 1 && !lib.elem "machine" nodesList) "machine";
+    nodesList
+    ++
+      lib.optional (lib.length nodesList == 1 && !lib.elem "machine" nodesList)
+        "machine";
 
   pythonizeName =
     name:
@@ -39,7 +51,9 @@ let
       tail = lib.substring 1 (-1) name;
     in
     (if builtins.match "[A-z_]" head == null then "_" else head)
-    + lib.stringAsChars (c: if builtins.match "[A-z0-9_]" c == null then "_" else c) tail;
+    +
+      lib.stringAsChars (c: if builtins.match "[A-z0-9_]" c == null then "_" else c)
+        tail;
 
   uniqueVlans = lib.unique (builtins.concatLists vlans);
   vlanNames = map (i: "vlan${toString i}: VLan;") uniqueVlans;
@@ -211,7 +225,8 @@ in
     _module.args = {
       hostPkgs =
         # Comment is in nixos/modules/misc/nixpkgs.nix
-        lib.mkOverride lib.modules.defaultOverridePriority config.hostPkgs.__splicedPackages;
+        lib.mkOverride lib.modules.defaultOverridePriority
+          config.hostPkgs.__splicedPackages;
     };
 
     driver = withChecks driver;

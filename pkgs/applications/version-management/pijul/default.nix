@@ -46,12 +46,14 @@ rustPlatform.buildRustPackage rec {
 
   buildFeatures = lib.optional gitImportSupport "git";
 
-  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    installShellCompletion --cmd pijul \
-      --bash <($out/bin/pijul completion bash) \
-      --fish <($out/bin/pijul completion fish) \
-      --zsh <($out/bin/pijul completion zsh)
-  '';
+  postInstall =
+    lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+      ''
+        installShellCompletion --cmd pijul \
+          --bash <($out/bin/pijul completion bash) \
+          --fish <($out/bin/pijul completion fish) \
+          --zsh <($out/bin/pijul completion zsh)
+      '';
 
   meta = with lib; {
     description = "A distributed version control system";

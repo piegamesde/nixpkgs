@@ -6,7 +6,8 @@
 }:
 let
   nvidiaEnabled = (lib.elem "nvidia" config.services.xserver.videoDrivers);
-  nvidia_x11 = if nvidiaEnabled || cfg.datacenter.enable then cfg.package else null;
+  nvidia_x11 =
+    if nvidiaEnabled || cfg.datacenter.enable then cfg.package else null;
 
   cfg = config.hardware.nvidia;
 
@@ -15,7 +16,9 @@ let
   offloadCfg = pCfg.offload;
   reverseSyncCfg = pCfg.reverseSync;
   primeEnabled = syncCfg.enable || reverseSyncCfg.enable || offloadCfg.enable;
-  busIDType = lib.types.strMatching "([[:print:]]+[:@][0-9]{1,3}:[0-9]{1,2}:[0-9])?";
+  busIDType =
+    lib.types.strMatching
+      "([[:print:]]+[:@][0-9]{1,3}:[0-9]{1,2}:[0-9])?";
   ibtSupport = cfg.open || (nvidia_x11.ibtSupport or false);
   settingsFormat = pkgs.formats.keyValue { };
 in
@@ -48,7 +51,8 @@ in
           TRUNK_LINK_FAILURE_MODE = 0;
           NVSWITCH_FAILURE_MODE = 0;
           ABORT_CUDA_JOBS_ON_FM_EXIT = 1;
-          TOPOLOGY_FILE_PATH = nvidia_x11.fabricmanager + "/share/nvidia-fabricmanager/nvidia/nvswitch";
+          TOPOLOGY_FILE_PATH =
+            nvidia_x11.fabricmanager + "/share/nvidia-fabricmanager/nvidia/nvswitch";
         };
         defaultText = lib.literalExpression ''
           {
@@ -252,7 +256,10 @@ in
 
       package = lib.mkOption {
         default =
-          config.boot.kernelPackages.nvidiaPackages."${if cfg.datacenter.enable then "dc" else "stable"}";
+          config.boot.kernelPackages.nvidiaPackages."${if cfg.datacenter.enable then
+            "dc"
+          else
+            "stable"}";
         defaultText = lib.literalExpression ''
           config.boot.kernelPackages.nvidiaPackages."\$\{if cfg.datacenter.enable then "dc" else "stable"}"
         '';
@@ -318,13 +325,15 @@ in
             }
 
             {
-              assertion = offloadCfg.enableOffloadCmd -> offloadCfg.enable || reverseSyncCfg.enable;
+              assertion =
+                offloadCfg.enableOffloadCmd -> offloadCfg.enable || reverseSyncCfg.enable;
               message = "Offload command requires offloading or reverse prime sync to be enabled.";
             }
 
             {
               assertion =
-                primeEnabled -> pCfg.nvidiaBusId != "" && (pCfg.intelBusId != "" || pCfg.amdgpuBusId != "");
+                primeEnabled
+                -> pCfg.nvidiaBusId != "" && (pCfg.intelBusId != "" || pCfg.amdgpuBusId != "");
               message = "When NVIDIA PRIME is enabled, the GPU bus IDs must be configured.";
             }
 
@@ -335,7 +344,8 @@ in
 
             {
               assertion =
-                (reverseSyncCfg.enable && pCfg.amdgpuBusId != "") -> lib.versionAtLeast nvidia_x11.version "470.0";
+                (reverseSyncCfg.enable && pCfg.amdgpuBusId != "")
+                -> lib.versionAtLeast nvidia_x11.version "470.0";
               message = "NVIDIA PRIME render offload for AMD APUs is currently only supported on versions >= 470 beta.";
             }
 
@@ -360,7 +370,8 @@ in
             }
 
             {
-              assertion = cfg.powerManagement.enable -> lib.versionAtLeast nvidia_x11.version "430.09";
+              assertion =
+                cfg.powerManagement.enable -> lib.versionAtLeast nvidia_x11.version "430.09";
               message = "Required files for driver based power management only exist on versions >= 430.09.";
             }
 
@@ -370,7 +381,8 @@ in
             }
 
             {
-              assertion = cfg.dynamicBoost.enable -> lib.versionAtLeast nvidia_x11.version "510.39.01";
+              assertion =
+                cfg.dynamicBoost.enable -> lib.versionAtLeast nvidia_x11.version "510.39.01";
               message = "NVIDIA's Dynamic Boost feature only exists on versions >= 510.39.01";
             }
           ];
@@ -446,13 +458,16 @@ in
               gpuProviderName =
                 if igpuDriver == "amdgpu" then
                   # find the name of the provider if amdgpu
-                  "`${lib.getExe pkgs.xorg.xrandr} --listproviders | ${lib.getExe pkgs.gnugrep} -i AMD | ${
-                    lib.getExe pkgs.gnused
-                  } -n 's/^.*name://p'`"
+                  "`${lib.getExe pkgs.xorg.xrandr} --listproviders | ${
+                    lib.getExe pkgs.gnugrep
+                  } -i AMD | ${lib.getExe pkgs.gnused} -n 's/^.*name://p'`"
                 else
                   igpuDriver;
               providerCmdParams =
-                if syncCfg.enable then ''"${gpuProviderName}" NVIDIA-0'' else ''NVIDIA-G0 "${gpuProviderName}"'';
+                if syncCfg.enable then
+                  ''"${gpuProviderName}" NVIDIA-0''
+                else
+                  ''NVIDIA-G0 "${gpuProviderName}"'';
             in
             lib.optionalString (syncCfg.enable || reverseSyncCfg.enable) ''
               # Added by nvidia configuration module for Optimus/PRIME.
@@ -552,11 +567,13 @@ in
           hardware.firmware = lib.optional cfg.open nvidia_x11.firmware;
 
           systemd.tmpfiles.rules =
-            lib.optional (nvidia_x11.persistenced != null && config.virtualisation.docker.enableNvidia)
+            lib.optional
+              (nvidia_x11.persistenced != null && config.virtualisation.docker.enableNvidia)
               "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced";
 
           boot = {
-            extraModulePackages = if cfg.open then [ nvidia_x11.open ] else [ nvidia_x11.bin ];
+            extraModulePackages =
+              if cfg.open then [ nvidia_x11.open ] else [ nvidia_x11.bin ];
             # nvidia-uvm is required by CUDA applications.
             kernelModules = lib.optionals config.services.xserver.enable [
               "nvidia"
@@ -566,10 +583,16 @@ in
 
             # If requested enable modesetting via kernel parameter.
             kernelParams =
-              lib.optional (offloadCfg.enable || cfg.modesetting.enable) "nvidia-drm.modeset=1"
-              ++ lib.optional cfg.powerManagement.enable "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+              lib.optional (offloadCfg.enable || cfg.modesetting.enable)
+                "nvidia-drm.modeset=1"
+              ++
+                lib.optional cfg.powerManagement.enable
+                  "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
               ++ lib.optional cfg.open "nvidia.NVreg_OpenRmEnableUnsupportedGpus=1"
-              ++ lib.optional (config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport) "ibt=off";
+              ++
+                lib.optional
+                  (config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport)
+                  "ibt=off";
 
             # enable finegrained power management
             extraModprobeConfig = lib.optionalString cfg.powerManagement.finegrained ''
@@ -577,16 +600,18 @@ in
             '';
           };
           services.udev.extraRules = lib.optionalString cfg.powerManagement.finegrained (
-            lib.optionalString (lib.versionOlder config.boot.kernelPackages.kernel.version "5.5") ''
-              # Remove NVIDIA USB xHCI Host Controller devices, if present
-              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{remove}="1"
+            lib.optionalString
+              (lib.versionOlder config.boot.kernelPackages.kernel.version "5.5")
+              ''
+                # Remove NVIDIA USB xHCI Host Controller devices, if present
+                ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{remove}="1"
 
-              # Remove NVIDIA USB Type-C UCSI devices, if present
-              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{remove}="1"
+                # Remove NVIDIA USB Type-C UCSI devices, if present
+                ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{remove}="1"
 
-              # Remove NVIDIA Audio devices, if present
-              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{remove}="1"
-            ''
+                # Remove NVIDIA Audio devices, if present
+                ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{remove}="1"
+              ''
             + ''
               # Enable runtime PM for NVIDIA VGA/3D controller devices on driver bind
               ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="auto"
@@ -612,13 +637,17 @@ in
               TimeoutStartSec = 240;
               ExecStart =
                 let
-                  nv-fab-conf = settingsFormat.generate "fabricmanager.conf" cfg.datacenter.settings;
+                  nv-fab-conf =
+                    settingsFormat.generate "fabricmanager.conf"
+                      cfg.datacenter.settings;
                 in
                 nvidia_x11.fabricmanager + "/bin/nv-fabricmanager -c " + nv-fab-conf;
               LimitCORE = "infinity";
             };
           };
-          environment.systemPackages = lib.optional cfg.datacenter.enable nvidia_x11.fabricmanager;
+          environment.systemPackages =
+            lib.optional cfg.datacenter.enable
+              nvidia_x11.fabricmanager;
         })
       ]
     );

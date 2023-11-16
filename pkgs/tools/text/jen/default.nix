@@ -17,7 +17,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-LKiPG7k5UgaESP1ShsIWNMnm9resbRje746txOBo+Qs=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.Security
+  ];
 
   meta = with lib; {
     description = "A simple CLI generation tool for creating large datasets";

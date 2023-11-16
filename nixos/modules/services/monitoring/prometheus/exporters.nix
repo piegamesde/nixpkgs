@@ -290,7 +290,9 @@ let
           inherit (conf) group;
         });
       users.groups =
-        (mkIf (conf.group == "${name}-exporter" && !enableDynamicUser) { "${name}-exporter" = { }; });
+        (mkIf (conf.group == "${name}-exporter" && !enableDynamicUser) {
+          "${name}-exporter" = { };
+        });
       networking.firewall.extraCommands = mkIf conf.openFirewall (
         concatStrings [
           "ip46tables -A nixos-fw ${conf.firewallFilter} "
@@ -396,7 +398,9 @@ in
           [
             {
               assertion =
-                cfg.ipmi.enable -> (cfg.ipmi.configFile != null) -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.configFile));
+                cfg.ipmi.enable
+                -> (cfg.ipmi.configFile != null)
+                -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.configFile));
               message = ''
                 Config file specified in `services.prometheus.exporters.ipmi.configFile' must
                   not reside within /tmp - it won't be visible to the systemd service.
@@ -414,7 +418,8 @@ in
             }
             {
               assertion =
-                cfg.snmp.enable -> ((cfg.snmp.configurationPath == null) != (cfg.snmp.configuration == null));
+                cfg.snmp.enable
+                -> ((cfg.snmp.configurationPath == null) != (cfg.snmp.configuration == null));
               message = ''
                 Please ensure you have either `services.prometheus.exporters.snmp.configuration'
                   or `services.prometheus.exporters.snmp.configurationPath' set!
@@ -422,14 +427,17 @@ in
             }
             {
               assertion =
-                cfg.mikrotik.enable -> ((cfg.mikrotik.configFile == null) != (cfg.mikrotik.configuration == null));
+                cfg.mikrotik.enable
+                -> ((cfg.mikrotik.configFile == null) != (cfg.mikrotik.configuration == null));
               message = ''
                 Please specify either `services.prometheus.exporters.mikrotik.configuration'
                   or `services.prometheus.exporters.mikrotik.configFile'.
               '';
             }
             {
-              assertion = cfg.mail.enable -> ((cfg.mail.configFile == null) != (cfg.mail.configuration == null));
+              assertion =
+                cfg.mail.enable
+                -> ((cfg.mail.configFile == null) != (cfg.mail.configuration == null));
               message = ''
                 Please specify either 'services.prometheus.exporters.mail.configuration'
                   or 'services.prometheus.exporters.mail.configFile'.
@@ -444,7 +452,8 @@ in
             }
             {
               assertion =
-                cfg.nextcloud.enable -> ((cfg.nextcloud.passwordFile == null) != (cfg.nextcloud.tokenFile == null));
+                cfg.nextcloud.enable
+                -> ((cfg.nextcloud.passwordFile == null) != (cfg.nextcloud.tokenFile == null));
               message = ''
                 Please specify either 'services.prometheus.exporters.nextcloud.passwordFile' or
                   'services.prometheus.exporters.nextcloud.tokenFile'
@@ -453,7 +462,12 @@ in
             {
               assertion =
                 cfg.pgbouncer.enable
-                -> ((cfg.pgbouncer.connectionStringFile != null || cfg.pgbouncer.connectionString != ""));
+                -> (
+                  (
+                    cfg.pgbouncer.connectionStringFile != null
+                    || cfg.pgbouncer.connectionString != ""
+                  )
+                );
               message = ''
                 PgBouncer exporter needs either connectionStringFile or connectionString configured"
               '';
@@ -463,7 +477,9 @@ in
                 cfg.pgbouncer.enable
                 -> (
                   config.services.pgbouncer.ignoreStartupParameters != null
-                  && builtins.match ".*extra_float_digits.*" config.services.pgbouncer.ignoreStartupParameters != null
+                  &&
+                    builtins.match ".*extra_float_digits.*"
+                      config.services.pgbouncer.ignoreStartupParameters != null
                 );
               message = ''
                 Prometheus PgBouncer exporter requires including `extra_float_digits` in services.pgbouncer.ignoreStartupParameters
@@ -475,14 +491,17 @@ in
               '';
             }
             {
-              assertion = cfg.sql.enable -> ((cfg.sql.configFile == null) != (cfg.sql.configuration == null));
+              assertion =
+                cfg.sql.enable
+                -> ((cfg.sql.configFile == null) != (cfg.sql.configuration == null));
               message = ''
                 Please specify either 'services.prometheus.exporters.sql.configuration' or
                   'services.prometheus.exporters.sql.configFile'
               '';
             }
             {
-              assertion = cfg.scaphandre.enable -> (pkgs.stdenv.targetPlatform.isx86_64 == true);
+              assertion =
+                cfg.scaphandre.enable -> (pkgs.stdenv.targetPlatform.isx86_64 == true);
               message = ''
                 Scaphandre only support x86_64 architectures.
               '';
@@ -490,20 +509,25 @@ in
             {
               assertion =
                 cfg.scaphandre.enable
-                -> ((lib.kernel.whenHelpers pkgs.linux.version).whenOlder "5.11" true).condition == false;
+                ->
+                  ((lib.kernel.whenHelpers pkgs.linux.version).whenOlder "5.11" true).condition
+                  == false;
               message = ''
                 Scaphandre requires a kernel version newer than '5.11', '${pkgs.linux.version}' given.
               '';
             }
             {
-              assertion = cfg.scaphandre.enable -> (builtins.elem "intel_rapl_common" config.boot.kernelModules);
+              assertion =
+                cfg.scaphandre.enable
+                -> (builtins.elem "intel_rapl_common" config.boot.kernelModules);
               message = ''
                 Scaphandre needs 'intel_rapl_common' kernel module to be enabled. Please add it in 'boot.kernelModules'.
               '';
             }
             {
               assertion =
-                cfg.idrac.enable -> ((cfg.idrac.configurationPath == null) != (cfg.idrac.configuration == null));
+                cfg.idrac.enable
+                -> ((cfg.idrac.configurationPath == null) != (cfg.idrac.configuration == null));
               message = ''
                 Please ensure you have either `services.prometheus.exporters.idrac.configuration'
                   or `services.prometheus.exporters.idrac.configurationPath' set!
@@ -512,7 +536,8 @@ in
           ]
           ++ (flip map (attrNames exporterOpts) (
             exporter: {
-              assertion = cfg.${exporter}.firewallFilter != null -> cfg.${exporter}.openFirewall;
+              assertion =
+                cfg.${exporter}.firewallFilter != null -> cfg.${exporter}.openFirewall;
               message = ''
                 The `firewallFilter'-option of exporter ${exporter} doesn't have any effect unless
                 `openFirewall' is set to `true'!
@@ -543,9 +568,15 @@ in
     ]
     ++ [
       (mkIf config.services.minio.enable {
-        services.prometheus.exporters.minio.minioAddress = mkDefault "http://localhost:9000";
-        services.prometheus.exporters.minio.minioAccessKey = mkDefault config.services.minio.accessKey;
-        services.prometheus.exporters.minio.minioAccessSecret = mkDefault config.services.minio.secretKey;
+        services.prometheus.exporters.minio.minioAddress =
+          mkDefault
+            "http://localhost:9000";
+        services.prometheus.exporters.minio.minioAccessKey =
+          mkDefault
+            config.services.minio.accessKey;
+        services.prometheus.exporters.minio.minioAccessSecret =
+          mkDefault
+            config.services.minio.secretKey;
       })
     ]
     ++ [
@@ -555,7 +586,9 @@ in
     ]
     ++ [
       (mkIf config.services.postfix.enable {
-        services.prometheus.exporters.postfix.group = mkDefault config.services.postfix.setgidGroup;
+        services.prometheus.exporters.postfix.group =
+          mkDefault
+            config.services.postfix.setgidGroup;
       })
     ]
     ++ (mapAttrsToList

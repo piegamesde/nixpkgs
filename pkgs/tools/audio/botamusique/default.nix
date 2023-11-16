@@ -147,7 +147,9 @@ stdenv.mkDerivation rec {
     trap 'rm -rf "$tmp"' exit
 
     npmHash="$(prefetch-npm-deps $path/web/package-lock.json)"
-    jq '. + { npmDepsHash: "'"$npmHash"'" }' < "${toString ./src.json}" > "$tmp/src.json"
+    jq '. + { npmDepsHash: "'"$npmHash"'" }' < "${
+      toString ./src.json
+    }" > "$tmp/src.json"
     mv "$tmp/src.json" "${toString ./src.json}"
   '';
 

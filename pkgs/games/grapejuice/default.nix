@@ -94,7 +94,9 @@ python3Packages.buildPythonApplication rec {
       --replace \$STUDIO_ICON "grapejuice-roblox-studio"
 
     substituteInPlace src/grapejuice_common/paths.py \
-      --replace 'return local_share() / "locale"' 'return Path("${placeholder "out"}/share/locale")'
+      --replace 'return local_share() / "locale"' 'return Path("${
+        placeholder "out"
+      }/share/locale")'
 
     substituteInPlace src/grapejuice_common/models/settings_model.py \
       --replace 'default_wine_home: Optional[str] = ""' 'default_wine_home: Optional[str] = "${wine}"'

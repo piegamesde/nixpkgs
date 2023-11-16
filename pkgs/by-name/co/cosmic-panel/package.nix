@@ -53,17 +53,19 @@ rustPlatform.buildRustPackage {
     (placeholder "out")
     "--set"
     "bin-src"
-    "target/${rust.lib.toRustTargetSpecShort stdenv.hostPlatform}/release/cosmic-panel"
+    "target/${
+      rust.lib.toRustTargetSpecShort stdenv.hostPlatform
+    }/release/cosmic-panel"
   ];
 
   # Force linking to libEGL, which is always dlopen()ed.
-  "CARGO_TARGET_${rust.toRustTargetForUseInEnvVars stdenv.hostPlatform}_RUSTFLAGS" =
-    map (a: "-C link-arg=${a}")
-      [
-        "-Wl,--push-state,--no-as-needed"
-        "-lEGL"
-        "-Wl,--pop-state"
-      ];
+  "CARGO_TARGET_${
+    rust.toRustTargetForUseInEnvVars stdenv.hostPlatform
+  }_RUSTFLAGS" = map (a: "-C link-arg=${a}") [
+    "-Wl,--push-state,--no-as-needed"
+    "-lEGL"
+    "-Wl,--pop-state"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/pop-os/cosmic-panel";

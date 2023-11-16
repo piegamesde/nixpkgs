@@ -11,7 +11,10 @@
   historySupport ? true,
   readlineSupport ? true,
   lineEditingLibrary ?
-    if (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isStatic) then "null" else "readline",
+    if (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isStatic) then
+      "null"
+    else
+      "readline",
 }:
 
 assert lib.elem lineEditingLibrary [

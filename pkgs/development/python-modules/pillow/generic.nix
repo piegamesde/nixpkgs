@@ -95,7 +95,9 @@ buildPythonPackage rec {
           -e 's|^FREETYPE_ROOT =.*$|FREETYPE_ROOT = ${libinclude freetype}|g ;
               s|^JPEG_ROOT =.*$|JPEG_ROOT = ${libinclude libjpeg}|g ;
               s|^JPEG2K_ROOT =.*$|JPEG2K_ROOT = ${libinclude openjpeg}|g ;
-              s|^IMAGEQUANT_ROOT =.*$|IMAGEQUANT_ROOT = ${libinclude' libimagequant}|g ;
+              s|^IMAGEQUANT_ROOT =.*$|IMAGEQUANT_ROOT = ${
+                libinclude' libimagequant
+              }|g ;
               s|^ZLIB_ROOT =.*$|ZLIB_ROOT = ${libinclude zlib}|g ;
               s|^LCMS_ROOT =.*$|LCMS_ROOT = ${libinclude lcms2}|g ;
               s|^TIFF_ROOT =.*$|TIFF_ROOT = ${libinclude libtiff}|g ;

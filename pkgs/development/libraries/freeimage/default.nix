@@ -58,7 +58,9 @@ stdenv.mkDerivation (
         darwin.cctools
         fixDarwinDylibNames
       ]
-      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+        autoSignDarwinBinariesHook
+      ];
     buildInputs = [
       libtiff
       libtiff.dev_private

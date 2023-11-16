@@ -35,7 +35,8 @@ let
   '';
 
   purple_plugin_path =
-    lib.concatMapStringsSep ":" (plugin: "${plugin}/lib/pidgin/:${plugin}/lib/purple-2/")
+    lib.concatMapStringsSep ":"
+      (plugin: "${plugin}/lib/pidgin/:${plugin}/lib/purple-2/")
       cfg.libpurple_plugins;
 in
 
@@ -187,6 +188,8 @@ in
 
       environment.systemPackages = [ bitlbeePkg ];
     })
-    (mkIf (config.services.bitlbee.authBackend == "pam") { security.pam.services.bitlbee = { }; })
+    (mkIf (config.services.bitlbee.authBackend == "pam") {
+      security.pam.services.bitlbee = { };
+    })
   ];
 }

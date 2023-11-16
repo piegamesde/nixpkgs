@@ -38,7 +38,9 @@ in
         ${pkgs.prometheus-graphite-exporter}/bin/graphite_exporter \
           --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
           --graphite.listen-address ${cfg.listenAddress}:${toString cfg.graphitePort} \
-          --graphite.mapping-config ${format.generate "mapping.yml" cfg.mappingSettings} \
+          --graphite.mapping-config ${
+            format.generate "mapping.yml" cfg.mappingSettings
+          } \
           ${lib.concatStringsSep " \\\n  " cfg.extraFlags}
       '';
     };

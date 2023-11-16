@@ -25,7 +25,9 @@ with pkgs.lib;
           ''
           + optionalString (sshPublicKey != null) ''
             mkdir -p $out/1.0/meta-data/public-keys/0
-            ln -s ${pkgs.writeText "sshPublicKey" sshPublicKey} $out/1.0/meta-data/public-keys/0/openssh-key
+            ln -s ${
+              pkgs.writeText "sshPublicKey" sshPublicKey
+            } $out/1.0/meta-data/public-keys/0/openssh-key
           '';
       };
       indentLines = str: concatLines (map (s: "  " + s) (splitString "\n" str));

@@ -60,14 +60,17 @@ buildPythonPackage rec {
   # trustme uses pyopenssl
   doCheck = !(stdenv.isDarwin && stdenv.isAarch64);
 
-  nativeCheckInputs = [
-    hypothesis
-    psutil
-    pytest-mock
-    pytest-xdist
-    pytestCheckHook
-    trustme
-  ] ++ lib.optionals (pythonOlder "3.12") [ uvloop ] ++ passthru.optional-dependencies.trio;
+  nativeCheckInputs =
+    [
+      hypothesis
+      psutil
+      pytest-mock
+      pytest-xdist
+      pytestCheckHook
+      trustme
+    ]
+    ++ lib.optionals (pythonOlder "3.12") [ uvloop ]
+    ++ passthru.optional-dependencies.trio;
 
   pytestFlagsArray = [
     "-W"

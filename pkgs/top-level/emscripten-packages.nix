@@ -6,45 +6,47 @@ with pkgs;
 # https://github.com/NixOS/nixpkgs/pull/16208
 
 rec {
-  json_c = (pkgs.json_c.override { stdenv = pkgs.emscriptenStdenv; }).overrideAttrs (
-    old: {
-      nativeBuildInputs = [
-        pkg-config
-        cmake
-      ];
-      propagatedBuildInputs = [ zlib ];
-      configurePhase = ''
-        HOME=$TMPDIR
-        mkdir -p .emscriptencache
-        export EM_CACHE=$(pwd)/.emscriptencache
-        emcmake cmake . $cmakeFlags -DCMAKE_INSTALL_PREFIX=$out -DCMAKE_INSTALL_INCLUDEDIR=$dev/include
-      '';
-      checkPhase = ''
-        echo "================= testing json_c using node ================="
+  json_c =
+    (pkgs.json_c.override { stdenv = pkgs.emscriptenStdenv; }).overrideAttrs
+      (
+        old: {
+          nativeBuildInputs = [
+            pkg-config
+            cmake
+          ];
+          propagatedBuildInputs = [ zlib ];
+          configurePhase = ''
+            HOME=$TMPDIR
+            mkdir -p .emscriptencache
+            export EM_CACHE=$(pwd)/.emscriptencache
+            emcmake cmake . $cmakeFlags -DCMAKE_INSTALL_PREFIX=$out -DCMAKE_INSTALL_INCLUDEDIR=$dev/include
+          '';
+          checkPhase = ''
+            echo "================= testing json_c using node ================="
 
-        echo "Compiling a custom test"
-        set -x
-        emcc -O2 -s EMULATE_FUNCTION_POINTER_CASTS=1 tests/test1.c \
-          `pkg-config zlib --cflags` \
-          `pkg-config zlib --libs` \
-          -I . \
-          libjson-c.a \
-          -o ./test1.js
+            echo "Compiling a custom test"
+            set -x
+            emcc -O2 -s EMULATE_FUNCTION_POINTER_CASTS=1 tests/test1.c \
+              `pkg-config zlib --cflags` \
+              `pkg-config zlib --libs` \
+              -I . \
+              libjson-c.a \
+              -o ./test1.js
 
-        echo "Using node to execute the test which basically outputs an error on stderr which we grep for"
-        ${pkgs.nodejs}/bin/node ./test1.js
+            echo "Using node to execute the test which basically outputs an error on stderr which we grep for"
+            ${pkgs.nodejs}/bin/node ./test1.js
 
-        set +x
-        if [ $? -ne 0 ]; then
-          echo "test1.js execution failed -> unit test failed, please fix"
-          exit 1;
-        else
-          echo "test1.js execution seems to work! very good."
-        fi
-        echo "================= /testing json_c using node ================="
-      '';
-    }
-  );
+            set +x
+            if [ $? -ne 0 ]; then
+              echo "test1.js execution failed -> unit test failed, please fix"
+              exit 1;
+            else
+              echo "test1.js execution seems to work! very good."
+            fi
+            echo "================= /testing json_c using node ================="
+          '';
+        }
+      );
 
   libxml2 =
     (pkgs.libxml2.override {

@@ -35,7 +35,8 @@
 }:
 let
   libmagic = file;
-  hyperscanSupport = stdenv.system == "x86_64-linux" || stdenv.system == "i686-linux";
+  hyperscanSupport =
+    stdenv.system == "x86_64-linux" || stdenv.system == "i686-linux";
 in
 stdenv.mkDerivation rec {
   pname = "suricata";

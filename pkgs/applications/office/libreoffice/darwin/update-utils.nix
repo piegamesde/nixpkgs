@@ -6,7 +6,9 @@ let
     let
       majorMinorPatchGroup = "([0-9]+\\.[0-9]+\\.[0-9]+)";
       splittedVersions = builtins.split ''href="${majorMinorPatchGroup}'' htmlString;
-      stableVersions = builtins.concatLists (builtins.filter (e: builtins.isList e) splittedVersions);
+      stableVersions = builtins.concatLists (
+        builtins.filter (e: builtins.isList e) splittedVersions
+      );
     in
     if stableVersions == [ ] then
       abort "Failed to extract versions from html."
@@ -27,7 +29,10 @@ let
     let
       sha256 = (builtins.match ".*([0-9a-fA-F]{64}).*" htmlString);
     in
-    if sha256 == [ ] then abort "Failed to extract sha256 from html." else builtins.head sha256;
+    if sha256 == [ ] then
+      abort "Failed to extract sha256 from html."
+    else
+      builtins.head sha256;
 
   # getSha256 :: String -> String
   getSha256 =

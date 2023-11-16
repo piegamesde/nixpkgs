@@ -31,7 +31,9 @@ let
     );
 
   redisName = name: "redis" + optionalString (name != "") ("-" + name);
-  enabledServers = filterAttrs (name: conf: conf.enable) config.services.redis.servers;
+  enabledServers =
+    filterAttrs (name: conf: conf.enable)
+      config.services.redis.servers;
 in
 {
   imports = [
@@ -510,7 +512,9 @@ in
                   maxclients = mkOption {
                     type = types.int;
                     default = 10000;
-                    description = lib.mdDoc "Set the max number of connected clients at the same time.";
+                    description =
+                      lib.mdDoc
+                        "Set the max number of connected clients at the same time.";
                   };
 
                   save = mkOption {
@@ -561,7 +565,9 @@ in
                       );
 
                     default = null;
-                    description = lib.mdDoc "IP and port to which this redis instance acts as a slave.";
+                    description =
+                      lib.mdDoc
+                        "IP and port to which this redis instance acts as a slave.";
                     example = {
                       ip = "192.168.1.100";
                       port = 6379;
@@ -606,13 +612,17 @@ in
                   appendFsync = mkOption {
                     type = types.str;
                     default = "everysec"; # no, always, everysec
-                    description = lib.mdDoc "How often to fsync the append-only log, options: no, always, everysec.";
+                    description =
+                      lib.mdDoc
+                        "How often to fsync the append-only log, options: no, always, everysec.";
                   };
 
                   slowLogLogSlowerThan = mkOption {
                     type = types.int;
                     default = 10000;
-                    description = lib.mdDoc "Log queries whose execution take longer than X in milliseconds.";
+                    description =
+                      lib.mdDoc
+                        "Log queries whose execution take longer than X in milliseconds.";
                     example = 1000;
                   };
 
@@ -664,7 +674,8 @@ in
                       if config.save == [ ] then
                         ''""'' # Disable saving with `save = ""`
                       else
-                        map (d: "${toString (builtins.elemAt d 0)} ${toString (builtins.elemAt d 1)}") config.save;
+                        map (d: "${toString (builtins.elemAt d 0)} ${toString (builtins.elemAt d 1)}")
+                          config.save;
                     dbfilename = "dump.rdb";
                     dir = "/var/lib/${redisName name}";
                     appendfsync = config.appendFsync;
@@ -712,9 +723,9 @@ in
       (mkIf cfg.vmOverCommit { "vm.overcommit_memory" = "1"; })
     ];
 
-    networking.firewall.allowedTCPPorts = concatMap (conf: optional conf.openFirewall conf.port) (
-      attrValues enabledServers
-    );
+    networking.firewall.allowedTCPPorts =
+      concatMap (conf: optional conf.openFirewall conf.port)
+        (attrValues enabledServers);
 
     environment.systemPackages = [ cfg.package ];
 
@@ -729,7 +740,9 @@ in
           }
         )
         enabledServers;
-    users.groups = mapAttrs' (name: conf: nameValuePair (redisName name) { }) enabledServers;
+    users.groups =
+      mapAttrs' (name: conf: nameValuePair (redisName name) { })
+        enabledServers;
 
     systemd.services =
       mapAttrs'
@@ -742,9 +755,9 @@ in
             after = [ "network.target" ];
 
             serviceConfig = {
-              ExecStart = "${cfg.package}/bin/redis-server /var/lib/${redisName name}/redis.conf ${
-                  escapeShellArgs conf.extraParams
-                }";
+              ExecStart = "${cfg.package}/bin/redis-server /var/lib/${
+                  redisName name
+                }/redis.conf ${escapeShellArgs conf.extraParams}";
               ExecStartPre =
                 "+"
                 + pkgs.writeShellScript "${redisName name}-prep-conf" (

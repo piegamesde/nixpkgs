@@ -109,7 +109,9 @@ stdenv.mkDerivation (
         ++ lib.optional pulseaudioSupport pkgs.libpulseaudio
         ++ lib.optional (xineramaSupport && x11Support) pkgs.xorg.libXinerama
         ++ lib.optional udevSupport pkgs.udev
-        ++ lib.optional vulkanSupport (if stdenv.isDarwin then moltenvk else pkgs.vulkan-loader)
+        ++ lib.optional vulkanSupport (
+          if stdenv.isDarwin then moltenvk else pkgs.vulkan-loader
+        )
         ++ lib.optional sdlSupport pkgs.SDL2
         ++ lib.optional usbSupport pkgs.libusb1
         ++ lib.optionals gstreamerSupport (
@@ -195,7 +197,9 @@ stdenv.mkDerivation (
         # syntax. As of Wine 8.12, the logic has changed and uses selector syntax, but it still
         # uses property syntax in one place. The first patch is necessary only with older
         # versions of Wine. The second is needed on all versions of Wine.
-        (lib.optional (lib.versionOlder version "8.12") ./darwin-metal-compat-pre8.12.patch)
+        (lib.optional (lib.versionOlder version "8.12")
+          ./darwin-metal-compat-pre8.12.patch
+        )
         ./darwin-metal-compat.patch
         # Wine requires `qos.h`, which is not included by default on the 10.12 SDK in nixpkgs.
         ./darwin-qos.patch
@@ -215,7 +219,9 @@ stdenv.mkDerivation (
       prevConfigFlags
       ++ lib.optionals supportFlags.waylandSupport [ "--with-wayland" ]
       ++ lib.optionals supportFlags.vulkanSupport [ "--with-vulkan" ]
-      ++ lib.optionals (stdenv.isDarwin && !supportFlags.xineramaSupport) [ "--without-x" ];
+      ++ lib.optionals (stdenv.isDarwin && !supportFlags.xineramaSupport) [
+        "--without-x"
+      ];
 
     # Wine locates a lot of libraries dynamically through dlopen().  Add
     # them to the RPATH so that the user doesn't have to set them in
@@ -225,7 +231,9 @@ stdenv.mkDerivation (
         map (x: "${lib.getLib x}/lib") ([ stdenv.cc.cc ] ++ buildInputs)
         # libpulsecommon.so is linked but not found otherwise
         ++ lib.optionals supportFlags.pulseaudioSupport (
-          map (x: "${lib.getLib x}/lib/pulseaudio") (toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ]))
+          map (x: "${lib.getLib x}/lib/pulseaudio") (
+            toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ])
+          )
         )
         ++ lib.optionals supportFlags.waylandSupport (
           map (x: "${lib.getLib x}/share/wayland-protocols") (
@@ -309,7 +317,10 @@ stdenv.mkDerivation (
         else
           "An Open Source implementation of the Windows API on top of X, OpenGL, and Unix";
       platforms =
-        if supportFlags.waylandSupport then (lib.remove "x86_64-darwin" prevPlatforms) else prevPlatforms;
+        if supportFlags.waylandSupport then
+          (lib.remove "x86_64-darwin" prevPlatforms)
+        else
+          prevPlatforms;
       maintainers = with lib.maintainers; [
         avnik
         raskin

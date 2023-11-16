@@ -70,7 +70,8 @@ stdenv.mkDerivation {
 
   cmakeFlags =
     [ "-DGUILE_CCACHE_DIR=${placeholder "out"}/${guile.siteCcacheDir}" ]
-    ++ lib.optionals (stdenv.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "11")
+    ++ lib.optionals
+      (stdenv.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "11")
       [
         # warning: 'aligned_alloc' is only available on macOS 10.15 or newer
         "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.15"

@@ -60,10 +60,12 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    libbsd
-    libxcrypt
-  ] ++ lib.optional (pam != null && stdenv.isLinux) pam ++ lib.optional withTcb tcb;
+  buildInputs =
+    [
+      libbsd
+      libxcrypt
+    ]
+    ++ lib.optional (pam != null && stdenv.isLinux) pam ++ lib.optional withTcb tcb;
 
   patches = [
     ./keep-path.patch

@@ -32,11 +32,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    curl
-    libtorrent
-    ncurses
-  ] ++ lib.optional jsonRpcSupport nlohmann_json ++ lib.optional xmlRpcSupport xmlrpc_c;
+  buildInputs =
+    [
+      curl
+      libtorrent
+      ncurses
+    ]
+    ++ lib.optional jsonRpcSupport nlohmann_json
+    ++ lib.optional xmlRpcSupport xmlrpc_c;
 
   cmakeFlags =
     [ "-DUSE_RUNTIME_CA_DETECTION=NO" ]
@@ -49,7 +52,9 @@ stdenv.mkDerivation rec {
 
   prePatch = ''
     substituteInPlace src/main.cc \
-      --replace "/etc/rtorrent/rtorrent.rc" "${placeholder "out"}/etc/rtorrent/rtorrent.rc"
+      --replace "/etc/rtorrent/rtorrent.rc" "${
+        placeholder "out"
+      }/etc/rtorrent/rtorrent.rc"
   '';
 
   postFixup = ''

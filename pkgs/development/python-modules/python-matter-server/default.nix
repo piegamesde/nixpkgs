@@ -69,7 +69,9 @@ buildPythonPackage rec {
 
   preCheck =
     let
-      pythonEnv = python.withPackages (_: propagatedBuildInputs ++ nativeCheckInputs ++ [ pytest ]);
+      pythonEnv = python.withPackages (
+        _: propagatedBuildInputs ++ nativeCheckInputs ++ [ pytest ]
+      );
     in
     ''
       export PYTHONPATH=${pythonEnv}/${python.sitePackages}

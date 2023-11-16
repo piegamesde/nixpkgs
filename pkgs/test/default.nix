@@ -45,7 +45,9 @@ with pkgs;
                 [ (filter (n: !lib.hasSuffix "MultiStdenv" n)) ]
           );
         in
-        lib.genAttrs pkgSets (name: callPackage ./cc-wrapper { stdenv = pkgs.${name}; });
+        lib.genAttrs pkgSets (
+          name: callPackage ./cc-wrapper { stdenv = pkgs.${name}; }
+        );
     in
     recurseIntoAttrs {
       default = callPackage ./cc-wrapper { };
@@ -80,7 +82,9 @@ with pkgs;
             sets = lib.pipe llvmTests (
               [
                 (filterAttrs (_: v: lib.meta.availableOn stdenv.hostPlatform v.clang.stdenv.cc))
-                (filterAttrs (_: v: lib.meta.availableOn stdenv.hostPlatform v.libcxx.stdenv.cc))
+                (filterAttrs (
+                  _: v: lib.meta.availableOn stdenv.hostPlatform v.libcxx.stdenv.cc
+                ))
 
                 # libcxxStdenv broken
                 # fix in https://github.com/NixOS/nixpkgs/pull/216273
@@ -91,14 +95,16 @@ with pkgs;
                     # libcxx does not build for some reason on aarch64-linux
                     (filterAttrs (n: _: n != "llvmPackages_7"))
                   ]
-              ++ lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [
-                (filterAttrs (n: _: n != "llvmPackages_5"))
-                (filterAttrs (n: _: n != "llvmPackages_6"))
-                (filterAttrs (n: _: n != "llvmPackages_7"))
-                (filterAttrs (n: _: n != "llvmPackages_8"))
-                (filterAttrs (n: _: n != "llvmPackages_9"))
-                (filterAttrs (n: _: n != "llvmPackages_10"))
-              ]
+              ++
+                lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
+                  [
+                    (filterAttrs (n: _: n != "llvmPackages_5"))
+                    (filterAttrs (n: _: n != "llvmPackages_6"))
+                    (filterAttrs (n: _: n != "llvmPackages_7"))
+                    (filterAttrs (n: _: n != "llvmPackages_8"))
+                    (filterAttrs (n: _: n != "llvmPackages_9"))
+                    (filterAttrs (n: _: n != "llvmPackages_10"))
+                  ]
             );
           in
           toJSON sets;
@@ -130,17 +136,25 @@ with pkgs;
 
   hooks = callPackage ./hooks { };
 
-  cc-multilib-gcc = callPackage ./cc-wrapper/multilib.nix { stdenv = gccMultiStdenv; };
-  cc-multilib-clang = callPackage ./cc-wrapper/multilib.nix { stdenv = clangMultiStdenv; };
+  cc-multilib-gcc = callPackage ./cc-wrapper/multilib.nix {
+    stdenv = gccMultiStdenv;
+  };
+  cc-multilib-clang = callPackage ./cc-wrapper/multilib.nix {
+    stdenv = clangMultiStdenv;
+  };
 
   fetchurl = callPackages ../build-support/fetchurl/tests.nix { };
   fetchtorrent = callPackages ../build-support/fetchtorrent/tests.nix { };
   fetchpatch = callPackages ../build-support/fetchpatch/tests.nix { };
-  fetchpatch2 = callPackages ../build-support/fetchpatch/tests.nix { fetchpatch = fetchpatch2; };
+  fetchpatch2 = callPackages ../build-support/fetchpatch/tests.nix {
+    fetchpatch = fetchpatch2;
+  };
   fetchDebianPatch = callPackages ../build-support/fetchdebianpatch/tests.nix { };
   fetchzip = callPackages ../build-support/fetchzip/tests.nix { };
   fetchgit = callPackages ../build-support/fetchgit/tests.nix { };
-  fetchFirefoxAddon = callPackages ../build-support/fetchfirefoxaddon/tests.nix { };
+  fetchFirefoxAddon =
+    callPackages ../build-support/fetchfirefoxaddon/tests.nix
+      { };
 
   install-shell-files = callPackage ./install-shell-files { };
 
@@ -154,7 +168,9 @@ with pkgs;
 
   php = recurseIntoAttrs (callPackages ./php { });
 
-  pkg-config = recurseIntoAttrs (callPackage ../top-level/pkg-config/tests.nix { });
+  pkg-config = recurseIntoAttrs (
+    callPackage ../top-level/pkg-config/tests.nix { }
+  );
 
   buildRustCrate = callPackage ../build-support/rust/build-rust-crate/test { };
   importCargoLock = callPackage ../build-support/rust/test/import-cargo-lock { };
@@ -169,7 +185,9 @@ with pkgs;
 
   cuda = callPackage ./cuda { };
 
-  trivial-builders = callPackage ../build-support/trivial-builders/test/default.nix { };
+  trivial-builders =
+    callPackage ../build-support/trivial-builders/test/default.nix
+      { };
 
   writers = callPackage ../build-support/writers/test.nix { };
 
@@ -190,10 +208,12 @@ with pkgs;
     makeBinaryWrapper = pkgs.makeBinaryWrapper.override {
       # Enable sanitizers in the tests only, to avoid the performance cost in regular usage.
       # The sanitizers cause errors on aarch64-darwin, see https://github.com/NixOS/nixpkgs/pull/150079#issuecomment-994132734
-      sanitizers = pkgs.lib.optionals (!(pkgs.stdenv.isDarwin && pkgs.stdenv.isAarch64)) [
-        "undefined"
-        "address"
-      ];
+      sanitizers =
+        pkgs.lib.optionals (!(pkgs.stdenv.isDarwin && pkgs.stdenv.isAarch64))
+          [
+            "undefined"
+            "address"
+          ];
     };
   };
 

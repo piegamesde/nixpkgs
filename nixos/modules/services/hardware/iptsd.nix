@@ -12,7 +12,9 @@ let
 in
 {
   options.services.iptsd = {
-    enable = lib.mkEnableOption (lib.mdDoc "the userspace daemon for Intel Precise Touch & Stylus");
+    enable = lib.mkEnableOption (
+      lib.mdDoc "the userspace daemon for Intel Precise Touch & Stylus"
+    );
 
     config = lib.mkOption {
       default = { };
@@ -27,7 +29,9 @@ in
           Touch = {
             DisableOnPalm = lib.mkOption {
               default = false;
-              description = lib.mdDoc "Ignore all touch inputs if a palm was registered on the display.";
+              description =
+                lib.mdDoc
+                  "Ignore all touch inputs if a palm was registered on the display.";
               type = lib.types.bool;
             };
             DisableOnStylus = lib.mkOption {
@@ -39,7 +43,9 @@ in
           Stylus = {
             Disable = lib.mkOption {
               default = false;
-              description = lib.mdDoc "Disables the stylus. No stylus data will be processed.";
+              description =
+                lib.mdDoc
+                  "Disables the stylus. No stylus data will be processed.";
               type = lib.types.bool;
             };
           };

@@ -50,7 +50,9 @@ stdenv.mkDerivation {
     generated.configure
     + ''
       swiftpmMakeMutable indexstore-db
-      patch -p1 -d .build/checkouts/indexstore-db -i ${./patches/indexstore-db-macos-target.patch}
+      patch -p1 -d .build/checkouts/indexstore-db -i ${
+        ./patches/indexstore-db-macos-target.patch
+      }
 
       # This toggles a section specific to Xcode XCTest, which doesn't work on
       # Darwin, where we also use swift-corelibs-xctest.

@@ -107,7 +107,10 @@ let
               args = concatLists (
                 flip mapAttrsToList config.settings (
                   name: value:
-                  if isBool value then optional value name else optional (value != null) "${name}=${toString value}"
+                  if isBool value then
+                    optional value name
+                  else
+                    optional (value != null) "${name}=${toString value}"
                 )
               );
             };
@@ -500,7 +503,9 @@ let
         logFailures = mkOption {
           default = false;
           type = types.bool;
-          description = lib.mdDoc "Whether to log authentication failures in {file}`/var/log/faillog`.";
+          description =
+            lib.mdDoc
+              "Whether to log authentication failures in {file}`/var/log/faillog`.";
         };
 
         enableAppArmor = mkOption {
@@ -634,7 +639,11 @@ let
               take 1 rules ++ checked;
             # Formats a string for use in `module-arguments`. See `man pam.conf`.
             formatModuleArgument =
-              token: if hasInfix " " token then "[${replaceStrings [ "]" ] [ "\\]" ] token}]" else token;
+              token:
+              if hasInfix " " token then
+                "[${replaceStrings [ "]" ] [ "\\]" ] token}]"
+              else
+                token;
             formatRules =
               type:
               pipe cfg.rules.${type} [
@@ -712,7 +721,10 @@ let
                 name = "sss";
                 enable = config.services.sssd.enable;
                 control =
-                  if cfg.sssdStrictAccess then "[default=bad success=ok user_unknown=ignore]" else "sufficient";
+                  if cfg.sssdStrictAccess then
+                    "[default=bad success=ok user_unknown=ignore]"
+                  else
+                    "sufficient";
                 modulePath = "${pkgs.sssd}/lib/security/pam_sss.so";
               }
               {
@@ -1390,7 +1402,8 @@ let
               }
               {
                 name = "motd";
-                enable = cfg.showMotd && (config.users.motd != null || config.users.motdFile != null);
+                enable =
+                  cfg.showMotd && (config.users.motd != null || config.users.motdFile != null);
                 control = "optional";
                 modulePath = "${pkgs.pam}/lib/security/pam_motd.so";
                 settings = {
@@ -1452,7 +1465,8 @@ let
   inherit (pkgs) pam_krb5 pam_ccreds;
 
   use_ldap = (config.users.ldap.enable && config.users.ldap.loginPam);
-  pam_ldap = if config.users.ldap.daemon.enable then pkgs.nss_pam_ldapd else pkgs.pam_ldap;
+  pam_ldap =
+    if config.users.ldap.daemon.enable then pkgs.nss_pam_ldapd else pkgs.pam_ldap;
 
   # Create a limits.conf(5) file.
   makeLimitsConf =
@@ -1481,7 +1495,9 @@ let
         {
           options = {
             domain = mkOption {
-              description = lib.mdDoc "Username, groupname, or wildcard this limit applies to";
+              description =
+                lib.mdDoc
+                  "Username, groupname, or wildcard this limit applies to";
               example = "@wheel";
               type = str;
             };
@@ -1643,7 +1659,9 @@ in
       '';
     };
 
-    security.pam.enableOTPW = mkEnableOption (lib.mdDoc "the OTPW (one-time password) PAM module");
+    security.pam.enableOTPW = mkEnableOption (
+      lib.mdDoc "the OTPW (one-time password) PAM module"
+    );
 
     security.pam.dp9ik = {
       enable = mkEnableOption (
@@ -2068,7 +2086,9 @@ in
       default = null;
       example = "/etc/motd";
       type = types.nullOr types.path;
-      description = lib.mdDoc "A file containing the message of the day shown to users when they log in.";
+      description =
+        lib.mdDoc
+          "A file containing the message of the day shown to users when they log in.";
     };
   };
 
@@ -2084,7 +2104,8 @@ in
       }
       {
         assertion =
-          config.security.pam.zfs.enable -> (config.boot.zfs.enabled || config.boot.zfs.enableUnstable);
+          config.security.pam.zfs.enable
+          -> (config.boot.zfs.enabled || config.boot.zfs.enableUnstable);
         message = ''
           `security.pam.zfs.enable` requires enabling ZFS (`boot.zfs.enabled` or `boot.zfs.enableUnstable`).
         '';
@@ -2107,7 +2128,9 @@ in
       ++ optionals config.security.pam.enableFscrypt [ pkgs.fscrypt-experimental ]
       ++ optionals config.security.pam.u2f.enable [ pkgs.pam_u2f ];
 
-    boot.supportedFilesystems = optionals config.security.pam.enableEcryptfs [ "ecryptfs" ];
+    boot.supportedFilesystems = optionals config.security.pam.enableEcryptfs [
+      "ecryptfs"
+    ];
 
     security.wrappers = {
       unix_chkpwd = {
@@ -2187,9 +2210,11 @@ in
         ]
       );
 
-    security.sudo.extraConfig = optionalString config.security.pam.enableSSHAgentAuth ''
-      # Keep SSH_AUTH_SOCK so that pam_ssh_agent_auth.so can do its magic.
-      Defaults env_keep+=SSH_AUTH_SOCK
-    '';
+    security.sudo.extraConfig =
+      optionalString config.security.pam.enableSSHAgentAuth
+        ''
+          # Keep SSH_AUTH_SOCK so that pam_ssh_agent_auth.so can do its magic.
+          Defaults env_keep+=SSH_AUTH_SOCK
+        '';
   };
 }

@@ -140,7 +140,9 @@ buildPythonPackage rec {
       "test_two_qubit_synthesis_not_pulse_optimal" # test of random circuit, seems to randomly fail depending on seed
       "test_qv_natural" # fails due to sign error. Not sure why
     ]
-    ++ lib.optionals (lib.versionAtLeast matplotlib.version "3.4.0") [ "test_plot_circuit_layout" ]
+    ++ lib.optionals (lib.versionAtLeast matplotlib.version "3.4.0") [
+      "test_plot_circuit_layout"
+    ]
     # Disabling slow tests for build constraints
     ++ [
       "test_all_examples"

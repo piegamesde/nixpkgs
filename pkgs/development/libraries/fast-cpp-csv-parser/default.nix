@@ -18,7 +18,9 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/lib/pkgconfig $out/include
     cp -r *.h $out/include/
-    substituteAll ${./fast-cpp-csv-parser.pc.in} $out/lib/pkgconfig/fast-cpp-csv-parser.pc
+    substituteAll ${
+      ./fast-cpp-csv-parser.pc.in
+    } $out/lib/pkgconfig/fast-cpp-csv-parser.pc
   '';
 
   meta = with lib; {

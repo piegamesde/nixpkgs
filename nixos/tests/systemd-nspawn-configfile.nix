@@ -70,7 +70,8 @@ import ./make-test-python.nix (
       "Port"
     ];
 
-    optionsToConfig = opts: builtins.listToAttrs (map (n: lib.nameValuePair n "testdata") opts);
+    optionsToConfig =
+      opts: builtins.listToAttrs (map (n: lib.nameValuePair n "testdata") opts);
 
     grepForOptions = opts: ''
       node.succeed(

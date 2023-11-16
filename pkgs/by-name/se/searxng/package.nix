@@ -22,7 +22,9 @@ python3.pkgs.toPythonModule (
 
     preBuild =
       let
-        versionString = lib.concatStringsSep "." (builtins.tail (lib.splitString "-" version));
+        versionString = lib.concatStringsSep "." (
+          builtins.tail (lib.splitString "-" version)
+        );
         commitAbbrev = builtins.substring 0 8 src.rev;
       in
       ''

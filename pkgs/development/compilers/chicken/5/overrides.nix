@@ -9,18 +9,25 @@ let
   addToNativeBuildInputs = pkg: old: {
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ lib.toList pkg;
   };
-  addToBuildInputs = pkg: old: { buildInputs = (old.buildInputs or [ ]) ++ lib.toList pkg; };
+  addToBuildInputs = pkg: old: {
+    buildInputs = (old.buildInputs or [ ]) ++ lib.toList pkg;
+  };
   addToPropagatedBuildInputs = pkg: old: {
     propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ lib.toList pkg;
   };
-  addPkgConfig = old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ]; };
-  addToBuildInputsWithPkgConfig = pkg: old: (addPkgConfig old) // (addToBuildInputs pkg old);
+  addPkgConfig = old: {
+    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
+  };
+  addToBuildInputsWithPkgConfig =
+    pkg: old: (addPkgConfig old) // (addToBuildInputs pkg old);
   addToPropagatedBuildInputsWithPkgConfig =
     pkg: old: (addPkgConfig old) // (addToPropagatedBuildInputs pkg old);
   broken = addMetaAttrs { broken = true; };
   brokenOnDarwin = addMetaAttrs { broken = stdenv.isDarwin; };
   addToCscOptions = opt: old: {
-    CSC_OPTIONS = lib.concatStringsSep " " ([ old.CSC_OPTIONS or "" ] ++ lib.toList opt);
+    CSC_OPTIONS = lib.concatStringsSep " " (
+      [ old.CSC_OPTIONS or "" ] ++ lib.toList opt
+    );
   };
 in
 {
@@ -86,7 +93,8 @@ in
   rocksdb = addToBuildInputs pkgs.rocksdb;
   scheme2c-compatibility =
     old:
-    addToNativeBuildInputs (lib.optionals (stdenv.system == "x86_64-darwin") [ pkgs.memorymappingHook ])
+    addToNativeBuildInputs
+      (lib.optionals (stdenv.system == "x86_64-darwin") [ pkgs.memorymappingHook ])
       (addPkgConfig old);
   sdl-base =
     old:
@@ -122,7 +130,9 @@ in
     );
   soil = addToPropagatedBuildInputsWithPkgConfig pkgs.libepoxy;
   sqlite3 = addToBuildInputs pkgs.sqlite;
-  stemmer = old: (addToBuildInputs pkgs.libstemmer old) // (addToCscOptions "-L -lstemmer" old);
+  stemmer =
+    old:
+    (addToBuildInputs pkgs.libstemmer old) // (addToCscOptions "-L -lstemmer" old);
   stfl =
     old:
     (addToBuildInputs

@@ -155,7 +155,8 @@ in
 
         name = mkOption {
           type = types.str;
-          default = if cfg.database.type == "sqlite" then "${stateDir}/zabbix.db" else "zabbix";
+          default =
+            if cfg.database.type == "sqlite" then "${stateDir}/zabbix.db" else "zabbix";
           defaultText = literalExpression "zabbix";
           description = lib.mdDoc "Database name.";
         };
@@ -180,7 +181,9 @@ in
           type = types.nullOr types.path;
           default = null;
           example = "/run/postgresql";
-          description = lib.mdDoc "Path to the unix socket file to use for authentication.";
+          description =
+            lib.mdDoc
+              "Path to the unix socket file to use for authentication.";
         };
 
         createLocally = mkOption {
@@ -277,11 +280,15 @@ in
       }
       (mkIf (cfg.database.createLocally != true) { DBPort = cfg.database.port; })
       (mkIf (cfg.database.passwordFile != null) { Include = [ "${passwordFile}" ]; })
-      (mkIf (mysqlLocal && cfg.database.socket != null) { DBSocket = cfg.database.socket; })
+      (mkIf (mysqlLocal && cfg.database.socket != null) {
+        DBSocket = cfg.database.socket;
+      })
       (mkIf (cfg.modules != { }) { LoadModulePath = "${moduleEnv}/lib"; })
     ];
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.listen.port ];
+    };
 
     services.mysql = optionalAttrs mysqlLocal {
       enable = true;
@@ -338,7 +345,9 @@ in
       description = "Zabbix Proxy";
 
       wantedBy = [ "multi-user.target" ];
-      after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
+      after =
+        optional mysqlLocal "mysql.service"
+        ++ optional pgsqlLocal "postgresql.service";
 
       path = [ "/run/wrappers" ] ++ cfg.extraPackages;
       preStart =

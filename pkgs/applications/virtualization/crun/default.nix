@@ -75,7 +75,8 @@ stdenv.mkDerivation rec {
     echo ${version} > .tarball-version
     echo '#define GIT_VERSION "${src.rev}"' > git-version.h
 
-    ${lib.concatMapStringsSep "\n" (e: "substituteInPlace Makefile.am --replace 'tests/${e}' ''")
+    ${lib.concatMapStringsSep "\n"
+      (e: "substituteInPlace Makefile.am --replace 'tests/${e}' ''")
       disabledTests}
   '';
 

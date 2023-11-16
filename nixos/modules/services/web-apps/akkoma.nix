@@ -173,7 +173,8 @@ let
       text,
       runtimeInputs ? [ ],
     }:
-    pkgs.writeShellApplication { inherit name text runtimeInputs; } + "/bin/${name}";
+    pkgs.writeShellApplication { inherit name text runtimeInputs; }
+    + "/bin/${name}";
 
   genScript = writeShell {
     name = "akkoma-gen-cookie";
@@ -367,12 +368,16 @@ let
 
       # Create role if non‐existent
       psql -tAc "SELECT 1 FROM pg_roles
-        WHERE rolname = "${escapeShellArg (escapeSqlStr db.username)} | grep -F -q 1 || \
+        WHERE rolname = "${
+          escapeShellArg (escapeSqlStr db.username)
+        } | grep -F -q 1 || \
         psql -tAc "CREATE ROLE "${escapeShellArg (escapeSqlId db.username)}
 
       # Create database if non‐existent
       psql -tAc "SELECT 1 FROM pg_database
-        WHERE datname = "${escapeShellArg (escapeSqlStr db.database)} | grep -F -q 1 || \
+        WHERE datname = "${
+          escapeShellArg (escapeSqlStr db.database)
+        } | grep -F -q 1 || \
         psql -tAc "CREATE DATABASE "${escapeShellArg (escapeSqlId db.database)}"
           OWNER "${escapeShellArg (escapeSqlId db.username)}"
           TEMPLATE template0
@@ -1078,7 +1083,11 @@ in
       nginx = mkOption {
         type =
           with types;
-          nullOr (submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }));
+          nullOr (
+            submodule (
+              import ../web-servers/nginx/vhost-options.nix { inherit config lib; }
+            )
+          );
         default = null;
         description = mdDoc ''
           Extra configuration for the nginx virtual host of Akkoma.
@@ -1090,12 +1099,14 @@ in
   };
 
   config = mkIf cfg.enable {
-    warnings = optionals (with config.security; (!sudo.enable) && (!sudo-rs.enable)) [
-      ''
-        The pleroma_ctl wrapper enabled by the installWrapper option relies on
-        sudo, which appears to have been disabled through security.sudo.enable.
-      ''
-    ];
+    warnings =
+      optionals (with config.security; (!sudo.enable) && (!sudo-rs.enable))
+        [
+          ''
+            The pleroma_ctl wrapper enabled by the installWrapper option relies on
+            sudo, which appears to have been disabled through security.sudo.enable.
+          ''
+        ];
 
     users = {
       users."${cfg.user}" = {
@@ -1208,7 +1219,9 @@ in
                 ]
                 (mkIf (isStorePath staticDir) (
                   map (dir: "${dir}:${dir}:norbind") (
-                    splitString "\n" (readFile ((pkgs.closureInfo { rootPaths = staticDir; }) + "/store-paths"))
+                    splitString "\n" (
+                      readFile ((pkgs.closureInfo { rootPaths = staticDir; }) + "/store-paths")
+                    )
                   )
                 ))
                 (mkIf (db ? socket_dir) [ "${db.socket_dir}:${db.socket_dir}:norbind" ])
@@ -1221,7 +1234,9 @@ in
           ExecStart = "${envWrapper}/bin/pleroma start";
           ExecStartPost = socketScript;
           ExecStop = "${envWrapper}/bin/pleroma stop";
-          ExecStopPost = mkIf (isAbsolutePath web.http.ip) "${pkgs.coreutils}/bin/rm -f '${web.http.ip}'";
+          ExecStopPost =
+            mkIf (isAbsolutePath web.http.ip)
+              "${pkgs.coreutils}/bin/rm -f '${web.http.ip}'";
 
           ProtectProc = "noaccess";
           ProcSubset = "pid";

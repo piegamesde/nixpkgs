@@ -200,7 +200,10 @@ in
         # `cfg.rules`).
         find /var/lib/opensnitch/rules -type l -lname '${builtins.storeDir}/*' ${
           optionalString (rules != { }) ''
-            -not \( ${concatMapStringsSep " -o " ({ local, ... }: "-name '${baseNameOf local}*'") rules} \) \
+            -not \( ${
+              concatMapStringsSep " -o " ({ local, ... }: "-name '${baseNameOf local}*'")
+                rules
+            } \) \
           ''
         } -delete
         ${concatMapStrings
@@ -219,7 +222,11 @@ in
     );
 
     environment.etc = mkMerge [
-      ({ "opensnitchd/default-config.json".source = format.generate "default-config.json" cfg.settings; })
+      ({
+        "opensnitchd/default-config.json".source =
+          format.generate "default-config.json"
+            cfg.settings;
+      })
       (mkIf (cfg.settings.ProcMonitorMethod == "ebpf") {
         "opensnitchd/opensnitch.o".source = "${config.boot.kernelPackages.opensnitch-ebpf}/etc/opensnitchd/opensnitch.o";
         "opensnitchd/opensnitch-dns.o".source = "${config.boot.kernelPackages.opensnitch-ebpf}/etc/opensnitchd/opensnitch-dns.o";

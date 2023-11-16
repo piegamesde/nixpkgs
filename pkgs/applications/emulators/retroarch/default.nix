@@ -56,10 +56,13 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    wrapQtAppsHook
-  ] ++ lib.optional withWayland wayland ++ lib.optional (runtimeLibs != [ ]) makeWrapper;
+  nativeBuildInputs =
+    [
+      pkg-config
+      wrapQtAppsHook
+    ]
+    ++ lib.optional withWayland wayland
+    ++ lib.optional (runtimeLibs != [ ]) makeWrapper;
 
   buildInputs =
     [

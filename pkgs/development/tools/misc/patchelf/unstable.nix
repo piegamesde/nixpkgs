@@ -32,7 +32,9 @@ stdenv.mkDerivation rec {
   doCheck = !stdenv.isDarwin;
 
   passthru = {
-    updateScript = unstableGitUpdater { url = "https://github.com/NixOS/patchelf.git"; };
+    updateScript = unstableGitUpdater {
+      url = "https://github.com/NixOS/patchelf.git";
+    };
   };
 
   meta = with lib; {

@@ -131,7 +131,9 @@ in
   # implementation
   config = mkIf cfg.enable {
 
-    environment.etc."vmalert/rules.yml".source = format.generate "rules.yml" cfg.rules;
+    environment.etc."vmalert/rules.yml".source =
+      format.generate "rules.yml"
+        cfg.rules;
 
     services.vmalert.settings.rule = [ "/etc/vmalert/rules.yml" ];
 

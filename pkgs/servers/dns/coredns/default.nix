@@ -59,7 +59,9 @@ buildGoModule rec {
     for plugin in ${
       builtins.toString (attrsToPlugins externalPlugins)
     }; do echo $plugin >> plugin.cfg; done
-    for src in ${builtins.toString (attrsToSources externalPlugins)}; do go get $src; done
+    for src in ${
+      builtins.toString (attrsToSources externalPlugins)
+    }; do go get $src; done
     GOOS= GOARCH= go generate
     go mod vendor
   '';

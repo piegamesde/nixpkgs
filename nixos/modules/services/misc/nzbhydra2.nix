@@ -24,7 +24,9 @@ in
       openFirewall = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Open ports in the firewall for the NZBHydra2 web interface.";
+        description =
+          lib.mdDoc
+            "Open ports in the firewall for the NZBHydra2 web interface.";
       };
 
       package = mkOption {

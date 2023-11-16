@@ -103,10 +103,11 @@
               cargoConfig = ''
                 [target."${rust.toRustTarget stdenv.buildPlatform}"]
                 "linker" = "${rust.envVars.ccForBuild}"
-                ${lib.optionalString (stdenv.buildPlatform.config != stdenv.hostPlatform.config) ''
-                  [target."${rust.toRustTarget stdenv.hostPlatform}"]
-                  "linker" = "${rust.envVars.ccForHost}"
-                ''}
+                ${lib.optionalString (stdenv.buildPlatform.config != stdenv.hostPlatform.config)
+                  ''
+                    [target."${rust.toRustTarget stdenv.hostPlatform}"]
+                    "linker" = "${rust.envVars.ccForHost}"
+                  ''}
                 "rustflags" = [ "-C", "target-feature=${
                   if stdenv.hostPlatform.isStatic then "+" else "-"
                 }crt-static" ]

@@ -47,7 +47,12 @@ let
     inherit workspaceDir;
     bazelPkg = bazel;
     buildInputs = [
-      (if lib.strings.versionOlder bazel.version "5.0.0" then openjdk8 else jdk11_headless)
+      (
+        if lib.strings.versionOlder bazel.version "5.0.0" then
+          openjdk8
+        else
+          jdk11_headless
+      )
     ];
     bazelScript =
       ''

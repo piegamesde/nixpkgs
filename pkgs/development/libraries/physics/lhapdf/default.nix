@@ -47,9 +47,11 @@ stdenv.mkDerivation rec {
 
   configureFlags = lib.optionals (python == null) [ "--disable-python" ];
 
-  preBuild = lib.optionalString (python != null && lib.versionAtLeast python.version "3.10") ''
-    rm wrappers/python/lhapdf.cpp
-  '';
+  preBuild =
+    lib.optionalString (python != null && lib.versionAtLeast python.version "3.10")
+      ''
+        rm wrappers/python/lhapdf.cpp
+      '';
 
   enableParallelBuilding = true;
 

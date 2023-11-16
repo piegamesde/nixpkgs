@@ -15,10 +15,12 @@ import ./make-test-python.nix (
             ];
           };
 
-          environment.etc."nomad.custom.json".source = (pkgs.formats.json { }).generate "nomad.custom.json" {
-            region = "universe";
-            datacenter = "earth";
-          };
+          environment.etc."nomad.custom.json".source =
+            (pkgs.formats.json { }).generate "nomad.custom.json"
+              {
+                region = "universe";
+                datacenter = "earth";
+              };
 
           services.nomad = {
             enable = true;
@@ -47,10 +49,12 @@ import ./make-test-python.nix (
             ];
           };
 
-          environment.etc."nomad.custom.json".source = (pkgs.formats.json { }).generate "nomad.custom.json" {
-            region = "universe";
-            datacenter = "earth";
-          };
+          environment.etc."nomad.custom.json".source =
+            (pkgs.formats.json { }).generate "nomad.custom.json"
+              {
+                region = "universe";
+                datacenter = "earth";
+              };
 
           services.nomad = {
             enable = true;
@@ -68,11 +72,13 @@ import ./make-test-python.nix (
             enableDocker = false;
           };
 
-          systemd.services.nomad.serviceConfig.ExecStartPre = "${pkgs.writeShellScript "mk_data_dir" ''
-            set -euxo pipefail
+          systemd.services.nomad.serviceConfig.ExecStartPre = "${pkgs.writeShellScript
+              "mk_data_dir"
+              ''
+                set -euxo pipefail
 
-            ${pkgs.coreutils}/bin/mkdir -p /nomad/data/dir
-          ''}";
+                ${pkgs.coreutils}/bin/mkdir -p /nomad/data/dir
+              ''}";
         };
     };
 

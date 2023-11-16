@@ -17,9 +17,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dWSDAYn36GDtkghmouGhHzxpa6EVwCslIPqejlLMZNM=";
   };
 
-  cmakeFlags = lib.optionals stdenv.hostPlatform.isStatic [ "-DLIBDEFLATE_BUILD_SHARED_LIB=OFF" ];
+  cmakeFlags = lib.optionals stdenv.hostPlatform.isStatic [
+    "-DLIBDEFLATE_BUILD_SHARED_LIB=OFF"
+  ];
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    cmake
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   passthru.tests.static = pkgsStatic.libdeflate;
 

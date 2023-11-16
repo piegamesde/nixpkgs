@@ -25,8 +25,12 @@ import ./make-test-python.nix (
       { pkgs, ... }:
       {
         security.pam.services.systemd-user.makeHomeDir = true;
-        environment.etc."cert.pem".text = builtins.readFile ./common/acme/server/acme.test.cert.pem;
-        environment.etc."key.pem".text = builtins.readFile ./common/acme/server/acme.test.key.pem;
+        environment.etc."cert.pem".text =
+          builtins.readFile
+            ./common/acme/server/acme.test.cert.pem;
+        environment.etc."key.pem".text =
+          builtins.readFile
+            ./common/acme/server/acme.test.key.pem;
         services.openldap = {
           enable = true;
           urlList = [
@@ -110,7 +114,8 @@ import ./make-test-python.nix (
         services.sssd = {
           enable = true;
           # just for testing purposes, don't put this into the Nix store in production!
-          environmentFile = "${pkgs.writeText "ldap-root" "LDAP_BIND_PW=${ldapRootPassword}"}";
+          environmentFile = "${pkgs.writeText "ldap-root"
+              "LDAP_BIND_PW=${ldapRootPassword}"}";
           config = ''
             [sssd]
             config_file_version = 2

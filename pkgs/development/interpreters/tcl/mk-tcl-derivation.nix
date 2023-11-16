@@ -63,7 +63,8 @@ let
         doCheck = false;
         doInstallCheck = attrs.doCheck or (attrs.doInstallCheck or false);
         installCheckInputs = checkInputs ++ (attrs.installCheckInputs or [ ]);
-        nativeInstallCheckInputs = nativeCheckInputs ++ (attrs.nativeInstallCheckInputs or [ ]);
+        nativeInstallCheckInputs =
+          nativeCheckInputs ++ (attrs.nativeInstallCheckInputs or [ ]);
 
         # Add typical values expected by TEA for configureFlags
         configureFlags =

@@ -104,7 +104,9 @@
         null
         (lib.attrNames archLookupTable);
 
-    archLookupTable = table.${localSystem.libc} or (abort "unsupported libc for the pure Linux stdenv");
+    archLookupTable =
+      table.${localSystem.libc}
+        or (abort "unsupported libc for the pure Linux stdenv");
     files =
       archLookupTable.${localSystem.system} or (
         if getCompatibleTools != null then
@@ -123,8 +125,10 @@ let
 
   isFromNixpkgs = pkg: !(isFromBootstrapFiles pkg);
   isFromBootstrapFiles = pkg: pkg.passthru.isFromBootstrapFiles or false;
-  isBuiltByNixpkgsCompiler = pkg: isFromNixpkgs pkg && isFromNixpkgs pkg.stdenv.cc.cc;
-  isBuiltByBootstrapFilesCompiler = pkg: isFromNixpkgs pkg && isFromBootstrapFiles pkg.stdenv.cc.cc;
+  isBuiltByNixpkgsCompiler =
+    pkg: isFromNixpkgs pkg && isFromNixpkgs pkg.stdenv.cc.cc;
+  isBuiltByBootstrapFilesCompiler =
+    pkg: isFromNixpkgs pkg && isFromBootstrapFiles pkg.stdenv.cc.cc;
 
   commonGccOverrides = {
     # Use a deterministically built compiler
@@ -153,14 +157,19 @@ let
 
   # Download and unpack the bootstrap tools (coreutils, GCC, Glibc, ...).
   bootstrapTools =
-    (import (if localSystem.libc == "musl" then ./bootstrap-tools-musl else ./bootstrap-tools) {
-      inherit system bootstrapFiles;
-      extraAttrs = lib.optionalAttrs config.contentAddressedByDefault {
-        __contentAddressed = true;
-        outputHashAlgo = "sha256";
-        outputHashMode = "recursive";
-      };
-    })
+    (import
+      (
+        if localSystem.libc == "musl" then ./bootstrap-tools-musl else ./bootstrap-tools
+      )
+      {
+        inherit system bootstrapFiles;
+        extraAttrs = lib.optionalAttrs config.contentAddressedByDefault {
+          __contentAddressed = true;
+          outputHashAlgo = "sha256";
+          outputHashMode = "recursive";
+        };
+      }
+    )
     // {
       passthru.isFromBootstrapFiles = true;
     };
@@ -205,7 +214,9 @@ let
               name = "${name}-gcc-wrapper";
               nativeTools = false;
               nativeLibc = false;
-              buildPackages = lib.optionalAttrs (prevStage ? stdenv) { inherit (prevStage) stdenv; };
+              buildPackages = lib.optionalAttrs (prevStage ? stdenv) {
+                inherit (prevStage) stdenv;
+              };
               cc = prevStage.gcc-unwrapped;
               bintools = prevStage.binutils;
               isGNU = true;
@@ -227,7 +238,8 @@ let
                 }
               );
 
-        overrides = self: super: (overrides self super) // { fetchurl = thisStdenv.fetchurlBoot; };
+        overrides =
+          self: super: (overrides self super) // { fetchurl = thisStdenv.fetchurlBoot; };
       };
     in
     {
@@ -540,7 +552,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               cp -a '${prevStage.bintools.bintools}'/bin/* "$out"/bin/
               chmod +w "$out"/bin/ld.bfd
               patchelf --set-interpreter '${getLibc self}'/lib/ld*.so.? \
-                --set-rpath "${getLibc self}/lib:$(patchelf --print-rpath "$out"/bin/ld.bfd)" \
+                --set-rpath "${
+                  getLibc self
+                }/lib:$(patchelf --print-rpath "$out"/bin/ld.bfd)" \
                 "$out"/bin/ld.bfd
             '';
           };
@@ -551,7 +565,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         patchelf = super.patchelf.overrideAttrs (
           previousAttrs:
           lib.optionalAttrs super.stdenv.hostPlatform.isMusl {
-            NIX_CFLAGS_COMPILE = (previousAttrs.NIX_CFLAGS_COMPILE or "") + " -static-libstdc++";
+            NIX_CFLAGS_COMPILE =
+              (previousAttrs.NIX_CFLAGS_COMPILE or "") + " -static-libstdc++";
           }
         );
       };
@@ -611,7 +626,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         // {
           ${localSystem.libc} = getLibc prevStage;
           gcc-unwrapped =
-            (super.gcc-unwrapped.override (commonGccOverrides // { inherit (prevStage) which; })).overrideAttrs
+            (super.gcc-unwrapped.override (
+              commonGccOverrides // { inherit (prevStage) which; }
+            )).overrideAttrs
               (
                 a: {
                   # so we can add them to allowedRequisites below
@@ -852,16 +869,18 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             ${localSystem.libc} = getLibc prevStage;
 
             # Hack: avoid libidn2.{bin,dev} referencing bootstrap tools.  There's a logical cycle.
-            libidn2 = import ../../development/libraries/libidn2/no-bootstrap-reference.nix {
-              inherit lib;
-              inherit (prevStage) libidn2;
-              inherit (self)
-                stdenv
-                runCommandLocal
-                patchelf
-                libunistring
-              ;
-            };
+            libidn2 =
+              import ../../development/libraries/libidn2/no-bootstrap-reference.nix
+                {
+                  inherit lib;
+                  inherit (prevStage) libidn2;
+                  inherit (self)
+                    stdenv
+                    runCommandLocal
+                    patchelf
+                    libunistring
+                  ;
+                };
 
             gnumake = super.gnumake.override { inBootstrap = false; };
           }

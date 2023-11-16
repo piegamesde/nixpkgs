@@ -29,7 +29,9 @@ in
       lxcPackage = lib.mkPackageOptionMD pkgs "lxc" { };
 
       preseed = lib.mkOption {
-        type = lib.types.nullOr (lib.types.submodule { freeformType = preseedFormat.type; });
+        type = lib.types.nullOr (
+          lib.types.submodule { freeformType = preseedFormat.type; }
+        );
 
         default = null;
 
@@ -154,7 +156,9 @@ in
         "network-online.target"
         "lxcfs.service"
       ] ++ (lib.optional cfg.socketActivation "incus.socket");
-      requires = [ "lxcfs.service" ] ++ (lib.optional cfg.socketActivation "incus.socket");
+      requires = [
+        "lxcfs.service"
+      ] ++ (lib.optional cfg.socketActivation "incus.socket");
       wants = [ "network-online.target" ];
 
       path = lib.mkIf config.boot.zfs.enabled [ config.boot.zfs.package ];

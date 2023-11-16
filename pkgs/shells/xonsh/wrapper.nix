@@ -9,7 +9,9 @@ let
   xonsh = xonsh-unwrapped;
   inherit (xonsh.passthru) python;
 
-  pythonEnv = python.withPackages (ps: [ (ps.toPythonModule xonsh) ] ++ extraPackages ps);
+  pythonEnv = python.withPackages (
+    ps: [ (ps.toPythonModule xonsh) ] ++ extraPackages ps
+  );
 in
 runCommand "${xonsh.pname}-${xonsh.version}"
   {

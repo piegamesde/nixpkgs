@@ -122,7 +122,10 @@ let
         EOF
 
         cat ${
-          escapeShellArg (extraSettingsFormat.generate "hostapd-radio-${radio}-extra.conf" radioCfg.settings)
+          escapeShellArg (
+            extraSettingsFormat.generate "hostapd-radio-${radio}-extra.conf"
+              radioCfg.settings
+          )
         } >> "$hostapd_config_file"
         ${concatMapStrings
           (script: ''
@@ -153,7 +156,8 @@ let
                   cat ${writeBssHeader radio bss bssIdx} >> "$hostapd_config_file"
                   cat ${
                     escapeShellArg (
-                      extraSettingsFormat.generate "hostapd-radio-${radio}-bss-${bss}-extra.conf" bssCfg.settings
+                      extraSettingsFormat.generate "hostapd-radio-${radio}-bss-${bss}-extra.conf"
+                        bssCfg.settings
                     )
                   } >> "$hostapd_config_file"
                   ${concatMapStrings
@@ -167,7 +171,9 @@ let
           )
     );
 
-  runtimeConfigFiles = mapAttrsToList (radio: _: "/run/hostapd/${radio}.hostapd.conf") cfg.radios;
+  runtimeConfigFiles =
+    mapAttrsToList (radio: _: "/run/hostapd/${radio}.hostapd.conf")
+      cfg.radios;
 in
 {
   meta.maintainers = with maintainers; [ oddlama ];
@@ -632,7 +638,9 @@ in
                           utf8Ssid = mkOption {
                             default = true;
                             type = types.bool;
-                            description = mdDoc "Whether the SSID is to be interpreted using UTF-8 encoding.";
+                            description =
+                              mdDoc
+                                "Whether the SSID is to be interpreted using UTF-8 encoding.";
                           };
 
                           ssid = mkOption {
@@ -1092,7 +1100,11 @@ in
                               // optionalAttrs (bssCfg.bssid != null) { bssid = bssCfg.bssid; }
                               //
                                 optionalAttrs
-                                  (bssCfg.macAllow != [ ] || bssCfg.macAllowFile != null || bssCfg.authentication.saeAddToMacAllow)
+                                  (
+                                    bssCfg.macAllow != [ ]
+                                    || bssCfg.macAllowFile != null
+                                    || bssCfg.authentication.saeAddToMacAllow
+                                  )
                                   { accept_mac_file = "/run/hostapd/${bssCfg._module.args.name}.mac.allow"; }
                               // optionalAttrs (bssCfg.macDeny != [ ] || bssCfg.macDenyFile != null) {
                                 deny_mac_file = "/run/hostapd/${bssCfg._module.args.name}.mac.deny";
@@ -1150,18 +1162,24 @@ in
                                     } >> "$MAC_ALLOW_FILE"
                                   ''
                                 );
-                                "20-addMacAllowFromSae" = mkIf (bssCfg.authentication.saeAddToMacAllow && saeMacs != [ ]) (
-                                  pkgs.writeShellScript "add-mac-allow-from-sae" ''
-                                    MAC_ALLOW_FILE=$2
-                                    cat >> "$MAC_ALLOW_FILE" <<EOF
-                                    ${concatStringsSep "\n" saeMacs}
-                                    EOF
-                                  ''
-                                );
+                                "20-addMacAllowFromSae" =
+                                  mkIf (bssCfg.authentication.saeAddToMacAllow && saeMacs != [ ])
+                                    (
+                                      pkgs.writeShellScript "add-mac-allow-from-sae" ''
+                                        MAC_ALLOW_FILE=$2
+                                        cat >> "$MAC_ALLOW_FILE" <<EOF
+                                        ${concatStringsSep "\n" saeMacs}
+                                        EOF
+                                      ''
+                                    );
                                 # Populate mac allow list from saePasswordsFile
                                 # (filter for lines with mac=;  exclude commented lines; filter for real mac-addresses; strip mac=)
                                 "20-addMacAllowFromSaeFile" =
-                                  mkIf (bssCfg.authentication.saeAddToMacAllow && bssCfg.authentication.saePasswordsFile != null)
+                                  mkIf
+                                    (
+                                      bssCfg.authentication.saeAddToMacAllow
+                                      && bssCfg.authentication.saePasswordsFile != null
+                                    )
                                     (
                                       pkgs.writeShellScript "add-mac-allow-from-sae-file" ''
                                         MAC_ALLOW_FILE=$2
@@ -1299,7 +1317,10 @@ in
           "hostapd"
           "driver"
         ]
-        (renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».driver`.")
+        (
+          renamedOptionMessage
+            "It has been replaced by `services.hostapd.radios.«interface».driver`."
+        )
       )
       (mkRemovedOptionModule
         [
@@ -1307,7 +1328,10 @@ in
           "hostapd"
           "noScan"
         ]
-        (renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».noScan`.")
+        (
+          renamedOptionMessage
+            "It has been replaced by `services.hostapd.radios.«interface».noScan`."
+        )
       )
       (mkRemovedOptionModule
         [
@@ -1315,7 +1339,10 @@ in
           "hostapd"
           "countryCode"
         ]
-        (renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».countryCode`.")
+        (
+          renamedOptionMessage
+            "It has been replaced by `services.hostapd.radios.«interface».countryCode`."
+        )
       )
       (mkRemovedOptionModule
         [
@@ -1323,7 +1350,10 @@ in
           "hostapd"
           "hwMode"
         ]
-        (renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».band`.")
+        (
+          renamedOptionMessage
+            "It has been replaced by `services.hostapd.radios.«interface».band`."
+        )
       )
       (mkRemovedOptionModule
         [
@@ -1331,7 +1361,10 @@ in
           "hostapd"
           "channel"
         ]
-        (renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».channel`.")
+        (
+          renamedOptionMessage
+            "It has been replaced by `services.hostapd.radios.«interface».channel`."
+        )
       )
       (mkRemovedOptionModule
         [
@@ -1429,7 +1462,8 @@ in
               # XXX: There could be many more useful assertions about (band == xy) -> ensure other required settings.
               # see https://github.com/openwrt/openwrt/blob/539cb5389d9514c99ec1f87bd4465f77c7ed9b93/package/kernel/mac80211/files/lib/netifd/wireless/mac80211.sh#L158
               {
-                assertion = length (filter (bss: bss == radio) (attrNames radioCfg.networks)) == 1;
+                assertion =
+                  length (filter (bss: bss == radio) (attrNames radioCfg.networks)) == 1;
                 message = "hostapd radio ${radio}: Exactly one network must be named like the radio, for reasons internal to hostapd.";
               }
               {
@@ -1458,7 +1492,8 @@ in
                       message = "hostapd radio ${radio} bss ${bss}: The bss (network) name ${bss} is invalid. It must be prefixed by the radio name for reasons internal to hostapd. A valid name would be e.g. ${radio}, ${radio}-1, ...";
                     }
                     {
-                      assertion = (length (attrNames radioCfg.networks) > 1) -> (bssCfg.bssid != null);
+                      assertion =
+                        (length (attrNames radioCfg.networks) > 1) -> (bssCfg.bssid != null);
                       message = "hostapd radio ${radio} bss ${bss}: bssid must be specified manually (for now) since this radio uses multiple BSS.";
                     }
                     {
@@ -1476,13 +1511,17 @@ in
                       message = "hostapd radio ${radio} bss ${bss}: must use only one SAE password option (saePasswords or saePasswordsFile)";
                     }
                     {
-                      assertion = auth.mode == "wpa3-sae" -> (auth.saePasswords != [ ] || auth.saePasswordsFile != null);
+                      assertion =
+                        auth.mode == "wpa3-sae"
+                        -> (auth.saePasswords != [ ] || auth.saePasswordsFile != null);
                       message = "hostapd radio ${radio} bss ${bss}: uses WPA3-SAE which requires defining a sae password option";
                     }
                     {
                       assertion =
                         auth.mode == "wpa3-sae-transition"
-                        -> (auth.saePasswords != [ ] || auth.saePasswordsFile != null) && countWpaPasswordDefinitions == 1;
+                        ->
+                          (auth.saePasswords != [ ] || auth.saePasswordsFile != null)
+                          && countWpaPasswordDefinitions == 1;
                       message = "hostapd radio ${radio} bss ${bss}: uses WPA3-SAE in transition mode requires defining both a wpa password option and a sae password option";
                     }
                     {
@@ -1505,19 +1544,23 @@ in
       description = "IEEE 802.11 Host Access-Point Daemon";
 
       path = [ cfg.package ];
-      after = map (radio: "sys-subsystem-net-devices-${utils.escapeSystemdPath radio}.device") (
-        attrNames cfg.radios
-      );
-      bindsTo = map (radio: "sys-subsystem-net-devices-${utils.escapeSystemdPath radio}.device") (
-        attrNames cfg.radios
-      );
+      after =
+        map (radio: "sys-subsystem-net-devices-${utils.escapeSystemdPath radio}.device")
+          (attrNames cfg.radios);
+      bindsTo =
+        map (radio: "sys-subsystem-net-devices-${utils.escapeSystemdPath radio}.device")
+          (attrNames cfg.radios);
       wantedBy = [ "multi-user.target" ];
 
       # Create merged configuration and acl files for each radio (and their bss's) prior to starting
-      preStart = concatStringsSep "\n" (mapAttrsToList makeRadioRuntimeFiles cfg.radios);
+      preStart = concatStringsSep "\n" (
+        mapAttrsToList makeRadioRuntimeFiles cfg.radios
+      );
 
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/hostapd ${concatStringsSep " " runtimeConfigFiles}";
+        ExecStart = "${cfg.package}/bin/hostapd ${
+            concatStringsSep " " runtimeConfigFiles
+          }";
         Restart = "always";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         RuntimeDirectory = "hostapd";

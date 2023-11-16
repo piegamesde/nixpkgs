@@ -50,7 +50,10 @@ stdenv.mkDerivation rec {
         sed -i '/PartOf=cups.service/d' scheduler/cups.socket.in
     ''
     +
-      lib.optionalString (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "12")
+      lib.optionalString
+        (
+          stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "12"
+        )
         ''
           substituteInPlace backend/usb-darwin.c \
             --replace "kIOMainPortDefault" "kIOMasterPortDefault"
@@ -110,7 +113,9 @@ stdenv.mkDerivation rec {
 
   # AR has to be an absolute path
   preConfigure = ''
-    export AR="${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar"
+    export AR="${
+      lib.getBin stdenv.cc.bintools.bintools
+    }/bin/${stdenv.cc.targetPrefix}ar"
     configureFlagsArray+=(
       # Put just lib/* and locale into $lib; this didn't work directly.
       # lib/cups is moved back to $out in postInstall.

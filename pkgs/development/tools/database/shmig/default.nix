@@ -31,9 +31,15 @@ stdenv.mkDerivation rec {
     patchShebangs .
 
     substituteInPlace shmig \
-      --replace "\`which mysql\`" "${lib.optionalString withMySQL "${mariadb.client}/bin/mysql"}" \
-      --replace "\`which psql\`" "${lib.optionalString withPSQL "${postgresql}/bin/psql"}" \
-      --replace "\`which sqlite3\`" "${lib.optionalString withSQLite "${sqlite}/bin/sqlite3"}" \
+      --replace "\`which mysql\`" "${
+        lib.optionalString withMySQL "${mariadb.client}/bin/mysql"
+      }" \
+      --replace "\`which psql\`" "${
+        lib.optionalString withPSQL "${postgresql}/bin/psql"
+      }" \
+      --replace "\`which sqlite3\`" "${
+        lib.optionalString withSQLite "${sqlite}/bin/sqlite3"
+      }" \
       --replace "awk" "${gawk}/bin/awk" \
       --replace "grep" "${gnugrep}/bin/grep" \
       --replace "find" "${findutils}/bin/find" \

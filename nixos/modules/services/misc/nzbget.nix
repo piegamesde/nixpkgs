@@ -13,7 +13,8 @@ let
   stateDir = "/var/lib/nzbget";
   configFile = "${stateDir}/nzbget.conf";
   configOpts = concatStringsSep " " (
-    mapAttrsToList (name: value: "-o ${name}=${escapeShellArg (toStr value)}") cfg.settings
+    mapAttrsToList (name: value: "-o ${name}=${escapeShellArg (toStr value)}")
+      cfg.settings
   );
   toStr =
     v:

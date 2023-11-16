@@ -26,7 +26,9 @@ let
       dontBuild = true;
       dontConfigure = true;
 
-      datadir = "${placeholder "out"}/share/Geant4-${geant4.version}/data/${pname}${version}";
+      datadir = "${
+          placeholder "out"
+        }/share/Geant4-${geant4.version}/data/${pname}${version}";
       installPhase = ''
         mkdir -p $datadir
         mv ./* $datadir

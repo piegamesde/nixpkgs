@@ -70,7 +70,8 @@ in
     system.nixos.label = mkDefault (
       maybeEnv "NIXOS_LABEL" (
         concatStringsSep "-" (
-          (sort (x: y: x < y) cfg.tags) ++ [ (maybeEnv "NIXOS_LABEL_VERSION" cfg.version) ]
+          (sort (x: y: x < y) cfg.tags)
+          ++ [ (maybeEnv "NIXOS_LABEL_VERSION" cfg.version) ]
         )
       )
     );

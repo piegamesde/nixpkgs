@@ -40,7 +40,9 @@ stdenv.mkDerivation rec {
   version = "44.6";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "UzXdVzWB22HhJthU3BauUZZXpbh5B4mkfSXkPhfNOkM=";
   };
 
@@ -85,7 +87,9 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals withPantheon [ pantheon.granite7 ];
 
   # Tests need an X display
-  mesonFlags = [ "-Dunit_tests=disabled" ] ++ lib.optionals withPantheon [ "-Dgranite=enabled" ];
+  mesonFlags = [
+    "-Dunit_tests=disabled"
+  ] ++ lib.optionals withPantheon [ "-Dgranite=enabled" ];
 
   passthru = {
     updateScript = gnome.updateScript { packageName = pname; };

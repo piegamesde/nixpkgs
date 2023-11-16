@@ -36,12 +36,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    jsonschema
-    python-json-logger
-    pyyaml
-    traitlets
-  ] ++ jsonschema.optional-dependencies.format ++ jsonschema.optional-dependencies.format-nongpl;
+  propagatedBuildInputs =
+    [
+      jsonschema
+      python-json-logger
+      pyyaml
+      traitlets
+    ]
+    ++ jsonschema.optional-dependencies.format
+    ++ jsonschema.optional-dependencies.format-nongpl;
 
   passthru.optional-dependencies = {
     cli = [

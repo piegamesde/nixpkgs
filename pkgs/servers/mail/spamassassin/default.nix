@@ -92,7 +92,9 @@ perlPackages.buildPerlPackage rec {
   preCheck = ''
     substituteInPlace t/spamc_x_e.t \
       --replace "/bin/echo" "${coreutils}/bin/echo"
-    export C_INCLUDE_PATH='${lib.makeSearchPathOutput "include" "include" [ libxcrypt ]}'
+    export C_INCLUDE_PATH='${
+      lib.makeSearchPathOutput "include" "include" [ libxcrypt ]
+    }'
     export HARNESS_OPTIONS="j''${NIX_BUILD_CORES}"
 
     export HOME=$NIX_BUILD_TOP/home
@@ -130,7 +132,9 @@ perlPackages.buildPerlPackage rec {
             gnumake
           ]
         } \
-        --prefix C_INCLUDE_PATH : ${lib.makeSearchPathOutput "include" "include" [ libxcrypt ]}
+        --prefix C_INCLUDE_PATH : ${
+          lib.makeSearchPathOutput "include" "include" [ libxcrypt ]
+        }
     done
   '';
 

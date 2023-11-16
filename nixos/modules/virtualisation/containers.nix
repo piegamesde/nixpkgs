@@ -122,7 +122,9 @@ in
     virtualisation.containers.containersConf.cniPlugins = [ pkgs.cni-plugins ];
 
     virtualisation.containers.containersConf.settings = {
-      network.cni_plugin_dirs = map (p: "${lib.getBin p}/bin") cfg.containersConf.cniPlugins;
+      network.cni_plugin_dirs =
+        map (p: "${lib.getBin p}/bin")
+          cfg.containersConf.cniPlugins;
       engine =
         {
           init_path = "${pkgs.catatonit}/bin/catatonit";
@@ -140,9 +142,9 @@ in
       toml.generate "storage.conf"
         cfg.storage.settings;
 
-    environment.etc."containers/registries.conf".source = toml.generate "registries.conf" {
-      registries = lib.mapAttrs (n: v: { registries = v; }) cfg.registries;
-    };
+    environment.etc."containers/registries.conf".source =
+      toml.generate "registries.conf"
+        { registries = lib.mapAttrs (n: v: { registries = v; }) cfg.registries; };
 
     environment.etc."containers/policy.json".source =
       if cfg.policy != { } then

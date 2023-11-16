@@ -17,7 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "0mfqmkgvyw8fa2c09kww107dmk180ch1hp98r5kv41vnc04iqb0s";
   };
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    cmake
+  ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   installPhase = ''
     mkdir -p $out $dev/include/btor2parser/ $lib/lib

@@ -40,18 +40,20 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   postPhases = [ "postPatchelf" ];
-  postPatchelf = lib.optionalString (stdenvNoCC.buildPlatform.canExecute stdenvNoCC.hostPlatform) ''
-    completions_dir=$(mktemp -d)
+  postPatchelf =
+    lib.optionalString (stdenvNoCC.buildPlatform.canExecute stdenvNoCC.hostPlatform)
+      ''
+        completions_dir=$(mktemp -d)
 
-    SHELL="bash" $out/bin/bun completions $completions_dir
-    SHELL="zsh" $out/bin/bun completions $completions_dir
-    SHELL="fish" $out/bin/bun completions $completions_dir
+        SHELL="bash" $out/bin/bun completions $completions_dir
+        SHELL="zsh" $out/bin/bun completions $completions_dir
+        SHELL="fish" $out/bin/bun completions $completions_dir
 
-    installShellCompletion --name bun \
-      --bash $completions_dir/bun.completion.bash \
-      --zsh $completions_dir/_bun \
-      --fish $completions_dir/bun.fish
-  '';
+        installShellCompletion --name bun \
+          --bash $completions_dir/bun.completion.bash \
+          --zsh $completions_dir/_bun \
+          --fish $completions_dir/bun.fish
+      '';
 
   passthru = {
     sources = {

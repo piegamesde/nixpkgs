@@ -12,14 +12,21 @@ let
   fixClient =
     client:
     if client ? secretFile then
-      ((builtins.removeAttrs client [ "secretFile" ]) // { secret = client.secretFile; })
+      (
+        (builtins.removeAttrs client [ "secretFile" ])
+        // {
+          secret = client.secretFile;
+        }
+      )
     else
       client;
   filteredSettings =
     mapAttrs (n: v: if n == "staticClients" then (builtins.map fixClient v) else v)
       cfg.settings;
   secretFiles = flatten (
-    builtins.map (c: optional (c ? secretFile) c.secretFile) (cfg.settings.staticClients or [ ])
+    builtins.map (c: optional (c ? secretFile) c.secretFile) (
+      cfg.settings.staticClients or [ ]
+    )
   );
 
   settingsFormat = pkgs.formats.yaml { };
@@ -37,7 +44,9 @@ let
 in
 {
   options.services.dex = {
-    enable = mkEnableOption (lib.mdDoc "the OpenID Connect and OAuth2 identity provider");
+    enable = mkEnableOption (
+      lib.mdDoc "the OpenID Connect and OAuth2 identity provider"
+    );
 
     environmentFile = mkOption {
       type = types.nullOr types.path;
@@ -92,63 +101,69 @@ in
         "networking.target"
       ] ++ (optional (cfg.settings.storage.type == "postgres") "postgresql.service");
       path = with pkgs; [ replace-secret ];
-      serviceConfig = {
-        ExecStart = "${pkgs.dex-oidc}/bin/dex serve /run/dex/config.yaml";
-        ExecStartPre = [
-          "${pkgs.coreutils}/bin/install -m 600 ${configFile} /run/dex/config.yaml"
-          "+${startPreScript}"
-        ];
+      serviceConfig =
+        {
+          ExecStart = "${pkgs.dex-oidc}/bin/dex serve /run/dex/config.yaml";
+          ExecStartPre = [
+            "${pkgs.coreutils}/bin/install -m 600 ${configFile} /run/dex/config.yaml"
+            "+${startPreScript}"
+          ];
 
-        RuntimeDirectory = "dex";
-        AmbientCapabilities = "CAP_NET_BIND_SERVICE";
-        BindReadOnlyPaths = [
-          "/nix/store"
-          "-/etc/dex"
-          "-/etc/hosts"
-          "-/etc/localtime"
-          "-/etc/nsswitch.conf"
-          "-/etc/resolv.conf"
-          "-/etc/ssl/certs/ca-certificates.crt"
-        ];
-        BindPaths = optional (cfg.settings.storage.type == "postgres") "/var/run/postgresql";
-        CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
-        # ProtectClock= adds DeviceAllow=char-rtc r
-        DeviceAllow = "";
-        DynamicUser = true;
-        LockPersonality = true;
-        MemoryDenyWriteExecute = true;
-        NoNewPrivileges = true;
-        PrivateDevices = true;
-        PrivateMounts = true;
-        # Port needs to be exposed to the host network
-        #PrivateNetwork = true;
-        PrivateTmp = true;
-        PrivateUsers = true;
-        ProcSubset = "pid";
-        ProtectClock = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        ProtectSystem = "strict";
-        ProtectControlGroups = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectProc = "invisible";
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-          "AF_UNIX"
-        ];
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged @setuid @keyring"
-        ];
-        UMask = "0066";
-      } // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
+          RuntimeDirectory = "dex";
+          AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+          BindReadOnlyPaths = [
+            "/nix/store"
+            "-/etc/dex"
+            "-/etc/hosts"
+            "-/etc/localtime"
+            "-/etc/nsswitch.conf"
+            "-/etc/resolv.conf"
+            "-/etc/ssl/certs/ca-certificates.crt"
+          ];
+          BindPaths =
+            optional (cfg.settings.storage.type == "postgres")
+              "/var/run/postgresql";
+          CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
+          # ProtectClock= adds DeviceAllow=char-rtc r
+          DeviceAllow = "";
+          DynamicUser = true;
+          LockPersonality = true;
+          MemoryDenyWriteExecute = true;
+          NoNewPrivileges = true;
+          PrivateDevices = true;
+          PrivateMounts = true;
+          # Port needs to be exposed to the host network
+          #PrivateNetwork = true;
+          PrivateTmp = true;
+          PrivateUsers = true;
+          ProcSubset = "pid";
+          ProtectClock = true;
+          ProtectHome = true;
+          ProtectHostname = true;
+          ProtectSystem = "strict";
+          ProtectControlGroups = true;
+          ProtectKernelLogs = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          ProtectProc = "invisible";
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+            "AF_UNIX"
+          ];
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          SystemCallArchitectures = "native";
+          SystemCallFilter = [
+            "@system-service"
+            "~@privileged @setuid @keyring"
+          ];
+          UMask = "0066";
+        }
+        // optionalAttrs (cfg.environmentFile != null) {
+          EnvironmentFile = cfg.environmentFile;
+        };
     };
   };
 

@@ -16,7 +16,10 @@ lib: pythonPackages:
 }:
 let
   build =
-    if application then pythonPackages.buildPythonApplication else pythonPackages.buildPythonPackage;
+    if application then
+      pythonPackages.buildPythonApplication
+    else
+      pythonPackages.buildPythonPackage;
 in
 build {
   inherit (info) pname version;
@@ -24,8 +27,11 @@ build {
   inherit src meta doCheck;
 
   nativeBuildInputs = map (p: pythonPackages.${p}) (
-    (info.setup_requires or [ ]) ++ (lib.optionals doCheck (info.tests_require or [ ]))
+    (info.setup_requires or [ ])
+    ++ (lib.optionals doCheck (info.tests_require or [ ]))
   );
 
-  propagatedBuildInputs = map (p: pythonPackages.${p}) (info.install_requires or [ ]);
+  propagatedBuildInputs = map (p: pythonPackages.${p}) (
+    info.install_requires or [ ]
+  );
 }

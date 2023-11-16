@@ -102,14 +102,26 @@ stdenv.mkDerivation rec {
           install icarus/out/icarus -t ${placeholder "out"}/bin/
 
           install -d ${placeholder "out"}/share/applications
-          install higan-ui/resource/higan.desktop -t ${placeholder "out"}/share/applications/
-          install icarus/resource/icarus.desktop -t ${placeholder "out"}/share/applications/
+          install higan-ui/resource/higan.desktop -t ${
+            placeholder "out"
+          }/share/applications/
+          install icarus/resource/icarus.desktop -t ${
+            placeholder "out"
+          }/share/applications/
 
           install -d ${placeholder "out"}/share/pixmaps
-          install higan/higan/resource/higan.svg ${placeholder "out"}/share/pixmaps/higan-icon.svg
-          install higan/higan/resource/logo.png ${placeholder "out"}/share/pixmaps/higan-icon.png
-          install icarus/resource/icarus.svg ${placeholder "out"}/share/pixmaps/icarus-icon.svg
-          install icarus/resource/icarus.png ${placeholder "out"}/share/pixmaps/icarus-icon.png
+          install higan/higan/resource/higan.svg ${
+            placeholder "out"
+          }/share/pixmaps/higan-icon.svg
+          install higan/higan/resource/logo.png ${
+            placeholder "out"
+          }/share/pixmaps/higan-icon.png
+          install icarus/resource/icarus.svg ${
+            placeholder "out"
+          }/share/pixmaps/icarus-icon.svg
+          install icarus/resource/icarus.png ${
+            placeholder "out"
+          }/share/pixmaps/icarus-icon.png
         ''
     )
     + ''
@@ -124,7 +136,11 @@ stdenv.mkDerivation rec {
       # we create a first-run script to populate
       # $HOME with all the stuff needed at runtime
       let
-        dest = if stdenv.isDarwin then "\\$HOME/Library/Application Support/higan" else "\\$HOME/higan";
+        dest =
+          if stdenv.isDarwin then
+            "\\$HOME/Library/Application Support/higan"
+          else
+            "\\$HOME/higan";
       in
       ''
         mkdir -p ${placeholder "out"}/bin

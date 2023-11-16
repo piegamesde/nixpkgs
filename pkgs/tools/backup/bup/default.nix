@@ -73,7 +73,9 @@ stdenv.mkDerivation {
           par2cmdline
         ]
       } \
-      --prefix NIX_PYTHONPATH : ${lib.makeSearchPathOutput "lib" python3.sitePackages pythonDeps}
+      --prefix NIX_PYTHONPATH : ${
+        lib.makeSearchPathOutput "lib" python3.sitePackages pythonDeps
+      }
   '';
 
   meta = with lib; {

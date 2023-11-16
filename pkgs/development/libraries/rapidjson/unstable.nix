@@ -19,9 +19,10 @@ stdenv.mkDerivation (
     pname = "rapidjson";
     version = "unstable-2023-09-28";
 
-    outputs = [
-      "out"
-    ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildExamples [ "example" ];
+    outputs =
+      [ "out" ]
+      ++ lib.optionals buildDocs [ "doc" ]
+      ++ lib.optionals buildExamples [ "example" ];
 
     src = fetchFromGitHub {
       owner = "Tencent";
@@ -43,13 +44,17 @@ stdenv.mkDerivation (
         graphviz
       ];
 
-    cmakeFlags = [
-      (lib.cmakeBool "RAPIDJSON_BUILD_DOC" buildDocs)
-      (lib.cmakeBool "RAPIDJSON_BUILD_TESTS" buildTests)
-      (lib.cmakeBool "RAPIDJSON_BUILD_EXAMPLES" buildExamples)
-      (lib.cmakeBool "RAPIDJSON_BUILD_CXX11" (cxxStandard == "11"))
-      (lib.cmakeBool "RAPIDJSON_BUILD_CXX17" (cxxStandard == "17"))
-    ] ++ lib.optionals buildTests [ (lib.cmakeFeature "GTEST_INCLUDE_DIR" "${lib.getDev gtest}") ];
+    cmakeFlags =
+      [
+        (lib.cmakeBool "RAPIDJSON_BUILD_DOC" buildDocs)
+        (lib.cmakeBool "RAPIDJSON_BUILD_TESTS" buildTests)
+        (lib.cmakeBool "RAPIDJSON_BUILD_EXAMPLES" buildExamples)
+        (lib.cmakeBool "RAPIDJSON_BUILD_CXX11" (cxxStandard == "11"))
+        (lib.cmakeBool "RAPIDJSON_BUILD_CXX17" (cxxStandard == "17"))
+      ]
+      ++ lib.optionals buildTests [
+        (lib.cmakeFeature "GTEST_INCLUDE_DIR" "${lib.getDev gtest}")
+      ];
 
     doCheck = buildTests;
 

@@ -40,7 +40,9 @@ stdenv.mkDerivation (
     inherit version;
 
     src = fetch "llvm" "0g1bbj2n6xv4p1n6hh17vj3vpvg56wacipc81dgwga9mg2lys8nm";
-    polly_src = fetch "polly" "1f4i1qsw7ywx25v262p8syz339zcbvfkx295xz26hmqrn944xa6x";
+    polly_src =
+      fetch "polly"
+        "1f4i1qsw7ywx25v262p8syz339zcbvfkx295xz26hmqrn944xa6x";
 
     unpackPhase =
       ''
@@ -202,7 +204,9 @@ stdenv.mkDerivation (
         "-DSPHINX_OUTPUT_HTML=OFF"
         "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
       ]
-      ++ lib.optionals (enableGoldPlugin) [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ]
+      ++ lib.optionals (enableGoldPlugin) [
+        "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
+      ]
       ++ lib.optionals (isDarwin) [
         "-DLLVM_ENABLE_LIBCXX=ON"
         "-DCAN_TARGET_i386=false"
@@ -274,7 +278,10 @@ stdenv.mkDerivation (
         cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
       '';
 
-    doCheck = stdenv.isLinux && (!stdenv.isi686) && (stdenv.hostPlatform == stdenv.buildPlatform);
+    doCheck =
+      stdenv.isLinux
+      && (!stdenv.isi686)
+      && (stdenv.hostPlatform == stdenv.buildPlatform);
 
     checkTarget = "check-all";
 

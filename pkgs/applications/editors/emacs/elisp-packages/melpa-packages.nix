@@ -26,7 +26,9 @@ let
   dontConfigure =
     pkg:
     if pkg != null then
-      pkg.override (args: { melpaBuild = drv: args.melpaBuild (drv // { dontConfigure = true; }); })
+      pkg.override (
+        args: { melpaBuild = drv: args.melpaBuild (drv // { dontConfigure = true; }); }
+      )
     else
       null;
 
@@ -76,7 +78,8 @@ let
       attrs: { nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ]; }
     );
 
-  fix-rtags = pkg: if pkg != null then dontConfigure (externalSrc pkg pkgs.rtags) else null;
+  fix-rtags =
+    pkg: if pkg != null then dontConfigure (externalSrc pkg pkgs.rtags) else null;
 
   generateMelpa = lib.makeOverridable (
     {
@@ -86,7 +89,9 @@ let
       inherit (import ./libgenerated.nix lib self) melpaDerivation;
       super =
         (lib.listToAttrs (
-          builtins.filter (s: s != null) (map (melpaDerivation variant) (lib.importJSON archiveJson))
+          builtins.filter (s: s != null) (
+            map (melpaDerivation variant) (lib.importJSON archiveJson)
+          )
         ));
 
       overrides =
@@ -94,7 +99,10 @@ let
 
           # upstream issue: missing file header
           abridge-diff =
-            if super.abridge-diff.version == "0.1" then markBroken super.abridge-diff else super.abridge-diff;
+            if super.abridge-diff.version == "0.1" then
+              markBroken super.abridge-diff
+            else
+              super.abridge-diff;
 
           # upstream issue: missing file header
           bufshow = markBroken super.bufshow;
@@ -128,23 +136,35 @@ let
 
           # upstream issue: missing file header
           fold-dwim =
-            if super.fold-dwim.version == "1.2" then markBroken super.fold-dwim else super.fold-dwim;
+            if super.fold-dwim.version == "1.2" then
+              markBroken super.fold-dwim
+            else
+              super.fold-dwim;
 
           # upstream issue: missing file header
           gl-conf-mode =
-            if super.gl-conf-mode.version == "0.3" then markBroken super.gl-conf-mode else super.gl-conf-mode;
+            if super.gl-conf-mode.version == "0.3" then
+              markBroken super.gl-conf-mode
+            else
+              super.gl-conf-mode;
 
           # upstream issue: missing file header
-          ligo-mode = if super.ligo-mode.version == "0.3" then markBroken super.ligo-mode else null; # auto-updater is failing; use manual one
+          ligo-mode =
+            if super.ligo-mode.version == "0.3" then markBroken super.ligo-mode else null; # auto-updater is failing; use manual one
 
           # upstream issue: missing file header
           link = markBroken super.link;
 
           # upstream issue: missing file header
-          org-dp = if super.org-dp.version == "1" then markBroken super.org-dp else super.org-dp;
+          org-dp =
+            if super.org-dp.version == "1" then markBroken super.org-dp else super.org-dp;
 
           # upstream issue: missing file header
-          revbufs = if super.revbufs.version == "1.2" then markBroken super.revbufs else super.revbufs;
+          revbufs =
+            if super.revbufs.version == "1.2" then
+              markBroken super.revbufs
+            else
+              super.revbufs;
 
           # upstream issue: missing file header
           elmine = markBroken super.elmine;
@@ -156,7 +176,9 @@ let
           # Expects bash to be at /bin/bash
           ac-rtags = fix-rtags super.ac-rtags;
 
-          airline-themes = super.airline-themes.override { inherit (self.melpaPackages) powerline; };
+          airline-themes = super.airline-themes.override {
+            inherit (self.melpaPackages) powerline;
+          };
 
           auto-complete-clang-async = super.auto-complete-clang-async.overrideAttrs (
             old: {
@@ -175,7 +197,9 @@ let
 
           company-rtags = fix-rtags super.company-rtags;
 
-          easy-kill-extras = super.easy-kill-extras.override { inherit (self.melpaPackages) easy-kill; };
+          easy-kill-extras = super.easy-kill-extras.override {
+            inherit (self.melpaPackages) easy-kill;
+          };
 
           dune = dontConfigure super.dune;
 
@@ -252,7 +276,9 @@ let
             }
           );
 
-          ess-R-data-view = super.ess-R-data-view.override { inherit (self.melpaPackages) ess ctable popup; };
+          ess-R-data-view = super.ess-R-data-view.override {
+            inherit (self.melpaPackages) ess ctable popup;
+          };
 
           flycheck-rtags = fix-rtags super.flycheck-rtags;
 
@@ -301,9 +327,9 @@ let
           );
 
           # Build same version as Haskell package
-          hindent = (externalSrc super.hindent pkgs.haskellPackages.hindent).overrideAttrs (
-            attrs: { packageRequires = [ self.haskell-mode ]; }
-          );
+          hindent =
+            (externalSrc super.hindent pkgs.haskellPackages.hindent).overrideAttrs
+              (attrs: { packageRequires = [ self.haskell-mode ]; });
 
           irony = super.irony.overrideAttrs (
             old: {
@@ -551,7 +577,9 @@ let
           );
 
           shm = super.shm.overrideAttrs (
-            attrs: { propagatedUserEnvPkgs = [ pkgs.haskellPackages.structured-haskell-mode ]; }
+            attrs: {
+              propagatedUserEnvPkgs = [ pkgs.haskellPackages.structured-haskell-mode ];
+            }
           );
 
           # Telega has a server portion for it's network protocol
@@ -686,14 +714,16 @@ let
           );
 
           # missing dependencies
-          evil-search-highlight-persist = super.evil-search-highlight-persist.overrideAttrs (
-            attrs: {
-              packageRequires = with self; [
-                evil
-                highlight
-              ];
-            }
-          );
+          evil-search-highlight-persist =
+            super.evil-search-highlight-persist.overrideAttrs
+              (
+                attrs: {
+                  packageRequires = with self; [
+                    evil
+                    highlight
+                  ];
+                }
+              );
 
           hamlet-mode = super.hamlet-mode.overrideAttrs (
             attrs: {
@@ -711,7 +741,9 @@ let
           helm-rtags = fix-rtags super.helm-rtags;
 
           # tries to write to $HOME
-          php-auto-yasnippets = super.php-auto-yasnippets.overrideAttrs (attrs: { HOME = "/tmp"; });
+          php-auto-yasnippets = super.php-auto-yasnippets.overrideAttrs (
+            attrs: { HOME = "/tmp"; }
+          );
 
           racer = super.racer.overrideAttrs (
             attrs: {
@@ -724,7 +756,9 @@ let
             }
           );
 
-          spaceline = super.spaceline.override { inherit (self.melpaPackages) powerline; };
+          spaceline = super.spaceline.override {
+            inherit (self.melpaPackages) powerline;
+          };
 
           vterm = super.vterm.overrideAttrs (
             old: {

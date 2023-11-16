@@ -189,7 +189,9 @@ stdenv.mkDerivation rec {
 
     for icon in '16' '24' '32' '48' '64' '128' '256'
     do
-      ${"icon_source=$out/opt/microsoft/${shortName}/product_logo_\${icon}${iconSuffix}.png"}
+      ${
+        "icon_source=$out/opt/microsoft/${shortName}/product_logo_\${icon}${iconSuffix}.png"
+      }
       ${"icon_target=$out/share/icons/hicolor/\${icon}x\${icon}/apps"}
       mkdir -p $icon_target
       cp $icon_source $icon_target/microsoft-edge${desktopSuffix}.png

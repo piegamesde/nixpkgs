@@ -20,7 +20,8 @@ in
   config ? if (backend == "transmission") then
     { }
   else
-    throw "json config for configuring fetchFromBitorrent only works with the transmission backend",
+    throw
+      "json config for configuring fetchFromBitorrent only works with the transmission backend",
   hash,
   backend ? "transmission",
   recursiveHash ? true,

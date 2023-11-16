@@ -102,12 +102,15 @@ stdenv.mkDerivation (
 
     patches = [ ./draco.patch ] ++ lib.optional stdenv.isDarwin ./darwin.patch;
 
-    nativeBuildInputs = [
-      cmake
-      makeWrapper
-      python310Packages.wrapPython
-      llvmPackages.llvm.dev
-    ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ] ++ lib.optionals waylandSupport [ pkg-config ];
+    nativeBuildInputs =
+      [
+        cmake
+        makeWrapper
+        python310Packages.wrapPython
+        llvmPackages.llvm.dev
+      ]
+      ++ lib.optionals cudaSupport [ addOpenGLRunpath ]
+      ++ lib.optionals waylandSupport [ pkg-config ];
     buildInputs =
       [
         boost
@@ -274,7 +277,12 @@ stdenv.mkDerivation (
 
     blenderExecutable =
       placeholder "out"
-      + (if stdenv.isDarwin then "/Applications/Blender.app/Contents/MacOS/Blender" else "/bin/blender");
+      + (
+        if stdenv.isDarwin then
+          "/Applications/Blender.app/Contents/MacOS/Blender"
+        else
+          "/bin/blender"
+      );
     postInstall =
       lib.optionalString stdenv.isDarwin ''
         mkdir $out/Applications

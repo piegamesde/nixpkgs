@@ -78,7 +78,8 @@ stdenv.mkDerivation rec {
     sed -i "s~ -geom 10x10~~g" src/config.cc
   '';
 
-  pythonPath = with python3.pkgs; requiredPythonModules [ pygobject3 ] ++ extraPythonPackages;
+  pythonPath =
+    with python3.pkgs; requiredPythonModules [ pygobject3 ] ++ extraPythonPackages;
   preFixup = ''
     buildPythonPath "$out $pythonPath"
     gappsWrapperArgs+=(

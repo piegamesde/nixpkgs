@@ -13,10 +13,12 @@ let
   cfg = config.services.xserver.desktopManager.pantheon;
   serviceCfg = config.services.pantheon;
 
-  nixos-gsettings-desktop-schemas = pkgs.pantheon.elementary-gsettings-schemas.override {
-    extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
-    extraGSettingsOverrides = cfg.extraGSettingsOverrides;
-  };
+  nixos-gsettings-desktop-schemas =
+    pkgs.pantheon.elementary-gsettings-schemas.override
+      {
+        extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
+        extraGSettingsOverrides = cfg.extraGSettingsOverrides;
+      };
 in
 
 {
@@ -31,7 +33,9 @@ in
     services.pantheon = {
 
       contractor = {
-        enable = mkEnableOption (lib.mdDoc "contractor, a desktop-wide extension service used by Pantheon");
+        enable = mkEnableOption (
+          lib.mdDoc "contractor, a desktop-wide extension service used by Pantheon"
+        );
       };
 
       apps.enable = mkEnableOption (lib.mdDoc "Pantheon default applications");
@@ -87,7 +91,9 @@ in
       default = [ ];
       example = literalExpression "[ pkgs.pantheon.elementary-camera ]";
       type = types.listOf types.package;
-      description = lib.mdDoc "Which packages pantheon should exclude from the default environment";
+      description =
+        lib.mdDoc
+          "Which packages pantheon should exclude from the default environment";
     };
   };
 
@@ -97,15 +103,21 @@ in
         utils.removePackagesByName [ pkgs.pantheon.pantheon-agent-geoclue2 ]
           config.environment.pantheon.excludePackages;
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.pantheon.elementary-session-settings ];
+      services.xserver.displayManager.sessionPackages = [
+        pkgs.pantheon.elementary-session-settings
+      ];
 
       # Ensure lightdm is used when Pantheon is enabled
       # Without it screen locking will be nonfunctional because of the use of lightlocker
-      warnings = optional (config.services.xserver.displayManager.lightdm.enable != true) ''
-        Using Pantheon without LightDM as a displayManager will break screenlocking from the UI.
-      '';
+      warnings =
+        optional (config.services.xserver.displayManager.lightdm.enable != true)
+          ''
+            Using Pantheon without LightDM as a displayManager will break screenlocking from the UI.
+          '';
 
-      services.xserver.displayManager.lightdm.greeters.pantheon.enable = mkDefault true;
+      services.xserver.displayManager.lightdm.greeters.pantheon.enable =
+        mkDefault
+          true;
 
       # Without this, elementary LightDM greeter will pre-select non-existent `default` session
       # https://github.com/elementary/greeter/issues/368
@@ -145,7 +157,8 @@ in
       services.touchegg.enable = mkDefault true;
       services.touchegg.package = pkgs.pantheon.touchegg;
       services.tumbler.enable = mkDefault true;
-      services.system-config-printer.enable = (mkIf config.services.printing.enable (mkDefault true));
+      services.system-config-printer.enable =
+        (mkIf config.services.printing.enable (mkDefault true));
       services.dbus.packages = with pkgs.pantheon; [
         switchboard-plug-power
         elementary-default-settings # accountsservice extensions
@@ -195,7 +208,9 @@ in
             gala
             gnome-settings-daemon
             (switchboard-with-plugs.override { plugs = cfg.extraSwitchboardPlugs; })
-            (wingpanel-with-indicators.override { indicators = cfg.extraWingpanelIndicators; })
+            (wingpanel-with-indicators.override {
+              indicators = cfg.extraWingpanelIndicators;
+            })
           ]
         )
         ++ utils.removePackagesByName

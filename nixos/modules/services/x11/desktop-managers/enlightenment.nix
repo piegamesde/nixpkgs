@@ -73,7 +73,9 @@ in
       "/share/locale"
     ];
 
-    services.xserver.displayManager.sessionPackages = [ pkgs.enlightenment.enlightenment ];
+    services.xserver.displayManager.sessionPackages = [
+      pkgs.enlightenment.enlightenment
+    ];
 
     services.xserver.displayManager.sessionCommands = ''
       if test "$XDG_CURRENT_DESKTOP" = "Enlightenment"; then

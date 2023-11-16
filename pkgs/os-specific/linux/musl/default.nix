@@ -107,11 +107,13 @@ stdenv.mkDerivation rec {
   NIX_DONT_SET_RPATH = true;
 
   preBuild = ''
-    ${lib.optionalString (stdenv.targetPlatform.libc == "musl" && stdenv.targetPlatform.isx86_32) ''
-      # the -x c flag is required since the file extension confuses gcc
-          # that detect the file as a linker script.
-          $CC -x c -c ${stack_chk_fail_local_c} -o __stack_chk_fail_local.o
-          $AR r libssp_nonshared.a __stack_chk_fail_local.o''}
+    ${lib.optionalString
+      (stdenv.targetPlatform.libc == "musl" && stdenv.targetPlatform.isx86_32)
+      ''
+        # the -x c flag is required since the file extension confuses gcc
+            # that detect the file as a linker script.
+            $CC -x c -c ${stack_chk_fail_local_c} -o __stack_chk_fail_local.o
+            $AR r libssp_nonshared.a __stack_chk_fail_local.o''}
   '';
 
   postInstall =
@@ -120,7 +122,8 @@ stdenv.mkDerivation rec {
       # Apparently glibc provides scsi itself?
       (cd $dev/include && ln -s $(ls -d ${linuxHeaders}/include/* | grep -v "scsi$") .)
 
-      ${lib.optionalString (stdenv.targetPlatform.libc == "musl" && stdenv.targetPlatform.isx86_32)
+      ${lib.optionalString
+        (stdenv.targetPlatform.libc == "musl" && stdenv.targetPlatform.isx86_32)
         "install -D libssp_nonshared.a $out/lib/libssp_nonshared.a"}
 
       # Create 'ldd' symlink, builtin

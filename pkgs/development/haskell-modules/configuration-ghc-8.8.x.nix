@@ -39,7 +39,10 @@ self: super: {
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
   terminfo =
-    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
+    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
+      null
+    else
+      self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -62,7 +65,9 @@ self: super: {
   cabal2spec = super.cabal2spec.override { Cabal = self.Cabal_3_2_1_0; };
 
   # Additionally depends on OneTuple for GHC < 9.0
-  base-compat-batteries = addBuildDepend self.OneTuple super.base-compat-batteries;
+  base-compat-batteries =
+    addBuildDepend self.OneTuple
+      super.base-compat-batteries;
 
   # For GHC < 9.4, some packages need data-array-byte as an extra dependency
   primitive = addBuildDepends [ self.data-array-byte ] super.primitive;

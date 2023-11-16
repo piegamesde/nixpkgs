@@ -13,7 +13,9 @@ let
   user = "mobilizon";
   group = "mobilizon";
 
-  settingsFormat = pkgs.formats.elixirConf { elixir = cfg.package.elixirPackage; };
+  settingsFormat = pkgs.formats.elixirConf {
+    elixir = cfg.package.elixirPackage;
+  };
 
   configFile = settingsFormat.generate "mobilizon-config.exs" cfg.settings;
 
@@ -54,7 +56,8 @@ let
 
   isLocalPostgres = repoSettings.socket_dir != null;
 
-  dbUser = if repoSettings.username != null then repoSettings.username else "mobilizon";
+  dbUser =
+    if repoSettings.username != null then repoSettings.username else "mobilizon";
 
   postgresql = config.services.postgresql.package;
   postgresqlSocketDir = "/var/run/postgresql";
@@ -64,7 +67,9 @@ in
 {
   options = {
     services.mobilizon = {
-      enable = mkEnableOption (lib.mdDoc "Mobilizon federated organization and mobilization platform");
+      enable = mkEnableOption (
+        lib.mdDoc "Mobilizon federated organization and mobilization platform"
+      );
 
       nginx.enable = lib.mkOption {
         type = lib.types.bool;
@@ -225,7 +230,8 @@ in
         assertion =
           cfg.nginx.enable
           -> (
-            cfg.settings.":mobilizon"."Mobilizon.Web.Endpoint".http.ip == settingsFormat.lib.mkTuple [
+            cfg.settings.":mobilizon"."Mobilizon.Web.Endpoint".http.ip
+            == settingsFormat.lib.mkTuple [
               0
               0
               0
@@ -245,7 +251,9 @@ in
         "Mobilizon.Web.Endpoint" = {
           server = true;
           url.host = mkDefault instanceSettings.hostname;
-          secret_key_base = settingsFormat.lib.mkGetEnv { envVariable = "MOBILIZON_INSTANCE_SECRET"; };
+          secret_key_base = settingsFormat.lib.mkGetEnv {
+            envVariable = "MOBILIZON_INSTANCE_SECRET";
+          };
         };
 
         "Mobilizon.Web.Auth.Guardian".secret_key = settingsFormat.lib.mkGetEnv {
@@ -326,7 +334,9 @@ in
           # Taken from here:
           # https://framagit.org/framasoft/mobilizon/-/blob/1.0.7/lib/mix/tasks/mobilizon/instance.ex#L132-133
           genSecret =
-            "IO.puts(:crypto.strong_rand_bytes(64)" + "|> Base.encode64()" + "|> binary_part(0, 64))";
+            "IO.puts(:crypto.strong_rand_bytes(64)"
+            + "|> Base.encode64()"
+            + "|> binary_part(0, 64))";
 
           # Taken from here:
           # https://github.com/elixir-lang/elixir/blob/v1.11.3/lib/mix/lib/mix/release.ex#L499
@@ -410,7 +420,9 @@ in
     services.nginx =
       let
         inherit (cfg.settings.":mobilizon".":instance") hostname;
-        proxyPass = "http://[::1]:" + toString cfg.settings.":mobilizon"."Mobilizon.Web.Endpoint".http.port;
+        proxyPass =
+          "http://[::1]:"
+          + toString cfg.settings.":mobilizon"."Mobilizon.Web.Endpoint".http.port;
       in
       lib.mkIf cfg.nginx.enable {
         enable = true;

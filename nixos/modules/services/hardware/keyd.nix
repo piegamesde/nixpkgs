@@ -142,7 +142,8 @@ in
       wantedBy = [ "multi-user.target" ];
 
       restartTriggers =
-        mapAttrsToList (name: options: config.environment.etc."keyd/${name}.conf".source)
+        mapAttrsToList
+          (name: options: config.environment.etc."keyd/${name}.conf".source)
           cfg.keyboards;
 
       # this is configurable in 2.4.2, later versions seem to remove this option.

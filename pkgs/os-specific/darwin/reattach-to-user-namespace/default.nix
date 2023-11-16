@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
     else if stdenv.hostPlatform.system == "aarch64-darwin" then
       [ "ARCHES=arm64" ]
     else
-      throw "reattach-to-user-namespace isn't being built for ${stdenv.hostPlatform.system} yet.";
+      throw
+        "reattach-to-user-namespace isn't being built for ${stdenv.hostPlatform.system} yet.";
 
   installPhase = ''
     mkdir -p $out/bin

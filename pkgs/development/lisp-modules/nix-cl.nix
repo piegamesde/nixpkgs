@@ -67,13 +67,21 @@ let
     let
       ff = f origArgs;
       overrideWith =
-        newArgs: origArgs // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs);
+        newArgs:
+        origArgs // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs);
     in
     if builtins.isAttrs ff then
-      (ff // { overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs); })
+      (
+        ff
+        // {
+          overrideLispAttrs =
+            newArgs: makeOverridableLispPackage f (overrideWith newArgs);
+        }
+      )
     else if builtins.isFunction ff then
       {
-        overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs);
+        overrideLispAttrs =
+          newArgs: makeOverridableLispPackage f (overrideWith newArgs);
         __functor = self: ff;
       }
     else
@@ -266,7 +274,8 @@ let
             else
               args.src;
           patches = [ ];
-          propagatedBuildInputs = args.propagatedBuildInputs or [ ] ++ lispLibs ++ javaLibs ++ nativeLibs;
+          propagatedBuildInputs =
+            args.propagatedBuildInputs or [ ] ++ lispLibs ++ javaLibs ++ nativeLibs;
           meta = (args.meta or { }) // {
             maintainers = args.meta.maintainers or lib.teams.lisp.members;
           };

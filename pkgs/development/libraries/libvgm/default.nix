@@ -98,21 +98,28 @@ stdenv.mkDerivation rec {
     ]
     ++ optionals enableEmulation (
       [ "-DSNDEMU__ALL=${onOff withAllEmulators}" ]
-      ++ optionals (!withAllEmulators) (lib.lists.forEach emulators (x: "-DSNDEMU_${x}=ON"))
+      ++ optionals (!withAllEmulators) (
+        lib.lists.forEach emulators (x: "-DSNDEMU_${x}=ON")
+      )
     )
     ++ optionals enableTools [
       "-DUTIL_CHARCNV_ICONV=ON"
       "-DUTIL_CHARCNV_WINAPI=${onOff stdenv.hostPlatform.isWindows}"
     ];
 
-  passthru.updateScript = unstableGitUpdater { url = "https://github.com/ValleyBell/libvgm.git"; };
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/ValleyBell/libvgm.git";
+  };
 
   meta = with lib; {
     homepage = "https://github.com/ValleyBell/libvgm";
     description = "More modular rewrite of most components from VGMPlay";
     license =
       if
-        (enableEmulation && (withAllEmulators || (lib.lists.any (core: core == "WSWAN_ALL") emulators)))
+        (
+          enableEmulation
+          && (withAllEmulators || (lib.lists.any (core: core == "WSWAN_ALL") emulators))
+        )
       then
         licenses.unfree # https://github.com/ValleyBell/libvgm/issues/43
       else

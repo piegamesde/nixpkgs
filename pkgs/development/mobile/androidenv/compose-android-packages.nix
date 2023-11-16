@@ -43,7 +43,8 @@ let
     else if stdenv.system == "x86_64-darwin" then
       "macosx"
     else
-      throw "No Android SDK tarballs are available for system architecture: ${stdenv.system}";
+      throw
+        "No Android SDK tarballs are available for system architecture: ${stdenv.system}";
 
   # Uses mkrepo.rb to create a repo spec.
   mkRepoJson =
@@ -121,7 +122,10 @@ let
         if (builtins.elemAt path ((builtins.length path) - 1)) == "archives" then
           (builtins.listToAttrs (
             builtins.map
-              (archive: lib.attrsets.nameValuePair archive.os (fetchurl { inherit (archive) url sha1; }))
+              (
+                archive:
+                lib.attrsets.nameValuePair archive.os (fetchurl { inherit (archive) url sha1; })
+              )
               value
           ))
         else
@@ -160,14 +164,18 @@ let
   # Converts a license name to a list of license hashes.
   mkLicenseHashes =
     licenseName:
-    builtins.map (licenseText: builtins.hashString "sha1" licenseText) (mkLicenses licenseName);
+    builtins.map (licenseText: builtins.hashString "sha1" licenseText) (
+      mkLicenses licenseName
+    );
 
   # The list of all license names we're accepting. Put android-sdk-license there
   # by default.
   licenseNames = lib.lists.unique ([ "android-sdk-license" ] ++ extraLicenses);
 in
 rec {
-  deployAndroidPackages = callPackage ./deploy-androidpackages.nix { inherit stdenv lib mkLicenses; };
+  deployAndroidPackages = callPackage ./deploy-androidpackages.nix {
+    inherit stdenv lib mkLicenses;
+  };
 
   deployAndroidPackage =
     (
@@ -319,20 +327,22 @@ rec {
             # null
             # ```
             let
-              availablePackages = map (abiVersion: system-images-packages.${apiVersion}.${type}.${abiVersion}) (
-                builtins.filter
+              availablePackages =
+                map (abiVersion: system-images-packages.${apiVersion}.${type}.${abiVersion})
                   (
-                    abiVersion:
-                    lib.hasAttrByPath
-                      [
-                        apiVersion
-                        type
-                        abiVersion
-                      ]
-                      system-images-packages
-                  )
-                  abiVersions
-              );
+                    builtins.filter
+                      (
+                        abiVersion:
+                        lib.hasAttrByPath
+                          [
+                            apiVersion
+                            type
+                            abiVersion
+                          ]
+                          system-images-packages
+                      )
+                      abiVersions
+                  );
 
               instructions = builtins.listToAttrs (
                 map
@@ -384,7 +394,8 @@ rec {
   ndk-bundles = lib.optionals includeNDK (map makeNdkBundle ndkVersions);
 
   # The "default" NDK bundle.
-  ndk-bundle = if includeNDK then lib.findFirst (x: x != null) null ndk-bundles else null;
+  ndk-bundle =
+    if includeNDK then lib.findFirst (x: x != null) null ndk-bundles else null;
 
   google-apis =
     map
@@ -488,7 +499,9 @@ rec {
         plugins}
     ''; # */
 
-  cmdline-tools-package = check-version packages "cmdline-tools" cmdLineToolsVersion;
+  cmdline-tools-package =
+    check-version packages "cmdline-tools"
+      cmdLineToolsVersion;
 
   # This derivation deploys the tools package and symlinks all the desired
   # plugins that we want to use. If the license isn't accepted, prints all the licenses

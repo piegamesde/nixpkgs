@@ -38,7 +38,8 @@
 }:
 
 let
-  callPackage' = f: args: bootPkgs.callPackage f ({ inherit ghcSrc ghcVersion; } // args);
+  callPackage' =
+    f: args: bootPkgs.callPackage f ({ inherit ghcSrc ghcVersion; } // args);
 
   ghc-platform = callPackage' ./ghc-platform.nix { };
   ghc-toolchain = callPackage' ./ghc-toolchain.nix { inherit ghc-platform; };

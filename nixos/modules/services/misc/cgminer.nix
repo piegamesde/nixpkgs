@@ -11,12 +11,13 @@ let
   cfg = config.services.cgminer;
 
   convType = with builtins; v: if isBool v then boolToString v else toString v;
-  mergedHwConfig = mapAttrsToList (n: v: ''"${n}": "${(concatStringsSep "," (map convType v))}"'') (
-    foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware
-  );
+  mergedHwConfig =
+    mapAttrsToList (n: v: ''"${n}": "${(concatStringsSep "," (map convType v))}"'')
+      (foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware);
   mergedConfig =
     with builtins;
-    mapAttrsToList (n: v: ''"${n}":  ${if isBool v then convType v else ''"${convType v}"''}'')
+    mapAttrsToList
+      (n: v: ''"${n}":  ${if isBool v then convType v else ''"${convType v}"''}'')
       cfg.config;
 
   cgminerConfig = pkgs.writeText "cgminer.conf" ''
@@ -41,7 +42,10 @@ let
         ''
           ,
         ''
-        (map (v: ''{"url": "${v.url}", "user": "${v.user}", "pass": "${v.pass}"}'') cfg.pools)
+        (
+          map (v: ''{"url": "${v.url}", "user": "${v.user}", "pass": "${v.pass}"}'')
+            cfg.pools
+        )
     }]
     }
   '';
@@ -52,7 +56,9 @@ in
 
     services.cgminer = {
 
-      enable = mkEnableOption (lib.mdDoc "cgminer, an ASIC/FPGA/GPU miner for bitcoin and litecoin");
+      enable = mkEnableOption (
+        lib.mdDoc "cgminer, an ASIC/FPGA/GPU miner for bitcoin and litecoin"
+      );
 
       package = mkOption {
         default = pkgs.cgminer;

@@ -106,7 +106,10 @@ stdenv.mkDerivation rec {
     # information on why we need to include these.
     ++
       lib.optionals
-        (stdenv.cc.isClang || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.cc.version "11.0.0"))
+        (
+          stdenv.cc.isClang
+          || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.cc.version "11.0.0")
+        )
         [
           "-include"
           "limits"

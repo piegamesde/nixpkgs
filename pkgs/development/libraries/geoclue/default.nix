@@ -46,20 +46,24 @@ stdenv.mkDerivation rec {
 
   patches = [ ./add-option-for-installation-sysconfdir.patch ];
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-    meson
-    ninja
-    wrapGAppsHook
-    python3
-    vala
-    gobject-introspection
-    # devdoc
-    gtk-doc
-    docbook-xsl-nons
-    docbook_xml_dtd_412
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      intltool
+      meson
+      ninja
+      wrapGAppsHook
+      python3
+      vala
+      gobject-introspection
+      # devdoc
+      gtk-doc
+      docbook-xsl-nons
+      docbook_xml_dtd_412
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs =
     [

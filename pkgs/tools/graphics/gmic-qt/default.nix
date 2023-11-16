@@ -50,7 +50,8 @@ assert lib.assertMsg (builtins.hasAttr variant variants)
         lib.concatStringsSep ", " (builtins.attrNames variants)
       }.'';
 
-assert lib.assertMsg (builtins.all (d: d != null) variants.${variant}.extraDeps or [ ])
+assert lib.assertMsg
+    (builtins.all (d: d != null) variants.${variant}.extraDeps or [ ])
     ''gmic-qt variant "${variant}" is missing one of its dependencies.'';
 
 stdenv.mkDerivation (
@@ -95,7 +96,9 @@ stdenv.mkDerivation (
     '';
 
     cmakeFlags = [
-      (lib.cmakeFeature "GMIC_QT_HOST" (if variant == "standalone" then "none" else variant))
+      (lib.cmakeFeature "GMIC_QT_HOST" (
+        if variant == "standalone" then "none" else variant
+      ))
       (lib.cmakeBool "ENABLE_SYSTEM_GMIC" true)
       (lib.cmakeBool "ENABLE_DYNAMIC_LINKING" true)
     ];

@@ -85,7 +85,9 @@ rustPlatform.buildRustPackage rec {
       gst_all_1.gst-plugins-base
       gst_all_1.gst-plugins-good
     ]
-    ++ lib.optionals (stdenv.isDarwin && withMediaControl) [ darwin.apple_sdk.frameworks.MediaPlayer ]
+    ++ lib.optionals (stdenv.isDarwin && withMediaControl) [
+      darwin.apple_sdk.frameworks.MediaPlayer
+    ]
     ++ lib.optionals stdenv.isDarwin (
       with darwin.apple_sdk.frameworks; [
         AppKit

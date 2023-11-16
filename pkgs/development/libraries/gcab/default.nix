@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gcab/${lib.versions.majorMinor version}/gcab-${version}.tar.xz";
+    url = "mirror://gnome/sources/gcab/${
+        lib.versions.majorMinor version
+      }/gcab-${version}.tar.xz";
     hash = "sha256-LwyWFVd8QSaQniUfneBibD7noVI3bBW1VE3xD8h+Vgs=";
   };
 

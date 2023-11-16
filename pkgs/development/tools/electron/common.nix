@@ -58,7 +58,11 @@ in
       ++ lib.optional (lib.versionOlder info.version "28") (
         substituteAll {
           name = "version.patch";
-          src = if lib.versionAtLeast info.version "27" then ./version.patch else ./version-old.patch;
+          src =
+            if lib.versionAtLeast info.version "27" then
+              ./version.patch
+            else
+              ./version-old.patch;
           inherit (info) version;
         }
       );
@@ -101,7 +105,9 @@ in
         echo 'cros_boards_with_qemu_images = ""' >> build/config/gclient_args.gni
         echo 'generate_location_tags = true' >> build/config/gclient_args.gni
 
-        echo 'LASTCHANGE=${info.deps."src".rev}-refs/heads/master@{#0}'        > build/util/LASTCHANGE
+        echo 'LASTCHANGE=${
+          info.deps."src".rev
+        }-refs/heads/master@{#0}'        > build/util/LASTCHANGE
         echo "$SOURCE_DATE_EPOCH"                                              > build/util/LASTCHANGE.committime
 
         cat << EOF > gpu/config/gpu_lists_version.h
@@ -120,7 +126,9 @@ in
         #endif  // SKIA_EXT_SKIA_COMMIT_HASH_H_
         EOF
 
-        echo -n '${info.deps."src/third_party/dawn".rev}'                     > gpu/webgpu/DAWN_VERSION
+        echo -n '${
+          info.deps."src/third_party/dawn".rev
+        }'                     > gpu/webgpu/DAWN_VERSION
 
         (
           cd electron
@@ -196,7 +204,9 @@ in
         use_perfetto_client_library = false;
         enable_check_raw_ptr_fields = false;
       }
-      // lib.optionalAttrs (lib.versionOlder info.version "26") { use_gnome_keyring = false; }
+      // lib.optionalAttrs (lib.versionOlder info.version "26") {
+        use_gnome_keyring = false;
+      }
       // lib.optionalAttrs (lib.versionAtLeast info.version "28") {
         override_electron_version = info.version;
       };
@@ -231,7 +241,8 @@ in
       maintainers = with maintainers; [ yuka ];
       mainProgram = "electron";
       hydraPlatforms =
-        lib.optionals (!(hasInfix "alpha" info.version) && !(hasInfix "beta" info.version))
+        lib.optionals
+          (!(hasInfix "alpha" info.version) && !(hasInfix "beta" info.version))
           [
             "aarch64-linux"
             "x86_64-linux"

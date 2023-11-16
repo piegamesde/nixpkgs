@@ -9,7 +9,9 @@
   bqn-path ? null,
   mbqn-source,
   enableReplxx ? false,
-  enableLibcbqn ? ((stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin) && !enableReplxx),
+  enableLibcbqn ? (
+    (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin) && !enableReplxx
+  ),
   libffi,
   pkg-config,
 }:
@@ -18,8 +20,12 @@ let
   cbqn-bytecode-submodule = callPackage ./cbqn-bytecode.nix {
     inherit lib fetchFromGitHub stdenvNoCC;
   };
-  replxx-submodule = callPackage ./replxx.nix { inherit lib fetchFromGitHub stdenvNoCC; };
-  singeli-submodule = callPackage ./singeli.nix { inherit lib fetchFromGitHub stdenvNoCC; };
+  replxx-submodule = callPackage ./replxx.nix {
+    inherit lib fetchFromGitHub stdenvNoCC;
+  };
+  singeli-submodule = callPackage ./singeli.nix {
+    inherit lib fetchFromGitHub stdenvNoCC;
+  };
 in
 assert genBytecode -> ((bqn-path != null) && (mbqn-source != null));
 
@@ -34,7 +40,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-jS60phZMrpGa+GVzZSGZwVVtW9RBp/oHRIYP/pXRU2I=";
   };
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    pkg-config
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   buildInputs = [ libffi ];
 

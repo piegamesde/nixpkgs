@@ -69,7 +69,9 @@ llvmPackages_14.stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     (python3.withPackages pythonPackages)
-    (writeShellScriptBin "kafka-codegen-venv" "exec -a $0 ${kafka-codegen-venv}/bin/python3 $@")
+    (writeShellScriptBin "kafka-codegen-venv"
+      "exec -a $0 ${kafka-codegen-venv}/bin/python3 $@"
+    )
     ccache
     cmake
     curl

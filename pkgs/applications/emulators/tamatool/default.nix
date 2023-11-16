@@ -41,11 +41,13 @@ stdenv.mkDerivation (
       copyDesktopItems
     ];
 
-    buildInputs = [
-      libpng
-      SDL2
-      SDL2_image
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreFoundation ];
+    buildInputs =
+      [
+        libpng
+        SDL2
+        SDL2_image
+      ]
+      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreFoundation ];
 
     makeFlags = [
       "-Clinux"
@@ -64,7 +66,8 @@ stdenv.mkDerivation (
       mkdir -p $out/share/tamatool
       cp -r res $out/share/tamatool/res
       install -Dm644 linux/tamatool.png $out/share/icons/hicolor/128x126/apps/tamatool.png
-      ${lib.optionalString (rom != null) "install -Dm677 ${rom} $out/share/tamatool/rom.bin"}
+      ${lib.optionalString (rom != null)
+        "install -Dm677 ${rom} $out/share/tamatool/rom.bin"}
       runHook postInstall
     '';
 

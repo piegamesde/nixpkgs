@@ -31,7 +31,9 @@ let
   };
 
   # Use specific package versions required by paperless-ngx
-  python = python3.override { packageOverrides = self: super: { django = super.django_4; }; };
+  python = python3.override {
+    packageOverrides = self: super: { django = super.django_4; };
+  };
 
   path = lib.makeBinPath [
     ghostscript

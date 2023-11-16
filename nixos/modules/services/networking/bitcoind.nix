@@ -8,7 +8,9 @@
 with lib;
 
 let
-  eachBitcoind = filterAttrs (bitcoindName: cfg: cfg.enable) config.services.bitcoind;
+  eachBitcoind =
+    filterAttrs (bitcoindName: cfg: cfg.enable)
+      config.services.bitcoind;
 
   rpcUserOpts =
     { name, ... }:
@@ -72,7 +74,9 @@ let
             rpcthreads=16
             logips=1
           '';
-          description = lib.mdDoc "Additional configurations to be appended to {file}`bitcoin.conf`.";
+          description =
+            lib.mdDoc
+              "Additional configurations to be appended to {file}`bitcoin.conf`.";
         };
 
         dataDir = mkOption {
@@ -97,7 +101,9 @@ let
           port = mkOption {
             type = types.nullOr types.port;
             default = null;
-            description = lib.mdDoc "Override the default port on which to listen for JSON-RPC connections.";
+            description =
+              lib.mdDoc
+                "Override the default port on which to listen for JSON-RPC connections.";
           };
           users = mkOption {
             default = { };
@@ -127,7 +133,9 @@ let
         port = mkOption {
           type = types.nullOr types.port;
           default = null;
-          description = lib.mdDoc "Override the default port on which to listen for connections.";
+          description =
+            lib.mdDoc
+              "Override the default port on which to listen for connections.";
         };
 
         dbCache = mkOption {
@@ -229,9 +237,9 @@ in
                 # otherwise, some options (e.g.: custom RPC port) will not work
                 ${optionalString cfg.testnet "[test]"}
                 # RPC users
-                ${concatMapStringsSep "\n" (rpcUser: "rpcauth=${rpcUser.name}:${rpcUser.passwordHMAC}") (
-                  attrValues cfg.rpc.users
-                )}
+                ${concatMapStringsSep "\n"
+                  (rpcUser: "rpcauth=${rpcUser.name}:${rpcUser.passwordHMAC}")
+                  (attrValues cfg.rpc.users)}
                 # Extra config options (from bitcoind nixos service)
                 ${cfg.extraConfig}
               '';
@@ -245,7 +253,12 @@ in
                 Group = cfg.group;
                 ExecStart = ''
                   ${cfg.package}/bin/bitcoind \
-                  ${if (cfg.configFile != null) then "-conf=${cfg.configFile}" else "-conf=${configFile}"} \
+                  ${
+                    if (cfg.configFile != null) then
+                      "-conf=${cfg.configFile}"
+                    else
+                      "-conf=${configFile}"
+                  } \
                   -datadir=${cfg.dataDir} \
                   -pid=${cfg.pidFile} \
                   ${optionalString cfg.testnet "-testnet"}\
@@ -270,7 +283,10 @@ in
         eachBitcoind;
 
     systemd.tmpfiles.rules = flatten (
-      mapAttrsToList (bitcoindName: cfg: [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ])
+      mapAttrsToList
+        (bitcoindName: cfg: [
+          "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"
+        ])
         eachBitcoind
     );
 
@@ -288,7 +304,9 @@ in
         )
         eachBitcoind;
 
-    users.groups = mapAttrs' (bitcoindName: cfg: (nameValuePair "${cfg.group}" { })) eachBitcoind;
+    users.groups =
+      mapAttrs' (bitcoindName: cfg: (nameValuePair "${cfg.group}" { }))
+        eachBitcoind;
   };
 
   meta.maintainers = with maintainers; [ _1000101 ];

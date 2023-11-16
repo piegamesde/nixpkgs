@@ -29,11 +29,15 @@ stdenv.mkDerivation (
       hash = "sha256-nsxv/mepd9HtJ5EHu9q3kNc64qYmvDju4j+h9nhqdZ4=";
     };
 
-    buildInputs = [
-      openssl
-      zlib
-      libxcrypt
-    ] ++ lib.optional useLua lua5_3 ++ lib.optional usePcre pcre ++ lib.optional stdenv.isLinux systemd;
+    buildInputs =
+      [
+        openssl
+        zlib
+        libxcrypt
+      ]
+      ++ lib.optional useLua lua5_3
+      ++ lib.optional usePcre pcre
+      ++ lib.optional stdenv.isLinux systemd;
 
     # TODO: make it work on bsd as well
     makeFlags = [

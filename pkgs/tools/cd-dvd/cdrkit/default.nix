@@ -37,7 +37,9 @@ stdenv.mkDerivation rec {
     );
 
   hardeningDisable = [ "format" ];
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isMusl "-D__THROW=";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.hostPlatform.isMusl
+      "-D__THROW=";
 
   # efi-boot-patch extracted from http://arm.koji.fedoraproject.org/koji/rpminfo?rpmID=174244
   patches = [
@@ -77,7 +79,9 @@ stdenv.mkDerivation rec {
     ln -s $out/bin/wodim $out/bin/cdrecord
   '';
 
-  cmakeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "-DBITFIELDS_HTOL=0" ];
+  cmakeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+    "-DBITFIELDS_HTOL=0"
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

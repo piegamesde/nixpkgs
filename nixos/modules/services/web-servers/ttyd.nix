@@ -140,7 +140,9 @@ in
       checkOrigin = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to allow a websocket connection from a different origin.";
+        description =
+          lib.mdDoc
+            "Whether to allow a websocket connection from a different origin.";
       };
 
       maxClients = mkOption {
@@ -204,7 +206,9 @@ in
 
     assertions = [
       {
-        assertion = cfg.enableSSL -> cfg.certFile != null && cfg.keyFile != null && cfg.caFile != null;
+        assertion =
+          cfg.enableSSL
+          -> cfg.certFile != null && cfg.keyFile != null && cfg.caFile != null;
         message = "SSL is enabled for ttyd, but no certFile, keyFile or caFile has been specified.";
       }
       {

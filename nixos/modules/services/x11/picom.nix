@@ -16,7 +16,10 @@ let
   pairOf =
     x:
     with types;
-    addCheck (listOf x) (y: length y == 2) // { description = "pair of ${x.description}"; };
+    addCheck (listOf x) (y: length y == 2)
+    // {
+      description = "pair of ${x.description}";
+    };
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
 

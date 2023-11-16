@@ -35,7 +35,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ boost ] ++ lib.optionals (!static) [ (python3.withPackages (ps: [ ps.twisted ])) ];
+  buildInputs = [
+    boost
+  ] ++ lib.optionals (!static) [ (python3.withPackages (ps: [ ps.twisted ])) ];
 
   propagatedBuildInputs = [
     libevent

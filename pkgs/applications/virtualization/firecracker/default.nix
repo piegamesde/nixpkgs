@@ -13,7 +13,8 @@ let
       x86_64-linux = "x86_64";
       aarch64-linux = "aarch64";
     }
-    ."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    ."${stdenv.hostPlatform.system}"
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   baseurl = "https://github.com/firecracker-microvm/firecracker/releases/download";
 

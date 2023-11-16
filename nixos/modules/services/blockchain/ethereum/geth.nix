@@ -26,7 +26,9 @@ let
         port = mkOption {
           type = types.port;
           default = 30303;
-          description = lib.mdDoc "Port number Go Ethereum will be listening on, both TCP and UDP.";
+          description =
+            lib.mdDoc
+              "Port number Go Ethereum will be listening on, both TCP and UDP.";
         };
 
         http = {
@@ -96,7 +98,9 @@ let
           vhosts = mkOption {
             type = types.nullOr (types.listOf types.str);
             default = [ "localhost" ];
-            description = lib.mdDoc "List of virtual hostnames from which to accept requests.";
+            description =
+              lib.mdDoc
+                "List of virtual hostnames from which to accept requests.";
             example = [
               "localhost"
               "geth.example.org"
@@ -199,14 +203,18 @@ in
 
   config = mkIf (eachGeth != { }) {
 
-    environment.systemPackages = flatten (mapAttrsToList (gethName: cfg: [ cfg.package ]) eachGeth);
+    environment.systemPackages = flatten (
+      mapAttrsToList (gethName: cfg: [ cfg.package ]) eachGeth
+    );
 
     systemd.services =
       mapAttrs'
         (
           gethName: cfg:
           let
-            stateDir = "goethereum/${gethName}/${if (cfg.network == null) then "mainnet" else cfg.network}";
+            stateDir = "goethereum/${gethName}/${
+                if (cfg.network == null) then "mainnet" else cfg.network
+              }";
             dataDir = "/var/lib/${stateDir}";
           in
           (nameValuePair "geth-${gethName}" (
@@ -241,10 +249,15 @@ in
                     optionalString cfg.http.enable
                       "--http --http.addr ${cfg.http.address} --http.port ${toString cfg.http.port}"
                   } \
-                  ${optionalString (cfg.http.apis != null) "--http.api ${lib.concatStringsSep "," cfg.http.apis}"} \
+                  ${
+                    optionalString (cfg.http.apis != null)
+                      "--http.api ${lib.concatStringsSep "," cfg.http.apis}"
+                  } \
                   ${
                     optionalString cfg.websocket.enable
-                      "--ws --ws.addr ${cfg.websocket.address} --ws.port ${toString cfg.websocket.port}"
+                      "--ws --ws.addr ${cfg.websocket.address} --ws.port ${
+                        toString cfg.websocket.port
+                      }"
                   } \
                   ${
                     optionalString (cfg.websocket.apis != null)
@@ -252,7 +265,9 @@ in
                   } \
                   ${
                     optionalString cfg.metrics.enable
-                      "--metrics --metrics.addr ${cfg.metrics.address} --metrics.port ${toString cfg.metrics.port}"
+                      "--metrics --metrics.addr ${cfg.metrics.address} --metrics.port ${
+                        toString cfg.metrics.port
+                      }"
                   } \
                   --authrpc.addr ${cfg.authrpc.address} --authrpc.port ${
                     toString cfg.authrpc.port

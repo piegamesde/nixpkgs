@@ -33,11 +33,13 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    installShellCompletion --cmd bob \
-      --bash <($out/bin/bob completion) \
-      --zsh <($out/bin/bob completion -z)
-  '';
+  postInstall =
+    lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+      ''
+        installShellCompletion --cmd bob \
+          --bash <($out/bin/bob completion) \
+          --zsh <($out/bin/bob completion -z)
+      '';
 
   # tests require network access
   doCheck = false;

@@ -135,7 +135,8 @@ rec {
         else
           v;
     in
-    trace (generators.toPretty { allowPrettyValues = true; } (modify depth snip x)) y;
+    trace (generators.toPretty { allowPrettyValues = true; } (modify depth snip x))
+      y;
 
   /* A combination of `traceVal` and `traceSeq` that applies a
      provided function to the value to be traced after `deepSeq`ing

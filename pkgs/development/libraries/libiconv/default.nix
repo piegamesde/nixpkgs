@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
   postPatch =
     lib.optionalString
       (
-        (stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform.isMinGW) || stdenv.cc.nativeLibc
+        (stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform.isMinGW)
+        || stdenv.cc.nativeLibc
       )
       ''
         sed '/^_GL_WARN_ON_USE (gets/d' -i srclib/stdio.in.h

@@ -45,7 +45,9 @@ in
       }
     ];
 
-    environment.etc."swanctl/swanctl.conf".text = paramsToConf cfg.swanctl swanctlParams;
+    environment.etc."swanctl/swanctl.conf".text =
+      paramsToConf cfg.swanctl
+        swanctlParams;
 
     # The swanctl command complains when the following directories don't exist:
     # See: https://wiki.strongswan.org/projects/strongswan/wiki/Swanctldirectory

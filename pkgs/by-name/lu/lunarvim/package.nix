@@ -107,7 +107,9 @@ stdenv.mkDerivation (
       # Allow language servers to be overridden by appending instead of prepending
       # the mason.nvim path.
       echo "lvim.builtin.mason.PATH = \"append\"" > share/lvim/global.lua
-      echo ${lib.strings.escapeShellArg finalAttrs.globalConfig} >> share/lvim/global.lua
+      echo ${
+        lib.strings.escapeShellArg finalAttrs.globalConfig
+      } >> share/lvim/global.lua
       sed -i "s/add_to_path()/add_to_path(true)/" share/lvim/lua/lvim/core/mason.lua
       sed -i "/Log:set_level/idofile(\"$out/share/lvim/global.lua\")" share/lvim/lua/lvim/config/init.lua
 
@@ -127,7 +129,9 @@ stdenv.mkDerivation (
 
         install -Dm444 utils/desktop/lvim.desktop -t $out/share/applications
 
-        wrapProgram $out/bin/lvim --prefix PATH : ${lib.makeBinPath finalAttrs.runtimeDeps} \
+        wrapProgram $out/bin/lvim --prefix PATH : ${
+          lib.makeBinPath finalAttrs.runtimeDeps
+        } \
           --prefix LD_LIBRARY_PATH : ${stdenv.cc.cc.lib} \
           --prefix CC : ${stdenv.cc.targetPrefix}cc
       ''

@@ -7,7 +7,8 @@
 (callPackage ./changelog-d.nix { }).overrideAttrs (
   finalAttrs: oldAttrs: {
 
-    version = oldAttrs.version + "-git-${lib.strings.substring 0 7 oldAttrs.src.rev}";
+    version =
+      oldAttrs.version + "-git-${lib.strings.substring 0 7 oldAttrs.src.rev}";
 
     passthru.updateScript = lib.getExe (
       pkgs.writeShellApplication {
@@ -21,7 +22,8 @@
     );
     passthru.tests = {
       basic =
-        pkgs.runCommand "changelog-d-basic-test" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
+        pkgs.runCommand "changelog-d-basic-test"
+          { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
           ''
             mkdir changelogs
             cat > changelogs/config <<EOF

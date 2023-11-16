@@ -32,7 +32,9 @@ import ./make-test-python.nix (
                 "${
                   toString (
                     lib.head (
-                      lib.splitString " " (toString (lib.elemAt (lib.splitString "\n" config.networking.extraHosts) 2))
+                      lib.splitString " " (
+                        toString (lib.elemAt (lib.splitString "\n" config.networking.extraHosts) 2)
+                      )
                     )
                   )
                 } "

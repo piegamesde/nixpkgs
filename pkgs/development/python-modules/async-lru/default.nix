@@ -23,7 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-S2sOkgtS+YdMtVP7UHD3+oR8Fem8roLhhgVVfh33PcM=";
   };
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.11") [
+    typing-extensions
+  ];
 
   postPatch = ''
     sed -i -e '/^addopts/d' -e '/^filterwarnings/,+2d' setup.cfg

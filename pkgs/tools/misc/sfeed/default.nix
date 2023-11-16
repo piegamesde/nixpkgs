@@ -28,7 +28,9 @@ stdenv.mkDerivation rec {
   installFlags = [ "PREFIX=$(out)" ];
 
   # otherwise does not find SIGWINCH
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-D_DARWIN_C_SOURCE";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin
+      "-D_DARWIN_C_SOURCE";
 
   meta = with lib; {
     homepage = "https://codemadness.org/sfeed-simple-feed-parser.html";

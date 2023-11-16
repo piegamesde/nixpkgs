@@ -9,7 +9,9 @@ with lib;
 
 let
   cfg = config.services.prometheus.alertmanager;
-  mkConfigFile = pkgs.writeText "alertmanager.yml" (builtins.toJSON cfg.configuration);
+  mkConfigFile = pkgs.writeText "alertmanager.yml" (
+    builtins.toJSON cfg.configuration
+  );
 
   checkedConfig =
     file:
@@ -24,7 +26,10 @@ let
   alertmanagerYml =
     let
       yml =
-        if cfg.configText != null then pkgs.writeText "alertmanager.yml" cfg.configText else mkConfigFile;
+        if cfg.configText != null then
+          pkgs.writeText "alertmanager.yml" cfg.configText
+        else
+          mkConfigFile;
     in
     checkedConfig yml;
 
@@ -37,7 +42,9 @@ let
       "--storage.path /var/lib/alertmanager"
       (toString (map (peer: "--cluster.peer ${peer}:9094") cfg.clusterPeers))
     ]
-    ++ (optional (cfg.webExternalUrl != null) "--web.external-url ${cfg.webExternalUrl}")
+    ++ (optional (cfg.webExternalUrl != null)
+      "--web.external-url ${cfg.webExternalUrl}"
+    )
     ++ (optional (cfg.logFormat != null) "--log.format ${cfg.logFormat}");
 in
 {
@@ -223,7 +230,9 @@ in
         wantedBy = [ "multi-user.target" ];
         after = [ "network-online.target" ];
         preStart = ''
-          ${lib.getBin pkgs.envsubst}/bin/envsubst -o "/tmp/alert-manager-substituted.yaml" \
+          ${
+            lib.getBin pkgs.envsubst
+          }/bin/envsubst -o "/tmp/alert-manager-substituted.yaml" \
                                                    -i "${alertmanagerYml}"
         '';
         serviceConfig = {
@@ -234,7 +243,9 @@ in
           WorkingDirectory = "/tmp";
           ExecStart =
             "${cfg.package}/bin/alertmanager"
-            + optionalString (length cmdlineArgs != 0) (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs);
+            + optionalString (length cmdlineArgs != 0) (
+              " \\\n  " + concatStringsSep " \\\n  " cmdlineArgs
+            );
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         };
       };

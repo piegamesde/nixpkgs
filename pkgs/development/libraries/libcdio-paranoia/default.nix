@@ -35,7 +35,9 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = lib.optional stdenv.isDarwin DiskArbitration;
 
-  configureFlags = lib.optionals stdenv.isDarwin [ "--disable-ld-version-script" ];
+  configureFlags = lib.optionals stdenv.isDarwin [
+    "--disable-ld-version-script"
+  ];
 
   meta = with lib; {
     description = "CD paranoia on top of libcdio";

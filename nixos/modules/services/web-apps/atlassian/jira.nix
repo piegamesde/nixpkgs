@@ -11,7 +11,9 @@ let
 
   cfg = config.services.jira;
 
-  pkg = cfg.package.override (optionalAttrs cfg.sso.enable { enableSSO = cfg.sso.enable; });
+  pkg = cfg.package.override (
+    optionalAttrs cfg.sso.enable { enableSSO = cfg.sso.enable; }
+  );
 
   crowdProperties = pkgs.writeText "crowd.properties" ''
     application.name                        ${cfg.sso.applicationName}
@@ -99,7 +101,9 @@ in
         secure = mkOption {
           type = types.bool;
           default = true;
-          description = lib.mdDoc "Whether the connections to the proxy should be considered secure.";
+          description =
+            lib.mdDoc
+              "Whether the connections to the proxy should be considered secure.";
         };
       };
 
@@ -150,7 +154,9 @@ in
         type = types.package;
         default = pkgs.oraclejre8;
         defaultText = literalExpression "pkgs.oraclejre8";
-        description = lib.mdDoc "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
+        description =
+          lib.mdDoc
+            "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
       };
     };
   };
@@ -192,14 +198,18 @@ in
         JIRA_HOME = cfg.home;
         JAVA_HOME = "${cfg.jrePackage}";
         CATALINA_OPTS = concatStringsSep " " cfg.catalinaOptions;
-        JAVA_OPTS = mkIf cfg.sso.enable "-Dcrowd.properties=${cfg.home}/crowd.properties";
+        JAVA_OPTS =
+          mkIf cfg.sso.enable
+            "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 
       preStart =
         ''
           mkdir -p ${cfg.home}/{logs,work,temp,deploy}
 
-          sed -e 's,port="8080",port="${toString cfg.listenPort}" address="${cfg.listenAddress}",' \
+          sed -e 's,port="8080",port="${
+            toString cfg.listenPort
+          }" address="${cfg.listenAddress}",' \
         ''
         + (lib.optionalString cfg.proxy.enable ''
           -e 's,protocol="HTTP/1.1",protocol="HTTP/1.1" proxyName="${cfg.proxy.name}" proxyPort="${

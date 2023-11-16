@@ -18,9 +18,13 @@ let
       keys_output_limit = cfg.keysOutputLimit;
     }
     // (lib.optionalAttrs (cfg.bind != null) { bind = cfg.bind; })
-    // (lib.optionalAttrs (cfg.requirePass != null) { requirepass = cfg.requirePass; })
+    // (lib.optionalAttrs (cfg.requirePass != null) {
+      requirepass = cfg.requirePass;
+    })
     // (lib.optionalAttrs (cfg.maxMemory != null) { maxmemory = cfg.maxMemory; })
-    // (lib.optionalAttrs (cfg.memcachePort != null) { memcache_port = cfg.memcachePort; })
+    // (lib.optionalAttrs (cfg.memcachePort != null) {
+      memcache_port = cfg.memcachePort;
+    })
     // (lib.optionalAttrs (cfg.dbNum != null) { dbnum = cfg.dbNum; })
     // (lib.optionalAttrs (cfg.cacheMode != null) { cache_mode = cfg.cacheMode; });
 in

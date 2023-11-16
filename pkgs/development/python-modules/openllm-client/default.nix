@@ -44,7 +44,8 @@ buildPythonPackage rec {
       # diffusers
       soundfile
     ] ++ transformers.agents;
-    full = passthru.optional-dependencies.grpc ++ passthru.optional-dependencies.agents;
+    full =
+      passthru.optional-dependencies.grpc ++ passthru.optional-dependencies.agents;
   };
 
   # there is no tests

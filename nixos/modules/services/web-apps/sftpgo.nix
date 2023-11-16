@@ -364,11 +364,15 @@ in
           ReadWritePaths = [ cfg.dataDir ];
           LimitNOFILE = 8192; # taken from upstream
           KillMode = "mixed";
-          ExecStart = "${cfg.package}/bin/sftpgo serve ${utils.escapeSystemdExecArgs cfg.extraArgs}";
+          ExecStart = "${cfg.package}/bin/sftpgo serve ${
+              utils.escapeSystemdExecArgs cfg.extraArgs
+            }";
           ExecReload = "${pkgs.util-linux}/bin/kill -s HUP $MAINPID";
 
           # Service hardening
-          CapabilityBoundingSet = [ (optionalString hasPrivilegedPorts "CAP_NET_BIND_SERVICE") ];
+          CapabilityBoundingSet = [
+            (optionalString hasPrivilegedPorts "CAP_NET_BIND_SERVICE")
+          ];
           DevicePolicy = "closed";
           LockPersonality = true;
           NoNewPrivileges = true;

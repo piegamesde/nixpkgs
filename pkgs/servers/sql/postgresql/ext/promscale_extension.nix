@@ -56,6 +56,7 @@ buildPgxExtension rec {
     license = licenses.unfree;
 
     # as it needs to be used with timescaledb, simply use the condition from there
-    broken = versionOlder postgresql.version "12" || versionAtLeast postgresql.version "15";
+    broken =
+      versionOlder postgresql.version "12" || versionAtLeast postgresql.version "15";
   };
 }

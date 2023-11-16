@@ -48,7 +48,11 @@ let
     lib.mapAttrsToList
       (name: value: {
         inherit name;
-        path = if (builtins.hasAttr "url" value) then fetchgit value else fetchFromGitHub value;
+        path =
+          if (builtins.hasAttr "url" value) then
+            fetchgit value
+          else
+            fetchFromGitHub value;
       })
       (import shardsFile)
   );
@@ -123,17 +127,23 @@ stdenv.mkDerivation (
       args.buildPhase or (lib.concatStringsSep "\n" (
         [ "runHook preBuild" ]
         ++ lib.optional (format == "make") "make \${buildTargets:-build} $makeFlags"
-        ++ lib.optionals (format == "crystal") (lib.mapAttrsToList mkCrystalBuildArgs crystalBinaries)
+        ++ lib.optionals (format == "crystal") (
+          lib.mapAttrsToList mkCrystalBuildArgs crystalBinaries
+        )
         ++
           lib.optional (format == "shards")
-            "shards build --local --production ${lib.concatStringsSep " " (args.options or defaultOptions)}"
+            "shards build --local --production ${
+              lib.concatStringsSep " " (args.options or defaultOptions)
+            }"
         ++ [ "runHook postBuild" ]
       ));
 
     installPhase =
       args.installPhase or (lib.concatStringsSep "\n" (
         [ "runHook preInstall" ]
-        ++ lib.optional (format == "make") "make \${installTargets:-install} $installFlags"
+        ++
+          lib.optional (format == "make")
+            "make \${installTargets:-install} $installFlags"
         ++ lib.optionals (format == "crystal") (
           map
             (bin: ''

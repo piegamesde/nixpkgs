@@ -33,7 +33,9 @@ mixRelease rec {
     overrides =
       (
         final: prev:
-        (lib.mapAttrs (_: value: value.override { appConfigPath = src + "/config"; }) prev)
+        (lib.mapAttrs (_: value: value.override { appConfigPath = src + "/config"; })
+          prev
+        )
         // {
           fast_html = prev.fast_html.override { nativeBuildInputs = [ cmake ]; };
           ex_cldr = prev.ex_cldr.overrideAttrs (

@@ -18,7 +18,9 @@ let
     paths = cfg.modulePackages;
   };
 
-  listenerPorts = concatMap (l: optional (l ? Port) l.Port) (attrValues (cfg.config.Listener or { }));
+  listenerPorts = concatMap (l: optional (l ? Port) l.Port) (
+    attrValues (cfg.config.Listener or { })
+  );
 
   # Converts the config option to a string
   semanticString =
@@ -67,7 +69,9 @@ let
               (
                 subname:
                 optionals (value.${subname} != null) (
-                  [ "<${name} ${subname}>" ] ++ map (line: "	${line}") (toLines value.${subname}) ++ [ "</${name}>" ]
+                  [ "<${name} ${subname}>" ]
+                  ++ map (line: "	${line}") (toLines value.${subname})
+                  ++ [ "</${name}>" ]
                 )
               )
               (filter (v: v != null) (attrNames value));

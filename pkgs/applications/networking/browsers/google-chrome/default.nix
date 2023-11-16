@@ -168,7 +168,10 @@ let
   suffix = lib.optionalString (channel != "stable") "-${channel}";
 
   crashpadHandlerBinary =
-    if lib.versionAtLeast version "94" then "chrome_crashpad_handler" else "crashpad_handler";
+    if lib.versionAtLeast version "94" then
+      "chrome_crashpad_handler"
+    else
+      "crashpad_handler";
 in
 stdenv.mkDerivation {
   inherit version;
@@ -196,7 +199,8 @@ stdenv.mkDerivation {
     tar xf data.tar.xz
   '';
 
-  rpath = lib.makeLibraryPath deps + ":" + lib.makeSearchPathOutput "lib" "lib64" deps;
+  rpath =
+    lib.makeLibraryPath deps + ":" + lib.makeSearchPathOutput "lib" "lib64" deps;
   binpath = lib.makeBinPath deps;
 
   installPhase = ''
@@ -266,6 +270,10 @@ stdenv.mkDerivation {
     # will try to merge PRs and respond to issues but I'm not actually using
     # Google Chrome.
     platforms = [ "x86_64-linux" ];
-    mainProgram = if (channel == "dev") then "google-chrome-unstable" else "google-chrome-${channel}";
+    mainProgram =
+      if (channel == "dev") then
+        "google-chrome-unstable"
+      else
+        "google-chrome-${channel}";
   };
 }

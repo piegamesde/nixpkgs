@@ -401,39 +401,41 @@ let
         SND_USB_CAIAQ_INPUT = yes;
         # Enable Sound Open Firmware support
       }
-      // optionalAttrs (stdenv.hostPlatform.system == "x86_64-linux" && versionAtLeast version "5.5") {
-        SND_SOC_INTEL_SOUNDWIRE_SOF_MACH = whenAtLeast "5.10" module;
-        SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES = whenAtLeast "5.10" yes; # dep of SOF_MACH
-        SND_SOC_SOF_INTEL_SOUNDWIRE_LINK = whenBetween "5.10" "5.11" yes; # dep of SOF_MACH
-        SND_SOC_SOF_TOPLEVEL = yes;
-        SND_SOC_SOF_ACPI = module;
-        SND_SOC_SOF_PCI = module;
-        SND_SOC_SOF_APOLLOLAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_APOLLOLAKE_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_CANNONLAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_CANNONLAKE_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_COFFEELAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_COFFEELAKE_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_COMETLAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_COMETLAKE_H_SUPPORT = whenOlder "5.8" yes;
-        SND_SOC_SOF_COMETLAKE_LP_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_ELKHARTLAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_ELKHARTLAKE_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_GEMINILAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_GEMINILAKE_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_HDA_AUDIO_CODEC = yes;
-        SND_SOC_SOF_HDA_COMMON_HDMI_CODEC = whenOlder "5.7" yes;
-        SND_SOC_SOF_HDA_LINK = yes;
-        SND_SOC_SOF_ICELAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_ICELAKE_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_INTEL_TOPLEVEL = yes;
-        SND_SOC_SOF_JASPERLAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_JASPERLAKE_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_MERRIFIELD = whenAtLeast "5.12" module;
-        SND_SOC_SOF_MERRIFIELD_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_TIGERLAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_TIGERLAKE_SUPPORT = whenOlder "5.12" yes;
-      };
+      // optionalAttrs
+        (stdenv.hostPlatform.system == "x86_64-linux" && versionAtLeast version "5.5")
+        {
+          SND_SOC_INTEL_SOUNDWIRE_SOF_MACH = whenAtLeast "5.10" module;
+          SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES = whenAtLeast "5.10" yes; # dep of SOF_MACH
+          SND_SOC_SOF_INTEL_SOUNDWIRE_LINK = whenBetween "5.10" "5.11" yes; # dep of SOF_MACH
+          SND_SOC_SOF_TOPLEVEL = yes;
+          SND_SOC_SOF_ACPI = module;
+          SND_SOC_SOF_PCI = module;
+          SND_SOC_SOF_APOLLOLAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_APOLLOLAKE_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_CANNONLAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_CANNONLAKE_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_COFFEELAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_COFFEELAKE_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_COMETLAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_COMETLAKE_H_SUPPORT = whenOlder "5.8" yes;
+          SND_SOC_SOF_COMETLAKE_LP_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_ELKHARTLAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_ELKHARTLAKE_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_GEMINILAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_GEMINILAKE_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_HDA_AUDIO_CODEC = yes;
+          SND_SOC_SOF_HDA_COMMON_HDMI_CODEC = whenOlder "5.7" yes;
+          SND_SOC_SOF_HDA_LINK = yes;
+          SND_SOC_SOF_ICELAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_ICELAKE_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_INTEL_TOPLEVEL = yes;
+          SND_SOC_SOF_JASPERLAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_JASPERLAKE_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_MERRIFIELD = whenAtLeast "5.12" module;
+          SND_SOC_SOF_MERRIFIELD_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_TIGERLAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_TIGERLAKE_SUPPORT = whenOlder "5.12" yes;
+        };
 
     usb-serial = {
       USB_SERIAL_GENERIC = yes; # USB Generic Serial Driver
@@ -872,7 +874,9 @@ let
         DVB_DYNAMIC_MINORS = option yes; # we use udev
 
         EFI_STUB = yes; # EFI bootloader in the bzImage itself
-        EFI_GENERIC_STUB_INITRD_CMDLINE_LOADER = whenOlder "6.2" (whenAtLeast "5.8" yes); # initrd kernel parameter for EFI
+        EFI_GENERIC_STUB_INITRD_CMDLINE_LOADER = whenOlder "6.2" (
+          whenAtLeast "5.8" yes
+        ); # initrd kernel parameter for EFI
         CGROUPS = yes; # used by systemd
         FHANDLE = yes; # used by systemd
         SECCOMP = yes; # used by systemd >= 231
@@ -991,7 +995,9 @@ let
         LRU_GEN = whenAtLeast "6.1" yes;
         LRU_GEN_ENABLED = whenAtLeast "6.1" yes;
 
-        FSL_MC_UAPI_SUPPORT = mkIf (stdenv.hostPlatform.system == "aarch64-linux") (whenAtLeast "5.12" yes);
+        FSL_MC_UAPI_SUPPORT = mkIf (stdenv.hostPlatform.system == "aarch64-linux") (
+          whenAtLeast "5.12" yes
+        );
 
         ASHMEM = {
           optional = true;
@@ -1028,7 +1034,10 @@ let
       }
       //
         optionalAttrs
-          (stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system == "aarch64-linux")
+          (
+            stdenv.hostPlatform.system == "x86_64-linux"
+            || stdenv.hostPlatform.system == "aarch64-linux"
+          )
           {
             # Enable CPU/memory hotplug support
             # Allows you to dynamically add & remove CPUs/memory to a VM client running NixOS without requiring a reboot
@@ -1046,7 +1055,10 @@ let
           }
       //
         optionalAttrs
-          (stdenv.hostPlatform.system == "armv7l-linux" || stdenv.hostPlatform.system == "aarch64-linux")
+          (
+            stdenv.hostPlatform.system == "armv7l-linux"
+            || stdenv.hostPlatform.system == "aarch64-linux"
+          )
           {
             # Enables support for the Allwinner Display Engine 2.0
             SUN8I_DE2_CCU = yes;
@@ -1094,7 +1106,10 @@ let
         optionalAttrs
           (
             versionAtLeast version "5.4"
-            && (stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system == "aarch64-linux")
+            && (
+              stdenv.hostPlatform.system == "x86_64-linux"
+              || stdenv.hostPlatform.system == "aarch64-linux"
+            )
           )
           {
             # Required for various hardware features on Chrome OS devices
@@ -1112,10 +1127,13 @@ let
 
             TCG_TIS_SPI_CR50 = whenAtLeast "5.5" yes;
           }
-      // optionalAttrs (versionAtLeast version "5.4" && stdenv.hostPlatform.system == "x86_64-linux") {
-        CHROMEOS_LAPTOP = module;
-        CHROMEOS_PSTORE = module;
-      };
+      //
+        optionalAttrs
+          (versionAtLeast version "5.4" && stdenv.hostPlatform.system == "x86_64-linux")
+          {
+            CHROMEOS_LAPTOP = module;
+            CHROMEOS_PSTORE = module;
+          };
   };
 in
 flattenKConf options

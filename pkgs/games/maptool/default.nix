@@ -120,7 +120,9 @@ stdenvNoCC.mkDerivation {
     makeWrapper ${jre}/bin/java $out/bin/${binName} \
       "''${gappsWrapperArgs[@]}" \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ ffmpeg ]} \
-      --add-flags '${lib.concatStringsSep " " jvmArgs} net.rptools.maptool.client.LaunchInstructions'
+      --add-flags '${
+        lib.concatStringsSep " " jvmArgs
+      } net.rptools.maptool.client.LaunchInstructions'
 
     dest=$out/share/icons/hicolor/256x256/apps
     mkdir -p "$dest"

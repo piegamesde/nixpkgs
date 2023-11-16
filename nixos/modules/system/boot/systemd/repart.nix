@@ -125,7 +125,9 @@ in
               ''
                 ${config.boot.initrd.systemd.package}/bin/systemd-repart \
                                   --definitions=/etc/repart.d \
-                                  --dry-run=no ${lib.optionalString (initrdCfg.device != null) initrdCfg.device}
+                                  --dry-run=no ${
+                                    lib.optionalString (initrdCfg.device != null) initrdCfg.device
+                                  }
               ''
             ];
           };
@@ -137,13 +139,18 @@ in
           # on. The service then needs to be ordered to run after this device
           # is available.
           requires = lib.mkIf (initrdCfg.device != null) [ deviceUnit ];
-          after = if initrdCfg.device == null then [ "sysroot.mount" ] else [ deviceUnit ];
+          after =
+            if initrdCfg.device == null then [ "sysroot.mount" ] else [ deviceUnit ];
         };
     };
 
-    environment.etc = lib.mkIf cfg.enable { "repart.d".source = definitionsDirectory; };
+    environment.etc = lib.mkIf cfg.enable {
+      "repart.d".source = definitionsDirectory;
+    };
 
-    systemd = lib.mkIf cfg.enable { additionalUpstreamSystemUnits = [ "systemd-repart.service" ]; };
+    systemd = lib.mkIf cfg.enable {
+      additionalUpstreamSystemUnits = [ "systemd-repart.service" ];
+    };
   };
 
   meta.maintainers = with lib.maintainers; [ nikstur ];

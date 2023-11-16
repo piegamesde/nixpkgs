@@ -18,7 +18,9 @@ stdenv.mkDerivation (
       hash = "sha256-9fzal54YaocONtguOCxnP7h1LejQPQ0dKFiCzfvTjCY=";
     };
 
-    nativeBuildInputs = [ cmake ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+    nativeBuildInputs = [
+      cmake
+    ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
     meta = {
       description = "Turn quickly bulky LAS files into compact LAZ files without information loss";

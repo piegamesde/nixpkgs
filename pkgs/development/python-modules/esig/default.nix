@@ -46,7 +46,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "esig" ];
 
   meta = with lib; {
-    description = ''This package provides "rough path" tools for analysing vector time series'';
+    description = ''
+      This package provides "rough path" tools for analysing vector time series'';
     homepage = "https://github.com/datasig-ac-uk/esig";
     changelog = "https://github.com/datasig-ac-uk/esig/blob/release/CHANGELOG";
     license = licenses.gpl3Only;

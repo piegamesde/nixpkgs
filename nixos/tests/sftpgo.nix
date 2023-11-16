@@ -16,7 +16,8 @@ let
   inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 
   # Returns an attributeset of users who are not system users.
-  normalUsers = config: lib.filterAttrs (name: user: user.isNormalUser) config.users.users;
+  normalUsers =
+    config: lib.filterAttrs (name: user: user.isNormalUser) config.users.users;
 
   # Returns true if a user is a member of the given group
   isMemberOf =
@@ -88,7 +89,9 @@ let
     config:
     pkgs.writeText "users-and-folders.json" (
       builtins.toJSON {
-        users = lib.mapAttrsToList (name: user: generateUserAttrSet config user) (normalUsers config);
+        users = lib.mapAttrsToList (name: user: generateUserAttrSet config user) (
+          normalUsers config
+        );
 
         folders = [
           {
@@ -341,7 +344,9 @@ in
         }:
         ''
           with subtest("Test whether ${username} can access shared folders"):
-              client.${if shouldSucceed then "succeed" else "fail"}("sftp -P ${toString sftpPort} -b ${
+              client.${if shouldSucceed then "succeed" else "fail"}("sftp -P ${
+                toString sftpPort
+              } -b ${
                 pkgs.writeText "${username}-ls-${sharedFolderName}" ''
                   ls ${sharedFolderName}
                 ''
@@ -356,7 +361,9 @@ in
       server.wait_for_unit("sftpgo.service")
 
       with subtest("web client"):
-          client.wait_until_succeeds("curl -sSf http://server:${toString httpPort}/web/client/login")
+          client.wait_until_succeeds("curl -sSf http://server:${
+            toString httpPort
+          }/web/client/login")
 
           # Ensure sftpgo found the static folder
           client.wait_until_succeeds("curl -o /dev/null -sSf http://server:${
@@ -375,7 +382,9 @@ in
           server.succeed("test -s ${statePath}/users/alice/private/${testFile.name}")
 
           # The configured ACL should prevent uploading files to the root directory
-          client.fail("scp -P ${toString sftpPort} ${toString testFile} alice@server:/")
+          client.fail("scp -P ${toString sftpPort} ${
+            toString testFile
+          } alice@server:/")
 
       with subtest("Attempting an interactive SSH sessions must fail"):
           client.fail("ssh -p ${toString sftpPort} alice@server")
@@ -409,7 +418,9 @@ in
           client.succeed("test -s ${sharedFile.name}")
 
           # Eve should not get the file from shared folder
-          client.fail("scp -P ${toString sftpPort} eve@server:/shared/${sharedFile.name}")
+          client.fail("scp -P ${
+            toString sftpPort
+          } eve@server:/shared/${sharedFile.name}")
 
       server.succeed("/run/current-system/specialisation/privilegedPorts/bin/switch-to-configuration test")
 

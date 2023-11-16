@@ -90,7 +90,9 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ "-Dlocalstatedir=/var" ];
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";
+  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${
+      placeholder "out"
+    }/lib/systemd/system";
   PKG_CONFIG_UDEV_UDEVDIR = "${placeholder "out"}/lib/udev";
 
   meta = with lib; {

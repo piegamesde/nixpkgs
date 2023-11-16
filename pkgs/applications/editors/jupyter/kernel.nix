@@ -63,20 +63,30 @@ in
                   "logo64"
                   "extraPaths"
                 ];
-                kernel = filterAttrs (n: v: (any (x: x == n) allowedKernelKeys)) unfilteredKernel;
+                kernel =
+                  filterAttrs (n: v: (any (x: x == n) allowedKernelKeys))
+                    unfilteredKernel;
                 config = builtins.toJSON (
                   kernel
                   // {
-                    display_name = if (kernel.displayName != "") then kernel.displayName else kernelName;
+                    display_name =
+                      if (kernel.displayName != "") then kernel.displayName else kernelName;
                   }
-                  // (optionalAttrs (kernel ? interruptMode) { interrupt_mode = kernel.interruptMode; })
+                  // (optionalAttrs (kernel ? interruptMode) {
+                    interrupt_mode = kernel.interruptMode;
+                  })
                 );
                 extraPaths =
                   kernel.extraPaths or { }
-                  // lib.optionalAttrs (kernel.logo32 != null) { "logo-32x32.png" = kernel.logo32; }
-                  // lib.optionalAttrs (kernel.logo64 != null) { "logo-64x64.png" = kernel.logo64; };
+                  // lib.optionalAttrs (kernel.logo32 != null) {
+                    "logo-32x32.png" = kernel.logo32;
+                  }
+                  // lib.optionalAttrs (kernel.logo64 != null) {
+                    "logo-64x64.png" = kernel.logo64;
+                  };
                 linkExtraPaths =
-                  lib.mapAttrsToList (name: value: "ln -s ${value} 'kernels/${kernelName}/${name}';")
+                  lib.mapAttrsToList
+                    (name: value: "ln -s ${value} 'kernels/${kernelName}/${name}';")
                     extraPaths;
               in
               ''

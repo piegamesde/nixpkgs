@@ -4,11 +4,13 @@ import ./make-test-python.nix (
     orga = "example";
     domain = "${orga}.localdomain";
 
-    tls-cert = pkgs.runCommand "selfSignedCert" { buildInputs = [ pkgs.openssl ]; } ''
-      openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
-        -subj '/CN=machine.${domain}'
-      install -D -t $out key.pem cert.pem
-    '';
+    tls-cert =
+      pkgs.runCommand "selfSignedCert" { buildInputs = [ pkgs.openssl ]; }
+        ''
+          openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
+            -subj '/CN=machine.${domain}'
+          install -D -t $out key.pem cert.pem
+        '';
   in
   {
     name = "public-inbox";

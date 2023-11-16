@@ -84,7 +84,9 @@ python3.pkgs.buildPythonApplication rec {
 
   postInstall =
     let
-      argcomplete = lib.getExe' python3.pkgs.argcomplete "register-python-argcomplete";
+      argcomplete =
+        lib.getExe' python3.pkgs.argcomplete
+          "register-python-argcomplete";
     in
     lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
       installShellCompletion --cmd cz \

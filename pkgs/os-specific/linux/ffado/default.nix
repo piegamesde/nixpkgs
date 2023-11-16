@@ -103,7 +103,9 @@ mkDerivation rec {
     install -DT -m 444 support/xdg/hi64-apps-ffado.png "$bin/share/icons/hicolor/64x64/apps/ffado-mixer.png"
 
     # prevent build tools from leaking into closure
-    echo 'See `nix-store --query --tree ${placeholder "out"}`.' > $out/lib/libffado/static_info.txt
+    echo 'See `nix-store --query --tree ${
+      placeholder "out"
+    }`.' > $out/lib/libffado/static_info.txt
   '';
 
   preFixup = ''

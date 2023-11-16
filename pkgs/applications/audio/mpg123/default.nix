@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional withConplay "conplay";
 
   nativeBuildInputs = lib.optionals (!libOnly) (
-    lib.optionals withConplay [ makeWrapper ] ++ lib.optionals (withPulse || withJack) [ pkg-config ]
+    lib.optionals withConplay [ makeWrapper ]
+    ++ lib.optionals (withPulse || withJack) [ pkg-config ]
   );
 
   buildInputs = lib.optionals (!libOnly) (
@@ -63,7 +64,8 @@ stdenv.mkDerivation rec {
         )
       }"
     ]
-    ++ lib.optional (stdenv.hostPlatform ? mpg123) "--with-cpu=${stdenv.hostPlatform.mpg123.cpu}";
+    ++ lib.optional (stdenv.hostPlatform ? mpg123)
+      "--with-cpu=${stdenv.hostPlatform.mpg123.cpu}";
 
   enableParallelBuilding = true;
 

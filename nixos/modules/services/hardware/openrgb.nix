@@ -40,7 +40,9 @@ in
         else if config.hardware.cpu.amd.updateMicrocode then "amd"
         else null;
       '';
-      description = lib.mdDoc "CPU family of motherboard. Allows for addition motherboard i2c support.";
+      description =
+        lib.mdDoc
+          "CPU family of motherboard. Allows for addition motherboard i2c support.";
     };
 
     server.port = mkOption {
@@ -65,7 +67,9 @@ in
       serviceConfig = {
         StateDirectory = "OpenRGB";
         WorkingDirectory = "/var/lib/OpenRGB";
-        ExecStart = "${cfg.package}/bin/openrgb --server --server-port ${toString cfg.server.port}";
+        ExecStart = "${cfg.package}/bin/openrgb --server --server-port ${
+            toString cfg.server.port
+          }";
         Restart = "always";
       };
     };

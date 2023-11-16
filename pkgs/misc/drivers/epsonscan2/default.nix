@@ -165,7 +165,8 @@ stdenv.mkDerivation {
       "x86_64-linux"
     ];
     sourceProvenance =
-      with lib.sourceTypes; [ fromSource ] ++ lib.optionals withNonFreePlugins [ binaryNativeCode ];
+      with lib.sourceTypes;
+      [ fromSource ] ++ lib.optionals withNonFreePlugins [ binaryNativeCode ];
     license = with lib.licenses; if withNonFreePlugins then unfree else lgpl21Plus;
     maintainers = with lib.maintainers; [ james-atkins ];
   };

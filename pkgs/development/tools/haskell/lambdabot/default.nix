@@ -12,7 +12,8 @@
 }:
 
 let
-  allPkgs = pkgs: mueval.defaultPkgs pkgs ++ [ pkgs.lambdabot-trusted ] ++ packages pkgs;
+  allPkgs =
+    pkgs: mueval.defaultPkgs pkgs ++ [ pkgs.lambdabot-trusted ] ++ packages pkgs;
   mueval' = mueval.override {
     inherit haskellPackages;
     packages = allPkgs;

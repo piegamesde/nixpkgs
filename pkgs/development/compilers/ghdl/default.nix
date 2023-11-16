@@ -35,11 +35,15 @@ stdenv.mkDerivation (
       sed -i 's/check_version  7.0/check_version  7/g' configure
     '';
 
-    configureFlags = [
-      # See https://github.com/ghdl/ghdl/pull/2058
-      "--disable-werror"
-      "--enable-synth"
-    ] ++ lib.optionals (backend == "llvm") [ "--with-llvm-config=${llvm.dev}/bin/llvm-config" ];
+    configureFlags =
+      [
+        # See https://github.com/ghdl/ghdl/pull/2058
+        "--disable-werror"
+        "--enable-synth"
+      ]
+      ++ lib.optionals (backend == "llvm") [
+        "--with-llvm-config=${llvm.dev}/bin/llvm-config"
+      ];
 
     enableParallelBuilding = true;
 

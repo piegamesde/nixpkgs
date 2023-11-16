@@ -85,7 +85,9 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "-m 'not network'" ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [ "test_reproject_error_propagation" ];
+  disabledTests = lib.optionals stdenv.isDarwin [
+    "test_reproject_error_propagation"
+  ];
 
   pythonImportsCheck = [ "rasterio" ];
 

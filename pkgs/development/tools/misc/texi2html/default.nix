@@ -28,11 +28,13 @@ stdenv.mkDerivation rec {
     patchShebangs separated_to_hash.pl
   '';
 
-  postInstall = lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-    for f in $out/bin/*; do
-      substituteInPlace $f --replace "${buildPackages.perl}" "${perl}"
-    done
-  '';
+  postInstall =
+    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
+      ''
+        for f in $out/bin/*; do
+          substituteInPlace $f --replace "${buildPackages.perl}" "${perl}"
+        done
+      '';
 
   meta = with lib; {
     description = "Perl script which converts Texinfo source files to HTML output";

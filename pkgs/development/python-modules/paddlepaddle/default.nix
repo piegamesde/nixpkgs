@@ -28,10 +28,15 @@ let
   pname = "paddlepaddle" + lib.optionalString cudaSupport "-gpu";
   version = "2.5.0";
   format = "wheel";
-  pyShortVersion = "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+  pyShortVersion = "cp${
+      builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion
+    }";
   allHashAndPlatform = import ./binary-hashes.nix;
   hash =
-    allHashAndPlatform."${stdenv.system}"."${if cudaSupport then "gpu" else "cpu"}"."${pyShortVersion}";
+    allHashAndPlatform."${stdenv.system}"."${if cudaSupport then
+      "gpu"
+    else
+      "cpu"}"."${pyShortVersion}";
   platform = allHashAndPlatform."${stdenv.system}".platform;
   src = fetchPypi ({
     inherit

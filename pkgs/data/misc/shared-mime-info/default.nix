@@ -30,13 +30,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QrRe/DcjpTMejHXDSOLbjpJywod8qIjP6/leTZ21rhE=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    libxml2
-  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) shared-mime-info;
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      gettext
+      libxml2
+    ]
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) shared-mime-info;
 
   buildInputs = [
     libxml2

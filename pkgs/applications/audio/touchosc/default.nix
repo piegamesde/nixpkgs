@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
       armv7l-linux = "linux-armhf";
       x86_64-linux = "linux-x64";
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
     url = "https://hexler.net/pub/${pname}/${pname}-${version}-${suffix}.deb";
@@ -62,7 +63,8 @@ stdenv.mkDerivation rec {
         armv7l-linux = "sha256-KUA6UFenEVme0AMuE69dR13RfYSGAd9GEdikh3DS0ko=";
         x86_64-linux = "sha256-3RA+piRJ4UE4tPYALaifENJg7+0BZDmSwS36VJiEn8Q=";
       }
-      .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+      .${stdenv.hostPlatform.system}
+        or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
   strictDeps = true;

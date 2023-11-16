@@ -24,7 +24,9 @@ in
       type = types.str;
       default = "127.0.0.1";
       example = "0.0.0.0";
-      description = lib.mdDoc "The hostname or IP address for chatgpt-retrieval-plugin to bind to.";
+      description =
+        lib.mdDoc
+          "The hostname or IP address for chatgpt-retrieval-plugin to bind to.";
     };
 
     bearerTokenPath = mkOption {
@@ -103,7 +105,9 @@ in
       script = ''
         export BEARER_TOKEN=$(${pkgs.systemd}/bin/systemd-creds cat BEARER_TOKEN)
         export OPENAI_API_KEY=$(${pkgs.systemd}/bin/systemd-creds cat OPENAI_API_KEY)
-        exec ${pkgs.chatgpt-retrieval-plugin}/bin/start --host ${cfg.host} --port ${toString cfg.port}
+        exec ${pkgs.chatgpt-retrieval-plugin}/bin/start --host ${cfg.host} --port ${
+          toString cfg.port
+        }
       '';
 
       environment = {

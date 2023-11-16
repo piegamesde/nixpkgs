@@ -69,7 +69,8 @@ let
 
   selectSystem =
     attrs:
-    attrs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    attrs.${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   platform = selectSystem {
     x86_64-linux = "amd64";

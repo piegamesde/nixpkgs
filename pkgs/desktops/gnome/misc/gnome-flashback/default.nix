@@ -36,7 +36,8 @@ let
 
   # From data/sessions/Makefile.am
   requiredComponentsCommon =
-    enableGnomePanel: [ "gnome-flashback" ] ++ lib.optional enableGnomePanel "gnome-panel";
+    enableGnomePanel:
+    [ "gnome-flashback" ] ++ lib.optional enableGnomePanel "gnome-panel";
   requiredComponentsGsd = [
     "org.gnome.SettingsDaemon.A11ySettings"
     "org.gnome.SettingsDaemon.Color"
@@ -67,7 +68,9 @@ let
     name = "${pname}-${version}";
 
     src = fetchurl {
-      url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${name}.tar.xz";
+      url = "mirror://gnome/sources/${pname}/${
+          lib.versions.majorMinor version
+        }/${name}.tar.xz";
       sha256 = "sha256-eo1cAzEOTfrdGKZeAKN3QQMq/upUGN1oBKl1xLCYAEU=";
     };
 
@@ -125,8 +128,12 @@ let
 
     enableParallelBuilding = true;
 
-    PKG_CONFIG_LIBGNOME_PANEL_LAYOUTSDIR = "${placeholder "out"}/share/gnome-panel/layouts";
-    PKG_CONFIG_LIBGNOME_PANEL_MODULESDIR = "${placeholder "out"}/lib/gnome-panel/modules";
+    PKG_CONFIG_LIBGNOME_PANEL_LAYOUTSDIR = "${
+        placeholder "out"
+      }/share/gnome-panel/layouts";
+    PKG_CONFIG_LIBGNOME_PANEL_MODULESDIR = "${
+        placeholder "out"
+      }/lib/gnome-panel/modules";
 
     passthru = {
       updateScript = gnome.updateScript {

@@ -204,7 +204,9 @@ lib.makeScope
         mescc-tools-extra
       ;
 
-      tinycc-bootstrappable = lib.recurseIntoAttrs (callPackage ./tinycc/bootstrappable.nix { });
+      tinycc-bootstrappable = lib.recurseIntoAttrs (
+        callPackage ./tinycc/bootstrappable.nix { }
+      );
       tinycc-mes = lib.recurseIntoAttrs (callPackage ./tinycc/mes.nix { });
       tinycc-musl = lib.recurseIntoAttrs (
         callPackage ./tinycc/musl.nix {
@@ -220,7 +222,11 @@ lib.makeScope
         gnutar = gnutar-musl;
       };
 
-      inherit (callPackage ./utils.nix { }) derivationWithMeta writeTextFile writeText;
+      inherit (callPackage ./utils.nix { })
+        derivationWithMeta
+        writeTextFile
+        writeText
+      ;
 
       test = kaem.runCommand "minimal-bootstrap-test" { } ''
         echo ${bash.tests.get-version}

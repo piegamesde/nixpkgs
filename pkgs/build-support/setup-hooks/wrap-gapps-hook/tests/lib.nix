@@ -34,7 +34,8 @@ rec {
 
     if ! grep --text "$filter" "$file" | grep --text --quiet "$expected"; then
         ${
-          fail "The file “$file” should include a line containing “$filter” that also contains “$expected”."
+          fail
+            "The file “$file” should include a line containing “$filter” that also contains “$expected”."
         }
     fi
   '';

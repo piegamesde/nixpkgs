@@ -34,7 +34,8 @@ let
     ."${version}";
 in
 
-lib.throwIf (param ? max_version && lib.versionAtLeast ocaml.version param.max_version)
+lib.throwIf
+  (param ? max_version && lib.versionAtLeast ocaml.version param.max_version)
   "odoc-parser ${version} is not available for OCaml ${ocaml.version}"
 
   buildDunePackage

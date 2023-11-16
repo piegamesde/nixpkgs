@@ -42,7 +42,9 @@ python3.pkgs.buildPythonApplication rec {
     "\${qtWrapperArgs[@]}"
 
     # Add the installed directories to the python path so the daemon can find them
-    "--prefix PYTHONPATH : ${makePythonPath (requiredPythonModules maestral.propagatedBuildInputs)}"
+    "--prefix PYTHONPATH : ${
+      makePythonPath (requiredPythonModules maestral.propagatedBuildInputs)
+    }"
     "--prefix PYTHONPATH : ${makePythonPath [ maestral ]}"
   ];
 

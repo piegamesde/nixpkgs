@@ -98,7 +98,9 @@ let
           string = "testing-string";
         };
 
-        passAsFile = [ "buildCommand" ] ++ lib.optionals (extraAttrs ? extraTest) [ "extraTest" ];
+        passAsFile = [
+          "buildCommand"
+        ] ++ lib.optionals (extraAttrs ? extraTest) [ "extraTest" ];
         buildCommand = ''
           declare -p string
           appendToVar string hello
@@ -197,7 +199,10 @@ in
   rejectedHashes = lib.recurseIntoAttrs {
     md5 =
       let
-        drv = runCommand "md5 outputHash rejected" { outputHash = "md5-fPt7dxVVP7ffY3MxkQdwVw=="; } "true";
+        drv =
+          runCommand "md5 outputHash rejected"
+            { outputHash = "md5-fPt7dxVVP7ffY3MxkQdwVw=="; }
+            "true";
       in
       assert !(builtins.tryEval drv).success;
       { };

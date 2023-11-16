@@ -201,7 +201,9 @@ in
             '';
             secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
 
-            geoipupdateConf = pkgs.writeText "geoipupdate.conf" (geoipupdateKeyValue cfg.settings);
+            geoipupdateConf = pkgs.writeText "geoipupdate.conf" (
+              geoipupdateKeyValue cfg.settings
+            );
 
             script = ''
               set -o errexit -o pipefail -o nounset -o errtrace

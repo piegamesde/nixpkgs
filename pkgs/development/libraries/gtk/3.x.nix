@@ -24,7 +24,8 @@
   at-spi2-atk,
   gobject-introspection,
   buildPackages,
-  withIntrospection ? lib.meta.availableOn stdenv.hostPlatform gobject-introspection
+  withIntrospection ?
+    lib.meta.availableOn stdenv.hostPlatform gobject-introspection
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
   compileSchemas ? stdenv.hostPlatform.emulatorAvailable buildPackages,
   fribidi,
@@ -36,7 +37,8 @@
   gnome,
   gsettings-desktop-schemas,
   sassc,
-  trackerSupport ? stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform),
+  trackerSupport ?
+    stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform),
   tracker,
   x11Support ? stdenv.isLinux,
   waylandSupport ? stdenv.isLinux,
@@ -84,7 +86,9 @@ stdenv.mkDerivation (
         inherit (finalAttrs) version;
       in
       fetchurl {
-        url = "mirror://gnome/sources/gtk+/${lib.versions.majorMinor version}/gtk+-${version}.tar.xz";
+        url = "mirror://gnome/sources/gtk+/${
+            lib.versions.majorMinor version
+          }/gtk+-${version}.tar.xz";
         sha256 = "sha256-zhHezwGLJb3YUFVEpPhyQoVOyIvgVNmt5fOiBETdjuc=";
       };
 
@@ -125,15 +129,21 @@ stdenv.mkDerivation (
       ]
       ++
         lib.optionals
-          ((withIntrospection || compileSchemas) && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+          (
+            (withIntrospection || compileSchemas)
+            && !stdenv.buildPlatform.canExecute stdenv.hostPlatform
+          )
           [ mesonEmulatorHook ]
       ++ lib.optionals waylandSupport [ wayland-scanner ];
 
-    buildInputs = [
-      libxkbcommon
-      (libepoxy.override { inherit x11Support; })
-      isocodes
-    ] ++ lib.optionals stdenv.isDarwin [ AppKit ] ++ lib.optionals trackerSupport [ tracker ];
+    buildInputs =
+      [
+        libxkbcommon
+        (libepoxy.override { inherit x11Support; })
+        isocodes
+      ]
+      ++ lib.optionals stdenv.isDarwin [ AppKit ]
+      ++ lib.optionals trackerSupport [ tracker ];
     #TODO: colord?
 
     propagatedBuildInputs =
@@ -196,7 +206,9 @@ stdenv.mkDerivation (
 
       # this conditional gates the installation of share/gsettings-schemas/.../glib-2.0/schemas/gschemas.compiled.
       substituteInPlace meson.build \
-        --replace 'if not meson.is_cross_build()' 'if ${lib.boolToString compileSchemas}'
+        --replace 'if not meson.is_cross_build()' 'if ${
+          lib.boolToString compileSchemas
+        }'
 
       files=(
         build-aux/meson/post-install.py

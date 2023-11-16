@@ -44,7 +44,9 @@ let
       in
       ''
         substituteInPlace Taskfile.yml \
-          --replace "go test" "go test -p $NIX_BUILD_CORES -skip '(${lib.concatStringsSep "|" skipTests})'"
+          --replace "go test" "go test -p $NIX_BUILD_CORES -skip '(${
+            lib.concatStringsSep "|" skipTests
+          })'"
       '';
 
     doCheck = stdenv.isLinux;

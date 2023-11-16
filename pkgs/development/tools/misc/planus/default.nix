@@ -20,12 +20,14 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    installShellCompletion --cmd planus \
-      --bash <($out/bin/planus generate-completions bash) \
-      --fish <($out/bin/planus generate-completions fish) \
-      --zsh <($out/bin/planus generate-completions zsh)
-  '';
+  postInstall =
+    lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+      ''
+        installShellCompletion --cmd planus \
+          --bash <($out/bin/planus generate-completions bash) \
+          --fish <($out/bin/planus generate-completions fish) \
+          --zsh <($out/bin/planus generate-completions zsh)
+      '';
 
   meta = with lib; {
     description = "An alternative compiler for flatbuffers";

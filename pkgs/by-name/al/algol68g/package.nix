@@ -50,7 +50,9 @@ stdenv.mkDerivation (
         };
       in
       lib.optionalString withPDFDoc ''
-        install -m644 ${pdfdoc} ${placeholder "doc"}/share/doc/algol68g/learning-algol-68-genie.pdf
+        install -m644 ${pdfdoc} ${
+          placeholder "doc"
+        }/share/doc/algol68g/learning-algol-68-genie.pdf
       '';
 
     meta = {

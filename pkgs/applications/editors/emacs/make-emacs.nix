@@ -65,7 +65,8 @@
   # Boolean flags
   nativeComp ? null,
   withNativeCompilation ? if nativeComp != null then
-    lib.warn "nativeComp option is deprecated and will be removed; use withNativeCompilation instead"
+    lib.warn
+      "nativeComp option is deprecated and will be removed; use withNativeCompilation instead"
       nativeComp
   else
     stdenv.buildPlatform.canExecute stdenv.hostPlatform,
@@ -128,7 +129,8 @@
 assert (withGTK2 && !withNS && variant != "macport") -> withX;
 assert (withGTK3 && !withNS && variant != "macport") -> withX || withPgtk;
 
-assert noGui -> !(withX || withGTK2 || withGTK3 || withNS || variant == "macport");
+assert noGui
+  -> !(withX || withGTK2 || withGTK3 || withNS || variant == "macport");
 assert withAcl -> stdenv.isLinux;
 assert withAlsaLib -> stdenv.isLinux;
 assert withGTK2 -> !(withGTK3 || withPgtk);
@@ -140,12 +142,18 @@ assert withPgtk -> withGTK3 && !withX;
 assert withXwidgets -> !noGui && (withGTK3 || withPgtk);
 
 let
-  libGccJitLibraryPaths = [
-    "${lib.getLib libgccjit}/lib/gcc"
-    "${lib.getLib stdenv.cc.libc}/lib"
-  ] ++ lib.optionals (stdenv.cc ? cc.libgcc) [ "${lib.getLib stdenv.cc.cc.libgcc}/lib" ];
+  libGccJitLibraryPaths =
+    [
+      "${lib.getLib libgccjit}/lib/gcc"
+      "${lib.getLib stdenv.cc.libc}/lib"
+    ]
+    ++ lib.optionals (stdenv.cc ? cc.libgcc) [
+      "${lib.getLib stdenv.cc.cc.libgcc}/lib"
+    ];
 
-  inherit (if variant == "macport" then llvmPackages_14.stdenv else stdenv) mkDerivation;
+  inherit (if variant == "macport" then llvmPackages_14.stdenv else stdenv)
+    mkDerivation
+  ;
 in
 mkDerivation (
   finalAttrs: {
@@ -409,9 +417,11 @@ mkDerivation (
         mkdir -p $out/Applications
         mv nextstep/Emacs.app $out/Applications
       ''
-      + lib.optionalString (withNativeCompilation && (withNS || variant == "macport")) ''
-        ln -snf $out/lib/emacs/*/native-lisp $out/Applications/Emacs.app/Contents/native-lisp
-      ''
+      +
+        lib.optionalString (withNativeCompilation && (withNS || variant == "macport"))
+          ''
+            ln -snf $out/lib/emacs/*/native-lisp $out/Applications/Emacs.app/Contents/native-lisp
+          ''
       + lib.optionalString withNativeCompilation ''
         echo "Generating native-compiled trampolines..."
         # precompile trampolines in parallel, but avoid spawning one process per trampoline.
@@ -427,10 +437,12 @@ mkDerivation (
           -f batch-native-compile $out/share/emacs/site-lisp/site-start.el
       '';
 
-    postFixup = lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid") ''
-      patchelf --add-rpath ${lib.makeLibraryPath [ libXcursor ]} $out/bin/emacs
-      patchelf --add-needed "libXcursor.so.1" "$out/bin/emacs"
-    '';
+    postFixup =
+      lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid")
+        ''
+          patchelf --add-rpath ${lib.makeLibraryPath [ libXcursor ]} $out/bin/emacs
+          patchelf --add-needed "libXcursor.so.1" "$out/bin/emacs"
+        '';
 
     passthru = {
       inherit withNativeCompilation;
@@ -451,7 +463,8 @@ mkDerivation (
     };
 
     meta = meta // {
-      broken = withNativeCompilation && !(stdenv.buildPlatform.canExecute stdenv.hostPlatform);
+      broken =
+        withNativeCompilation && !(stdenv.buildPlatform.canExecute stdenv.hostPlatform);
     };
   }
 )

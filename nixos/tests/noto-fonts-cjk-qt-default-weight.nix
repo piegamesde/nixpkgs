@@ -15,7 +15,8 @@ import ./make-test-python.nix (
     testScript =
       let
         script =
-          pkgs.writers.writePython3 "qt-default-weight" { libraries = [ pkgs.python3Packages.pyqt6 ]; }
+          pkgs.writers.writePython3 "qt-default-weight"
+            { libraries = [ pkgs.python3Packages.pyqt6 ]; }
             ''
               from PyQt6.QtWidgets import QApplication
               from PyQt6.QtGui import QFont, QRawFont

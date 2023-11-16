@@ -47,7 +47,9 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-    "-Dnautilus-extension-dir=${placeholder "nautilusExtension"}/lib/nautilus/extensions-4"
+    "-Dnautilus-extension-dir=${
+      placeholder "nautilusExtension"
+    }/lib/nautilus/extensions-4"
   ];
 
   meta = with lib; {

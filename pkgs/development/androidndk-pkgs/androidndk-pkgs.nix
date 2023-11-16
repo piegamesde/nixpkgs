@@ -29,7 +29,9 @@ let
         double = "linux-x86_64";
       };
     }
-    .${config} or (throw "Android NDK doesn't support building on ${config}, as far as we know");
+    .${config} or (throw
+      "Android NDK doesn't support building on ${config}, as far as we know"
+    );
 
   ndkTargetInfoFun =
     { config, ... }:
@@ -51,7 +53,9 @@ let
         triple = "aarch64-linux-android";
       };
     }
-    .${config} or (throw "Android NDK doesn't support targetting ${config}, as far as we know");
+    .${config} or (throw
+      "Android NDK doesn't support targetting ${config}, as far as we know"
+    );
 
   buildInfo = ndkBuildInfoFun stdenv.buildPlatform;
   targetInfo = ndkTargetInfoFun stdenv.targetPlatform;
@@ -72,9 +76,9 @@ let
   # targetInfo.triple is what Google thinks the toolchain should be, this is a little
   # different from what we use. We make it four parts to conform with the existing
   # standard more properly.
-  targetPrefix = lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) (
-    stdenv.targetPlatform.config + "-"
-  );
+  targetPrefix =
+    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
+      (stdenv.targetPlatform.config + "-");
 in
 
 rec {

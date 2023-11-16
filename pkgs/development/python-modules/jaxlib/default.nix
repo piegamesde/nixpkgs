@@ -146,7 +146,9 @@ let
 
   arch =
     # KeyError: ('Linux', 'arm64')
-    if stdenv.targetPlatform.isLinux && stdenv.targetPlatform.linuxArch == "arm64" then
+    if
+      stdenv.targetPlatform.isLinux && stdenv.targetPlatform.linuxArch == "arm64"
+    then
       "aarch64"
     else
       stdenv.targetPlatform.linuxArch;
@@ -212,8 +214,12 @@ let
 
     removeRulesCC = false;
 
-    GCC_HOST_COMPILER_PREFIX = lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin";
-    GCC_HOST_COMPILER_PATH = lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin/gcc";
+    GCC_HOST_COMPILER_PREFIX =
+      lib.optionalString cudaSupport
+        "${cudatoolkit_cc_joined}/bin";
+    GCC_HOST_COMPILER_PATH =
+      lib.optionalString cudaSupport
+        "${cudatoolkit_cc_joined}/bin/gcc";
 
     # The version is automatically set to ".dev" if this variable is not set.
     # https://github.com/google/jax/commit/e01f2617b85c5bdffc5ffb60b3d8d8ca9519a1f3
@@ -234,9 +240,12 @@ let
         build --distinct_host_configuration=false
         build --define PROTOBUF_INCLUDE_PATH="${pkgs.protobuf}/include"
       ''
-      + lib.optionalString (stdenv.targetPlatform.avxSupport && stdenv.targetPlatform.isUnix) ''
-        build --config=avx_posix
-      ''
+      +
+        lib.optionalString
+          (stdenv.targetPlatform.avxSupport && stdenv.targetPlatform.isUnix)
+          ''
+            build --config=avx_posix
+          ''
       + lib.optionalString mklSupport ''
         build --config=mkl_open_source_only
       ''
@@ -244,7 +253,9 @@ let
         build --action_env CUDA_TOOLKIT_PATH="${cudatoolkit_joined}"
         build --action_env CUDNN_INSTALL_PATH="${cudnn}"
         build --action_env TF_CUDA_PATHS="${cudatoolkit_joined},${cudnn},${nccl}"
-        build --action_env TF_CUDA_VERSION="${lib.versions.majorMinor cudatoolkit.version}"
+        build --action_env TF_CUDA_VERSION="${
+          lib.versions.majorMinor cudatoolkit.version
+        }"
         build --action_env TF_CUDNN_VERSION="${lib.versions.major cudnn.version}"
         build:cuda --action_env TF_CUDA_COMPUTE_CAPABILITIES="${
           builtins.concatStringsSep "," cudaFlags.realArches

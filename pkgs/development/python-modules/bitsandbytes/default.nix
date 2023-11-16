@@ -75,7 +75,9 @@ buildPythonPackage {
     if torch.cudaSupport then
       with torch.cudaPackages;
       let
-        cudaVersion = lib.concatStrings (lib.splitVersion torch.cudaPackages.cudaMajorMinorVersion);
+        cudaVersion = lib.concatStrings (
+          lib.splitVersion torch.cudaPackages.cudaMajorMinorVersion
+        );
       in
       "make CUDA_VERSION=${cudaVersion} cuda${cudaMajorVersion}x"
     else

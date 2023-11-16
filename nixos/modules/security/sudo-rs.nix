@@ -13,16 +13,19 @@ let
 
   cfg = config.security.sudo-rs;
 
-  enableSSHAgentAuth = with config.security; pam.enableSSHAgentAuth && pam.sudo.sshAgentAuth;
+  enableSSHAgentAuth =
+    with config.security; pam.enableSSHAgentAuth && pam.sudo.sshAgentAuth;
 
   usingMillersSudo = cfg.package.pname == sudo.pname;
   usingSudoRs = cfg.package.pname == sudo-rs.pname;
 
   toUserString = user: if (isInt user) then "#${toString user}" else "${user}";
-  toGroupString = group: if (isInt group) then "%#${toString group}" else "%${group}";
+  toGroupString =
+    group: if (isInt group) then "%#${toString group}" else "%${group}";
 
   toCommandOptionsString =
-    options: "${concatStringsSep ":" options}${optionalString (length options != 0) ":"} ";
+    options:
+    "${concatStringsSep ":" options}${optionalString (length options != 0) ":"} ";
 
   toCommandsString =
     commands:
@@ -289,11 +292,22 @@ in
                 (
                   rule:
                   optionals (length rule.commands != 0) [
-                    (map (user: "${toUserString user}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}")
+                    (map
+                      (
+                        user:
+                        "${toUserString user}	${rule.host}=(${rule.runAs})	${
+                          toCommandsString rule.commands
+                        }"
+                      )
                       rule.users
                     )
                     (map
-                      (group: "${toGroupString group}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}")
+                      (
+                        group:
+                        "${toGroupString group}	${rule.host}=(${rule.runAs})	${
+                          toCommandsString rule.commands
+                        }"
+                      )
                       rule.groups
                     )
                   ]
@@ -357,7 +371,9 @@ in
             src = pkgs.writeText "sudoers-in" cfg.configFile;
             preferLocalBuild = true;
           }
-          "${pkgs.buildPackages."${cfg.package.pname}"}/bin/visudo -f $src -c && cp $src $out";
+          "${
+            pkgs.buildPackages."${cfg.package.pname}"
+          }/bin/visudo -f $src -c && cp $src $out";
       mode = "0440";
     };
   };

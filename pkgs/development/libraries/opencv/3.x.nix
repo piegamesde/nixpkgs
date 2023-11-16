@@ -123,7 +123,8 @@ let
       else if stdenv.hostPlatform.system == "x86_64-darwin" then
         { ${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2"; }
       else
-        throw "ICV is not available for this platform (or not yet supported by this package)";
+        throw
+          "ICV is not available for this platform (or not yet supported by this package)";
     dst = ".cache/ippicv";
   };
 
@@ -303,7 +304,9 @@ stdenv.mkDerivation {
     unzip
   ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString enableEXR "-I${ilmbase.dev}/include/OpenEXR";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString enableEXR
+      "-I${ilmbase.dev}/include/OpenEXR";
 
   # Configure can't find the library without this.
   OpenBLAS_HOME = lib.optionalString enableOpenblas openblas;
@@ -383,7 +386,9 @@ stdenv.mkDerivation {
 
   passthru = lib.optionalAttrs enablePython { pythonPath = [ ]; } // {
     tests = lib.optionalAttrs enableCuda {
-      no-libstdcxx-errors = callPackage ./libstdcxx-test.nix { attrName = "opencv3"; };
+      no-libstdcxx-errors = callPackage ./libstdcxx-test.nix {
+        attrName = "opencv3";
+      };
     };
   };
 

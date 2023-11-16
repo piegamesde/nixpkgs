@@ -23,7 +23,9 @@ symlinkJoin {
       } $out/lib/pidgin" \
       ${toString extraArgs}
     wrapProgram $out/bin/finch \
-      --suffix-each PURPLE_PLUGIN_PATH ':' "$out/lib/purple-${lib.versions.major pidgin.version}" \
+      --suffix-each PURPLE_PLUGIN_PATH ':' "$out/lib/purple-${
+        lib.versions.major pidgin.version
+      }" \
       ${toString extraArgs}
   '';
 }

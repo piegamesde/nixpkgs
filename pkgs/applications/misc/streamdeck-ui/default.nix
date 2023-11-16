@@ -62,7 +62,9 @@ python3Packages.buildPythonApplication rec {
         --replace '<path to streamdeck>' $out/bin/streamdeck
 
       mkdir -p "$out/etc/udev/rules.d"
-      cp ${writeText "70-streamdeck.rules" udevRules} $out/etc/udev/rules.d/70-streamdeck.rules
+      cp ${
+        writeText "70-streamdeck.rules" udevRules
+      } $out/etc/udev/rules.d/70-streamdeck.rules
 
       mkdir -p "$out/share/pixmaps"
       cp streamdeck_ui/logo.png $out/share/pixmaps/streamdeck-ui.png

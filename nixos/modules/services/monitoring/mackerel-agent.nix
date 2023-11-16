@@ -76,7 +76,9 @@ in
           };
         };
 
-        options.diagnostic = mkEnableOption (lib.mdDoc "collecting memory usage for the agent itself");
+        options.diagnostic = mkEnableOption (
+          lib.mdDoc "collecting memory usage for the agent itself"
+        );
       };
     };
   };
@@ -118,12 +120,16 @@ in
         RuntimeDirectory = "mackerel-agent";
         StateDirectory = "mackerel-agent";
         ExecStart = "${pkgs.mackerel-agent}/bin/mackerel-agent supervise";
-        ExecStopPost = mkIf cfg.autoRetirement "${pkg.mackerel-agent}/bin/mackerel-agent retire -force";
+        ExecStopPost =
+          mkIf cfg.autoRetirement
+            "${pkg.mackerel-agent}/bin/mackerel-agent retire -force";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         LimitNOFILE = mkDefault 65536;
         LimitNPROC = mkDefault 65536;
       };
-      restartTriggers = [ config.environment.etc."mackerel-agent/mackerel-agent.conf".source ];
+      restartTriggers = [
+        config.environment.etc."mackerel-agent/mackerel-agent.conf".source
+      ];
     };
   };
 }

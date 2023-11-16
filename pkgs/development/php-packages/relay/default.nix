@@ -69,8 +69,9 @@ stdenv.mkDerivation (
         + variation.platform
         + ".tar.gz";
       sha256 =
-        variation.hashes.${phpVersion}
-          or (throw "Unsupported PHP version for relay ${phpVersion} on ${system}");
+        variation.hashes.${phpVersion} or (throw
+          "Unsupported PHP version for relay ${phpVersion} on ${system}"
+        );
     };
     nativeBuildInputs = lib.optionals (!stdenv.isDarwin) [ autoPatchelfHook ];
     buildInputs = lib.optionals (!stdenv.isDarwin) [

@@ -50,20 +50,23 @@ stdenv.mkDerivation rec {
     cargo
     python3
   ];
-  buildInputs = [
-    zlib
-    bzip2
-    libxml2
-    openssl
-    ncurses
-    curl
-    libiconv
-    libmilter
-    pcre2
-    libmspack
-    json_c
-    check
-  ] ++ lib.optional stdenv.isLinux systemd ++ lib.optional stdenv.isDarwin Foundation;
+  buildInputs =
+    [
+      zlib
+      bzip2
+      libxml2
+      openssl
+      ncurses
+      curl
+      libiconv
+      libmilter
+      pcre2
+      libmspack
+      json_c
+      check
+    ]
+    ++ lib.optional stdenv.isLinux systemd
+    ++ lib.optional stdenv.isDarwin Foundation;
 
   cmakeFlags = [
     "-DSYSTEMD_UNIT_DIR=${placeholder "out"}/lib/systemd"

@@ -11,7 +11,9 @@ in
 
 {
   options = {
-    services.xserver.windowManager.windowlab.enable = lib.mkEnableOption (lib.mdDoc "windowlab");
+    services.xserver.windowManager.windowlab.enable = lib.mkEnableOption (
+      lib.mdDoc "windowlab"
+    );
   };
 
   config = lib.mkIf cfg.enable {

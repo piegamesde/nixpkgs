@@ -159,7 +159,9 @@ in
     };
 
   cairo = attrs: {
-    nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    nativeBuildInputs = [
+      pkg-config
+    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs = [
       gtk2
       pcre2
@@ -169,7 +171,9 @@ in
   };
 
   cairo-gobject = attrs: {
-    nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    nativeBuildInputs = [
+      pkg-config
+    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs = [
       cairo
       pcre2
@@ -191,17 +195,25 @@ in
     buildInputs = [ protobuf ];
   };
 
-  cocoapods-acknowledgements = attrs: { dependencies = attrs.dependencies ++ [ "cocoapods" ]; };
+  cocoapods-acknowledgements = attrs: {
+    dependencies = attrs.dependencies ++ [ "cocoapods" ];
+  };
 
   cocoapods-deploy = attrs: { dependencies = [ "cocoapods" ]; };
 
-  cocoapods-disable-podfile-validations = attrs: { dependencies = [ "cocoapods" ]; };
+  cocoapods-disable-podfile-validations = attrs: {
+    dependencies = [ "cocoapods" ];
+  };
 
-  cocoapods-generate = attrs: { dependencies = attrs.dependencies ++ [ "cocoapods" ]; };
+  cocoapods-generate = attrs: {
+    dependencies = attrs.dependencies ++ [ "cocoapods" ];
+  };
 
   cocoapods-git_url_rewriter = attrs: { dependencies = [ "cocoapods" ]; };
 
-  cocoapods-keys = attrs: { dependencies = attrs.dependencies ++ [ "cocoapods" ]; };
+  cocoapods-keys = attrs: {
+    dependencies = attrs.dependencies ++ [ "cocoapods" ];
+  };
 
   cocoapods-open = attrs: { dependencies = [ "cocoapods" ]; };
 
@@ -405,7 +417,9 @@ in
   };
 
   glib2 = attrs: {
-    nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    nativeBuildInputs = [
+      pkg-config
+    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs = [
       gtk2
       pcre2
@@ -474,7 +488,10 @@ in
       [ pkg-config ]
       ++ lib.optional stdenv.isDarwin cctools
       ++
-        lib.optional (lib.versionAtLeast attrs.version "1.53.0" && stdenv.isDarwin && stdenv.isAarch64)
+        lib.optional
+          (
+            lib.versionAtLeast attrs.version "1.53.0" && stdenv.isDarwin && stdenv.isAarch64
+          )
           autoSignDarwinBinariesHook;
     buildInputs = [ openssl ];
     hardeningDisable = [ "format" ];
@@ -494,19 +511,25 @@ in
         substituteInPlace Makefile \
           --replace '-Wno-invalid-source-encoding' ""
       ''
-      + lib.optionalString (lib.versionOlder attrs.version "1.53.0" && stdenv.isDarwin) ''
-        # For < v1.48.0
-        substituteInPlace src/ruby/ext/grpc/extconf.rb \
-          --replace "ENV['AR'] = 'libtool -o' if RUBY_PLATFORM =~ /darwin/" ""
-        # For >= v1.48.0
-        substituteInPlace src/ruby/ext/grpc/extconf.rb \
-          --replace 'apple_toolchain = ' 'apple_toolchain = false && '
-      '';
+      +
+        lib.optionalString (lib.versionOlder attrs.version "1.53.0" && stdenv.isDarwin)
+          ''
+            # For < v1.48.0
+            substituteInPlace src/ruby/ext/grpc/extconf.rb \
+              --replace "ENV['AR'] = 'libtool -o' if RUBY_PLATFORM =~ /darwin/" ""
+            # For >= v1.48.0
+            substituteInPlace src/ruby/ext/grpc/extconf.rb \
+              --replace 'apple_toolchain = ' 'apple_toolchain = false && '
+          '';
   };
 
-  hitimes = attrs: { buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ]; };
+  hitimes = attrs: {
+    buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
+  };
 
-  iconv = attrs: { buildFlags = lib.optional stdenv.isDarwin "--with-iconv-dir=${libiconv}"; };
+  iconv = attrs: {
+    buildFlags = lib.optional stdenv.isDarwin "--with-iconv-dir=${libiconv}";
+  };
 
   idn-ruby = attrs: { buildInputs = [ libidn ]; };
 
@@ -681,7 +704,9 @@ in
 
   openssl = attrs: {
     # https://github.com/ruby/openssl/issues/369
-    buildInputs = [ (if (lib.versionAtLeast attrs.version "3.0.0") then openssl else openssl_1_1) ];
+    buildInputs = [
+      (if (lib.versionAtLeast attrs.version "3.0.0") then openssl else openssl_1_1)
+    ];
   };
 
   opus-ruby = attrs: {

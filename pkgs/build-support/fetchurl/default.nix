@@ -187,7 +187,10 @@ let
         outputHash = "";
       }
     else
-      throw "fetchurl requires a hash for fixed-output derivation: ${lib.concatStringsSep ", " urls_}";
+      throw
+        "fetchurl requires a hash for fixed-output derivation: ${
+          lib.concatStringsSep ", " urls_
+        }";
 in
 
 assert (lib.isList curlOpts)
@@ -200,7 +203,9 @@ assert (lib.isList curlOpts)
         - If you wish to get the same effect as before, for elements with spaces (even if escaped) to expand to multiple curl arguments, use a string argument instead:
           curlOpts = ${lib.strings.escapeNixString (toString curlOpts)};
         - If you wish for each list element to be passed as a separate curl argument, allowing arguments to contain spaces, use curlOptsList instead:
-          curlOptsList = [ ${lib.concatMapStringsSep " " lib.strings.escapeNixString curlOpts} ];''
+          curlOptsList = [ ${
+            lib.concatMapStringsSep " " lib.strings.escapeNixString curlOpts
+          } ];''
       true;
 
 stdenvNoCC.mkDerivation (

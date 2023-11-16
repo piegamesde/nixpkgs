@@ -19,7 +19,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-gMX8hvt20V4XUd0nnXGA4fyOUfB7ZY1eeme9HgYopL0=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.Foundation
+  ];
 
   meta = with lib; {
     description = "Ranger-like terminal file manager written in Rust";

@@ -21,7 +21,9 @@ let
       executable = isJar;
       inherit url hash;
     };
-  files = builtins.mapAttrs (key: value: fetchPluginSrc key value) pluginsJson.files;
+  files =
+    builtins.mapAttrs (key: value: fetchPluginSrc key value)
+      pluginsJson.files;
   ids = builtins.attrNames pluginsJson.plugins;
 
   mkPlugin =
@@ -114,7 +116,11 @@ rec {
       buildPhase =
         let
           pluginCmdsLines =
-            map (plugin: ''ln -s ${plugin} "$out"/${meta.mainProgram}/plugins/${baseNameOf plugin}'')
+            map
+              (
+                plugin:
+                ''ln -s ${plugin} "$out"/${meta.mainProgram}/plugins/${baseNameOf plugin}''
+              )
               plugins;
           pluginCmds = builtins.concatStringsSep "\n" pluginCmdsLines;
         in

@@ -8,7 +8,9 @@
 }:
 
 let
-  composer = callPackage ./composer-phar.nix { inherit (php.packages.composer) version pharHash; };
+  composer = callPackage ./composer-phar.nix {
+    inherit (php.packages.composer) version pharHash;
+  };
 
   composerKeys = stdenvNoCC.mkDerivation (
     finalComposerKeysAttrs: {

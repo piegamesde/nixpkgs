@@ -14,7 +14,8 @@
   libgcrypt,
   gobject-introspection,
   buildPackages,
-  withIntrospection ? lib.meta.availableOn stdenv.hostPlatform gobject-introspection
+  withIntrospection ?
+    lib.meta.availableOn stdenv.hostPlatform gobject-introspection
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
   vala,
   gi-docgen,

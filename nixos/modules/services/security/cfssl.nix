@@ -53,7 +53,9 @@ in
     caKey = mkOption {
       defaultText = literalExpression ''"file:''${cfg.dataDir}/ca-key.pem"'';
       type = types.str;
-      description = lib.mdDoc "CA private key -- accepts '[file:]fname' or 'env:varname'.";
+      description =
+        lib.mdDoc
+          "CA private key -- accepts '[file:]fname' or 'env:varname'.";
     };
 
     caBundle = mkOption {
@@ -108,13 +110,17 @@ in
     responderKey = mkOption {
       default = null;
       type = types.nullOr types.str;
-      description = lib.mdDoc "Private key for OCSP responder certificate. Do not put this in nix-store.";
+      description =
+        lib.mdDoc
+          "Private key for OCSP responder certificate. Do not put this in nix-store.";
     };
 
     tlsKey = mkOption {
       default = null;
       type = types.nullOr types.str;
-      description = lib.mdDoc "Other endpoint's CA private key. Do not put this in nix-store.";
+      description =
+        lib.mdDoc
+          "Other endpoint's CA private key. Do not put this in nix-store.";
     };
 
     tlsCert = mkOption {
@@ -132,7 +138,9 @@ in
     mutualTlsCn = mkOption {
       default = null;
       type = types.nullOr types.str;
-      description = lib.mdDoc "Mutual TLS - regex for whitelist of allowed client CNs.";
+      description =
+        lib.mdDoc
+          "Mutual TLS - regex for whitelist of allowed client CNs.";
     };
 
     tlsRemoteCa = mkOption {
@@ -160,7 +168,9 @@ in
     dbConfig = mkOption {
       default = null;
       type = types.nullOr types.path;
-      description = lib.mdDoc "Certificate db configuration file. Path must be writeable.";
+      description =
+        lib.mdDoc
+          "Certificate db configuration file. Path must be writeable.";
     };
 
     logLevel = mkOption {

@@ -30,7 +30,9 @@ in
     host = mkOption {
       type = types.str;
       description = mdDoc "External host name";
-      defaultText = lib.literalExpression "config.networking.domain or config.networking.hostName";
+      defaultText =
+        lib.literalExpression
+          "config.networking.domain or config.networking.hostName";
       default = if domain == null then config.networking.hostName else domain;
     };
 
@@ -43,7 +45,9 @@ in
     openFirewall = mkOption {
       type = types.bool;
       default = false;
-      description = mdDoc "Whether to automatically open the specified ports in the firewall.";
+      description =
+        mdDoc
+          "Whether to automatically open the specified ports in the firewall.";
     };
 
     advertisedPort = mkOption {
@@ -53,7 +57,9 @@ in
 
     keysDir = mkOption {
       type = with types; nullOr str;
-      description = mdDoc "Directory containing ssh keys, defaulting to auto-generation";
+      description =
+        mdDoc
+          "Directory containing ssh keys, defaulting to auto-generation";
       default = null;
     };
   };
@@ -97,9 +103,9 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/tmate-ssh-server -h ${cfg.host} -p ${toString cfg.port} -q ${
-            toString cfg.advertisedPort
-          } -k ${keysDir}";
+        ExecStart = "${cfg.package}/bin/tmate-ssh-server -h ${cfg.host} -p ${
+            toString cfg.port
+          } -q ${toString cfg.advertisedPort} -k ${keysDir}";
       };
       preStart = mkIf (cfg.keysDir == null) ''
         if [[ ! -d ${defaultKeysDir} ]]

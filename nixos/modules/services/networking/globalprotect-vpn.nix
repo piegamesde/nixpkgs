@@ -41,7 +41,9 @@ in
         as described at <https://www.infradead.org/openconnect/hip.html>
       '';
       default = null;
-      example = literalExpression ''"''${pkgs.openconnect}/libexec/openconnect/hipreport.sh"'';
+      example =
+        literalExpression
+          ''"''${pkgs.openconnect}/libexec/openconnect/hipreport.sh"'';
       type = types.nullOr types.path;
     };
   };
@@ -49,7 +51,9 @@ in
   config = mkIf cfg.enable {
     services.dbus.packages = [ pkgs.globalprotect-openconnect ];
 
-    environment.etc."gpservice/gp.conf".text = lib.generators.toINI { } cfg.settings;
+    environment.etc."gpservice/gp.conf".text =
+      lib.generators.toINI { }
+        cfg.settings;
 
     systemd.services.gpservice = {
       description = "GlobalProtect openconnect DBus service";

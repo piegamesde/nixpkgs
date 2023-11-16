@@ -97,7 +97,9 @@ stdenv.mkDerivation {
       "-DTHRUST_AUTO_DETECT_COMPUTE_ARCHS=OFF"
       "-DTHRUST_DISABLE_ARCH_BY_DEFAULT=ON"
     ]
-    ++ lib.optionals cudaFlags.enableForwardCompat [ "-DTHRUST_ENABLE_COMPUTE_FUTURE=ON" ]
+    ++ lib.optionals cudaFlags.enableForwardCompat [
+      "-DTHRUST_ENABLE_COMPUTE_FUTURE=ON"
+    ]
     ++ map (sm: "THRUST_ENABLE_COMPUTE_${sm}") cudaCapabilities;
 
   passthru = {

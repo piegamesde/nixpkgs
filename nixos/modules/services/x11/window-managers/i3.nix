@@ -68,13 +68,17 @@ in
         start = ''
           ${cfg.extraSessionCommands}
 
-          ${cfg.package}/bin/i3 ${optionalString (cfg.configFile != null) "-c /etc/i3/config"} &
+          ${cfg.package}/bin/i3 ${
+            optionalString (cfg.configFile != null) "-c /etc/i3/config"
+          } &
           waitPID=$!
         '';
       }
     ];
     environment.systemPackages = [ cfg.package ] ++ cfg.extraPackages;
-    environment.etc."i3/config" = mkIf (cfg.configFile != null) { source = cfg.configFile; };
+    environment.etc."i3/config" = mkIf (cfg.configFile != null) {
+      source = cfg.configFile;
+    };
   };
 
   imports = [

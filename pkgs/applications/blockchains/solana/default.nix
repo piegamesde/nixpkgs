@@ -106,7 +106,9 @@ rustPlatform.buildRustPackage rec {
 
   # Require this on darwin otherwise the compiler starts rambling about missing
   # cmath functions
-  CPPFLAGS = lib.optionals stdenv.isDarwin "-isystem ${lib.getDev libcxx}/include/c++/v1";
+  CPPFLAGS =
+    lib.optionals stdenv.isDarwin
+      "-isystem ${lib.getDev libcxx}/include/c++/v1";
   LDFLAGS = lib.optionals stdenv.isDarwin "-L${lib.getLib libcxx}/lib";
 
   # If set, always finds OpenSSL in the system, even if the vendored feature is enabled.

@@ -40,7 +40,8 @@ let
     then
       let
         formatLinks = lib.catAttrs "name" (
-          lib.filter (f: f.name != f.engine && !lib.hasSuffix "-nowin" f.engine) attrs.formats
+          lib.filter (f: f.name != f.engine && !lib.hasSuffix "-nowin" f.engine)
+            attrs.formats
         );
         binNotFormats = lib.subtractLists formatLinks attrs.binfiles;
       in
@@ -94,7 +95,9 @@ lib.recursiveUpdate orig rec {
       ]
     ))
   ];
-  ctanify.extraBuildInputs = [ (perl.withPackages (ps: with ps; [ FileCopyRecursive ])) ];
+  ctanify.extraBuildInputs = [
+    (perl.withPackages (ps: with ps; [ FileCopyRecursive ]))
+  ];
   ctanupload.extraBuildInputs = [
     (perl.withPackages (
       ps:
@@ -104,8 +107,12 @@ lib.recursiveUpdate orig rec {
       ]
     ))
   ];
-  exceltex.extraBuildInputs = [ (perl.withPackages (ps: with ps; [ SpreadsheetParseExcel ])) ];
-  latex-git-log.extraBuildInputs = [ (perl.withPackages (ps: with ps; [ IPCSystemSimple ])) ];
+  exceltex.extraBuildInputs = [
+    (perl.withPackages (ps: with ps; [ SpreadsheetParseExcel ]))
+  ];
+  latex-git-log.extraBuildInputs = [
+    (perl.withPackages (ps: with ps; [ IPCSystemSimple ]))
+  ];
   latexindent.extraBuildInputs = [
     (perl.withPackages (
       ps:
@@ -120,13 +127,19 @@ lib.recursiveUpdate orig rec {
   ];
   pax.extraBuildInputs = [ (perl.withPackages (ps: with ps; [ FileWhich ])) ];
   ptex-fontmaps.extraBuildInputs = [ (perl.withPackages (ps: with ps; [ Tk ])) ];
-  purifyeps.extraBuildInputs = [ (perl.withPackages (ps: with ps; [ FileWhich ])) ];
-  svn-multi.extraBuildInputs = [ (perl.withPackages (ps: with ps; [ TimeDate ])) ];
+  purifyeps.extraBuildInputs = [
+    (perl.withPackages (ps: with ps; [ FileWhich ]))
+  ];
+  svn-multi.extraBuildInputs = [
+    (perl.withPackages (ps: with ps; [ TimeDate ]))
+  ];
   texdoctk.extraBuildInputs = [ (perl.withPackages (ps: with ps; [ Tk ])) ];
   ulqda.extraBuildInputs = [ (perl.withPackages (ps: with ps; [ DigestSHA1 ])) ];
 
   #### python packages
-  pythontex.extraBuildInputs = [ (python3.withPackages (ps: with ps; [ pygments ])) ];
+  pythontex.extraBuildInputs = [
+    (python3.withPackages (ps: with ps; [ pygments ]))
+  ];
 
   #### other runtime PATH dependencies
   a2ping.extraBuildInputs = [ ghostscript_headless ];
@@ -290,7 +303,9 @@ lib.recursiveUpdate orig rec {
     sed -i '2iPATH="${
       lib.makeBinPath [ coreutils ]
     }''${PATH:+:$PATH}"' "$out"/bin/{contextjit,mtxrunjit}
-    sed -i '2iPATH="${lib.makeBinPath [ ruby ]}''${PATH:+:$PATH}"' "$out"/bin/texexec
+    sed -i '2iPATH="${
+      lib.makeBinPath [ ruby ]
+    }''${PATH:+:$PATH}"' "$out"/bin/texexec
   '';
 
   cyrillic-bin.postFixup = ''
@@ -300,11 +315,15 @@ lib.recursiveUpdate orig rec {
   '';
 
   dtxgen.postFixup = ''
-    sed -i '2iPATH="${lib.makeBinPath dtxgen.extraBuildInputs}''${PATH:+:$PATH}"' "$out"/bin/dtxgen
+    sed -i '2iPATH="${
+      lib.makeBinPath dtxgen.extraBuildInputs
+    }''${PATH:+:$PATH}"' "$out"/bin/dtxgen
   '';
 
   dviljk.postFixup = ''
-    sed -i '2iPATH="${lib.makeBinPath dviljk.extraBuildInputs}''${PATH:+:$PATH}"' "$out"/bin/dvihp
+    sed -i '2iPATH="${
+      lib.makeBinPath dviljk.extraBuildInputs
+    }''${PATH:+:$PATH}"' "$out"/bin/dvihp
   '';
 
   epstopdf.postFixup = ''
@@ -356,12 +375,18 @@ lib.recursiveUpdate orig rec {
   '';
 
   makeindex.postFixup = ''
-    sed -i '2iPATH="${lib.makeBinPath makeindex.extraBuildInputs}''${PATH:+:$PATH}"' "$out"/bin/mkindex
+    sed -i '2iPATH="${
+      lib.makeBinPath makeindex.extraBuildInputs
+    }''${PATH:+:$PATH}"' "$out"/bin/mkindex
   '';
 
   pagelayout.postFixup = ''
-    sed -i '2iPATH="${lib.makeBinPath [ gnused ]}''${PATH:+:$PATH}"' "$out"/bin/pagelayoutapi
-    sed -i '2iPATH="${lib.makeBinPath [ ncurses ]}''${PATH:+:$PATH}"' "$out"/bin/textestvis
+    sed -i '2iPATH="${
+      lib.makeBinPath [ gnused ]
+    }''${PATH:+:$PATH}"' "$out"/bin/pagelayoutapi
+    sed -i '2iPATH="${
+      lib.makeBinPath [ ncurses ]
+    }''${PATH:+:$PATH}"' "$out"/bin/textestvis
   '';
 
   pdfcrop.postFixup = ''
@@ -390,7 +415,9 @@ lib.recursiveUpdate orig rec {
   '';
 
   pdfxup.postFixup = ''
-    sed -i '2iPATH="${lib.makeBinPath pdfxup.extraBuildInputs}''${PATH:+:$PATH}"' "$out"/bin/pdfxup
+    sed -i '2iPATH="${
+      lib.makeBinPath pdfxup.extraBuildInputs
+    }''${PATH:+:$PATH}"' "$out"/bin/pdfxup
   '';
 
   pkfix-helper.postFixup = ''
@@ -449,7 +476,9 @@ lib.recursiveUpdate orig rec {
 
   # TODO patch in bin.xdvi
   xdvi.postFixup = ''
-    sed -i '2iPATH="${lib.makeBinPath xdvi.extraBuildInputs}''${PATH:+:$PATH}"' "$out"/bin/xdvi
+    sed -i '2iPATH="${
+      lib.makeBinPath xdvi.extraBuildInputs
+    }''${PATH:+:$PATH}"' "$out"/bin/xdvi
   '';
 
   xindy.postFixup = ''
@@ -520,7 +549,9 @@ lib.recursiveUpdate orig rec {
       --replace '[dict get $::pkgs texlive.infra localrev]' '${
         toString orig."texlive.infra".revision
       }' \
-      --replace '[dict get $::pkgs tlshell localrev]' '${toString orig.tlshell.revision}'
+      --replace '[dict get $::pkgs tlshell localrev]' '${
+        toString orig.tlshell.revision
+      }'
   '';
   #### dependency changes
 
@@ -545,7 +576,10 @@ lib.recursiveUpdate orig rec {
   # RISC-V: https://github.com/LuaJIT/LuaJIT/issues/628
   luajittex.binfiles =
     lib.optionals
-      (!(stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit) && !stdenv.hostPlatform.isRiscV)
+      (
+        !(stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit)
+        && !stdenv.hostPlatform.isRiscV
+      )
       orig.luajittex.binfiles;
 
   # tlpdb lists license as "unknown", but the README says lppl13: http://mirrors.ctan.org/language/arabic/arabi-add/README
@@ -596,9 +630,10 @@ lib.recursiveUpdate orig rec {
     extraVersion = "-tlpdb-${toString tlpdbVersion.revision}";
 
     # add license of tlmgr and TeXLive::* perl packages and of bin.core
-    license = [
-      "gpl2Plus"
-    ] ++ lib.toList bin.core.meta.license.shortName ++ orig."texlive.infra".license or [ ];
+    license =
+      [ "gpl2Plus" ]
+      ++ lib.toList bin.core.meta.license.shortName
+      ++ orig."texlive.infra".license or [ ];
 
     scriptsFolder = "texlive";
     extraBuildInputs = [

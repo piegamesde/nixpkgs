@@ -202,7 +202,8 @@ in
               + " currently not supported.";
           }
           {
-            assertion = cfg.serviceConfig ? ProtectSystem -> cfg.serviceConfig.ProtectSystem == false;
+            assertion =
+              cfg.serviceConfig ? ProtectSystem -> cfg.serviceConfig.ProtectSystem == false;
             message =
               "${whatOpt "ProtectSystem"}. ProtectSystem is not compatible"
               + " with service confinement as it fails to remount /usr within"

@@ -196,7 +196,9 @@ in
       extraConfig = mkOption {
         type = types.str;
         default = "";
-        description = lib.mdDoc "Configuration lines appended to the generated Gogs configuration file.";
+        description =
+          lib.mdDoc
+            "Configuration lines appended to the generated Gogs configuration file.";
       };
     };
   };

@@ -20,14 +20,16 @@ let
     url = "http://www.uclibc.org/downloads/${localeSrcBase}";
     sha256 = "xDYr4xijjxjZjcz0YtItlbq5LwVUi7k/ZSmP6a+uvVc=";
   };
-  resolvedExtraKleeuClibcConfig = lib.mapAttrsToList (name: value: "${name}=${value}") (
-    extraKleeuClibcConfig
-    // {
-      "UCLIBC_DOWNLOAD_PREGENERATED_LOCALE_DATA" = "n";
-      "RUNTIME_PREFIX" = "/";
-      "DEVEL_PREFIX" = "/";
-    }
-  );
+  resolvedExtraKleeuClibcConfig =
+    lib.mapAttrsToList (name: value: "${name}=${value}")
+      (
+        extraKleeuClibcConfig
+        // {
+          "UCLIBC_DOWNLOAD_PREGENERATED_LOCALE_DATA" = "n";
+          "RUNTIME_PREFIX" = "/";
+          "DEVEL_PREFIX" = "/";
+        }
+      );
 in
 stdenv.mkDerivation rec {
   pname = "klee-uclibc";

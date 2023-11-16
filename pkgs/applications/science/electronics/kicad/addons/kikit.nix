@@ -13,7 +13,9 @@ let
   # environment that will ultimately run the code packaged here. The python env defined
   # in KiCad will import the python code packaged here when KiCad starts up.
   python = python3.withPackages (ps: with ps; [ click ]);
-  kikit-module = python3.pkgs.toPythonModule (kikit.override { inherit python3; });
+  kikit-module = python3.pkgs.toPythonModule (
+    kikit.override { inherit python3; }
+  );
 
   # The following different addons can be built from the same source.
   targetSpecs = {

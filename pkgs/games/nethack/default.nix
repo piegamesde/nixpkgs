@@ -192,7 +192,8 @@ stdenv.mkDerivation rec {
     ${lib.optionalString x11Mode "mv $out/bin/nethack $out/bin/nethack-x11"}
     ${lib.optionalString qtMode "mv $out/bin/nethack $out/bin/nethack-qt"}
     install -Dm 555 util/{makedefs,dgn_comp,lev_comp} -t $out/libexec/nethack/
-    ${lib.optionalString (!(x11Mode || qtMode)) "install -Dm 555 util/dlb -t $out/libexec/nethack/"}
+    ${lib.optionalString (!(x11Mode || qtMode))
+      "install -Dm 555 util/dlb -t $out/libexec/nethack/"}
   '';
 
   meta = with lib; {

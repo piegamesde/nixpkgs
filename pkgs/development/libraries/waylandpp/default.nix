@@ -33,7 +33,9 @@ stdenv.mkDerivation rec {
     ];
 
   # Complains about not being able to find the fontconfig config file otherwise
-  FONTCONFIG_FILE = lib.optional docSupport (makeFontsConf { fontDirectories = [ ]; });
+  FONTCONFIG_FILE = lib.optional docSupport (
+    makeFontsConf { fontDirectories = [ ]; }
+  );
 
   nativeBuildInputs =
     [

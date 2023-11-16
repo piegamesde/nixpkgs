@@ -31,7 +31,8 @@ in
 
     services.xserver.displayManager.sessionPackages = [ pkgs.lumina.lumina ];
 
-    environment.systemPackages = pkgs.lumina.preRequisitePackages ++ pkgs.lumina.corePackages;
+    environment.systemPackages =
+      pkgs.lumina.preRequisitePackages ++ pkgs.lumina.corePackages;
 
     # Link some extra directories in /run/current-system/software/share
     environment.pathsToLink = [

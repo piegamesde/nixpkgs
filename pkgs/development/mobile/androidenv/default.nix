@@ -12,7 +12,9 @@ rec {
 
   buildApp = pkgs.callPackage ./build-app.nix { inherit composeAndroidPackages; };
 
-  emulateApp = pkgs.callPackage ./emulate-app.nix { inherit composeAndroidPackages; };
+  emulateApp = pkgs.callPackage ./emulate-app.nix {
+    inherit composeAndroidPackages;
+  };
 
   androidPkgs_9_0 = composeAndroidPackages {
     platformVersions = [ "28" ];

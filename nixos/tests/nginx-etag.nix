@@ -46,7 +46,8 @@ import ./make-test-python.nix {
         environment.systemPackages =
           let
             testRunner =
-              pkgs.writers.writePython3Bin "test-runner" { libraries = [ pkgs.python3Packages.selenium ]; }
+              pkgs.writers.writePython3Bin "test-runner"
+                { libraries = [ pkgs.python3Packages.selenium ]; }
                 ''
                   import os
                   import time

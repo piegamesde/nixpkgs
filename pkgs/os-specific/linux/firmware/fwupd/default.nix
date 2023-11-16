@@ -106,7 +106,9 @@ let
         hash = "sha256-d4qG3fKyxkfN91AplRYqARFz+aRr+R37BpE450bPxi0=";
         passthru = {
           inherit src version; # For update script
-          updateScript = unstableGitUpdater { url = "${test-firmware.meta.homepage}.git"; };
+          updateScript = unstableGitUpdater {
+            url = "${test-firmware.meta.homepage}.git";
+          };
         };
       };
     in
@@ -384,7 +386,9 @@ stdenv.mkDerivation (
             config = configparser.RawConfigParser()
             config.read('${finalAttrs.finalPackage}/etc/fwupd/fwupd.conf')
             package_disabled_plugins = config.get('fwupd', 'DisabledPlugins').rstrip(';').split(';')
-            passthru_disabled_plugins = ${listToPy finalAttrs.passthru.defaultDisabledPlugins}
+            passthru_disabled_plugins = ${
+              listToPy finalAttrs.passthru.defaultDisabledPlugins
+            }
             assert package_disabled_plugins == passthru_disabled_plugins, f'Default disabled plug-ins in the package {package_disabled_plugins} do not match those listed in passthru.defaultDisabledPlugins {passthru_disabled_plugins}'
 
             pathlib.Path(os.getenv('out')).touch()

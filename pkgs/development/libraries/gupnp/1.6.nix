@@ -26,7 +26,9 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gupnp/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gupnp/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     hash = "sha256-Q33/lwFC6EBwh6iYVfcX4g0nydduBbTNUX32IcfYiM0=";
   };
 

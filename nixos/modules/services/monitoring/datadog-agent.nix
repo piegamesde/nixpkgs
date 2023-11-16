@@ -127,7 +127,9 @@ in
     };
 
     hostname = mkOption {
-      description = lib.mdDoc "The hostname to show in the Datadog dashboard (optional)";
+      description =
+        lib.mdDoc
+          "The hostname to show in the Datadog dashboard (optional)";
       default = null;
       example = "mymachine.mydomain";
       type = types.nullOr types.str;

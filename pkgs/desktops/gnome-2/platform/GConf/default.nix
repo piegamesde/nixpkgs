@@ -17,7 +17,9 @@ stdenv.mkDerivation rec {
   version = "3.2.6";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/GConf/${lib.versions.majorMinor version}/GConf-${version}.tar.xz";
+    url = "mirror://gnome/sources/GConf/${
+        lib.versions.majorMinor version
+      }/GConf-${version}.tar.xz";
     sha256 = "0k3q9nh53yhc9qxf1zaicz4sk8p3kzq4ndjdsgpaa2db0ccbj4hr";
   };
 

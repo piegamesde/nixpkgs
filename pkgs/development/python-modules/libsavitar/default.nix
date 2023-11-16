@@ -21,7 +21,9 @@ buildPythonPackage rec {
   };
 
   postPatch = ''
-    sed -i 's#''${Python3_SITEARCH}#${placeholder "out"}/${python.sitePackages}#' cmake/SIPMacros.cmake
+    sed -i 's#''${Python3_SITEARCH}#${
+      placeholder "out"
+    }/${python.sitePackages}#' cmake/SIPMacros.cmake
   '';
 
   nativeBuildInputs = [ cmake ];

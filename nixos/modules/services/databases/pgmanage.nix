@@ -40,7 +40,9 @@ let
 
   pgmanageConnectionsFile = pkgs.writeTextFile {
     name = "pgmanage-connections.conf";
-    text = concatStringsSep "\n" (mapAttrsToList (name: conn: "${name}: ${conn}") cfg.connections);
+    text = concatStringsSep "\n" (
+      mapAttrsToList (name: conn: "${name}: ${conn}") cfg.connections
+    );
   };
 
   pgmanage = "pgmanage";
@@ -199,7 +201,8 @@ in
         User = pgmanage;
         Group = pgmanage;
         ExecStart =
-          "${cfg.package}/sbin/pgmanage -c ${confFile}" + optionalString cfg.localOnly " --local-only=true";
+          "${cfg.package}/sbin/pgmanage -c ${confFile}"
+          + optionalString cfg.localOnly " --local-only=true";
       };
     };
     users = {

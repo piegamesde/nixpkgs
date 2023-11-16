@@ -13,24 +13,28 @@ let
     hash = "sha256-L1uH5bnJ66QxAXs7yywG4H/FaunwTX1l+tVtRe2nxdc=";
   };
 
-  appimageContents = (appimageTools.extract { inherit pname version src; }).overrideAttrs (
-    oA: {
-      buildCommand = ''
-        ${oA.buildCommand}
+  appimageContents =
+    (appimageTools.extract { inherit pname version src; }).overrideAttrs
+      (
+        oA: {
+          buildCommand = ''
+            ${oA.buildCommand}
 
-        # Get rid of the autoupdater
-        ${asar}/bin/asar extract $out/resources/app.asar app
-        sed -i 's/async isUpdateAvailable.*/async isUpdateAvailable(updateInfo) { return false;/g' app/node_modules/electron-updater/out/AppUpdater.js
-        ${asar}/bin/asar pack app $out/resources/app.asar
-      '';
-    }
-  );
+            # Get rid of the autoupdater
+            ${asar}/bin/asar extract $out/resources/app.asar app
+            sed -i 's/async isUpdateAvailable.*/async isUpdateAvailable(updateInfo) { return false;/g' app/node_modules/electron-updater/out/AppUpdater.js
+            ${asar}/bin/asar pack app $out/resources/app.asar
+          '';
+        }
+      );
 in
 appimageTools.wrapAppImage {
   inherit pname version;
   src = appimageContents;
 
-  extraPkgs = { pkgs, ... }@args: [ pkgs.hidapi ] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args;
+  extraPkgs =
+    { pkgs, ... }@args:
+    [ pkgs.hidapi ] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args;
 
   extraInstallCommands = ''
     # Add desktop convencience stuff

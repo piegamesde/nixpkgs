@@ -84,10 +84,13 @@ stdenv.mkDerivation rec {
     '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    nettle
-    libidn
-  ] ++ lib.optionals dbusSupport [ dbus ] ++ lib.optionals stdenv.isLinux [ libnetfilter_conntrack ];
+  buildInputs =
+    [
+      nettle
+      libidn
+    ]
+    ++ lib.optionals dbusSupport [ dbus ]
+    ++ lib.optionals stdenv.isLinux [ libnetfilter_conntrack ];
 
   passthru.tests = {
     prometheus-exporter = nixosTests.prometheus-exporters.dnsmasq;

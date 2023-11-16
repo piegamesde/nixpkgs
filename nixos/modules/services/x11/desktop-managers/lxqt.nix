@@ -30,7 +30,9 @@ in
       default = [ ];
       example = literalExpression "[ pkgs.lxqt.qterminal ]";
       type = types.listOf types.package;
-      description = lib.mdDoc "Which LXQt packages to exclude from the default environment";
+      description =
+        lib.mdDoc
+          "Which LXQt packages to exclude from the default environment";
     };
   };
 
@@ -59,7 +61,9 @@ in
     environment.systemPackages =
       pkgs.lxqt.preRequisitePackages
       ++ pkgs.lxqt.corePackages
-      ++ (utils.removePackagesByName pkgs.lxqt.optionalPackages config.environment.lxqt.excludePackages);
+      ++ (utils.removePackagesByName pkgs.lxqt.optionalPackages
+        config.environment.lxqt.excludePackages
+      );
 
     # Link some extra directories in /run/current-system/software/share
     environment.pathsToLink = [ "/share" ];

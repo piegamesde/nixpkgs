@@ -194,7 +194,9 @@ rec {
       name' = if isList name then last name else name;
       default' = if isList default then default else [ default ];
       defaultText = concatStringsSep "." default';
-      defaultValue = attrByPath default' (throw "${defaultText} cannot be found in ${pkgsText}") pkgs;
+      defaultValue =
+        attrByPath default' (throw "${defaultText} cannot be found in ${pkgsText}")
+          pkgs;
       defaults =
         if default != null then
           {
@@ -208,12 +210,17 @@ rec {
       defaults
       // {
         description =
-          "The ${name'} package to use." + (if extraDescription == "" then "" else " ") + extraDescription;
+          "The ${name'} package to use."
+          + (if extraDescription == "" then "" else " ")
+          + extraDescription;
         type = with lib.types; (if nullable then nullOr else lib.id) package;
       }
       // optionalAttrs (example != null) {
         example = literalExpression (
-          if isList example then "${pkgsText}." + concatStringsSep "." example else example
+          if isList example then
+            "${pkgsText}." + concatStringsSep "." example
+          else
+            example
         );
       }
     );
@@ -242,7 +249,8 @@ rec {
           check = x: true;
           merge = loc: defs: false;
         };
-        apply = x: throw "Option value is not readable because the option is not declared.";
+        apply =
+          x: throw "Option value is not readable because the option is not declared.";
       }
       // attrs
     );
@@ -267,7 +275,10 @@ rec {
     else if all isInt list && all (x: x == head list) list then
       head list
     else
-      throw "Cannot merge definitions of `${showOption loc}'. Definition values:${showDefs defs}";
+      throw
+        "Cannot merge definitions of `${showOption loc}'. Definition values:${
+          showDefs defs
+        }";
 
   mergeOneOption = mergeUniqueOption { message = ""; };
 
@@ -279,7 +290,9 @@ rec {
     else
       assert length defs > 1;
       throw ''
-        The option `${showOption loc}' is defined multiple times while it's expected to be unique.
+        The option `${
+          showOption loc
+        }' is defined multiple times while it's expected to be unique.
         ${message}
         Definition values:${showDefs defs}
         ${prioritySuggestion}'';
@@ -352,14 +365,18 @@ rec {
               description = opt.description or null;
               declarations = filter (x: x != unknownModule) opt.declarations;
               internal = opt.internal or false;
-              visible = if (opt ? visible && opt.visible == "shallow") then true else opt.visible or true;
+              visible =
+                if (opt ? visible && opt.visible == "shallow") then
+                  true
+                else
+                  opt.visible or true;
               readOnly = opt.readOnly or false;
               type = opt.type.description or "unspecified";
             }
             // optionalAttrs (opt ? example) {
-              example = builtins.addErrorContext "while evaluating the example of option `${name}`" (
-                renderOptionValue opt.example
-              );
+              example =
+                builtins.addErrorContext "while evaluating the example of option `${name}`"
+                  (renderOptionValue opt.example);
             }
             // optionalAttrs (opt ? defaultText || opt ? default) {
               default =
@@ -497,7 +514,10 @@ rec {
             "<function body>" # functionTo
           ];
         in
-        if builtins.elem part specialIdentifiers then part else lib.strings.escapeNixIdentifier part;
+        if builtins.elem part specialIdentifiers then
+          part
+        else
+          lib.strings.escapeNixIdentifier part;
     in
     (concatStringsSep ".") (map escapeOptionPart parts);
   showFiles = files: concatStringsSep " and " (map (f: "`${f}'") files);
@@ -522,7 +542,9 @@ rec {
           # Split it into its lines
           lines = filter (v: !isList v) (builtins.split "\n" prettyEval.value);
           # Only display the first 5 lines, and indent them for better visibility
-          value = concatStringsSep "\n    " (take 5 lines ++ optional (length lines > 5) "...");
+          value = concatStringsSep "\n    " (
+            take 5 lines ++ optional (length lines > 5) "..."
+          );
           result =
             # Don't print any value if evaluating the value strictly fails
             if !prettyEval.success then

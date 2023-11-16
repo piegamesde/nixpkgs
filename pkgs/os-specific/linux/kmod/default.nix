@@ -83,7 +83,9 @@ stdenv.mkDerivation rec {
     (lib.enableFeature withDevdoc "gtk-doc")
   ] ++ lib.optional withStatic "--enable-static";
 
-  patches = [ ./module-dir.patch ] ++ lib.optional withStatic ./enable-static.patch;
+  patches = [
+    ./module-dir.patch
+  ] ++ lib.optional withStatic ./enable-static.patch;
 
   postInstall = ''
     for prog in rmmod insmod lsmod modinfo modprobe depmod; do

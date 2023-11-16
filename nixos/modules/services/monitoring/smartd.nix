@@ -58,7 +58,8 @@ let
   '';
 
   notifyOpts = optionalString (nm.enable || nw.enable || nx.enable) (
-    "-m <nomailer> -M exec ${smartdNotify} " + optionalString cfg.notifications.test "-M test "
+    "-m <nomailer> -M exec ${smartdNotify} "
+    + optionalString cfg.notifications.test "-M test "
   );
 
   smartdConf = pkgs.writeText "smartd.conf" ''
@@ -67,7 +68,8 @@ let
 
     ${concatMapStringsSep "\n" (d: "${d.device} ${d.options}") cfg.devices}
 
-    ${optionalString cfg.autodetect "DEVICESCAN ${notifyOpts}${cfg.defaults.autodetected}"}
+    ${optionalString cfg.autodetect
+      "DEVICESCAN ${notifyOpts}${cfg.defaults.autodetected}"}
   '';
 
   smartdDeviceOpts =
@@ -86,7 +88,9 @@ let
           default = "";
           example = "-d sat";
           type = types.separatedString " ";
-          description = lib.mdDoc "Options that determine how smartd monitors the device.";
+          description =
+            lib.mdDoc
+              "Options that determine how smartd monitors the device.";
         };
       };
     };
@@ -99,7 +103,9 @@ in
 
     services.smartd = {
 
-      enable = mkEnableOption (lib.mdDoc "smartd daemon from `smartmontools` package");
+      enable = mkEnableOption (
+        lib.mdDoc "smartd daemon from `smartmontools` package"
+      );
 
       autodetect = mkOption {
         default = true;
@@ -133,7 +139,9 @@ in
         mail = {
           enable = mkOption {
             default = config.services.mail.sendmailSetuidWrapper != null;
-            defaultText = literalExpression "config.services.mail.sendmailSetuidWrapper != null";
+            defaultText =
+              literalExpression
+                "config.services.mail.sendmailSetuidWrapper != null";
             type = types.bool;
             description = lib.mdDoc "Whenever to send e-mail notifications.";
           };
@@ -185,7 +193,9 @@ in
 
           display = mkOption {
             default = ":${toString config.services.xserver.display}";
-            defaultText = literalExpression ''":''${toString config.services.xserver.display}"'';
+            defaultText =
+              literalExpression
+                ''":''${toString config.services.xserver.display}"'';
             type = types.str;
             description = lib.mdDoc "DISPLAY to send X11 notifications to.";
           };

@@ -43,7 +43,9 @@ let
     ${lib.optionalString cfg.no-cli "no-cli"}
     cli-ip=${cfg.cli-ip}
     cli-port=${toString cfg.cli-port}
-    ${lib.optionalString (cfg.cli-password != null) ("cli-password=${cfg.cli-password}")}
+    ${lib.optionalString (cfg.cli-password != null) (
+      "cli-password=${cfg.cli-password}"
+    )}
     ${cfg.extraConfig}
   '';
 in
@@ -323,7 +325,8 @@ in
       {
         assertions = [
           {
-            assertion = cfg.static-auth-secret != null -> cfg.static-auth-secret-file == null;
+            assertion =
+              cfg.static-auth-secret != null -> cfg.static-auth-secret-file == null;
             message = "static-auth-secret and static-auth-secret-file cannot be set at the same time";
           }
         ];

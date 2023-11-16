@@ -270,14 +270,20 @@ in
               # The following attributes are optional depending on the type of
               # database.  Those that evaluate to null on the left hand side
               # will be omitted.
-              ${if cfg.database.name != null then "--db-base" else null} = ''"${cfg.database.name}"'';
+              ${if cfg.database.name != null then "--db-base" else null} = ''
+                "${cfg.database.name}"'';
               ${if cfg.database.passFile != null then "--db-password" else null} = ''
                 "$(cat ${cfg.database.passFile})"'';
-              ${if cfg.database.user != null then "--db-user" else null} = ''"${cfg.database.user}"'';
+              ${if cfg.database.user != null then "--db-user" else null} = ''
+                "${cfg.database.user}"'';
               ${if cfg.database.tableprefix != null then "--db-prefix" else null} = ''
                 "${cfg.database.tableprefix}"'';
-              ${if cfg.database.host != null && cfg.database.port != null then "--db-host" else null} = ''
-                "${cfg.database.host}:${toString cfg.database.port}"'';
+              ${
+                if cfg.database.host != null && cfg.database.port != null then
+                  "--db-host"
+                else
+                  null
+              } = ''"${cfg.database.host}:${toString cfg.database.port}"'';
             }
           );
         in
@@ -297,7 +303,8 @@ in
 
           script =
             let
-              userScriptArgs = ''--user ${cfg.defaultUser} --password "$(cat ${cfg.passwordFile})"'';
+              userScriptArgs = ''
+                --user ${cfg.defaultUser} --password "$(cat ${cfg.passwordFile})"'';
               updateUserScript = optionalString (cfg.authType == "form") ''
                 ./cli/update-user.php ${userScriptArgs}
               '';

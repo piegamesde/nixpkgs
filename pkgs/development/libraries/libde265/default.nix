@@ -37,7 +37,9 @@ stdenv.mkDerivation (
       inherit imagemagick libheif imlib2Full;
       inherit (gst_all_1) gst-plugins-bad;
 
-      test-corpus-decode = callPackage ./test-corpus-decode.nix { libde265 = finalAttrs.finalPackage; };
+      test-corpus-decode = callPackage ./test-corpus-decode.nix {
+        libde265 = finalAttrs.finalPackage;
+      };
     };
 
     meta = {

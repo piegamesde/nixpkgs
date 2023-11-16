@@ -16,7 +16,9 @@ buildKodiAddon rec {
 
   passthru = {
     pythonPath = "lib";
-    updateScript = addonUpdateScript { attrPath = "kodi.packages.inputstreamhelper"; };
+    updateScript = addonUpdateScript {
+      attrPath = "kodi.packages.inputstreamhelper";
+    };
   };
 
   meta = with lib; {

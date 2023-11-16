@@ -48,8 +48,12 @@ stdenv.mkDerivation (
     passthru.tests = {
       simple = runCommand "${finalAttrs.pname}-test" { } ''
         mkdir $out
-        ${lib.getExe delly} call -g ${delly.src}/example/ref.fa ${delly.src}/example/sr.bam > $out/sr.vcf
-        ${lib.getExe delly} lr -g ${delly.src}/example/ref.fa ${delly.src}/example/lr.bam > $out/lr.vcf
+        ${
+          lib.getExe delly
+        } call -g ${delly.src}/example/ref.fa ${delly.src}/example/sr.bam > $out/sr.vcf
+        ${
+          lib.getExe delly
+        } lr -g ${delly.src}/example/ref.fa ${delly.src}/example/lr.bam > $out/lr.vcf
         ${
           lib.getExe delly
         } cnv -g ${delly.src}/example/ref.fa -m ${delly.src}/example/map.fa.gz ${delly.src}/example/sr.bam > cnv.vcf

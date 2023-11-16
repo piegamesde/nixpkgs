@@ -59,7 +59,9 @@ stdenv.mkDerivation (
 
     cmakeFlags =
       [ "-DROCM_PATH=${clr}" ]
-      ++ lib.optionals (gpuTargets != [ ]) [ "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}" ]
+      ++ lib.optionals (gpuTargets != [ ]) [
+        "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
+      ]
       ++ lib.optionals (!useOpenCL && !useCPU) [
         "-DCMAKE_C_COMPILER=hipcc"
         "-DCMAKE_CXX_COMPILER=hipcc"

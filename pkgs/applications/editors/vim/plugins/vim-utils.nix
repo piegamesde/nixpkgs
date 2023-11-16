@@ -151,18 +151,27 @@ let
           plugin;
     in
     # make sure all the dependencies of the plugin are also derivations
-    drv // { dependencies = map (pluginToDrv knownPlugins) (drv.dependencies or [ ]); };
+    drv
+    // {
+      dependencies = map (pluginToDrv knownPlugins) (drv.dependencies or [ ]);
+    };
 
   # transitive closure of plugin dependencies (plugin needs to be a derivation)
   transitiveClosure =
     plugin:
     [ plugin ]
-    ++ (lib.unique (builtins.concatLists (map transitiveClosure plugin.dependencies or [ ])));
+    ++ (lib.unique (
+      builtins.concatLists (map transitiveClosure plugin.dependencies or [ ])
+    ));
 
   findDependenciesRecursively = plugins: lib.concatMap transitiveClosure plugins;
 
   vamDictToNames =
-    x: if builtins.isString x then [ x ] else (lib.optional (x ? name) x.name) ++ (x.names or [ ]);
+    x:
+    if builtins.isString x then
+      [ x ]
+    else
+      (lib.optional (x ? name) x.name) ++ (x.names or [ ]);
 
   rtpPath = ".";
 
@@ -199,7 +208,10 @@ let
           startWithDeps = findDependenciesRecursively start;
           allPlugins = lib.unique (startWithDeps ++ depsOfOptionalPlugins);
           allPython3Dependencies =
-            ps: lib.flatten (builtins.map (plugin: (plugin.python3Dependencies or (_: [ ])) ps) allPlugins);
+            ps:
+            lib.flatten (
+              builtins.map (plugin: (plugin.python3Dependencies or (_: [ ])) ps) allPlugins
+            );
           python3Env = python3.withPackages allPython3Dependencies;
 
           packdirStart = vimFarm "pack/${packageName}/start" "packdir-start" allPlugins;
@@ -288,11 +300,14 @@ let
       entries =
         [ beforePlugins ]
         ++ lib.optional (vam != null) (
-          lib.warn "'vam' attribute is deprecated. Use 'packages' instead in your vim configuration" vamImpl
+          lib.warn
+            "'vam' attribute is deprecated. Use 'packages' instead in your vim configuration"
+            vamImpl
         )
         ++ lib.optional (packages != null && packages != [ ]) (nativeImpl packages)
         ++ lib.optional (pathogen != null) (
-          throw "pathogen is now unsupported, replace `pathogen = {}` with `packages.home = { start = []; }`"
+          throw
+            "pathogen is now unsupported, replace `pathogen = {}` with `packages.home = { start = []; }`"
         )
         ++ lib.optional (plug != null) plugImpl
         ++ [ customRC ];
@@ -369,11 +384,16 @@ rec {
                   throw "at least one of vimrcConfig and vimrcFile must be specified";
               bin = runCommand "${name}-bin" { nativeBuildInputs = [ makeWrapper ]; } ''
                 vimrc=${lib.escapeShellArg vimrc}
-                gvimrc=${lib.optionalString (gvimrcFile != null) (lib.escapeShellArg gvimrcFile)}
+                gvimrc=${
+                  lib.optionalString (gvimrcFile != null) (lib.escapeShellArg gvimrcFile)
+                }
 
                 mkdir -p "$out/bin"
                 for exe in ${
-                  if standalone then "{,g,r,rg,e}vim {,g}vimdiff vi" else "{,g,r,rg,e}{vim,view} {,g}vimdiff ex vi"
+                  if standalone then
+                    "{,g,r,rg,e}vim {,g}vimdiff vi"
+                  else
+                    "{,g,r,rg,e}{vim,view} {,g}vimdiff ex vi"
                 }; do
                   if [[ -e ${vim}/bin/$exe ]]; then
                     dest="$out/bin/${executableName}"

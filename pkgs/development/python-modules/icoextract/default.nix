@@ -28,7 +28,9 @@ buildPythonPackage rec {
 
   postInstall = ''
     mkdir -p $out/share/thumbnailers
-    substituteAll ${./exe-thumbnailer.thumbnailer} $out/share/thumbnailers/exe-thumbnailer.thumbnailer
+    substituteAll ${
+      ./exe-thumbnailer.thumbnailer
+    } $out/share/thumbnailers/exe-thumbnailer.thumbnailer
   '';
 
   meta = with lib; {

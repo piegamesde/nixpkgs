@@ -74,7 +74,9 @@ in
       extraGroups = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description = lib.mdDoc "List of extra groups that the Buildbot Worker user should be a part of.";
+        description =
+          lib.mdDoc
+            "List of extra groups that the Buildbot Worker user should be a part of.";
       };
 
       home = mkOption {
@@ -178,15 +180,21 @@ in
       ];
       wantedBy = [ "multi-user.target" ];
       path = cfg.packages;
-      environment.PYTHONPATH = "${python.withPackages (p: [ package ])}/${python.sitePackages}";
+      environment.PYTHONPATH = "${
+          python.withPackages (p: [ package ])
+        }/${python.sitePackages}";
 
       preStart = ''
         mkdir -vp "${cfg.buildbotDir}/info"
         ${optionalString (cfg.hostMessage != null) ''
-          ln -sf "${pkgs.writeText "buildbot-worker-host" cfg.hostMessage}" "${cfg.buildbotDir}/info/host"
+          ln -sf "${
+            pkgs.writeText "buildbot-worker-host" cfg.hostMessage
+          }" "${cfg.buildbotDir}/info/host"
         ''}
         ${optionalString (cfg.adminMessage != null) ''
-          ln -sf "${pkgs.writeText "buildbot-worker-admin" cfg.adminMessage}" "${cfg.buildbotDir}/info/admin"
+          ln -sf "${
+            pkgs.writeText "buildbot-worker-admin" cfg.adminMessage
+          }" "${cfg.buildbotDir}/info/admin"
         ''}
       '';
 

@@ -106,8 +106,10 @@ let
 
   isFromNixpkgs = pkg: !(isFromBootstrapFiles pkg);
   isFromBootstrapFiles = pkg: pkg.passthru.isFromBootstrapFiles or false;
-  isBuiltByNixpkgsCompiler = pkg: isFromNixpkgs pkg && isFromNixpkgs pkg.stdenv.cc.cc;
-  isBuiltByBootstrapFilesCompiler = pkg: isFromNixpkgs pkg && isFromBootstrapFiles pkg.stdenv.cc.cc;
+  isBuiltByNixpkgsCompiler =
+    pkg: isFromNixpkgs pkg && isFromNixpkgs pkg.stdenv.cc.cc;
+  isBuiltByBootstrapFilesCompiler =
+    pkg: isFromNixpkgs pkg && isFromBootstrapFiles pkg.stdenv.cc.cc;
 
   commonPreHook = ''
     export NIX_ENFORCE_NO_NATIVE=''${NIX_ENFORCE_NO_NATIVE-1}
@@ -168,7 +170,9 @@ let
             nativeTools = false;
             nativeLibc = false;
 
-            buildPackages = lib.optionalAttrs (prevStage ? stdenv) { inherit (prevStage) stdenv; };
+            buildPackages = lib.optionalAttrs (prevStage ? stdenv) {
+              inherit (prevStage) stdenv;
+            };
 
             extraPackages = [
               prevStage.llvmPackages.libcxxabi
@@ -255,7 +259,8 @@ let
         __stdenvImpureHostDeps = commonImpureHostDeps;
         __extraImpureHostDeps = commonImpureHostDeps;
 
-        overrides = self: super: (overrides self super) // { fetchurl = thisStdenv.fetchurlBoot; };
+        overrides =
+          self: super: (overrides self super) // { fetchurl = thisStdenv.fetchurlBoot; };
       };
     in
     {
@@ -592,9 +597,13 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 
         darwin = super.darwin.overrideScope (
           selfDarwin: superDarwin: {
-            signingUtils = prevStage.darwin.signingUtils.override { inherit (selfDarwin) sigtool; };
+            signingUtils = prevStage.darwin.signingUtils.override {
+              inherit (selfDarwin) sigtool;
+            };
 
-            postLinkSignHook = prevStage.darwin.postLinkSignHook.override { inherit (selfDarwin) sigtool; };
+            postLinkSignHook = prevStage.darwin.postLinkSignHook.override {
+              inherit (selfDarwin) sigtool;
+            };
 
             binutils = superDarwin.binutils.override {
               inherit (self) coreutils;
@@ -604,7 +613,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               libc = selfDarwin.Libsystem;
             };
 
-            binutils-unwrapped = superDarwin.binutils-unwrapped.override { inherit (selfDarwin) cctools; };
+            binutils-unwrapped = superDarwin.binutils-unwrapped.override {
+              inherit (selfDarwin) cctools;
+            };
 
             cctools = selfDarwin.cctools-port;
           }
@@ -1388,7 +1399,11 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         # Bash must be linked against the system CoreFoundation instead of the open-source one.
         # Otherwise, there will be a dependency cycle: bash -> CF -> icu -> bash (for icu^dev).
         bash = super.bash.overrideAttrs (
-          super: { buildInputs = super.buildInputs ++ [ self.darwin.apple_sdk.frameworks.CoreFoundation ]; }
+          super: {
+            buildInputs = super.buildInputs ++ [
+              self.darwin.apple_sdk.frameworks.CoreFoundation
+            ];
+          }
         );
 
         darwin = super.darwin.overrideScope (
@@ -1429,7 +1444,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               );
 
               libraries = super.llvmPackages.libraries.extend (
-                selfLib: superLib: { inherit (prevStage.llvmPackages) compiler-rt libcxx libcxxabi; }
+                selfLib: superLib: {
+                  inherit (prevStage.llvmPackages) compiler-rt libcxx libcxxabi;
+                }
               );
             in
             {
@@ -2212,7 +2229,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               objc4
             ;
 
-            signingUtils = superDarwin.signingUtils.override { inherit (selfDarwin) sigtool; };
+            signingUtils = superDarwin.signingUtils.override {
+              inherit (selfDarwin) sigtool;
+            };
 
             binutils = superDarwin.binutils.override {
               shell = self.bash + "/bin/bash";
@@ -2261,14 +2280,19 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                           clangLib: clangRelease:
                           let
                             clangVersion =
-                              if lib.versionAtLeast clangRelease "16" then lib.versions.major clangRelease else clangRelease;
+                              if lib.versionAtLeast clangRelease "16" then
+                                lib.versions.major clangRelease
+                              else
+                                clangRelease;
                           in
                           "${clangLib}/lib/clang/${clangVersion}/include";
                       in
                       ''
                         rsrc="$out/resource-root"
                         mkdir "$rsrc"
-                        ln -s "${clangResourceRootIncludePath clang-unwrapped.lib release_version}" "$rsrc"
+                        ln -s "${
+                          clangResourceRootIncludePath clang-unwrapped.lib release_version
+                        }" "$rsrc"
                         ln -s "${compiler-rt.out}/lib"   "$rsrc/lib"
                         ln -s "${compiler-rt.out}/share" "$rsrc/share"
                         echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags

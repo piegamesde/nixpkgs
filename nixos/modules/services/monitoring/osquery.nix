@@ -30,11 +30,13 @@ let
     )
   );
 
-  osqueryi = pkgs.runCommand "osqueryi" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
-    mkdir -p $out/bin
-    makeWrapper ${pkgs.osquery}/bin/osqueryi $out/bin/osqueryi \
-      --add-flags "--flagfile ${flagfile} --disable-database"
-  '';
+  osqueryi =
+    pkgs.runCommand "osqueryi" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+      ''
+        mkdir -p $out/bin
+        makeWrapper ${pkgs.osquery}/bin/osqueryi $out/bin/osqueryi \
+          --add-flags "--flagfile ${flagfile} --disable-database"
+      '';
 in
 {
   options.services.osquery = {
@@ -106,6 +108,8 @@ in
       };
       wantedBy = [ "multi-user.target" ];
     };
-    systemd.tmpfiles.rules = [ "d ${dirname (cfg.flags.pidfile)} 0755 root root -" ];
+    systemd.tmpfiles.rules = [
+      "d ${dirname (cfg.flags.pidfile)} 0755 root root -"
+    ];
   };
 }

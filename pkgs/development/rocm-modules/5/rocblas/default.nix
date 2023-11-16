@@ -84,9 +84,10 @@ stdenv.mkDerivation (
     pname = "rocblas";
     version = "5.7.1";
 
-    outputs = [
-      "out"
-    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
+    outputs =
+      [ "out" ]
+      ++ lib.optionals buildTests [ "test" ]
+      ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -115,7 +116,9 @@ stdenv.mkDerivation (
         openmp
         amd-blis
       ]
-      ++ lib.optionals (buildTensile || buildTests || buildBenchmarks) [ python3Packages.pyyaml ];
+      ++ lib.optionals (buildTensile || buildTests || buildBenchmarks) [
+        python3Packages.pyyaml
+      ];
 
     cmakeFlags =
       [
@@ -142,7 +145,9 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
       ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
-      ++ lib.optionals (buildTests || buildBenchmarks) [ "-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis" ];
+      ++ lib.optionals (buildTests || buildBenchmarks) [
+        "-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis"
+      ];
 
     postPatch =
       lib.optionalString (finalAttrs.pname != "rocblas") ''
@@ -185,7 +190,9 @@ stdenv.mkDerivation (
       ''
       +
         lib.optionalString
-          (finalAttrs.pname != "rocblas" && finalAttrs.pname != "rocblas-tensile-fallbacks")
+          (
+            finalAttrs.pname != "rocblas" && finalAttrs.pname != "rocblas-tensile-fallbacks"
+          )
           ''
             rm Tensile/library/{TensileManifest.txt,*_fallback.dat}
             mv Tensile/library/* $out/lib/rocblas/library

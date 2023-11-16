@@ -52,7 +52,9 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals stdenv.isLinux [ libXft ];
 
   # To be able to find <Xft.h>
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isLinux "-I${libXft.dev}/include/X11";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isLinux
+      "-I${libXft.dev}/include/X11";
 
   # Binaries look for LuaFileSystem library (lfs.so) at runtime
   postInstall =

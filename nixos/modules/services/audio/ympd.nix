@@ -23,7 +23,9 @@ in
       webPort = mkOption {
         type = types.either types.str types.port; # string for backwards compat
         default = "8080";
-        description = lib.mdDoc "The port where ympd's web interface will be available.";
+        description =
+          lib.mdDoc
+            "The port where ympd's web interface will be available.";
         example = "ssl://8080:/path/to/ssl-private-key.pem";
       };
 

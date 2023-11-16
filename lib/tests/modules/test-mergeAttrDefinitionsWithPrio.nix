@@ -19,7 +19,8 @@ in
     unused = assertLazy __curPos;
   };
   config.result =
-    assert defs.default.highestPrio == (lib.mkDefault (assertLazy __curPos)).priority;
+    assert defs.default.highestPrio == (lib.mkDefault (assertLazy __curPos))
+      .priority;
     assert defs.regular.highestPrio == lib.modules.defaultOverridePriority;
     assert defs.force.highestPrio == (lib.mkForce (assertLazy __curPos)).priority;
     true;

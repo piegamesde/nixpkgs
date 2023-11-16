@@ -51,7 +51,9 @@ stdenv.mkDerivation rec {
     cd dev
   '';
 
-  passthru.tests.can-run-hello-world = callPackage ./test-can-run-hello-world.nix { };
+  passthru.tests.can-run-hello-world =
+    callPackage ./test-can-run-hello-world.nix
+      { };
 
   meta = with lib; {
     broken = stdenv.isDarwin;

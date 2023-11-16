@@ -39,18 +39,20 @@ let
   */
   buildOpenRASet =
     f: args:
-    builtins.mapAttrs (name: value: if builtins.isFunction value then value name else value) (
-      f (
-        {
-          inherit (pkgs) fetchFromGitHub;
-          postFetch = ''
-            sed -i 's/curl/curl --insecure/g' $out/thirdparty/{fetch-thirdparty-deps,noget}.sh
-            $out/thirdparty/fetch-thirdparty-deps.sh
-          '';
-        }
-        // args
-      )
-    );
+    builtins.mapAttrs
+      (name: value: if builtins.isFunction value then value name else value)
+      (
+        f (
+          {
+            inherit (pkgs) fetchFromGitHub;
+            postFetch = ''
+              sed -i 's/curl/curl --insecure/g' $out/thirdparty/{fetch-thirdparty-deps,noget}.sh
+              $out/thirdparty/fetch-thirdparty-deps.sh
+            '';
+          }
+          // args
+        )
+      );
 in
 rec {
   # The whole attribute set is destructered to ensure those (and only those) attributes are given

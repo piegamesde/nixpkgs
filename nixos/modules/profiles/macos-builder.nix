@@ -174,7 +174,9 @@ in
             if ! ${hostPkgs.diffutils}/bin/cmp "''${PUBLIC_KEY}" ${publicKey}; then
               (set -x; sudo --reset-timestamp ${installCredentials} "''${KEYS}")
             fi
-            KEYS="$(${hostPkgs.nix}/bin/nix-store --add "$KEYS")" ${lib.getExe config.system.build.vm}
+            KEYS="$(${hostPkgs.nix}/bin/nix-store --add "$KEYS")" ${
+              lib.getExe config.system.build.vm
+            }
           ''
         );
       in

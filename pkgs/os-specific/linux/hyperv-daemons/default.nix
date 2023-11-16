@@ -18,7 +18,9 @@ let
     inherit (kernel) src version;
 
     nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ (if lib.versionOlder version "4.19" then python2 else python3) ];
+    buildInputs = [
+      (if lib.versionOlder version "4.19" then python2 else python3)
+    ];
 
     # as of 4.9 compilation will fail due to -Werror=format-security
     hardeningDisable = [ "format" ];
@@ -92,9 +94,15 @@ stdenv.mkDerivation {
   buildCommand = ''
     system=$lib/lib/systemd/system
 
-    install -Dm444 ${service "fcopy" "file copy (FCOPY)" "hv_fcopy"} $system/hv-fcopy.service
-    install -Dm444 ${service "kvp" "key-value pair (KVP)" "hv_kvp"} $system/hv-kvp.service
-    install -Dm444 ${service "vss" "volume shadow copy (VSS)" "hv_vss"} $system/hv-vss.service
+    install -Dm444 ${
+      service "fcopy" "file copy (FCOPY)" "hv_fcopy"
+    } $system/hv-fcopy.service
+    install -Dm444 ${
+      service "kvp" "key-value pair (KVP)" "hv_kvp"
+    } $system/hv-kvp.service
+    install -Dm444 ${
+      service "vss" "volume shadow copy (VSS)" "hv_vss"
+    } $system/hv-vss.service
 
     cat > $system/hyperv-daemons.target <<EOF
     [Unit]

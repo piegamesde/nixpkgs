@@ -20,7 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-SsDNMhTja2obakQmhnIqXYzESWA6qDPz8PQL2oNnBKM=";
   };
 
-  propagatedBuildInputs = [ azure-nspkg ] ++ lib.optionals (!isPy3k) [ setuptools ]; # need for namespace lookup
+  propagatedBuildInputs = [
+    azure-nspkg
+  ] ++ lib.optionals (!isPy3k) [ setuptools ]; # need for namespace lookup
 
   postInstall = lib.optionalString (!isPy3k) ''
     echo "__import__('pkg_resources').declare_namespace(__name__)" >> "$out/lib/${python.libPrefix}"/site-packages/azure/__init__.py

@@ -25,7 +25,8 @@ let
             "bind ${concatStringsSep " " hostOpts.listenAddresses}"
         }
         ${
-          optionalString (hostOpts.useACMEHost != null) "tls ${sslCertDir}/cert.pem ${sslCertDir}/key.pem"
+          optionalString (hostOpts.useACMEHost != null)
+            "tls ${sslCertDir}/cert.pem ${sslCertDir}/key.pem"
         }
         log {
           ${hostOpts.logFormat}
@@ -59,7 +60,10 @@ let
             '';
       in
       "${
-        if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then Caddyfile-formatted else Caddyfile
+        if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then
+          Caddyfile-formatted
+        else
+          Caddyfile
       }/Caddyfile";
 
   etcConfigFile = "caddy/caddy_config";
@@ -68,7 +72,9 @@ let
 
   acmeHosts = unique (catAttrs "useACMEHost" acmeVHosts);
 
-  mkCertOwnershipAssertion = import ../../../security/acme/mk-cert-ownership-assertion.nix;
+  mkCertOwnershipAssertion =
+    import
+      ../../../security/acme/mk-cert-ownership-assertion.nix;
 in
 {
   imports = [
@@ -215,7 +221,11 @@ in
     };
 
     adapter = mkOption {
-      default = if (builtins.baseNameOf cfg.configFile) == "Caddyfile" then "caddyfile" else null;
+      default =
+        if (builtins.baseNameOf cfg.configFile) == "Caddyfile" then
+          "caddyfile"
+        else
+          null;
       defaultText = literalExpression ''
         if (builtins.baseNameOf cfg.configFile) == "Caddyfile" then "caddyfile" else null
       '';
@@ -285,7 +295,8 @@ in
     };
 
     virtualHosts = mkOption {
-      type = with types; attrsOf (submodule (import ./vhost-options.nix { inherit cfg; }));
+      type =
+        with types; attrsOf (submodule (import ./vhost-options.nix { inherit cfg; }));
       default = { };
       example = literalExpression ''
         {
@@ -378,7 +389,9 @@ in
     assertions =
       [
         {
-          assertion = cfg.configFile == configFile -> cfg.adapter == "caddyfile" || cfg.adapter == null;
+          assertion =
+            cfg.configFile == configFile
+            -> cfg.adapter == "caddyfile" || cfg.adapter == null;
           message = "To specify an adapter other than 'caddyfile' please provide your own configuration via `services.caddy.configFile`";
         }
       ]
@@ -406,8 +419,12 @@ in
 
     systemd.packages = [ cfg.package ];
     systemd.services.caddy = {
-      wants = map (hostOpts: "acme-finished-${hostOpts.useACMEHost}.target") acmeVHosts;
-      after = map (hostOpts: "acme-selfsigned-${hostOpts.useACMEHost}.service") acmeVHosts;
+      wants =
+        map (hostOpts: "acme-finished-${hostOpts.useACMEHost}.target")
+          acmeVHosts;
+      after =
+        map (hostOpts: "acme-selfsigned-${hostOpts.useACMEHost}.service")
+          acmeVHosts;
       before = map (hostOpts: "acme-${hostOpts.useACMEHost}.service") acmeVHosts;
 
       wantedBy = [ "multi-user.target" ];
@@ -426,7 +443,9 @@ in
           # If the empty string is assigned to this option, the list of commands to start is reset, prior assignments of this option will have no effect.
           ExecStart = [
             ""
-            "${cfg.package}/bin/caddy run ${runOptions} ${optionalString cfg.resume "--resume"}"
+            "${cfg.package}/bin/caddy run ${runOptions} ${
+              optionalString cfg.resume "--resume"
+            }"
           ];
           # Validating the configuration before applying it ensures we’ll get a proper error that will be reported when switching to the configuration
           ExecReload = [
@@ -455,7 +474,9 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "caddy") { caddy.gid = config.ids.gids.caddy; };
+    users.groups = optionalAttrs (cfg.group == "caddy") {
+      caddy.gid = config.ids.gids.caddy;
+    };
 
     security.acme.certs =
       let

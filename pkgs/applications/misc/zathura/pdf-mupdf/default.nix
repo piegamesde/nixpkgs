@@ -51,7 +51,9 @@ stdenv.mkDerivation rec {
 
   PKG_CONFIG_ZATHURA_PLUGINDIR = "lib/zathura";
 
-  passthru.updateScript = gitUpdater { url = "https://git.pwmt.org/pwmt/zathura-pdf-mupdf.git"; };
+  passthru.updateScript = gitUpdater {
+    url = "https://git.pwmt.org/pwmt/zathura-pdf-mupdf.git";
+  };
 
   meta = with lib; {
     homepage = "https://pwmt.org/projects/zathura-pdf-mupdf/";

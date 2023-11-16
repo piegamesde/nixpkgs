@@ -35,7 +35,9 @@ stdenvNoCC.mkDerivation rec {
     gzip -c man/ldap-schema-manager.1 > $out/share/man/man1/ldap-schema-manager.1.gz
 
     wrapProgram $out/bin/schema2ldif \
-       --prefix PERL5PATH : "${perlPackages.makePerlPath [ perlPackages.GetoptLong ]}"
+       --prefix PERL5PATH : "${
+         perlPackages.makePerlPath [ perlPackages.GetoptLong ]
+       }"
   '';
 
   meta = with lib; {

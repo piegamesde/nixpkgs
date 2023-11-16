@@ -35,10 +35,14 @@ let
       # We need data from `$out` for `meta`, so we have to use overrides as to not hit infinite recursion.
       meta.licence =
         let
-          depLicenses = lib.splitString "\n" (builtins.readFile "${nuget-source}/share/licenses");
+          depLicenses = lib.splitString "\n" (
+            builtins.readFile "${nuget-source}/share/licenses"
+          );
         in
         (lib.flatten (
-          lib.forEach depLicenses (spdx: lib.optionals (spdx != "") (lib.getLicenseFromSpdxId spdx))
+          lib.forEach depLicenses (
+            spdx: lib.optionals (spdx != "") (lib.getLicenseFromSpdxId spdx)
+          )
         ));
     };
 in

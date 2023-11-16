@@ -37,7 +37,9 @@ in
     environment.deepin.excludePackages = mkOption {
       default = [ ];
       type = types.listOf types.package;
-      description = lib.mdDoc "List of default packages to exclude from the configuration";
+      description =
+        lib.mdDoc
+          "List of default packages to exclude from the configuration";
     };
   };
 
@@ -82,7 +84,9 @@ in
 
     environment.sessionVariables = {
       NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
-      DDE_POLKIT_AGENT_PLUGINS_DIRS = [ "${pkgs.deepin.dpa-ext-gnomekeyring}/lib/polkit-1-dde/plugins" ];
+      DDE_POLKIT_AGENT_PLUGINS_DIRS = [
+        "${pkgs.deepin.dpa-ext-gnomekeyring}/lib/polkit-1-dde/plugins"
+      ];
     };
 
     environment.pathsToLink = [
@@ -184,7 +188,9 @@ in
         ];
       in
       requiredPackages
-      ++ utils.removePackagesByName optionalPackages config.environment.deepin.excludePackages;
+      ++
+        utils.removePackagesByName optionalPackages
+          config.environment.deepin.excludePackages;
 
     services.dbus.packages = with pkgs.deepin; [
       dde-dock

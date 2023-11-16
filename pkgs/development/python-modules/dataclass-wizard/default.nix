@@ -23,17 +23,22 @@ buildPythonPackage rec {
     hash = "sha256-Ufi4lZc+UkM6NZr4bS2OibpOmMjyiBEoVKxmrqauW50=";
   };
 
-  propagatedBuildInputs = [ ] ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ];
+  propagatedBuildInputs =
+    [ ]
+    ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ];
 
   passthru.optional-dependencies = {
     timedelta = [ pytimeparse ];
     yaml = [ pyyaml ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-  ] ++ passthru.optional-dependencies.timedelta ++ passthru.optional-dependencies.yaml;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-mock
+    ]
+    ++ passthru.optional-dependencies.timedelta
+    ++ passthru.optional-dependencies.yaml;
 
   disabledTests =
     [ ]

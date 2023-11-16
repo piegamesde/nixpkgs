@@ -107,7 +107,9 @@ in
         };
       }
 
-      (mkIf (cfg.motd != null) { environment.etc."solanum/ircd.motd".text = cfg.motd; })
+      (mkIf (cfg.motd != null) {
+        environment.etc."solanum/ircd.motd".text = cfg.motd;
+      })
     ]
   );
 }

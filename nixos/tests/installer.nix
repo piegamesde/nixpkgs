@@ -171,7 +171,9 @@ let
                 }",
                 "/mnt/etc/nixos/configuration.nix",
             )
-            machine.copy_from_host("${pkgs.writeText "secret" "secret"}", "/mnt/etc/nixos/secret")
+            machine.copy_from_host("${
+              pkgs.writeText "secret" "secret"
+            }", "/mnt/etc/nixos/secret")
 
         with subtest("Perform the installation"):
             machine.succeed("nixos-install < /dev/null >&2")
@@ -543,7 +545,9 @@ let
               ]
               ++ optionals (bootLoader == "grub") (
                 let
-                  zfsSupport = lib.any (x: x == "zfs") (extraInstallerConfig.boot.supportedFilesystems or [ ]);
+                  zfsSupport = lib.any (x: x == "zfs") (
+                    extraInstallerConfig.boot.supportedFilesystems or [ ]
+                  );
                 in
                 [
                   (pkgs.grub2.override { inherit zfsSupport; })
@@ -672,7 +676,9 @@ let
   # disable zfs so we can support latest kernel if needed
   no-zfs-module = {
     nixpkgs.overlays = [
-      (final: super: { zfs = super.zfs.overrideAttrs (_: { meta.platforms = [ ]; }); })
+      (final: super: {
+        zfs = super.zfs.overrideAttrs (_: { meta.platforms = [ ]; });
+      })
     ];
   };
 in
@@ -716,9 +722,9 @@ in
   simpleUefiGrub = makeInstallerTest "simpleUefiGrub" simple-uefi-grub-config;
 
   # Test cloned configurations with the uefi grub configuration
-  simpleUefiGrubSpecialisation = makeInstallerTest "simpleUefiGrubSpecialisation" (
-    simple-uefi-grub-config // specialisation-test-extraconfig
-  );
+  simpleUefiGrubSpecialisation =
+    makeInstallerTest "simpleUefiGrubSpecialisation"
+      (simple-uefi-grub-config // specialisation-test-extraconfig);
 
   # Same as the previous, but now with a separate /boot partition.
   separateBoot = makeInstallerTest "separateBoot" {
@@ -874,7 +880,9 @@ in
         encrypted.enable = true;
         encrypted.blkDev = "/dev/vda3";
         encrypted.label = "crypt";
-        encrypted.keyFile = "/${if systemdStage1 then "sysroot" else "mnt-root"}/keyfile";
+        encrypted.keyFile = "/${
+          if systemdStage1 then "sysroot" else "mnt-root"
+        }/keyfile";
       };
     '';
   };

@@ -138,14 +138,18 @@ let
 
           # Needed for elm-format
           avh4-lib = doJailbreak (self.callPackage ./packages/avh4-lib.nix { });
-          elm-format-lib = doJailbreak (self.callPackage ./packages/elm-format-lib.nix { });
+          elm-format-lib = doJailbreak (
+            self.callPackage ./packages/elm-format-lib.nix { }
+          );
           elm-format-test-lib = self.callPackage ./packages/elm-format-test-lib.nix { };
           elm-format-markdown = self.callPackage ./packages/elm-format-markdown.nix { };
 
           # elm-format requires text >= 2.0
           text = self.text_2_0_2;
           # unorderd-container's tests indirectly depend on text < 2.0
-          unordered-containers = overrideCabal (drv: { doCheck = false; }) super.unordered-containers;
+          unordered-containers =
+            overrideCabal (drv: { doCheck = false; })
+              super.unordered-containers;
           # relude-1.1.0.0's tests depend on hedgehog < 1.2, which indirectly depends on text < 2.0
           relude = overrideCabal (drv: { doCheck = false; }) super.relude;
         };
@@ -394,7 +398,11 @@ lib.makeScope pkgs.newScope (
       lamdera = callPackage ./packages/lamdera.nix { };
 
       elm-doc-preview = nodePkgs."elm-doc-preview".overrideAttrs (
-        old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ old.nodejs.pkgs.node-gyp-build ]; }
+        old: {
+          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+            old.nodejs.pkgs.node-gyp-build
+          ];
+        }
       );
 
       inherit (nodePkgs)

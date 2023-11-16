@@ -93,8 +93,14 @@ lib.makeExtensible (
       extraNativeBuildInputs = [ python3Packages.pydata-sphinx-theme ];
     };
 
-    alternatives = callPackage ./plugins/alternatives.nix { beets = self.beets-minimal; };
-    copyartifacts = callPackage ./plugins/copyartifacts.nix { beets = self.beets-minimal; };
-    extrafiles = callPackage ./plugins/extrafiles.nix { beets = self.beets-minimal; };
+    alternatives = callPackage ./plugins/alternatives.nix {
+      beets = self.beets-minimal;
+    };
+    copyartifacts = callPackage ./plugins/copyartifacts.nix {
+      beets = self.beets-minimal;
+    };
+    extrafiles = callPackage ./plugins/extrafiles.nix {
+      beets = self.beets-minimal;
+    };
   }
 )

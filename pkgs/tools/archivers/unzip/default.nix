@@ -12,7 +12,9 @@ stdenv.mkDerivation rec {
   version = "6.0";
 
   src = fetchurl {
-    url = "mirror://sourceforge/infozip/unzip${lib.replaceStrings [ "." ] [ "" ] version}.tar.gz";
+    url = "mirror://sourceforge/infozip/unzip${
+        lib.replaceStrings [ "." ] [ "" ] version
+      }.tar.gz";
     sha256 = "0dxx11knh3nk95p2gg2ak777dd11pr7jx5das2g49l262scrcv83";
   };
 

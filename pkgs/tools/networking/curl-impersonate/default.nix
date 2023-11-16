@@ -73,7 +73,10 @@ let
 
       configureFlags = [
         "--with-ca-bundle=${
-          if stdenv.isDarwin then "/etc/ssl/cert.pem" else "/etc/ssl/certs/ca-certificates.crt"
+          if stdenv.isDarwin then
+            "/etc/ssl/cert.pem"
+          else
+            "/etc/ssl/certs/ca-certificates.crt"
         }"
         "--with-ca-path=${cacert}/etc/ssl/certs"
       ];

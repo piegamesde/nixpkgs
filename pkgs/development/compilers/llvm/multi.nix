@@ -56,7 +56,9 @@ let
       inherit (glibc_multi) libgcc;
       langCC =
         assert (gcc64.cc.langCC != gcc32.cc.langCC)
-          -> throw "(gcc64.cc.langCC=${gcc64.cc.langCC}) != (gcc32.cc.langCC=${gcc32.cc.langCC})";
+          ->
+            throw
+              "(gcc64.cc.langCC=${gcc64.cc.langCC}) != (gcc32.cc.langCC=${gcc32.cc.langCC})";
         gcc64.cc.langCC;
     };
   };

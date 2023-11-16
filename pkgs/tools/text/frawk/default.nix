@@ -30,12 +30,16 @@ rustPlatform.buildRustPackage rec {
   buildFeatures = features;
 
   preBuild =
-    lib.optionalString (lib.elem "default" features || lib.elem "llvm_backend" features) ''
-      export LLVM_SYS_120_PREFIX=${llvmPackages_12.llvm.dev}
-    ''
-    + lib.optionalString (lib.elem "default" features || lib.elem "unstable" features) ''
-      export RUSTC_BOOTSTRAP=1
-    '';
+    lib.optionalString
+      (lib.elem "default" features || lib.elem "llvm_backend" features)
+      ''
+        export LLVM_SYS_120_PREFIX=${llvmPackages_12.llvm.dev}
+      ''
+    +
+      lib.optionalString (lib.elem "default" features || lib.elem "unstable" features)
+        ''
+          export RUSTC_BOOTSTRAP=1
+        '';
 
   # depends on cpu instructions that may not be available on builders
   doCheck = false;

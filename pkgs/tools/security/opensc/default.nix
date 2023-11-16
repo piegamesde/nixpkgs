@@ -44,16 +44,19 @@ stdenv.mkDerivation rec {
     pkg-config
     autoreconfHook
   ];
-  buildInputs = [
-    zlib
-    readline
-    openssl
-    libassuan
-    libXt
-    libxslt
-    libiconv
-    docbook_xml_dtd_412
-  ] ++ lib.optional stdenv.isDarwin Carbon ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ]);
+  buildInputs =
+    [
+      zlib
+      readline
+      openssl
+      libassuan
+      libXt
+      libxslt
+      libiconv
+      docbook_xml_dtd_412
+    ]
+    ++ lib.optional stdenv.isDarwin Carbon
+    ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ]);
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
@@ -72,7 +75,9 @@ stdenv.mkDerivation rec {
       if withApplePCSC then
         "${PCSC}/Library/Frameworks/PCSC.framework/PCSC"
       else
-        "${lib.getLib pcsclite}/lib/libpcsclite${stdenv.hostPlatform.extensions.sharedLibrary}"
+        "${
+          lib.getLib pcsclite
+        }/lib/libpcsclite${stdenv.hostPlatform.extensions.sharedLibrary}"
     }"
     (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
       "XSLTPROC=${buildPackages.libxslt}/bin/xsltproc"

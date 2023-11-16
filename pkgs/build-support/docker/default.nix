@@ -410,7 +410,9 @@ rec {
           echo "Adding contents..."
           for item in $contents; do
             echo "Adding $item"
-            rsync -a${if keepContentsDirlinks then "K" else "k"} --chown=0:0 $item/ layer/
+            rsync -a${
+              if keepContentsDirlinks then "K" else "k"
+            } --chown=0:0 $item/ layer/
           done
         else
           echo "No contents to add to layer."
@@ -678,7 +680,10 @@ rec {
             passthru.buildArgs = args;
             passthru.layer = layer;
             passthru.imageTag =
-              if tag != null then tag else lib.head (lib.strings.splitString "-" (baseNameOf result.outPath));
+              if tag != null then
+                tag
+              else
+                lib.head (lib.strings.splitString "-" (baseNameOf result.outPath));
           }
           ''
             ${lib.optionalString (tag == null) ''
@@ -912,7 +917,9 @@ rec {
       extraCommands ? "",
       ...
     }:
-    (buildImage (args // { extraCommands = (mkDbExtraCommand copyToRoot) + extraCommands; }));
+    (buildImage (
+      args // { extraCommands = (mkDbExtraCommand copyToRoot) + extraCommands; }
+    ));
 
   # TODO: add the dependencies of the config json.
   buildLayeredImageWithNixDb =
@@ -921,7 +928,9 @@ rec {
       extraCommands ? "",
       ...
     }:
-    (buildLayeredImage (args // { extraCommands = (mkDbExtraCommand contents) + extraCommands; }));
+    (buildLayeredImage (
+      args // { extraCommands = (mkDbExtraCommand contents) + extraCommands; }
+    ));
 
   streamLayeredImage = lib.makeOverridable (
     {
@@ -999,7 +1008,9 @@ rec {
           (cd old_out; eval "$extraCommands" )
 
           mkdir $out
-          ${optionalString enableFakechroot "proot -r $PWD/old_out ${bind-paths} --pwd=/ "}fakeroot bash -c '
+          ${
+            optionalString enableFakechroot "proot -r $PWD/old_out ${bind-paths} --pwd=/ "
+          }fakeroot bash -c '
             source $stdenv/setup
             ${optionalString (!enableFakechroot) "cd old_out"}
             eval "$fakeRootCommands"
@@ -1039,7 +1050,10 @@ rec {
             imageName = lib.toLower name;
             preferLocalBuild = true;
             passthru.imageTag =
-              if tag != null then tag else lib.head (lib.strings.splitString "-" (baseNameOf conf.outPath));
+              if tag != null then
+                tag
+              else
+                lib.head (lib.strings.splitString "-" (baseNameOf conf.outPath));
             paths = buildPackages.referencesByPopularity overallClosure;
             nativeBuildInputs = [ jq ];
           }
@@ -1062,7 +1076,10 @@ rec {
             fi
 
             paths() {
-              cat $paths ${lib.concatMapStringsSep " " (path: "| (grep -v ${path} || true)") unnecessaryDrvs}
+              cat $paths ${
+                lib.concatMapStringsSep " " (path: "| (grep -v ${path} || true)")
+                  unnecessaryDrvs
+              }
             }
 
             # Compute the number of layers that are already used by a potential
@@ -1116,7 +1133,9 @@ rec {
                 "created": $created
               }
               ' --arg store_dir "${storeDir}" \
-                --argjson from_image ${if fromImage == null then "null" else "'\"${fromImage}\"'"} \
+                --argjson from_image ${
+                  if fromImage == null then "null" else "'\"${fromImage}\"'"
+                } \
                 --slurpfile store_layers store_layers.json \
                 --arg customisation_layer ${customisationLayer} \
                 --arg repo_tag "$imageName:$imageTag" \
@@ -1241,7 +1260,9 @@ rec {
           drv.drvAttrs
         # A mapping from output name to the nix store path where they should end up
         # https://github.com/NixOS/nix/blob/2.8.0/src/libexpr/primops.cc#L1253
-        // lib.genAttrs drv.outputs (output: builtins.unsafeDiscardStringContext drv.${output}.outPath);
+        // lib.genAttrs drv.outputs (
+          output: builtins.unsafeDiscardStringContext drv.${output}.outPath
+        );
 
       # Environment variables set in the image
       envVars =

@@ -93,7 +93,8 @@ let
             inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
             serverSystem = nodes.server.system.build.toplevel;
             dumpFile =
-              with nodes.server.specialisation.dump.configuration.services.forgejo.dump; "${backupDir}/${file}";
+              with nodes.server.specialisation.dump.configuration.services.forgejo.dump;
+              "${backupDir}/${file}";
           in
           ''
             import json

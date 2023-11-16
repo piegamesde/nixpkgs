@@ -80,7 +80,9 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == name) { ${name}.gid = config.ids.gids.sickbeard; };
+    users.groups = optionalAttrs (cfg.group == name) {
+      ${name}.gid = config.ids.gids.sickbeard;
+    };
 
     systemd.services.sickbeard = {
       description = "Sickbeard Server";

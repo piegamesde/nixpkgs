@@ -188,7 +188,9 @@ let
   buildPath = "out/${buildType}";
   libExecPath = "$out/libexec/${packageName}";
 
-  ungoogler = ungoogled-chromium { inherit (upstream-info.deps.ungoogled-patches) rev hash; };
+  ungoogler = ungoogled-chromium {
+    inherit (upstream-info.deps.ungoogled-patches) rev hash;
+  };
 
   # There currently isn't a (much) more concise way to get a stdenv
   # that uses lld as its linker without bootstrapping pkgsLLVM; see
@@ -214,7 +216,8 @@ let
           "arm" = "arm";
           "aarch64" = "arm64";
         }
-        .${platform.parsed.cpu.name} or (throw "no chromium Rosetta Stone entry for cpu: ${name}")
+        .${platform.parsed.cpu.name}
+          or (throw "no chromium Rosetta Stone entry for cpu: ${name}")
       );
     os =
       platform:
@@ -433,7 +436,9 @@ let
 
         ''
         + lib.optionalString systemdSupport ''
-          sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${lib.getLib systemd}/lib/\1!' \
+          sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${
+            lib.getLib systemd
+          }/lib/\1!' \
             device/udev_linux/udev?_loader.cc
         ''
         + ''
@@ -460,7 +465,8 @@ let
 
         ''
         +
-          lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform && stdenv.hostPlatform.isAarch64)
+          lib.optionalString
+            (stdenv.hostPlatform == stdenv.buildPlatform && stdenv.hostPlatform.isAarch64)
             ''
               substituteInPlace build/toolchain/linux/BUILD.gn \
                 --replace 'toolprefix = "aarch64-linux-gnu-"' 'toolprefix = ""'
@@ -572,7 +578,9 @@ let
         ${python3.pythonOnBuildForHost}/bin/python3 build/linux/unbundle/replace_gn_files.py --system-libraries ${
           toString gnSystemLibraries
         }
-        ${gnChromium}/bin/gn gen --args=${lib.escapeShellArg gnFlags} out/Release | tee gn-gen-outputs.txt
+        ${gnChromium}/bin/gn gen --args=${
+          lib.escapeShellArg gnFlags
+        } out/Release | tee gn-gen-outputs.txt
 
         # Fail if `gn gen` contains a WARNING.
         grep -o WARNING gn-gen-outputs.txt && echo "Found gn WARNING, exiting nix build" && exit 1

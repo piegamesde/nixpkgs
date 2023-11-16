@@ -130,7 +130,8 @@ let
         ];
     in
     {
-      "${server}".configuration = { nodes, config, ... }: baseConfig { inherit nodes config; };
+      "${server}".configuration =
+        { nodes, config, ... }: baseConfig { inherit nodes config; };
 
       # Test that server reloads when an alias is removed (and subsequently test removal works in acme)
       "${server}-remove-alias".configuration =

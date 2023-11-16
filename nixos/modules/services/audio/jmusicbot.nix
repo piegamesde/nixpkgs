@@ -13,7 +13,8 @@ in
   options = {
     services.jmusicbot = {
       enable = mkEnableOption (
-        lib.mdDoc "jmusicbot, a Discord music bot that's easy to set up and run yourself"
+        lib.mdDoc
+          "jmusicbot, a Discord music bot that's easy to set up and run yourself"
       );
 
       package = mkOption {

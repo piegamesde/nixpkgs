@@ -216,7 +216,9 @@ in
 
         mkdir -p config
         rm -f config/autoregister.properties
-        ln -s "${pkgs.writeText "autoregister.properties" cfg.agentConfig}" config/autoregister.properties
+        ln -s "${
+          pkgs.writeText "autoregister.properties" cfg.agentConfig
+        }" config/autoregister.properties
 
         ${pkgs.git}/bin/git config --global --add http.sslCAinfo /etc/ssl/certs/ca-certificates.crt
         ${pkgs.jre}/bin/java ${concatStringsSep " " cfg.startupOptions} \

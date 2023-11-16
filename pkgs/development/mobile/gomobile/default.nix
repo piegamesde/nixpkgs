@@ -38,7 +38,9 @@ buildGoModule {
   # Fails with: go: cannot find GOROOT directory
   doCheck = false;
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals stdenv.isDarwin [ xcodeWrapper ];
+  nativeBuildInputs = [
+    makeWrapper
+  ] ++ lib.optionals stdenv.isDarwin [ xcodeWrapper ];
 
   # Prevent a non-deterministic temporary directory from polluting the resulting object files
   postPatch = ''

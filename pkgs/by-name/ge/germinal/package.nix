@@ -40,7 +40,9 @@ stdenv.mkDerivation (
       vte
     ];
 
-    configureFlags = [ "--with-dbusservicesdir=${placeholder "out"}/etc/dbus-1/system-services/" ];
+    configureFlags = [
+      "--with-dbusservicesdir=${placeholder "out"}/etc/dbus-1/system-services/"
+    ];
 
     dontWrapGApps = true;
 

@@ -52,7 +52,9 @@ let
     "utils" # dependency of atlasrep
   ];
   keepAll = keepAllPackages || (packageSet == "full");
-  packagesToKeep = requiredPackages ++ lib.optionals (packageSet == "standard") autoloadedPackages;
+  packagesToKeep =
+    requiredPackages
+    ++ lib.optionals (packageSet == "standard") autoloadedPackages;
 
   # Generate bash script that removes all packages from the `pkg` subdirectory
   # that are not on the whitelist. The whitelist consists of strings expected by

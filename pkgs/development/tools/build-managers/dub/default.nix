@@ -62,7 +62,9 @@ stdenv.mkDerivation rec {
   checkPhase = ''
     export DUB=$NIX_BUILD_TOP/source/bin/dub
     export PATH=$PATH:$NIX_BUILD_TOP/source/bin/
-    export DC=${dcompiler.out}/bin/${if dcompiler.pname == "ldc" then "ldc2" else dcompiler.pname}
+    export DC=${dcompiler.out}/bin/${
+      if dcompiler.pname == "ldc" then "ldc2" else dcompiler.pname
+    }
     echo "DC out --> $DC"
     export HOME=$TMP
 

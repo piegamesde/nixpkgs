@@ -131,8 +131,12 @@ in
 
         if [ ! -f ${cfg.home}/nexus3/etc/nexus.properties ]; then
           echo "# Jetty section" > ${cfg.home}/nexus3/etc/nexus.properties
-          echo "application-port=${toString cfg.listenPort}" >> ${cfg.home}/nexus3/etc/nexus.properties
-          echo "application-host=${toString cfg.listenAddress}" >> ${cfg.home}/nexus3/etc/nexus.properties
+          echo "application-port=${
+            toString cfg.listenPort
+          }" >> ${cfg.home}/nexus3/etc/nexus.properties
+          echo "application-host=${
+            toString cfg.listenAddress
+          }" >> ${cfg.home}/nexus3/etc/nexus.properties
         else
           sed 's/^application-port=.*/application-port=${
             toString cfg.listenPort

@@ -137,7 +137,9 @@ stdenv.mkDerivation rec {
   disallowedReferences = lib.optional (!withDebug) zlib.dev;
 
   donStrip = withDebug;
-  env.NIX_CFLAGS_COMPILE = lib.optionalString withDebug "-O1 -ggdb -DNETDATA_INTERNAL_CHECKS=1";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString withDebug
+      "-O1 -ggdb -DNETDATA_INTERNAL_CHECKS=1";
 
   postInstall =
     ''
@@ -186,7 +188,9 @@ stdenv.mkDerivation rec {
     substituteInPlace $out/bin/netdata-claim.sh \
       --replace /bin/echo echo
 
-    wrapProgram $out/bin/netdata-claim.sh --prefix PATH : ${lib.makeBinPath [ openssl ]}
+    wrapProgram $out/bin/netdata-claim.sh --prefix PATH : ${
+      lib.makeBinPath [ openssl ]
+    }
     wrapProgram $out/libexec/netdata/plugins.d/cgroup-network-helper.sh --prefix PATH : ${
       lib.makeBinPath [ bash ]
     }
@@ -205,7 +209,9 @@ stdenv.mkDerivation rec {
     description = "Real-time performance monitoring tool";
     homepage = "https://www.netdata.cloud/";
     changelog = "https://github.com/netdata/netdata/releases/tag/v${version}";
-    license = [ licenses.gpl3Plus ] ++ lib.optionals (withCloudUi) [ licenses.ncul1 ];
+    license = [
+      licenses.gpl3Plus
+    ] ++ lib.optionals (withCloudUi) [ licenses.ncul1 ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ raitobezarius ];
   };

@@ -78,7 +78,9 @@ with lib; {
           lib.mdDoc
             "Spark configuration directory. Spark will use the configuration files (spark-defaults.conf, spark-env.sh, log4j.properties, etc) from this directory.";
         default = "${cfg.package}/lib/${cfg.package.untarDir}/conf";
-        defaultText = literalExpression ''"''${package}/lib/''${package.untarDir}/conf"'';
+        defaultText =
+          literalExpression
+            ''"''${package}/lib/''${package.untarDir}/conf"'';
       };
       logDir = mkOption {
         type = types.path;

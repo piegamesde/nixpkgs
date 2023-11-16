@@ -56,7 +56,8 @@ let
   disableBootstrap' = disableBootstrap && !langFortran && !langGo;
 
   crossMingw = targetPlatform != hostPlatform && targetPlatform.isMinGW;
-  crossDarwin = targetPlatform != hostPlatform && targetPlatform.libc == "libSystem";
+  crossDarwin =
+    targetPlatform != hostPlatform && targetPlatform.libc == "libSystem";
 
   targetPrefix =
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
@@ -66,7 +67,10 @@ let
     # Ensure that -print-prog-name is able to find the correct programs.
     [
       "--with-as=${
-        if targetPackages.stdenv.cc.bintools.isLLVM then binutils else targetPackages.stdenv.cc.bintools
+        if targetPackages.stdenv.cc.bintools.isLLVM then
+          binutils
+        else
+          targetPackages.stdenv.cc.bintools
       }/bin/${targetPlatform.config}-as"
       "--with-ld=${targetPackages.stdenv.cc.bintools}/bin/${targetPlatform.config}-ld"
     ]
@@ -130,7 +134,8 @@ let
               "--disable-libsanitizer"
             ]
         ++
-          lib.optional (targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano")
+          lib.optional
+            (targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano")
             "--with-newlib"
         ++ lib.optional (targetPlatform.libc == "avrlibc") "--with-avrlibc"
     );
@@ -149,7 +154,9 @@ let
         if libcCross == null then
           "--with-native-system-header-dir=${lib.getDev stdenv.cc.libc}/include"
         else
-          "--with-native-system-header-dir=${lib.getDev libcCross}${libcCross.incdir or "/include"}"
+          "--with-native-system-header-dir=${lib.getDev libcCross}${
+            libcCross.incdir or "/include"
+          }"
       )
       # gcc builds for cross-compilers (build != host) or cross-built
       # gcc (host != target) always apply the offset prefix to disentangle
@@ -226,11 +233,17 @@ let
     ++ lib.optional disableGdbPlugin "--disable-libcc1"
 
     # Support -m32 on powerpc64le/be
-    ++ lib.optional (targetPlatform.system == "powerpc64le-linux") "--enable-targets=powerpcle-linux"
-    ++ lib.optional (targetPlatform.system == "powerpc64-linux") "--enable-targets=powerpc-linux"
+    ++
+      lib.optional (targetPlatform.system == "powerpc64le-linux")
+        "--enable-targets=powerpcle-linux"
+    ++
+      lib.optional (targetPlatform.system == "powerpc64-linux")
+        "--enable-targets=powerpc-linux"
 
     # Fix "unknown long double size, cannot define BFP_FMT"
-    ++ lib.optional (targetPlatform.isPower && targetPlatform.isMusl) "--disable-decimal-float"
+    ++
+      lib.optional (targetPlatform.isPower && targetPlatform.isMusl)
+        "--disable-decimal-float"
 
     # Optional features
     ++ lib.optional (isl != null) "--with-isl=${isl}"
@@ -283,12 +296,14 @@ let
       lib.optional (targetPlatform.libc == "musl")
         # musl at least, disable: https://git.buildroot.net/buildroot/commit/?id=873d4019f7fb00f6a80592224236b3ba7d657865
         "--disable-libmpx"
-    ++ lib.optionals (targetPlatform == hostPlatform && targetPlatform.libc == "musl") [
-      "--disable-libsanitizer"
-      "--disable-symvers"
-      "libat_cv_have_ifunc=no"
-      "--disable-gnu-indirect-function"
-    ]
+    ++
+      lib.optionals (targetPlatform == hostPlatform && targetPlatform.libc == "musl")
+        [
+          "--disable-libsanitizer"
+          "--disable-symvers"
+          "libat_cv_have_ifunc=no"
+          "--disable-gnu-indirect-function"
+        ]
     ++ lib.optionals langJit [ "--enable-host-shared" ]
     ++ lib.optionals (langD) [ "--with-target-system-zlib=yes" ]
     # On mips64-unknown-linux-gnu libsanitizer defines collide with

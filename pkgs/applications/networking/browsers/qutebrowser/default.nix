@@ -156,7 +156,8 @@ python3.pkgs.buildPythonApplication {
     description = "Keyboard-focused browser with a minimal GUI";
     license = licenses.gpl3Plus;
     mainProgram = "qutebrowser";
-    platforms = if enableWideVine then [ "x86_64-linux" ] else qtwebengine.meta.platforms;
+    platforms =
+      if enableWideVine then [ "x86_64-linux" ] else qtwebengine.meta.platforms;
     maintainers = with maintainers; [
       jagajaga
       rnhmjoj

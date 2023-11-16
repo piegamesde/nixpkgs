@@ -33,9 +33,10 @@ buildPythonPackage rec {
     cython
   ];
 
-  propagatedBuildInputs = [
-    apsw
-  ] ++ lib.optionals withPostgres [ psycopg2 ] ++ lib.optionals withMysql [ mysql-connector ];
+  propagatedBuildInputs =
+    [ apsw ]
+    ++ lib.optionals withPostgres [ psycopg2 ]
+    ++ lib.optionals withMysql [ mysql-connector ];
 
   nativeCheckInputs = [ flask ];
 

@@ -71,14 +71,17 @@ in
       enable = lib.mkDefault true;
       settings.default_session.command =
         lib.mkDefault
-          "${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} ${lib.escapeShellArgs cfg.cageArgs} -- ${
-            lib.getExe cfg.package
-          }";
+          "${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} ${
+            lib.escapeShellArgs cfg.cageArgs
+          } -- ${lib.getExe cfg.package}";
     };
 
     environment.etc = {
       "greetd/regreet.css" =
-        if lib.isPath cfg.extraCss then { source = cfg.extraCss; } else { text = cfg.extraCss; };
+        if lib.isPath cfg.extraCss then
+          { source = cfg.extraCss; }
+        else
+          { text = cfg.extraCss; };
 
       "greetd/regreet.toml".source =
         if lib.isPath cfg.settings then
@@ -89,7 +92,8 @@ in
 
     systemd.tmpfiles.rules =
       let
-        group = config.users.users.${config.services.greetd.settings.default_session.user}.group;
+        group =
+          config.users.users.${config.services.greetd.settings.default_session.user}.group;
       in
       [
         "d /var/log/regreet 0755 greeter ${group} - -"

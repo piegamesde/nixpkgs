@@ -31,13 +31,17 @@ in
       default = [ ];
       example = literalExpression "[ pkgs.mate.mate-terminal pkgs.mate.pluma ]";
       type = types.listOf types.package;
-      description = lib.mdDoc "Which MATE packages to exclude from the default environment";
+      description =
+        lib.mdDoc
+          "Which MATE packages to exclude from the default environment";
     };
   };
 
   config = mkIf cfg.enable {
 
-    services.xserver.displayManager.sessionPackages = [ pkgs.mate.mate-session-manager ];
+    services.xserver.displayManager.sessionPackages = [
+      pkgs.mate.mate-session-manager
+    ];
 
     # Let caja find extensions
     environment.sessionVariables.CAJA_EXTENSION_DIRS = [
@@ -73,7 +77,8 @@ in
     programs.zsh.vteIntegration = mkDefault true;
 
     # Mate uses this for printing
-    programs.system-config-printer.enable = (mkIf config.services.printing.enable (mkDefault true));
+    programs.system-config-printer.enable =
+      (mkIf config.services.printing.enable (mkDefault true));
 
     services.gnome.at-spi2-core.enable = true;
     services.gnome.gnome-keyring.enable = true;

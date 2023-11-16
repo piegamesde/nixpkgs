@@ -27,7 +27,9 @@ stdenv.mkDerivation (
 
     cmakeFlags = [ "-DBUILD_STATIC_LIBS=ON" ];
 
-    passthru.tests.pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+    passthru.tests.pkg-config = testers.hasPkgConfigModules {
+      package = finalAttrs.finalPackage;
+    };
 
     meta = with lib; {
       description = "Port of http_parser to llparse";

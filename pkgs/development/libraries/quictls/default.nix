@@ -73,7 +73,9 @@ stdenv.mkDerivation (
     setOutputFlags = false;
 
     separateDebugInfo =
-      !stdenv.hostPlatform.isDarwin && !(stdenv.hostPlatform.useLLVM or false) && stdenv.cc.isGNU;
+      !stdenv.hostPlatform.isDarwin
+      && !(stdenv.hostPlatform.useLLVM or false)
+      && stdenv.cc.isGNU;
 
     # TODO(@Ericson2314): Improve with mass rebuild
     configurePlatforms = [ ];
@@ -102,7 +104,9 @@ stdenv.mkDerivation (
           "./Configure BSD-x86_64"
         else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_32 then
           "./Configure BSD-x86"
-          + lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") "-elf"
+          +
+            lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
+              "-elf"
         else if stdenv.hostPlatform.isBSD then
           "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
         else if stdenv.hostPlatform.isMinGW then
@@ -136,7 +140,9 @@ stdenv.mkDerivation (
       ++ lib.optional enableSSL3 "enable-ssl3"
       # We select KTLS here instead of the configure-time detection (which we patch out).
       # KTLS should work on FreeBSD 13+ as well, so we could enable it if someone tests it.
-      ++ lib.optional (stdenv.isLinux && lib.versionAtLeast finalAttrs.version "3.0.0") "enable-ktls"
+      ++
+        lib.optional (stdenv.isLinux && lib.versionAtLeast finalAttrs.version "3.0.0")
+          "enable-ktls"
       ++ lib.optional stdenv.hostPlatform.isAarch64 "no-afalgeng"
       # OpenSSL needs a specific `no-shared` configure flag.
       # See https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_Options

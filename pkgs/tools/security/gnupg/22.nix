@@ -79,7 +79,9 @@ stdenv.mkDerivation rec {
       sed -i 's/$SOURCE_DATE_EPOCH/''${SOURCE_DATE_EPOCH}/' doc/Makefile.in
     ''
     + lib.optionalString (stdenv.isLinux && withPcsc) ''
-      sed -i 's,"libpcsclite\.so[^"]*","${lib.getLib pcsclite}/lib/libpcsclite.so",g' scd/scdaemon.c
+      sed -i 's,"libpcsclite\.so[^"]*","${
+        lib.getLib pcsclite
+      }/lib/libpcsclite.so",g' scd/scdaemon.c
     '';
 
   configureFlags =

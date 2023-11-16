@@ -54,7 +54,9 @@ in
 
   options = {
     hardware.raid.HPSmartArray = {
-      enable = mkEnableOption (lib.mdDoc "HP Smart Array kernel modules and CLI utility");
+      enable = mkEnableOption (
+        lib.mdDoc "HP Smart Array kernel modules and CLI utility"
+      );
     };
   };
 

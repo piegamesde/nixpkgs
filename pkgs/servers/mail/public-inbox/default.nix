@@ -84,7 +84,8 @@ let
   ];
 
   testConditions =
-    with lib; concatMapStringsSep " " (n: "! -name ${escapeShellArg n}.t") skippedTests;
+    with lib;
+    concatMapStringsSep " " (n: "! -name ${escapeShellArg n}.t") skippedTests;
 in
 
 buildPerlPackage rec {
@@ -159,7 +160,9 @@ buildPerlPackage rec {
   postInstall = ''
     for prog in $out/bin/*; do
         wrapProgram $prog \
-            --set NIX_CFLAGS_COMPILE_${stdenv.cc.suffixSalt} -I${lib.getDev libxcrypt}/include \
+            --set NIX_CFLAGS_COMPILE_${stdenv.cc.suffixSalt} -I${
+              lib.getDev libxcrypt
+            }/include \
             --prefix PATH : ${
               lib.makeBinPath [
                 git

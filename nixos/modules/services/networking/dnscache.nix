@@ -63,7 +63,9 @@ in
       clientIps = mkOption {
         default = [ "127.0.0.1" ];
         type = types.listOf types.str;
-        description = lib.mdDoc "Client IP addresses (or prefixes) from which to accept connections.";
+        description =
+          lib.mdDoc
+            "Client IP addresses (or prefixes) from which to accept connections.";
         example = [
           "192.168"
           "172.23.75.82"

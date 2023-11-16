@@ -49,11 +49,14 @@ wlroots.overrideAttrs (
       hash = "sha256-jU0I6FoCKnj4zIBL4daosFWh81U1fM719Z6cae8PxSY=";
     };
 
-    pname = old.pname + "-hyprland" + lib.optionalString enableNvidiaPatches "-nvidia";
+    pname =
+      old.pname + "-hyprland" + lib.optionalString enableNvidiaPatches "-nvidia";
 
     patches =
       (old.patches or [ ])
-      ++ (lib.optionals enableNvidiaPatches [ "${hyprland.src}/nix/patches/wlroots-nvidia.patch" ]);
+      ++ (lib.optionals enableNvidiaPatches [
+        "${hyprland.src}/nix/patches/wlroots-nvidia.patch"
+      ]);
 
     # don't need old.postPatch for hwdata's path in wlroots 0.16
     postPatch = lib.optionalString enableNvidiaPatches ''

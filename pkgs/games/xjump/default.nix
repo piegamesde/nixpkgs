@@ -32,7 +32,9 @@ stdenv.mkDerivation {
   ];
   preConfigure = "autoreconf --install";
   patches = lib.optionals stdenv.buildPlatform.isDarwin [ ./darwin.patch ];
-  configureFlags = lib.optionals (localStateDir != null) [ "--localstatedir=${localStateDir}" ];
+  configureFlags = lib.optionals (localStateDir != null) [
+    "--localstatedir=${localStateDir}"
+  ];
 
   meta = with lib; {
     description = "The falling tower game";

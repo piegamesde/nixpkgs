@@ -21,16 +21,21 @@ let
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
-  removeDistribute = alias: with lib; if isDerivation alias then dontDistribute alias else alias;
+  removeDistribute =
+    alias: with lib; if isDerivation alias then dontDistribute alias else alias;
 
   # Make sure that we are not shadowing something from node-packages.nix.
   checkInPkgs =
     n: alias:
-    if builtins.hasAttr n super then throw "Alias ${n} is still in node-packages.nix" else alias;
+    if builtins.hasAttr n super then
+      throw "Alias ${n} is still in node-packages.nix"
+    else
+      alias;
 
   mapAliases =
     aliases:
-    lib.mapAttrs (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
+    lib.mapAttrs
+      (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
       aliases;
 in
 
@@ -42,7 +47,9 @@ mapAliases {
   "@githubnext/github-copilot-cli" = pkgs.github-copilot-cli; # Added 2023-05-02
   "@google/clasp" = pkgs.google-clasp; # Added 2023-05-07
   "@maizzle/cli" = pkgs.maizzle; # added 2023-08-17
-  "@medable/mdctl-cli" = throw "@medable/mdctl-cli was removed because it was broken"; # added 2023-08-21
+  "@medable/mdctl-cli" =
+    throw
+      "@medable/mdctl-cli was removed because it was broken"; # added 2023-08-21
   "@mermaid-js/mermaid-cli" = pkgs.mermaid-cli; # added 2023-10-01
   "@nerdwallet/shepherd" = pkgs.shepherd; # added 2023-09-30
   "@nestjs/cli" = pkgs.nest-cli; # Added 2023-05-06
@@ -73,7 +80,9 @@ mapAliases {
   eslint_d = pkgs.eslint_d; # Added 2023-05-26
   inherit (pkgs) firebase-tools; # added 2023-08-18
   flood = pkgs.flood; # Added 2023-07-25
-  generator-code = throw "generator-code was removed because it provides no executable"; # added 2023-09-24
+  generator-code =
+    throw
+      "generator-code was removed because it provides no executable"; # added 2023-09-24
   git-ssb = throw "git-ssb was removed because it was broken"; # added 2023-08-21
   inherit (pkgs) gitmoji-cli; # added 2023-09-23
   glob = pkgs.node-glob; # added 2023-08-18
@@ -111,7 +120,9 @@ mapAliases {
   prettier_d_slim = pkgs.prettier-d-slim; # added 2023-09-14
   inherit (pkgs) pxder; # added 2023-09-26
   inherit (pkgs) quicktype; # added 2023-09-09
-  react-native-cli = throw "react-native-cli was removed because it was deprecated"; # added 2023-09-25
+  react-native-cli =
+    throw
+      "react-native-cli was removed because it was deprecated"; # added 2023-09-25
   inherit (pkgs) react-static; # added 2023-08-21
   react-tools = throw "react-tools was removed because it was deprecated"; # added 2023-09-25
   readability-cli = pkgs.readability-cli; # Added 2023-06-12
@@ -120,12 +131,16 @@ mapAliases {
   inherit (pkgs) rtlcss; # added 2023-08-29
   s3http = throw "s3http was removed because it was abandoned upstream"; # added 2023-08-18
   inherit (pkgs) snyk; # Added 2023-08-30
-  "@squoosh/cli" = throw "@squoosh/cli was removed because it was abandoned upstream"; # added 2023-09-02
+  "@squoosh/cli" =
+    throw
+      "@squoosh/cli was removed because it was abandoned upstream"; # added 2023-09-02
   ssb-server = throw "ssb-server was removed because it was broken"; # added 2023-08-21
   stf = throw "stf was removed because it was broken"; # added 2023-08-21
   inherit (pkgs) stylelint; # added 2023-09-13
   surge = pkgs.surge-cli; # Added 2023-09-08
-  swagger = throw "swagger was removed because it was broken and abandoned upstream"; # added 2023-09-09
+  swagger =
+    throw
+      "swagger was removed because it was broken and abandoned upstream"; # added 2023-09-09
   tedicross = throw "tedicross was removed because it was broken"; # added 2023-09-09
   inherit (pkgs) terser; # Added 2023-08-31
   thelounge = pkgs.thelounge; # Added 2023-05-22

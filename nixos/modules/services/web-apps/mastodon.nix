@@ -41,16 +41,22 @@ let
 
       TRUSTED_PROXY_IP = cfg.trustedProxy;
     }
-    // lib.optionalAttrs (cfg.database.host != "/run/postgresql" && cfg.database.port != null) {
-      DB_PORT = toString cfg.database.port;
-    }
+    // lib.optionalAttrs
+      (cfg.database.host != "/run/postgresql" && cfg.database.port != null)
+      { DB_PORT = toString cfg.database.port; }
     // lib.optionalAttrs cfg.smtp.authenticate { SMTP_LOGIN = cfg.smtp.user; }
-    // lib.optionalAttrs (cfg.elasticsearch.host != null) { ES_HOST = cfg.elasticsearch.host; }
+    // lib.optionalAttrs (cfg.elasticsearch.host != null) {
+      ES_HOST = cfg.elasticsearch.host;
+    }
     // lib.optionalAttrs (cfg.elasticsearch.host != null) {
       ES_PORT = toString (cfg.elasticsearch.port);
     }
-    // lib.optionalAttrs (cfg.elasticsearch.host != null) { ES_PRESET = cfg.elasticsearch.preset; }
-    // lib.optionalAttrs (cfg.elasticsearch.user != null) { ES_USER = cfg.elasticsearch.user; }
+    // lib.optionalAttrs (cfg.elasticsearch.host != null) {
+      ES_PRESET = cfg.elasticsearch.preset;
+    }
+    // lib.optionalAttrs (cfg.elasticsearch.user != null) {
+      ES_USER = cfg.elasticsearch.user;
+    }
     // cfg.extraConfig;
 
   systemCallsList = [
@@ -117,7 +123,9 @@ let
   envFile = pkgs.writeText "mastodon.env" (
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
-        lib.mapAttrsToList (name: value: lib.optional (value != null) ''${name}="${toString value}"'') env
+        lib.mapAttrsToList
+          (name: value: lib.optional (value != null) ''${name}="${toString value}"'')
+          env
       ))
     )
   );
@@ -153,7 +161,9 @@ let
           let
             jobClassArgs = toString (builtins.map (c: "-q ${c}") processCfg.jobClasses);
             jobClassLabel = toString ([ "" ] ++ processCfg.jobClasses);
-            threads = toString (if processCfg.threads == null then cfg.sidekiqThreads else processCfg.threads);
+            threads = toString (
+              if processCfg.threads == null then cfg.sidekiqThreads else processCfg.threads
+            );
           in
           {
             after =
@@ -266,7 +276,9 @@ in
 
   options = {
     services.mastodon = {
-      enable = lib.mkEnableOption (lib.mdDoc "Mastodon, a federated social network server");
+      enable = lib.mkEnableOption (
+        lib.mdDoc "Mastodon, a federated social network server"
+      );
 
       configureNginx = lib.mkOption {
         description = lib.mdDoc ''
@@ -517,7 +529,9 @@ in
 
       database = {
         createLocally = lib.mkOption {
-          description = lib.mdDoc "Configure local PostgreSQL database server for Mastodon.";
+          description =
+            lib.mdDoc
+              "Configure local PostgreSQL database server for Mastodon.";
           type = lib.types.bool;
           default = true;
         };
@@ -571,7 +585,9 @@ in
         };
 
         authenticate = lib.mkOption {
-          description = lib.mdDoc "Authenticate with the SMTP server using username and password.";
+          description =
+            lib.mdDoc
+              "Authenticate with the SMTP server using username and password.";
           type = lib.types.bool;
           default = false;
         };
@@ -640,7 +656,9 @@ in
         };
 
         user = lib.mkOption {
-          description = lib.mdDoc "Used for optionally authenticating with Elasticsearch.";
+          description =
+            lib.mdDoc
+              "Used for optionally authenticating with Elasticsearch.";
           type = lib.types.nullOr lib.types.str;
           default = null;
           example = "elasticsearch-mastodon";
@@ -736,7 +754,8 @@ in
             '';
           }
           {
-            assertion = !databaseActuallyCreateLocally -> (cfg.database.host != "/run/postgresql");
+            assertion =
+              !databaseActuallyCreateLocally -> (cfg.database.host != "/run/postgresql");
             message = ''
               <option>services.mastodon.database.host</option> needs to be set if
                 <option>services.mastodon.database.createLocally</option> is not enabled.
@@ -759,7 +778,8 @@ in
           {
             assertion =
               1 == (lib.count (x: x) (
-                lib.mapAttrsToList (_: v: builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
+                lib.mapAttrsToList
+                  (_: v: builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
                   cfg.sidekiqProcesses
               ));
             message = ''
@@ -945,23 +965,25 @@ in
           ];
         };
 
-        systemd.services.mastodon-media-auto-remove = lib.mkIf cfg.mediaAutoRemove.enable {
-          description = "Mastodon media auto remove";
-          environment = env;
-          serviceConfig = {
-            Type = "oneshot";
-            EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
-          } // cfgService;
-          script =
-            let
-              olderThanDays = toString cfg.mediaAutoRemove.olderThanDays;
-            in
-            ''
-              ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
-              ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
-            '';
-          startAt = cfg.mediaAutoRemove.startAt;
-        };
+        systemd.services.mastodon-media-auto-remove =
+          lib.mkIf cfg.mediaAutoRemove.enable
+            {
+              description = "Mastodon media auto remove";
+              environment = env;
+              serviceConfig = {
+                Type = "oneshot";
+                EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+              } // cfgService;
+              script =
+                let
+                  olderThanDays = toString cfg.mediaAutoRemove.olderThanDays;
+                in
+                ''
+                  ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
+                  ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
+                '';
+              startAt = cfg.mediaAutoRemove.startAt;
+            };
 
         services.nginx = lib.mkIf cfg.configureNginx {
           enable = true;
@@ -1009,10 +1031,12 @@ in
           };
         };
 
-        services.postfix = lib.mkIf (cfg.smtp.createLocally && cfg.smtp.host == "127.0.0.1") {
-          enable = true;
-          hostname = lib.mkDefault "${cfg.localDomain}";
-        };
+        services.postfix =
+          lib.mkIf (cfg.smtp.createLocally && cfg.smtp.host == "127.0.0.1")
+            {
+              enable = true;
+              hostname = lib.mkDefault "${cfg.localDomain}";
+            };
         services.redis.servers.mastodon =
           lib.mkIf (cfg.redis.createLocally && cfg.redis.host == "127.0.0.1")
             {
@@ -1051,7 +1075,9 @@ in
           )
         ];
 
-        users.groups.${cfg.group}.members = lib.optional cfg.configureNginx config.services.nginx.user;
+        users.groups.${cfg.group}.members =
+          lib.optional cfg.configureNginx
+            config.services.nginx.user;
       }
       {
         systemd.services = lib.mkMerge [

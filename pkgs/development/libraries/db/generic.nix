@@ -75,10 +75,13 @@ stdenv.mkDerivation (
       popd
     '';
 
-    configureFlags = [
-      (if cxxSupport then "--enable-cxx" else "--disable-cxx")
-      (if compat185 then "--enable-compat185" else "--disable-compat185")
-    ] ++ lib.optional dbmSupport "--enable-dbm" ++ lib.optional stdenv.isFreeBSD "--with-pic";
+    configureFlags =
+      [
+        (if cxxSupport then "--enable-cxx" else "--disable-cxx")
+        (if compat185 then "--enable-compat185" else "--disable-compat185")
+      ]
+      ++ lib.optional dbmSupport "--enable-dbm"
+      ++ lib.optional stdenv.isFreeBSD "--with-pic";
 
     preConfigure = ''
       cd build_unix

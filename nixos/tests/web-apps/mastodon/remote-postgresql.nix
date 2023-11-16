@@ -89,7 +89,9 @@ import ../../make-test-python.nix (
                 tryFiles = "$uri @proxy";
               };
               locations."@proxy" = {
-                proxyPass = "http://192.168.2.201:${toString nodes.server.services.mastodon.webPort}";
+                proxyPass = "http://192.168.2.201:${
+                    toString nodes.server.services.mastodon.webPort
+                  }";
                 proxyWebsockets = true;
               };
             };

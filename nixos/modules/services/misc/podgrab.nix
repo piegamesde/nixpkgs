@@ -25,7 +25,9 @@ in
       type = types.port;
       default = 8080;
       example = 4242;
-      description = lib.mdDoc "The port on which Podgrab will listen for incoming HTTP traffic.";
+      description =
+        lib.mdDoc
+          "The port on which Podgrab will listen for incoming HTTP traffic.";
     };
   };
 

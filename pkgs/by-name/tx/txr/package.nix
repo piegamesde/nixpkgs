@@ -27,7 +27,9 @@ stdenv.mkDerivation (
       substituteInPlace tests/017/realpath.tl --replace /usr/bin /bin
       substituteInPlace tests/017/realpath.expected --replace /usr/bin /bin
 
-      substituteInPlace tests/018/process.tl --replace /usr/bin/env ${lib.getBin coreutils}/bin/env
+      substituteInPlace tests/018/process.tl --replace /usr/bin/env ${
+        lib.getBin coreutils
+      }/bin/env
     '';
 
     preCheck =

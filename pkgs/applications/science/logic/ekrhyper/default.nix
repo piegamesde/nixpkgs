@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
   ];
   setSourceRoot = "export sourceRoot=$(echo */ekrh/src)";
   preInstall = "export INSTALLDIR=$out";
-  postInstall = ''for i in "$out/casc"/*; do ln -s "$i" "$out/bin/ekrh-casc-$(basename $i)"; done '';
+  postInstall = ''
+    for i in "$out/casc"/*; do ln -s "$i" "$out/bin/ekrh-casc-$(basename $i)"; done '';
 
   meta = with lib; {
     description = "Automated first-order theorem prover";

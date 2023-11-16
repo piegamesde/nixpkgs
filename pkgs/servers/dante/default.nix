@@ -13,7 +13,8 @@
 
 let
   remove_getaddrinfo_checks =
-    stdenv.hostPlatform.isMips64 || !(stdenv.buildPlatform.canExecute stdenv.hostPlatform);
+    stdenv.hostPlatform.isMips64
+    || !(stdenv.buildPlatform.canExecute stdenv.hostPlatform);
 in
 stdenv.mkDerivation rec {
   pname = "dante";

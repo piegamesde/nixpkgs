@@ -22,8 +22,13 @@ let
       let
         unknown = lib.subtractLists knownFonts fonts;
       in
-      if (unknown != [ ]) then throw "Unknown font(s): ${lib.concatStringsSep " " unknown}" else fonts;
-  selectedFontsShas = lib.attrsets.genAttrs selectedFonts (fName: fontsShas."${fName}");
+      if (unknown != [ ]) then
+        throw "Unknown font(s): ${lib.concatStringsSep " " unknown}"
+      else
+        fonts;
+  selectedFontsShas = lib.attrsets.genAttrs selectedFonts (
+    fName: fontsShas."${fName}"
+  );
   srcs =
     lib.attrsets.mapAttrsToList
       (

@@ -59,7 +59,9 @@ let
   '';
 
   mailmanCfg = lib.generators.toINI { } (
-    recursiveUpdate cfg.settings { webservice.admin_pass = "#NIXOS_MAILMAN_REST_API_PASS_SECRET#"; }
+    recursiveUpdate cfg.settings {
+      webservice.admin_pass = "#NIXOS_MAILMAN_REST_API_PASS_SECRET#";
+    }
   );
 
   mailmanCfgFile = pkgs.writeText "mailman-raw.cfg" mailmanCfg;
@@ -309,7 +311,9 @@ in
       };
 
       serve = {
-        enable = mkEnableOption (lib.mdDoc "automatic nginx and uwsgi setup for mailman-web");
+        enable = mkEnableOption (
+          lib.mdDoc "automatic nginx and uwsgi setup for mailman-web"
+        );
 
         virtualRoot = mkOption {
           default = "/";
@@ -322,7 +326,9 @@ in
       };
 
       extraPythonPackages = mkOption {
-        description = lib.mdDoc "Packages to add to the python environment used by mailman and mailman-web";
+        description =
+          lib.mdDoc
+            "Packages to add to the python environment used by mailman and mailman-web";
         type = types.listOf types.package;
         default = [ ];
       };
@@ -541,7 +547,8 @@ in
         webHost: {
           locations = {
             ${cfg.serve.virtualRoot}.extraConfig = "uwsgi_pass unix:/run/mailman-web.socket;";
-            "${removeSuffix "/" cfg.serve.virtualRoot}/static/".alias = webSettings.STATIC_ROOT + "/";
+            "${removeSuffix "/" cfg.serve.virtualRoot}/static/".alias =
+              webSettings.STATIC_ROOT + "/";
           };
         }
       );
@@ -709,7 +716,9 @@ in
                     manage-script-name = true;
                   }
               );
-            uwsgiConfigFile = pkgs.writeText "uwsgi-mailman.json" (builtins.toJSON uwsgiConfig);
+            uwsgiConfigFile = pkgs.writeText "uwsgi-mailman.json" (
+              builtins.toJSON uwsgiConfig
+            );
           in
           {
             wantedBy = [ "multi-user.target" ];

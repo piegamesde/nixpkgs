@@ -33,7 +33,9 @@ import ../make-test-python.nix (
 
           virtualHosts.netbox = {
             default = true;
-            locations."/".proxyPass = "http://localhost:${toString config.services.netbox.port}";
+            locations."/".proxyPass = "http://localhost:${
+                toString config.services.netbox.port
+              }";
             locations."/static/".alias = "/var/lib/netbox/static/";
           };
         };
@@ -42,7 +44,9 @@ import ../make-test-python.nix (
 
         networking.firewall.allowedTCPPorts = [ 80 ];
 
-        specialisation.upgrade.configuration.services.netbox.package = lib.mkForce newNetbox;
+        specialisation.upgrade.configuration.services.netbox.package =
+          lib.mkForce
+            newNetbox;
       };
 
     testScript =

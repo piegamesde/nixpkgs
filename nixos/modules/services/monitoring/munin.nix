@@ -91,7 +91,8 @@ let
   # munin-node-configure --suggest, i.e. munin.extraAutoPlugins.
   # Note that this flattens the input; this is intentional, as
   # munin-node-configure won't recurse into subdirectories.
-  internManyPlugins = path: "find '${path}' -type f -perm /a+x -exec cp -a -t . '{}' '+'";
+  internManyPlugins =
+    path: "find '${path}' -type f -perm /a+x -exec cp -a -t . '{}' '+'";
 
   # Use the appropriate intern-fn to copy the plugins into the store and patch
   # them afterwards in an attempt to get them to run on NixOS.

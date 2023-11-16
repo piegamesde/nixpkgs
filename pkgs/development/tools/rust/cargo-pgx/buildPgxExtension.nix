@@ -80,11 +80,15 @@ let
     exit 0
   '';
   maybeDebugFlag = lib.optionalString (buildType != "release") "--debug";
-  maybeEnterBuildAndTestSubdir = lib.optionalString (buildAndTestSubdir != null) ''
-    export CARGO_TARGET_DIR="$(pwd)/target"
-    pushd "${buildAndTestSubdir}"
-  '';
-  maybeLeaveBuildAndTestSubdir = lib.optionalString (buildAndTestSubdir != null) "popd";
+  maybeEnterBuildAndTestSubdir =
+    lib.optionalString (buildAndTestSubdir != null)
+      ''
+        export CARGO_TARGET_DIR="$(pwd)/target"
+        pushd "${buildAndTestSubdir}"
+      '';
+  maybeLeaveBuildAndTestSubdir =
+    lib.optionalString (buildAndTestSubdir != null)
+      "popd";
 
   pgxPostgresMajor = lib.versions.major postgresql.version;
   preBuildAndTest = ''
@@ -108,7 +112,9 @@ let
   # so we don't accidentally `(rustPlatform.buildRustPackage argsForBuildRustPackage) // { ... }` because
   # we forgot parentheses
   finalArgs = argsForBuildRustPackage // {
-    buildInputs = (args.buildInputs or [ ]) ++ lib.optionals stdenv.isDarwin [ Security ];
+    buildInputs =
+      (args.buildInputs or [ ])
+      ++ lib.optionals stdenv.isDarwin [ Security ];
 
     nativeBuildInputs =
       (args.nativeBuildInputs or [ ])
@@ -128,7 +134,9 @@ let
       ${maybeEnterBuildAndTestSubdir}
 
       NIX_PGLIBDIR="${postgresql}/lib" \
-      PGX_BUILD_FLAGS="--frozen -j $NIX_BUILD_CORES ${builtins.concatStringsSep " " cargoBuildFlags}" \
+      PGX_BUILD_FLAGS="--frozen -j $NIX_BUILD_CORES ${
+        builtins.concatStringsSep " " cargoBuildFlags
+      }" \
       cargo-pgx pgx package \
         --pg-config ${postgresql}/bin/pg_config \
         ${maybeDebugFlag} \
@@ -164,7 +172,9 @@ let
     RUST_BACKTRACE = "full";
 
     checkNoDefaultFeatures = true;
-    checkFeatures = (args.checkFeatures or [ ]) ++ [ "pg_test pg${pgxPostgresMajor}" ];
+    checkFeatures = (args.checkFeatures or [ ]) ++ [
+      "pg_test pg${pgxPostgresMajor}"
+    ];
   };
 in
 rustPlatform.buildRustPackage finalArgs

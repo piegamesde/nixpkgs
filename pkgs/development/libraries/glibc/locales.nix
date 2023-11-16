@@ -29,7 +29,9 @@
       outputs = [ "out" ];
 
       LOCALEDEF_FLAGS = [
-        (if stdenv.hostPlatform.isLittleEndian then "--little-endian" else "--big-endian")
+        (
+          if stdenv.hostPlatform.isLittleEndian then "--little-endian" else "--big-endian"
+        )
       ];
 
       preBuild =

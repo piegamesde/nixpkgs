@@ -62,7 +62,9 @@ let
     fetchurl {
       url = "https://packages.blackfire.io/binaries/blackfire-php/${version}/blackfire-php-${
           if isLinux then "linux" else "darwin"
-        }_${hashes.${system}.system}-php-${builtins.replaceStrings [ "." ] [ "" ] phpMajor}.so";
+        }_${hashes.${system}.system}-php-${
+          builtins.replaceStrings [ "." ] [ "" ] phpMajor
+        }.so";
       hash = hashes.${system}.hash.${phpMajor};
     };
 in
@@ -108,7 +110,9 @@ stdenv.mkDerivation (
             exit 0
         fi
 
-        for source in ${lib.concatStringsSep " " (builtins.attrNames finalAttrs.passthru.updateables)}; do
+        for source in ${
+          lib.concatStringsSep " " (builtins.attrNames finalAttrs.passthru.updateables)
+        }; do
           update-source-version "$UPDATE_NIX_ATTR_PATH.updateables.$source" "0" "sha256-${lib.fakeSha256}"
           update-source-version "$UPDATE_NIX_ATTR_PATH.updateables.$source" "$NEW_VERSION"
         done
@@ -117,7 +121,8 @@ stdenv.mkDerivation (
       # All sources for updating by the update script.
       updateables =
         let
-          createName = path: builtins.replaceStrings [ "." ] [ "_" ] (lib.concatStringsSep "_" path);
+          createName =
+            path: builtins.replaceStrings [ "." ] [ "_" ] (lib.concatStringsSep "_" path);
 
           createSourceParams =
             path:
@@ -134,7 +139,9 @@ stdenv.mkDerivation (
           createUpdateable =
             path: _value:
             lib.nameValuePair (createName path) (
-              finalAttrs.finalPackage.overrideAttrs (attrs: { src = makeSource (createSourceParams path); })
+              finalAttrs.finalPackage.overrideAttrs (
+                attrs: { src = makeSource (createSourceParams path); }
+              )
             );
 
           # Filter out all attributes other than hashes.
@@ -143,7 +150,9 @@ stdenv.mkDerivation (
         builtins.listToAttrs
           # Collect all leaf attributes (containing hashes).
           (
-            lib.collect (attrs: attrs ? name) (lib.mapAttrsRecursive createUpdateable hashesOnly)
+            lib.collect (attrs: attrs ? name) (
+              lib.mapAttrsRecursive createUpdateable hashesOnly
+            )
           );
     };
 

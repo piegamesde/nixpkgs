@@ -40,7 +40,9 @@ stdenv.mkDerivation rec {
     export RELEASE_VERSION=${version}
   '';
 
-  configureFlags = [ "--enable-debug" ] ++ lib.optionals (!enablePython) [ "--without-cython" ];
+  configureFlags = [
+    "--enable-debug"
+  ] ++ lib.optionals (!enablePython) [ "--without-cython" ];
 
   doCheck = true;
 

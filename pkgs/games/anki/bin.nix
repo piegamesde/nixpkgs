@@ -114,7 +114,8 @@ else
   stdenv.mkDerivation {
     inherit pname version passthru;
 
-    src = if stdenv.isAarch64 then sources.darwin-aarch64 else sources.darwin-x86_64;
+    src =
+      if stdenv.isAarch64 then sources.darwin-aarch64 else sources.darwin-x86_64;
 
     nativeBuildInputs = [ undmg ];
     sourceRoot = ".";

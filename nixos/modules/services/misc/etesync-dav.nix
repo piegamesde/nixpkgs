@@ -79,16 +79,18 @@ in
         DynamicUser = true;
         StateDirectory = "etesync-dav";
         ExecStart = "${pkgs.etesync-dav}/bin/etesync-dav";
-        ExecStartPre = mkIf (cfg.sslCertificate != null || cfg.sslCertificateKey != null) (
-          pkgs.writers.writeBash "etesync-dav-copy-keys" ''
-            ${optionalString (cfg.sslCertificate != null) ''
-              cp ${toString cfg.sslCertificate} $STATE_DIRECTORY/etesync.crt
-            ''}
-            ${optionalString (cfg.sslCertificateKey != null) ''
-              cp ${toString cfg.sslCertificateKey} $STATE_DIRECTORY/etesync.key
-            ''}
-          ''
-        );
+        ExecStartPre =
+          mkIf (cfg.sslCertificate != null || cfg.sslCertificateKey != null)
+            (
+              pkgs.writers.writeBash "etesync-dav-copy-keys" ''
+                ${optionalString (cfg.sslCertificate != null) ''
+                  cp ${toString cfg.sslCertificate} $STATE_DIRECTORY/etesync.crt
+                ''}
+                ${optionalString (cfg.sslCertificateKey != null) ''
+                  cp ${toString cfg.sslCertificateKey} $STATE_DIRECTORY/etesync.key
+                ''}
+              ''
+            );
         Restart = "on-failure";
         RestartSec = "30min 1s";
       };

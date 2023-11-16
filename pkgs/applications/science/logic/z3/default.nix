@@ -47,7 +47,9 @@ let
           ocaml
           findlib
         ];
-      propagatedBuildInputs = [ python.pkgs.setuptools ] ++ optionals ocamlBindings [ zarith ];
+      propagatedBuildInputs = [
+        python.pkgs.setuptools
+      ] ++ optionals ocamlBindings [ zarith ];
       enableParallelBuilding = true;
 
       postPatch = optionalString ocamlBindings ''
@@ -57,7 +59,9 @@ let
 
       configurePhase =
         concatStringsSep " " (
-          [ "${python.pythonOnBuildForHost.interpreter} scripts/mk_make.py --prefix=$out" ]
+          [
+            "${python.pythonOnBuildForHost.interpreter} scripts/mk_make.py --prefix=$out"
+          ]
           ++ optional javaBindings "--java"
           ++ optional ocamlBindings "--ml"
           ++ optional pythonBindings "--python --pypkgdir=$out/${python.sitePackages}"

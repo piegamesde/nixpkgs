@@ -30,23 +30,26 @@ let
   build-with-compile-into-pwd =
     args:
     let
-      build = (build-asdf-system (args // { version = args.version + "-build"; })).overrideAttrs (
-        o: {
-          buildPhase = with builtins; ''
-            mkdir __fasls
-            export LD_LIBRARY_PATH=${makeLibraryPath o.nativeLibs}:$LD_LIBRARY_PATH
-            export CLASSPATH=${makeSearchPath "share/java/*" o.javaLibs}:$CLASSPATH
-            export CL_SOURCE_REGISTRY=$CL_SOURCE_REGISTRY:$(pwd)//
-            export ASDF_OUTPUT_TRANSLATIONS="$(pwd):$(pwd)/__fasls:${storeDir}:${storeDir}"
-            ${o.lisp} ${o.buildScript}
-          '';
-          installPhase = ''
-            mkdir -pv $out
-            rm -rf __fasls
-            cp -r * $out
-          '';
-        }
-      );
+      build =
+        (build-asdf-system (args // { version = args.version + "-build"; }))
+        .overrideAttrs
+          (
+            o: {
+              buildPhase = with builtins; ''
+                mkdir __fasls
+                export LD_LIBRARY_PATH=${makeLibraryPath o.nativeLibs}:$LD_LIBRARY_PATH
+                export CLASSPATH=${makeSearchPath "share/java/*" o.javaLibs}:$CLASSPATH
+                export CL_SOURCE_REGISTRY=$CL_SOURCE_REGISTRY:$(pwd)//
+                export ASDF_OUTPUT_TRANSLATIONS="$(pwd):$(pwd)/__fasls:${storeDir}:${storeDir}"
+                ${o.lisp} ${o.buildScript}
+              '';
+              installPhase = ''
+                mkdir -pv $out
+                rm -rf __fasls
+                cp -r * $out
+              '';
+            }
+          );
     in
     build-asdf-system (
       args

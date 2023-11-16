@@ -13,7 +13,10 @@ let
   # glibc.  At this early pre-glibc stage these files sometimes
   # have different names.
   crtstuff-ofiles =
-    if stdenv.targetPlatform.isPower then "ecrti.o ecrtn.o ncrti.o ncrtn.o" else "crti.o crtn.o";
+    if stdenv.targetPlatform.isPower then
+      "ecrti.o ecrtn.o ncrti.o ncrtn.o"
+    else
+      "crti.o crtn.o";
 
   # Normally, `SHLIB_LC` is set to `-lc`, which means that
   # `libgcc_s.so` cannot be built until `libc.so` is available.
@@ -43,6 +46,9 @@ in
 # https://www.openwall.com/lists/musl/2022/11/09/3
 #
 # 'parsed.cpu.family' won't be correct for every platform.
-+ lib.optionalString (stdenv.targetPlatform.isLoongArch64 || stdenv.targetPlatform.isS390) ''
-  touch libgcc/config/${stdenv.targetPlatform.parsed.cpu.family}/crt{i,n}.S
-''
++
+  lib.optionalString
+    (stdenv.targetPlatform.isLoongArch64 || stdenv.targetPlatform.isS390)
+    ''
+      touch libgcc/config/${stdenv.targetPlatform.parsed.cpu.family}/crt{i,n}.S
+    ''

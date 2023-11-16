@@ -121,7 +121,10 @@ buildPythonPackage rec {
       "test_df_transform"
       "test_pipeline_apply"
     ]
-    ++ lib.optionals (stdenv.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13")
+    ++ lib.optionals
+      (
+        stdenv.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13"
+      )
       [
         # Flaky with older low-res mtime on darwin < 10.13 (#143987)
         "test_second_load_timestamp"

@@ -22,7 +22,9 @@ stdenv.mkDerivation {
 
   postUnpack = "sourceRoot=\${sourceRoot}/libiberty";
 
-  configureFlags = [ "--enable-install-libiberty" ] ++ lib.optional (!staticBuild) "--enable-shared";
+  configureFlags = [
+    "--enable-install-libiberty"
+  ] ++ lib.optional (!staticBuild) "--enable-shared";
 
   postInstall = lib.optionalString (!staticBuild) ''
     cp pic/libiberty.a $out/lib*/libiberty.a

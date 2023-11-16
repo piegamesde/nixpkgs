@@ -12,8 +12,10 @@ import ../make-test-python.nix (
       };
     };
 
-    lxd-image-metadata = releases.lxdVirtualMachineImageMeta.${pkgs.stdenv.hostPlatform.system};
-    lxd-image-disk = releases.lxdVirtualMachineImage.${pkgs.stdenv.hostPlatform.system};
+    lxd-image-metadata =
+      releases.lxdVirtualMachineImageMeta.${pkgs.stdenv.hostPlatform.system};
+    lxd-image-disk =
+      releases.lxdVirtualMachineImage.${pkgs.stdenv.hostPlatform.system};
 
     instance-name = "instance1";
   in

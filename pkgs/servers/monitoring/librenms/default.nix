@@ -23,7 +23,9 @@
 }:
 
 let
-  phpPackage = php82.withExtensions ({ enabled, all }: enabled ++ [ all.memcached ]);
+  phpPackage = php82.withExtensions (
+    { enabled, all }: enabled ++ [ all.memcached ]
+  );
 in
 phpPackage.buildComposerProject rec {
   pname = "librenms";

@@ -56,18 +56,22 @@ stdenv.mkDerivation rec {
     chmod -R u+w .
   '';
 
-  patches = [
-    ./gnu-install-dirs.patch
-    # See:
-    #   - https://reviews.llvm.org/D133566
-    #   - https://github.com/NixOS/nixpkgs/issues/214524#issuecomment-1429146432
-    # !!! Drop in LLVM 16+
-    (fetchpatch {
-      url = "https://github.com/llvm/llvm-project/commit/57c7bb3ec89565c68f858d316504668f9d214d59.patch";
-      hash = "sha256-AaM9A6tQ4YAw7uDqCIV4VaiUyLZv+unwcOqbakwW9/k=";
-      relative = "libcxx";
-    })
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [ ../../libcxx-0001-musl-hacks.patch ];
+  patches =
+    [
+      ./gnu-install-dirs.patch
+      # See:
+      #   - https://reviews.llvm.org/D133566
+      #   - https://github.com/NixOS/nixpkgs/issues/214524#issuecomment-1429146432
+      # !!! Drop in LLVM 16+
+      (fetchpatch {
+        url = "https://github.com/llvm/llvm-project/commit/57c7bb3ec89565c68f858d316504668f9d214d59.patch";
+        hash = "sha256-AaM9A6tQ4YAw7uDqCIV4VaiUyLZv+unwcOqbakwW9/k=";
+        relative = "libcxx";
+      })
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
+      ../../libcxx-0001-musl-hacks.patch
+    ];
 
   postPatch = ''
     cd ../runtimes
@@ -95,7 +99,8 @@ stdenv.mkDerivation rec {
           "c++abi" = "system-libcxxabi";
           "cxxrt" = "libcxxrt";
         }
-        .${cxxabi.libName} or (throw "unknown cxxabi: ${cxxabi.libName} (${cxxabi.pname})");
+        .${cxxabi.libName}
+          or (throw "unknown cxxabi: ${cxxabi.libName} (${cxxabi.pname})");
     in
     [
       "-DLLVM_ENABLE_RUNTIMES=libcxx"

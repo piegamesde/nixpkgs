@@ -204,7 +204,8 @@ let
   };
   srcs = {
     third_party =
-      map (x: (fetchurl { inherit (x) url sha256 name; }) // { inherit (x) md5name md5; })
+      map
+        (x: (fetchurl { inherit (x) url sha256 name; }) // { inherit (x) md5name md5; })
         srcsAttributes.deps;
     translations = fetchurl srcsAttributes.translations;
     help = fetchurl srcsAttributes.help;

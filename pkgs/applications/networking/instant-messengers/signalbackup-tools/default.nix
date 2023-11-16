@@ -7,7 +7,9 @@
   sqlite,
 }:
 
-(if stdenv.isDarwin then darwin.apple_sdk_11_0.llvmPackages_14.stdenv else stdenv).mkDerivation
+(
+  if stdenv.isDarwin then darwin.apple_sdk_11_0.llvmPackages_14.stdenv else stdenv
+).mkDerivation
   rec {
     pname = "signalbackup-tools";
     version = "20231114";
@@ -30,7 +32,9 @@
 
     buildPhase = ''
       runHook preBuild
-      ./BUILDSCRIPT_MULTIPROC.bash44${lib.optionalString stdenv.isDarwin " --config nixpkgs-darwin"}
+      ./BUILDSCRIPT_MULTIPROC.bash44${
+        lib.optionalString stdenv.isDarwin " --config nixpkgs-darwin"
+      }
       runHook postBuild
     '';
 

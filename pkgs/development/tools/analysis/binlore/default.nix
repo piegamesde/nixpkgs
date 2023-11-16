@@ -109,7 +109,9 @@ rec {
             map (make lore) (map lib.getBin (builtins.filter lib.isDerivation drvs))
           )
         } > $out/$lorefile
-        substituteInPlace $out/$lorefile ${lib.concatMapStrings (x: "--replace '${x}/' '' ") strip}
+        substituteInPlace $out/$lorefile ${
+          lib.concatMapStrings (x: "--replace '${x}/' '' ") strip
+        }
       done
     '');
   # TODO: echo for debug, can be removed at some point

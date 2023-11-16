@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
     ];
 
   preBuild =
-    lib.optionalString (stdenv.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "11")
+    lib.optionalString
+      (stdenv.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "11")
       ''
         export MACOSX_DEPLOYMENT_TARGET=10.13  # for futimens()
       '';

@@ -15,7 +15,9 @@ let
 
   settingsFile = pkgs.writeText "settings.yml" (builtins.toJSON cfg.settings);
 
-  limiterSettingsFile = (pkgs.formats.toml { }).generate "limiter.toml" cfg.limiterSettings;
+  limiterSettingsFile =
+    (pkgs.formats.toml { }).generate "limiter.toml"
+      cfg.limiterSettings;
 
   generateConfig = ''
     cd ${runDir}

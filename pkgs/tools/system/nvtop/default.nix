@@ -49,12 +49,16 @@ stdenv.mkDerivation rec {
       "-DUSE_LIBUDEV_OVER_LIBSYSTEMD=ON"
     ]
     ++ optional nvidia "-DNVML_INCLUDE_DIRS=${cudatoolkit}/include"
-    ++ optional nvidia "-DNVML_LIBRARIES=${cudatoolkit}/targets/x86_64-linux/lib/stubs/libnvidia-ml.so"
+    ++
+      optional nvidia
+        "-DNVML_LIBRARIES=${cudatoolkit}/targets/x86_64-linux/lib/stubs/libnvidia-ml.so"
     ++ optional (!amd) "-DAMDGPU_SUPPORT=OFF"
     ++ optional (!intel) "-DINTEL_SUPPORT=OFF"
     ++ optional (!msm) "-DMSM_SUPPORT=OFF"
     ++ optional (!nvidia) "-DNVIDIA_SUPPORT=OFF"
-    ++ optional (amd || msm) "-DLibdrm_INCLUDE_DIRS=${libdrm}/lib/stubs/libdrm.so.2";
+    ++
+      optional (amd || msm)
+        "-DLibdrm_INCLUDE_DIRS=${libdrm}/lib/stubs/libdrm.so.2";
   nativeBuildInputs = [
     cmake
     gtest
@@ -70,7 +74,8 @@ stdenv.mkDerivation rec {
 
   # ordering of fixups is important
   postFixup =
-    (lib.optionalString (amd || msm) drm-postFixup) + (lib.optionalString nvidia nvidia-postFixup);
+    (lib.optionalString (amd || msm) drm-postFixup)
+    + (lib.optionalString nvidia nvidia-postFixup);
 
   doCheck = true;
 

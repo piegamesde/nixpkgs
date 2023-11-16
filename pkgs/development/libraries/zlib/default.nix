@@ -60,9 +60,11 @@ stdenv.mkDerivation (
 
     dontConfigure = stdenv.hostPlatform.isMinGW;
 
-    preConfigure = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-      export CHOST=${stdenv.hostPlatform.config}
-    '';
+    preConfigure =
+      lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+        ''
+          export CHOST=${stdenv.hostPlatform.config}
+        '';
 
     # For zlib's ./configure (as of version 1.2.11), the order
     # of --static/--shared flags matters!
@@ -76,7 +78,9 @@ stdenv.mkDerivation (
     # `--static --shared`, `--shared` and giving nothing.
     # Of these, we choose `--static --shared`, for clarity and simpler
     # conditions.
-    configureFlags = lib.optional static "--static" ++ lib.optional shared "--shared";
+    configureFlags =
+      lib.optional static "--static"
+      ++ lib.optional shared "--shared";
     # We do the right thing manually, above, so don't need these.
     dontDisableStatic = true;
     dontAddStaticConfigureFlags = true;
@@ -109,7 +113,9 @@ stdenv.mkDerivation (
 
     # As zlib takes part in the stdenv building, we don't want references
     # to the bootstrap-tools libgcc (as uses to happen on arm/mips)
-    env.NIX_CFLAGS_COMPILE = lib.optionalString (!stdenv.hostPlatform.isDarwin) "-static-libgcc";
+    env.NIX_CFLAGS_COMPILE =
+      lib.optionalString (!stdenv.hostPlatform.isDarwin)
+        "-static-libgcc";
 
     # We don't strip on static cross-compilation because of reports that native
     # stripping corrupted the target library; see commit 12e960f5 for the report.

@@ -28,7 +28,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-8hqiq1wYw4irbOXCrwcJqTMuLISzSmSqPuw2Rn8XzQA=";
   };
 
-  cmakeFlags = [ "-DQML_BOX2D_LIBRARY=${qmlbox2d}/${qtbase.qtQmlPrefix}/Box2D.2.1" ];
+  cmakeFlags = [
+    "-DQML_BOX2D_LIBRARY=${qmlbox2d}/${qtbase.qtQmlPrefix}/Box2D.2.1"
+  ];
 
   nativeBuildInputs = [
     cmake

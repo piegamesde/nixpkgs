@@ -30,7 +30,9 @@ buildPythonPackage rec {
       --replace 'version = "0.0.0-dev"' 'version = "${version}"'
   '';
 
-  propagatedBuildInputs = [ snowballstemmer ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [
+    snowballstemmer
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   passthru.optional-dependencies.toml = [ tomli ];
 

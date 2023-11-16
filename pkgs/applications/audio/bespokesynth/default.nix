@@ -71,7 +71,9 @@ stdenv.mkDerivation rec {
 
   cmakeBuildType = "Release";
 
-  cmakeFlags = lib.optionals enableVST2 [ "-DBESPOKE_VST2_SDK_LOCATION=${vst-sdk}/VST2_SDK" ];
+  cmakeFlags = lib.optionals enableVST2 [
+    "-DBESPOKE_VST2_SDK_LOCATION=${vst-sdk}/VST2_SDK"
+  ];
 
   nativeBuildInputs = [
     python3

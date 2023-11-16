@@ -133,7 +133,8 @@ let
           config = {
             flags =
               filter (name: config.${name} == true) isolateFlags
-              ++ optional (config.SessionGroup != null) "SessionGroup=${toString config.SessionGroup}";
+              ++ optional (config.SessionGroup != null)
+                "SessionGroup=${toString config.SessionGroup}";
           };
         }
       ))
@@ -203,7 +204,8 @@ let
             # Only add flags in SOCKSPort to avoid duplicates
             flags =
               filter (name: config.${name} == true) flags
-              ++ optional (config.SessionGroup != null) "SessionGroup=${toString config.SessionGroup}";
+              ++ optional (config.SessionGroup != null)
+                "SessionGroup=${toString config.SessionGroup}";
           };
         }
       ))
@@ -282,13 +284,16 @@ let
     else if isBool v then
       (if v then "1" else "0")
     else if v ? "unix" && v.unix != null then
-      "unix:" + v.unix + optionalString (v ? "flags") (" " + concatStringsSep " " v.flags)
+      "unix:"
+      + v.unix
+      + optionalString (v ? "flags") (" " + concatStringsSep " " v.flags)
     else if v ? "port" && v.port != null then
       optionalString (v ? "addr" && v.addr != null) "${v.addr}:"
       + toString v.port
       + optionalString (v ? "flags") (" " + concatStringsSep " " v.flags)
     else if k == "ServerTransportPlugin" then
-      optionalString (v.transports != [ ]) "${concatStringsSep "," v.transports} exec ${v.exec}"
+      optionalString (v.transports != [ ])
+        "${concatStringsSep "," v.transports} exec ${v.exec}"
     else if k == "HidServAuth" then
       v.onion + " " + v.auth
     else
@@ -298,7 +303,8 @@ let
     generators.toKeyValue
       {
         listsAsDuplicateKeys = true;
-        mkKeyValue = k: generators.mkKeyValueDefault { mkValueString = mkValueString k; } " " k;
+        mkKeyValue =
+          k: generators.mkKeyValueDefault { mkValueString = mkValueString k; } " " k;
       }
       (
         lib.mapAttrs
@@ -652,7 +658,9 @@ in
                   relay, exit, bridge or client connectivity''
       );
 
-      openFirewall = mkEnableOption (lib.mdDoc "opening of the relay port(s) in the firewall");
+      openFirewall = mkEnableOption (
+        lib.mdDoc "opening of the relay port(s) in the firewall"
+      );
 
       package = mkOption {
         type = types.package;
@@ -850,7 +858,9 @@ in
           example = {
             "example.org/www" = {
               map = [ 80 ];
-              authorizedClients = [ "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" ];
+              authorizedClients = [
+                "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+              ];
             };
           };
           type = types.attrsOf (
@@ -922,7 +932,9 @@ in
                   '';
                   type = with types; listOf str;
                   default = [ ];
-                  example = [ "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" ];
+                  example = [
+                    "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                  ];
                 };
                 options.map = mkOption {
                   description = lib.mdDoc (descriptionGeneric "HiddenServicePort");
@@ -1001,8 +1013,12 @@ in
                       // {
                         description = "settings option";
                       };
-                    options.HiddenServiceAllowUnknownPorts = optionBool "HiddenServiceAllowUnknownPorts";
-                    options.HiddenServiceDirGroupReadable = optionBool "HiddenServiceDirGroupReadable";
+                    options.HiddenServiceAllowUnknownPorts =
+                      optionBool
+                        "HiddenServiceAllowUnknownPorts";
+                    options.HiddenServiceDirGroupReadable =
+                      optionBool
+                        "HiddenServiceDirGroupReadable";
                     options.HiddenServiceExportCircuitID = mkOption {
                       description = lib.mdDoc (descriptionGeneric "HiddenServiceExportCircuitID");
                       type = with types; nullOr (enum [ "haproxy" ]);
@@ -1013,9 +1029,13 @@ in
                       type = with types; nullOr (ints.between 0 65535);
                       default = null;
                     };
-                    options.HiddenServiceMaxStreamsCloseCircuit = optionBool "HiddenServiceMaxStreamsCloseCircuit";
+                    options.HiddenServiceMaxStreamsCloseCircuit =
+                      optionBool
+                        "HiddenServiceMaxStreamsCloseCircuit";
                     options.HiddenServiceNumIntroductionPoints = mkOption {
-                      description = lib.mdDoc (descriptionGeneric "HiddenServiceNumIntroductionPoints");
+                      description = lib.mdDoc (
+                        descriptionGeneric "HiddenServiceNumIntroductionPoints"
+                      );
                       type = with types; nullOr (ints.between 0 20);
                       default = null;
                     };
@@ -1024,11 +1044,15 @@ in
                   };
                 };
                 config = {
-                  path = mkDefault ((if config.secretKey == null then stateDir else runDir) + "/onion/${name}");
+                  path = mkDefault (
+                    (if config.secretKey == null then stateDir else runDir) + "/onion/${name}"
+                  );
                   settings.HiddenServiceVersion = config.version;
                   settings.HiddenServiceAuthorizeClient =
                     if config.authorizeClient != null then
-                      config.authorizeClient.authType + " " + concatStringsSep "," config.authorizeClient.clientNames
+                      config.authorizeClient.authType
+                      + " "
+                      + concatStringsSep "," config.authorizeClient.clientNames
                     else
                       null;
                   settings.HiddenServicePort =
@@ -1092,7 +1116,9 @@ in
           options.CacheDirectoryGroupReadable = optionBool "CacheDirectoryGroupReadable"; # default is null and like "auto"
           options.CellStatistics = optionBool "CellStatistics";
           options.ClientAutoIPv6ORPort = optionBool "ClientAutoIPv6ORPort";
-          options.ClientDNSRejectInternalAddresses = optionBool "ClientDNSRejectInternalAddresses";
+          options.ClientDNSRejectInternalAddresses =
+            optionBool
+              "ClientDNSRejectInternalAddresses";
           options.ClientOnionAuthDir = mkOption {
             description = lib.mdDoc (descriptionGeneric "ClientOnionAuthDir");
             default = null;
@@ -1100,7 +1126,9 @@ in
           };
           options.ClientPreferIPv6DirPort = optionBool "ClientPreferIPv6DirPort"; # default is null and like "auto"
           options.ClientPreferIPv6ORPort = optionBool "ClientPreferIPv6ORPort"; # default is null and like "auto"
-          options.ClientRejectInternalAddresses = optionBool "ClientRejectInternalAddresses";
+          options.ClientRejectInternalAddresses =
+            optionBool
+              "ClientRejectInternalAddresses";
           options.ClientUseIPv4 = optionBool "ClientUseIPv4";
           options.ClientUseIPv6 = optionBool "ClientUseIPv6";
           options.ConnDirectionStatistics = optionBool "ConnDirectionStatistics";
@@ -1152,7 +1180,9 @@ in
                 ))
               ];
           };
-          options.ControlPortFileGroupReadable = optionBool "ControlPortFileGroupReadable";
+          options.ControlPortFileGroupReadable =
+            optionBool
+              "ControlPortFileGroupReadable";
           options.ControlPortWriteToFile = optionPath "ControlPortWriteToFile";
           options.ControlSocket = optionPath "ControlSocket";
           options.ControlSocketsGroupWritable = optionBool "ControlSocketsGroupWritable";
@@ -1167,7 +1197,9 @@ in
           options.DirAllowPrivateAddresses = optionBool "DirAllowPrivateAddresses";
           options.DormantCanceledByStartup = optionBool "DormantCanceledByStartup";
           options.DormantOnFirstStartup = optionBool "DormantOnFirstStartup";
-          options.DormantTimeoutDisabledByIdleStreams = optionBool "DormantTimeoutDisabledByIdleStreams";
+          options.DormantTimeoutDisabledByIdleStreams =
+            optionBool
+              "DormantTimeoutDisabledByIdleStreams";
           options.DirCache = optionBool "DirCache";
           options.DirPolicy = mkOption {
             description = lib.mdDoc (descriptionGeneric "DirPolicy");
@@ -1184,7 +1216,9 @@ in
           options.DNSPort = optionIsolablePorts "DNSPort";
           options.DoSCircuitCreationEnabled = optionBool "DoSCircuitCreationEnabled";
           options.DoSConnectionEnabled = optionBool "DoSConnectionEnabled"; # default is null and like "auto"
-          options.DoSRefuseSingleHopClientRendezvous = optionBool "DoSRefuseSingleHopClientRendezvous";
+          options.DoSRefuseSingleHopClientRendezvous =
+            optionBool
+              "DoSRefuseSingleHopClientRendezvous";
           options.DownloadExtraInfo = optionBool "DownloadExtraInfo";
           options.EnforceDistinctSubnets = optionBool "EnforceDistinctSubnets";
           options.EntryStatistics = optionBool "EntryStatistics";
@@ -1192,7 +1226,9 @@ in
             default = [ "reject *:*" ];
             example = [ "accept *:*" ];
           };
-          options.ExitPolicyRejectLocalInterfaces = optionBool "ExitPolicyRejectLocalInterfaces";
+          options.ExitPolicyRejectLocalInterfaces =
+            optionBool
+              "ExitPolicyRejectLocalInterfaces";
           options.ExitPolicyRejectPrivate = optionBool "ExitPolicyRejectPrivate";
           options.ExitPortStatistics = optionBool "ExitPortStatistics";
           options.ExitRelay = optionBool "ExitRelay"; # default is null and like "auto"
@@ -1219,7 +1255,9 @@ in
             apply = p: if isInt p || isString p then { port = p; } else p;
           };
           options.ExtORPortCookieAuthFile = optionPath "ExtORPortCookieAuthFile";
-          options.ExtORPortCookieAuthFileGroupReadable = optionBool "ExtORPortCookieAuthFileGroupReadable";
+          options.ExtORPortCookieAuthFileGroupReadable =
+            optionBool
+              "ExtORPortCookieAuthFileGroupReadable";
           options.ExtendAllowPrivateAddresses = optionBool "ExtendAllowPrivateAddresses";
           options.ExtraInfoStatistics = optionBool "ExtraInfoStatistics";
           options.FascistFirewall = optionBool "FascistFirewall";
@@ -1263,7 +1301,9 @@ in
               }
             ];
           };
-          options.HiddenServiceNonAnonymousMode = optionBool "HiddenServiceNonAnonymousMode";
+          options.HiddenServiceNonAnonymousMode =
+            optionBool
+              "HiddenServiceNonAnonymousMode";
           options.HiddenServiceStatistics = optionBool "HiddenServiceStatistics";
           options.HSLayer2Nodes = optionStrings "HSLayer2Nodes";
           options.HSLayer3Nodes = optionStrings "HSLayer3Nodes";
@@ -1315,7 +1355,9 @@ in
           #options.RunAsDaemon
           options.Sandbox = optionBool "Sandbox";
           options.ServerDNSAllowBrokenConfig = optionBool "ServerDNSAllowBrokenConfig";
-          options.ServerDNSAllowNonRFC953Hostnames = optionBool "ServerDNSAllowNonRFC953Hostnames";
+          options.ServerDNSAllowNonRFC953Hostnames =
+            optionBool
+              "ServerDNSAllowNonRFC953Hostnames";
           options.ServerDNSDetectHijacking = optionBool "ServerDNSDetectHijacking";
           options.ServerDNSRandomizeCase = optionBool "ServerDNSRandomizeCase";
           options.ServerDNSResolvConfFile = optionPath "ServerDNSResolvConfFile";
@@ -1359,7 +1401,9 @@ in
           };
           options.SOCKSPort = mkOption {
             description = lib.mdDoc (descriptionGeneric "SOCKSPort");
-            default = lib.optionals cfg.settings.HiddenServiceNonAnonymousMode [ { port = 0; } ];
+            default = lib.optionals cfg.settings.HiddenServiceNonAnonymousMode [
+              { port = 0; }
+            ];
             defaultText = literalExpression ''
               if config.${opt.settings}.HiddenServiceNonAnonymousMode == true
               then [ { port = 0; } ]
@@ -1390,7 +1434,9 @@ in
           options.UseMicrodescriptors = optionBool "UseMicrodescriptors";
           options.V3AuthUseLegacyKey = optionBool "V3AuthUseLegacyKey";
           options.V3AuthoritativeDirectory = optionBool "V3AuthoritativeDirectory";
-          options.VersioningAuthoritativeDirectory = optionBool "VersioningAuthoritativeDirectory";
+          options.VersioningAuthoritativeDirectory =
+            optionBool
+              "VersioningAuthoritativeDirectory";
           options.VirtualAddrNetworkIPv4 = optionString "VirtualAddrNetworkIPv4";
           options.VirtualAddrNetworkIPv6 = optionString "VirtualAddrNetworkIPv6";
           options.WarnPlaintextPorts = optionPorts "WarnPlaintextPorts";
@@ -1404,7 +1450,10 @@ in
     # sends a lot of stats
     warnings =
       optional
-        (cfg.settings.BridgeRelay && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices) != [ ])
+        (
+          cfg.settings.BridgeRelay
+          && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices) != [ ]
+        )
         ''
           Running Tor hidden services on a public relay makes the
           presence of hidden services visible through simple statistical
@@ -1463,7 +1512,9 @@ in
         ];
       })
       (mkIf cfg.relay.enable (
-        optionalAttrs (cfg.relay.role != "exit") { ExitPolicy = mkForce [ "reject *:*" ]; }
+        optionalAttrs (cfg.relay.role != "exit") {
+          ExitPolicy = mkForce [ "reject *:*" ];
+        }
         //
           optionalAttrs
             (elem cfg.relay.role [
@@ -1519,7 +1570,10 @@ in
         }
         //
           optionalAttrs
-            (flatten (mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices) != [ ])
+            (
+              flatten (mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices)
+              != [ ]
+            )
             { ClientOnionAuthDir = runDir + "/ClientOnionAuthDir"; }
       ))
     ];
@@ -1529,7 +1583,10 @@ in
         concatMap
           (
             o:
-            if isInt o && o > 0 then [ o ] else optionals (o ? "port" && isInt o.port && o.port > 0) [ o.port ]
+            if isInt o && o > 0 then
+              [ o ]
+            else
+              optionals (o ? "port" && isInt o.port && o.port > 0) [ o.port ]
           )
           (
             flatten [
@@ -1574,9 +1631,9 @@ in
                           imap0
                             (i: pubKey: ''
                               echo ${pubKey} |
-                              install -o tor -g tor -m 0400 /dev/stdin ${escapeShellArg onion.path}/authorized_clients/${
-                                toString i
-                              }.auth
+                              install -o tor -g tor -m 0400 /dev/stdin ${
+                                escapeShellArg onion.path
+                              }/authorized_clients/${toString i}.auth
                             '')
                             onion.authorizedClients
                         ++ optional (onion.secretKey != null) ''
@@ -1605,7 +1662,9 @@ in
                             ''
                               printf "%s:" ${escapeShellArg hostname} | cat - ${escapeShellArg prvKeyPath} |
                               install -o tor -g tor -m 0700 /dev/stdin \
-                               ${runDir}/ClientOnionAuthDir/${escapeShellArg hostname}.${toString i}.auth_private
+                               ${runDir}/ClientOnionAuthDir/${escapeShellArg hostname}.${
+                                 toString i
+                               }.auth_private
                             ''
                           )
                           onion.clientAuthorizations
@@ -1637,7 +1696,8 @@ in
             "tor/onion"
           ]
           ++ flatten (
-            mapAttrsToList (name: onion: optional (onion.secretKey == null) "tor/onion/${name}")
+            mapAttrsToList
+              (name: onion: optional (onion.secretKey == null) "tor/onion/${name}")
               cfg.relay.onionServices
           );
         # The following options are only to optimize:
@@ -1656,8 +1716,12 @@ in
             "/run/systemd/resolve/stub-resolv.conf"
             "/run/systemd/resolve/resolv.conf"
           ];
-        AmbientCapabilities = [ "" ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
-        CapabilityBoundingSet = [ "" ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
+        AmbientCapabilities = [
+          ""
+        ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
+        CapabilityBoundingSet = [
+          ""
+        ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
         # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;

@@ -17,7 +17,8 @@ in
 
 stdenv.mkDerivation {
   pname = "boost-build";
-  version = if useBoost ? version then "boost-${useBoost.version}" else defaultVersion;
+  version =
+    if useBoost ? version then "boost-${useBoost.version}" else defaultVersion;
 
   src =
     useBoost.src or (fetchFromGitHub {
@@ -40,9 +41,12 @@ stdenv.mkDerivation {
       substituteInPlace src/build-system.jam \
       --replace "default-toolset = darwin" "default-toolset = clang-darwin"
     ''
-    + lib.optionalString (useBoost ? version && lib.versionAtLeast useBoost.version "1.82") ''
-      patchShebangs --build src/engine/build.sh
-    '';
+    +
+      lib.optionalString
+        (useBoost ? version && lib.versionAtLeast useBoost.version "1.82")
+        ''
+          patchShebangs --build src/engine/build.sh
+        '';
 
   nativeBuildInputs = [ bison ];
 

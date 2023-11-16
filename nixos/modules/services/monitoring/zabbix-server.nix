@@ -94,7 +94,10 @@ in
       package = mkOption {
         type = types.package;
         default =
-          if cfg.database.type == "mysql" then pkgs.zabbix.server-mysql else pkgs.zabbix.server-pgsql;
+          if cfg.database.type == "mysql" then
+            pkgs.zabbix.server-mysql
+          else
+            pkgs.zabbix.server-pgsql;
         defaultText = literalExpression "pkgs.zabbix.server-pgsql";
         description = lib.mdDoc "The Zabbix package to use.";
       };
@@ -187,7 +190,9 @@ in
           type = types.nullOr types.path;
           default = null;
           example = "/run/postgresql";
-          description = lib.mdDoc "Path to the unix socket file to use for authentication.";
+          description =
+            lib.mdDoc
+              "Path to the unix socket file to use for authentication.";
         };
 
         createLocally = mkOption {
@@ -280,11 +285,15 @@ in
       }
       (mkIf (cfg.database.createLocally != true) { DBPort = cfg.database.port; })
       (mkIf (cfg.database.passwordFile != null) { Include = [ "${passwordFile}" ]; })
-      (mkIf (mysqlLocal && cfg.database.socket != null) { DBSocket = cfg.database.socket; })
+      (mkIf (mysqlLocal && cfg.database.socket != null) {
+        DBSocket = cfg.database.socket;
+      })
       (mkIf (cfg.modules != { }) { LoadModulePath = "${moduleEnv}/lib"; })
     ];
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.listen.port ];
+    };
 
     services.mysql = optionalAttrs mysqlLocal {
       enable = true;
@@ -341,7 +350,9 @@ in
       description = "Zabbix Server";
 
       wantedBy = [ "multi-user.target" ];
-      after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
+      after =
+        optional mysqlLocal "mysql.service"
+        ++ optional pgsqlLocal "postgresql.service";
 
       path = [ "/run/wrappers" ] ++ cfg.extraPackages;
       preStart =
@@ -390,6 +401,7 @@ in
 
     systemd.services.httpd.after =
       optional (config.services.zabbixWeb.enable && mysqlLocal) "mysql.service"
-      ++ optional (config.services.zabbixWeb.enable && pgsqlLocal) "postgresql.service";
+      ++ optional (config.services.zabbixWeb.enable && pgsqlLocal)
+        "postgresql.service";
   };
 }

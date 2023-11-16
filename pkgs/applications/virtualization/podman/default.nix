@@ -147,7 +147,9 @@ buildGoModule rec {
 
   postFixup = lib.optionalString stdenv.isLinux ''
     RPATH=$(patchelf --print-rpath $out/bin/.podman-wrapped)
-    patchelf --set-rpath "${lib.makeLibraryPath [ systemd ]}":$RPATH $out/bin/.podman-wrapped
+    patchelf --set-rpath "${
+      lib.makeLibraryPath [ systemd ]
+    }":$RPATH $out/bin/.podman-wrapped
   '';
 
   passthru.tests =

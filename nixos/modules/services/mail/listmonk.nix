@@ -23,17 +23,19 @@ let
       )
     )
   );
-  updateDatabaseConfigScript = pkgs.writeShellScriptBin "update-database-config.sh" ''
-    ${if cfg.database.mutableSettings then
+  updateDatabaseConfigScript =
+    pkgs.writeShellScriptBin "update-database-config.sh"
       ''
-        if [ ! -f /var/lib/listmonk/.db_settings_initialized ]; then
-          ${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL} ;
-          touch /var/lib/listmonk/.db_settings_initialized
-        fi
-      ''
-    else
-      "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"}
-  '';
+        ${if cfg.database.mutableSettings then
+          ''
+            if [ ! -f /var/lib/listmonk/.db_settings_initialized ]; then
+              ${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL} ;
+              touch /var/lib/listmonk/.db_settings_initialized
+            fi
+          ''
+        else
+          "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"}
+      '';
 
   databaseSettingsOpts = with types; {
     freeformType = oneOf [
@@ -59,13 +61,17 @@ let
           "campaign_views"
           "link_clicks"
         ];
-        description = lib.mdDoc "List of fields which can be exported through an automatic export request";
+        description =
+          lib.mdDoc
+            "List of fields which can be exported through an automatic export request";
       };
 
       "privacy.domain_blocklist" = mkOption {
         type = listOf str;
         default = [ ];
-        description = lib.mdDoc "E-mail addresses with these domains are disallowed from subscribing.";
+        description =
+          lib.mdDoc
+            "E-mail addresses with these domains are disallowed from subscribing.";
       };
 
       smtp = mkOption {
@@ -85,7 +91,9 @@ let
               };
               max_conns = mkOption {
                 type = types.int;
-                description = lib.mdDoc "Maximum number of simultaneous connections, defaults to 1";
+                description =
+                  lib.mdDoc
+                    "Maximum number of simultaneous connections, defaults to 1";
                 default = 1;
               };
               tls_type = mkOption {
@@ -105,7 +113,9 @@ let
 
       # TODO: refine this type based on the smtp one.
       "bounce.mailboxes" = mkOption {
-        type = listOf (submodule { freeformType = with types; listOf (attrsOf anything); });
+        type = listOf (
+          submodule { freeformType = with types; listOf (attrsOf anything); }
+        );
         default = [ ];
         description = lib.mdDoc "List of bounce mailboxes";
       };
@@ -124,12 +134,16 @@ in
   ###### interface
   options = {
     services.listmonk = {
-      enable = mkEnableOption (lib.mdDoc "Listmonk, this module assumes a reverse proxy to be set");
+      enable = mkEnableOption (
+        lib.mdDoc "Listmonk, this module assumes a reverse proxy to be set"
+      );
       database = {
         createLocally = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc "Create the PostgreSQL database and database user locally.";
+          description =
+            lib.mdDoc
+              "Create the PostgreSQL database and database user locally.";
         };
 
         settings = mkOption {
@@ -201,7 +215,9 @@ in
 
     systemd.services.listmonk = {
       description = "Listmonk - newsletter and mailing list manager";
-      after = [ "network.target" ] ++ optional cfg.database.createLocally "postgresql.service";
+      after = [
+        "network.target"
+      ] ++ optional cfg.database.createLocally "postgresql.service";
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "exec";

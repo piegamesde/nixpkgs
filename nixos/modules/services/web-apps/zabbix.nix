@@ -88,7 +88,9 @@ in
 
         address = mkOption {
           type = types.str;
-          description = lib.mdDoc "The IP address or hostname of the Zabbix server to connect to.";
+          description =
+            lib.mdDoc
+              "The IP address or hostname of the Zabbix server to connect to.";
           default = "localhost";
         };
       };
@@ -154,7 +156,9 @@ in
           type = types.nullOr types.path;
           default = null;
           example = "/run/postgresql";
-          description = lib.mdDoc "Path to the unix socket file to use for authentication.";
+          description =
+            lib.mdDoc
+              "Path to the unix socket file to use for authentication.";
         };
       };
 
@@ -214,7 +218,8 @@ in
     services.zabbixWeb.extraConfig =
       optionalString
         (
-          (versionAtLeast config.system.stateVersion "20.09") && (versionAtLeast cfg.package.version "5.0.0")
+          (versionAtLeast config.system.stateVersion "20.09")
+          && (versionAtLeast cfg.package.version "5.0.0")
         )
         ''
           $DB['DOUBLE_IEEE754'] = 'true';
@@ -285,6 +290,8 @@ in
       inherit group;
     };
 
-    users.groups.${group} = mapAttrs (name: mkDefault) { gid = config.ids.gids.zabbix; };
+    users.groups.${group} = mapAttrs (name: mkDefault) {
+      gid = config.ids.gids.zabbix;
+    };
   };
 }

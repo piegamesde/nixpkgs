@@ -89,8 +89,12 @@ let
   inherit (lib) enableFeature optional optionals;
 in
 
-assert vp8DecoderSupport || vp8EncoderSupport || vp9DecoderSupport || vp9EncoderSupport;
-assert internalStatsSupport && (vp9DecoderSupport || vp9EncoderSupport) -> postprocSupport;
+assert vp8DecoderSupport
+  || vp8EncoderSupport
+  || vp9DecoderSupport
+  || vp9EncoderSupport;
+assert internalStatsSupport && (vp9DecoderSupport || vp9EncoderSupport)
+  -> postprocSupport;
 /* If spatialResamplingSupport not enabled, build will fail with undeclared variable errors.
    Variables called in vpx_scale/generic/vpx_scale.c are declared by vpx_scale/vpx_scale_rtcd.pl,
    but is only executed if spatialResamplingSupport is enabled
@@ -167,7 +171,9 @@ stdenv.mkDerivation rec {
       (enableFeature isMips "dequant-tokens")
       (enableFeature isMips "dc-recon")
       (enableFeature postprocSupport "postproc")
-      (enableFeature (postprocSupport && (vp9DecoderSupport || vp9EncoderSupport)) "vp9-postproc")
+      (enableFeature (postprocSupport && (vp9DecoderSupport || vp9EncoderSupport))
+        "vp9-postproc"
+      )
       (enableFeature multithreadSupport "multithread")
       (enableFeature internalStatsSupport "internal-stats")
       (enableFeature spatialResamplingSupport "spatial-resampling")
@@ -175,7 +181,12 @@ stdenv.mkDerivation rec {
       (enableFeature ontheflyBitpackingSupport "onthefly-bitpacking")
       (enableFeature errorConcealmentSupport "error-concealment")
       # Shared libraries are only supported on ELF platforms
-      (if isDarwin || isCygwin then "--enable-static --disable-shared" else "--enable-shared")
+      (
+        if isDarwin || isCygwin then
+          "--enable-static --disable-shared"
+        else
+          "--enable-shared"
+      )
       (enableFeature smallSupport "small")
       (enableFeature postprocVisualizerSupport "postproc-visualizer")
       (enableFeature unitTestsSupport "unit-tests")
@@ -185,14 +196,17 @@ stdenv.mkDerivation rec {
       (enableFeature encodePerfTestsSupport "encode-perf-tests")
       (enableFeature multiResEncodingSupport "multi-res-encoding")
       (enableFeature temporalDenoisingSupport "temporal-denoising")
-      (enableFeature (temporalDenoisingSupport && (vp9DecoderSupport || vp9EncoderSupport))
+      (enableFeature
+        (temporalDenoisingSupport && (vp9DecoderSupport || vp9EncoderSupport))
         "vp9-temporal-denoising"
       )
       (enableFeature coefficientRangeCheckingSupport "coefficient-range-checking")
       (enableFeature (vp9HighbitdepthSupport && is64bit) "vp9-highbitdepth")
       (enableFeature
         (
-          experimentalSpatialSvcSupport || experimentalFpMbStatsSupport || experimentalEmulateHardwareSupport
+          experimentalSpatialSvcSupport
+          || experimentalFpMbStatsSupport
+          || experimentalEmulateHardwareSupport
         )
         "experimental"
       )

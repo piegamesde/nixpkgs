@@ -20,7 +20,8 @@ let
     ClusterName=${cfg.clusterName}
     StateSaveLocation=${cfg.stateSaveLocation}
     SlurmUser=${cfg.user}
-    ${optionalString (cfg.controlMachine != null) "controlMachine=${cfg.controlMachine}"}
+    ${optionalString (cfg.controlMachine != null)
+      "controlMachine=${cfg.controlMachine}"}
     ${optionalString (cfg.controlAddr != null) "controlAddr=${cfg.controlAddr}"}
     ${toString (
       map
@@ -42,7 +43,8 @@ let
   '';
 
   plugStackConfig = pkgs.writeTextDir "plugstack.conf" ''
-    ${optionalString cfg.enableSrunX11 "optional ${pkgs.slurm-spank-x11}/lib/x11.so"}
+    ${optionalString cfg.enableSrunX11
+      "optional ${pkgs.slurm-spank-x11}/lib/x11.so"}
     ${cfg.extraPlugstackConfig}
   '';
 
@@ -371,126 +373,137 @@ in
         '';
       };
     in
-    mkIf (cfg.enableStools || cfg.client.enable || cfg.server.enable || cfg.dbdserver.enable) {
+    mkIf
+      (
+        cfg.enableStools
+        || cfg.client.enable
+        || cfg.server.enable
+        || cfg.dbdserver.enable
+      )
+      {
 
-      environment.systemPackages = [ wrappedSlurm ];
+        environment.systemPackages = [ wrappedSlurm ];
 
-      services.munge.enable = mkDefault true;
+        services.munge.enable = mkDefault true;
 
-      # use a static uid as default to ensure it is the same on all nodes
-      users.users.slurm = mkIf (cfg.user == defaultUser) {
-        name = defaultUser;
-        group = "slurm";
-        uid = config.ids.uids.slurm;
-      };
-
-      users.groups.slurm.gid = config.ids.uids.slurm;
-
-      systemd.services.slurmd = mkIf (cfg.client.enable) {
-        path =
-          with pkgs;
-          [
-            wrappedSlurm
-            coreutils
-          ]
-          ++ lib.optional cfg.enableSrunX11 slurm-spank-x11;
-
-        wantedBy = [ "multi-user.target" ];
-        after = [
-          "systemd-tmpfiles-clean.service"
-          "munge.service"
-          "network-online.target"
-          "remote-fs.target"
-        ];
-        wants = [ "network-online.target" ];
-
-        serviceConfig = {
-          Type = "forking";
-          KillMode = "process";
-          ExecStart = "${wrappedSlurm}/bin/slurmd";
-          PIDFile = "/run/slurmd.pid";
-          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-          LimitMEMLOCK = "infinity";
-          Delegate = "Yes";
-        };
-      };
-
-      systemd.tmpfiles.rules = mkIf cfg.client.enable [ "d /var/spool/slurmd 755 root root -" ];
-
-      services.openssh.settings.X11Forwarding = mkIf cfg.client.enable (mkDefault true);
-
-      systemd.services.slurmctld = mkIf (cfg.server.enable) {
-        path =
-          with pkgs;
-          [
-            wrappedSlurm
-            munge
-            coreutils
-          ]
-          ++ lib.optional cfg.enableSrunX11 slurm-spank-x11;
-
-        wantedBy = [ "multi-user.target" ];
-        after = [
-          "network.target"
-          "munged.service"
-        ];
-        requires = [ "munged.service" ];
-
-        serviceConfig = {
-          Type = "forking";
-          ExecStart = "${wrappedSlurm}/bin/slurmctld";
-          PIDFile = "/run/slurmctld.pid";
-          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+        # use a static uid as default to ensure it is the same on all nodes
+        users.users.slurm = mkIf (cfg.user == defaultUser) {
+          name = defaultUser;
+          group = "slurm";
+          uid = config.ids.uids.slurm;
         };
 
-        preStart = ''
-          mkdir -p ${cfg.stateSaveLocation}
-          chown -R ${cfg.user}:slurm ${cfg.stateSaveLocation}
-        '';
-      };
+        users.groups.slurm.gid = config.ids.uids.slurm;
 
-      systemd.services.slurmdbd =
-        let
-          # slurm strips the last component off the path
-          configPath = "$RUNTIME_DIRECTORY/slurmdbd.conf";
-        in
-        mkIf (cfg.dbdserver.enable) {
-          path = with pkgs; [
-            wrappedSlurm
-            munge
-            coreutils
+        systemd.services.slurmd = mkIf (cfg.client.enable) {
+          path =
+            with pkgs;
+            [
+              wrappedSlurm
+              coreutils
+            ]
+            ++ lib.optional cfg.enableSrunX11 slurm-spank-x11;
+
+          wantedBy = [ "multi-user.target" ];
+          after = [
+            "systemd-tmpfiles-clean.service"
+            "munge.service"
+            "network-online.target"
+            "remote-fs.target"
           ];
+          wants = [ "network-online.target" ];
+
+          serviceConfig = {
+            Type = "forking";
+            KillMode = "process";
+            ExecStart = "${wrappedSlurm}/bin/slurmd";
+            PIDFile = "/run/slurmd.pid";
+            ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+            LimitMEMLOCK = "infinity";
+            Delegate = "Yes";
+          };
+        };
+
+        systemd.tmpfiles.rules = mkIf cfg.client.enable [
+          "d /var/spool/slurmd 755 root root -"
+        ];
+
+        services.openssh.settings.X11Forwarding = mkIf cfg.client.enable (
+          mkDefault true
+        );
+
+        systemd.services.slurmctld = mkIf (cfg.server.enable) {
+          path =
+            with pkgs;
+            [
+              wrappedSlurm
+              munge
+              coreutils
+            ]
+            ++ lib.optional cfg.enableSrunX11 slurm-spank-x11;
 
           wantedBy = [ "multi-user.target" ];
           after = [
             "network.target"
             "munged.service"
-            "mysql.service"
           ];
-          requires = [
-            "munged.service"
-            "mysql.service"
-          ];
-
-          preStart = ''
-            install -m 600 -o ${cfg.user} -T ${slurmdbdConf} ${configPath}
-            ${optionalString (cfg.dbdserver.storagePassFile != null) ''
-              echo "StoragePass=$(cat ${cfg.dbdserver.storagePassFile})" \
-                >> ${configPath}
-            ''}
-          '';
-
-          script = ''
-            export SLURM_CONF=${configPath}
-            exec ${cfg.package}/bin/slurmdbd -D
-          '';
+          requires = [ "munged.service" ];
 
           serviceConfig = {
-            RuntimeDirectory = "slurmdbd";
-            Type = "simple";
-            PIDFile = "/run/slurmdbd.pid";
+            Type = "forking";
+            ExecStart = "${wrappedSlurm}/bin/slurmctld";
+            PIDFile = "/run/slurmctld.pid";
             ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           };
+
+          preStart = ''
+            mkdir -p ${cfg.stateSaveLocation}
+            chown -R ${cfg.user}:slurm ${cfg.stateSaveLocation}
+          '';
         };
-    };
+
+        systemd.services.slurmdbd =
+          let
+            # slurm strips the last component off the path
+            configPath = "$RUNTIME_DIRECTORY/slurmdbd.conf";
+          in
+          mkIf (cfg.dbdserver.enable) {
+            path = with pkgs; [
+              wrappedSlurm
+              munge
+              coreutils
+            ];
+
+            wantedBy = [ "multi-user.target" ];
+            after = [
+              "network.target"
+              "munged.service"
+              "mysql.service"
+            ];
+            requires = [
+              "munged.service"
+              "mysql.service"
+            ];
+
+            preStart = ''
+              install -m 600 -o ${cfg.user} -T ${slurmdbdConf} ${configPath}
+              ${optionalString (cfg.dbdserver.storagePassFile != null) ''
+                echo "StoragePass=$(cat ${cfg.dbdserver.storagePassFile})" \
+                  >> ${configPath}
+              ''}
+            '';
+
+            script = ''
+              export SLURM_CONF=${configPath}
+              exec ${cfg.package}/bin/slurmdbd -D
+            '';
+
+            serviceConfig = {
+              RuntimeDirectory = "slurmdbd";
+              Type = "simple";
+              PIDFile = "/run/slurmdbd.pid";
+              ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+            };
+          };
+      };
 }

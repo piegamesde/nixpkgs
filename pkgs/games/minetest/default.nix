@@ -121,7 +121,9 @@ let
           gmp
           libspatialindex
         ]
-        ++ [ (if lib.meta.availableOn stdenv.hostPlatform luajit then luajit else lua5_1) ]
+        ++ [
+          (if lib.meta.availableOn stdenv.hostPlatform luajit then luajit else lua5_1)
+        ]
         ++ [ ]
         ++ optionals stdenv.isDarwin [
           libiconv

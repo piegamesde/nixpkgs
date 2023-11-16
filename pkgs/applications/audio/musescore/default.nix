@@ -109,7 +109,9 @@ stdenv'.mkDerivation (
           lib.makeLibraryPath [ libjack2 ]
         }"
       ]
-      ++ lib.optionals (stdenv.isLinux) [ "--set ALSA_PLUGIN_DIR ${alsa-plugins}/lib/alsa-lib" ]
+      ++ lib.optionals (stdenv.isLinux) [
+        "--set ALSA_PLUGIN_DIR ${alsa-plugins}/lib/alsa-lib"
+      ]
       ++
         lib.optionals (!stdenv.isDarwin)
           [

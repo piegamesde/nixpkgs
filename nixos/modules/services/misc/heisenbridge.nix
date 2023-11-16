@@ -43,7 +43,9 @@ in
 
     homeserver = mkOption {
       type = types.str;
-      description = lib.mdDoc "The URL to the home server for client-server API calls";
+      description =
+        lib.mdDoc
+          "The URL to the home server for client-server API calls";
       example = "http://localhost:8008";
     };
 
@@ -60,7 +62,9 @@ in
 
     address = mkOption {
       type = types.str;
-      description = lib.mdDoc "Address to listen on. IPv6 does not seem to be supported.";
+      description =
+        lib.mdDoc
+          "Address to listen on. IPv6 does not seem to be supported.";
       default = "127.0.0.1";
       example = "0.0.0.0";
     };
@@ -73,7 +77,9 @@ in
 
     debug = mkOption {
       type = types.bool;
-      description = lib.mdDoc "More verbose logging. Recommended during initial setup.";
+      description =
+        lib.mdDoc
+          "More verbose logging. Recommended during initial setup.";
       default = false;
     };
 

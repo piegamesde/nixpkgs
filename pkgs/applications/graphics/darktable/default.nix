@@ -144,8 +144,10 @@ stdenv.mkDerivation rec {
   # the wrappers:
   preFixup =
     let
-      libPathEnvVar = if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
-      libPathPrefix = "$out/lib/darktable" + lib.optionalString stdenv.isLinux ":${ocl-icd}/lib";
+      libPathEnvVar =
+        if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
+      libPathPrefix =
+        "$out/lib/darktable" + lib.optionalString stdenv.isLinux ":${ocl-icd}/lib";
     in
     ''
       for f in $out/share/darktable/kernels/*.cl; do

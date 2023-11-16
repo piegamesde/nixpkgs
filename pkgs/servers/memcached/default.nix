@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
   hardeningEnable = [ "pie" ];
 
   env.NIX_CFLAGS_COMPILE = toString (
-    [ "-Wno-error=deprecated-declarations" ] ++ lib.optional stdenv.isDarwin "-Wno-error"
+    [ "-Wno-error=deprecated-declarations" ]
+    ++ lib.optional stdenv.isDarwin "-Wno-error"
   );
 
   meta = with lib; {

@@ -25,10 +25,13 @@ let
     else
       "fnörd1";
   length = (builtins.stringLength message) * 8;
-  invisible-watermark' = python3Packages.invisible-watermark.override { inherit withOnnx; };
+  invisible-watermark' = python3Packages.invisible-watermark.override {
+    inherit withOnnx;
+  };
   expected-exit-code = if method == "rivaGan" && !withOnnx then "1" else "0";
 in
-runCommand "invisible-watermark-test-${testName}" { nativeBuildInputs = [ invisible-watermark' ]; }
+runCommand "invisible-watermark-test-${testName}"
+  { nativeBuildInputs = [ invisible-watermark' ]; }
   ''
     set +e
     invisible-watermark \

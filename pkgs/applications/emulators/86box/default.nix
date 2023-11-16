@@ -44,20 +44,23 @@ stdenv.mkDerivation rec {
     qt5.wrapQtAppsHook
   ];
 
-  buildInputs = [
-    freetype
-    fluidsynth
-    SDL2
-    glib
-    openal
-    rtmidi
-    pcre2
-    jack2
-    libpcap
-    libslirp
-    qt5.qtbase
-    qt5.qttools
-  ] ++ lib.optional stdenv.isLinux alsa-lib ++ lib.optional enableVncRenderer libvncserver;
+  buildInputs =
+    [
+      freetype
+      fluidsynth
+      SDL2
+      glib
+      openal
+      rtmidi
+      pcre2
+      jack2
+      libpcap
+      libslirp
+      qt5.qtbase
+      qt5.qttools
+    ]
+    ++ lib.optional stdenv.isLinux alsa-lib
+    ++ lib.optional enableVncRenderer libvncserver;
 
   cmakeFlags =
     lib.optional stdenv.isDarwin "-DCMAKE_MACOSX_BUNDLE=OFF"
@@ -79,7 +82,9 @@ stdenv.mkDerivation rec {
   # the runpath, so use a wrapper instead.
   postFixup =
     let
-      libPath = lib.makeLibraryPath ([ libpcap ] ++ lib.optional unfreeEnableDiscord discord-gamesdk);
+      libPath = lib.makeLibraryPath (
+        [ libpcap ] ++ lib.optional unfreeEnableDiscord discord-gamesdk
+      );
       libPathVar = if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
     in
     ''

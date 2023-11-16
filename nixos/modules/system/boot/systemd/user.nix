@@ -187,7 +187,9 @@ in
 
     systemd.user.units =
       mapAttrs' (n: v: nameValuePair "${n}.path" (pathToUnit n v)) cfg.paths
-      // mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v)) cfg.services
+      //
+        mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v))
+          cfg.services
       // mapAttrs' (n: v: nameValuePair "${n}.slice" (sliceToUnit n v)) cfg.slices
       // mapAttrs' (n: v: nameValuePair "${n}.socket" (socketToUnit n v)) cfg.sockets
       // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v)) cfg.targets
@@ -221,7 +223,10 @@ in
     # enable systemd user tmpfiles
     systemd.user.services.systemd-tmpfiles-setup.wantedBy =
       optional
-        (cfg.tmpfiles.rules != [ ] || any (cfg': cfg'.rules != [ ]) (attrValues cfg.tmpfiles.users))
+        (
+          cfg.tmpfiles.rules != [ ]
+          || any (cfg': cfg'.rules != [ ]) (attrValues cfg.tmpfiles.users)
+        )
         "basic.target";
 
     # /run/current-system/sw/etc/xdg is in systemd's $XDG_CONFIG_DIRS so we can

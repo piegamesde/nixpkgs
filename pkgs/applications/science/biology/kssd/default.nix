@@ -46,7 +46,9 @@ stdenv.mkDerivation (
         ${
           lib.getExe kssd
         } dist -L ${kssd.src}/shuf_file/L3K10.shuf -r ${kssd.src}/test_fna/seqs1 -o $out/reference
-        ${lib.getExe kssd} dist -L ${kssd.src}/shuf_file/L3K10.shuf -o $out/query ${kssd.src}/test_fna/seqs2
+        ${
+          lib.getExe kssd
+        } dist -L ${kssd.src}/shuf_file/L3K10.shuf -o $out/query ${kssd.src}/test_fna/seqs2
         ${lib.getExe kssd} dist -r $out/reference -o $out/distout $out/query
       '';
     };

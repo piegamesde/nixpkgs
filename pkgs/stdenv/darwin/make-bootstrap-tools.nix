@@ -119,7 +119,9 @@ rec {
 
       cp -d ${lib.getLib llvmPackages.libcxx}/lib/libc++*.dylib $out/lib
       cp -d ${lib.getLib llvmPackages.libcxxabi}/lib/libc++abi*.dylib $out/lib
-      cp -d ${lib.getLib llvmPackages.compiler-rt}/lib/darwin/libclang_rt* $out/lib/darwin
+      cp -d ${
+        lib.getLib llvmPackages.compiler-rt
+      }/lib/darwin/libclang_rt* $out/lib/darwin
       cp -d ${lib.getLib llvmPackages.compiler-rt}/lib/libclang_rt* $out/lib
       cp -d ${lib.getLib llvmPackages.llvm.lib}/lib/libLLVM.dylib $out/lib
       cp -d ${lib.getLib libffi}/lib/libffi*.dylib $out/lib

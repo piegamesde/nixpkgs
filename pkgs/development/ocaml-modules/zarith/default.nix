@@ -33,7 +33,9 @@ else
     dontAddPrefix = true;
     dontAddStaticConfigureFlags = true;
     configurePlatforms = [ ];
-    configureFlags = [ "-installdir ${placeholder "out"}/lib/ocaml/${ocaml.version}/site-lib" ];
+    configureFlags = [
+      "-installdir ${placeholder "out"}/lib/ocaml/${ocaml.version}/site-lib"
+    ];
 
     preInstall = "mkdir -p $out/lib/ocaml/${ocaml.version}/site-lib/stublibs";
 

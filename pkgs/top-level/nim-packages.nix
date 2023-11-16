@@ -22,7 +22,9 @@ lib.makeScope newScope (
 
     asciigraph = callPackage ../development/nim-packages/asciigraph { };
 
-    astpatternmatching = callPackage ../development/nim-packages/astpatternmatching { };
+    astpatternmatching =
+      callPackage ../development/nim-packages/astpatternmatching
+        { };
 
     asynctools = callPackage ../development/nim-packages/asynctools { };
 
@@ -56,7 +58,9 @@ lib.makeScope newScope (
 
     frosty = callPackage ../development/nim-packages/frosty { };
 
-    getdns = callPackage ../development/nim-packages/getdns { inherit (pkgs) getdns; };
+    getdns = callPackage ../development/nim-packages/getdns {
+      inherit (pkgs) getdns;
+    };
 
     hashlib = callPackage ../development/nim-packages/hashlib { };
 
@@ -106,7 +110,9 @@ lib.makeScope newScope (
 
     regex = callPackage ../development/nim-packages/regex { };
 
-    rocksdb = callPackage ../development/nim-packages/rocksdb { inherit (pkgs) rocksdb; };
+    rocksdb = callPackage ../development/nim-packages/rocksdb {
+      inherit (pkgs) rocksdb;
+    };
 
     safeseq = callPackage ../development/nim-packages/safeseq { };
 
@@ -118,7 +124,9 @@ lib.makeScope newScope (
 
     segmentation = callPackage ../development/nim-packages/segmentation { };
 
-    snappy = callPackage ../development/nim-packages/snappy { inherit (pkgs) snappy; };
+    snappy = callPackage ../development/nim-packages/snappy {
+      inherit (pkgs) snappy;
+    };
 
     nimraylib-now = callPackage ../development/nim-packages/nimraylib-now { };
 

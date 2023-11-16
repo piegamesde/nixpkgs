@@ -18,7 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "XhRqW0wdXzlmyBf1cjqtQvztuyV4buxVl19Q0uyEOhk=";
   };
 
-  nativeBuildInputs = lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs =
+    lib.optional stdenv.hostPlatform.isDarwin
+      fixDarwinDylibNames;
 
   makeFlags = [
     "-C_gnu-make"

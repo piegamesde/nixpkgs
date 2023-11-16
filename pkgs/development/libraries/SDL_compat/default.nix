@@ -8,7 +8,8 @@
   libiconv,
   Cocoa,
   autoSignDarwinBinariesHook,
-  libGLSupported ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
+  libGLSupported ?
+    lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
   openglSupport ? libGLSupported,
   libGL,
   libGLU,
@@ -28,10 +29,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-f2dl3L7/qoYNl4sjik1npcW/W09zsEumiV9jHuKnUmM=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+    ]
+    ++ optionals (stdenv.isDarwin && stdenv.isAarch64) [
+      autoSignDarwinBinariesHook
+    ];
 
   propagatedBuildInputs =
     [ SDL2 ]
@@ -55,7 +60,8 @@ stdenv.mkDerivation rec {
           if stdenv.hostPlatform.isDarwin then
             ''
               install_name_tool ${
-                lib.strings.concatMapStrings (x: " -add_rpath ${makeLibraryPath [ x ]} ") propagatedBuildInputs
+                lib.strings.concatMapStrings (x: " -add_rpath ${makeLibraryPath [ x ]} ")
+                  propagatedBuildInputs
               } "$lib"
             ''
           else

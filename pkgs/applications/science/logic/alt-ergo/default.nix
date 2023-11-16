@@ -38,7 +38,9 @@ let
     pname = "alt-ergo-parsers";
     inherit version src;
     nativeBuildInputs = [ ocamlPackages.menhir ];
-    propagatedBuildInputs = [ alt-ergo-lib ] ++ (with ocamlPackages; [ psmt2-frontend ]);
+    propagatedBuildInputs = [
+      alt-ergo-lib
+    ] ++ (with ocamlPackages; [ psmt2-frontend ]);
   };
 in
 

@@ -78,7 +78,9 @@ in
 
     programs = {
       zsh.interactiveShellInit = ''
-        if ${lib.boolToString cfg.loadInNixShell} || printenv PATH | grep -vqc '/nix/store'; then
+        if ${
+          lib.boolToString cfg.loadInNixShell
+        } || printenv PATH | grep -vqc '/nix/store'; then
          eval "$(${lib.getExe cfg.package} hook zsh)"
         fi
       '';

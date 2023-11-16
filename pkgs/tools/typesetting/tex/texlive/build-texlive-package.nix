@@ -96,7 +96,9 @@ let
     // lib.optionalAttrs (args ? deps) { tlDeps = args.deps; }
     // lib.optionalAttrs (args ? formats) { inherit (args) formats; }
     // lib.optionalAttrs hasHyphens { inherit hasHyphens; }
-    // lib.optionalAttrs (args ? postactionScript) { inherit (args) postactionScript; }
+    // lib.optionalAttrs (args ? postactionScript) {
+      inherit (args) postactionScript;
+    }
     // lib.optionalAttrs hasDocfiles { texdoc = texdoc; }
     // lib.optionalAttrs hasSource { texsource = texsource; }
     // lib.optionalAttrs hasTlpkg { tlpkg = tlpkg; }
@@ -110,12 +112,18 @@ let
       fixedHash = fixedHashes.${tlType} or null; # be graceful about missing hashes
       # the basename used by upstream (without ".tar.xz" suffix)
       # tlpkg is not a true container but a subfolder of the run container
-      urlName = pname + (lib.optionalString (tlType != "run" && tlType != "tlpkg") ".${tlType}");
-      urls = map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz") mirrors;
+      urlName =
+        pname
+        + (lib.optionalString (tlType != "run" && tlType != "tlpkg") ".${tlType}");
+      urls =
+        map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz")
+          mirrors;
       # TODO switch to simpler "${name}-${tlOutputName}" (requires new fixed hashes)
       container =
         runCommand
-          "texlive-${pname}${lib.optionalString (tlType != "run") ".${tlType}"}-${version}${extraVersion}"
+          "texlive-${pname}${
+            lib.optionalString (tlType != "run") ".${tlType}"
+          }-${version}${extraVersion}"
           (
             {
               src = fetchurl { inherit urls sha512; };
@@ -150,7 +158,8 @@ let
           );
     in
     # remove the standard drv.out, optionally replace it with the bin container
-    builtins.removeAttrs container [ "out" ] // lib.optionalAttrs hasBinfiles { out = bin; };
+    builtins.removeAttrs container [ "out" ]
+    // lib.optionalAttrs hasBinfiles { out = bin; };
 
   tex =
     if hasRunfiles then

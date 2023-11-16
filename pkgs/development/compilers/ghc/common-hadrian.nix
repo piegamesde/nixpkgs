@@ -56,8 +56,10 @@
   ,
   # If enabled, GHC will be built with the GPL-free but slightly slower native
   # bignum backend instead of the faster but GPLed gmp backend.
-  enableNativeBignum ?
-    !(lib.meta.availableOn stdenv.hostPlatform gmp && lib.meta.availableOn stdenv.targetPlatform gmp)
+  enableNativeBignum ? !(
+    lib.meta.availableOn stdenv.hostPlatform gmp
+    && lib.meta.availableOn stdenv.targetPlatform gmp
+  )
     || stdenv.targetPlatform.isGhcjs,
   gmp
 
@@ -70,16 +72,20 @@
   ,
   # Whether to build dynamic libs for the standard library (on the target
   # platform). Static libs are always built.
-  enableShared ? with stdenv.targetPlatform; !isWindows && !useiOSPrebuilt && !isStatic && !isGhcjs
+  enableShared ? with stdenv.targetPlatform;
+    !isWindows && !useiOSPrebuilt && !isStatic && !isGhcjs
 
   ,
   # Whether to build terminfo.
-  enableTerminfo ? !(stdenv.targetPlatform.isWindows || stdenv.targetPlatform.isGhcjs)
+  enableTerminfo ?
+    !(stdenv.targetPlatform.isWindows || stdenv.targetPlatform.isGhcjs)
 
   ,
   # Libdw.c only supports x86_64, i686 and s390x as of 2022-08-04
-  enableDwarf ?
-    (stdenv.targetPlatform.isx86 || (stdenv.targetPlatform.isS390 && stdenv.targetPlatform.is64bit))
+  enableDwarf ? (
+    stdenv.targetPlatform.isx86
+    || (stdenv.targetPlatform.isS390 && stdenv.targetPlatform.is64bit)
+  )
     && lib.meta.availableOn stdenv.hostPlatform elfutils
     && lib.meta.availableOn stdenv.targetPlatform elfutils
     &&
@@ -160,15 +166,17 @@
 
   # GHC's build system hadrian built from the GHC-to-build's source tree
   # using our bootstrap GHC.
-  hadrian ? import ../../tools/haskell/hadrian/make-hadrian.nix { inherit bootPkgs lib; } {
-    ghcSrc = ghcSrc;
-    ghcVersion = version;
-    userSettings = hadrianUserSettings;
-    # Disable haddock generating pretty source listings to stay under 3GB on aarch64-linux
-    enableHyperlinkedSource =
-      # TODO(@sternenseemann): Disabling currently doesn't work with GHC >= 9.8
-      lib.versionAtLeast version "9.8" || !(stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform.isLinux);
-  }
+  hadrian ?
+    import ../../tools/haskell/hadrian/make-hadrian.nix { inherit bootPkgs lib; } {
+      ghcSrc = ghcSrc;
+      ghcVersion = version;
+      userSettings = hadrianUserSettings;
+      # Disable haddock generating pretty source listings to stay under 3GB on aarch64-linux
+      enableHyperlinkedSource =
+        # TODO(@sternenseemann): Disabling currently doesn't work with GHC >= 9.8
+        lib.versionAtLeast version "9.8"
+        || !(stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform.isLinux);
+    }
 
   ,
   #  Whether to build sphinx documentation.
@@ -194,15 +202,21 @@ let
   inherit (bootPkgs) ghc;
 
   # TODO(@Ericson2314) Make unconditional
-  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) "${targetPlatform.config}-";
+  targetPrefix =
+    lib.optionalString (targetPlatform != hostPlatform)
+      "${targetPlatform.config}-";
 
   hadrianSettings =
     # -fexternal-dynamic-refs apparently (because it's not clear from the
     # documentation) makes the GHC RTS able to load static libraries, which may
     # be needed for TemplateHaskell. This solution was described in
     # https://www.tweag.io/blog/2020-09-30-bazel-static-haskell
-    lib.optionals enableRelocatedStaticLibs [ "*.*.ghc.*.opts += -fPIC -fexternal-dynamic-refs" ]
-    ++ lib.optionals targetPlatform.useAndroidPrebuilt [ "*.*.ghc.c.opts += -optc-std=gnu99" ];
+    lib.optionals enableRelocatedStaticLibs [
+      "*.*.ghc.*.opts += -fPIC -fexternal-dynamic-refs"
+    ]
+    ++ lib.optionals targetPlatform.useAndroidPrebuilt [
+      "*.*.ghc.c.opts += -optc-std=gnu99"
+    ];
 
   # Splicer will pull out correct variations
   libDeps =
@@ -214,7 +228,10 @@ let
     ++ lib.optional enableDwarf elfutils
     ++ lib.optional (!enableNativeBignum) gmp
     ++
-      lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows && !targetPlatform.isGhcjs)
+      lib.optional
+        (
+          platform.libc != "glibc" && !targetPlatform.isWindows && !targetPlatform.isGhcjs
+        )
         libiconv;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
@@ -237,7 +254,10 @@ let
     # part of the bintools wrapper (due to codesigning requirements), but not on
     # x86_64-darwin.
     install_name_tool =
-      if stdenv.targetPlatform.isAarch64 then targetCC.bintools else targetCC.bintools.bintools;
+      if stdenv.targetPlatform.isAarch64 then
+        targetCC.bintools
+      else
+        targetCC.bintools.bintools;
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
@@ -268,9 +288,11 @@ in
 # C compiler, bintools and LLVM are used at build time, but will also leak into
 # the resulting GHC's settings file and used at runtime. This means that we are
 # currently only able to build GHC if hostPlatform == buildPlatform.
-assert !targetPlatform.isGhcjs -> targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
+assert !targetPlatform.isGhcjs
+  -> targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
 assert buildTargetLlvmPackages.llvm == llvmPackages.llvm;
-assert stdenv.targetPlatform.isDarwin -> buildTargetLlvmPackages.clang == llvmPackages.clang;
+assert stdenv.targetPlatform.isDarwin
+  -> buildTargetLlvmPackages.clang == llvmPackages.clang;
 
 stdenv.mkDerivation (
   {
@@ -381,9 +403,13 @@ stdenv.mkDerivation (
         )
       '';
 
-    ${if targetPlatform.isGhcjs then "configureScript" else null} = "emconfigure ./configure";
+    ${
+      if targetPlatform.isGhcjs then "configureScript" else null
+    } = "emconfigure ./configure";
     # GHC currently ships an edited config.sub so ghcjs is accepted which we can not rollback
-    ${if targetPlatform.isGhcjs then "dontUpdateAutotoolsGnuConfigScripts" else null} = true;
+    ${
+      if targetPlatform.isGhcjs then "dontUpdateAutotoolsGnuConfigScripts" else null
+    } = true;
 
     # TODO(@Ericson2314): Always pass "--target" and always prefix.
     configurePlatforms = [
@@ -409,12 +435,18 @@ stdenv.mkDerivation (
       ]
       ++
         lib.optionals
-          (targetPlatform == hostPlatform && hostPlatform.libc != "glibc" && !targetPlatform.isWindows)
+          (
+            targetPlatform == hostPlatform
+            && hostPlatform.libc != "glibc"
+            && !targetPlatform.isWindows
+          )
           [
             "--with-iconv-includes=${libiconv}/include"
             "--with-iconv-libraries=${libiconv}/lib"
           ]
-      ++ lib.optionals (targetPlatform != hostPlatform) [ "--enable-bootstrap-with-devel-snapshot" ]
+      ++ lib.optionals (targetPlatform != hostPlatform) [
+        "--enable-bootstrap-with-devel-snapshot"
+      ]
       ++ lib.optionals useLdGold [
         "CFLAGS=-fuse-ld=gold"
         "CONF_GCC_LINKER_OPTS_STAGE1=-fuse-ld=gold"
@@ -457,7 +489,9 @@ stdenv.mkDerivation (
         # Python is used in a few scripts invoked by hadrian to generate e.g. rts headers.
         python3
       ]
-      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
+      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+        autoSignDarwinBinariesHook
+      ]
       ++ lib.optionals enableDocs [ sphinx ];
 
     # For building runtime libs
@@ -491,7 +525,9 @@ stdenv.mkDerivation (
 
     # required, because otherwise all symbols from HSffi.o are stripped, and
     # that in turn causes GHCi to abort
-    stripDebugFlags = [ "-S" ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
+    stripDebugFlags = [
+      "-S"
+    ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
 
     checkTarget = "test";
 

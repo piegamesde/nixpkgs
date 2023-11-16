@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
       x86_64-darwin = "mac";
       x86_64-linux = "x86_64-linux";
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
     url = "https://developer.arm.com/-/media/Files/downloads/gnu-rm/${subdir}/gcc-arm-none-eabi-${release}-${suffix}.tar.bz2";
@@ -27,7 +28,8 @@ stdenv.mkDerivation rec {
         x86_64-darwin = "1ils9z16wrvglh72m428y5irmd36biq79yj86756whib8izbifdv";
         x86_64-linux = "07zi2yr5gvhpbij5pnj49zswb9g2gw7zqp4xwwniqmq477h2xp2s";
       }
-      .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+      .${stdenv.hostPlatform.system}
+        or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
   dontConfigure = true;

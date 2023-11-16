@@ -20,7 +20,9 @@ stdenvNoCC.mkDerivation rec {
     mkdir -p $out/etc/fonts/conf.d
     mkdir -p $out/share/doc/${pname}-${version}
     mkdir -p $out/share/fonts/truetype
-    cp -v ${./comic-sans-ms-alias.conf}     $out/etc/fonts/conf.d/30-comic-sans-ms.conf
+    cp -v ${
+      ./comic-sans-ms-alias.conf
+    }     $out/etc/fonts/conf.d/30-comic-sans-ms.conf
     cp *.ttf      -d $out/share/fonts/truetype
     cp FONTLOG.txt -d $out/share/doc/${pname}-${version}
 

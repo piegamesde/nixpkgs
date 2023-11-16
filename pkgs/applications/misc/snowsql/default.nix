@@ -43,7 +43,9 @@ stdenv.mkDerivation rec {
         lib64/snowflake/snowsql/snowsql
 
     makeWrapper $out/lib64/snowflake/snowsql/snowsql $out/bin/snowsql \
-      --set LD_LIBRARY_PATH "${libPath}":"${placeholder "out"}"/lib64/snowflake/snowsql \
+      --set LD_LIBRARY_PATH "${libPath}":"${
+        placeholder "out"
+      }"/lib64/snowflake/snowsql \
   '';
 
   meta = with lib; {

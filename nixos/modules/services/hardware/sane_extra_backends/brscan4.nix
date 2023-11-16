@@ -12,7 +12,9 @@ let
 
   netDeviceList = attrValues cfg.netDevices;
 
-  etcFiles = pkgs.callPackage ./brscan4_etc_files.nix { netDevices = netDeviceList; };
+  etcFiles = pkgs.callPackage ./brscan4_etc_files.nix {
+    netDevices = netDeviceList;
+  };
 
   netDeviceOpts =
     { name, ... }:
@@ -71,12 +73,14 @@ in
 {
   options = {
 
-    hardware.sane.brscan4.enable = mkEnableOption (lib.mdDoc "Brother's brscan4 scan backend") // {
-      description = lib.mdDoc ''
-        When enabled, will automatically register the "brscan4" sane
-        backend and bring configuration files to their expected location.
-      '';
-    };
+    hardware.sane.brscan4.enable =
+      mkEnableOption (lib.mdDoc "Brother's brscan4 scan backend")
+      // {
+        description = lib.mdDoc ''
+          When enabled, will automatically register the "brscan4" sane
+          backend and bring configuration files to their expected location.
+        '';
+      };
 
     hardware.sane.brscan4.netDevices = mkOption {
       default = { };

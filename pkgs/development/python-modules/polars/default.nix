@@ -58,7 +58,9 @@ buildPythonPackage {
   # Revisit this whenever package or Rust is upgraded
   RUSTC_BOOTSTRAP = 1;
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.11") [
+    typing-extensions
+  ];
 
   dontUseCmakeConfigure = true;
 

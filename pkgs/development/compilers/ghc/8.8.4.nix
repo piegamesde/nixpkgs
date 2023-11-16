@@ -25,8 +25,11 @@
   # GHC can be built with system libffi or a bundled one.
   libffi ? null,
 
-  useLLVM ?
-    !(stdenv.targetPlatform.isx86 || stdenv.targetPlatform.isPower || stdenv.targetPlatform.isSparc),
+  useLLVM ? !(
+    stdenv.targetPlatform.isx86
+    || stdenv.targetPlatform.isPower
+    || stdenv.targetPlatform.isSparc
+  ),
   # LLVM is conceptually a run-time-only dependency, but for
   # non-x86, we need LLVM to bootstrap later stages, so it becomes a
   # build-time dependency too.
@@ -36,8 +39,10 @@
   ,
   # If enabled, GHC will be built with the GPL-free but slower integer-simple
   # library instead of the faster but GPLed integer-gmp library.
-  enableIntegerSimple ?
-    !(lib.meta.availableOn stdenv.hostPlatform gmp && lib.meta.availableOn stdenv.targetPlatform gmp),
+  enableIntegerSimple ? !(
+    lib.meta.availableOn stdenv.hostPlatform gmp
+    && lib.meta.availableOn stdenv.targetPlatform gmp
+  ),
   gmp
 
   ,
@@ -49,7 +54,8 @@
   ,
   # Whether to build dynamic libs for the standard library (on the target
   # platform). Static libs are always built.
-  enableShared ? !stdenv.targetPlatform.isWindows && !stdenv.targetPlatform.useiOSPrebuilt
+  enableShared ?
+    !stdenv.targetPlatform.isWindows && !stdenv.targetPlatform.useiOSPrebuilt
 
   ,
   # Whether to build terminfo.
@@ -94,7 +100,9 @@ let
   inherit (bootPkgs) ghc;
 
   # TODO(@Ericson2314) Make unconditional
-  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) "${targetPlatform.config}-";
+  targetPrefix =
+    lib.optionalString (targetPlatform != hostPlatform)
+      "${targetPlatform.config}-";
 
   buildMK =
     dontStrip:
@@ -120,7 +128,9 @@ let
       ''
         HADDOCK_DOCS = ${if enableHaddockProgram then "YES" else "NO"}
         DYNAMIC_GHC_PROGRAMS = ${if enableShared then "YES" else "NO"}
-        INTEGER_LIBRARY = ${if enableIntegerSimple then "integer-simple" else "integer-gmp"}
+        INTEGER_LIBRARY = ${
+          if enableIntegerSimple then "integer-simple" else "integer-gmp"
+        }
       ''
     # We only need to build stage1 on most cross-compilation because
     # we will be running the compiler on the native system. In some
@@ -130,7 +140,10 @@ let
     # ourselves.
     + lib.optionalString (targetPlatform != hostPlatform) ''
       Stage1Only = ${
-        if (targetPlatform.system == hostPlatform.system && !targetPlatform.isiOS) then "NO" else "YES"
+        if (targetPlatform.system == hostPlatform.system && !targetPlatform.isiOS) then
+          "NO"
+        else
+          "YES"
       }
       CrossCompilePrefix = ${targetPrefix}
     ''
@@ -160,7 +173,9 @@ let
     lib.optional enableTerminfo ncurses
     ++ [ libffi ]
     ++ lib.optional (!enableIntegerSimple) gmp
-    ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows) libiconv;
+    ++
+      lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows)
+        libiconv;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST
@@ -193,7 +208,8 @@ in
 # currently only able to build GHC if hostPlatform == buildPlatform.
 assert targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
 assert buildTargetLlvmPackages.llvm == llvmPackages.llvm;
-assert stdenv.targetPlatform.isDarwin -> buildTargetLlvmPackages.clang == llvmPackages.clang;
+assert stdenv.targetPlatform.isDarwin
+  -> buildTargetLlvmPackages.clang == llvmPackages.clang;
 
 stdenv.mkDerivation (
   rec {
@@ -335,12 +351,18 @@ stdenv.mkDerivation (
       ]
       ++
         lib.optionals
-          (targetPlatform == hostPlatform && hostPlatform.libc != "glibc" && !targetPlatform.isWindows)
+          (
+            targetPlatform == hostPlatform
+            && hostPlatform.libc != "glibc"
+            && !targetPlatform.isWindows
+          )
           [
             "--with-iconv-includes=${libiconv}/include"
             "--with-iconv-libraries=${libiconv}/lib"
           ]
-      ++ lib.optionals (targetPlatform != hostPlatform) [ "--enable-bootstrap-with-devel-snapshot" ]
+      ++ lib.optionals (targetPlatform != hostPlatform) [
+        "--enable-bootstrap-with-devel-snapshot"
+      ]
       ++ lib.optionals useLdGold [
         "CFLAGS=-fuse-ld=gold"
         "CONF_GCC_LINKER_OPTS_STAGE1=-fuse-ld=gold"
@@ -379,7 +401,9 @@ stdenv.mkDerivation (
 
     # required, because otherwise all symbols from HSffi.o are stripped, and
     # that in turn causes GHCi to abort
-    stripDebugFlags = [ "-S" ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
+    stripDebugFlags = [
+      "-S"
+    ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
 
     checkTarget = "test";
 

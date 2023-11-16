@@ -82,7 +82,8 @@ let
     "systemd.services"
     "kde.extraPackages"
   ];
-  excludeOptions = list: filter (opt: !(elem (showOption opt.loc) excludedOptions)) list;
+  excludeOptions =
+    list: filter (opt: !(elem (showOption opt.loc) excludedOptions)) list;
 
   reportNewFailures =
     old: new:
@@ -107,7 +108,9 @@ let
           opt: { name = showOption opt.loc; } // builtins.tryEval (strict opt.value)
         );
     in
-    keepNames (filterChanges (zipLists (tryCollectOptions old) (tryCollectOptions new)));
+    keepNames (
+      filterChanges (zipLists (tryCollectOptions old) (tryCollectOptions new))
+    );
 
   # Create a list of modules where each module contains only one failling
   # options.
@@ -116,7 +119,9 @@ let
       setIntrospection = opt: rec {
         name = showOption opt.loc;
         path = opt.loc;
-        config = setAttrByPath path (throw "Usage introspection of '${name}' by forced failure.");
+        config = setAttrByPath path (
+          throw "Usage introspection of '${name}' by forced failure."
+        );
       };
     in
     map setIntrospection (collect isOption eval.options);
@@ -152,13 +157,17 @@ let
       checkAll = checkList == [ ];
     in
     flip filter graph (
-      { option, ... }: (checkAll || elem option checkList) && !(elem option excludedTestOptions)
+      { option, ... }:
+      (checkAll || elem option checkList) && !(elem option excludedTestOptions)
     );
 
   graphToDot = graph: ''
     digraph "Option Usages" {
       ${
-        concatMapStrings ({ option, usedBy }: concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy)
+        concatMapStrings
+          (
+            { option, usedBy }: concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy
+          )
           displayOptionsGraph
       }
     }

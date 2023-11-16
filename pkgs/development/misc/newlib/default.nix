@@ -122,7 +122,8 @@ stdenv.mkDerivation (
           done
         )
       ''
-      + ''[ "$(find $out -type f | wc -l)" -gt 0 ] || (echo '$out is empty' 1>&2 && exit 1)'';
+      + ''
+        [ "$(find $out -type f | wc -l)" -gt 0 ] || (echo '$out is empty' 1>&2 && exit 1)'';
 
     passthru = {
       incdir = "/${stdenv.targetPlatform.config}/include";

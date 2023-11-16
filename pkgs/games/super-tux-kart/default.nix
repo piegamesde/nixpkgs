@@ -114,7 +114,8 @@ stdenv.mkDerivation rec {
       angelscript
       sqlite
     ]
-    ++ lib.optional (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux) libopenglrecorder
+    ++ lib.optional (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux)
+      libopenglrecorder
     ++ lib.optional stdenv.hostPlatform.isLinux openal
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       OpenAL
@@ -126,7 +127,10 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DBUILD_RECORDER=${
-      if (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux) then "ON" else "OFF"
+      if (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux) then
+        "ON"
+      else
+        "OFF"
     }"
     "-DUSE_SYSTEM_ANGELSCRIPT=ON"
     "-DCHECK_ASSETS=OFF"

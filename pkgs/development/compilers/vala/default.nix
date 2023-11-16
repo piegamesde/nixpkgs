@@ -40,7 +40,8 @@ let
 
           "0.56" = ./disable-graphviz-0.56.8.patch;
         }
-        .${lib.versions.majorMinor version} or (throw "no graphviz patch for this version of vala");
+        .${lib.versions.majorMinor version}
+          or (throw "no graphviz patch for this version of vala");
 
       disableGraphviz = lib.versionAtLeast version "0.38" && !withGraphviz;
     in
@@ -72,7 +73,8 @@ let
       # when cross-compiling ./compiler/valac is valac for host
       # so add the build vala in nativeBuildInputs
       preBuild =
-        lib.optionalString (disableGraphviz && (stdenv.buildPlatform == stdenv.hostPlatform))
+        lib.optionalString
+          (disableGraphviz && (stdenv.buildPlatform == stdenv.hostPlatform))
           ''buildFlagsArray+=("VALAC=$(pwd)/compiler/valac")'';
 
       outputs = [
@@ -92,11 +94,14 @@ let
         ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ vala ]
         ++ extraNativeBuildInputs;
 
-      buildInputs = [
-        glib
-        libiconv
-        libintl
-      ] ++ lib.optional (lib.versionAtLeast version "0.38" && withGraphviz) graphviz ++ extraBuildInputs;
+      buildInputs =
+        [
+          glib
+          libiconv
+          libintl
+        ]
+        ++ lib.optional (lib.versionAtLeast version "0.38" && withGraphviz) graphviz
+        ++ extraBuildInputs;
 
       enableParallelBuilding = true;
 

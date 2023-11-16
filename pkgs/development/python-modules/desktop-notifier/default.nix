@@ -25,7 +25,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ packaging ] ++ lib.optionals stdenv.isLinux [ dbus-next ];
+  propagatedBuildInputs = [
+    packaging
+  ] ++ lib.optionals stdenv.isLinux [ dbus-next ];
 
   # no tests available, do the imports check instead
   doCheck = false;

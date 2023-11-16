@@ -33,7 +33,9 @@ buildGoModule rec {
         GoVersion = "$(go version | egrep -o 'go[0-9]+[.][^ ]*')";
       };
       buildVarsFlags = lib.concatStringsSep " " (
-        lib.mapAttrsToList (k: v: "-X github.com/streamnative/pulsarctl/pkg/cmdutils.${k}=${v}") buildVars
+        lib.mapAttrsToList
+          (k: v: "-X github.com/streamnative/pulsarctl/pkg/cmdutils.${k}=${v}")
+          buildVars
       );
     in
     ''

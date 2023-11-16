@@ -53,7 +53,9 @@ in
       webhookMachine.wait_for_open_port(${toString internalPort})
 
       with subtest("Check that webhooks can be called externally"):
-        response = requests.get("http://localhost:${toString forwardedPort}/hooks/echo")
+        response = requests.get("http://localhost:${
+          toString forwardedPort
+        }/hooks/echo")
         print(f"Response code: {response.status_code}")
         print("Response: %r" % response.content)
 
@@ -61,7 +63,9 @@ in
         assert response.content == b"Webhook is reachable!"
 
       with subtest("Check that templated webhooks can be called externally"):
-        response = requests.get("http://localhost:${toString forwardedPort}/hooks/echo-template")
+        response = requests.get("http://localhost:${
+          toString forwardedPort
+        }/hooks/echo-template")
         print(f"Response code: {response.status_code}")
         print("Response: %r" % response.content)
 

@@ -10,7 +10,9 @@ let
 in
 {
   options.programs.virt-manager = {
-    enable = lib.mkEnableOption "virt-manager, an UI for managing virtual machines in libvirt";
+    enable =
+      lib.mkEnableOption
+        "virt-manager, an UI for managing virtual machines in libvirt";
 
     package = lib.mkPackageOption pkgs "virt-manager" { };
   };

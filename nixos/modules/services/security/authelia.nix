@@ -224,7 +224,9 @@ let
                   type = types.bool;
                   default = false;
                   example = true;
-                  description = mdDoc "Whether to also log to stdout when a `file_path` is defined.";
+                  description =
+                    mdDoc
+                      "Whether to also log to stdout when a `file_path` is defined.";
                 };
               };
 
@@ -336,11 +338,13 @@ in
           environment =
             (lib.filterAttrs (_: v: v != null) {
               AUTHELIA_JWT_SECRET_FILE = instance.secrets.jwtSecretFile;
-              AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE = instance.secrets.storageEncryptionKeyFile;
+              AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE =
+                instance.secrets.storageEncryptionKeyFile;
               AUTHELIA_SESSION_SECRET_FILE = instance.secrets.sessionSecretFile;
               AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY_FILE =
                 instance.secrets.oidcIssuerPrivateKeyFile;
-              AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE = instance.secrets.oidcHmacSecretFile;
+              AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE =
+                instance.secrets.oidcHmacSecretFile;
             })
             // instance.environmentVariables;
 
@@ -400,14 +404,16 @@ in
           };
         };
       mkInstanceUsersConfig = instance: {
-        groups."authelia-${instance.name}" = lib.mkIf (instance.group == "authelia-${instance.name}") {
-          name = "authelia-${instance.name}";
-        };
-        users."authelia-${instance.name}" = lib.mkIf (instance.user == "authelia-${instance.name}") {
-          name = "authelia-${instance.name}";
-          isSystemUser = true;
-          group = instance.group;
-        };
+        groups."authelia-${instance.name}" =
+          lib.mkIf (instance.group == "authelia-${instance.name}")
+            { name = "authelia-${instance.name}"; };
+        users."authelia-${instance.name}" =
+          lib.mkIf (instance.user == "authelia-${instance.name}")
+            {
+              name = "authelia-${instance.name}";
+              isSystemUser = true;
+              group = instance.group;
+            };
       };
       instances = lib.attrValues cfg.instances;
     in
@@ -418,7 +424,10 @@ in
             {
               assertion =
                 instance.secrets.manual
-                || (instance.secrets.jwtSecretFile != null && instance.secrets.storageEncryptionKeyFile != null);
+                || (
+                  instance.secrets.jwtSecretFile != null
+                  && instance.secrets.storageEncryptionKeyFile != null
+                );
               message = ''
                 Authelia requires a JWT Secret and a Storage Encryption Key to work.
                 Either set them like so:
@@ -437,12 +446,15 @@ in
         map
           (
             instance:
-            lib.mkIf instance.enable { "authelia-${instance.name}" = mkInstanceServiceConfig instance; }
+            lib.mkIf instance.enable {
+              "authelia-${instance.name}" = mkInstanceServiceConfig instance;
+            }
           )
           instances
       );
       users = lib.mkMerge (
-        map (instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance)) instances
+        map (instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance))
+          instances
       );
     };
 }

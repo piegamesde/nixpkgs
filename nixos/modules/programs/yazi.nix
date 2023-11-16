@@ -61,7 +61,9 @@ in
           (
             name:
             lib.optionalAttrs (cfg.settings.${name} != { }) {
-              "yazi/${name}.toml".source = settingsFormat.generate "${name}.toml" cfg.settings.${name};
+              "yazi/${name}.toml".source =
+                settingsFormat.generate "${name}.toml"
+                  cfg.settings.${name};
             }
           )
           names

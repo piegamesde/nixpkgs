@@ -47,7 +47,8 @@ rustPlatform.buildRustPackage rec {
   buildNoDefaultFeatures = true;
 
   meta = with lib; {
-    description = ''Cargo subcommand "release": everything about releasing a rust crate'';
+    description = ''
+      Cargo subcommand "release": everything about releasing a rust crate'';
     homepage = "https://github.com/crate-ci/cargo-release";
     changelog = "https://github.com/crate-ci/cargo-release/blob/v${version}/CHANGELOG.md";
     license = with licenses; [

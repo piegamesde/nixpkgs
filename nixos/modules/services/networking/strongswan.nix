@@ -23,7 +23,8 @@ let
   cfg = config.services.strongswan;
 
   ipsecSecrets =
-    secrets: toFile "ipsec.secrets" (concatMapStringsSep "\n" (f: "include ${f}") secrets);
+    secrets:
+    toFile "ipsec.secrets" (concatMapStringsSep "\n" (f: "include ${f}") secrets);
 
   ipsecConf =
     {
@@ -68,7 +69,9 @@ let
     toFile "strongswan.conf" ''
       charon {
         ${optionalString managePlugins "load_modular = no"}
-        ${optionalString managePlugins ("load = " + (concatStringsSep " " enabledPlugins))}
+        ${
+          optionalString managePlugins ("load = " + (concatStringsSep " " enabledPlugins))
+        }
         plugins {
           stroke {
             secrets_file = ${secretsFile}

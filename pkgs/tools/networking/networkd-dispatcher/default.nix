@@ -69,7 +69,9 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapPythonPrograms
-    wrapProgram $out/bin/networkd-dispatcher --prefix PATH : ${lib.makeBinPath [ iw ]}
+    wrapProgram $out/bin/networkd-dispatcher --prefix PATH : ${
+      lib.makeBinPath [ iw ]
+    }
   '';
 
   meta = with lib; {

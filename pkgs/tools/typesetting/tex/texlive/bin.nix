@@ -59,7 +59,8 @@ let
     if !useFixedHashes || src ? outputHash then
       src
     else
-      throw "The TeX Live package '${src.pname}' must have a fixed hash before building '${name}'.";
+      throw
+        "The TeX Live package '${src.pname}' must have a fixed hash before building '${name}'.";
 
   # list of packages whose binaries are built in core, core-big
   # generated manually by inspecting ${core}/bin
@@ -223,7 +224,8 @@ let
 
   # RISC-V: https://github.com/LuaJIT/LuaJIT/issues/628
   withLuaJIT =
-    !(stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit) && !stdenv.hostPlatform.isRiscV;
+    !(stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit)
+    && !stdenv.hostPlatform.isRiscV;
 in
 rec {
   # un-indented

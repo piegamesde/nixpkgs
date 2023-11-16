@@ -36,7 +36,8 @@ in
   };
   serviceOpts = {
     script = ''
-      ${optionalString (cfg.tokenPath != null) "export FASTLY_API_TOKEN=$(cat ${toString cfg.tokenPath})"}
+      ${optionalString (cfg.tokenPath != null)
+        "export FASTLY_API_TOKEN=$(cat ${toString cfg.tokenPath})"}
       ${pkgs.prometheus-fastly-exporter}/bin/fastly-exporter \
         -listen http://${cfg.listenAddress}:${toString cfg.port}
         ${optionalString cfg.debug "-debug true"} \

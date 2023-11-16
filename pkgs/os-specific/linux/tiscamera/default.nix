@@ -71,24 +71,26 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withAravis [ meson ]
     ++ lib.optionals withGui [ qt5.wrapQtAppsHook ];
 
-  buildInputs = [
-    elfutils
-    libselinux
-    libsepol
-    libunwind
-    libusb1
-    libuuid
-    libzip
-    orc
-    pcre
-    zstd
-    glib
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-good
-    gst_all_1.gst-plugins-bad
-    gst_all_1.gst-plugins-ugly
-  ] ++ lib.optionals withAravis [ aravis ] ++ lib.optionals withGui [ qt5.qtbase ];
+  buildInputs =
+    [
+      elfutils
+      libselinux
+      libsepol
+      libunwind
+      libusb1
+      libuuid
+      libzip
+      orc
+      pcre
+      zstd
+      glib
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-good
+      gst_all_1.gst-plugins-bad
+      gst_all_1.gst-plugins-ugly
+    ]
+    ++ lib.optionals withAravis [ aravis ] ++ lib.optionals withGui [ qt5.qtbase ];
 
   hardeningDisable = [ "format" ];
 
@@ -103,7 +105,9 @@ stdenv.mkDerivation rec {
     "-DTCAM_BUILD_WITH_GUI=${if withGui then "ON" else "OFF"}"
     "-DTCAM_DOWNLOAD_MESON=OFF"
     "-DTCAM_INTERNAL_ARAVIS=OFF"
-    "-DTCAM_ARAVIS_USB_VISION=${if withAravis && withAravisUsbVision then "ON" else "OFF"}"
+    "-DTCAM_ARAVIS_USB_VISION=${
+      if withAravis && withAravisUsbVision then "ON" else "OFF"
+    }"
     "-DTCAM_INSTALL_FORCE_PREFIX=ON"
   ];
 
@@ -117,7 +121,9 @@ stdenv.mkDerivation rec {
   GI_TYPELIB_PATH = "${placeholder "out"}/lib/girepository-1.0";
   GST_PLUGIN_SYSTEM_PATH_1_0 = "${placeholder "out"}/lib/gstreamer-1.0";
 
-  QT_PLUGIN_PATH = lib.optionalString withGui "${qt5.qtbase.bin}/${qt5.qtbase.qtPluginPrefix}";
+  QT_PLUGIN_PATH =
+    lib.optionalString withGui
+      "${qt5.qtbase.bin}/${qt5.qtbase.qtPluginPrefix}";
 
   dontWrapQtApps = true;
 

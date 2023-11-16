@@ -106,7 +106,9 @@ let
     buildVscodeMarketplaceExtension (
       removeAttrs ext mktplcRefAttrList
       // {
-        mktplcRef = builtins.intersectAttrs (lib.genAttrs mktplcRefAttrList (_: null)) ext;
+        mktplcRef =
+          builtins.intersectAttrs (lib.genAttrs mktplcRefAttrList (_: null))
+            ext;
       }
     );
 
@@ -163,7 +165,8 @@ let
     };
   };
 
-  toExtensionJson = extensions: builtins.toJSON (map toExtensionJsonEntry extensions);
+  toExtensionJson =
+    extensions: builtins.toJSON (map toExtensionJsonEntry extensions);
 in
 {
   inherit

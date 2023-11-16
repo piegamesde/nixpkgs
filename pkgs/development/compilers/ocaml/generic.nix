@@ -8,7 +8,8 @@
 let
   versionNoPatch = "${toString major_version}.${toString minor_version}";
   version = "${versionNoPatch}.${toString patch_version}";
-  safeX11 = stdenv: !(stdenv.isAarch32 || stdenv.isMips || stdenv.hostPlatform.isStatic);
+  safeX11 =
+    stdenv: !(stdenv.isAarch32 || stdenv.isMips || stdenv.hostPlatform.isStatic);
 in
 
 {
@@ -32,15 +33,18 @@ in
 assert useX11 -> safeX11 stdenv;
 assert aflSupport -> lib.versionAtLeast version "4.05";
 assert flambdaSupport -> lib.versionAtLeast version "4.03";
-assert spaceTimeSupport -> lib.versionAtLeast version "4.04" && lib.versionOlder version "4.12";
-assert unsafeStringSupport -> lib.versionAtLeast version "4.06" && lib.versionOlder version "5.0";
+assert spaceTimeSupport
+  -> lib.versionAtLeast version "4.04" && lib.versionOlder version "4.12";
+assert unsafeStringSupport
+  -> lib.versionAtLeast version "4.06" && lib.versionOlder version "5.0";
 assert framePointerSupport -> lib.versionAtLeast version "4.01";
 
 let
   src =
     args.src or (fetchurl {
       url =
-        args.url or "http://caml.inria.fr/pub/distrib/ocaml-${versionNoPatch}/ocaml-${version}.tar.xz";
+        args.url
+          or "http://caml.inria.fr/pub/distrib/ocaml-${versionNoPatch}/ocaml-${version}.tar.xz";
       inherit (args) sha256;
     });
 in
@@ -108,16 +112,23 @@ stdenv.mkDerivation (
       ++ optional aflSupport (flags "--with-afl" "-afl-instrument")
       ++ optional flambdaSupport (flags "--enable-flambda" "-flambda")
       ++ optional spaceTimeSupport (flags "--enable-spacetime" "-spacetime")
-      ++ optional framePointerSupport (flags "--enable-frame-pointers" "-with-frame-pointers")
+      ++ optional framePointerSupport (
+        flags "--enable-frame-pointers" "-with-frame-pointers"
+      )
       ++ optionals unsafeStringSupport [
         "--disable-force-safe-string"
         "DEFAULT_STRING=unsafe"
       ]
-      ++ optional (stdenv.hostPlatform.isStatic && (lib.versionOlder version "4.08")) "-no-shared-libs"
-      ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform && lib.versionOlder version "4.08") [
-        "-host ${stdenv.hostPlatform.config}"
-        "-target ${stdenv.targetPlatform.config}"
-      ];
+      ++
+        optional (stdenv.hostPlatform.isStatic && (lib.versionOlder version "4.08"))
+          "-no-shared-libs"
+      ++
+        optionals
+          (stdenv.hostPlatform != stdenv.buildPlatform && lib.versionOlder version "4.08")
+          [
+            "-host ${stdenv.hostPlatform.config}"
+            "-target ${stdenv.targetPlatform.config}"
+          ];
     dontAddStaticConfigureFlags = lib.versionOlder version "4.08";
 
     # on aarch64-darwin using --host and --target causes the build to invoke
@@ -125,15 +136,19 @@ stdenv.mkDerivation (
     # does not exist. So, disable these configure flags on `aarch64-darwin`.
     # See #144785 for details.
     configurePlatforms =
-      lib.optionals (lib.versionAtLeast version "4.08" && !(stdenv.isDarwin && stdenv.isAarch64))
+      lib.optionals
+        (lib.versionAtLeast version "4.08" && !(stdenv.isDarwin && stdenv.isAarch64))
         [
           "host"
           "target"
         ];
     # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
     hardeningDisable =
-      lib.optional (lib.versionAtLeast version "4.09" && stdenv.hostPlatform.isMusl) "pie"
-      ++ lib.optional (lib.versionAtLeast version "5.0" && stdenv.cc.isClang) "strictoverflow"
+      lib.optional (lib.versionAtLeast version "4.09" && stdenv.hostPlatform.isMusl)
+        "pie"
+      ++
+        lib.optional (lib.versionAtLeast version "5.0" && stdenv.cc.isClang)
+          "strictoverflow"
       ++ lib.optionals (args ? hardeningDisable) args.hardeningDisable;
 
     # Older versions have some race:
@@ -151,7 +166,10 @@ stdenv.mkDerivation (
     # sequential order among them as a single rule.
     makefile = ./Makefile.nixpkgs;
     buildFlags =
-      if useNativeCompilers then [ "nixpkgs_world_bootstrap_world_opt" ] else [ "nixpkgs_world" ];
+      if useNativeCompilers then
+        [ "nixpkgs_world_bootstrap_world_opt" ]
+      else
+        [ "nixpkgs_world" ];
     buildInputs =
       optional (lib.versionOlder version "4.07") ncurses
       ++ optionals useX11 [
@@ -170,9 +188,11 @@ stdenv.mkDerivation (
         # This is required for aarch64-darwin, everything else works as is.
         AS="${stdenv.cc}/bin/cc -c" ASPP="${stdenv.cc}/bin/cc -c"
       ''
-      + optionalString (lib.versionOlder version "4.08" && stdenv.hostPlatform.isStatic) ''
-        configureFlagsArray+=("-cc" "$CC" "-as" "$AS" "-partialld" "$LD -r")
-      '';
+      +
+        optionalString (lib.versionOlder version "4.08" && stdenv.hostPlatform.isStatic)
+          ''
+            configureFlagsArray+=("-cc" "$CC" "-as" "$AS" "-partialld" "$LD -r")
+          '';
     postBuild = ''
       mkdir -p $out/include
       ln -sv $out/lib/ocaml/caml $out/include/caml
@@ -209,7 +229,9 @@ stdenv.mkDerivation (
       '';
 
       platforms = with platforms; linux ++ darwin;
-      broken = stdenv.isAarch64 && lib.versionOlder version (if stdenv.isDarwin then "4.10" else "4.02");
+      broken =
+        stdenv.isAarch64
+        && lib.versionOlder version (if stdenv.isDarwin then "4.10" else "4.02");
     };
   }
 )

@@ -119,7 +119,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs =
     [ pkg-config ]
-    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ libsForQt5.qmake ]
+    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
+      libsForQt5.qmake
+    ]
     ++ [
       setuptools
       lndir

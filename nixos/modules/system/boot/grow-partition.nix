@@ -26,13 +26,16 @@ with lib;
   ];
 
   options = {
-    boot.growPartition = mkEnableOption (lib.mdDoc "growing the root partition on boot");
+    boot.growPartition = mkEnableOption (
+      lib.mdDoc "growing the root partition on boot"
+    );
   };
 
   config = mkIf config.boot.growPartition {
     assertions = [
       {
-        assertion = !config.boot.initrd.systemd.repart.enable && !config.systemd.repart.enable;
+        assertion =
+          !config.boot.initrd.systemd.repart.enable && !config.systemd.repart.enable;
         message = "systemd-repart already grows the root partition and thus you should not use boot.growPartition";
       }
     ];

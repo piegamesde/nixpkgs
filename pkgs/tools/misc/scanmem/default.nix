@@ -44,7 +44,9 @@ stdenv.mkDerivation rec {
     # also add procps because it shells out to `ps` and expects it to be procps
     makeWrapper ${python3}/bin/python3 $out/bin/gameconqueror \
       "''${gappsWrapperArgs[@]}" \
-      --set PYTHONPATH "${python3.pkgs.makePythonPath [ python3.pkgs.pygobject3 ]}" \
+      --set PYTHONPATH "${
+        python3.pkgs.makePythonPath [ python3.pkgs.pygobject3 ]
+      }" \
       --prefix PATH : "${procps}/bin" \
       --add-flags "$out/share/gameconqueror/GameConqueror.py"
 

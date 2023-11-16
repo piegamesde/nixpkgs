@@ -16,7 +16,8 @@ in
   options = {
     services.sslmate-agent = {
       enable = mkEnableOption (
-        lib.mdDoc "sslmate-agent, a daemon for managing SSL/TLS certificates on a server"
+        lib.mdDoc
+          "sslmate-agent, a daemon for managing SSL/TLS certificates on a server"
       );
     };
   };

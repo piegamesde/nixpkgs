@@ -130,7 +130,9 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   buildTargets =
-    "build" + lib.optionalString enableDoxygen " doxygen" + lib.optionalString withManual "sphinx";
+    "build"
+    + lib.optionalString enableDoxygen " doxygen"
+    + lib.optionalString withManual "sphinx";
 
   # to prevent fatal error: 'backward_warning.h' file not found
   CXXFLAGS = "-D_GLIBCXX_PERMIT_BACKWARD_HASH";
@@ -169,6 +171,7 @@ stdenv.mkDerivation rec {
       rgrunbla
     ];
     # never built on aarch64-darwin since first introduction in nixpkgs
-    broken = (stdenv.isDarwin && stdenv.isAarch64) || (stdenv.isLinux && stdenv.isAarch64);
+    broken =
+      (stdenv.isDarwin && stdenv.isAarch64) || (stdenv.isLinux && stdenv.isAarch64);
   };
 }

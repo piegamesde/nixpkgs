@@ -9,7 +9,11 @@
 attrs:
 let
   args = if builtins.hasAttr "drvAttrs" attrs then attrs.drvAttrs else attrs;
-  name = if builtins.hasAttr "name" args then args.name else "${args.pname}-${args.version}";
+  name =
+    if builtins.hasAttr "name" args then
+      args.name
+    else
+      "${args.pname}-${args.version}";
 in
 stdenv.mkDerivation (
   args

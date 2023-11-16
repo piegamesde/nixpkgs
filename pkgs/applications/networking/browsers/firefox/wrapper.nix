@@ -52,7 +52,10 @@ let
       pname ? applicationName,
       version ? lib.getVersion browser,
       desktopName ? # applicationName with first letter capitalized
-        (lib.toUpper (lib.substring 0 1 applicationName) + lib.substring 1 (-1) applicationName),
+        (
+          lib.toUpper (lib.substring 0 1 applicationName)
+          + lib.substring 1 (-1) applicationName
+        ),
       nameSuffix ? "",
       icon ? applicationName,
       wmClass ? applicationName,
@@ -164,9 +167,12 @@ let
 
       usesNixExtensions = nixExtensions != null;
 
-      nameArray = builtins.map (a: a.name) (lib.optionals usesNixExtensions nixExtensions);
+      nameArray = builtins.map (a: a.name) (
+        lib.optionals usesNixExtensions nixExtensions
+      );
 
-      requiresSigning = browser ? MOZ_REQUIRE_SIGNING -> toString browser.MOZ_REQUIRE_SIGNING != "";
+      requiresSigning =
+        browser ? MOZ_REQUIRE_SIGNING -> toString browser.MOZ_REQUIRE_SIGNING != "";
 
       # Check that every extension has a unqiue .name attribute
       # and an extid attribute
@@ -174,13 +180,15 @@ let
         if nameArray != (lib.unique nameArray) then
           throw "Firefox addon name needs to be unique"
         else if requiresSigning && !lib.hasSuffix "esr" browser.name then
-          throw "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
+          throw
+            "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
         else
           builtins.map
             (
               a:
               if !(builtins.hasAttr "extid" a) then
-                throw "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
+                throw
+                  "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
               else
                 a
             )
@@ -213,7 +221,9 @@ let
                 extensions;
 
             Extensions = {
-              Install = lib.foldr (e: ret: ret ++ [ "${e.outPath}/${e.extid}.xpi" ]) [ ] extensions;
+              Install =
+                lib.foldr (e: ret: ret ++ [ "${e.outPath}/${e.extid}.xpi" ]) [ ]
+                  extensions;
             };
           }
           // lib.optionalAttrs smartcardSupport {
@@ -231,7 +241,10 @@ let
         // to be able to install addons that do not have an extid
         // Security is maintained because only user whitelisted addons
         // with a checksum can be installed
-        ${lib.optionalString usesNixExtensions ''lockPref("xpinstall.signatures.required", false)''};
+        ${
+          lib.optionalString usesNixExtensions
+            ''lockPref("xpinstall.signatures.required", false)''
+        };
       '';
     in
     #############################
@@ -401,7 +414,10 @@ let
           "''${executablePath}${nameSuffix}" \
             --prefix LD_LIBRARY_PATH ':' "$libs" \
             --suffix-each GTK_PATH ':' "$gtk_modules" \
-            ${lib.optionalString (!xdg-utils.meta.broken) ''--suffix PATH ':' "${xdg-utils}/bin"''} \
+            ${
+              lib.optionalString (!xdg-utils.meta.broken)
+                ''--suffix PATH ':' "${xdg-utils}/bin"''
+            } \
             --suffix PATH ':' "$out/bin" \
             --set MOZ_APP_LAUNCHER "${launcherName}" \
             --set MOZ_SYSTEM_DIR "$out/lib/mozilla" \
@@ -494,7 +510,8 @@ let
 
       preferLocalBuild = true;
 
-      libs = lib.makeLibraryPath libs + ":" + lib.makeSearchPathOutput "lib" "lib64" libs;
+      libs =
+        lib.makeLibraryPath libs + ":" + lib.makeSearchPathOutput "lib" "lib64" libs;
       gtk_modules = map (x: x + x.gtkModule) gtk_modules;
 
       passthru = {

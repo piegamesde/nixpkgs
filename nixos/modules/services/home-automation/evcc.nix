@@ -20,7 +20,9 @@ in
   meta.maintainers = with lib.maintainers; [ hexa ];
 
   options.services.evcc = with types; {
-    enable = mkEnableOption (lib.mdDoc "EVCC, the extensible EV Charge Controller with PV integration");
+    enable = mkEnableOption (
+      lib.mdDoc "EVCC, the extensible EV Charge Controller with PV integration"
+    );
 
     extraArgs = mkOption {
       type = listOf str;
@@ -50,7 +52,9 @@ in
       environment.HOME = "/var/lib/evcc";
       path = with pkgs; [ getent ];
       serviceConfig = {
-        ExecStart = "${package}/bin/evcc --config ${configFile} ${escapeShellArgs cfg.extraArgs}";
+        ExecStart = "${package}/bin/evcc --config ${configFile} ${
+            escapeShellArgs cfg.extraArgs
+          }";
         CapabilityBoundingSet = [ "" ];
         DeviceAllow = [ "char-ttyUSB" ];
         DevicePolicy = "closed";

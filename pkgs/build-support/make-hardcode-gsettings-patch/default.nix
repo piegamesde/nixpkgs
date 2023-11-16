@@ -48,7 +48,9 @@ runCommand "hardcode-gsettings.patch"
     cd "''${sourceRoot:-.}"
     set -x
     cp ${
-      builtins.toFile "glib-schema-to-var.json" (builtins.toJSON schemaIdToVariableMapping)
+      builtins.toFile "glib-schema-to-var.json" (
+        builtins.toJSON schemaIdToVariableMapping
+      )
     } ./glib-schema-to-var.json
     git init
     git add -A

@@ -53,7 +53,9 @@ in
               filterAttrs (n: v: !((n == "tls-cert" || n == "tls-key") && v == null))
                 cfg.settings;
           in
-          "${pkgs.gonic}/bin/gonic -config-path ${settingsFormat.generate "gonic" filteredSettings}";
+          "${pkgs.gonic}/bin/gonic -config-path ${
+            settingsFormat.generate "gonic" filteredSettings
+          }";
         DynamicUser = true;
         StateDirectory = "gonic";
         CacheDirectory = "gonic";

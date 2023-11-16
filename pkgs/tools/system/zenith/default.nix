@@ -34,7 +34,9 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook ] ++ lib.optional nvidiaSupport makeWrapper;
+  nativeBuildInputs = [
+    rustPlatform.bindgenHook
+  ] ++ lib.optional nvidiaSupport makeWrapper;
   buildInputs = lib.optionals stdenv.isDarwin [ IOKit ];
 
   buildFeatures = lib.optional nvidiaSupport "nvidia";

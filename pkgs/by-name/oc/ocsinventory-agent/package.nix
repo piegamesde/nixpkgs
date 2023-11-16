@@ -32,7 +32,9 @@ perlPackages.buildPerlPackage rec {
     hash = "sha256-aFzBrUsVttUhpYGEYd/yYuXmE90PGCiBmBsVjtHcHLg=";
   };
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
+  nativeBuildInputs = [
+    makeWrapper
+  ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
 
   buildInputs =
     with perlPackages;
@@ -81,7 +83,9 @@ perlPackages.buildPerlPackage rec {
       shortenPerlShebang $out/bin/ocsinventory-agent
     ''
     + ''
-      wrapProgram $out/bin/ocsinventory-agent --prefix PATH : ${lib.makeBinPath runtimeDependencies}
+      wrapProgram $out/bin/ocsinventory-agent --prefix PATH : ${
+        lib.makeBinPath runtimeDependencies
+      }
     '';
 
   passthru = {

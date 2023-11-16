@@ -58,7 +58,9 @@ buildNpmPackage rec {
     python3
   ] ++ lib.optionals stdenv.isLinux [ copyDesktopItems ];
 
-  buildInputs = [ libdeltachat ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs = [
+    libdeltachat
+  ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";

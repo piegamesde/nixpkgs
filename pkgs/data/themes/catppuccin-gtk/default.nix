@@ -49,7 +49,8 @@ let
   pname = "catppuccin-gtk";
 in
 
-lib.checkListOfEnum "${pname}: theme accent" validAccents accents lib.checkListOfEnum
+lib.checkListOfEnum "${pname}: theme accent" validAccents accents
+  lib.checkListOfEnum
   "${pname}: color variant"
   validVariants
   [ variant ]
@@ -106,7 +107,9 @@ lib.checkListOfEnum "${pname}: theme accent" validAccents accents lib.checkListO
       export HOME=$(mktemp -d)
 
       python3 install.py ${variant} \
-        ${lib.optionalString (accents != [ ]) "--accent " + builtins.toString accents} \
+        ${
+          lib.optionalString (accents != [ ]) "--accent " + builtins.toString accents
+        } \
         ${lib.optionalString (size != [ ]) "--size " + size} \
         ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
         --dest $out/share/themes

@@ -19,7 +19,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-nyhjwEZyT8IEb0pTbou/EtN47gehge3fUCQVPs2TkIY=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.Security
+  ];
 
   cargoBuildFlags = [ "-p=wasmer-pack-cli" ];
 

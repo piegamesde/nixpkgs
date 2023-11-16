@@ -44,7 +44,9 @@ let
         ];
       };
     in
-    map (ass: ass.message) (lib.filter (ass: !ass.assertion) uncheckedEval.config.assertions);
+    map (ass: ass.message) (
+      lib.filter (ass: !ass.assertion) uncheckedEval.config.assertions
+    );
 
   readOnlyUndefined = evalMinimalConfig { imports = [ ./read-only.nix ]; };
 
@@ -89,9 +91,12 @@ lib.recurseIntoAttrs {
     (eval { nixpkgs.system = stdenv.hostPlatform.system; })._module.args.pkgs.hello;
   assertions =
     assert withHost._module.args.pkgs.stdenv.hostPlatform.system == "aarch64-linux";
-    assert withHost._module.args.pkgs.stdenv.buildPlatform.system == "aarch64-linux";
-    assert withHostAndBuild._module.args.pkgs.stdenv.hostPlatform.system == "aarch64-linux";
-    assert withHostAndBuild._module.args.pkgs.stdenv.buildPlatform.system == "aarch64-darwin";
+    assert withHost._module.args.pkgs.stdenv.buildPlatform.system
+      == "aarch64-linux";
+    assert withHostAndBuild._module.args.pkgs.stdenv.hostPlatform.system
+      == "aarch64-linux";
+    assert withHostAndBuild._module.args.pkgs.stdenv.buildPlatform.system
+      == "aarch64-darwin";
     assert builtins.trace (lib.head (getErrors ambiguous)) getErrors ambiguous == [
       ''
         Your system configures nixpkgs with the platform parameters:
@@ -120,7 +125,8 @@ lib.recurseIntoAttrs {
     } == [ ];
 
     # Tests for the read-only.nix module
-    assert readOnly._module.args.pkgs.stdenv.hostPlatform.system == pkgs.stdenv.hostPlatform.system;
+    assert readOnly._module.args.pkgs.stdenv.hostPlatform.system
+      == pkgs.stdenv.hostPlatform.system;
     assert throws readOnlyBad._module.args.pkgs.stdenv;
     assert throws readOnlyUndefined._module.args.pkgs.stdenv;
     assert throws readOnlyBadConfig._module.args.pkgs.stdenv;

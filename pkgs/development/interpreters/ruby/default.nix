@@ -69,7 +69,8 @@ let
       yjitSupported =
         atLeast32
         && (
-          stdenv.hostPlatform.isx86_64 || (!stdenv.hostPlatform.isWindows && stdenv.hostPlatform.isAarch64)
+          stdenv.hostPlatform.isx86_64
+          || (!stdenv.hostPlatform.isWindows && stdenv.hostPlatform.isAarch64)
         );
       self =
         lib.makeOverridable
@@ -205,7 +206,10 @@ let
               patches =
                 op (lib.versionOlder ver.majMin "3.1") ./do-not-regenerate-revision.h.patch
                 ++ op (atLeast30 && useBaseRuby) (
-                  if atLeast32 then ./do-not-update-gems-baseruby-3.2.patch else ./do-not-update-gems-baseruby.patch
+                  if atLeast32 then
+                    ./do-not-update-gems-baseruby-3.2.patch
+                  else
+                    ./do-not-update-gems-baseruby.patch
                 )
                 ++
                   ops (ver.majMin == "3.0")

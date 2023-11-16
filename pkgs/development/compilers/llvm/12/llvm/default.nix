@@ -34,7 +34,8 @@ let
   inherit (lib) optional optionals optionalString;
 
   # Used when creating a version-suffixed symlink of libLLVM.dylib
-  shortVersion = with lib; concatStringsSep "." (take 1 (splitString "." release_version));
+  shortVersion =
+    with lib; concatStringsSep "." (take 1 (splitString "." release_version));
 
   # Ordinarily we would just the `doCheck` and `checkDeps` functionality
   # `mkDerivation` gives us to manage our test dependencies (instead of breaking
@@ -68,7 +69,9 @@ stdenv.mkDerivation (
     inherit version;
 
     src = fetch pname "1pzx9zrmd7r3481sbhwvkms68fwhffpp4mmz45dgrkjpyl2q96kx";
-    polly_src = fetch "polly" "1yfm9ixda4a2sx7ak5vswijx4ydk5lv1c1xh39xmd2kh299y4m12";
+    polly_src =
+      fetch "polly"
+        "1yfm9ixda4a2sx7ak5vswijx4ydk5lv1c1xh39xmd2kh299y4m12";
 
     unpackPhase =
       ''
@@ -103,9 +106,9 @@ stdenv.mkDerivation (
       libffi
     ] ++ optional enablePFM libpfm; # exegesis
 
-    propagatedBuildInputs = optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ ncurses ] ++ [
-      zlib
-    ];
+    propagatedBuildInputs =
+      optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ ncurses ]
+      ++ [ zlib ];
 
     patches = [
       # When cross-compiling we configure llvm-config-native with an approximation
@@ -232,7 +235,9 @@ stdenv.mkDerivation (
     '';
 
     # E.g. mesa.drivers use the build-id as a cache key (see #93946):
-    LDFLAGS = optionalString (enableSharedLibraries && !stdenv.isDarwin) "-Wl,--build-id=sha1";
+    LDFLAGS =
+      optionalString (enableSharedLibraries && !stdenv.isDarwin)
+        "-Wl,--build-id=sha1";
 
     cmakeBuildType = if debugVersion then "Debug" else "Release";
 
@@ -276,7 +281,9 @@ stdenv.mkDerivation (
         "-DSPHINX_OUTPUT_HTML=OFF"
         "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
       ]
-      ++ optionals (enableGoldPlugin) [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ]
+      ++ optionals (enableGoldPlugin) [
+        "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
+      ]
       ++ optionals isDarwin [
         "-DLLVM_ENABLE_LIBCXX=ON"
         "-DCAN_TARGET_i386=false"

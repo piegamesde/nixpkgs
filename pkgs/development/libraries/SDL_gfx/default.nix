@@ -18,7 +18,9 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ SDL ];
   buildInputs = [ SDL ];
 
-  configureFlags = [ "--disable-mmx" ] ++ lib.optional stdenv.isDarwin "--disable-sdltest";
+  configureFlags = [
+    "--disable-mmx"
+  ] ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
   meta = with lib; {
     description = "SDL graphics drawing primitives and support functions";

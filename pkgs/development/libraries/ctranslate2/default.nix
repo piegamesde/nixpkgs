@@ -38,7 +38,9 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals withCUDA [ cudaPackages.cuda_nvcc ];
+  nativeBuildInputs = [
+    cmake
+  ] ++ lib.optionals withCUDA [ cudaPackages.cuda_nvcc ];
 
   cmakeFlags = [
     # https://opennmt.net/CTranslate2/installation.html#build-options

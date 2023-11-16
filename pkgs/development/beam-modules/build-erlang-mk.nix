@@ -28,7 +28,9 @@
 }@attrs:
 
 let
-  debugInfoFlag = lib.optionalString (enableDebugInfo || erlang.debugInfo) "+debug_info";
+  debugInfoFlag =
+    lib.optionalString (enableDebugInfo || erlang.debugInfo)
+      "+debug_info";
 
   shell =
     drv:
@@ -69,7 +71,8 @@ let
 
         buildFlags =
           [ "SKIP_DEPS=1" ]
-          ++ lib.optional (enableDebugInfo || erlang.debugInfo) ''ERL_OPTS="$ERL_OPTS +debug_info"''
+          ++ lib.optional (enableDebugInfo || erlang.debugInfo)
+            ''ERL_OPTS="$ERL_OPTS +debug_info"''
           ++ buildFlags;
 
         configurePhase =

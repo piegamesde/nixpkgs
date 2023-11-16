@@ -57,7 +57,9 @@ in
     systemd.targets.default-websockify = {
       description = "Target to start all default websockify@ services";
       unitConfig.X-StopOnReconfiguration = true;
-      wants = mapAttrsToList (name: value: "websockify@${name}:${toString value}.service") cfg.portMap;
+      wants =
+        mapAttrsToList (name: value: "websockify@${name}:${toString value}.service")
+          cfg.portMap;
       wantedBy = [ "multi-user.target" ];
     };
   };

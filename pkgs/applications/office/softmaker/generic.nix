@@ -37,7 +37,9 @@
 }:
 
 let
-  desktopItems = import ./desktop_items.nix { inherit makeDesktopItem pname suiteName; };
+  desktopItems = import ./desktop_items.nix {
+    inherit makeDesktopItem pname suiteName;
+  };
   shortEdition = builtins.substring 2 2 edition;
 in
 stdenv.mkDerivation {

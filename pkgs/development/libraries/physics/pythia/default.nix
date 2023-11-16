@@ -22,7 +22,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kMgRq+ej0v/b+bSuq1HPbgpai++04++oBvPVucMR4ic=";
   };
 
-  nativeBuildInputs = [ rsync ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs = [
+    rsync
+  ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
   buildInputs = [
     boost
     fastjet

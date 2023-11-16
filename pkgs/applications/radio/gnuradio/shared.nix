@@ -18,7 +18,8 @@
 let
   # Check if a feature is enabled, while defaulting to true if feat is not
   # specified.
-  hasFeature = feat: (if builtins.hasAttr feat features then features.${feat} else true);
+  hasFeature =
+    feat: (if builtins.hasAttr feat features then features.${feat} else true);
   versionAttr = {
     major = builtins.concatStringsSep "." (lib.take 2 (lib.splitVersion version));
     minor = builtins.elemAt (lib.splitVersion version) 2;

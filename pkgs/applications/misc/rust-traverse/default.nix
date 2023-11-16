@@ -24,10 +24,14 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    bzip2
-    zstd
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.Foundation ];
+  buildInputs =
+    [
+      bzip2
+      zstd
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk_11_0.frameworks.Foundation
+    ];
 
   env = {
     ZSTD_SYS_USE_PKG_CONFIG = true;

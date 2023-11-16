@@ -18,7 +18,9 @@ in
       enable = mkEnableOption (lib.mdDoc "ZFS snapshot replication");
 
       followDelete = mkOption {
-        description = lib.mdDoc "Remove remote snapshots that don't have a local correspondent.";
+        description =
+          lib.mdDoc
+            "Remove remote snapshots that don't have a local correspondent.";
         default = true;
         type = types.bool;
       };
@@ -81,9 +83,9 @@ in
       restartIfChanged = false;
       serviceConfig.ExecStart = "${pkgs.zfs-replicate}/bin/zfs-replicate${recursive} -l ${
           escapeShellArg cfg.username
-        } -i ${escapeShellArg cfg.identityFilePath}${followDelete} ${escapeShellArg cfg.host} ${
-          escapeShellArg cfg.remoteFilesystem
-        } ${escapeShellArg cfg.localFilesystem}";
+        } -i ${escapeShellArg cfg.identityFilePath}${followDelete} ${
+          escapeShellArg cfg.host
+        } ${escapeShellArg cfg.remoteFilesystem} ${escapeShellArg cfg.localFilesystem}";
       wantedBy = [
         "zfs-snapshot-daily.service"
         "zfs-snapshot-frequent.service"

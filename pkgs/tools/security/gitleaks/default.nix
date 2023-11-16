@@ -23,7 +23,9 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/zricethezav/gitleaks/v${lib.versions.major version}/cmd.Version=${version}"
+    "-X github.com/zricethezav/gitleaks/v${
+      lib.versions.major version
+    }/cmd.Version=${version}"
   ];
 
   nativeBuildInputs = [ installShellFiles ];

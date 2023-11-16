@@ -20,7 +20,9 @@ buildGoModule rec {
 
   preCheck = ''
     substituteInPlace ./pkg/generator_test.go --replace 0.0.0-dev ${version}
-    substituteInPlace ./pkg/logging/logging_test.go --replace v0.0 v${lib.versions.majorMinor version}
+    substituteInPlace ./pkg/logging/logging_test.go --replace v0.0 v${
+      lib.versions.majorMinor version
+    }
   '';
 
   ldflags = [

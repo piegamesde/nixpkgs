@@ -23,11 +23,15 @@ stdenv.mkDerivation rec {
   pname = "graphene";
   version = "1.10.8";
 
-  outputs = [
-    "out"
-    "dev"
-    "devdoc"
-  ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ "installedTests" ];
+  outputs =
+    [
+      "out"
+      "dev"
+      "devdoc"
+    ]
+    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
+      "installedTests"
+    ];
 
   src = fetchFromGitHub {
     owner = "ebassi";
@@ -52,17 +56,21 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    docbook_xml_dtd_43
-    docbook_xsl
-    gtk-doc
-    meson
-    ninja
-    pkg-config
-    gobject-introspection
-    python3
-    makeWrapper
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs =
+    [
+      docbook_xml_dtd_43
+      docbook_xsl
+      gtk-doc
+      meson
+      ninja
+      pkg-config
+      gobject-introspection
+      python3
+      makeWrapper
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [ glib ];
 

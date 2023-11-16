@@ -138,7 +138,8 @@ let
     };
   };
 in
-lib.checkListOfEnum "${pname}: variant" validVariants [ variant ] lib.checkListOfEnum
+lib.checkListOfEnum "${pname}: variant" validVariants [ variant ]
+  lib.checkListOfEnum
   "${pname}: accent"
   validAccents
   [ accent ]

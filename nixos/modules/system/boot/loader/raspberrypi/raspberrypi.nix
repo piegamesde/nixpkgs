@@ -18,7 +18,9 @@ let
 
   builder =
     if cfg.uboot.enable then
-      "${builderUboot} -g ${toString cfg.uboot.configurationLimit} -t ${timeoutStr} -c"
+      "${builderUboot} -g ${
+        toString cfg.uboot.configurationLimit
+      } -t ${timeoutStr} -c"
     else
       "${builderGeneric} -c";
 

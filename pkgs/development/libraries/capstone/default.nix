@@ -17,7 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XMwQ7UaPC8YYu4yxsE4bbR3leYPfBHu5iixSLz05r3g=";
   };
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs = [
+    cmake
+  ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
   doCheck = true;
 

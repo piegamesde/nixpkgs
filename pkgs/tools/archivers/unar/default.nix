@@ -60,9 +60,10 @@ stdenv.mkDerivation rec {
       AppKit
     ];
 
-  nativeBuildInputs = [
-    installShellFiles
-  ] ++ lib.optionals stdenv.isLinux [ gnustep.make ] ++ lib.optionals stdenv.isDarwin [ xcbuildHook ];
+  nativeBuildInputs =
+    [ installShellFiles ]
+    ++ lib.optionals stdenv.isLinux [ gnustep.make ]
+    ++ lib.optionals stdenv.isDarwin [ xcbuildHook ];
 
   xcbuildFlags = lib.optionals stdenv.isDarwin [
     "-target unar"
@@ -86,7 +87,9 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    install -Dm555 -t $out/bin ${lib.optionalString stdenv.isDarwin "Products/Release/"}{lsar,unar}
+    install -Dm555 -t $out/bin ${
+      lib.optionalString stdenv.isDarwin "Products/Release/"
+    }{lsar,unar}
     for f in lsar unar; do
       installManPage ./Extra/$f.?
       installShellCompletion --bash --name $f ./Extra/$f.bash_completion

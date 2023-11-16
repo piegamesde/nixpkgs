@@ -41,7 +41,9 @@ stdenvNoCC.mkDerivation rec {
   version = "8.2.1";
 
   src = requireFile {
-    name = "CiscoPacketTracer_${builtins.replaceStrings [ "." ] [ "" ] version}_Ubuntu_64bit.deb";
+    name = "CiscoPacketTracer_${
+        builtins.replaceStrings [ "." ] [ "" ] version
+      }_Ubuntu_64bit.deb";
     sha256 = hashes.${version};
     url = "https://www.netacad.com";
   };

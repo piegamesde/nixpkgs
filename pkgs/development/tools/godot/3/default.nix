@@ -102,11 +102,13 @@ stdenv.mkDerivation (
     shouldInstallManual = self.shouldBuildTools;
     shouldPatchBinary = self.shouldBuildTools;
     shouldInstallHeaders = self.shouldBuildTools;
-    shouldInstallShortcut = self.shouldBuildTools && self.godotBuildPlatform != "server";
+    shouldInstallShortcut =
+      self.shouldBuildTools && self.godotBuildPlatform != "server";
 
-    outputs = [
-      "out"
-    ] ++ lib.optional self.shouldInstallManual "man" ++ lib.optional self.shouldBuildTools "dev";
+    outputs =
+      [ "out" ]
+      ++ lib.optional self.shouldInstallManual "man"
+      ++ lib.optional self.shouldBuildTools "dev";
 
     builtGodotBinNamePattern =
       if self.godotBuildPlatform == "server" then "godot_server.*" else "godot.*";
@@ -167,7 +169,10 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       homepage = "https://godotengine.org";
-      description = "Free and Open Source 2D and 3D game engine (" + self.godotBuildDescription + ")";
+      description =
+        "Free and Open Source 2D and 3D game engine ("
+        + self.godotBuildDescription
+        + ")";
       license = licenses.mit;
       platforms = [
         "i686-linux"

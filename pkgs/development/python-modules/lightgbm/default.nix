@@ -63,7 +63,9 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-  pypaBuildFlags = lib.optionalString gpuSupport "--config-setting=cmake.define.USE_CUDA=ON";
+  pypaBuildFlags =
+    lib.optionalString gpuSupport
+      "--config-setting=cmake.define.USE_CUDA=ON";
 
   postConfigure = ''
     export HOME=$(mktemp -d)

@@ -43,7 +43,11 @@ let
     }:
     let
 
-      wrapperArgsStr = if lib.isString wrapperArgs then wrapperArgs else lib.escapeShellArgs wrapperArgs;
+      wrapperArgsStr =
+        if lib.isString wrapperArgs then
+          wrapperArgs
+        else
+          lib.escapeShellArgs wrapperArgs;
 
       commonWrapperArgs =
         # vim accepts a limited number of commands so we join them all
@@ -53,7 +57,10 @@ let
           # (lib.intersperse "|" hostProviderViml)
         ]
         ++ lib.optionals
-          (packpathDirs.myNeovimPackages.start != [ ] || packpathDirs.myNeovimPackages.opt != [ ])
+          (
+            packpathDirs.myNeovimPackages.start != [ ]
+            || packpathDirs.myNeovimPackages.opt != [ ]
+          )
           [
             "--add-flags"
             ''--cmd "set packpath^=${vimUtils.packDir packpathDirs}"''

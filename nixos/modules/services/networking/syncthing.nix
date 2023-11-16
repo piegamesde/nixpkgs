@@ -14,7 +14,9 @@ let
   defaultUser = "syncthing";
   defaultGroup = defaultUser;
   settingsFormat = pkgs.formats.json { };
-  cleanedConfig = converge (filterAttrsRecursive (_: v: v != null && v != { })) cfg.settings;
+  cleanedConfig =
+    converge (filterAttrsRecursive (_: v: v != null && v != { }))
+      cfg.settings;
 
   isUnixGui = (builtins.substring 0 1 cfg.guiAddress) == "/";
 
@@ -35,7 +37,9 @@ let
     else
       "${cfg.guiAddress}${path}";
 
-  devices = mapAttrsToList (_: device: device // { deviceID = device.id; }) cfg.settings.devices;
+  devices =
+    mapAttrsToList (_: device: device // { deviceID = device.id; })
+      cfg.settings.devices;
 
   folders =
     mapAttrsToList
@@ -53,7 +57,10 @@ let
                 map
                   (
                     device:
-                    if builtins.isString device then { deviceId = cfg.settings.devices.${device}.id; } else device
+                    if builtins.isString device then
+                      { deviceId = cfg.settings.devices.${device}.id; }
+                    else
+                      device
                   )
                   folder.devices;
             }
@@ -163,9 +170,9 @@ let
         ])
         (map (
           subOption: ''
-            curl -X PUT -d ${lib.escapeShellArg (builtins.toJSON cleanedConfig.${subOption})} ${
-              curlAddressArgs "/rest/config/${subOption}"
-            }
+            curl -X PUT -d ${
+              lib.escapeShellArg (builtins.toJSON cleanedConfig.${subOption})
+            } ${curlAddressArgs "/rest/config/${subOption}"}
           ''
         ))
         (lib.concatStringsSep "\n")
@@ -185,7 +192,8 @@ in
     services.syncthing = {
 
       enable = mkEnableOption (
-        lib.mdDoc "Syncthing, a self-hosted open-source alternative to Dropbox and Bittorrent Sync"
+        lib.mdDoc
+          "Syncthing, a self-hosted open-source alternative to Dropbox and Bittorrent Sync"
       );
 
       cert = mkOption {
@@ -389,7 +397,8 @@ in
                         # TODO for release 23.05: allow relative paths again and set
                         # working directory to cfg.dataDir
                         type = types.str // {
-                          check = x: types.str.check x && (substring 0 1 x == "/" || substring 0 2 x == "~/");
+                          check =
+                            x: types.str.check x && (substring 0 1 x == "/" || substring 0 2 x == "~/");
                           description = types.str.description + " starting with / or ~/";
                         };
                         default = name;
@@ -797,10 +806,14 @@ in
                 pkgs.writers.writeBash "syncthing-copy-keys" ''
                   install -dm700 -o ${cfg.user} -g ${cfg.group} ${cfg.configDir}
                   ${optionalString (cfg.cert != null) ''
-                    install -Dm400 -o ${cfg.user} -g ${cfg.group} ${toString cfg.cert} ${cfg.configDir}/cert.pem
+                    install -Dm400 -o ${cfg.user} -g ${cfg.group} ${
+                      toString cfg.cert
+                    } ${cfg.configDir}/cert.pem
                   ''}
                   ${optionalString (cfg.key != null) ''
-                    install -Dm400 -o ${cfg.user} -g ${cfg.group} ${toString cfg.key} ${cfg.configDir}/key.pem
+                    install -Dm400 -o ${cfg.user} -g ${cfg.group} ${
+                      toString cfg.key
+                    } ${cfg.configDir}/key.pem
                   ''}
                 ''
               }";

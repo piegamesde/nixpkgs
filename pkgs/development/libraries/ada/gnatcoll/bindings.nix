@@ -52,7 +52,9 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreFoundation ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.CoreFoundation
+  ];
 
   # propagate since gprbuild needs to find referenced .gpr files
   # and all dependency C libraries when statically linking a

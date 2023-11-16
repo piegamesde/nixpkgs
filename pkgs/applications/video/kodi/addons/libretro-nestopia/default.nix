@@ -19,7 +19,9 @@ buildKodiBinaryAddon rec {
     sha256 = "sha256-DmBO+HcfIBcz7p16dND09iwXWeObtU/doo/mJ0IZGGg=";
   };
 
-  extraCMakeFlags = [ "-DNESTOPIA_LIB=${nestopia}/lib/retroarch/cores/nestopia_libretro.so" ];
+  extraCMakeFlags = [
+    "-DNESTOPIA_LIB=${nestopia}/lib/retroarch/cores/nestopia_libretro.so"
+  ];
 
   extraBuildInputs = [ nestopia ];
   propagatedBuildInputs = [ libretro ];

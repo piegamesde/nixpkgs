@@ -17,7 +17,9 @@ with lib;
       enable = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc "Whether to run the postfix sender rewriting scheme daemon.";
+        description =
+          lib.mdDoc
+            "Whether to run the postfix sender rewriting scheme daemon.";
       };
 
       domain = mkOption {

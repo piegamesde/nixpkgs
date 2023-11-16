@@ -78,7 +78,9 @@ let
     # Qt from doing this wackiness in the first place.
     trolltech_conf="''${XDG_CONFIG_HOME}/Trolltech.conf"
     if [ -e "$trolltech_conf" ]; then
-      ${getBin pkgs.gnused}/bin/sed -i "$trolltech_conf" -e '/nix\\store\|nix\/store/ d'
+      ${
+        getBin pkgs.gnused
+      }/bin/sed -i "$trolltech_conf" -e '/nix\\store\|nix\/store/ d'
     fi
 
     # Remove the kbuildsyscoca5 cache. It will be regenerated
@@ -176,7 +178,9 @@ in
       };
     };
     environment.plasma5.excludePackages = mkOption {
-      description = lib.mdDoc "List of default packages to exclude from the configuration";
+      description =
+        lib.mdDoc
+          "List of default packages to exclude from the configuration";
       type = types.listOf types.package;
       default = [ ];
       example = literalExpression "[ pkgs.plasma5Packages.oxygen ]";
@@ -352,10 +356,14 @@ in
           ];
         in
         requiredPackages
-        ++ utils.removePackagesByName optionalPackages config.environment.plasma5.excludePackages
+        ++
+          utils.removePackagesByName optionalPackages
+            config.environment.plasma5.excludePackages
 
         # Phonon audio backend
-        ++ lib.optional (cfg.phononBackend == "gstreamer") libsForQt5.phonon-backend-gstreamer
+        ++
+          lib.optional (cfg.phononBackend == "gstreamer")
+            libsForQt5.phonon-backend-gstreamer
         ++ lib.optional (cfg.phononBackend == "vlc") libsForQt5.phonon-backend-vlc
 
         # Optional hardware support features
@@ -370,7 +378,9 @@ in
         ++ lib.optional config.services.pipewire.pulse.enable plasma-pa
         ++ lib.optional config.powerManagement.enable powerdevil
         ++ lib.optional config.services.colord.enable pkgs.colord-kde
-        ++ lib.optional config.services.hardware.bolt.enable pkgs.plasma5Packages.plasma-thunderbolt
+        ++
+          lib.optional config.services.hardware.bolt.enable
+            pkgs.plasma5Packages.plasma-thunderbolt
         ++ lib.optionals config.services.samba.enable [
           kdenetwork-filesharing
           pkgs.samba
@@ -418,14 +428,18 @@ in
         serif = [ "Noto Serif" ];
       };
 
-      programs.ssh.askPassword = mkDefault "${plasma5.ksshaskpass.out}/bin/ksshaskpass";
+      programs.ssh.askPassword =
+        mkDefault
+          "${plasma5.ksshaskpass.out}/bin/ksshaskpass";
 
       # Enable helpful DBus services.
       services.accounts-daemon.enable = true;
       # when changing an account picture the accounts-daemon reads a temporary file containing the image which systemsettings5 may place under /tmp
       systemd.services.accounts-daemon.serviceConfig.PrivateTmp = false;
       services.power-profiles-daemon.enable = mkDefault true;
-      services.system-config-printer.enable = mkIf config.services.printing.enable (mkDefault true);
+      services.system-config-printer.enable = mkIf config.services.printing.enable (
+        mkDefault true
+      );
       services.udisks2.enable = true;
       services.upower.enable = config.powerManagement.enable;
       services.xserver.libinput.enable = mkDefault true;
@@ -490,7 +504,9 @@ in
         ''
       ];
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.libsForQt5.plasma5.plasma-workspace ];
+      services.xserver.displayManager.sessionPackages = [
+        pkgs.libsForQt5.plasma5.plasma-workspace
+      ];
       # Default to be `plasma` (X11) instead of `plasmawayland`, since plasma wayland currently has
       # many tiny bugs.
       # See: https://github.com/NixOS/nixpkgs/issues/143272
@@ -528,7 +544,9 @@ in
           ];
         in
         requiredPackages
-        ++ utils.removePackagesByName optionalPackages config.environment.plasma5.excludePackages;
+        ++
+          utils.removePackagesByName optionalPackages
+            config.environment.plasma5.excludePackages;
 
       systemd.user.services = {
         plasma-run-with-systemd = {
@@ -539,7 +557,9 @@ in
             ${set_XDG_CONFIG_HOME}
 
             ${kdeFrameworks.kconfig}/bin/kwriteconfig5 \
-              --file startkderc --group General --key systemdBoot ${lib.boolToString cfg.runUsingSystemd}
+              --file startkderc --group General --key systemdBoot ${
+                lib.boolToString cfg.runUsingSystemd
+              }
           '';
         };
       };
@@ -631,7 +651,9 @@ in
         };
       };
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.libsForQt5.plasma5.plasma-mobile ];
+      services.xserver.displayManager.sessionPackages = [
+        pkgs.libsForQt5.plasma5.plasma-mobile
+      ];
     })
 
     # Plasma Bigscreen
@@ -650,7 +672,9 @@ in
         kdeconnect-kde
       ];
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.plasma5Packages.plasma-bigscreen ];
+      services.xserver.displayManager.sessionPackages = [
+        pkgs.plasma5Packages.plasma-bigscreen
+      ];
 
       # required for plasma-remotecontrollers to work correctly
       hardware.uinput.enable = true;

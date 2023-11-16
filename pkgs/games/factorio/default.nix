@@ -30,7 +30,9 @@
   ...
 }@args:
 
-assert releaseType == "alpha" || releaseType == "headless" || releaseType == "demo";
+assert releaseType == "alpha"
+  || releaseType == "headless"
+  || releaseType == "demo";
 
 let
 
@@ -97,7 +99,10 @@ let
       f =
         path: name: value:
         if builtins.isAttrs value then
-          if value ? "name" then makeBinDist value else builtins.mapAttrs (f (path ++ [ name ])) value
+          if value ? "name" then
+            makeBinDist value
+          else
+            builtins.mapAttrs (f (path ++ [ name ])) value
         else
           throw "expected attrset at ${toString path} - got ${toString value}";
     in

@@ -84,7 +84,9 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [ ocl-icd ]
     ++ lib.optionals cudaSupport [ cudatoolkit ]
     ++ lib.optionals buildDocs [ doxygen ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.Accelerate ];
+    ++ lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk_11_0.frameworks.Accelerate
+    ];
 
   meta = with lib; {
     description = "A general-purpose library for parallel and massively-parallel computations";

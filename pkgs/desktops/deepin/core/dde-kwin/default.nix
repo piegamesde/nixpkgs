@@ -79,7 +79,9 @@ stdenv.mkDerivation rec {
   # kwin_no_scale is a shell script
   postFixup = ''
     wrapProgram $out/bin/kwin_no_scale \
-      --set QT_QPA_PLATFORM_PLUGIN_PATH "${placeholder "out"}/${qtbase.qtPluginPrefix}"
+      --set QT_QPA_PLATFORM_PLUGIN_PATH "${
+        placeholder "out"
+      }/${qtbase.qtPluginPrefix}"
   '';
 
   meta = with lib; {

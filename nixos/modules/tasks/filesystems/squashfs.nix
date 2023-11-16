@@ -2,7 +2,9 @@
 
 let
 
-  inInitrd = lib.any (fs: fs == "squashfs") config.boot.initrd.supportedFilesystems;
+  inInitrd =
+    lib.any (fs: fs == "squashfs")
+      config.boot.initrd.supportedFilesystems;
 in
 
 {

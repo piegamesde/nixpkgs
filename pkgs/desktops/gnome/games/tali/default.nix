@@ -23,7 +23,9 @@ stdenv.mkDerivation rec {
   version = "40.9";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/tali/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/tali/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "+p7eNm8KcuTKpSGJw6sLEMG1aoDHiFsBZgJVjETc59M=";
   };
 

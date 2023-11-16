@@ -23,8 +23,10 @@ in
 # There must be no slashes in the repository or container names since
 # we use these to make the output derivation name for the nix store
 # path
-assert null == lib.findFirst (c: "/" == c) null (lib.stringToCharacters repository);
-assert null == lib.findFirst (c: "/" == c) null (lib.stringToCharacters imageName);
+assert null
+  == lib.findFirst (c: "/" == c) null (lib.stringToCharacters repository);
+assert null
+  == lib.findFirst (c: "/" == c) null (lib.stringToCharacters imageName);
 
 # Only allow hocker-config and hocker-layer as fetchers for now
 assert (builtins.elem fetcher [
@@ -33,10 +35,14 @@ assert (builtins.elem fetcher [
 ]);
 
 # If layerDigest is non-empty then it must not have a 'sha256:' prefix!
-assert (if layerDigest != "" then !lib.hasPrefix "sha256:" layerDigest else true);
+assert (
+  if layerDigest != "" then !lib.hasPrefix "sha256:" layerDigest else true
+);
 
 let
-  layerDigestFlag = lib.optionalString (layerDigest != "") "--layer ${layerDigest}";
+  layerDigestFlag =
+    lib.optionalString (layerDigest != "")
+      "--layer ${layerDigest}";
 in
 stdenv.mkDerivation {
   inherit name;

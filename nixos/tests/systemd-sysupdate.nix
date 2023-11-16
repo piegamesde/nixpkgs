@@ -21,18 +21,20 @@ in
         services.nginx = {
           enable = true;
           virtualHosts."server" = {
-            root = pkgs.runCommand "sysupdate-artifacts" { buildInputs = [ pkgs.gnupg ]; } ''
-              mkdir -p $out
-              cd $out
+            root =
+              pkgs.runCommand "sysupdate-artifacts" { buildInputs = [ pkgs.gnupg ]; }
+                ''
+                  mkdir -p $out
+                  cd $out
 
-              echo "nixos" > nixos_1.efi
-              sha256sum nixos_1.efi > SHA256SUMS
+                  echo "nixos" > nixos_1.efi
+                  sha256sum nixos_1.efi > SHA256SUMS
 
-              export GNUPGHOME="$(mktemp -d)"
-              cp -R ${gpgKeyring}/* $GNUPGHOME
+                  export GNUPGHOME="$(mktemp -d)"
+                  cp -R ${gpgKeyring}/* $GNUPGHOME
 
-              gpg --batch --sign --detach-sign --output SHA256SUMS.gpg SHA256SUMS
-            '';
+                  gpg --batch --sign --detach-sign --output SHA256SUMS.gpg SHA256SUMS
+                '';
           };
         };
       };

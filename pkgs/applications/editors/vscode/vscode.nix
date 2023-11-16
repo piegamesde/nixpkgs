@@ -11,7 +11,8 @@
   # documented in https://nixos.wiki/wiki/Visual_Studio_Code#Insiders_Build
   # On MacOS the insider binary is still called code instead of code-insiders as
   # of 2023-08-06.
-  sourceExecutableName ? "code" + lib.optionalString (isInsiders && stdenv.isLinux) "-insiders",
+  sourceExecutableName ?
+    "code" + lib.optionalString (isInsiders && stdenv.isLinux) "-insiders",
   commandLineArgs ? "",
   useVSCodeRipgrep ? stdenv.isDarwin,
 }:

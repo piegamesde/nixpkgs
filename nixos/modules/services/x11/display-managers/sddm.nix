@@ -22,7 +22,9 @@ let
         export ${n}="${getAttr n xEnv}"
       '')
       (attrNames xEnv)}
-    exec systemd-cat -t xserver-wrapper ${dmcfg.xserverBin} ${toString dmcfg.xserverArgs} "$@"
+    exec systemd-cat -t xserver-wrapper ${dmcfg.xserverBin} ${
+      toString dmcfg.xserverArgs
+    } "$@"
   '';
 
   Xsetup = pkgs.writeShellScript "Xsetup" ''
@@ -42,7 +44,9 @@ let
         Numlock = if cfg.autoNumlock then "on" else "none"; # on, off none
 
         # Implementation is done via pkgs/applications/display-managers/sddm/sddm-default-session.patch
-        DefaultSession = optionalString (dmcfg.defaultSession != null) "${dmcfg.defaultSession}.desktop";
+        DefaultSession =
+          optionalString (dmcfg.defaultSession != null)
+            "${dmcfg.defaultSession}.desktop";
 
         DisplayServer = if cfg.wayland.enable then "wayland" else "x11";
       };
@@ -74,7 +78,9 @@ let
       Wayland = {
         EnableHiDPI = cfg.enableHidpi;
         SessionDir = "${dmcfg.sessionData.desktops}/share/wayland-sessions";
-        CompositorCommand = lib.optionalString cfg.wayland.enable cfg.wayland.compositorCommand;
+        CompositorCommand =
+          lib.optionalString cfg.wayland.enable
+            cfg.wayland.compositorCommand;
       };
     }
     // lib.optionalAttrs dmcfg.autoLogin.enable {
@@ -85,7 +91,9 @@ let
       };
     };
 
-  cfgFile = iniFmt.generate "sddm.conf" (lib.recursiveUpdate defaultConfig cfg.settings);
+  cfgFile = iniFmt.generate "sddm.conf" (
+    lib.recursiveUpdate defaultConfig cfg.settings
+  );
 
   autoLoginSessionName = "${dmcfg.sessionData.autologinSession}.desktop";
 in
@@ -323,7 +331,9 @@ in
 
       sddm-autologin.text = ''
         auth     requisite pam_nologin.so
-        auth     required  pam_succeed_if.so uid >= ${toString cfg.autoLogin.minimumUid} quiet
+        auth     required  pam_succeed_if.so uid >= ${
+          toString cfg.autoLogin.minimumUid
+        } quiet
         auth     required  pam_permit.so
 
         account  include   sddm

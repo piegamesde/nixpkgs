@@ -11,11 +11,14 @@ let
 
   cfg = config.services.mtprotoproxy;
 
-  configOpts = {
-    PORT = cfg.port;
-    USERS = cfg.users;
-    SECURE_ONLY = cfg.secureOnly;
-  } // lib.optionalAttrs (cfg.adTag != null) { AD_TAG = cfg.adTag; } // cfg.extraConfig;
+  configOpts =
+    {
+      PORT = cfg.port;
+      USERS = cfg.users;
+      SECURE_ONLY = cfg.secureOnly;
+    }
+    // lib.optionalAttrs (cfg.adTag != null) { AD_TAG = cfg.adTag; }
+    // cfg.extraConfig;
 
   convertOption =
     opt:
@@ -35,7 +38,9 @@ let
       throw "Invalid option type";
 
   configFile = pkgs.writeText "config.py" (
-    concatStringsSep "\n" (mapAttrsToList (name: opt: "${name} = ${convertOption opt}") configOpts)
+    concatStringsSep "\n" (
+      mapAttrsToList (name: opt: "${name} = ${convertOption opt}") configOpts
+    )
   );
 in
 

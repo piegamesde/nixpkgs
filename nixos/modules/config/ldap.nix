@@ -37,20 +37,24 @@ let
     base ${cfg.base}
     timelimit ${toString cfg.timeLimit}
     bind_timelimit ${toString cfg.bind.timeLimit}
-    ${optionalString (cfg.bind.distinguishedName != "") "binddn ${cfg.bind.distinguishedName}"}
-    ${optionalString (cfg.daemon.rootpwmoddn != "") "rootpwmoddn ${cfg.daemon.rootpwmoddn}"}
+    ${optionalString (cfg.bind.distinguishedName != "")
+      "binddn ${cfg.bind.distinguishedName}"}
+    ${optionalString (cfg.daemon.rootpwmoddn != "")
+      "rootpwmoddn ${cfg.daemon.rootpwmoddn}"}
     ${optionalString (cfg.daemon.extraConfig != "") cfg.daemon.extraConfig}
   '';
 
   # nslcd normally reads configuration from /etc/nslcd.conf.
   # this file might contain secrets. We append those at runtime,
   # so redirect its location to something more temporary.
-  nslcdWrapped = runCommand "nslcd-wrapped" { nativeBuildInputs = [ makeWrapper ]; } ''
-    mkdir -p $out/bin
-    makeWrapper ${nss_pam_ldapd}/sbin/nslcd $out/bin/nslcd \
-      --set LD_PRELOAD    "${pkgs.libredirect}/lib/libredirect.so" \
-      --set NIX_REDIRECTS "/etc/nslcd.conf=/run/nslcd/nslcd.conf"
-  '';
+  nslcdWrapped =
+    runCommand "nslcd-wrapped" { nativeBuildInputs = [ makeWrapper ]; }
+      ''
+        mkdir -p $out/bin
+        makeWrapper ${nss_pam_ldapd}/sbin/nslcd $out/bin/nslcd \
+          --set LD_PRELOAD    "${pkgs.libredirect}/lib/libredirect.so" \
+          --set NIX_REDIRECTS "/etc/nslcd.conf=/run/nslcd/nslcd.conf"
+      '';
 in
 
 {
@@ -66,7 +70,9 @@ in
       loginPam = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc "Whether to include authentication against LDAP in login PAM.";
+        description =
+          lib.mdDoc
+            "Whether to include authentication against LDAP in login PAM.";
       };
 
       nsswitch = mkOption {
@@ -226,7 +232,9 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.etc = optionalAttrs (!cfg.daemon.enable) { "ldap.conf" = ldapConfig; };
+    environment.etc = optionalAttrs (!cfg.daemon.enable) {
+      "ldap.conf" = ldapConfig;
+    };
 
     system.activationScripts = mkIf (!cfg.daemon.enable) {
       ldap =

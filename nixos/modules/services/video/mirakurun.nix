@@ -134,9 +134,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ mirakurun ] ++ optional cfg.allowSmartCardAccess polkitRule;
+    environment.systemPackages = [
+      mirakurun
+    ] ++ optional cfg.allowSmartCardAccess polkitRule;
     environment.etc = {
-      "mirakurun/server.yml".source = settingsFmt.generate "server.yml" cfg.serverSettings;
+      "mirakurun/server.yml".source =
+        settingsFmt.generate "server.yml"
+          cfg.serverSettings;
       "mirakurun/tuners.yml" = mkIf (cfg.tunerSettings != null) {
         source = settingsFmt.generate "tuners.yml" cfg.tunerSettings;
         mode = "0644";
@@ -170,7 +174,9 @@ in
       port = mkIf (cfg.port != null) cfg.port;
     };
 
-    systemd.tmpfiles.rules = [ "d '/etc/mirakurun' - ${username} ${groupname} - -" ];
+    systemd.tmpfiles.rules = [
+      "d '/etc/mirakurun' - ${username} ${groupname} - -"
+    ];
 
     systemd.services.mirakurun = {
       description = mirakurun.meta.description;

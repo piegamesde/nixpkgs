@@ -29,7 +29,9 @@ stdenv.mkDerivation rec {
     "optvgm32"
   ];
 
-  passthru.updateScript = unstableGitUpdater { url = "https://github.com/vgmrips/vgmtools.git"; };
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/vgmrips/vgmtools.git";
+  };
 
   meta = with lib; {
     homepage = "https://github.com/vgmrips/vgmtools";

@@ -36,10 +36,13 @@ python3.pkgs.buildPythonApplication rec {
 
   makeWrapperArgs =
     let
-      binPath = [
-        nix
-        git
-      ] ++ lib.optional withSandboxSupport bubblewrap ++ lib.optional withNom nix-output-monitor;
+      binPath =
+        [
+          nix
+          git
+        ]
+        ++ lib.optional withSandboxSupport bubblewrap
+        ++ lib.optional withNom nix-output-monitor;
     in
     [
       "--prefix PATH : ${lib.makeBinPath binPath}"

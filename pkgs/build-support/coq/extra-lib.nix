@@ -180,7 +180,10 @@ recursiveUpdate lib (rec {
       compare = f: if isFunction f then f else equal f;
       combine =
         cl: var:
-        if cl ? case then compare cl.case var else all (equal true) (zipListsWith compare cl.cases var);
+        if cl ? case then
+          compare cl.case var
+        else
+          all (equal true) (zipListsWith compare cl.cases var);
     in
     switch-if
       (map
@@ -237,5 +240,8 @@ recursiveUpdate lib (rec {
      ```
   */
   overrideCoqDerivation =
-    f: drv: (drv.override (args: { mkCoqDerivation = drv_: (args.mkCoqDerivation drv_).override f; }));
+    f: drv:
+    (drv.override (
+      args: { mkCoqDerivation = drv_: (args.mkCoqDerivation drv_).override f; }
+    ));
 })

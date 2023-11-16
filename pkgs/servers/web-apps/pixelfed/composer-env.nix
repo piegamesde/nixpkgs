@@ -19,7 +19,11 @@ let
       (
         path: type:
         type != "directory"
-        || (baseNameOf path != ".git" && baseNameOf path != ".git" && baseNameOf path != ".svn")
+        || (
+          baseNameOf path != ".git"
+          && baseNameOf path != ".git"
+          && baseNameOf path != ".svn"
+        )
       )
       src;
 
@@ -156,9 +160,11 @@ let
                   namespaceDir="${dependencyName}/$(dirname "${dependency.targetDir}")"
                   mkdir -p "$namespaceDir"
                   ${if symlinkDependencies then
-                    ''ln -s "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
+                    ''
+                      ln -s "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
                   else
-                    ''cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''}
+                    ''
+                      cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''}
                 ''}
             ''
           )
@@ -227,10 +233,14 @@ let
           # Reconstruct autoload scripts
           # We use the optimize feature because Nix packages cannot change after they have been built
           # Using the dynamic loader for a Nix package is useless since there is nothing to dynamically reload.
-          composer dump-autoload --optimize ${lib.optionalString noDev "--no-dev"} ${composerExtraArgs}
+          composer dump-autoload --optimize ${
+            lib.optionalString noDev "--no-dev"
+          } ${composerExtraArgs}
 
           # Run the install step as a validation to confirm that everything works out as expected
-          composer install --optimize-autoloader ${lib.optionalString noDev "--no-dev"} ${composerExtraArgs}
+          composer install --optimize-autoloader ${
+            lib.optionalString noDev "--no-dev"
+          } ${composerExtraArgs}
 
           ${lib.optionalString executable ''
             # Reconstruct the bin/ folder if we deploy an executable project

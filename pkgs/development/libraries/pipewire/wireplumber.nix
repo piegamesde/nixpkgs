@@ -75,7 +75,9 @@ stdenv.mkDerivation rec {
     (lib.mesonEnable "doc" enableDocs)
     (lib.mesonEnable "introspection" enableGI)
     (lib.mesonBool "systemd-system-service" true)
-    (lib.mesonOption "systemd-system-unit-dir" "${placeholder "out"}/lib/systemd/system")
+    (lib.mesonOption "systemd-system-unit-dir"
+      "${placeholder "out"}/lib/systemd/system"
+    )
     (lib.mesonOption "sysconfdir" "/etc")
   ];
 

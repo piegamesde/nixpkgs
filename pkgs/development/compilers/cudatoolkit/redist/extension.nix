@@ -102,7 +102,9 @@ let
     in
     {
       # features : Attr Set (String PackageFeatureAttrs)
-      features = processManifest (./manifests + "/redistrib_features_${fullCudaVersion}.json");
+      features = processManifest (
+        ./manifests + "/redistrib_features_${fullCudaVersion}.json"
+      );
       # manifest : Attr Set (String PackageAttrs)
       manifest = processManifest (./manifests + "/redistrib_${fullCudaVersion}.json");
     };
@@ -149,6 +151,8 @@ let
     redistPackages;
 
   # All redistributable packages for the current CUDA version
-  redistPackages = optionalAttrs cudaVersionMappingExists (buildRedistPackages redistManifests);
+  redistPackages = optionalAttrs cudaVersionMappingExists (
+    buildRedistPackages redistManifests
+  );
 in
 redistPackages

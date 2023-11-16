@@ -60,7 +60,9 @@ stdenv.mkDerivation rec {
   patches = [ ./fix-python.patch ];
 
   postPatch = ''
-    substituteInPlace api/gmsh.py --subst-var-by LIBPATH ${placeholder "out"}/lib/libgmsh.so
+    substituteInPlace api/gmsh.py --subst-var-by LIBPATH ${
+      placeholder "out"
+    }/lib/libgmsh.so
   '';
 
   # N.B. the shared object is used by bindings

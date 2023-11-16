@@ -125,7 +125,9 @@ args@{ mkNode, ver, ... }:
         zones = ["nixcon", "nixcon", "paris_meetup", "fosdem"]
         apply_garage_layout(node1,
         [
-          f'{ndata.node_id} -z {zones[index]} -c ${if ver == "0_8" then "1" else "1G"}'
+          f'{ndata.node_id} -z {zones[index]} -c ${
+            if ver == "0_8" then "1" else "1G"
+          }'
           for index, ndata in enumerate(node_ids.values())
         ])
         # Now Garage is operational.

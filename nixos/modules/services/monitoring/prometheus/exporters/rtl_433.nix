@@ -87,7 +87,9 @@ in
       ExecStart =
         let
           matchers =
-            (map (m: "--channel_matcher '${m.name},${toString m.channel},${m.location}'") cfg.channels)
+            (map (m: "--channel_matcher '${m.name},${toString m.channel},${m.location}'")
+              cfg.channels
+            )
             ++ (map (m: "--id_matcher '${m.name},${toString m.id},${m.location}'") cfg.ids);
         in
         ''

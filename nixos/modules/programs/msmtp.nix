@@ -98,7 +98,8 @@ in
           else
             generators.mkValueStringDefault { } v;
         mkKeyValueString = k: v: "${k} ${mkValueString v}";
-        mkInnerSectionString = attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValueString attrs);
+        mkInnerSectionString =
+          attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValueString attrs);
         mkAccountString = name: attrs: ''
           account ${name}
           ${mkInnerSectionString attrs}

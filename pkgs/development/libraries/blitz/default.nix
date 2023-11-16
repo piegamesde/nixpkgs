@@ -65,7 +65,9 @@ stdenv.mkDerivation rec {
   # FIXME ++ optional doCheck "-DBUILD_TESTING=ON";
 
   # skip broken library name detection
-  ax_boost_user_serialization_lib = lib.optionalString stdenv.isDarwin "boost_serialization";
+  ax_boost_user_serialization_lib =
+    lib.optionalString stdenv.isDarwin
+      "boost_serialization";
 
   enableParallelBuilding = true;
 

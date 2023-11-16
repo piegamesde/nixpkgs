@@ -35,7 +35,9 @@ in
       syntaxHighlight = lib.mkOption {
         type = lib.types.bool;
         default = true;
-        description = lib.mdDoc "Whether to enable syntax highlight for various languages.";
+        description =
+          lib.mdDoc
+            "Whether to enable syntax highlight for various languages.";
       };
     };
   };

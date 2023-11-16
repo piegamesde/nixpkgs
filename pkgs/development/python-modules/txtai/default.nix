@@ -104,7 +104,12 @@ let
     onnxmltools
     onnxruntime
   ];
-  pipeline = pipeline-audio ++ pipeline-data ++ pipeline-image ++ pipeline-text ++ pipeline-train;
+  pipeline =
+    pipeline-audio
+    ++ pipeline-data
+    ++ pipeline-image
+    ++ pipeline-text
+    ++ pipeline-train;
 
   similarity = [
     annoy
@@ -123,7 +128,15 @@ let
     requests
     xmltodict
   ];
-  all = api ++ console ++ database ++ graph ++ model ++ pipeline ++ similarity ++ workflow;
+  all =
+    api
+    ++ console
+    ++ database
+    ++ graph
+    ++ model
+    ++ pipeline
+    ++ similarity
+    ++ workflow;
 
   optional-dependencies = {
     inherit

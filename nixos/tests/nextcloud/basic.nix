@@ -54,7 +54,9 @@ args@{
         {
           networking.firewall.allowedTCPPorts = [ 80 ];
 
-          systemd.tmpfiles.rules = [ "d /var/lib/nextcloud-data 0750 nextcloud nginx - -" ];
+          systemd.tmpfiles.rules = [
+            "d /var/lib/nextcloud-data 0750 nextcloud nginx - -"
+          ];
 
           services.nextcloud = {
             enable = true;
@@ -127,7 +129,9 @@ args@{
               grep "$what" graph >$out || true
             '';
         nextcloudUsesImagick = findInClosure "imagick" nodes.nextcloud.system.build.vm;
-        nextcloudWithoutDoesntUseIt = findInClosure "imagick" nodes.nextcloudWithoutMagick.system.build.vm;
+        nextcloudWithoutDoesntUseIt =
+          findInClosure "imagick"
+            nodes.nextcloudWithoutMagick.system.build.vm;
       in
       ''
         assert open("${nextcloudUsesImagick}").read() != ""

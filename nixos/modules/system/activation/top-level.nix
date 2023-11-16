@@ -30,7 +30,9 @@ let
     ln -s ${config.system.path} $out/sw
     ln -s "$systemd" $out/systemd
 
-    echo -n "systemd ${toString config.systemd.package.interfaceVersion}" > $out/init-interface-version
+    echo -n "systemd ${
+      toString config.systemd.package.interfaceVersion
+    }" > $out/init-interface-version
     echo -n "$nixosLabel" > $out/nixos-version
     echo -n "${config.boot.kernelPackages.stdenv.hostPlatform.system}" > $out/system
 
@@ -71,7 +73,9 @@ let
 
   # Handle assertions and warnings
 
-  failedAssertions = map (x: x.message) (filter (x: !x.assertion) config.assertions);
+  failedAssertions = map (x: x.message) (
+    filter (x: !x.assertion) config.assertions
+  );
 
   baseSystemAssertWarn =
     if failedAssertions != [ ] then
@@ -276,7 +280,11 @@ in
 
     system.name = mkOption {
       type = types.str;
-      default = if config.networking.hostName == "" then "unnamed" else config.networking.hostName;
+      default =
+        if config.networking.hostName == "" then
+          "unnamed"
+        else
+          config.networking.hostName;
       defaultText = literalExpression ''
         if config.networking.hostName == ""
         then "unnamed"

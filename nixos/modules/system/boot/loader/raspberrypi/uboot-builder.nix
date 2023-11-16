@@ -19,9 +19,9 @@ let
     else
       throw "U-Boot is not yet supported on the raspberry pi 4.";
 
-  extlinuxConfBuilder = import ../generic-extlinux-compatible/extlinux-conf-builder.nix {
-    pkgs = pkgs.buildPackages;
-  };
+  extlinuxConfBuilder =
+    import ../generic-extlinux-compatible/extlinux-conf-builder.nix
+      { pkgs = pkgs.buildPackages; };
 in
 pkgs.substituteAll {
   src = ./uboot-builder.sh;

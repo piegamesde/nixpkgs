@@ -5,11 +5,16 @@
 }:
 let
   addNativeLibs = libs: x: { propagatedBuildInputs = libs; };
-  skipBuildPhase = x: { overrides = y: ((x.overrides y) // { buildPhase = "true"; }); };
+  skipBuildPhase = x: {
+    overrides = y: ((x.overrides y) // { buildPhase = "true"; });
+  };
   multiOverride =
     l: x:
-    pkgs.lib.optionalAttrs (l != [ ]) (((builtins.head l) x) // (multiOverride (builtins.tail l) x));
-  lispName = (clwrapper.lisp.pname or (builtins.parseDrvName clwrapper.lisp.name).name);
+    pkgs.lib.optionalAttrs (l != [ ]) (
+      ((builtins.head l) x) // (multiOverride (builtins.tail l) x)
+    );
+  lispName =
+    (clwrapper.lisp.pname or (builtins.parseDrvName clwrapper.lisp.name).name);
   ifLispIn = l: f: if (pkgs.lib.elem lispName l) then f else (x: { });
   ifLispNotIn = l: f: if !(pkgs.lib.elem lispName l) then f else (x: { });
   extraLispDeps = l: x: { deps = x.deps ++ l; };
@@ -96,7 +101,9 @@ in
       (x.overrides y)
       // {
         prePatch = ''
-          sed 's|libssl.so|${pkgs.lib.getLib pkgs.openssl}/lib/libssl.so|' -i src/reload.lisp
+          sed 's|libssl.so|${
+            pkgs.lib.getLib pkgs.openssl
+          }/lib/libssl.so|' -i src/reload.lisp
         '';
       };
   };
@@ -134,9 +141,9 @@ in
       ]
       (
         x: {
-          deps = pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath) (
-            x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ])
-          );
+          deps =
+            pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
+              (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]));
           overrides =
             y:
             (x.overrides y)
@@ -157,9 +164,9 @@ in
       ]
       (
         x: {
-          deps = pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath) (
-            x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ])
-          );
+          deps =
+            pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
+              (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]));
           overrides =
             y:
             (x.overrides y)
@@ -275,9 +282,13 @@ in
           '';
       };
   };
-  cl-containers = x: { overrides = y: (x.overrides y) // { postConfigure = "rm GNUmakefile"; }; };
+  cl-containers = x: {
+    overrides = y: (x.overrides y) // { postConfigure = "rm GNUmakefile"; };
+  };
   mssql = addNativeLibs [ pkgs.freetds ];
-  cl-unification = x: { asdFilesToKeep = (x.asdFilesToKeep or [ ]) ++ [ "cl-unification-lib.asd" ]; };
+  cl-unification = x: {
+    asdFilesToKeep = (x.asdFilesToKeep or [ ]) ++ [ "cl-unification-lib.asd" ];
+  };
   simple-date = x: {
     deps = with quicklisp-to-nix-packages; [
       fiveam
@@ -291,7 +302,9 @@ in
       ];
   };
   cl-postgres = x: {
-    deps = pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.simple-date.outPath) x.deps;
+    deps =
+      pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.simple-date.outPath)
+        x.deps;
     parasites = (x.parasites or [ ]) ++ [
       "simple-date"
       "simple-date/postgres-glue"
@@ -299,7 +312,9 @@ in
     asdFilesToKeep = x.asdFilesToKeep ++ [ "simple-date.asd" ];
   };
   buildnode = x: {
-    deps = pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.buildnode-xhtml.name) x.deps;
+    deps =
+      pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.buildnode-xhtml.name)
+        x.deps;
     parasites = pkgs.lib.filter (x: x != "buildnode-test") x.parasites;
   };
   postmodern = x: {
@@ -310,11 +325,15 @@ in
     parasites = (pkgs.lib.filter (x: x != "postmodern/tests") x.parasites) ++ [
       "simple-date/postgres-glue"
     ];
-    deps = pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.simple-date.name) x.deps;
+    deps =
+      pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.simple-date.name)
+        x.deps;
   };
   s-sql = x: {
     parasites = pkgs.lib.filter (x: x != "s-sql/tests") x.parasites;
-    deps = pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.postmodern.name) x.deps;
+    deps =
+      pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.postmodern.name)
+        x.deps;
   };
   split-sequence = x: {
     overrides =

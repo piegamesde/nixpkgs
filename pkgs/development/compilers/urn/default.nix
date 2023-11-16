@@ -56,7 +56,9 @@ stdenv.mkDerivation {
     cp -r lib $out/lib/urn
     wrapProgram $out/bin/urn \
       --add-flags "-i $out/lib/urn --prelude $out/lib/urn/prelude.lisp" \
-      --add-flags "${concatMapStringsSep " " (x: "-i ${x.libraryPath}") extraLibraries}" \
+      --add-flags "${
+        concatMapStringsSep " " (x: "-i ${x.libraryPath}") extraLibraries
+      }" \
       --prefix PATH : ${urn-rt}/bin/ \
       --prefix LD_LIBRARY_PATH : ${urn-rt}/lib/
   '';

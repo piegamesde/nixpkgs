@@ -22,7 +22,9 @@
 }:
 
 let
-  boostWithZstd = boost.overrideAttrs (old: { buildInputs = old.buildInputs ++ [ zstd ]; });
+  boostWithZstd = boost.overrideAttrs (
+    old: { buildInputs = old.buildInputs ++ [ zstd ]; }
+  );
 in
 stdenv.mkDerivation rec {
   version = "2.2.0";

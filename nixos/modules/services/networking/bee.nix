@@ -78,7 +78,9 @@ in
         '';
       }
       {
-        assertion = (hasAttr "swap-endpoint" cfg.settings) || (cfg.settings.swap-enable or true == false);
+        assertion =
+          (hasAttr "swap-endpoint" cfg.settings)
+          || (cfg.settings.swap-enable or true == false);
         message = ''
           In a swap-enabled network a working Ethereum blockchain node is required. You must specify one using `services.bee.settings.swap-endpoint`, or disable `services.bee.settings.swap-enable` = false.
         '';
@@ -99,7 +101,9 @@ in
 
     systemd.packages = [ cfg.package ]; # include the upstream bee.service file
 
-    systemd.tmpfiles.rules = [ "d '${cfg.settings.data-dir}' 0750 ${cfg.user} ${cfg.group}" ];
+    systemd.tmpfiles.rules = [
+      "d '${cfg.settings.data-dir}' 0750 ${cfg.user} ${cfg.group}"
+    ];
 
     systemd.services.bee = {
       requires = optional config.services.bee-clef.enable "bee-clef.service";
@@ -144,7 +148,9 @@ in
         home = cfg.settings.data-dir;
         isSystemUser = true;
         description = "Daemon user for Ethereum Swarm Bee";
-        extraGroups = optional config.services.bee-clef.enable config.services.bee-clef.group;
+        extraGroups =
+          optional config.services.bee-clef.enable
+            config.services.bee-clef.group;
       };
     };
 

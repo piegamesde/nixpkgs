@@ -82,7 +82,8 @@ in
       preStart =
         ''
           REDIS_PASS=${
-            lib.optionalString (cfg.redis.passwordFile != null) "$(head -n1 ${cfg.redis.passwordFile})"
+            lib.optionalString (cfg.redis.passwordFile != null)
+              "$(head -n1 ${cfg.redis.passwordFile})"
           }
           cat > lrr.conf <<EOF
           {
@@ -102,7 +103,9 @@ in
               2>/dev/null
           )
 
-          ${lib.getExe pkgs.redis} -h 127.0.0.1 -p ${toString cfg.redis.port} -a "$REDIS_PASS" <<EOF
+          ${lib.getExe pkgs.redis} -h 127.0.0.1 -p ${
+            toString cfg.redis.port
+          } -a "$REDIS_PASS" <<EOF
             SELECT 2
             HSET LRR_CONFIG password $PASS_HASH
           EOF

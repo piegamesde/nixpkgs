@@ -68,7 +68,12 @@ buildDotnetPackage rec {
       patchTemplate = readFile ./keepass-plugins.patch;
       loadTemplate = readFile ./keepass-plugins-load.patch;
       loads = lib.concatStrings (
-        map (p: replaceStrings [ "$PATH$" ] [ (unsafeDiscardStringContext (toString p)) ] loadTemplate)
+        map
+          (
+            p:
+            replaceStrings [ "$PATH$" ] [ (unsafeDiscardStringContext (toString p)) ]
+              loadTemplate
+          )
           plugins
       );
     in

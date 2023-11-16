@@ -36,7 +36,9 @@ stdenv.mkDerivation {
   ];
 
   meta = (lapackProvider'.meta or { }) // {
-    description = "${lib.getName lapackProvider'} with just the LAPACK C and FORTRAN ABI";
+    description = "${
+        lib.getName lapackProvider'
+      } with just the LAPACK C and FORTRAN ABI";
   };
 
   passthru = {
@@ -70,17 +72,22 @@ stdenv.mkDerivation {
         chmod +w $out/lib/liblapack${canonicalExtension}
 
       ''
-      + (lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") ''
-        patchelf --set-soname liblapack${canonicalExtension} $out/lib/liblapack${canonicalExtension}
-        patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapack${canonicalExtension}):${lapackProvider'}/lib" $out/lib/liblapack${canonicalExtension}
-      '')
+      + (lib.optionalString
+        (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
+        ''
+          patchelf --set-soname liblapack${canonicalExtension} $out/lib/liblapack${canonicalExtension}
+          patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapack${canonicalExtension}):${lapackProvider'}/lib" $out/lib/liblapack${canonicalExtension}
+        ''
+      )
       + ''
 
           if [ "$out/lib/liblapack${canonicalExtension}" != "$out/lib/liblapack${stdenv.hostPlatform.extensions.sharedLibrary}" ]; then
             ln -s $out/lib/liblapack${canonicalExtension} "$out/lib/liblapack${stdenv.hostPlatform.extensions.sharedLibrary}"
           fi
 
-          install -D ${lib.getDev lapack-reference}/include/lapack.h $dev/include/lapack.h
+          install -D ${
+            lib.getDev lapack-reference
+          }/include/lapack.h $dev/include/lapack.h
 
           cat <<EOF > $dev/lib/pkgconfig/lapack.pc
         Name: lapack
@@ -101,19 +108,24 @@ stdenv.mkDerivation {
           chmod +w $out/lib/liblapacke${canonicalExtension}
 
       ''
-      + (lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") ''
-        patchelf --set-soname liblapacke${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
-        patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapacke${canonicalExtension}):${
-          lib.getLib lapackProvider'
-        }/lib" $out/lib/liblapacke${canonicalExtension}
-      '')
+      + (lib.optionalString
+        (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
+        ''
+          patchelf --set-soname liblapacke${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
+          patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapacke${canonicalExtension}):${
+            lib.getLib lapackProvider'
+          }/lib" $out/lib/liblapacke${canonicalExtension}
+        ''
+      )
       + ''
 
           if [ -f "$out/lib/liblapacke.so.3" ]; then
             ln -s $out/lib/liblapacke.so.3 $out/lib/liblapacke.so
           fi
 
-          cp ${lib.getDev lapack-reference}/include/lapacke{,_mangling,_config,_utils}.h $dev/include
+          cp ${
+            lib.getDev lapack-reference
+          }/include/lapacke{,_mangling,_config,_utils}.h $dev/include
 
           cat <<EOF > $dev/lib/pkgconfig/lapacke.pc
         Name: lapacke

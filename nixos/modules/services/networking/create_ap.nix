@@ -9,7 +9,9 @@ with lib;
 
 let
   cfg = config.services.create_ap;
-  configFile = pkgs.writeText "create_ap.conf" (generators.toKeyValue { } cfg.settings);
+  configFile = pkgs.writeText "create_ap.conf" (
+    generators.toKeyValue { } cfg.settings
+  );
 in
 {
   options = {

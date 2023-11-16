@@ -35,8 +35,9 @@ let
         };
 
         systemPlatform =
-          platformMap.${pkgs.stdenv.hostPlatform.system}
-            or (throw "scudo not supported on ${pkgs.stdenv.hostPlatform.system}");
+          platformMap.${pkgs.stdenv.hostPlatform.system} or (throw
+            "scudo not supported on ${pkgs.stdenv.hostPlatform.system}"
+          );
       in
       {
         libPath = "${pkgs.llvmPackages_14.compiler-rt}/lib/linux/libclang_rt.scudo-${systemPlatform}.so";
@@ -94,7 +95,10 @@ in
 
         - `libc`: the standard allocator provided by libc
         ${concatStringsSep "\n" (
-          mapAttrsToList (name: value: "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}")
+          mapAttrsToList
+            (
+              name: value: "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}"
+            )
             providers
         )}
 

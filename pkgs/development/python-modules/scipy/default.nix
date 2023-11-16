@@ -167,7 +167,9 @@ buildPythonPackage {
   #
   #         ldr     x0, [x0, ___stack_chk_guard];momd
   #
-  hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
+  hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [
+    "stackprotector"
+  ];
 
   checkPhase = ''
     runHook preCheck

@@ -80,7 +80,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Version of pip used for bootstrapping";
-    license = lib.unique (pip.meta.license ++ setuptools.meta.license ++ wheel.meta.license);
+    license = lib.unique (
+      pip.meta.license ++ setuptools.meta.license ++ wheel.meta.license
+    );
     homepage = pip.meta.homepage;
   };
 }

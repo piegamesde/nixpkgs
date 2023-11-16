@@ -39,7 +39,8 @@ in
   config = mkIf (cfg != null) {
 
     assertions = singleton {
-      assertion = (cfg == "med_power_with_dipm") -> versionAtLeast kernel.version "4.15";
+      assertion =
+        (cfg == "med_power_with_dipm") -> versionAtLeast kernel.version "4.15";
       message = "med_power_with_dipm is not supported for kernels older than 4.15";
     };
 

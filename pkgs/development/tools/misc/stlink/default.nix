@@ -13,7 +13,8 @@
 
 let
   # The Darwin build of stlink explicitly refers to static libusb.
-  libusb1' = if stdenv.isDarwin then libusb1.override { withStatic = true; } else libusb1;
+  libusb1' =
+    if stdenv.isDarwin then libusb1.override { withStatic = true; } else libusb1;
 in
 # IMPORTANT: You need permissions to access the stlink usb devices.
 # Add services.udev.packages = [ pkgs.stlink ] to your configuration.nix

@@ -33,7 +33,8 @@ let
                   if lib.isDerivation value then
                     lib.optional (cond value) value
                   else if
-                    lib.isAttrs value && (value.recurseForDerivations or false || value.recurseForRelease or false)
+                    lib.isAttrs value
+                    && (value.recurseForDerivations or false || value.recurseForRelease or false)
                   then
                     packagesWithInner value
                   else

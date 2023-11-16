@@ -46,7 +46,9 @@ stdenv.mkDerivation (
         python3Packages.boost
         python3Packages.eigenpy
       ]
-      ++ lib.optionals (pythonSupport && collisionSupport) [ python3Packages.hpp-fcl ];
+      ++ lib.optionals (pythonSupport && collisionSupport) [
+        python3Packages.hpp-fcl
+      ];
 
     cmakeFlags =
       lib.optionals collisionSupport [ "-DBUILD_WITH_COLLISION_SUPPORT=ON" ]

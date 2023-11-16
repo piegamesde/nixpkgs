@@ -43,7 +43,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.Port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
+      cfg.settings.Port
+    ];
 
     systemd.services.navidrome = {
       description = "Navidrome Media Server";
@@ -51,7 +53,9 @@ in
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart = ''
-          ${cfg.package}/bin/navidrome --configfile ${settingsFormat.generate "navidrome.json" cfg.settings}
+          ${cfg.package}/bin/navidrome --configfile ${
+            settingsFormat.generate "navidrome.json" cfg.settings
+          }
         '';
         DynamicUser = true;
         StateDirectory = "navidrome";

@@ -138,13 +138,17 @@ in
               static_root = mkOption {
                 type = types.str;
                 default = "${cfg.dataDir}/static";
-                defaultText = literalExpression ''"''${config.services.etebase-server.dataDir}/static"'';
+                defaultText =
+                  literalExpression
+                    ''"''${config.services.etebase-server.dataDir}/static"'';
                 description = lib.mdDoc "The directory for static files.";
               };
               media_root = mkOption {
                 type = types.str;
                 default = "${cfg.dataDir}/media";
-                defaultText = literalExpression ''"''${config.services.etebase-server.dataDir}/media"'';
+                defaultText =
+                  literalExpression
+                    ''"''${config.services.etebase-server.dataDir}/media"'';
                 description = lib.mdDoc "The media directory.";
               };
             };
@@ -170,7 +174,9 @@ in
               name = mkOption {
                 type = types.str;
                 default = "${cfg.dataDir}/db.sqlite3";
-                defaultText = literalExpression ''"''${config.services.etebase-server.dataDir}/db.sqlite3"'';
+                defaultText =
+                  literalExpression
+                    ''"''${config.services.etebase-server.dataDir}/db.sqlite3"'';
                 description = lib.mdDoc "The database name.";
               };
             };
@@ -245,7 +251,10 @@ in
       script =
         let
           networking =
-            if cfg.unixSocket != null then "-u ${cfg.unixSocket}" else "-b 0.0.0.0 -p ${toString cfg.port}";
+            if cfg.unixSocket != null then
+              "-u ${cfg.unixSocket}"
+            else
+              "-b 0.0.0.0 -p ${toString cfg.port}";
         in
         ''
           cd "${pythonEnv}/lib/etebase-server";

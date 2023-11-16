@@ -39,7 +39,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://github.com/swaywm/wlroots/tree/master/tinywl";
-    description = ''A "minimum viable product" Wayland compositor based on wlroots'';
+    description = ''
+      A "minimum viable product" Wayland compositor based on wlroots'';
     maintainers = with maintainers; [ qyliss ] ++ wlroots.meta.maintainers;
     license = licenses.cc0;
     inherit (wlroots.meta) platforms;

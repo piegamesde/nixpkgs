@@ -63,7 +63,9 @@ stdenv.mkDerivation {
   '';
 
   configureFlags = [
-    "--with-pygi-overrides-dir=${placeholder "py"}/${python3.sitePackages}/gi/overrides"
+    "--with-pygi-overrides-dir=${
+      placeholder "py"
+    }/${python3.sitePackages}/gi/overrides"
   ];
 
   meta = with lib; {

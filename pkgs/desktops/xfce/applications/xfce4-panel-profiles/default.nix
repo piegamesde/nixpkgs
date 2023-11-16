@@ -20,7 +20,9 @@ let
       ps.psutil
     ]
   );
-  makeTypelibPath = lib.makeSearchPathOutput "lib/girepository-1.0" "lib/girepository-1.0";
+  makeTypelibPath =
+    lib.makeSearchPathOutput "lib/girepository-1.0"
+      "lib/girepository-1.0";
 in
 mkXfceDerivation {
   category = "apps";

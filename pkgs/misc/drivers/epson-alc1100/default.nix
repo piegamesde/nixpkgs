@@ -63,7 +63,9 @@ stdenv.mkDerivation {
         ]
       }" $out/bin/alc1100
 
-    patchelf --set-rpath "${lib.makeLibraryPath [ pkgsi686Linux.glibc ]}" $out/lib/libstdc++.so.5.0.7
+    patchelf --set-rpath "${
+      lib.makeLibraryPath [ pkgsi686Linux.glibc ]
+    }" $out/lib/libstdc++.so.5.0.7
 
     wrapProgram $out/bin/alc1100_lprwrapper.sh \
       --suffix PATH : "\$PATH:${psutils}/bin:/var/lib/cups/path/bin"

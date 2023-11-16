@@ -13,7 +13,9 @@ in
 
 {
   options = {
-    services.xserver.windowManager.notion.enable = mkEnableOption (lib.mdDoc "notion");
+    services.xserver.windowManager.notion.enable = mkEnableOption (
+      lib.mdDoc "notion"
+    );
   };
 
   config = mkIf cfg.enable {

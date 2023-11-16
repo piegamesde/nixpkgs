@@ -89,7 +89,11 @@ stdenv.mkDerivation (
         2000/3000, Rabbit 3000A). Work is in progress on supporting the Microchip
         PIC16 and PIC18 targets. It can be retargeted for other microprocessors.
       '';
-      license = if withGputils then lib.licenses.unfreeRedistributable else lib.licenses.gpl2Plus;
+      license =
+        if withGputils then
+          lib.licenses.unfreeRedistributable
+        else
+          lib.licenses.gpl2Plus;
       mainProgram = "sdcc";
       maintainers = with lib.maintainers; [
         bjornfor

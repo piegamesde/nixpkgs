@@ -101,13 +101,15 @@ with pkgs.gerbil-support; {
 
   # Use this function in any package that uses Gerbil libraries, to define the GERBIL_LOADPATH.
   gerbilLoadPath =
-    gerbilInputs: builtins.concatStringsSep ":" (map (x: x + "/gerbil/lib") gerbilInputs);
+    gerbilInputs:
+    builtins.concatStringsSep ":" (map (x: x + "/gerbil/lib") gerbilInputs);
 
   path-src = path: { fun = _: path; };
 
   view = lib.debug.traceSeqN 4;
 
-  sha256-of-pre-src = pre-src: if pre-src ? sha256 then pre-src.sha256 else "none";
+  sha256-of-pre-src =
+    pre-src: if pre-src ? sha256 then pre-src.sha256 else "none";
 
   overrideSrcIfShaDiff =
     name: new-pre-src: super:
@@ -122,7 +124,8 @@ with pkgs.gerbil-support; {
         ${name} = super.${name} // {
           pre-src = new-pre-src;
           version = "override";
-          git-version = if new-pre-src ? rev then lib.substring 0 7 new-pre-src.rev else "unknown";
+          git-version =
+            if new-pre-src ? rev then lib.substring 0 7 new-pre-src.rev else "unknown";
         };
       };
 
@@ -187,7 +190,8 @@ with pkgs.gerbil-support; {
                     let
                       px = x.passthru.pre-pkg;
                     in
-                    lib.optionalString (px.version-path != "") " :${px.gerbil-package}/${px.version-path}"
+                    lib.optionalString (px.version-path != "")
+                      " :${px.gerbil-package}/${px.version-path}"
                   )
                   gerbilInputs
               )

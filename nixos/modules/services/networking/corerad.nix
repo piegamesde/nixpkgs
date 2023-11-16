@@ -63,7 +63,9 @@ in
 
   config = mkIf cfg.enable {
     # Prefer the config file over settings if both are set.
-    services.corerad.configFile = mkDefault (settingsFormat.generate "corerad.toml" cfg.settings);
+    services.corerad.configFile = mkDefault (
+      settingsFormat.generate "corerad.toml" cfg.settings
+    );
 
     systemd.services.corerad = {
       description = "CoreRAD IPv6 NDP RA daemon";

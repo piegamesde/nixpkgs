@@ -29,9 +29,12 @@ stdenv.mkDerivation rec {
 
   configureFlags = lib.optional (!sslSupport) "--disable-openssl";
 
-  preConfigure = lib.optionalString (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
-    MACOSX_DEPLOYMENT_TARGET=10.16
-  '';
+  preConfigure =
+    lib.optionalString
+      (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
+      ''
+        MACOSX_DEPLOYMENT_TARGET=10.16
+      '';
 
   # libevent_openssl is moved into its own output, so that openssl isn't present
   # in the default closure.
@@ -42,9 +45,13 @@ stdenv.mkDerivation rec {
   outputBin = "dev";
   propagatedBuildOutputs = [ "out" ] ++ lib.optional sslSupport "openssl";
 
-  nativeBuildInputs = lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs =
+    lib.optional stdenv.hostPlatform.isDarwin
+      fixDarwinDylibNames;
 
-  buildInputs = lib.optional sslSupport openssl ++ lib.optional stdenv.isCygwin findutils;
+  buildInputs =
+    lib.optional sslSupport openssl
+    ++ lib.optional stdenv.isCygwin findutils;
 
   doCheck = false; # needs the net
 

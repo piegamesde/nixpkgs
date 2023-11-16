@@ -98,7 +98,9 @@ stdenv.mkDerivation (
       ++ (
         with python3Packages;
         [
-          (apsw.overrideAttrs (oldAttrs: { setupPyBuildFlags = [ "--enable=load_extension" ]; }))
+          (apsw.overrideAttrs (
+            oldAttrs: { setupPyBuildFlags = [ "--enable=load_extension" ]; }
+          ))
           beautifulsoup4
           css-parser
           cssselect
@@ -129,7 +131,10 @@ stdenv.mkDerivation (
           odfpy
         ]
         ++
-          lib.optionals (lib.lists.any (p: p == stdenv.hostPlatform.system) pyqt6-webengine.meta.platforms)
+          lib.optionals
+            (lib.lists.any (p: p == stdenv.hostPlatform.system)
+              pyqt6-webengine.meta.platforms
+            )
             [
               # much of calibre's functionality is usable without a web
               # browser, so we enable building on platforms which qtwebengine
@@ -206,7 +211,11 @@ stdenv.mkDerivation (
         free and open source and great for both casual users and computer experts.
       '';
       changelog = "https://github.com/kovidgoyal/calibre/releases/tag/v${finalAttrs.version}";
-      license = if unrarSupport then lib.licenses.unfreeRedistributable else lib.licenses.gpl3Plus;
+      license =
+        if unrarSupport then
+          lib.licenses.unfreeRedistributable
+        else
+          lib.licenses.gpl3Plus;
       maintainers = with lib.maintainers; [ pSub ];
       platforms = lib.platforms.unix;
       broken = stdenv.isDarwin;

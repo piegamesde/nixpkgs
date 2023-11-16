@@ -21,7 +21,9 @@ let
       instruction;
 in
 {
-  imports = [ (removeOption [ "docker" ] "k3s docker option is no longer supported.") ];
+  imports = [
+    (removeOption [ "docker" ] "k3s docker option is no longer supported.")
+  ];
 
   # interface
   options.services.k3s = {
@@ -104,7 +106,9 @@ in
 
     tokenFile = mkOption {
       type = types.nullOr types.path;
-      description = lib.mdDoc "File path containing k3s token to use when connecting to the server.";
+      description =
+        lib.mdDoc
+          "File path containing k3s token to use when connecting to the server.";
       default = null;
     };
 
@@ -118,7 +122,9 @@ in
     disableAgent = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc "Only run the server. This option only makes sense for a server.";
+      description =
+        lib.mdDoc
+          "Only run the server. This option only makes sense for a server.";
     };
 
     environmentFile = mkOption {
@@ -143,12 +149,14 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.role == "agent" -> (cfg.configPath != null || cfg.serverAddr != "");
+        assertion =
+          cfg.role == "agent" -> (cfg.configPath != null || cfg.serverAddr != "");
         message = "serverAddr or configPath (with 'server' key) should be set if role is 'agent'";
       }
       {
         assertion =
-          cfg.role == "agent" -> cfg.configPath != null || cfg.tokenFile != null || cfg.token != "";
+          cfg.role == "agent"
+          -> cfg.configPath != null || cfg.tokenFile != null || cfg.token != "";
         message = "token or tokenFile or configPath (with 'token' or 'token-file' keys) should be set if role is 'agent'";
       }
       {

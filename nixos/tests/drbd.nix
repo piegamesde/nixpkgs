@@ -31,11 +31,15 @@ import ./make-test-python.nix (
               }
 
               on drbd1 {
-                address ${nodes.drbd1.config.networking.primaryIPAddress}:${toString drbdPort};
+                address ${nodes.drbd1.config.networking.primaryIPAddress}:${
+                  toString drbdPort
+                };
               }
 
               on drbd2 {
-                address ${nodes.drbd2.config.networking.primaryIPAddress}:${toString drbdPort};
+                address ${nodes.drbd2.config.networking.primaryIPAddress}:${
+                  toString drbdPort
+                };
               }
             }
           '';

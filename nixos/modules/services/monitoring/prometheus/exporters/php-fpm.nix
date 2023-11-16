@@ -55,7 +55,9 @@ in
 
   serviceOpts = {
     serviceConfig = {
-      EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+      EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [
+        cfg.environmentFile
+      ];
       ExecStart = ''
         ${lib.getExe cfg.package} server \
           --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \

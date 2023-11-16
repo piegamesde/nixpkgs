@@ -78,7 +78,9 @@ stdenv.mkDerivation rec {
       "--user=unit"
       "--group=unit"
     ]
-    ++ optional withSSL "--openssl" ++ optional (!withIPv6) "--no-ipv6" ++ optional withDebug "--debug";
+    ++ optional withSSL "--openssl"
+    ++ optional (!withIPv6) "--no-ipv6"
+    ++ optional withDebug "--debug";
 
   # Optionally add the PHP derivations used so they can be addressed in the configs
   usedPhp81 = optionals withPHP81 php81-unit;
@@ -90,11 +92,16 @@ stdenv.mkDerivation rec {
       "./configure php    --module=php81    --config=${php81-unit.unwrapped.dev}/bin/php-config --lib-path=${php81-unit}/lib"}
     ${optionalString withPHP82
       "./configure php    --module=php81    --config=${php82-unit.unwrapped.dev}/bin/php-config --lib-path=${php82-unit}/lib"}
-    ${optionalString withPerl536 "./configure perl   --module=perl536  --perl=${perl536}/bin/perl"}
-    ${optionalString withPerl538 "./configure perl   --module=perl538  --perl=${perl538}/bin/perl"}
-    ${optionalString withRuby_3_0 "./configure ruby   --module=ruby30   --ruby=${ruby_3_0}/bin/ruby"}
-    ${optionalString withRuby_3_1 "./configure ruby   --module=ruby31   --ruby=${ruby_3_1}/bin/ruby"}
-    ${optionalString withRuby_3_2 "./configure ruby   --module=ruby32   --ruby=${ruby_3_2}/bin/ruby"}
+    ${optionalString withPerl536
+      "./configure perl   --module=perl536  --perl=${perl536}/bin/perl"}
+    ${optionalString withPerl538
+      "./configure perl   --module=perl538  --perl=${perl538}/bin/perl"}
+    ${optionalString withRuby_3_0
+      "./configure ruby   --module=ruby30   --ruby=${ruby_3_0}/bin/ruby"}
+    ${optionalString withRuby_3_1
+      "./configure ruby   --module=ruby31   --ruby=${ruby_3_1}/bin/ruby"}
+    ${optionalString withRuby_3_2
+      "./configure ruby   --module=ruby32   --ruby=${ruby_3_2}/bin/ruby"}
   '';
 
   passthru.tests.unit-php = nixosTests.unit-php;

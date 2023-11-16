@@ -12,7 +12,8 @@ let
     "4.8" = "4.8.5";
   };
 
-  fromMajorMinor = majorMinorVersion: majorMinorToVersionMap."${majorMinorVersion}";
+  fromMajorMinor =
+    majorMinorVersion: majorMinorToVersionMap."${majorMinorVersion}";
 
   # TODO(amjoseph): convert older hashes to SRI form
   srcHashForVersion =

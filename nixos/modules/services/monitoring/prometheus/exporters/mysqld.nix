@@ -58,12 +58,16 @@ in
     serviceConfig = {
       DynamicUser = !cfg.runAsLocalSuperUser;
       User = mkIf cfg.runAsLocalSuperUser (mkForce config.services.mysql.user);
-      LoadCredential = mkIf (cfg.configFile != null) (mkForce ("config:" + cfg.configFile));
+      LoadCredential = mkIf (cfg.configFile != null) (
+        mkForce ("config:" + cfg.configFile)
+      );
       ExecStart = concatStringsSep " " [
         "${pkgs.prometheus-mysqld-exporter}/bin/mysqld_exporter"
         "--web.listen-address=${cfg.listenAddress}:${toString cfg.port}"
         "--web.telemetry-path=${cfg.telemetryPath}"
-        (optionalString (cfg.configFile != null) "--config.my-cnf=\${CREDENTIALS_DIRECTORY}/config")
+        (optionalString (cfg.configFile != null)
+          "--config.my-cnf=\${CREDENTIALS_DIRECTORY}/config"
+        )
         (escapeShellArgs cfg.extraFlags)
       ];
       RestrictAddressFamilies =

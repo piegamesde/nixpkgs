@@ -28,7 +28,8 @@ let
       "hosts_allow_sip = ${concatStringsSep "," cfg.hostsAllowSip}"}
     ${optionalString (cfg.hostsDenySip != [ ])
       "hosts_deny_sip  = ${concatStringsSep "," cfg.hostsDenySip}"}
-    ${optionalString (cfg.passwordFile != "") "proxy_auth_pwfile = ${cfg.passwordFile}"}
+    ${optionalString (cfg.passwordFile != "")
+      "proxy_auth_pwfile = ${cfg.passwordFile}"}
     ${cfg.extraConfig}
   '';
 

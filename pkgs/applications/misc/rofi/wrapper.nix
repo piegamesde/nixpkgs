@@ -39,12 +39,17 @@ symlinkJoin {
       --prefix XDG_DATA_DIRS : ${hicolor-icon-theme}/share \
       ${
         lib.optionalString (plugins != [ ])
-          "--prefix XDG_DATA_DIRS : ${lib.concatStringsSep ":" (lib.forEach plugins (p: "${p.out}/share"))}"
+          "--prefix XDG_DATA_DIRS : ${
+            lib.concatStringsSep ":" (lib.forEach plugins (p: "${p.out}/share"))
+          }"
       } \
       ${lib.optionalString (theme != null) ''--add-flags "-theme ${theme}"''} \
-      ${lib.optionalString (plugins != [ ]) ''--add-flags "-plugin-path $out/lib/rofi"''}
+      ${
+        lib.optionalString (plugins != [ ]) ''--add-flags "-plugin-path $out/lib/rofi"''
+      }
 
-    ${lib.optionalString symlink-dmenu "ln -s ${rofi-unwrapped}/bin/rofi $out/bin/dmenu"}
+    ${lib.optionalString symlink-dmenu
+      "ln -s ${rofi-unwrapped}/bin/rofi $out/bin/dmenu"}
 
     rm $out/bin/rofi-theme-selector
     makeWrapper ${rofi-unwrapped}/bin/rofi-theme-selector $out/bin/rofi-theme-selector \

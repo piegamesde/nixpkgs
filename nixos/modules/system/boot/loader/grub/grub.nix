@@ -43,21 +43,29 @@ let
     if cfg.forcei686 then pkgs.pkgsi686Linux else pkgs;
 
   realGrub =
-    if cfg.zfsSupport then grubPkgs.grub2.override { zfsSupport = true; } else grubPkgs.grub2;
+    if cfg.zfsSupport then
+      grubPkgs.grub2.override { zfsSupport = true; }
+    else
+      grubPkgs.grub2;
 
   grub =
     # Don't include GRUB if we're only generating a GRUB menu (e.g.,
     # in EC2 instances).
     if cfg.devices == [ "nodev" ] then null else realGrub;
 
-  grubEfi = if cfg.efiSupport then realGrub.override { efiSupport = cfg.efiSupport; } else null;
+  grubEfi =
+    if cfg.efiSupport then
+      realGrub.override { efiSupport = cfg.efiSupport; }
+    else
+      null;
 
   f = x: optionalString (x != null) ("" + x);
 
   grubConfig =
     args:
     let
-      efiSysMountPoint = if args.efiSysMountPoint == null then args.path else args.efiSysMountPoint;
+      efiSysMountPoint =
+        if args.efiSysMountPoint == null then args.path else args.efiSysMountPoint;
       efiSysMountPoint' = replaceStrings [ "/" ] [ "-" ] efiSysMountPoint;
     in
     pkgs.writeText "grub-config.xml" (
@@ -84,7 +92,8 @@ let
             "${config.system.nixos.distroName}${efiSysMountPoint'}"
           else
             args.efiBootloaderId;
-        timeout = if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
+        timeout =
+          if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
         theme = f cfg.theme;
         inherit efiSysMountPoint;
         inherit (args) devices;
@@ -131,14 +140,17 @@ let
             ]
           );
         font = lib.optionalString (cfg.font != null) (
-          if lib.last (lib.splitString "." cfg.font) == "pf2" then cfg.font else "${convertedFont}"
+          if lib.last (lib.splitString "." cfg.font) == "pf2" then
+            cfg.font
+          else
+            "${convertedFont}"
         );
       }
     );
 
-  bootDeviceCounters = foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; }) { } (
-    concatMap (args: args.devices) cfg.mirroredBoots
-  );
+  bootDeviceCounters =
+    foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; }) { }
+      (concatMap (args: args.devices) cfg.mirroredBoots);
 
   convertedFont =
     (pkgs.runCommand "grub-font-converted.pf2" { } (
@@ -153,7 +165,8 @@ let
       )
     ));
 
-  defaultSplash = pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader.gnomeFilePath;
+  defaultSplash =
+    pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader.gnomeFilePath;
 in
 
 {
@@ -380,7 +393,9 @@ in
 
       extraGrubInstallArgs = mkOption {
         default = [ ];
-        example = [ "--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2" ];
+        example = [
+          "--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2"
+        ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Additional arguments passed to `grub-install`.
@@ -832,7 +847,9 @@ in
       boot.loader.grub.extraPrepareConfig = concatStrings (
         mapAttrsToList
           (n: v: ''
-            ${pkgs.coreutils}/bin/install -Dp "${v}" "${efi.efiSysMountPoint}/"${escapeShellArg n}
+            ${pkgs.coreutils}/bin/install -Dp "${v}" "${efi.efiSysMountPoint}/"${
+              escapeShellArg n
+            }
           '')
           config.boot.loader.grub.extraFiles
       );
@@ -848,7 +865,9 @@ in
           {
             assertion =
               cfg.efiSupport
-              || all (c: c < 2) (mapAttrsToList (n: c: if n == "nodev" then 0 else c) bootDeviceCounters);
+              || all (c: c < 2) (
+                mapAttrsToList (n: c: if n == "nodev" then 0 else c) bootDeviceCounters
+              );
             message = "You cannot have duplicated devices in mirroredBoots";
           }
           {
@@ -856,7 +875,8 @@ in
             message = "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn on boot.loader.grub.efiSupport";
           }
           {
-            assertion = cfg.efiInstallAsRemovable -> !config.boot.loader.efi.canTouchEfiVariables;
+            assertion =
+              cfg.efiInstallAsRemovable -> !config.boot.loader.efi.canTouchEfiVariables;
             message = "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn off boot.loader.efi.canTouchEfiVariables";
           }
           {
@@ -876,7 +896,11 @@ in
               message = "Boot paths must be absolute, not ${args.path}";
             }
             {
-              assertion = if args.efiSysMountPoint == null then true else hasPrefix "/" args.efiSysMountPoint;
+              assertion =
+                if args.efiSysMountPoint == null then
+                  true
+                else
+                  hasPrefix "/" args.efiSysMountPoint;
               message = "EFI paths must be absolute, not ${args.efiSysMountPoint}";
             }
           ]

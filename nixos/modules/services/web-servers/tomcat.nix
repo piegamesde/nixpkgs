@@ -67,7 +67,9 @@ in
       extraConfigFiles = mkOption {
         default = [ ];
         type = types.listOf types.path;
-        description = lib.mdDoc "Extra configuration files to pull into the tomcat conf directory";
+        description =
+          lib.mdDoc
+            "Extra configuration files to pull into the tomcat conf directory";
       };
 
       extraEnvironment = mkOption {
@@ -81,7 +83,9 @@ in
         default = [ ];
         type = types.listOf types.str;
         example = [ "users" ];
-        description = lib.mdDoc "Defines extra groups to which the tomcat user belongs.";
+        description =
+          lib.mdDoc
+            "Defines extra groups to which the tomcat user belongs.";
       };
 
       user = mkOption {
@@ -99,7 +103,9 @@ in
       javaOpts = mkOption {
         type = types.either (types.listOf types.str) types.str;
         default = "";
-        description = lib.mdDoc "Parameters to pass to the Java Virtual Machine which spawns Apache Tomcat";
+        description =
+          lib.mdDoc
+            "Parameters to pass to the Java Virtual Machine which spawns Apache Tomcat";
       };
 
       catalinaOpts = mkOption {
@@ -289,7 +295,9 @@ in
                 <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs/${virtualHost.name}"
                        prefix="${virtualHost.name}_access_log." pattern="combined" resolveHosts="false"/>
               '');
-            hostElementsString = concatMapStringsSep "\n" hostElementForVirtualHost cfg.virtualHosts;
+            hostElementsString =
+              concatMapStringsSep "\n" hostElementForVirtualHost
+                cfg.virtualHosts;
             hostElementsSedString =
               replaceStrings [ "\n" ]
                 [
@@ -387,7 +395,9 @@ in
 
               # Symlink all the given web applications files or paths into the webapps/ directory
               # of this virtual host
-              for i in "${optionalString (virtualHost ? webapps) (toString virtualHost.webapps)}"; do
+              for i in "${
+                optionalString (virtualHost ? webapps) (toString virtualHost.webapps)
+              }"; do
                 if [ -f $i ]; then
                   # If the given web application is a file, symlink it into the webapps/ directory
                   ln -sfn $i ${cfg.baseDir}/virtualhosts/${virtualHost.name}/webapps/`basename $i`

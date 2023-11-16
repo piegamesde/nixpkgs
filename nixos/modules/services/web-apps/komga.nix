@@ -13,7 +13,9 @@ in
 {
   options = {
     services.komga = {
-      enable = mkEnableOption (lib.mdDoc "Komga, a free and open source comics/mangas media server");
+      enable = mkEnableOption (
+        lib.mdDoc "Komga, a free and open source comics/mangas media server"
+      );
 
       port = mkOption {
         type = types.port;

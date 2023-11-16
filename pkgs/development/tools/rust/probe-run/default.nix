@@ -22,7 +22,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-7q5M3huI7Qje5E3Rl2i/9I4g90R8vhJD9Hk78biewBE=";
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+  nativeBuildInputs = [
+    pkg-config
+  ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
 
   buildInputs =
     [ libusb1 ]

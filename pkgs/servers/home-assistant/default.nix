@@ -347,7 +347,9 @@ let
   ];
 
   python = python311.override {
-    packageOverrides = lib.composeManyExtensions (defaultOverrides ++ [ packageOverrides ]);
+    packageOverrides = lib.composeManyExtensions (
+      defaultOverrides ++ [ packageOverrides ]
+    );
   };
 
   componentPackages = import ./component-packages.nix;
@@ -358,7 +360,9 @@ let
 
   getPackages = component: componentPackages.components.${component};
 
-  componentBuildInputs = lib.concatMap (component: getPackages component python.pkgs) extraComponents;
+  componentBuildInputs =
+    lib.concatMap (component: getPackages component python.pkgs)
+      extraComponents;
 
   # Ensure that we are using a consistent package set
   extraBuildInputs = extraPackages python.pkgs;
@@ -571,7 +575,9 @@ python.pkgs.buildPythonApplication rec {
       python
       supportedComponentsWithTests
     ;
-    pythonPath = python.pkgs.makePythonPath (componentBuildInputs ++ extraBuildInputs);
+    pythonPath = python.pkgs.makePythonPath (
+      componentBuildInputs ++ extraBuildInputs
+    );
     frontend = python.pkgs.home-assistant-frontend;
     intents = python.pkgs.home-assistant-intents;
     tests = {

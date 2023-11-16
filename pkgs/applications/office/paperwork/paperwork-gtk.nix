@@ -33,7 +33,11 @@ let
     imagemagick
     perlPackages.Po4a
   ];
-  inherit (import ./src.nix { inherit fetchFromGitLab; }) version src sample_documents;
+  inherit (import ./src.nix { inherit fetchFromGitLab; })
+    version
+    src
+    sample_documents
+  ;
 in
 
 python3Packages.buildPythonApplication rec {

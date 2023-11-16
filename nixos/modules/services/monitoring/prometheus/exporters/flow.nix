@@ -48,8 +48,13 @@ in
           -asn ${toString cfg.asn} \
           -topic ${cfg.topic} \
           -brokers ${concatStringsSep "," cfg.brokers} \
-          ${optionalString (cfg.partitions != [ ]) "-partitions ${concatStringsSep "," cfg.partitions}"} \
-          -addr ${cfg.listenAddress}:${toString cfg.port} ${concatStringsSep " " cfg.extraFlags}
+          ${
+            optionalString (cfg.partitions != [ ])
+              "-partitions ${concatStringsSep "," cfg.partitions}"
+          } \
+          -addr ${cfg.listenAddress}:${toString cfg.port} ${
+            concatStringsSep " " cfg.extraFlags
+          }
       '';
     };
   };

@@ -34,14 +34,16 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    openssl
-    zlib
-    zstd
-    icu
-    cyrus_sasl
-    snappy
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.Security ];
+  buildInputs =
+    [
+      openssl
+      zlib
+      zstd
+      icu
+      cyrus_sasl
+      snappy
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.Security ];
 
   cmakeFlags = [
     "-DBUILD_VERSION=${version}"

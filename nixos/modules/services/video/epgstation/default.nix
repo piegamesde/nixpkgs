@@ -112,7 +112,9 @@ in
     (deprecateTopLevelOption [ "port" ])
     (deprecateTopLevelOption [ "socketioPort" ])
     (deprecateTopLevelOption [ "clientSocketioPort" ])
-    (removeOption [ "basicAuth" ] "Use a TLS-terminated reverse proxy with authentication instead.")
+    (removeOption [ "basicAuth" ]
+      "Use a TLS-terminated reverse proxy with authentication instead."
+    )
   ];
 
   options.services.epgstation = {

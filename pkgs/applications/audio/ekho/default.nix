@@ -35,7 +35,9 @@ stdenv.mkDerivation rec {
   };
 
   preConfigure = with lib; ''
-    NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE ${optionalString stdenv.is64bit "-D_x86_64"}"
+    NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE ${
+      optionalString stdenv.is64bit "-D_x86_64"
+    }"
     NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -DEKHO_DATA_PATH=\"$out/share/ekho-data\""
   '';
 

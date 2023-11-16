@@ -22,7 +22,9 @@ stdenv.mkDerivation {
       export ORIG_CARGO=${originalCargoToml}
     ''
     + ''
-      ${buildPackages.python3.withPackages (ps: with ps; [ toml ])}/bin/python3 ${./cargo.py}
+      ${buildPackages.python3.withPackages (ps: with ps; [ toml ])}/bin/python3 ${
+        ./cargo.py
+      }
       mkdir -p $out/src
       echo '#![no_std]' > $out/src/lib.rs
       cp Cargo.toml $out/Cargo.toml

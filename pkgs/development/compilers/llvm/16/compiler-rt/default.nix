@@ -94,7 +94,9 @@ stdenv.mkDerivation {
     ]
     ++ lib.optionals (bareMetal) [ "-DCOMPILER_RT_OS_DIR=baremetal" ]
     ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
-      "-DCMAKE_LIPO=${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}lipo"
+      "-DCMAKE_LIPO=${
+        lib.getBin stdenv.cc.bintools.bintools
+      }/bin/${stdenv.cc.targetPrefix}lipo"
       "-DDARWIN_macosx_OVERRIDE_SDK_VERSION=ON"
       "-DDARWIN_osx_ARCHS=${stdenv.hostPlatform.darwinArch}"
       "-DDARWIN_osx_BUILTIN_ARCHS=${stdenv.hostPlatform.darwinArch}"
@@ -148,9 +150,10 @@ stdenv.mkDerivation {
 
   # Hack around weird upsream RPATH bug
   postInstall =
-    lib.optionalString (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm) ''
-      ln -s "$out/lib"/*/* "$out/lib"
-    ''
+    lib.optionalString (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm)
+      ''
+        ln -s "$out/lib"/*/* "$out/lib"
+      ''
     + lib.optionalString (useLLVM) ''
       ln -s $out/lib/*/clang_rt.crtbegin-*.o $out/lib/crtbegin.o
       ln -s $out/lib/*/clang_rt.crtend-*.o $out/lib/crtend.o

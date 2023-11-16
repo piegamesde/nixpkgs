@@ -13,7 +13,9 @@ let
   settingsPath =
     runCommand "declarative-retroarch.cfg"
       {
-        value = lib.concatStringsSep "\n" (lib.mapAttrsToList (n: v: ''${n} = "${v}"'') settings);
+        value = lib.concatStringsSep "\n" (
+          lib.mapAttrsToList (n: v: ''${n} = "${v}"'') settings
+        );
         passAsFile = [ "value" ];
       }
       ''
@@ -72,7 +74,9 @@ symlinkJoin {
         RetroArch is the reference frontend for the libretro API.
       ''
       + lib.optionalString (cores != [ ]) ''
-        The following cores are included: ${lib.concatStringsSep ", " (map (c: c.core) cores)}
+        The following cores are included: ${
+          lib.concatStringsSep ", " (map (c: c.core) cores)
+        }
       '';
     mainProgram = "retroarch";
   };

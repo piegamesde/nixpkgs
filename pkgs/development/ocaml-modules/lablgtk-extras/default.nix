@@ -10,7 +10,9 @@
   xmlm,
 }:
 
-if lib.versionOlder ocaml.version "4.02" || lib.versionAtLeast ocaml.version "4.13" then
+if
+  lib.versionOlder ocaml.version "4.02" || lib.versionAtLeast ocaml.version "4.13"
+then
   throw "lablgtk-extras is not available for OCaml ${ocaml.version}"
 else
 

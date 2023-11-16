@@ -120,7 +120,8 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     # https://ghostscript.com/doc/current/Make.htm
     export CCAUX=$CC_FOR_BUILD
-    ${lib.optionalString cupsSupport ''export CUPSCONFIG="${cups.dev}/bin/cups-config"''}
+    ${lib.optionalString cupsSupport
+      ''export CUPSCONFIG="${cups.dev}/bin/cups-config"''}
 
     rm -rf jpeg libpng zlib jasper expat tiff lcms2mt jbig2dec freetype cups/libs ijs openjpeg
 
@@ -150,7 +151,9 @@ stdenv.mkDerivation rec {
     [ "so" ]
     # without -headerpad, the following error occurs on Darwin when compiling with X11 support (as of 10.02.0)
     # error: install_name_tool: changing install names or rpaths can't be redone for: [...]libgs.dylib.10 (the program must be relinked, and you may need to use -headerpad or -headerpad_max_install_names)
-    ++ lib.optional (x11Support && stdenv.isDarwin) "LDFLAGS=-headerpad_max_install_names";
+    ++
+      lib.optional (x11Support && stdenv.isDarwin)
+        "LDFLAGS=-headerpad_max_install_names";
   installTargets = [ "soinstall" ];
 
   postInstall =

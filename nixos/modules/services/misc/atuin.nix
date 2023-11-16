@@ -39,7 +39,9 @@ in
       maxHistoryLength = mkOption {
         type = types.int;
         default = 8192;
-        description = mdDoc "The max length of each history item the atuin server should store.";
+        description =
+          mdDoc
+            "The max length of each history item the atuin server should store.";
       };
 
       port = mkOption {
@@ -95,7 +97,9 @@ in
     systemd.services.atuin = {
       description = "atuin server";
       requires = lib.optionals cfg.database.createLocally [ "postgresql.service" ];
-      after = [ "network.target" ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
+      after = [
+        "network.target"
+      ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {

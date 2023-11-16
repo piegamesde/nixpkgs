@@ -37,9 +37,9 @@ stdenv.mkDerivation rec {
       # Make PyGObject’s gi library available.
       (substituteAll {
         src = ./fix-paths.patch;
-        pythonPaths = lib.concatMapStringsSep ", " (pkg: "'${pkg}/${python3.sitePackages}'") [
-          python3.pkgs.pygobject3
-        ];
+        pythonPaths =
+          lib.concatMapStringsSep ", " (pkg: "'${pkg}/${python3.sitePackages}'")
+            [ python3.pkgs.pygobject3 ];
       })
     ];
 

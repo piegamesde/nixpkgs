@@ -102,6 +102,8 @@ import ./make-test-python.nix (
         # entry is executed by every client before advancing
         # to the next one.
       ''
-      + lib.concatStrings (reduce (lib.zipListsWith (cs: c: cs + c)) (builtins.map clientScript clients));
+      + lib.concatStrings (
+        reduce (lib.zipListsWith (cs: c: cs + c)) (builtins.map clientScript clients)
+      );
   }
 )

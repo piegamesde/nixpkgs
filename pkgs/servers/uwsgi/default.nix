@@ -152,14 +152,16 @@ stdenv.mkDerivation (
 
     # this is a hack to make the php plugin link with session.so (which on nixos is a separate package)
     # the hack works in coordination with ./additional-php-ldflags.patch
-    UWSGICONFIG_PHP_LDFLAGS = lib.optionalString (builtins.any (x: x.name == "php") needed) (
-      lib.concatStringsSep "," [
-        "-Wl"
-        "-rpath=${php-embed.extensions.session}/lib/php/extensions/"
-        "--library-path=${php-embed.extensions.session}/lib/php/extensions/"
-        "-l:session.so"
-      ]
-    );
+    UWSGICONFIG_PHP_LDFLAGS =
+      lib.optionalString (builtins.any (x: x.name == "php") needed)
+        (
+          lib.concatStringsSep "," [
+            "-Wl"
+            "-rpath=${php-embed.extensions.session}/lib/php/extensions/"
+            "--library-path=${php-embed.extensions.session}/lib/php/extensions/"
+            "-l:session.so"
+          ]
+        );
 
     buildPhase = ''
       runHook preBuild
@@ -169,7 +171,9 @@ stdenv.mkDerivation (
       ${lib.concatMapStringsSep ";"
         (x: ''
           ${x.preBuild or ""}
-           ${x.interpreter or "python3"} uwsgiconfig.py --plugin ${x.path} nixos ${x.name}'')
+           ${
+             x.interpreter or "python3"
+           } uwsgiconfig.py --plugin ${x.path} nixos ${x.name}'')
         needed}
 
       runHook postBuild

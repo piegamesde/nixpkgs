@@ -49,14 +49,17 @@ stdenv.mkDerivation (
       ninja
       canonicalize-jars-hook
     ];
-    buildInputs = [
-      qtbase
-      zlib
-      quazip
-      ghc_filesystem
-      tomlplusplus
-      cmark
-    ] ++ lib.optional gamemodeSupport gamemode ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+    buildInputs =
+      [
+        qtbase
+        zlib
+        quazip
+        ghc_filesystem
+        tomlplusplus
+        cmark
+      ]
+      ++ lib.optional gamemodeSupport gamemode
+      ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
     hardeningEnable = lib.optionals stdenv.isLinux [ "pie" ];
 
@@ -65,8 +68,12 @@ stdenv.mkDerivation (
         # downstream branding
         "-DLauncher_BUILD_PLATFORM=nixpkgs"
       ]
-      ++ lib.optionals (msaClientID != null) [ "-DLauncher_MSA_CLIENT_ID=${msaClientID}" ]
-      ++ lib.optionals (lib.versionOlder qtbase.version "6") [ "-DLauncher_QT_VERSION_MAJOR=5" ]
+      ++ lib.optionals (msaClientID != null) [
+        "-DLauncher_MSA_CLIENT_ID=${msaClientID}"
+      ]
+      ++ lib.optionals (lib.versionOlder qtbase.version "6") [
+        "-DLauncher_QT_VERSION_MAJOR=5"
+      ]
       ++ lib.optionals stdenv.isDarwin [
         "-DINSTALL_BUNDLE=nodeps"
         "-DMACOSX_SPARKLE_UPDATE_FEED_URL=''"

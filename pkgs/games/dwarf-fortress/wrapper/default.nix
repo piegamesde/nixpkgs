@@ -35,7 +35,8 @@
 let
   dfhack_ = dfhack.override { inherit enableStoneSense; };
 
-  ptheme = if builtins.isString theme then builtins.getAttr theme themes else theme;
+  ptheme =
+    if builtins.isString theme then builtins.getAttr theme themes else theme;
 
   baseEnv = buildEnv {
     name = "dwarf-fortress-base-env-${dwarf-fortress.dfVersion}";
@@ -149,7 +150,8 @@ let
   };
 in
 
-lib.throwIf (enableTWBT && !enableDFHack) "dwarf-fortress: TWBT requires DFHack to be enabled"
+lib.throwIf (enableTWBT && !enableDFHack)
+  "dwarf-fortress: TWBT requires DFHack to be enabled"
   lib.throwIf
   (enableStoneSense && !enableDFHack)
   "dwarf-fortress: StoneSense requires DFHack to be enabled"

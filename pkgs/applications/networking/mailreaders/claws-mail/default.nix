@@ -38,7 +38,8 @@
   networkmanager,
   enableLibetpan ? true,
   libetpan,
-  enableValgrind ? !stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind,
+  enableValgrind ?
+    !stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind,
   valgrind,
   enableSvg ? true,
   librsvg,
@@ -65,7 +66,8 @@
   enablePluginMailmbox ? true,
   enablePluginManageSieve ? true,
   enablePluginNewMail ? true,
-  enablePluginNotification ? (enablePluginNotificationDialogs || enablePluginNotificationSounds),
+  enablePluginNotification ?
+    (enablePluginNotificationDialogs || enablePluginNotificationSounds),
   libcanberra-gtk3,
   libnotify,
   enablePluginPdfViewer ? enablePluginPdf,
@@ -316,12 +318,16 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildInputs = pythonPkgs;
 
-  buildInputs = [
-    curl
-    gsettings-desktop-schemas
-    glib-networking
-    gtk3
-  ] ++ lib.concatMap (f: lib.optionals f.enabled f.deps) (lib.filter (f: f ? deps) features);
+  buildInputs =
+    [
+      curl
+      gsettings-desktop-schemas
+      glib-networking
+      gtk3
+    ]
+    ++ lib.concatMap (f: lib.optionals f.enabled f.deps) (
+      lib.filter (f: f ? deps) features
+    );
 
   configureFlags =
     [
@@ -331,7 +337,11 @@ stdenv.mkDerivation rec {
 
       "--disable-gdata-plugin" # Complains about missing libgdata, even when provided
     ]
-    ++ (map (feature: map (flag: lib.strings.enableFeature feature.enabled flag) feature.flags)
+    ++ (map
+      (
+        feature:
+        map (flag: lib.strings.enableFeature feature.enabled flag) feature.flags
+      )
       features
     );
 

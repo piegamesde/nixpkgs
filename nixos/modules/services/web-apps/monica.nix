@@ -28,7 +28,11 @@ let
     sudo ${pkgs.php}/bin/php artisan "$@"
   '';
 
-  tlsEnabled = cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME;
+  tlsEnabled =
+    cfg.nginx.addSSL
+    || cfg.nginx.forceSSL
+    || cfg.nginx.onlySSL
+    || cfg.nginx.enableACME;
 in
 {
   options.services.monica = {
@@ -59,7 +63,10 @@ in
     hostname = lib.mkOption {
       type = lib.types.str;
       default =
-        if config.networking.domain != null then config.networking.fqdn else config.networking.hostName;
+        if config.networking.domain != null then
+          config.networking.fqdn
+        else
+          config.networking.hostName;
       defaultText = lib.literalExpression "config.networking.fqdn";
       example = "monica.example.com";
       description = lib.mdDoc ''
@@ -74,7 +81,8 @@ in
         Command example: <code>php artisan monica:update-url https://old.example.com https://new.example.com</code>
       '';
       default = "http${lib.optionalString tlsEnabled "s"}://${cfg.hostname}";
-      defaultText = ''http''${lib.optionalString tlsEnabled "s"}://''${cfg.hostname}'';
+      defaultText = ''
+        http''${lib.optionalString tlsEnabled "s"}://''${cfg.hostname}'';
       example = "https://example.com";
       type = types.str;
     };
@@ -207,7 +215,9 @@ in
 
     nginx = mkOption {
       type = types.submodule (
-        recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) { }
+        recursiveUpdate
+          (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
+          { }
       );
       default = { };
       example = ''
@@ -418,7 +428,9 @@ in
                   throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
             };
           };
-          secretPaths = lib.mapAttrsToList (_: v: v._secret) (lib.filterAttrs (_: isSecret) cfg.config);
+          secretPaths = lib.mapAttrsToList (_: v: v._secret) (
+            lib.filterAttrs (_: isSecret) cfg.config
+          );
           mkSecretReplacement = file: ''
             replace-secret ${
               escapeShellArgs [

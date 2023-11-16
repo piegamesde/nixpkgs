@@ -43,9 +43,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.etc."guacamole/guacamole.properties" = lib.mkIf (cfg.settings != { }) {
-      source = (settingsFormat.generate "guacamole.properties" cfg.settings);
-    };
+    environment.etc."guacamole/guacamole.properties" =
+      lib.mkIf (cfg.settings != { })
+        { source = (settingsFormat.generate "guacamole.properties" cfg.settings); };
 
     services = lib.mkIf cfg.enableWebserver {
       tomcat = {

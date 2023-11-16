@@ -5,7 +5,8 @@
   ocaml,
 }:
 
-lib.throwIf (lib.versionAtLeast ocaml.version "5.0") "nonstd is not available for OCaml ≥ 5.0"
+lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
+  "nonstd is not available for OCaml ≥ 5.0"
 
   buildDunePackage
   rec {

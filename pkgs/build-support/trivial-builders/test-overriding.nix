@@ -23,15 +23,20 @@ let
     rm success
   '';
 
-  simpleCase = case: writeShellScript "test-trivial-overriding-${case}" extglobScript;
+  simpleCase =
+    case: writeShellScript "test-trivial-overriding-${case}" extglobScript;
 
   callPackageCase =
     case:
     callPackage
-      ({ writeShellScript }: writeShellScript "test-trivial-callpackage-overriding-${case}" extglobScript)
+      (
+        { writeShellScript }:
+        writeShellScript "test-trivial-callpackage-overriding-${case}" extglobScript
+      )
       { };
 
-  binCase = case: writeShellScriptBin "test-trivial-overriding-bin-${case}" extglobScript;
+  binCase =
+    case: writeShellScriptBin "test-trivial-overriding-bin-${case}" extglobScript;
 
   # building this derivation would fail without overriding
   textFileCase = writeTextFile {

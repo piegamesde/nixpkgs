@@ -78,7 +78,9 @@ let
                   send_error "timeout!\n"
                   exit 1
                 }
-                expect ".NET Core SDK ${if sdk ? version then sdk.version else sdk_6_0.version}"
+                expect ".NET Core SDK ${
+                  if sdk ? version then sdk.version else sdk_6_0.version
+                }"
                 expect "{\"Event\":\"started\","
                 send \x03
                 expect eof

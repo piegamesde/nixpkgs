@@ -56,13 +56,17 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  buildInputs = [
-    erlang
-    openssl
-    expat
-    libyaml
-    gd
-  ] ++ lib.optional withSqlite sqlite ++ lib.optional withPam pam ++ lib.optional withZlib zlib;
+  buildInputs =
+    [
+      erlang
+      openssl
+      expat
+      libyaml
+      gd
+    ]
+    ++ lib.optional withSqlite sqlite
+    ++ lib.optional withPam pam
+    ++ lib.optional withZlib zlib;
 
   src = fetchurl {
     url = "https://www.process-one.net/downloads/downloads-action.php?file=/${version}/ejabberd-${version}.tar.gz";

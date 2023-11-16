@@ -27,7 +27,9 @@ stdenv.mkDerivation rec {
   version = "43.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-logs/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-logs/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "M6k7l17CfISHglBIqnuK99XCNWWrz3t0yQKrez7CCGE=";
   };
 

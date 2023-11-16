@@ -16,7 +16,8 @@
 }:
 
 let
-  endianFlag = if hostPlatform.isLittleEndian then "--little-endian" else "--big-endian";
+  endianFlag =
+    if hostPlatform.isLittleEndian then "--little-endian" else "--big-endian";
   bloodFlag = if hostPlatform.is64bit then "--64" else " ";
 
   # We need a few tools from mescc-tools-extra to assemble the output folder

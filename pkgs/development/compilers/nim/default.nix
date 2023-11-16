@@ -286,7 +286,9 @@ in
               '';
 
             wrapperArgs = lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64)) [
-              "--prefix PATH : ${lib.makeBinPath [ buildPackages.gdb ]}:${placeholder "out"}/bin"
+              "--prefix PATH : ${lib.makeBinPath [ buildPackages.gdb ]}:${
+                placeholder "out"
+              }/bin"
               # Used by nim-gdb
 
               "--prefix LD_LIBRARY_PATH : ${
@@ -347,7 +349,10 @@ in
           }
         );
       in
-      self // { pkgs = callPackage ../../../top-level/nim-packages.nix { nim = self; }; };
+      self
+      // {
+        pkgs = callPackage ../../../top-level/nim-packages.nix { nim = self; };
+      };
   in
   {
 

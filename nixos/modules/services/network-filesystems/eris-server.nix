@@ -78,9 +78,9 @@ in
       let
         cmd = "${cfg.package}/bin/eris-go server --coap '${cfg.listenCoap}' --http '${cfg.listenHttp}' ${
             lib.optionalString cfg.decode "--decode "
-          }${lib.optionalString (cfg.mountpoint != "") ''--mountpoint "${cfg.mountpoint}" ''}${
-            lib.strings.escapeShellArgs cfg.backends
-          }";
+          }${
+            lib.optionalString (cfg.mountpoint != "") ''--mountpoint "${cfg.mountpoint}" ''
+          }${lib.strings.escapeShellArgs cfg.backends}";
       in
       {
         description = "ERIS block server";

@@ -123,7 +123,9 @@ in
           "${cfg.package}/bin/wyoming-openwakeword"
           "--uri ${cfg.uri}"
           (concatMapStringsSep " " (model: "--preload-model ${model}") cfg.preloadModels)
-          (concatMapStringsSep " " (dir: "--custom-model-dir ${toString dir}") cfg.customModelsDirectories)
+          (concatMapStringsSep " " (dir: "--custom-model-dir ${toString dir}")
+            cfg.customModelsDirectories
+          )
           "--threshold ${cfg.threshold}"
           "--trigger-level ${cfg.triggerLevel}"
           "${cfg.extraArgs}"

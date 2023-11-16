@@ -178,12 +178,16 @@ stdenv.mkDerivation rec {
       (lib.mesonEnable "avahi" zeroconfSupport)
       (lib.mesonEnable "bluez5" (!libOnly && bluetoothSupport))
       # advanced bluetooth audio codecs are provided by gstreamer
-      (lib.mesonEnable "bluez5-gstreamer" (!libOnly && bluetoothSupport && advancedBluetoothCodecs))
+      (lib.mesonEnable "bluez5-gstreamer" (
+        !libOnly && bluetoothSupport && advancedBluetoothCodecs
+      ))
       (lib.mesonOption "database" "simple")
       (lib.mesonBool "doxygen" false)
       (lib.mesonEnable "elogind" false)
       # gsettings does not support cross-compilation
-      (lib.mesonEnable "gsettings" (stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform)))
+      (lib.mesonEnable "gsettings" (
+        stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform)
+      ))
       (lib.mesonEnable "gstreamer" false)
       (lib.mesonEnable "gtk" false)
       (lib.mesonEnable "jack" (jackaudioSupport && !libOnly))
@@ -236,11 +240,13 @@ stdenv.mkDerivation rec {
     '';
 
   preFixup =
-    lib.optionalString (stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform)) ''
-      wrapProgram $out/libexec/pulse/gsettings-helper \
-       --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/${pname}-${version}" \
-       --prefix GIO_EXTRA_MODULES : "${lib.getLib dconf}/lib/gio/modules"
-    ''
+    lib.optionalString
+      (stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform))
+      ''
+        wrapProgram $out/libexec/pulse/gsettings-helper \
+         --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/${pname}-${version}" \
+         --prefix GIO_EXTRA_MODULES : "${lib.getLib dconf}/lib/gio/modules"
+      ''
     # add .so symlinks for modules to be found under macOS
     + lib.optionalString stdenv.isDarwin ''
       for file in $out/lib/pulseaudio/modules/*.dylib; do

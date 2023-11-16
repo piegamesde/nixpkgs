@@ -44,13 +44,16 @@ stdenv.mkDerivation rec {
     # acl relies on attr, which I can't get to build on darwin
     ++ lib.optional (!stdenv.isDarwin) acl;
 
-  configureFlags = [
-    "--with-sqlite3=${sqlite.dev}"
-    "--with-postgresql=${postgresql}"
-    "--with-logdir=/var/log/bacula"
-    "--with-working-dir=/var/lib/bacula"
-    "--mandir=\${out}/share/man"
-  ] ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "ac_cv_func_setpgrp_void=yes";
+  configureFlags =
+    [
+      "--with-sqlite3=${sqlite.dev}"
+      "--with-postgresql=${postgresql}"
+      "--with-logdir=/var/log/bacula"
+      "--with-working-dir=/var/lib/bacula"
+      "--mandir=\${out}/share/man"
+    ]
+    ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
+      "ac_cv_func_setpgrp_void=yes";
 
   installFlags = [
     "logdir=\${out}/logdir"

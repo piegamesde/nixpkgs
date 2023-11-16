@@ -30,8 +30,14 @@ let
 in
 
 if
-  (args ? minimumOCamlVersion && lib.versionOlder ocaml.version args.minimumOCamlVersion)
-  || (args ? minimalOCamlVersion && lib.versionOlder ocaml.version args.minimalOCamlVersion)
+  (
+    args ? minimumOCamlVersion
+    && lib.versionOlder ocaml.version args.minimumOCamlVersion
+  )
+  || (
+    args ? minimalOCamlVersion
+    && lib.versionOlder ocaml.version args.minimalOCamlVersion
+  )
 then
   throw "${pname}-${version} is not available for OCaml ${ocaml.version}"
 else

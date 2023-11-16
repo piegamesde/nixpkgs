@@ -25,7 +25,10 @@ let
   };
 
   inherit (llvmPackages_14) lld llvm;
-  inherit (if buildWithPatches then opencl-clang else llvmPackages_14) clang libclang;
+  inherit (if buildWithPatches then opencl-clang else llvmPackages_14)
+    clang
+    libclang
+  ;
   spirv-llvm-translator' = spirv-llvm-translator.override { inherit llvm; };
 in
 
@@ -72,8 +75,12 @@ stdenv.mkDerivation rec {
     mkdir $out
     ln -s ${clang}/bin/clang $out/
     ln -s ${opencl-clang}/lib/* $out/
-    ln -s ${lib.getLib libclang}/lib/clang/${lib.getVersion clang}/include/opencl-c.h $out/
-    ln -s ${lib.getLib libclang}/lib/clang/${lib.getVersion clang}/include/opencl-c-base.h $out/
+    ln -s ${lib.getLib libclang}/lib/clang/${
+      lib.getVersion clang
+    }/include/opencl-c.h $out/
+    ln -s ${lib.getLib libclang}/lib/clang/${
+      lib.getVersion clang
+    }/include/opencl-c-base.h $out/
   '';
 
   cmakeFlags = [

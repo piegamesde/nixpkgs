@@ -11,12 +11,24 @@ let
 
   overrides =
     (self: super: {
-      cl_plus_ssl = super.cl_plus_ssl.overrideLispAttrs (o: { nativeLibs = [ pkgs.openssl ]; });
-      cl-cffi-gtk-glib = super.cl-cffi-gtk-glib.overrideLispAttrs (o: { nativeLibs = [ pkgs.glib ]; });
-      cl-cffi-gtk-cairo = super.cl-cffi-gtk-cairo.overrideLispAttrs (o: { nativeLibs = [ pkgs.cairo ]; });
-      cl-cairo2 = super.cl-cairo2.overrideLispAttrs (o: { nativeLibs = [ pkgs.cairo ]; });
-      cl-cairo2-xlib = super.cl-cairo2-xlib.overrideLispAttrs (o: { nativeLibs = [ pkgs.gtk2-x11 ]; });
-      cl-freeimage = super.cl-freeimage.overrideLispAttrs (o: { nativeLibs = [ pkgs.freeimage ]; });
+      cl_plus_ssl = super.cl_plus_ssl.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.openssl ]; }
+      );
+      cl-cffi-gtk-glib = super.cl-cffi-gtk-glib.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.glib ]; }
+      );
+      cl-cffi-gtk-cairo = super.cl-cffi-gtk-cairo.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.cairo ]; }
+      );
+      cl-cairo2 = super.cl-cairo2.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.cairo ]; }
+      );
+      cl-cairo2-xlib = super.cl-cairo2-xlib.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.gtk2-x11 ]; }
+      );
+      cl-freeimage = super.cl-freeimage.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.freeimage ]; }
+      );
       cl-freetype2 = super.cl-freetype2.overrideLispAttrs (
         o: {
           nativeLibs = [ pkgs.freetype ];
@@ -24,16 +36,30 @@ let
           patches = [ ./patches/cl-freetype2-fix-grovel-includes.patch ];
         }
       );
-      cl-pango = super.cl-pango.overrideLispAttrs (o: { nativeLibs = [ pkgs.pango ]; });
-      cl-gtk2-gdk = super.cl-gtk2-gdk.overrideLispAttrs (o: { nativeLibs = [ pkgs.gtk2-x11 ]; });
-      cl-gtk2-glib = super.cl-gtk2-glib.overrideLispAttrs (o: { nativeLibs = [ pkgs.glib ]; });
-      cl-gtk2-pango = super.cl-gtk2-pango.overrideLispAttrs (o: { nativeLibs = [ pkgs.pango ]; });
-      cl-rsvg2 = super.cl-rsvg2.overrideLispAttrs (o: { nativeLibs = [ pkgs.librsvg ]; });
-      cl-cffi-gtk-gdk = super.cl-cffi-gtk-gdk.overrideLispAttrs (o: { nativeLibs = [ pkgs.gtk3 ]; });
+      cl-pango = super.cl-pango.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.pango ]; }
+      );
+      cl-gtk2-gdk = super.cl-gtk2-gdk.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.gtk2-x11 ]; }
+      );
+      cl-gtk2-glib = super.cl-gtk2-glib.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.glib ]; }
+      );
+      cl-gtk2-pango = super.cl-gtk2-pango.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.pango ]; }
+      );
+      cl-rsvg2 = super.cl-rsvg2.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.librsvg ]; }
+      );
+      cl-cffi-gtk-gdk = super.cl-cffi-gtk-gdk.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.gtk3 ]; }
+      );
       cl-cffi-gtk-gdk-pixbuf = super.cl-cffi-gtk-gdk-pixbuf.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.gdk-pixbuf ]; }
       );
-      cl-cffi-gtk-pango = super.cl-cffi-gtk-pango.overrideLispAttrs (o: { nativeLibs = [ pkgs.pango ]; });
+      cl-cffi-gtk-pango = super.cl-cffi-gtk-pango.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.pango ]; }
+      );
       cl-gobject-introspection = super.cl-gobject-introspection.overrideLispAttrs (
         o: {
           nativeLibs = [
@@ -42,13 +68,21 @@ let
           ];
         }
       );
-      cl-mysql = super.cl-mysql.overrideLispAttrs (o: { nativeLibs = [ pkgs.mariadb.client ]; });
+      cl-mysql = super.cl-mysql.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.mariadb.client ]; }
+      );
       clsql-postgresql = super.clsql-postgresql.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.postgresql.lib ]; }
       );
-      clsql-sqlite3 = super.clsql-sqlite3.overrideLispAttrs (o: { nativeLibs = [ pkgs.sqlite ]; });
-      cl-webkit2 = super.cl-webkit2.overrideLispAttrs (o: { nativeLibs = [ pkgs.webkitgtk ]; });
-      dbd-mysql = super.dbd-mysql.overrideLispAttrs (o: { nativeLibs = [ pkgs.mariadb.client ]; });
+      clsql-sqlite3 = super.clsql-sqlite3.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.sqlite ]; }
+      );
+      cl-webkit2 = super.cl-webkit2.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.webkitgtk ]; }
+      );
+      dbd-mysql = super.dbd-mysql.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.mariadb.client ]; }
+      );
       lla = super.lla.overrideLispAttrs (o: { nativeLibs = [ pkgs.openblas ]; });
       cffi-libffi = super.cffi-libffi.overrideLispAttrs (
         o: {
@@ -72,7 +106,9 @@ let
           nativeLibs = [ pkgs.libuv ];
         }
       );
-      cl-liballegro = super.cl-liballegro.overrideLispAttrs (o: { nativeLibs = [ pkgs.allegro5 ]; });
+      cl-liballegro = super.cl-liballegro.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.allegro5 ]; }
+      );
       cl-ode = super.cl-ode.overrideLispAttrs (
         o: {
           nativeLibs =
@@ -89,22 +125,36 @@ let
             [ ode' ];
         }
       );
-      classimp = super.classimp.overrideLispAttrs (o: { nativeLibs = [ pkgs.assimp ]; });
+      classimp = super.classimp.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.assimp ]; }
+      );
       sdl2 = super.sdl2.overrideLispAttrs (o: { nativeLibs = [ pkgs.SDL2 ]; });
-      sdl2-image = super.sdl2-image.overrideLispAttrs (o: { nativeLibs = [ pkgs.SDL2_image ]; });
-      sdl2-mixer = super.sdl2-mixer.overrideLispAttrs (o: { nativeLibs = [ pkgs.SDL2_mixer ]; });
-      sdl2-ttf = super.sdl2-ttf.overrideLispAttrs (o: { nativeLibs = [ pkgs.SDL2_ttf ]; });
+      sdl2-image = super.sdl2-image.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.SDL2_image ]; }
+      );
+      sdl2-mixer = super.sdl2-mixer.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.SDL2_mixer ]; }
+      );
+      sdl2-ttf = super.sdl2-ttf.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.SDL2_ttf ]; }
+      );
       lispbuilder-sdl-cffi = super.lispbuilder-sdl-cffi.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.SDL ]; }
       );
-      cl-opengl = super.cl-opengl.overrideLispAttrs (o: { nativeLibs = [ pkgs.libGL ]; });
+      cl-opengl = super.cl-opengl.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.libGL ]; }
+      );
       cl-glu = super.cl-glu.overrideLispAttrs (o: { nativeLibs = [ pkgs.libGLU ]; });
-      cl-glut = super.cl-glut.overrideLispAttrs (o: { nativeLibs = [ pkgs.freeglut ]; });
+      cl-glut = super.cl-glut.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.freeglut ]; }
+      );
       cl-glfw = super.cl-glfw.overrideLispAttrs (o: { nativeLibs = [ pkgs.glfw ]; });
       cl-glfw-opengl-core = super.cl-glfw-opengl-core.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.libGL ]; }
       );
-      cl-glfw3 = super.cl-glfw3.overrideLispAttrs (o: { nativeLibs = [ pkgs.glfw ]; });
+      cl-glfw3 = super.cl-glfw3.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.glfw ]; }
+      );
       lev = super.lev.overrideLispAttrs (o: { nativeLibs = [ pkgs.libev ]; });
       cl-rdkafka = super.cl-rdkafka.overrideLispAttrs (
         o: {
@@ -112,7 +162,9 @@ let
           nativeLibs = [ pkgs.rdkafka ];
         }
       );
-      cl-async-ssl = super.cl-async-ssl.overrideLispAttrs (o: { nativeLibs = [ pkgs.openssl ]; });
+      cl-async-ssl = super.cl-async-ssl.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.openssl ]; }
+      );
       iolib = super.iolib.overrideLispAttrs (
         o: {
           nativeBuildInputs = [ pkgs.libfixposix ];
@@ -137,9 +189,15 @@ let
           nativeLibs = [ pkgs.gsl ];
         }
       );
-      cl-libyaml = super.cl-libyaml.overrideLispAttrs (o: { nativeLibs = [ pkgs.libyaml ]; });
-      cl-libxml2 = super.cl-libxml2.overrideLispAttrs (o: { nativeLibs = [ pkgs.libxml2 ]; });
-      cl-readline = super.cl-readline.overrideLispAttrs (o: { nativeLibs = [ pkgs.readline ]; });
+      cl-libyaml = super.cl-libyaml.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.libyaml ]; }
+      );
+      cl-libxml2 = super.cl-libxml2.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.libxml2 ]; }
+      );
+      cl-readline = super.cl-readline.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.readline ]; }
+      );
       md5 = super.md5.overrideLispAttrs (o: { lispLibs = [ super.flexi-streams ]; });
       pzmq = super.pzmq.overrideLispAttrs (
         o: {
@@ -214,11 +272,19 @@ let
           lispLibs = o.lispLibs ++ [ self.mcclim ];
         }
       );
-      cl-charms = super.cl-charms.overrideLispAttrs (o: { nativeLibs = [ pkgs.ncurses ]; });
-      libusb-ffi = super.libusb-ffi.overrideLispAttrs (o: { nativeLibs = [ pkgs.libusb-compat-0_1 ]; });
+      cl-charms = super.cl-charms.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.ncurses ]; }
+      );
+      libusb-ffi = super.libusb-ffi.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.libusb-compat-0_1 ]; }
+      );
       cl-fam = super.cl-fam.overrideLispAttrs (o: { nativeLibs = [ pkgs.fam ]; });
-      jpeg-turbo = super.jpeg-turbo.overrideLispAttrs (o: { nativeLibs = [ pkgs.libjpeg_turbo ]; });
-      vorbisfile-ffi = super.vorbisfile-ffi.overrideLispAttrs (o: { nativeLibs = [ pkgs.libvorbis ]; });
+      jpeg-turbo = super.jpeg-turbo.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.libjpeg_turbo ]; }
+      );
+      vorbisfile-ffi = super.vorbisfile-ffi.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.libvorbis ]; }
+      );
       png = super.png.overrideLispAttrs (o: { nativeLibs = [ pkgs.libpng ]; });
       zmq = super.zmq.overrideLispAttrs (o: { nativeLibs = [ pkgs.czmq ]; });
       consfigurator = super.consfigurator.overrideLispAttrs (
@@ -230,9 +296,15 @@ let
         }
       );
       cl-gss = super.cl-gss.overrideLispAttrs (o: { nativeLibs = [ pkgs.libkrb5 ]; });
-      magicffi = super.magicffi.overrideLispAttrs (o: { nativeLibs = [ pkgs.file ]; });
-      keystone = super.keystone.overrideLispAttrs (o: { nativeLibs = [ pkgs.keystone ]; });
-      capstone = super.capstone.overrideLispAttrs (o: { nativeLibs = [ pkgs.capstone ]; });
+      magicffi = super.magicffi.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.file ]; }
+      );
+      keystone = super.keystone.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.keystone ]; }
+      );
+      capstone = super.capstone.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.capstone ]; }
+      );
     });
 
   qlpkgs = lib.optionalAttrs (builtins.pathExists ./imported.nix) (

@@ -43,7 +43,9 @@ let
 
         keys = mkOption {
           type = types.listOf types.str;
-          description = lib.mdDoc "List of keys to match.  Key names as defined in linux/input-event-codes.h";
+          description =
+            lib.mdDoc
+              "List of keys to match.  Key names as defined in linux/input-event-codes.h";
         };
 
         event = mkOption {

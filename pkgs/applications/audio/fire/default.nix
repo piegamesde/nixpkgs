@@ -91,7 +91,10 @@ stdenv.mkDerivation rec {
   installPhase =
     let
       vst3Dir = "${placeholder "out"}/${
-          if stdenv.hostPlatform.isDarwin then "Library/Audio/Plug-Ins/VST3" else "lib/vst3"
+          if stdenv.hostPlatform.isDarwin then
+            "Library/Audio/Plug-Ins/VST3"
+          else
+            "lib/vst3"
         }";
       auDir = "${placeholder "out"}/Library/Audio/Plug-Ins/Components";
     in

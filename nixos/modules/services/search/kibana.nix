@@ -34,7 +34,8 @@ let
 
           elasticsearch.ssl.certificate = cfg.elasticsearch.cert;
           elasticsearch.ssl.key = cfg.elasticsearch.key;
-          elasticsearch.ssl.certificateAuthorities = cfg.elasticsearch.certificateAuthorities;
+          elasticsearch.ssl.certificateAuthorities =
+            cfg.elasticsearch.certificateAuthorities;
         }
         // cfg.extraConf
       ))
@@ -205,7 +206,10 @@ in
         BABEL_CACHE_PATH = "${cfg.dataDir}/.babelcache.json";
       };
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/kibana" + " --config ${cfgFile}" + " --path.data ${cfg.dataDir}";
+        ExecStart =
+          "${cfg.package}/bin/kibana"
+          + " --config ${cfgFile}"
+          + " --path.data ${cfg.dataDir}";
         User = "kibana";
         WorkingDirectory = cfg.dataDir;
       };

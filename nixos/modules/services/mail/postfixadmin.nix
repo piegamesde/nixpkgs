@@ -99,10 +99,15 @@ in
       $CONF['setup_password'] = file_get_contents('${cfg.setupPasswordFile}');
 
       $CONF['database_type'] = 'pgsql';
-      $CONF['database_host'] = ${if localDB then "null" else "'${cfg.database.host}'"};
+      $CONF['database_host'] = ${
+        if localDB then "null" else "'${cfg.database.host}'"
+      };
       ${optionalString localDB "$CONF['database_user'] = '${cfg.database.username}';"}
       $CONF['database_password'] = ${
-        if localDB then "'dummy'" else "file_get_contents('${cfg.database.passwordFile}')"
+        if localDB then
+          "'dummy'"
+        else
+          "file_get_contents('${cfg.database.passwordFile}')"
       };
       $CONF['database_name'] = '${cfg.database.dbname}';
       $CONF['configured'] = true;
@@ -110,7 +115,9 @@ in
       ${cfg.extraConfig}
     '';
 
-    systemd.tmpfiles.rules = [ "d /var/cache/postfixadmin/templates_c 700 ${user} ${user}" ];
+    systemd.tmpfiles.rules = [
+      "d /var/cache/postfixadmin/templates_c 700 ${user} ${user}"
+    ];
 
     services.nginx = {
       enable = true;

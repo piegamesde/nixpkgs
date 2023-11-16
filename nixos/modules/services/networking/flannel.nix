@@ -89,7 +89,9 @@ in
     };
 
     network = mkOption {
-      description = lib.mdDoc " IPv4 network in CIDR format to use for the entire flannel network.";
+      description =
+        lib.mdDoc
+          " IPv4 network in CIDR format to use for the entire flannel network.";
       type = types.str;
     };
 
@@ -104,7 +106,9 @@ in
     };
 
     storageBackend = mkOption {
-      description = lib.mdDoc "Determines where flannel stores its configuration at runtime";
+      description =
+        lib.mdDoc
+          "Determines where flannel stores its configuration at runtime";
       type = types.enum [
         "etcd"
         "kubernetes"
@@ -141,7 +145,9 @@ in
     };
 
     backend = mkOption {
-      description = lib.mdDoc "Type of backend to use and specific configurations for that backend.";
+      description =
+        lib.mdDoc
+          "Type of backend to use and specific configurations for that backend.";
       type = types.attrs;
       default = {
         Type = "vxlan";
@@ -178,7 +184,9 @@ in
       path = [ pkgs.iptables ];
       preStart = optionalString (cfg.storageBackend == "etcd") ''
         echo "setting network configuration"
-        until ${pkgs.etcd}/bin/etcdctl put /coreos.com/network/config '${builtins.toJSON networkConfig}'
+        until ${pkgs.etcd}/bin/etcdctl put /coreos.com/network/config '${
+          builtins.toJSON networkConfig
+        }'
         do
           echo "setting network configuration, retry"
           sleep 1
@@ -193,13 +201,14 @@ in
     };
 
     services.etcd.enable = mkDefault (
-      cfg.storageBackend == "etcd" && cfg.etcd.endpoints == [ "http://127.0.0.1:2379" ]
+      cfg.storageBackend == "etcd"
+      && cfg.etcd.endpoints == [ "http://127.0.0.1:2379" ]
     );
 
     # for some reason, flannel doesn't let you configure this path
     # see: https://github.com/coreos/flannel/blob/master/Documentation/configuration.md#configuration
-    environment.etc."kube-flannel/net-conf.json" = mkIf (cfg.storageBackend == "kubernetes") {
-      source = pkgs.writeText "net-conf.json" (builtins.toJSON networkConfig);
-    };
+    environment.etc."kube-flannel/net-conf.json" =
+      mkIf (cfg.storageBackend == "kubernetes")
+        { source = pkgs.writeText "net-conf.json" (builtins.toJSON networkConfig); };
   };
 }

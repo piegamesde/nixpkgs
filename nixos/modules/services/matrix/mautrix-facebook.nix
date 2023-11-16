@@ -10,7 +10,9 @@ with lib;
 let
   cfg = config.services.mautrix-facebook;
   settingsFormat = pkgs.formats.json { };
-  settingsFile = settingsFormat.generate "mautrix-facebook-config.json" cfg.settings;
+  settingsFile =
+    settingsFormat.generate "mautrix-facebook-config.json"
+      cfg.settings;
 
   puppetRegex = concatStringsSep ".*" (
     map escapeRegex (splitString "{userid}" cfg.settings.bridge.username_template)
@@ -151,7 +153,8 @@ in
       wantedBy = [ "multi-user.target" ];
       wants =
         [ "network-online.target" ]
-        ++ optional config.services.matrix-synapse.enable config.services.matrix-synapse.serviceUnit
+        ++ optional config.services.matrix-synapse.enable
+          config.services.matrix-synapse.serviceUnit
         ++ optional cfg.configurePostgresql "postgresql.service";
       after = wants;
 
@@ -184,7 +187,9 @@ in
           users = [
             {
               exclusive = true;
-              regex = escapeRegex "@${cfg.settings.appservice.bot_username}:${cfg.settings.homeserver.domain}";
+              regex =
+                escapeRegex
+                  "@${cfg.settings.appservice.bot_username}:${cfg.settings.homeserver.domain}";
             }
             {
               exclusive = true;

@@ -37,12 +37,14 @@ stdenv.mkDerivation (
     ];
     mesonFlags = [ "-Dappend_libdir_vkbasalt=true" ];
 
-    postInstall = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
-      install -Dm 644 $src/config/vkBasalt.conf $out/share/vkBasalt/vkBasalt.conf
-      # Include 32bit layer in 64bit build
-      ln -s ${vkbasalt32}/share/vulkan/implicit_layer.d/vkBasalt.json \
-        "$out/share/vulkan/implicit_layer.d/vkBasalt32.json"
-    '';
+    postInstall =
+      lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
+        ''
+          install -Dm 644 $src/config/vkBasalt.conf $out/share/vkBasalt/vkBasalt.conf
+          # Include 32bit layer in 64bit build
+          ln -s ${vkbasalt32}/share/vulkan/implicit_layer.d/vkBasalt.json \
+            "$out/share/vulkan/implicit_layer.d/vkBasalt32.json"
+        '';
 
     # We need to give the different layers separate names or else the loader
     # might try the 32-bit one first, fail and not attempt to load the 64-bit

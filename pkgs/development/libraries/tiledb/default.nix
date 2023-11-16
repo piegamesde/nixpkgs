@@ -34,7 +34,9 @@ stdenv.mkDerivation rec {
 
   # (bundled) blosc headers have a warning on some archs that it will be using
   # unaccelerated routines.
-  cmakeFlags = [ "-DTILEDB_WERROR=0" ] ++ lib.optional (!useAVX2) "-DCOMPILER_SUPPORTS_AVX2=FALSE";
+  cmakeFlags = [
+    "-DTILEDB_WERROR=0"
+  ] ++ lib.optional (!useAVX2) "-DCOMPILER_SUPPORTS_AVX2=FALSE";
 
   nativeBuildInputs = [
     clang-tools

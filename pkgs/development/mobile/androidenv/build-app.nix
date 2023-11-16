@@ -20,14 +20,20 @@
 }@args:
 
 assert release
-  -> keyStore != null && keyAlias != null && keyStorePassword != null && keyAliasPassword != null;
+  ->
+    keyStore != null
+    && keyAlias != null
+    && keyStorePassword != null
+    && keyAliasPassword != null;
 
 let
   androidSdkFormalArgs = lib.functionArgs composeAndroidPackages;
   androidArgs = builtins.intersectAttrs androidSdkFormalArgs args;
   androidsdk = (composeAndroidPackages androidArgs).androidsdk;
 
-  extraArgs = removeAttrs args ([ "name" ] ++ builtins.attrNames androidSdkFormalArgs);
+  extraArgs = removeAttrs args (
+    [ "name" ] ++ builtins.attrNames androidSdkFormalArgs
+  );
 in
 stdenv.mkDerivation (
   {

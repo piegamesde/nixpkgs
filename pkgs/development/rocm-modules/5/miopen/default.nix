@@ -128,7 +128,9 @@ stdenv.mkDerivation (
       })
     ];
 
-    outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ];
+    outputs = [
+      "out"
+    ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ];
 
     nativeBuildInputs = [
       pkg-config

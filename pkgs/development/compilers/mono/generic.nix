@@ -126,7 +126,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     # Per nixpkgs#151720 the build failures for aarch64-darwin are fixed since 6.12.0.129
-    broken = stdenv.isDarwin && stdenv.isAarch64 && lib.versionOlder version "6.12.0.129";
+    broken =
+      stdenv.isDarwin && stdenv.isAarch64 && lib.versionOlder version "6.12.0.129";
     homepage = "https://mono-project.com/";
     description = "Cross platform, open source .NET development framework";
     platforms = with platforms; darwin ++ linux;

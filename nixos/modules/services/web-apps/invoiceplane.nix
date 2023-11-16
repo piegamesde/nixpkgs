@@ -284,20 +284,22 @@ in
             eachSite
         );
 
-        services.mysql = mkIf (any (v: v.database.createLocally) (attrValues eachSite)) {
-          enable = true;
-          package = mkDefault pkgs.mariadb;
-          ensureDatabases = mapAttrsToList (hostName: cfg: cfg.database.name) eachSite;
-          ensureUsers =
-            mapAttrsToList
-              (hostName: cfg: {
-                name = cfg.database.user;
-                ensurePermissions = {
-                  "${cfg.database.name}.*" = "ALL PRIVILEGES";
-                };
-              })
-              eachSite;
-        };
+        services.mysql =
+          mkIf (any (v: v.database.createLocally) (attrValues eachSite))
+            {
+              enable = true;
+              package = mkDefault pkgs.mariadb;
+              ensureDatabases = mapAttrsToList (hostName: cfg: cfg.database.name) eachSite;
+              ensureUsers =
+                mapAttrsToList
+                  (hostName: cfg: {
+                    name = cfg.database.user;
+                    ensurePermissions = {
+                      "${cfg.database.name}.*" = "ALL PRIVILEGES";
+                    };
+                  })
+                  eachSite;
+            };
 
         services.phpfpm = {
           phpPackage = pkgs.php81;
@@ -406,7 +408,9 @@ in
                   extraConfig = ''
                     root * ${pkg hostName cfg}
                     file_server
-                    php_fastcgi unix/${config.services.phpfpm.pools."invoiceplane-${hostName}".socket}
+                    php_fastcgi unix/${
+                      config.services.phpfpm.pools."invoiceplane-${hostName}".socket
+                    }
                   '';
                 })
               )

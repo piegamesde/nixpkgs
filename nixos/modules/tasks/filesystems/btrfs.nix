@@ -73,9 +73,11 @@ in
         ln -sv btrfsck $out/bin/fsck.btrfs
       '';
 
-      boot.initrd.extraUtilsCommandsTest = mkIf (!config.boot.initrd.systemd.enable) ''
-        $out/bin/btrfs --version
-      '';
+      boot.initrd.extraUtilsCommandsTest =
+        mkIf (!config.boot.initrd.systemd.enable)
+          ''
+            $out/bin/btrfs --version
+          '';
 
       boot.initrd.postDeviceCommands = mkIf (!config.boot.initrd.systemd.enable) ''
         btrfs device scan

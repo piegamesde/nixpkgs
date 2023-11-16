@@ -28,7 +28,9 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "TARGET=${kernel.modDirVersion}"
     "KERNEL_MODULES=${kernel.dev}/lib/modules/${kernel.modDirVersion}"
-    "MODDESTDIR=${placeholder "out"}/lib/modules/${kernel.modDirVersion}/kernel/drivers/hwmon"
+    "MODDESTDIR=${
+      placeholder "out"
+    }/lib/modules/${kernel.modDirVersion}/kernel/drivers/hwmon"
   ];
 
   meta = with lib; {

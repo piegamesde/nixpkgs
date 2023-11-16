@@ -46,7 +46,8 @@
 
 # See https://digitalbitbox.com/start_linux for more information.
 let
-  copyUdevRuleToOutput = name: rule: "cp ${writeText name rule} $out/etc/udev/rules.d/${name}";
+  copyUdevRuleToOutput =
+    name: rule: "cp ${writeText name rule} $out/etc/udev/rules.d/${name}";
 in
 mkDerivation rec {
   pname = "digitalbitbox";

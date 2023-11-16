@@ -28,11 +28,15 @@ stdenv.mkDerivation rec {
   sandboxProfile = toString qtbase.__propagatedSandboxProfile or null;
 
   cmakeFlags = [
-    "-DBUILD_WITH_QT6=${if lib.versions.major qtbase.version == "6" then "ON" else "OFF"}"
+    "-DBUILD_WITH_QT6=${
+      if lib.versions.major qtbase.version == "6" then "ON" else "OFF"
+    }"
     "-DQT_TRANSLATIONS_DIR=share/qt/translations"
   ];
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals (!stdenv.isDarwin) [ pkg-config ] # for finding libsecret
+  nativeBuildInputs = [
+    cmake
+  ] ++ lib.optionals (!stdenv.isDarwin) [ pkg-config ] # for finding libsecret
   ;
 
   buildInputs =

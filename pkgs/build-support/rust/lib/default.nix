@@ -43,7 +43,8 @@ rec {
         if builtins.isList f then f else [ f ]
       )
     else
-      lib.optional platform.isUnix "unix" ++ lib.optional platform.isWindows "windows";
+      lib.optional platform.isUnix "unix"
+      ++ lib.optional platform.isWindows "windows";
 
   # https://doc.rust-lang.org/reference/conditional-compilation.html#target_vendor
   toTargetVendor =
@@ -82,7 +83,9 @@ rec {
   toRustTargetSpec =
     platform:
     if platform ? rustc.platform then
-      builtins.toFile (toRustTarget platform + ".json") (builtins.toJSON platform.rustc.platform)
+      builtins.toFile (toRustTarget platform + ".json") (
+        builtins.toJSON platform.rustc.platform
+      )
     else
       toRustTarget platform;
 
@@ -102,7 +105,9 @@ rec {
   #
   toRustTargetForUseInEnvVars =
     platform:
-    lib.strings.replaceStrings [ "-" ] [ "_" ] (lib.strings.toUpper (toRustTargetSpecShort platform));
+    lib.strings.replaceStrings [ "-" ] [ "_" ] (
+      lib.strings.toUpper (toRustTargetSpecShort platform)
+    );
 
   # Returns true if the target is no_std
   # https://github.com/rust-lang/rust/blob/2e44c17c12cec45b6a682b1e53a04ac5b5fcc9d2/src/bootstrap/config.rs#L415-L421
@@ -176,17 +181,23 @@ rec {
         + lib.optionalString (rustTargetPlatform != rustHostPlatform) ''
           "CC_${toRustTargetForUseInEnvVars stdenv.targetPlatform}=${ccForTarget}" \
           "CXX_${toRustTargetForUseInEnvVars stdenv.targetPlatform}=${cxxForTarget}" \
-          "CARGO_TARGET_${toRustTargetForUseInEnvVars stdenv.targetPlatform}_LINKER=${ccForTarget}" \
+          "CARGO_TARGET_${
+            toRustTargetForUseInEnvVars stdenv.targetPlatform
+          }_LINKER=${ccForTarget}" \
         ''
         + ''
           "CC_${toRustTargetForUseInEnvVars stdenv.hostPlatform}=${ccForHost}" \
           "CXX_${toRustTargetForUseInEnvVars stdenv.hostPlatform}=${cxxForHost}" \
-          "CARGO_TARGET_${toRustTargetForUseInEnvVars stdenv.hostPlatform}_LINKER=${ccForHost}" \
+          "CARGO_TARGET_${
+            toRustTargetForUseInEnvVars stdenv.hostPlatform
+          }_LINKER=${ccForHost}" \
         ''
         + ''
           "CC_${toRustTargetForUseInEnvVars stdenv.buildPlatform}=${ccForBuild}" \
           "CXX_${toRustTargetForUseInEnvVars stdenv.buildPlatform}=${cxxForBuild}" \
-          "CARGO_TARGET_${toRustTargetForUseInEnvVars stdenv.buildPlatform}_LINKER=${ccForBuild}" \
+          "CARGO_TARGET_${
+            toRustTargetForUseInEnvVars stdenv.buildPlatform
+          }_LINKER=${ccForBuild}" \
           "CARGO_BUILD_TARGET=${rustBuildPlatform}" \
           "HOST_CC=${buildPackages.stdenv.cc}/bin/cc" \
           "HOST_CXX=${buildPackages.stdenv.cc}/bin/c++" \

@@ -69,7 +69,8 @@ let
   ];
 
   maybeModuleString =
-    moduleName: optionalString (elem moduleName cfg.enableModules) ''"${moduleName}"'';
+    moduleName:
+    optionalString (elem moduleName cfg.enableModules) ''"${moduleName}"'';
 
   modulesIncludeString =
     concatStringsSep

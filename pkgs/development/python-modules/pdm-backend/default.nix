@@ -28,7 +28,9 @@ buildPythonPackage rec {
 
   env.PDM_BUILD_SCM_VERSION = version;
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [
+    importlib-metadata
+  ];
 
   pythonImportsCheck = [ "pdm.backend" ];
 

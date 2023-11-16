@@ -27,7 +27,9 @@ in
 
   options.services.lemmy = {
 
-    enable = mkEnableOption (lib.mdDoc "lemmy a federated alternative to reddit in rust");
+    enable = mkEnableOption (
+      lib.mdDoc "lemmy a federated alternative to reddit in rust"
+    );
 
     server = {
       package = mkPackageOptionMD pkgs "lemmy-server" { };
@@ -39,15 +41,23 @@ in
       port = mkOption {
         type = types.port;
         default = 1234;
-        description = lib.mdDoc "Port where lemmy-ui should listen for incoming requests.";
+        description =
+          lib.mdDoc
+            "Port where lemmy-ui should listen for incoming requests.";
       };
     };
 
-    caddy.enable = mkEnableOption (lib.mdDoc "exposing lemmy with the caddy reverse proxy");
-    nginx.enable = mkEnableOption (lib.mdDoc "exposing lemmy with the nginx reverse proxy");
+    caddy.enable = mkEnableOption (
+      lib.mdDoc "exposing lemmy with the caddy reverse proxy"
+    );
+    nginx.enable = mkEnableOption (
+      lib.mdDoc "exposing lemmy with the nginx reverse proxy"
+    );
 
     database = {
-      createLocally = mkEnableOption (lib.mdDoc "creation of database on the instance");
+      createLocally = mkEnableOption (
+        lib.mdDoc "creation of database on the instance"
+      );
 
       uri = mkOption {
         type = with types; nullOr str;
@@ -73,13 +83,17 @@ in
     smtpPasswordFile = mkOption {
       type = with types; nullOr path;
       default = null;
-      description = lib.mdDoc "File which contains the value of `email.smtp_password`.";
+      description =
+        lib.mdDoc
+          "File which contains the value of `email.smtp_password`.";
     };
 
     adminPasswordFile = mkOption {
       type = with types; nullOr path;
       default = null;
-      description = lib.mdDoc "File which contains the value of `setup.admin_password`.";
+      description =
+        lib.mdDoc
+          "File which contains the value of `setup.admin_password`.";
     };
 
     settings = mkOption {
@@ -289,7 +303,9 @@ in
         {
           assertion =
             cfg.database.createLocally
-            -> cfg.settings.database.host == "localhost" || cfg.settings.database.host == "/run/postgresql";
+            ->
+              cfg.settings.database.host == "localhost"
+              || cfg.settings.database.host == "/run/postgresql";
           message = "if you want to create the database locally, you need to use a local database";
         }
         {
@@ -307,7 +323,9 @@ in
           message = "`services.lemmy.settings.federation` was removed in 0.17.0 and no longer has any effect";
         }
         {
-          assertion = cfg.database.uriFile != null -> cfg.database.uri == null && !cfg.database.createLocally;
+          assertion =
+            cfg.database.uriFile != null
+            -> cfg.database.uri == null && !cfg.database.createLocally;
           message = "specifying a database uri while also specifying a database uri file is not allowed";
         }
       ];
@@ -321,12 +339,17 @@ in
 
           environment = {
             LEMMY_CONFIG_LOCATION =
-              if secrets == { } then settingsFormat.generate "config.hjson" cfg.settings else substitutedConfig;
+              if secrets == { } then
+                settingsFormat.generate "config.hjson" cfg.settings
+              else
+                substitutedConfig;
             LEMMY_DATABASE_URL =
               if cfg.database.uri != null then
                 cfg.database.uri
               else
-                (mkIf (cfg.database.createLocally) "postgres:///lemmy?host=/run/postgresql&user=lemmy");
+                (mkIf (cfg.database.createLocally)
+                  "postgres:///lemmy?host=/run/postgresql&user=lemmy"
+                );
           };
 
           documentation = [
@@ -336,7 +359,9 @@ in
 
           wantedBy = [ "multi-user.target" ];
 
-          after = [ "pict-rs.service" ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
+          after = [
+            "pict-rs.service"
+          ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
 
           requires = lib.optionals cfg.database.createLocally [ "postgresql.service" ];
 

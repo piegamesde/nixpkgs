@@ -124,7 +124,9 @@ stdenv.mkDerivation rec {
     # our mimeapps patched from upstream to exclude:
     # * evince.desktop -> org.gnome.Evince.desktop
     mkdir -p $out/share/applications
-    cp -av ${./pantheon-mimeapps.list} $out/share/applications/pantheon-mimeapps.list
+    cp -av ${
+      ./pantheon-mimeapps.list
+    } $out/share/applications/pantheon-mimeapps.list
 
     # instantiates pantheon's dockitems
     cp "${dockitemAutostart}" $out/etc/xdg/autostart/default-elementary-dockitems.desktop

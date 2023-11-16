@@ -14,7 +14,9 @@ in
     with types; {
       enable = mkEnableOption "enable slskd";
 
-      rotateLogs = mkEnableOption "enable an unit and timer that will rotate logs in /var/slskd/logs";
+      rotateLogs =
+        mkEnableOption
+          "enable an unit and timer that will rotate logs in /var/slskd/logs";
 
       package = mkPackageOptionMD pkgs "slskd" { };
 
@@ -138,7 +140,8 @@ in
     let
       cfg = config.services.slskd;
 
-      confWithoutNullValues = (lib.filterAttrs (key: value: value != null) cfg.settings);
+      confWithoutNullValues =
+        (lib.filterAttrs (key: value: value != null) cfg.settings);
 
       configurationYaml = settingsFormat.generate "slskd.yml" confWithoutNullValues;
     in

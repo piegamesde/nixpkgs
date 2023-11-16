@@ -37,7 +37,9 @@ stdenv.mkDerivation rec {
       --replace /lib/modules /run/booted-system/kernel-modules/lib/modules
 
     substituteInPlace src/Makefile sample_tuner/Makefile \
-      --replace 'BPF_INCLUDE := /usr/include' 'BPF_INCLUDE := ${lib.getDev libbpf}/include' \
+      --replace 'BPF_INCLUDE := /usr/include' 'BPF_INCLUDE := ${
+        lib.getDev libbpf
+      }/include' \
   '';
 
   nativeBuildInputs = [

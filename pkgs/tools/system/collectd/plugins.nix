@@ -75,7 +75,9 @@ let
       libxml2
     ];
     dbi.buildInputs = [ libdbi ];
-    disk.buildInputs = lib.optionals stdenv.isLinux [ udev ] ++ lib.optionals stdenv.isDarwin [ IOKit ];
+    disk.buildInputs =
+      lib.optionals stdenv.isLinux [ udev ]
+      ++ lib.optionals stdenv.isDarwin [ IOKit ];
     dns.buildInputs = [ libpcap ];
     ipmi.buildInputs = [ openipmi ];
     iptables.buildInputs =
@@ -171,7 +173,8 @@ let
   };
 
   configureFlags = lib.optionals (enabledPlugins != null) (
-    [ "--disable-all-plugins" ] ++ (map (plugin: "--enable-${plugin}") enabledPlugins)
+    [ "--disable-all-plugins" ]
+    ++ (map (plugin: "--enable-${plugin}") enabledPlugins)
   );
 
   pluginBuildInputs =

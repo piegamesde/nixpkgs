@@ -8,7 +8,8 @@
   zlib,
   dbus,
   networkmanager,
-  enableJavaScript ? stdenv.isDarwin || lib.meta.availableOn stdenv.hostPlatform duktape,
+  enableJavaScript ?
+    stdenv.isDarwin || lib.meta.availableOn stdenv.hostPlatform duktape,
   duktape,
   pcre,
   gsettings-desktop-schemas,
@@ -76,10 +77,13 @@ stdenv.mkDerivation rec {
         ]
     );
 
-  cmakeFlags = [
-    "-DWITH_PYTHON2=OFF"
-    "-DPYTHON3_SITEPKG_DIR=${placeholder "py3"}/${python3.sitePackages}"
-  ] ++ lib.optional (enableJavaScript && !stdenv.hostPlatform.isDarwin) "-DWITH_MOZJS=ON";
+  cmakeFlags =
+    [
+      "-DWITH_PYTHON2=OFF"
+      "-DPYTHON3_SITEPKG_DIR=${placeholder "py3"}/${python3.sitePackages}"
+    ]
+    ++ lib.optional (enableJavaScript && !stdenv.hostPlatform.isDarwin)
+      "-DWITH_MOZJS=ON";
 
   postFixup = lib.optionalString stdenv.isLinux ''
     # config_gnome3 uses the helper to find GNOME proxy settings

@@ -22,7 +22,9 @@ stdenv.mkDerivation rec {
     [
       # networkmanager relies on libjansson.so:
       #   https://github.com/NixOS/nixpkgs/pull/176302#issuecomment-1150239453
-      "-DJANSSON_BUILD_SHARED_LIBS=${if stdenv.hostPlatform.isStatic then "OFF" else "ON"}"
+      "-DJANSSON_BUILD_SHARED_LIBS=${
+        if stdenv.hostPlatform.isStatic then "OFF" else "ON"
+      }"
     ];
 
   meta = with lib; {

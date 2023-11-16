@@ -32,7 +32,9 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  propagatedBuildInputs = [ httpx ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    httpx
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [
     pytestCheckHook

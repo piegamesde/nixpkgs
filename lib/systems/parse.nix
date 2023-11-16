@@ -26,7 +26,11 @@ let
 
   setTypes =
     type:
-    mapAttrs (name: value: assert type.check value; setType type.name ({ inherit name; } // value));
+    mapAttrs (
+      name: value:
+      assert type.check value;
+      setType type.name ({ inherit name; } // value)
+    );
 
   # gnu-config will ignore the portion of a triple matching the
   # regex `e?abi.*$` when determining the validity of a triple.  In
@@ -76,7 +80,12 @@ rec {
     check =
       x:
       types.bitWidth.check x.bits
-      && (if 8 < x.bits then types.significantByte.check x.significantByte else !(x ? significantByte));
+      && (
+        if 8 < x.bits then
+          types.significantByte.check x.significantByte
+        else
+          !(x ? significantByte)
+      );
   };
 
   types.cpuType = enum (attrValues cpuTypes);
@@ -508,7 +517,9 @@ rec {
     description = "kernel name and information";
     merge = mergeOneOption;
     check =
-      x: types.execFormat.check x.execFormat && all types.kernelFamily.check (attrValues x.families);
+      x:
+      types.execFormat.check x.execFormat
+      && all types.kernelFamily.check (attrValues x.families);
   };
 
   types.kernel = enum (attrValues kernels);
@@ -734,7 +745,10 @@ rec {
 
   isSystem = isType "system";
 
-  mkSystem = components: assert types.parsedPlatform.check components; setType "system" components;
+  mkSystem =
+    components:
+    assert types.parsedPlatform.check components;
+    setType "system" components;
 
   mkSkeletonFromList =
     l:
@@ -826,8 +840,9 @@ rec {
         abi = elemAt l 3;
       };
     }
-    .${toString (length l)}
-      or (throw "system string has invalid number of hyphen-separated components");
+    .${toString (length l)} or (throw
+      "system string has invalid number of hyphen-separated components"
+    );
 
   # This should revert the job done by config.guess from the gcc compiler.
   mkSystemFromSkeleton =
@@ -869,7 +884,10 @@ rec {
             getAbi args.abi
           else if isLinux parsed || isWindows parsed then
             if isAarch32 parsed then
-              if lib.versionAtLeast (parsed.cpu.version or "0") "6" then abis.gnueabihf else abis.gnueabi
+              if lib.versionAtLeast (parsed.cpu.version or "0") "6" then
+                abis.gnueabihf
+              else
+                abis.gnueabi
             # Default ppc64 BE to ELFv2
             else if isPower64 parsed && isBigEndian parsed then
               abis.gnuabielfv2
@@ -881,7 +899,8 @@ rec {
     in
     mkSystem parsed;
 
-  mkSystemFromString = s: mkSystemFromSkeleton (mkSkeletonFromList (lib.splitString "-" s));
+  mkSystemFromString =
+    s: mkSystemFromSkeleton (mkSkeletonFromList (lib.splitString "-" s));
 
   kernelName = kernel: kernel.name + toString (kernel.version or "");
 
@@ -910,7 +929,8 @@ rec {
     assert isSystem sys;
     let
       optExecFormat =
-        lib.optionalString (kernel.name == "netbsd" && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat)
+        lib.optionalString
+          (kernel.name == "netbsd" && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat)
           kernel.execFormat.name;
       optAbi = lib.optionalString (abi != abis.unknown) "-${abi.name}";
     in

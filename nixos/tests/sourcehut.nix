@@ -5,12 +5,14 @@ import ./make-test-python.nix (
 
     # Note that wildcard certificates just under the TLD (eg. *.com)
     # would be rejected by clients like curl.
-    tls-cert = pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
-      openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
-        -subj '/CN=${domain}' -extensions v3_req \
-        -addext 'subjectAltName = DNS:*.${domain}'
-      install -D -t $out key.pem cert.pem
-    '';
+    tls-cert =
+      pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; }
+        ''
+          openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
+            -subj '/CN=${domain}' -extensions v3_req \
+            -addext 'subjectAltName = DNS:*.${domain}'
+          install -D -t $out key.pem cert.pem
+        '';
 
     images = {
       nixos.unstable.x86_64 =
@@ -177,7 +179,9 @@ import ./make-test-python.nix (
             service-key =
               pkgs.writeText "service-key"
                 "8b327279b77e32a3620e2fc9aabce491cc46e7d821fd6713b2a2e650ce114d01";
-            network-key = pkgs.writeText "network-key" "cEEmc30BRBGkgQZcHFksiG7hjc6_dK1XR2Oo5Jb9_nQ=";
+            network-key =
+              pkgs.writeText "network-key"
+                "cEEmc30BRBGkgQZcHFksiG7hjc6_dK1XR2Oo5Jb9_nQ=";
           };
           settings."builds.sr.ht" = {
             oauth-client-secret =

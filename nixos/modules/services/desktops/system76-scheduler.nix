@@ -40,7 +40,10 @@ let
     lib.genAttrs (attrNames optionSpecs) (
       name:
       mkOption (
-        optionSpecs.${name} // { default = optionSpecs.${name}.default or defaults.${name} or null; }
+        optionSpecs.${name}
+        // {
+          default = optionSpecs.${name}.default or defaults.${name} or null;
+        }
       )
     );
 
@@ -128,11 +131,15 @@ let
       p = cfg.settings.cfsProfiles.${name};
     in
     ''
-      ${name} latency=${toString p.latency} nr-latency=${toString p.nr-latency} wakeup-granularity=${
-        toString p.wakeup-granularity
-      } bandwidth-size=${toString p.bandwidth-size} preempt="${p.preempt}"'';
+      ${name} latency=${toString p.latency} nr-latency=${
+        toString p.nr-latency
+      } wakeup-granularity=${toString p.wakeup-granularity} bandwidth-size=${
+        toString p.bandwidth-size
+      } preempt="${p.preempt}"'';
 
-  prioToString = class: prio: if prio == null then ''"${class}"'' else "(${class})${toString prio}";
+  prioToString =
+    class: prio:
+    if prio == null then ''"${class}"'' else "(${class})${toString prio}";
 
   schedulerProfileToString =
     name: a: indent:
@@ -204,7 +211,9 @@ in
           useExecsnoop = mkOption {
             type = bool;
             default = true;
-            description = mdDoc "Use execsnoop (otherwise poll the precess list periodically).";
+            description =
+              mdDoc
+                "Use execsnoop (otherwise poll the precess list periodically).";
           };
 
           refreshInterval = mkOption {
@@ -365,7 +374,9 @@ in
             assignments {
           ''
           + (concatStringsSep "\n" (
-            map (name: schedulerProfileToString name cfg.assignments.${name} "  ") (attrNames cfg.assignments)
+            map (name: schedulerProfileToString name cfg.assignments.${name} "  ") (
+              attrNames cfg.assignments
+            )
           ))
           + ''
 

@@ -166,7 +166,10 @@ let
         option = mkOption {
           type = with types; nullOr str;
           default =
-            if cfg.tracing.config == null then null else toString (toYAML "tracing.yaml" cfg.tracing.config);
+            if cfg.tracing.config == null then
+              null
+            else
+              toString (toYAML "tracing.yaml" cfg.tracing.config);
           defaultText = literalExpression ''
             if config.services.thanos.<cmd>.tracing.config == null then null
             else toString (toYAML "tracing.yaml" config.services.thanos.<cmd>.tracing.config);
@@ -234,7 +237,10 @@ let
         option = mkOption {
           type = with types; nullOr str;
           default =
-            if cfg.objstore.config == null then null else toString (toYAML "objstore.yaml" cfg.objstore.config);
+            if cfg.objstore.config == null then
+              null
+            else
+              toString (toYAML "objstore.yaml" cfg.objstore.config);
           defaultText = literalExpression ''
             if config.services.thanos.<cmd>.objstore.config == null then null
             else toString (toYAML "objstore.yaml" config.services.thanos.<cmd>.objstore.config);
@@ -279,7 +285,9 @@ let
           option = mkOption {
             type = types.str;
             default = "/var/lib/${config.services.prometheus.stateDir}/data";
-            defaultText = literalExpression ''"/var/lib/''${config.services.prometheus.stateDir}/data"'';
+            defaultText =
+              literalExpression
+                ''"/var/lib/''${config.services.prometheus.stateDir}/data"'';
             description = lib.mdDoc ''
               Data directory of TSDB.
             '';
@@ -762,14 +770,16 @@ in
 
     compact = paramsToOptions params.compact // {
       enable = mkEnableOption (
-        lib.mdDoc "the Thanos compactor which continuously compacts blocks in an object store bucket"
+        lib.mdDoc
+          "the Thanos compactor which continuously compacts blocks in an object store bucket"
       );
       arguments = mkArgumentsOption "compact";
     };
 
     downsample = paramsToOptions params.downsample // {
       enable = mkEnableOption (
-        lib.mdDoc "the Thanos downsampler which continuously downsamples blocks in an object store bucket"
+        lib.mdDoc
+          "the Thanos downsampler which continuously downsamples blocks in an object store bucket"
       );
       arguments = mkArgumentsOption "downsample";
     };

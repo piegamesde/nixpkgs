@@ -9,8 +9,10 @@ import ../make-test-python.nix (
       };
     };
 
-    container-image-metadata = releases.lxdContainerMeta.${pkgs.stdenv.hostPlatform.system};
-    container-image-rootfs = releases.lxdContainerImage.${pkgs.stdenv.hostPlatform.system};
+    container-image-metadata =
+      releases.lxdContainerMeta.${pkgs.stdenv.hostPlatform.system};
+    container-image-rootfs =
+      releases.lxdContainerImage.${pkgs.stdenv.hostPlatform.system};
   in
   {
     name = "incus-container";

@@ -14,7 +14,9 @@ let
   spago = lib.pipe haskell.packages.ghc90.spago [
     haskell.lib.compose.justStaticExecutables
     (haskell.lib.compose.overrideCabal (
-      oldAttrs: { changelog = "https://github.com/purescript/spago/releases/tag/${oldAttrs.version}"; }
+      oldAttrs: {
+        changelog = "https://github.com/purescript/spago/releases/tag/${oldAttrs.version}";
+      }
     ))
   ];
 in

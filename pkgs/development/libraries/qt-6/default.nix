@@ -147,7 +147,9 @@ let
       qtserialbus = callPackage ./modules/qtserialbus.nix { };
       qtserialport = callPackage ./modules/qtserialport.nix { };
       qtshadertools = callPackage ./modules/qtshadertools.nix { };
-      qtspeech = callPackage ./modules/qtspeech.nix { inherit (darwin.apple_sdk_11_0.frameworks) Cocoa; };
+      qtspeech = callPackage ./modules/qtspeech.nix {
+        inherit (darwin.apple_sdk_11_0.frameworks) Cocoa;
+      };
       qtquick3d = callPackage ./modules/qtquick3d.nix { };
       qtquick3dphysics = callPackage ./modules/qtquick3dphysics.nix { };
       qtquickeffectmaker = callPackage ./modules/qtquickeffectmaker.nix { };

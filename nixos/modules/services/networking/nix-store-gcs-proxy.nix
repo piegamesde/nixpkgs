@@ -31,7 +31,9 @@ let
         };
       };
     };
-  enabledProxies = lib.filterAttrs (n: v: v.enable) config.services.nix-store-gcs-proxy;
+  enabledProxies =
+    lib.filterAttrs (n: v: v.enable)
+      config.services.nix-store-gcs-proxy;
   mapProxies = function: lib.mkMerge (lib.mapAttrsToList function enabledProxies);
 in
 {

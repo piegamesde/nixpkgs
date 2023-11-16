@@ -112,7 +112,11 @@ stdenv.mkDerivation (
                   ""
                 else
                   (lib.optionalString
-                    (unwrappedCC ? targetConfig && unwrappedCC.targetConfig != null && unwrappedCC.targetConfig != "")
+                    (
+                      unwrappedCC ? targetConfig
+                      && unwrappedCC.targetConfig != null
+                      && unwrappedCC.targetConfig != ""
+                    )
                     "${unwrappedCC.targetConfig}-"
                   );
             in

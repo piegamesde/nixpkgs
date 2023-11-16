@@ -49,7 +49,9 @@ stdenv.mkDerivation (
       pkg-config
     ];
 
-    configureFlags = lib.optional stdenv.cc.isClang "--host=${stdenv.hostPlatform.system}";
+    configureFlags =
+      lib.optional stdenv.cc.isClang
+        "--host=${stdenv.hostPlatform.system}";
 
     enableParallelBuilding = true;
 

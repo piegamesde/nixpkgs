@@ -64,7 +64,9 @@
 
 let
   readLinesToList =
-    with builtins; file: filter (s: isString s && stringLength s > 0) (split "\n" (readFile file));
+    with builtins;
+    file:
+    filter (s: isString s && stringLength s > 0) (split "\n" (readFile file));
 in
 stdenv.mkDerivation rec {
   pname = "jami";

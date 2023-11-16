@@ -305,7 +305,9 @@ in
     # see https://github.com/NixOS/nixpkgs/issues/132732
     environment.etc.zinputrc.text = builtins.readFile ./zinputrc;
 
-    environment.systemPackages = [ pkgs.zsh ] ++ optional cfg.enableCompletion pkgs.nix-zsh-completions;
+    environment.systemPackages = [
+      pkgs.zsh
+    ] ++ optional cfg.enableCompletion pkgs.nix-zsh-completions;
 
     environment.pathsToLink = optional cfg.enableCompletion "/share/zsh";
 

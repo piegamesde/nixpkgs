@@ -20,7 +20,8 @@ import ./make-test-python.nix (
         auto=add
       '';
       environment.etc."ipsec.d/tunnel.secrets" = {
-        text = ''@alice @bob : PSK "j1JbIi9WY07rxwcNQ6nbyThKCf9DGxWOyokXIQcAQUnafsNTUJxfsxwk9WYK8fHj"'';
+        text = ''
+          @alice @bob : PSK "j1JbIi9WY07rxwcNQ6nbyThKCf9DGxWOyokXIQcAQUnafsNTUJxfsxwk9WYK8fHj"'';
         mode = "600";
       };
     };

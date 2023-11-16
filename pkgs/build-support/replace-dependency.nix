@@ -73,7 +73,8 @@ let
     map
       (drv: {
         name = discard (toString drv);
-        value = elem oldStorepath (referencesOf drv) || any dependsOnOld (referencesOf drv);
+        value =
+          elem oldStorepath (referencesOf drv) || any dependsOnOld (referencesOf drv);
       })
       (builtins.attrNames references)
   );
@@ -81,14 +82,20 @@ let
   dependsOnOld = drv: dependsOnOldMemo.${discard (toString drv)};
 
   drvName =
-    drv: discard (substring 33 (stringLength (builtins.baseNameOf drv)) (builtins.baseNameOf drv));
+    drv:
+    discard (
+      substring 33 (stringLength (builtins.baseNameOf drv)) (builtins.baseNameOf drv)
+    );
 
   rewriteHashes =
     drv: hashes:
     runCommandLocal (drvName drv) { nixStore = "${nix.out}/bin/nix-store"; } ''
-      $nixStore --dump ${drv} | sed 's|${baseNameOf drv}|'$(basename $out)'|g' | sed -e ${
+      $nixStore --dump ${drv} | sed 's|${
+        baseNameOf drv
+      }|'$(basename $out)'|g' | sed -e ${
         concatStringsSep " -e " (
-          mapAttrsToList (name: value: "'s|${baseNameOf name}|${baseNameOf value}|g'") hashes
+          mapAttrsToList (name: value: "'s|${baseNameOf name}|${baseNameOf value}|g'")
+            hashes
         )
       } | $nixStore --restore $out
     '';
@@ -106,7 +113,11 @@ let
         (drv: {
           name = discard (toString drv);
           value = rewriteHashes (builtins.storePath drv) (
-            filterAttrs (n: v: builtins.elem (builtins.storePath (discard (toString n))) (referencesOf drv))
+            filterAttrs
+              (
+                n: v:
+                builtins.elem (builtins.storePath (discard (toString n))) (referencesOf drv)
+              )
               rewriteMemo
           );
         })
@@ -117,7 +128,8 @@ let
   drvHash = discard (toString drv);
 in
 assert (
-  stringLength (drvName (toString oldDependency)) == stringLength (drvName (toString newDependency))
+  stringLength (drvName (toString oldDependency))
+  == stringLength (drvName (toString newDependency))
 );
 rewriteMemo.${drvHash} or (warn
   "replace-dependency.nix: Derivation ${drvHash} does not depend on ${

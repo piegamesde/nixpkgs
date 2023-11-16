@@ -61,17 +61,21 @@ stdenv.mkDerivation rec {
     ./consistent-sbindir-usage.patch
   ];
 
-  configureFlags = [
-    "--disable-ldconfig"
-    "--exec-prefix=\${prefix}"
-    "--enable-mount-helper"
-    "--enable-posix-acls"
-    "--enable-xattr-mappings"
-    "--${if crypto then "enable" else "disable"}-crypto"
-    "--enable-extras"
-    "--with-mount-helper=${mount}/bin/mount"
-    "--with-umount-helper=${mount}/bin/umount"
-  ] ++ lib.optionals stdenv.isLinux [ "--with-modprobe-helper=${kmod}/bin/modprobe" ];
+  configureFlags =
+    [
+      "--disable-ldconfig"
+      "--exec-prefix=\${prefix}"
+      "--enable-mount-helper"
+      "--enable-posix-acls"
+      "--enable-xattr-mappings"
+      "--${if crypto then "enable" else "disable"}-crypto"
+      "--enable-extras"
+      "--with-mount-helper=${mount}/bin/mount"
+      "--with-umount-helper=${mount}/bin/umount"
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      "--with-modprobe-helper=${kmod}/bin/modprobe"
+    ];
 
   postInstall = ''
     # Prefer ntfs-3g over the ntfs driver in the kernel.

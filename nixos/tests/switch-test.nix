@@ -158,7 +158,9 @@ import ./make-test-python.nix (
 
             simpleServiceFailing.configuration = {
               imports = [ simpleServiceModified.configuration ];
-              systemd.services.test.serviceConfig.ExecStart = lib.mkForce "${pkgs.coreutils}/bin/false";
+              systemd.services.test.serviceConfig.ExecStart =
+                lib.mkForce
+                  "${pkgs.coreutils}/bin/false";
             };
 
             autorestartService.configuration = {
@@ -394,7 +396,8 @@ import ./make-test-python.nix (
                 };
 
                 reload-triggers-and-restart-by-as = simple-service;
-                "templated-reload-triggers-and-restart-by-as@" = reload-triggers-and-restart-by-as;
+                "templated-reload-triggers-and-restart-by-as@" =
+                  reload-triggers-and-restart-by-as;
                 "templated-reload-triggers-and-restart-by-as@instance".overrideStrategy = "asDropin";
 
                 reload-triggers-and-restart = simple-service // {
@@ -542,7 +545,9 @@ import ./make-test-python.nix (
 
             timerModified.configuration = {
               imports = [ timer.configuration ];
-              systemd.timers.test-timer.timerConfig.OnCalendar = lib.mkForce "Fri 2012-11-23 16:00:00";
+              systemd.timers.test-timer.timerConfig.OnCalendar =
+                lib.mkForce
+                  "Fri 2012-11-23 16:00:00";
             };
 
             hybridSleepModified.configuration = {
@@ -631,7 +636,8 @@ import ./make-test-python.nix (
 
         # Returns a comma separated representation of the given list in sorted
         # order, that matches the output format of switch-to-configuration.pl
-        sortedUnits = xs: lib.concatStringsSep ", " (builtins.sort builtins.lessThan xs);
+        sortedUnits =
+          xs: lib.concatStringsSep ", " (builtins.sort builtins.lessThan xs);
       in
       # python
       ''

@@ -10,7 +10,9 @@ import ./make-test-python.nix (
   let
 
     ifAddr =
-      node: iface: (pkgs.lib.head node.config.networking.interfaces.${iface}.ipv4.addresses).address;
+      node: iface:
+      (pkgs.lib.head node.config.networking.interfaces.${iface}.ipv4.addresses)
+      .address;
 
     ospfConf1 = ''
       router ospf

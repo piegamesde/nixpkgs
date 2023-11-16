@@ -44,7 +44,8 @@ buildGoModule rec {
         mapAttrsToFlatList
           (
             package: packageVars:
-            mapAttrsToList (variable: value: "-X ${package}.${variable}=${value}") packageVars
+            mapAttrsToList (variable: value: "-X ${package}.${variable}=${value}")
+              packageVars
           )
           setVars
       );

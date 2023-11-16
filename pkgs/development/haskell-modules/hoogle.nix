@@ -25,7 +25,11 @@ let
   isGhcjs = ghc.isGhcjs or false;
   opts = lib.optionalString;
   haddockExe = if !isGhcjs then "haddock" else "haddock-ghcjs";
-  ghcDocLibDir = if !isGhcjs then ghc.doc + "/share/doc/ghc*/html/libraries" else ghc + "/doc/lib";
+  ghcDocLibDir =
+    if !isGhcjs then
+      ghc.doc + "/share/doc/ghc*/html/libraries"
+    else
+      ghc + "/doc/lib";
   # On GHCJS, use a stripped down version of GHC's prologue.txt
   prologue =
     if !isGhcjs then

@@ -35,7 +35,8 @@
 let
   loName = lib.toLower productShort;
   hiName = lib.toUpper productShort;
-  vmoptsName = loName + lib.optionalString stdenv.hostPlatform.is64bit "64" + ".vmoptions";
+  vmoptsName =
+    loName + lib.optionalString stdenv.hostPlatform.is64bit "64" + ".vmoptions";
 in
 
 with stdenv;

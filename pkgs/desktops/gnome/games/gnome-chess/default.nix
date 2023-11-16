@@ -25,7 +25,9 @@ stdenv.mkDerivation rec {
   version = "43.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-chess/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-chess/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "NIUI+PbnRRwHNE/6egmpkM8dKIO8z1M0CdvgKSaNSfI=";
   };
 

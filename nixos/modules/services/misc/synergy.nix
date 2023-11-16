@@ -24,7 +24,8 @@ in
 
       client = {
         enable = mkEnableOption (
-          lib.mdDoc "the Synergy client (receive keyboard and mouse events from a Synergy server)"
+          lib.mdDoc
+            "the Synergy client (receive keyboard and mouse events from a Synergy server)"
         );
 
         screenName = mkOption {
@@ -46,12 +47,16 @@ in
         autoStart = mkOption {
           default = true;
           type = types.bool;
-          description = lib.mdDoc "Whether the Synergy client should be started automatically.";
+          description =
+            lib.mdDoc
+              "Whether the Synergy client should be started automatically.";
         };
       };
 
       server = {
-        enable = mkEnableOption (lib.mdDoc "the Synergy server (send keyboard and mouse events)");
+        enable = mkEnableOption (
+          lib.mdDoc "the Synergy server (send keyboard and mouse events)"
+        );
 
         configFile = mkOption {
           type = types.path;
@@ -74,7 +79,9 @@ in
         autoStart = mkOption {
           default = true;
           type = types.bool;
-          description = lib.mdDoc "Whether the Synergy server should be started automatically.";
+          description =
+            lib.mdDoc
+              "Whether the Synergy server should be started automatically.";
         };
         tls = {
           enable = mkOption {

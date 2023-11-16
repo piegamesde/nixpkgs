@@ -11,7 +11,9 @@ haskell.lib.compose.justStaticExecutables (
 
       configureFlags = (oldAttrs.configureFlags or [ ]) ++ [ "-fbuildexe" ];
 
-      buildDepends = (oldAttrs.buildDepends or [ ]) ++ [ haskellPackages.optparse-applicative ];
+      buildDepends = (oldAttrs.buildDepends or [ ]) ++ [
+        haskellPackages.optparse-applicative
+      ];
     })
     haskellPackages.pretty-simple
 )

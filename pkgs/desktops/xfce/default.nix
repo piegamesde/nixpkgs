@@ -129,7 +129,9 @@ makeScopeWithSplicing' {
 
         xfce4-genmon-plugin = callPackage ./panel-plugins/xfce4-genmon-plugin { };
 
-        xfce4-i3-workspaces-plugin = callPackage ./panel-plugins/xfce4-i3-workspaces-plugin { };
+        xfce4-i3-workspaces-plugin =
+          callPackage ./panel-plugins/xfce4-i3-workspaces-plugin
+            { };
 
         xfce4-namebar-plugin = callPackage ./panel-plugins/xfce4-namebar-plugin { };
 
@@ -143,7 +145,9 @@ makeScopeWithSplicing' {
 
         xfce4-sensors-plugin = callPackage ./panel-plugins/xfce4-sensors-plugin { };
 
-        xfce4-systemload-plugin = callPackage ./panel-plugins/xfce4-systemload-plugin { };
+        xfce4-systemload-plugin =
+          callPackage ./panel-plugins/xfce4-systemload-plugin
+            { };
 
         xfce4-time-out-plugin = callPackage ./panel-plugins/xfce4-time-out-plugin { };
 
@@ -155,11 +159,15 @@ makeScopeWithSplicing' {
 
         xfce4-weather-plugin = callPackage ./panel-plugins/xfce4-weather-plugin { };
 
-        xfce4-whiskermenu-plugin = callPackage ./panel-plugins/xfce4-whiskermenu-plugin { };
+        xfce4-whiskermenu-plugin =
+          callPackage ./panel-plugins/xfce4-whiskermenu-plugin
+            { };
 
         xfce4-windowck-plugin = callPackage ./panel-plugins/xfce4-windowck-plugin { };
 
-        xfce4-pulseaudio-plugin = callPackage ./panel-plugins/xfce4-pulseaudio-plugin { };
+        xfce4-pulseaudio-plugin =
+          callPackage ./panel-plugins/xfce4-pulseaudio-plugin
+            { };
       }
       // lib.optionalAttrs config.allowAliases {
         #### ALIASES

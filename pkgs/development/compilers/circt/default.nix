@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
   #
   # As a temporary fix, we disabled these tests when using clang stdenv
   # cannot use lib.optionalString as it creates an empty string, disabling all tests
-  LIT_FILTER_OUT = if stdenv.cc.isClang then "CIRCT :: Target/ExportSystemC/.*.mlir" else null;
+  LIT_FILTER_OUT =
+    if stdenv.cc.isClang then "CIRCT :: Target/ExportSystemC/.*.mlir" else null;
 
   preConfigure = ''
     find ./test -name '*.mlir' -exec sed -i 's|/usr/bin/env|${coreutils}/bin/env|g' {} \;

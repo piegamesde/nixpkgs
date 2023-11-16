@@ -25,7 +25,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "deJZPaZW6rb7A6wOL3vcphBXu0F7EXc1xRwSDY/v8l4=";
 
-  nativeBuildInputs = lib.optional (installManPages || installShellCompletions) installShellFiles;
+  nativeBuildInputs =
+    lib.optional (installManPages || installShellCompletions)
+      installShellFiles;
 
   buildInputs = lib.optional withNotmuchBackend notmuch;
 

@@ -38,7 +38,9 @@ let
       define('RTL_CSS', 'rtl.css'); // For right to left languages.
       define('LANG_DEFAULT', '${cfg.settings.defaultLanguage}');
       define('CURRENCY_DEFAULT', '${cfg.settings.defaultCurrency}');
-      define('EXPORT_DECIMAL_DURATION', ${lib.boolToString cfg.settings.exportDecimalDuration});
+      define('EXPORT_DECIMAL_DURATION', ${
+        lib.boolToString cfg.settings.exportDecimalDuration
+      });
       define('REPORT_FOOTER', ${lib.boolToString cfg.settings.reportFooter});
       define('AUTH_MODULE', 'db');
     '';
@@ -124,7 +126,10 @@ in
     hostname = lib.mkOption {
       type = lib.types.str;
       default =
-        if config.networking.domain != null then config.networking.fqdn else config.networking.hostName;
+        if config.networking.domain != null then
+          config.networking.fqdn
+        else
+          config.networking.hostName;
       defaultText = lib.literalExpression "config.networking.fqdn";
       example = "anuko.example.com";
       description = lib.mdDoc ''
@@ -134,7 +139,9 @@ in
 
     nginx = lib.mkOption {
       type = lib.types.submodule (
-        lib.recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) { }
+        lib.recursiveUpdate
+          (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
+          { }
       );
       default = { };
       example = lib.literalExpression ''
@@ -179,7 +186,9 @@ in
       emailRequired = lib.mkOption {
         type = lib.types.bool;
         default = false;
-        description = lib.mdDoc "Defines whether an email is required for new registrations.";
+        description =
+          lib.mdDoc
+            "Defines whether an email is required for new registrations.";
       };
 
       weekendStartDay = lib.mkOption {
@@ -306,7 +315,8 @@ in
         '';
       }
       {
-        assertion = cfg.settings.email.smtpAuth -> (cfg.settings.email.smtpPasswordFile != null);
+        assertion =
+          cfg.settings.email.smtpAuth -> (cfg.settings.email.smtpPasswordFile != null);
         message = ''
           <option>services.anuko-time-tracker.settings.email.smtpPasswordFile</option> needs to be set if
           <option>services.anuko-time-tracker.settings.email.smtpAuth</option> is enabled.

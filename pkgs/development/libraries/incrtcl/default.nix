@@ -25,7 +25,9 @@ tcl.mkTclDerivation rec {
     rmdir $out/bin
     mv $out/lib/itcl${version}/* $out/lib
     ln -s libitcl${version}${stdenv.hostPlatform.extensions.sharedLibrary} \
-      $out/lib/libitcl${lib.versions.major version}${stdenv.hostPlatform.extensions.sharedLibrary}
+      $out/lib/libitcl${
+        lib.versions.major version
+      }${stdenv.hostPlatform.extensions.sharedLibrary}
     rmdir $out/lib/itcl${version}
   '';
 

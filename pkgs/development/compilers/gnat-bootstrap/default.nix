@@ -21,7 +21,9 @@
 }:
 
 let
-  throwUnsupportedSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
+  throwUnsupportedSystem =
+    throw
+      "Unsupported system: ${stdenv.hostPlatform.system}";
 in
 stdenv.mkDerivation (
   finalAttrs:
@@ -74,7 +76,9 @@ stdenv.mkDerivation (
     pname = "gnat-bootstrap";
     inherit (versionMap.${majorVersion}) gccVersion alireRevision;
 
-    version = "${gccVersion}${lib.optionalString (alireRevision != "") "-"}${alireRevision}";
+    version = "${gccVersion}${
+        lib.optionalString (alireRevision != "") "-"
+      }${alireRevision}";
 
     src = fetchzip { inherit (versionMap.${majorVersion}) url hash; };
 

@@ -25,7 +25,8 @@ let
       darwin,
 
       # This is important to obtain a version of `libpq` that does not depend on systemd.
-      enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd && !stdenv.hostPlatform.isStatic,
+      enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+        && !stdenv.hostPlatform.isStatic,
       gssSupport ? with stdenv.hostPlatform; !isWindows && !isStatic,
 
       # for postgresql.pkgs
@@ -158,7 +159,9 @@ let
 
             (substituteAll {
               src = ./locale-binary-path.patch;
-              locale = "${if stdenv.isDarwin then darwin.adv_cmds else lib.getBin stdenv.cc.libc}/bin/locale";
+              locale = "${
+                  if stdenv.isDarwin then darwin.adv_cmds else lib.getBin stdenv.cc.libc
+                }/bin/locale";
             })
           ]
           ++ lib.optionals stdenv'.hostPlatform.isMusl (
@@ -202,12 +205,18 @@ let
               };
 
               patchesForVersion =
-                self.${lib.versions.major version} or (throw "no musl patches for postgresql ${version}");
+                self.${lib.versions.major version}
+                  or (throw "no musl patches for postgresql ${version}");
             in
             lib.attrValues patchesForVersion
           )
           ++ lib.optionals stdenv'.isLinux [
-            (if atLeast "13" then ./patches/socketdir-in-run-13.patch else ./patches/socketdir-in-run.patch)
+            (
+              if atLeast "13" then
+                ./patches/socketdir-in-run-13.patch
+              else
+                ./patches/socketdir-in-run.patch
+            )
           ];
 
         installTargets = [ "install-world" ];
@@ -276,10 +285,12 @@ let
             ''}
           '';
 
-        postFixup = lib.optionalString (!stdenv'.isDarwin && stdenv'.hostPlatform.libc == "glibc") ''
-          # initdb needs access to "locale" command from glibc.
-          wrapProgram $out/bin/initdb --prefix PATH ":" ${glibc.bin}/bin
-        '';
+        postFixup =
+          lib.optionalString (!stdenv'.isDarwin && stdenv'.hostPlatform.libc == "glibc")
+            ''
+              # initdb needs access to "locale" command from glibc.
+              wrapProgram $out/bin/initdb --prefix PATH ":" ${glibc.bin}/bin
+            '';
 
         doCheck = !stdenv'.isDarwin;
         # autodetection doesn't seem to able to find this, but it's there.
@@ -316,7 +327,8 @@ let
             withJIT = if jitSupport then this else jitToggle;
             withoutJIT = if jitSupport then jitToggle else this;
 
-            dlSuffix = if olderThan "16" then ".so" else stdenv.hostPlatform.extensions.sharedLibrary;
+            dlSuffix =
+              if olderThan "16" then ".so" else stdenv.hostPlatform.extensions.sharedLibrary;
 
             pkgs =
               let
@@ -346,10 +358,14 @@ let
                 }
                 this.pkgs;
 
-            tests = {
-              postgresql = nixosTests.postgresql-wal-receiver.${thisAttr};
-              pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-            } // lib.optionalAttrs jitSupport { postgresql-jit = nixosTests.postgresql-jit.${thisAttr}; };
+            tests =
+              {
+                postgresql = nixosTests.postgresql-wal-receiver.${thisAttr};
+                pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
+              }
+              // lib.optionalAttrs jitSupport {
+                postgresql-jit = nixosTests.postgresql-jit.${thisAttr};
+              };
           }
           // lib.optionalAttrs jitSupport { inherit (llvmPackages) llvm; };
 

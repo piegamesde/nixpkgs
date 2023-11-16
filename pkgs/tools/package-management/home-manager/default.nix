@@ -56,7 +56,9 @@ stdenvNoCC.mkDerivation (
             unixtools.hostname
           ]
         }" \
-        --subst-var-by HOME_MANAGER_LIB '${placeholder "out"}/share/bash/home-manager.sh' \
+        --subst-var-by HOME_MANAGER_LIB '${
+          placeholder "out"
+        }/share/bash/home-manager.sh' \
         --subst-var-by HOME_MANAGER_PATH "${finalAttrs.src}" \
         --subst-var-by OUT '${placeholder "out"}'
 

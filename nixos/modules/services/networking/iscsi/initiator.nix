@@ -51,13 +51,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.etc."iscsi/iscsid.conf.fragment".source = pkgs.runCommand "iscsid.conf" { } ''
-      cat "${cfg.package}/etc/iscsi/iscsid.conf" > $out
-      cat << 'EOF' >> $out
-      ${cfg.extraConfig}
-      ${optionalString cfg.enableAutoLoginOut "node.startup = automatic"}
-      EOF
-    '';
+    environment.etc."iscsi/iscsid.conf.fragment".source =
+      pkgs.runCommand "iscsid.conf" { }
+        ''
+          cat "${cfg.package}/etc/iscsi/iscsid.conf" > $out
+          cat << 'EOF' >> $out
+          ${cfg.extraConfig}
+          ${optionalString cfg.enableAutoLoginOut "node.startup = automatic"}
+          EOF
+        '';
     environment.etc."iscsi/initiatorname.iscsi".text = "InitiatorName=${cfg.name}";
 
     systemd.packages = [ cfg.package ];

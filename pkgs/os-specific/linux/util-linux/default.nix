@@ -26,7 +26,10 @@
 
 stdenv.mkDerivation rec {
   pname =
-    "util-linux" + lib.optionalString (!nlsSupport && !ncursesSupport && !systemdSupport) "-minimal";
+    "util-linux"
+    +
+      lib.optionalString (!nlsSupport && !ncursesSupport && !systemdSupport)
+        "-minimal";
   version = "2.39.2";
 
   src = fetchurl {
@@ -72,21 +75,26 @@ stdenv.mkDerivation rec {
   # (/sbin/mount.*) through an environment variable, but that's
   # somewhat risky because we have to consider that mount can setuid
   # root...
-  configureFlags = [
-    "--localstatedir=/var"
-    "--disable-use-tty-group"
-    "--enable-fs-paths-default=/run/wrappers/bin:/run/current-system/sw/bin:/sbin"
-    "--disable-makeinstall-setuid"
-    "--disable-makeinstall-chown"
-    "--disable-su" # provided by shadow
-    (lib.enableFeature writeSupport "write")
-    (lib.enableFeature nlsSupport "nls")
-    (lib.withFeature ncursesSupport "ncursesw")
-    (lib.withFeature systemdSupport "systemd")
-    (lib.withFeatureAs systemdSupport "systemdsystemunitdir" "${placeholder "bin"}/lib/systemd/system/")
-    (lib.enableFeature translateManpages "poman")
-    "SYSCONFSTATICDIR=${placeholder "lib"}/lib"
-  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "scanf_cv_type_modifier=ms";
+  configureFlags =
+    [
+      "--localstatedir=/var"
+      "--disable-use-tty-group"
+      "--enable-fs-paths-default=/run/wrappers/bin:/run/current-system/sw/bin:/sbin"
+      "--disable-makeinstall-setuid"
+      "--disable-makeinstall-chown"
+      "--disable-su" # provided by shadow
+      (lib.enableFeature writeSupport "write")
+      (lib.enableFeature nlsSupport "nls")
+      (lib.withFeature ncursesSupport "ncursesw")
+      (lib.withFeature systemdSupport "systemd")
+      (lib.withFeatureAs systemdSupport "systemdsystemunitdir"
+        "${placeholder "bin"}/lib/systemd/system/"
+      )
+      (lib.enableFeature translateManpages "poman")
+      "SYSCONFSTATICDIR=${placeholder "lib"}/lib"
+    ]
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+      "scanf_cv_type_modifier=ms";
 
   makeFlags = [
     "usrbin_execdir=${placeholder "bin"}/bin"

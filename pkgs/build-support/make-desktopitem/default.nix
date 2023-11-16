@@ -131,7 +131,8 @@ lib.makeOverridable (
         "Icon" = icon;
         "Exec" = exec;
       };
-    renderAction = name: attrs: renderSection "Desktop Action ${name}" (preprocessAction attrs);
+    renderAction =
+      name: attrs: renderSection "Desktop Action ${name}" (preprocessAction attrs);
     actionsRendered = lib.mapAttrsToList renderAction actions;
 
     content = [ mainSectionRendered ] ++ actionsRendered;
@@ -140,6 +141,7 @@ lib.makeOverridable (
     name = "${name}.desktop";
     destination = "/share/applications/${name}.desktop";
     text = builtins.concatStringsSep "\n" content;
-    checkPhase = ''${buildPackages.desktop-file-utils}/bin/desktop-file-validate "$target"'';
+    checkPhase = ''
+      ${buildPackages.desktop-file-utils}/bin/desktop-file-validate "$target"'';
   }
 )

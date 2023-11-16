@@ -90,9 +90,11 @@ let
         description = lib.mdDoc ''
           Display scaling factor.
         '';
-        type = types.nullOr (types.addCheck (types.either types.int types.float) (x: x > 0)) // {
-          description = "null or positive integer or float";
-        };
+        type =
+          types.nullOr (types.addCheck (types.either types.int types.float) (x: x > 0))
+          // {
+            description = "null or positive integer or float";
+          };
         default = null;
         example = 2;
       };
@@ -120,7 +122,11 @@ let
   renderPhocOutput =
     name: output:
     let
-      modelines = if builtins.isList output.modeline then output.modeline else [ output.modeline ];
+      modelines =
+        if builtins.isList output.modeline then
+          output.modeline
+        else
+          [ output.modeline ];
       renderModeline = l: "modeline = ${l}";
     in
     ''

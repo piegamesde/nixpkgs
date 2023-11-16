@@ -164,7 +164,9 @@ in
           lib.mapAttrsToList (_n: v: v.repartConfig.Format or null) cfg.partitions
         );
 
-        fileSystemTools = builtins.concatMap (f: fileSystemToolMapping."${f}") fileSystems;
+        fileSystemTools =
+          builtins.concatMap (f: fileSystemToolMapping."${f}")
+            fileSystems;
 
         makeClosure = paths: pkgs.closureInfo { rootPaths = paths; };
 

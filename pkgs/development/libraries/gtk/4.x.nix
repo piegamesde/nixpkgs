@@ -81,7 +81,9 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gtk/${lib.versions.majorMinor version}/gtk-${version}.tar.xz";
+    url = "mirror://gnome/sources/gtk/${
+        lib.versions.majorMinor version
+      }/gtk-${version}.tar.xz";
     sha256 = "dyVABILgaF4oJl4ibGKEf05zz8qem0FqxYOCB/U3eiQ=";
   };
 
@@ -106,9 +108,9 @@ stdenv.mkDerivation rec {
       gi-docgen
       libxml2 # for xmllint
     ]
-    ++ lib.optionals (compileSchemas && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
-    ]
+    ++ lib.optionals
+      (compileSchemas && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+      [ mesonEmulatorHook ]
     ++ lib.optionals waylandSupport [ wayland-scanner ]
     ++ setupHooks;
 
@@ -190,14 +192,18 @@ stdenv.mkDerivation rec {
 
   # These are the defines that'd you'd get with --enable-debug=minimum (default).
   # See: https://developer.gnome.org/gtk3/stable/gtk-building.html#extra-configuration-options
-  env = {
-    NIX_CFLAGS_COMPILE = "-DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS";
-  } // lib.optionalAttrs stdenv.hostPlatform.isMusl { NIX_LDFLAGS = "-lexecinfo"; };
+  env =
+    {
+      NIX_CFLAGS_COMPILE = "-DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS";
+    }
+    // lib.optionalAttrs stdenv.hostPlatform.isMusl { NIX_LDFLAGS = "-lexecinfo"; };
 
   postPatch = ''
     # this conditional gates the installation of share/gsettings-schemas/.../glib-2.0/schemas/gschemas.compiled.
     substituteInPlace meson.build \
-      --replace 'if not meson.is_cross_build()' 'if ${lib.boolToString compileSchemas}'
+      --replace 'if not meson.is_cross_build()' 'if ${
+        lib.boolToString compileSchemas
+      }'
 
     files=(
       build-aux/meson/gen-demo-header.py

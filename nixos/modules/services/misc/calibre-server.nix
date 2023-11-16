@@ -12,7 +12,8 @@ let
   cfg = config.services.calibre-server;
 
   documentationLink = "https://manual.calibre-ebook.com";
-  generatedDocumentationLink = documentationLink + "/generated/en/calibre-server.html";
+  generatedDocumentationLink =
+    documentationLink + "/generated/en/calibre-server.html";
 
   execFlags =
     (concatStringsSep " " (

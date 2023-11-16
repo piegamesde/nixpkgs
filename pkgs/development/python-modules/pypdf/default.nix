@@ -57,7 +57,9 @@ buildPythonPackage rec {
       --replace "--disable-socket" ""
   '';
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [
+    typing-extensions
+  ];
 
   passthru.optional-dependencies = rec {
     full = crypto ++ image;

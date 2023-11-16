@@ -28,15 +28,17 @@ let
 
   # Cyclic dependencies are fun!
   # This is gradio without gradio-client, only needed for checkPhase
-  gradio' = (gradio.override (old: { gradio-client = null; })).overridePythonAttrs (
-    old: {
-      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pythonRelaxDepsHook ];
-      pythonRemoveDeps = (old.pythonRemoveDeps or [ ]) ++ [ "gradio_client" ];
-      doInstallCheck = false;
-      doCheck = false;
-      pythonImportsCheck = null;
-    }
-  );
+  gradio' =
+    (gradio.override (old: { gradio-client = null; })).overridePythonAttrs
+      (
+        old: {
+          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pythonRelaxDepsHook ];
+          pythonRemoveDeps = (old.pythonRemoveDeps or [ ]) ++ [ "gradio_client" ];
+          doInstallCheck = false;
+          doCheck = false;
+          pythonImportsCheck = null;
+        }
+      );
 in
 
 buildPythonPackage rec {

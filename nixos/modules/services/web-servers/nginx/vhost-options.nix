@@ -227,7 +227,9 @@ with lib; {
       type = types.nullOr types.path;
       default = null;
       example = literalExpression ''"''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"'';
-      description = lib.mdDoc "Path to root SSL certificate for stapling and client certificates.";
+      description =
+        lib.mdDoc
+          "Path to root SSL certificate for stapling and client certificates.";
     };
 
     http2 = mkOption {
@@ -360,7 +362,9 @@ with lib; {
     };
 
     locations = mkOption {
-      type = types.attrsOf (types.submodule (import ./location-options.nix { inherit lib config; }));
+      type = types.attrsOf (
+        types.submodule (import ./location-options.nix { inherit lib config; })
+      );
       default = { };
       example = literalExpression ''
         {

@@ -20,10 +20,13 @@ let
     ${lib.optionalString (cfg.cloudwatchStream != null)
       "LIFECYCLED_CLOUDWATCH_STREAM=${cfg.cloudwatchStream}"}
     ${lib.optionalString cfg.debug "LIFECYCLED_DEBUG=${lib.boolToString cfg.debug}"}
-    ${lib.optionalString (cfg.instanceId != null) "LIFECYCLED_INSTANCE_ID=${cfg.instanceId}"}
+    ${lib.optionalString (cfg.instanceId != null)
+      "LIFECYCLED_INSTANCE_ID=${cfg.instanceId}"}
     ${lib.optionalString cfg.json "LIFECYCLED_JSON=${lib.boolToString cfg.json}"}
-    ${lib.optionalString cfg.noSpot "LIFECYCLED_NO_SPOT=${lib.boolToString cfg.noSpot}"}
-    ${lib.optionalString (cfg.snsTopic != null) "LIFECYCLED_SNS_TOPIC=${cfg.snsTopic}"}
+    ${lib.optionalString cfg.noSpot
+      "LIFECYCLED_NO_SPOT=${lib.boolToString cfg.noSpot}"}
+    ${lib.optionalString (cfg.snsTopic != null)
+      "LIFECYCLED_SNS_TOPIC=${cfg.snsTopic}"}
     ${lib.optionalString (cfg.awsRegion != null) "AWS_REGION=${cfg.awsRegion}"}
   '';
 in
@@ -153,7 +156,9 @@ in
     (mkIf cfg.queueCleaner.enable {
       systemd.services.lifecycled-queue-cleaner = {
         description = "Lifecycle Daemon Queue Cleaner";
-        environment = optionalAttrs (cfg.awsRegion != null) { AWS_REGION = cfg.awsRegion; };
+        environment = optionalAttrs (cfg.awsRegion != null) {
+          AWS_REGION = cfg.awsRegion;
+        };
         serviceConfig = {
           Type = "oneshot";
           ExecStart = "${pkgs.lifecycled}/bin/lifecycled-queue-cleaner -parallel ${

@@ -49,7 +49,9 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optional (withMPRIS || withNotify) dbus
     ++ lib.optional stdenv.isDarwin Cocoa;
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-DNCURSES_UNCTRL_H_incl";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin
+      "-DNCURSES_UNCTRL_H_incl";
 
   buildNoDefaultFeatures = true;
 

@@ -51,18 +51,21 @@ stdenv.mkDerivation rec {
     python
   ];
 
-  buildInputs = [
-    broker
-    curl
-    gperftools
-    libmaxminddb
-    libpcap
-    ncurses
-    openssl
-    swig
-    zlib
-    python
-  ] ++ lib.optionals stdenv.isLinux [ libkqueue ] ++ lib.optionals stdenv.isDarwin [ gettext ];
+  buildInputs =
+    [
+      broker
+      curl
+      gperftools
+      libmaxminddb
+      libpcap
+      ncurses
+      openssl
+      swig
+      zlib
+      python
+    ]
+    ++ lib.optionals stdenv.isLinux [ libkqueue ]
+    ++ lib.optionals stdenv.isDarwin [ gettext ];
 
   postPatch = ''
     patchShebangs ./ci/collect-repo-info.py
@@ -80,7 +83,9 @@ stdenv.mkDerivation rec {
     "-DDISABLE_JAVASCRIPT=ON"
   ] ++ lib.optionals stdenv.isLinux [ "-DLIBKQUEUE_ROOT_DIR=${libkqueue}" ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-faligned-allocation";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin
+      "-faligned-allocation";
 
   postInstall = ''
     for file in $out/share/zeek/base/frameworks/notice/actions/pp-alarms.zeek $out/share/zeek/base/frameworks/notice/main.zeek; do

@@ -16,7 +16,11 @@ let
   user = cfg.user;
   group = cfg.group;
 
-  tlsEnabled = cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME;
+  tlsEnabled =
+    cfg.nginx.addSSL
+    || cfg.nginx.forceSSL
+    || cfg.nginx.onlySSL
+    || cfg.nginx.enableACME;
 
   inherit (snipe-it.passthru) phpPackage;
 
@@ -246,7 +250,9 @@ in
 
     nginx = mkOption {
       type = types.submodule (
-        recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) { }
+        recursiveUpdate
+          (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
+          { }
       );
       default = { };
       example = literalExpression ''
@@ -407,7 +413,13 @@ in
         {
           root = mkForce "${snipe-it}/share/php/snipe-it/public";
           extraConfig =
-            optionalString (cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME)
+            optionalString
+              (
+                cfg.nginx.addSSL
+                || cfg.nginx.forceSSL
+                || cfg.nginx.onlySSL
+                || cfg.nginx.enableACME
+              )
               "fastcgi_param HTTPS on;";
           locations = {
             "/" = {
@@ -422,7 +434,12 @@ in
                 fastcgi_param REDIRECT_STATUS 200;
                 fastcgi_pass unix:${config.services.phpfpm.pools."snipe-it".socket};
                 ${optionalString
-                  (cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME)
+                  (
+                    cfg.nginx.addSSL
+                    || cfg.nginx.forceSSL
+                    || cfg.nginx.onlySSL
+                    || cfg.nginx.enableACME
+                  )
                   "fastcgi_param HTTPS on;"}
               '';
             };
@@ -453,7 +470,9 @@ in
       ];
       script =
         let
-          isSecret = v: isAttrs v && v ? _secret && (isString v._secret || builtins.isPath v._secret);
+          isSecret =
+            v:
+            isAttrs v && v ? _secret && (isString v._secret || builtins.isPath v._secret);
           snipeITEnvVars = lib.generators.toKeyValue {
             mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
               mkValueString =
@@ -476,7 +495,9 @@ in
                   throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
             };
           };
-          secretPaths = lib.mapAttrsToList (_: v: v._secret) (lib.filterAttrs (_: isSecret) cfg.config);
+          secretPaths = lib.mapAttrsToList (_: v: v._secret) (
+            lib.filterAttrs (_: isSecret) cfg.config
+          );
           mkSecretReplacement = file: ''
             replace-secret ${
               escapeShellArgs [

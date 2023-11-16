@@ -50,7 +50,9 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace goldendict.pro \
-      --replace "hunspell-1.6.1" "hunspell-${lib.versions.majorMinor hunspell.version}" \
+      --replace "hunspell-1.6.1" "hunspell-${
+        lib.versions.majorMinor hunspell.version
+      }" \
       --replace "opencc.2" "opencc"
   '';
 

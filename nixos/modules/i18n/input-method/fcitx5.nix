@@ -103,12 +103,18 @@ in
     i18n.inputMethod.fcitx5.addons =
       lib.optionals (cfg.quickPhrase != { }) [
         (pkgs.writeTextDir "share/fcitx5/data/QuickPhrase.mb" (
-          lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "${name} ${value}") cfg.quickPhrase)
+          lib.concatStringsSep "\n" (
+            lib.mapAttrsToList (name: value: "${name} ${value}") cfg.quickPhrase
+          )
         ))
       ]
       ++ lib.optionals (cfg.quickPhraseFiles != { }) [
         (pkgs.linkFarm "quickPhraseFiles" (
-          lib.mapAttrs' (name: value: lib.nameValuePair ("share/fcitx5/data/quickphrase.d/${name}.mb") value)
+          lib.mapAttrs'
+            (
+              name: value:
+              lib.nameValuePair ("share/fcitx5/data/quickphrase.d/${name}.mb") value
+            )
             cfg.quickPhraseFiles
         ))
       ];
@@ -122,7 +128,11 @@ in
         (optionalFile "config" (lib.generators.toINI { }) cfg.settings.globalOptions)
         (optionalFile "profile" (lib.generators.toINI { }) cfg.settings.inputMethod)
         (lib.concatMapAttrs
-          (name: value: optionalFile "conf/${name}.conf" (lib.generators.toINIWithGlobalSection { }) value)
+          (
+            name: value:
+            optionalFile "conf/${name}.conf" (lib.generators.toINIWithGlobalSection { })
+              value
+          )
           cfg.settings.addons
         )
       ];

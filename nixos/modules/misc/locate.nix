@@ -314,7 +314,10 @@ in
       script =
         if isMorPLocate then
           let
-            toFlags = x: optional (cfg.${x} != [ ]) "--${lib.toLower x} '${concatStringsSep " " cfg.${x}}'";
+            toFlags =
+              x:
+              optional (cfg.${x} != [ ])
+                "--${lib.toLower x} '${concatStringsSep " " cfg.${x}}'";
             args = concatLists (
               map toFlags [
                 "pruneFS"
@@ -332,7 +335,10 @@ in
         else
           ''
             exec ${cfg.package}/bin/updatedb \
-              ${optionalString (cfg.localuser != null && !isMorPLocate) "--localuser=${cfg.localuser}"} \
+              ${
+                optionalString (cfg.localuser != null && !isMorPLocate)
+                  "--localuser=${cfg.localuser}"
+              } \
               --output=${toString cfg.output} ${concatStringsSep " " cfg.extraFlags}
           '';
       environment = optionalAttrs (!isMorPLocate) {

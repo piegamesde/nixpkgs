@@ -23,11 +23,14 @@ let
 
     nix = config.nix.package.out;
 
-    timeout = optionalString (config.boot.loader.timeout != null) config.boot.loader.timeout;
+    timeout =
+      optionalString (config.boot.loader.timeout != null)
+        config.boot.loader.timeout;
 
     editor = if cfg.editor then "True" else "False";
 
-    configurationLimit = if cfg.configurationLimit == null then 0 else cfg.configurationLimit;
+    configurationLimit =
+      if cfg.configurationLimit == null then 0 else cfg.configurationLimit;
 
     inherit (cfg) consoleMode graceful;
 
@@ -45,7 +48,9 @@ let
       ${concatStrings (
         mapAttrsToList
           (n: v: ''
-            ${pkgs.coreutils}/bin/install -Dp "${v}" "${efi.efiSysMountPoint}/"${escapeShellArg n}
+            ${pkgs.coreutils}/bin/install -Dp "${v}" "${efi.efiSysMountPoint}/"${
+              escapeShellArg n
+            }
             ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/"${
               escapeShellArg n
             }
@@ -68,14 +73,16 @@ let
     '';
   };
 
-  checkedSystemdBootBuilder = pkgs.runCommand "systemd-boot" { nativeBuildInputs = [ pkgs.mypy ]; } ''
-    install -m755 ${systemdBootBuilder} $out
-    mypy \
-      --no-implicit-optional \
-      --disallow-untyped-calls \
-      --disallow-untyped-defs \
-      $out
-  '';
+  checkedSystemdBootBuilder =
+    pkgs.runCommand "systemd-boot" { nativeBuildInputs = [ pkgs.mypy ]; }
+      ''
+        install -m755 ${systemdBootBuilder} $out
+        mypy \
+          --no-implicit-optional \
+          --disallow-untyped-calls \
+          --disallow-untyped-defs \
+          $out
+      '';
 
   finalSystemdBootBuilder = pkgs.writeScript "install-systemd-boot.sh" ''
     #!${pkgs.runtimeShell}
@@ -110,7 +117,9 @@ in
 
       type = types.bool;
 
-      description = lib.mdDoc "Whether to enable the systemd-boot (formerly gummiboot) EFI boot manager";
+      description =
+        lib.mdDoc
+          "Whether to enable the systemd-boot (formerly gummiboot) EFI boot manager";
     };
 
     editor = mkOption {
@@ -279,7 +288,9 @@ in
     assertions =
       [
         {
-          assertion = (config.boot.kernelPackages.kernel.features or { efiBootStub = true; }) ? efiBootStub;
+          assertion =
+            (config.boot.kernelPackages.kernel.features or { efiBootStub = true; })
+            ? efiBootStub;
           message = "This kernel does not support the EFI boot stub";
         }
       ]
@@ -328,8 +339,12 @@ in
     boot.loader.supportsInitrdSecrets = true;
 
     boot.loader.systemd-boot.extraFiles = mkMerge [
-      (mkIf cfg.memtest86.enable { "efi/memtest86/memtest.efi" = "${pkgs.memtest86plus.efi}"; })
-      (mkIf cfg.netbootxyz.enable { "efi/netbootxyz/netboot.xyz.efi" = "${pkgs.netbootxyz-efi}"; })
+      (mkIf cfg.memtest86.enable {
+        "efi/memtest86/memtest.efi" = "${pkgs.memtest86plus.efi}";
+      })
+      (mkIf cfg.netbootxyz.enable {
+        "efi/netbootxyz/netboot.xyz.efi" = "${pkgs.netbootxyz-efi}";
+      })
     ];
 
     boot.loader.systemd-boot.extraEntries = mkMerge [

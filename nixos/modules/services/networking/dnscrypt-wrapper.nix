@@ -42,11 +42,13 @@ let
     cd ${dataDir}
 
     # generate provider keypair (first run only)
-    ${optionalString (cfg.providerKey.public == null || cfg.providerKey.secret == null) ''
-      if [ ! -f ${publicKey} ] || [ ! -f ${secretKey} ]; then
-        dnscrypt-wrapper --gen-provider-keypair
-      fi
-    ''}
+    ${optionalString
+      (cfg.providerKey.public == null || cfg.providerKey.secret == null)
+      ''
+        if [ ! -f ${publicKey} ] || [ ! -f ${secretKey} ]; then
+          dnscrypt-wrapper --gen-provider-keypair
+        fi
+      ''}
 
     # generate new keys for rotation
     if [ ! -f ${cfg.providerName}.key ] || [ ! -f ${cfg.providerName}.crt ]; then
@@ -164,7 +166,9 @@ in
     providerName = mkOption {
       type = types.str;
       default = "2.dnscrypt-cert.${config.networking.hostName}";
-      defaultText = literalExpression ''"2.dnscrypt-cert.''${config.networking.hostName}"'';
+      defaultText =
+        literalExpression
+          ''"2.dnscrypt-cert.''${config.networking.hostName}"'';
       example = "2.dnscrypt-cert.myresolver";
       description = lib.mdDoc ''
         The name that will be given to this DNSCrypt resolver.
@@ -249,7 +253,9 @@ in
         User = "dnscrypt-wrapper";
         WorkingDirectory = dataDir;
         Restart = "always";
-        ExecStart = "${pkgs.dnscrypt-wrapper}/bin/dnscrypt-wrapper ${toString daemonArgs}";
+        ExecStart = "${pkgs.dnscrypt-wrapper}/bin/dnscrypt-wrapper ${
+            toString daemonArgs
+          }";
       };
 
       preStart = genKeys;

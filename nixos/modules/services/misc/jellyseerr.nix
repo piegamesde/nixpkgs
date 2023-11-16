@@ -18,7 +18,9 @@ in
     openFirewall = mkOption {
       type = types.bool;
       default = false;
-      description = mdDoc "Open port in the firewall for the Jellyseerr web interface.";
+      description =
+        mdDoc
+          "Open port in the firewall for the Jellyseerr web interface.";
     };
 
     port = mkOption {

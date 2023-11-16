@@ -34,11 +34,14 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ glib ];
 
-  configureFlags = [
-    "--otr=1"
-    "--ssl=gnutls"
-    "--pidfile=/var/lib/bitlbee/bitlbee.pid"
-  ] ++ lib.optional enableLibPurple "--purple=1" ++ lib.optional enablePam "--pam=1";
+  configureFlags =
+    [
+      "--otr=1"
+      "--ssl=gnutls"
+      "--pidfile=/var/lib/bitlbee/bitlbee.pid"
+    ]
+    ++ lib.optional enableLibPurple "--purple=1"
+    ++ lib.optional enablePam "--pam=1";
 
   patches =
     [

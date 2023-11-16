@@ -50,18 +50,22 @@ stdenv.mkDerivation rec {
       ./hardcode-gsettings.patch
     ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    gettext
-    pkg-config
-    gobject-introspection
-    gtk-doc
-    docbook_xsl
-    docbook_xml_dtd_43
-    libxml2
-    vala
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      gettext
+      pkg-config
+      gobject-introspection
+      gtk-doc
+      docbook_xsl
+      docbook_xml_dtd_43
+      libxml2
+      vala
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs =
     [
@@ -106,7 +110,8 @@ stdenv.mkDerivation rec {
           versionPolicy = "odd-unstable";
         };
         updateGsettingsPatch =
-          _experimental-update-script-combinators.copyAttrOutputToFile "libnma.hardcodeGsettingsPatch"
+          _experimental-update-script-combinators.copyAttrOutputToFile
+            "libnma.hardcodeGsettingsPatch"
             ./hardcode-gsettings.patch;
       in
       _experimental-update-script-combinators.sequence [

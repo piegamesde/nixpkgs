@@ -63,22 +63,30 @@ in
     };
 
     usesRemoteMongo = mkOption {
-      description = lib.mdDoc "Whether the configuration file specifies a remote mongo instance";
+      description =
+        lib.mdDoc
+          "Whether the configuration file specifies a remote mongo instance";
 
       default = false;
 
       type = types.bool;
     };
 
-    enableWebService = mkEnableOption (lib.mdDoc "the uptime monitoring program web service");
+    enableWebService = mkEnableOption (
+      lib.mdDoc "the uptime monitoring program web service"
+    );
 
-    enableSeparateMonitoringService = mkEnableOption (lib.mdDoc "the uptime monitoring service") // {
-      default = cfg.enableWebService;
-      defaultText = literalExpression "config.${opt.enableWebService}";
-    };
+    enableSeparateMonitoringService =
+      mkEnableOption (lib.mdDoc "the uptime monitoring service")
+      // {
+        default = cfg.enableWebService;
+        defaultText = literalExpression "config.${opt.enableWebService}";
+      };
 
     nodeEnv = mkOption {
-      description = lib.mdDoc "The node environment to run in (development, production, etc.)";
+      description =
+        lib.mdDoc
+          "The node environment to run in (development, production, etc.)";
 
       type = types.str;
 
@@ -114,7 +122,8 @@ in
           NODE_PATH = "${pkgs.nodePackages.node-uptime}/lib/node_modules/node-uptime/node_modules";
         };
         # Ugh, need to wait for web service to be up
-        preStart = if cfg.enableWebService then "sleep 1s" else "mkdir -p /var/lib/uptime";
+        preStart =
+          if cfg.enableWebService then "sleep 1s" else "mkdir -p /var/lib/uptime";
         serviceConfig.ExecStart = "${pkgs.nodejs}/bin/node ${pkgs.nodePackages.node-uptime}/lib/node_modules/node-uptime/monitor.js";
       };
     })

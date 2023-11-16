@@ -31,11 +31,15 @@ stdenv.mkDerivation rec {
     pkg-config
     python3Packages.nose2
   ];
-  buildInputs = [
-    libnvme
-    json_c
-    zlib
-  ] ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform libhugetlbfs) [ libhugetlbfs ];
+  buildInputs =
+    [
+      libnvme
+      json_c
+      zlib
+    ]
+    ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform libhugetlbfs) [
+      libhugetlbfs
+    ];
 
   meta = with lib; {
     inherit (src.meta) homepage; # https://nvmexpress.org/

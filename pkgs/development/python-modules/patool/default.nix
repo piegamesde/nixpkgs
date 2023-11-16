@@ -67,7 +67,9 @@ buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace patoolib/util.py \
-      --replace "path = None" 'path = os.environ["PATH"] + ":${lib.makeBinPath compression-utilities}"'
+      --replace "path = None" 'path = os.environ["PATH"] + ":${
+        lib.makeBinPath compression-utilities
+      }"'
   '';
 
   nativeCheckInputs = [ pytestCheckHook ] ++ compression-utilities;

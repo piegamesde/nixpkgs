@@ -13,7 +13,9 @@ with lib;
 
 {
   options.services.joycond = {
-    enable = mkEnableOption (lib.mdDoc "support for Nintendo Pro Controllers and Joycons");
+    enable = mkEnableOption (
+      lib.mdDoc "support for Nintendo Pro Controllers and Joycons"
+    );
 
     package = mkOption {
       type = types.package;

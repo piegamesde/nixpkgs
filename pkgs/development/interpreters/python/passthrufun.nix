@@ -40,7 +40,10 @@ let
               ]
               false;
           valid =
-            value: pythonPackages.hasPythonModule value || providesSetupHook value || lib.elem value exceptions;
+            value:
+            pythonPackages.hasPythonModule value
+            || providesSetupHook value
+            || lib.elem value exceptions;
           func =
             name: value:
             if lib.isDerivation value then
@@ -99,7 +102,9 @@ let
             );
             aliases =
               self: super:
-              lib.optionalAttrs config.allowAliases (import ../../../top-level/python-aliases.nix lib self super);
+              lib.optionalAttrs config.allowAliases (
+                import ../../../top-level/python-aliases.nix lib self super
+              );
           in
           makeScopeWithSplicing' {
             inherit otherSplices keep;

@@ -32,9 +32,12 @@ rec {
      'type' field is required.
   */
 
-  inherit (import ./formats/java-properties/default.nix { inherit lib pkgs; }) javaProperties;
+  inherit (import ./formats/java-properties/default.nix { inherit lib pkgs; })
+    javaProperties
+  ;
 
-  libconfig = (import ./formats/libconfig/default.nix { inherit lib pkgs; }).format;
+  libconfig =
+    (import ./formats/libconfig/default.nix { inherit lib pkgs; }).format;
 
   json =
     { }:
@@ -154,7 +157,8 @@ rec {
             if listsAsDuplicateKeys then
               coercedTo singleIniAtom lib.singleton (listOf singleIniAtom)
               // {
-                description = singleIniAtom.description + " or a list of them for duplicate keys";
+                description =
+                  singleIniAtom.description + " or a list of them for duplicate keys";
               }
             else if listToValue != null then
               coercedTo singleIniAtom lib.singleton (nonEmptyListOf singleIniAtom)
@@ -171,12 +175,18 @@ rec {
         let
           transformedValue =
             if listToValue != null then
-              lib.mapAttrs (section: lib.mapAttrs (key: val: if lib.isList val then listToValue val else val))
+              lib.mapAttrs
+                (
+                  section:
+                  lib.mapAttrs (key: val: if lib.isList val then listToValue val else val)
+                )
                 value
             else
               value;
         in
-        pkgs.writeText name (lib.generators.toINI (removeAttrs args [ "listToValue" ]) transformedValue);
+        pkgs.writeText name (
+          lib.generators.toINI (removeAttrs args [ "listToValue" ]) transformedValue
+        );
     };
 
   keyValue =

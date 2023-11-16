@@ -75,7 +75,9 @@ let
           ]
 
           # Export module sections before the template section.
-          ++ map (sec_list_fa "id" nix_def) (filter (hasPrefix "mod-") (attrNames nix_def))
+          ++ map (sec_list_fa "id" nix_def) (
+            filter (hasPrefix "mod-") (attrNames nix_def)
+          )
 
           ++ [ (sec_list_fa "id" nix_def "template") ]
           ++ [ (sec_list_fa "domain" nix_def "zone") ]
@@ -85,7 +87,10 @@ let
       # A plain section contains directly attributes (we don't really check that ATM).
       sec_plain =
         nix_def: sec_name:
-        if !hasAttr sec_name nix_def then "" else n2y "" { ${sec_name} = nix_def.${sec_name}; };
+        if !hasAttr sec_name nix_def then
+          ""
+        else
+          n2y "" { ${sec_name} = nix_def.${sec_name}; };
 
       # This section contains a list of attribute sets.  In each of the sets
       # there's an attribute (`fa_name`, typically "id") that must exist and come first.
@@ -100,7 +105,11 @@ let
           let
             elem2yaml =
               fa_val: other_attrs:
-              "  - " + n2y "" { ${fa_name} = fa_val; } + "    " + n2y "    " other_attrs + "\n";
+              "  - "
+              + n2y "" { ${fa_name} = fa_val; }
+              + "    "
+              + n2y "    " other_attrs
+              + "\n";
             sec = nix_def.${sec_name};
           in
           sec_name
@@ -109,7 +118,9 @@ let
           ''
           + (
             if isList sec then
-              flip concatMapStrings sec (elem: elem2yaml elem.${fa_name} (removeAttrs elem [ fa_name ]))
+              flip concatMapStrings sec (
+                elem: elem2yaml elem.${fa_name} (removeAttrs elem [ fa_name ])
+              )
             else
               concatStrings (mapAttrsToList elem2yaml sec)
           );
@@ -168,7 +179,8 @@ let
   configFile =
     if cfg.settingsFile != null then
       # Note: with extraConfig, the 23.05 compat code did include keyFiles from settingsFile.
-      assert cfg.settings == { } && (cfg.keyFiles == [ ] || cfg.extraConfig != null); cfg.settingsFile
+      assert cfg.settings == { } && (cfg.keyFiles == [ ] || cfg.extraConfig != null);
+      cfg.settingsFile
     else
       mkConfigFile yamlConfig;
 
@@ -176,7 +188,10 @@ let
     configString:
     pkgs.writeTextFile {
       name = "knot.conf";
-      text = (concatMapStringsSep "\n" (file: "include: ${file}") cfg.keyFiles) + "\n" + configString;
+      text =
+        (concatMapStringsSep "\n" (file: "include: ${file}") cfg.keyFiles)
+        + "\n"
+        + configString;
       # TODO: maybe we could do some checks even when private keys complicate this?
       checkPhase = lib.optionalString (cfg.keyFiles == [ ]) ''
         ${cfg.package}/bin/knotc --config=$out conf-check

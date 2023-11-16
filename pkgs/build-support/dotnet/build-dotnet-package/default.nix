@@ -22,7 +22,8 @@ attrsOrig@{
   ...
 }:
 let
-  arrayToShell = (a: toString (map (lib.escape (lib.stringToCharacters "\\ ';$`()|<>	")) a));
+  arrayToShell =
+    (a: toString (map (lib.escape (lib.stringToCharacters "\\ ';$`()|<>	")) a));
 
   attrs = {
     inherit pname version;
@@ -121,4 +122,6 @@ let
     '';
   };
 in
-stdenv.mkDerivation (attrs // (builtins.removeAttrs attrsOrig [ "nativeBuildInputs" ]))
+stdenv.mkDerivation (
+  attrs // (builtins.removeAttrs attrsOrig [ "nativeBuildInputs" ])
+)

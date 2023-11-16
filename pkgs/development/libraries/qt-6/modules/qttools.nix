@@ -21,7 +21,9 @@ qtModule {
     qtdeclarative
   ] ++ lib.optionals stdenv.isDarwin [ cups ];
   patches = [ ../patches/qttools-paths.patch ];
-  env.NIX_CFLAGS_COMPILE = toString [ ''-DNIX_OUTPUT_OUT="${placeholder "out"}"'' ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    ''-DNIX_OUTPUT_OUT="${placeholder "out"}"''
+  ];
   postPatch = ''
     substituteInPlace \
       src/qdoc/catch/CMakeLists.txt \

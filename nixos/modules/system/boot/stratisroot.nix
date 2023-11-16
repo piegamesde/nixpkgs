@@ -7,7 +7,8 @@
 }:
 let
   requiredStratisFilesystems =
-    lib.attrsets.filterAttrs (_: x: utils.fsNeededForBoot x && x.stratis.poolUuid != null)
+    lib.attrsets.filterAttrs
+      (_: x: utils.fsNeededForBoot x && x.stratis.poolUuid != null)
       config.fileSystems;
 in
 {

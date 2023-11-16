@@ -24,7 +24,9 @@ stdenv.mkDerivation rec {
   version = "3.1.2";
 
   src = fetchurl {
-    url = "mirror://sourceforge/gnucobol/${lib.versions.majorMinor version}/gnucobol-${version}.tar.xz";
+    url = "mirror://sourceforge/gnucobol/${
+        lib.versions.majorMinor version
+      }/gnucobol-${version}.tar.xz";
     sha256 = "0x15ybfm63g7c9340fc6712h9v59spnbyaz4rf85pmnp3zbhaw2r";
   };
 

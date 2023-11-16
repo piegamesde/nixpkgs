@@ -11,7 +11,9 @@
 
 let
   # N.B. Keep in sync with default arg for stdenv/generic.
-  defaultMkDerivationFromStdenv = import ./generic/make-derivation.nix { inherit lib config; };
+  defaultMkDerivationFromStdenv = import ./generic/make-derivation.nix {
+    inherit lib config;
+  };
 
   # Low level function to help with overriding `mkDerivationFromStdenv`. One
   # gives it the old stdenv arguments and a "continuation" function, and
@@ -189,7 +191,8 @@ rec {
       old: {
         mkDerivationFromStdenv = extendMkDerivationArgs old (
           args: {
-            propagatedBuildInputs = (args.propagatedBuildInputs or [ ]) ++ (args.buildInputs or [ ]);
+            propagatedBuildInputs =
+              (args.propagatedBuildInputs or [ ]) ++ (args.buildInputs or [ ]);
             buildInputs = [ ];
           }
         );
@@ -207,7 +210,9 @@ rec {
   */
   addAttrsToDerivation =
     extraAttrs: stdenv:
-    stdenv.override (old: { mkDerivationFromStdenv = extendMkDerivationArgs old (_: extraAttrs); });
+    stdenv.override (
+      old: { mkDerivationFromStdenv = extendMkDerivationArgs old (_: extraAttrs); }
+    );
 
   /* Use the trace output to report all processed derivations with their
      license name.
@@ -248,7 +253,8 @@ rec {
           args: {
             dontStrip = true;
             env = (args.env or { }) // {
-              NIX_CFLAGS_COMPILE = toString (args.env.NIX_CFLAGS_COMPILE or "") + " -ggdb -Og";
+              NIX_CFLAGS_COMPILE =
+                toString (args.env.NIX_CFLAGS_COMPILE or "") + " -ggdb -Og";
             };
           }
         );
@@ -261,7 +267,9 @@ rec {
     stdenv.override (
       old: {
         mkDerivationFromStdenv = extendMkDerivationArgs old (
-          args: { NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=gold"; }
+          args: {
+            NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=gold";
+          }
         );
       }
     );
@@ -291,10 +299,15 @@ rec {
       }
       //
         lib.optionalAttrs
-          (stdenv.cc.isClang || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12"))
+          (
+            stdenv.cc.isClang
+            || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")
+          )
           {
             mkDerivationFromStdenv = extendMkDerivationArgs old (
-              args: { NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold"; }
+              args: {
+                NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold";
+              }
             );
           }
     );
@@ -311,7 +324,8 @@ rec {
         mkDerivationFromStdenv = extendMkDerivationArgs old (
           args: {
             env = (args.env or { }) // {
-              NIX_CFLAGS_COMPILE = toString (args.env.NIX_CFLAGS_COMPILE or "") + " -march=native";
+              NIX_CFLAGS_COMPILE =
+                toString (args.env.NIX_CFLAGS_COMPILE or "") + " -march=native";
             };
 
             NIX_ENFORCE_NO_NATIVE = false;
@@ -343,7 +357,8 @@ rec {
         mkDerivationFromStdenv = extendMkDerivationArgs old (
           args: {
             env = (args.env or { }) // {
-              NIX_CFLAGS_COMPILE = toString (args.env.NIX_CFLAGS_COMPILE or "") + " ${toString compilerFlags}";
+              NIX_CFLAGS_COMPILE =
+                toString (args.env.NIX_CFLAGS_COMPILE or "") + " ${toString compilerFlags}";
             };
           }
         );

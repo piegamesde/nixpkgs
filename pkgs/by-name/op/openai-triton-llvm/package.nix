@@ -27,7 +27,9 @@ stdenv.mkDerivation (
     pname = "openai-triton-llvm";
     version = "14.0.6-f28c006a5895";
 
-    outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildMan [ "man" ];
+    outputs = [
+      "out"
+    ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildMan [ "man" ];
 
     # See https://github.com/openai/triton/blob/main/python/setup.py and https://github.com/ptillet/triton-llvm-releases/releases
     src = fetchFromGitHub {
@@ -73,10 +75,13 @@ stdenv.mkDerivation (
             # Targets can be found in
             # https://github.com/llvm/llvm-project/tree/f28c006a5895fc0e329fe15fead81e37457cb1d1/clang/lib/Basic/Targets
             # NOTE: Unsure of how "host" would function, especially given that we might be cross-compiling.
-            llvmTargets = [
-              "AMDGPU"
-              "NVPTX"
-            ] ++ lib.optionals stdenv.isAarch64 [ "AArch64" ] ++ lib.optionals stdenv.isx86_64 [ "X86" ];
+            llvmTargets =
+              [
+                "AMDGPU"
+                "NVPTX"
+              ]
+              ++ lib.optionals stdenv.isAarch64 [ "AArch64" ]
+              ++ lib.optionals stdenv.isx86_64 [ "X86" ];
           in
           lib.concatStringsSep ";" llvmTargets
         }"

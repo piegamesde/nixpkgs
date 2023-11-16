@@ -48,9 +48,15 @@ lib.makeOverridable (
       "githubBase"
       "varPrefix"
     ];
-    varBase = "NIX${lib.optionalString (varPrefix != null) "_${varPrefix}"}_GITHUB_PRIVATE_";
+    varBase = "NIX${
+        lib.optionalString (varPrefix != null) "_${varPrefix}"
+      }_GITHUB_PRIVATE_";
     useFetchGit =
-      fetchSubmodules || (leaveDotGit == true) || deepClone || forceFetchGit || (sparseCheckout != [ ]);
+      fetchSubmodules
+      || (leaveDotGit == true)
+      || deepClone
+      || forceFetchGit
+      || (sparseCheckout != [ ]);
     # We prefer fetchzip in cases we don't need submodules as the hash
     # is more stable in that case.
     fetcher = if useFetchGit then fetchgit else fetchzip;

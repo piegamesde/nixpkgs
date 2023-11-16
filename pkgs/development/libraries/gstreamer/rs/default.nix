@@ -31,7 +31,8 @@
   # specifies a limited subset of plugins to build (the default `null` means all plugins supported on the stdenv platform)
   plugins ? null,
   # Checks meson.is_cross_build(), so even canExecute isn't enough.
-  enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform && plugins == null,
+  enableDocumentation ?
+    stdenv.hostPlatform == stdenv.buildPlatform && plugins == null,
   hotdoc,
 }:
 
@@ -144,9 +145,9 @@ let
   );
 in
 assert lib.assertMsg (invalidPlugins == [ ])
-    "Invalid gst-plugins-rs plugin${lib.optionalString (lib.length invalidPlugins > 1) "s"}: ${
-      lib.concatStringsSep ", " invalidPlugins
-    }";
+    "Invalid gst-plugins-rs plugin${
+      lib.optionalString (lib.length invalidPlugins > 1) "s"
+    }: ${lib.concatStringsSep ", " invalidPlugins}";
 
 stdenv.mkDerivation rec {
   pname = "gst-plugins-rs";
@@ -234,7 +235,9 @@ stdenv.mkDerivation rec {
           rust = [ 'rustc', '--target', '${rust.toRustTargetSpec stdenv.hostPlatform}' ]
         '';
       in
-      lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "--cross-file=${crossFile}" ]
+      lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+        "--cross-file=${crossFile}"
+      ]
     );
 
   # turn off all auto plugins since we use a list of plugins we generate
@@ -281,7 +284,9 @@ stdenv.mkDerivation rec {
   doInstallCheck =
     (lib.elem "webp" selectedPlugins)
     && !stdenv.hostPlatform.isStatic
-    && stdenv.hostPlatform.parsed.kernel.execFormat == lib.systems.parse.execFormats.elf;
+    &&
+      stdenv.hostPlatform.parsed.kernel.execFormat
+      == lib.systems.parse.execFormats.elf;
   installCheckPhase = ''
     runHook preInstallCheck
     readelf -a $out/lib/gstreamer-1.0/libgstrswebp.so | grep -F 'Shared library: [libwebpdemux.so'

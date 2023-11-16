@@ -44,7 +44,8 @@ stdenv.mkDerivation (
           "powerpc64le-linux" = "19ac0na163l9h7ygbf3jwwv7zf0wagqvn6kcdh871c690i86wg9z";
           "s390x-linux" = "1zvy28jpxijzgdbr9q4rfyx6mk295mqp4nk8z299nm9ryk4q81lv";
         }
-        .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+        .${stdenv.hostPlatform.system}
+          or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
     };
 
     nativeBuildInputs = [ installShellFiles ];

@@ -1784,17 +1784,26 @@ in
           sources."batch-0.5.1"
           sources."better-assert-1.0.2"
           sources."blob-0.0.2"
-          (sources."body-parser-1.6.7" // { dependencies = [ sources."iconv-lite-0.4.4" ]; })
+          (
+            sources."body-parser-1.6.7"
+            // {
+              dependencies = [ sources."iconv-lite-0.4.4" ];
+            }
+          )
           sources."brace-expansion-2.0.1"
           sources."buffer-crc32-0.2.3"
           sources."buffer-from-1.1.2"
           sources."bytes-1.0.0"
           sources."callsite-1.0.0"
           (sources."cfb-1.2.2" // { dependencies = [ sources."adler-32-1.3.1" ]; })
-          (sources."codepage-1.14.0" // { dependencies = [ sources."commander-2.14.1" ]; })
+          (
+            sources."codepage-1.14.0" // { dependencies = [ sources."commander-2.14.1" ]; }
+          )
           sources."coffee-css-0.0.5"
           sources."coffee-script-1.12.7"
-          (sources."coffeecup-0.3.21" // { dependencies = [ sources."uglify-js-1.2.6" ]; })
+          (
+            sources."coffeecup-0.3.21" // { dependencies = [ sources."uglify-js-1.2.6" ]; }
+          )
           sources."colors-0.6.2"
           sources."commander-2.17.1"
           sources."component-bind-1.0.0"
@@ -1822,7 +1831,12 @@ in
           sources."ee-first-1.0.5"
           sources."emitter-http://github.com/component/emitter/archive/1.0.1.tar.gz"
           (sources."engine.io-1.3.1" // { dependencies = [ sources."debug-0.6.0" ]; })
-          (sources."engine.io-client-1.3.1" // { dependencies = [ sources."debug-0.7.4" ]; })
+          (
+            sources."engine.io-client-1.3.1"
+            // {
+              dependencies = [ sources."debug-0.7.4" ];
+            }
+          )
           sources."engine.io-parser-1.0.6"
           sources."errorhandler-1.1.1"
           sources."escape-html-1.0.1"
@@ -1836,7 +1850,12 @@ in
               ];
             }
           )
-          (sources."express-session-1.7.6" // { dependencies = [ sources."uid-safe-1.0.1" ]; })
+          (
+            sources."express-session-1.7.6"
+            // {
+              dependencies = [ sources."uid-safe-1.0.1" ];
+            }
+          )
           sources."fast-levenshtein-2.0.6"
           sources."finalhandler-0.1.0"
           sources."frac-1.1.2"
@@ -1879,7 +1898,9 @@ in
           sources."livescript-1.5.0"
           sources."media-typer-0.2.0"
           sources."merge-descriptors-0.0.2"
-          (sources."method-override-2.1.3" // { dependencies = [ sources."vary-1.0.1" ]; })
+          (
+            sources."method-override-2.1.3" // { dependencies = [ sources."vary-1.0.1" ]; }
+          )
           sources."methods-1.1.0"
           sources."mime-1.2.11"
           sources."mime-types-1.0.2"
@@ -1944,8 +1965,18 @@ in
               ];
             }
           )
-          (sources."socket.io-client-1.0.6" // { dependencies = [ sources."debug-0.7.4" ]; })
-          (sources."socket.io-parser-2.2.0" // { dependencies = [ sources."debug-0.7.4" ]; })
+          (
+            sources."socket.io-client-1.0.6"
+            // {
+              dependencies = [ sources."debug-0.7.4" ];
+            }
+          )
+          (
+            sources."socket.io-parser-2.2.0"
+            // {
+              dependencies = [ sources."debug-0.7.4" ];
+            }
+          )
           sources."source-map-0.5.7"
           sources."ssf-0.10.3"
           (

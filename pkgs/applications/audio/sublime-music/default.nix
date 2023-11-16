@@ -72,10 +72,13 @@ python.pkgs.buildPythonApplication rec {
     sed -i "s/python-mpv/mpv/g" pyproject.toml
   '';
 
-  buildInputs = [
-    gtk3
-    pango
-  ] ++ lib.optional notifySupport libnotify ++ lib.optional networkSupport networkmanager;
+  buildInputs =
+    [
+      gtk3
+      pango
+    ]
+    ++ lib.optional notifySupport libnotify
+    ++ lib.optional networkSupport networkmanager;
 
   propagatedBuildInputs =
     with python.pkgs;

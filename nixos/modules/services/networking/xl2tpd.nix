@@ -10,7 +10,9 @@ with lib;
 {
   options = {
     services.xl2tpd = {
-      enable = mkEnableOption (lib.mdDoc "xl2tpd, the Layer 2 Tunnelling Protocol Daemon");
+      enable = mkEnableOption (
+        lib.mdDoc "xl2tpd, the Layer 2 Tunnelling Protocol Daemon"
+      );
 
       serverIp = mkOption {
         type = types.str;

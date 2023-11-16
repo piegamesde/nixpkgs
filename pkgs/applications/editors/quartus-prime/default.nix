@@ -134,10 +134,12 @@ buildFHSEnv rec {
   passthru = {
     inherit unwrapped;
     tests = {
-      modelsimEncryptedModel = runCommand "quartus-prime-lite-test-modelsim-encrypted-model" { } ''
-        "${quartus-prime-lite}/bin/vlog" "${quartus-prime-lite.unwrapped}/modelsim_ase/altera/verilog/src/arriav_atoms_ncrypt.v"
-        touch "$out"
-      '';
+      modelsimEncryptedModel =
+        runCommand "quartus-prime-lite-test-modelsim-encrypted-model" { }
+          ''
+            "${quartus-prime-lite}/bin/vlog" "${quartus-prime-lite.unwrapped}/modelsim_ase/altera/verilog/src/arriav_atoms_ncrypt.v"
+            touch "$out"
+          '';
     };
   };
 }

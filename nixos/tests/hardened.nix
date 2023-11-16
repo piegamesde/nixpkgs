@@ -38,7 +38,8 @@ import ./make-test-python.nix (
           };
         };
         boot.extraModulePackages =
-          pkgs.lib.optional (pkgs.lib.versionOlder config.boot.kernelPackages.kernel.version "5.6")
+          pkgs.lib.optional
+            (pkgs.lib.versionOlder config.boot.kernelPackages.kernel.version "5.6")
             config.boot.kernelPackages.wireguard;
         boot.kernelModules = [ "wireguard" ];
       };

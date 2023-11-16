@@ -16,7 +16,9 @@
 
 let
   gdkPixbufModuleDir = "${placeholder "out"}/${gdk-pixbuf.moduleDir}";
-  gdkPixbufModuleFile = "${placeholder "out"}/${gdk-pixbuf.binaryDir}/avif-loaders.cache";
+  gdkPixbufModuleFile = "${
+      placeholder "out"
+    }/${gdk-pixbuf.binaryDir}/avif-loaders.cache";
 in
 
 stdenv.mkDerivation rec {

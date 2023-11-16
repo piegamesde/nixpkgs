@@ -100,7 +100,9 @@ with lib; {
     };
 
     virtualIps = mkOption {
-      type = types.listOf (types.submodule (import ./virtual-ip-options.nix { inherit lib; }));
+      type = types.listOf (
+        types.submodule (import ./virtual-ip-options.nix { inherit lib; })
+      );
       default = [ ];
       # TODO: example
       description = lib.mdDoc "Declarative vhost config";
@@ -123,7 +125,9 @@ with lib; {
         "eth0"
         "eth1"
       ];
-      description = lib.mdDoc "List of network interfaces to monitor for health tracking.";
+      description =
+        lib.mdDoc
+          "List of network interfaces to monitor for health tracking.";
     };
 
     extraConfig = mkOption {

@@ -17,7 +17,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-RQnyVRHWrqnKcI3Jy593jDTydG1nGyrScsqSNyJTDJk=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.IOKit ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk_11_0.frameworks.IOKit
+  ];
 
   # tests are broken
   doCheck = false;

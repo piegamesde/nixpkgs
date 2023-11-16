@@ -74,7 +74,9 @@ let
       "postgres" # database
     ];
     gemConfig = defaultGemConfig // {
-      pg = attrs: { buildFlags = [ "--with-pg-config=${postgresql}/bin/pg_config" ]; };
+      pg = attrs: {
+        buildFlags = [ "--with-pg-config=${postgresql}/bin/pg_config" ];
+      };
       rszr = attrs: {
         buildInputs = [
           imlib2

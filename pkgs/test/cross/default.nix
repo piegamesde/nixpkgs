@@ -163,7 +163,8 @@ let
   mbuffer =
     let
       mbuffer = pkgs.pkgsCross.aarch64-multiplatform.mbuffer;
-      emulator = with lib.systems; (elaborate examples.aarch64-multiplatform).emulator pkgs;
+      emulator =
+        with lib.systems; (elaborate examples.aarch64-multiplatform).emulator pkgs;
     in
     pkgs.runCommand "test-mbuffer" { } ''
       echo hello | ${emulator} ${mbuffer}/bin/mbuffer
@@ -212,8 +213,14 @@ let
     ];
 in
 {
-  gcc = (lib.mapAttrs (_: mapMultiPlatformTest (system: system // { useLLVM = false; })) tests);
-  llvm = (lib.mapAttrs (_: mapMultiPlatformTest (system: system // { useLLVM = true; })) tests);
+  gcc =
+    (lib.mapAttrs (_: mapMultiPlatformTest (system: system // { useLLVM = false; }))
+      tests
+    );
+  llvm =
+    (lib.mapAttrs (_: mapMultiPlatformTest (system: system // { useLLVM = true; }))
+      tests
+    );
 
   inherit mbuffer sanity;
 }

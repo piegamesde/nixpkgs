@@ -20,7 +20,8 @@ let
       aarch64-linux = "arm64";
       x86_64-darwin = "x64";
     }
-    ."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    ."${stdenv.hostPlatform.system}"
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   hash =
     {
       x64-linux_hash = "sha256-XWKslumO6o0kn9JMFTTuDTDALX6r4rzEyFFj2w13cYc=";

@@ -24,7 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-EiPGdrpD4e9izRNJCjHRp+gR+ClzFtLjs6P57WXDs7I=";
   };
 
-  propagatedBuildInputs = [ ruamel-yaml ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [
+    ruamel-yaml
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = [
     git

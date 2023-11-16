@@ -146,7 +146,9 @@ lib.checkListOfEnum "${pname}: alt variants"
         ${toString (map (x: "--opacity " + x) opacityVariants)} \
         ${toString (map (x: "--theme " + x) themeVariants)} \
         ${lib.optionalString (nautilusSize != null) ("--size " + nautilusSize)} \
-        ${lib.optionalString (panelOpacity != null) ("--panel-opacity " + panelOpacity)} \
+        ${
+          lib.optionalString (panelOpacity != null) ("--panel-opacity " + panelOpacity)
+        } \
         ${lib.optionalString (panelSize != null) ("--panel-size " + panelSize)} \
         --dest $out/share/themes
 

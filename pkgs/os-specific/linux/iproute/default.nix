@@ -47,7 +47,9 @@ stdenv.mkDerivation rec {
       # all build .so plugins:
       "TC_CONFIG_NO_XT=y"
     ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "HOSTCC=$(CC_FOR_BUILD)" ];
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      "HOSTCC=$(CC_FOR_BUILD)"
+    ];
 
   buildFlags = [ "CONFDIR=/etc/iproute2" ];
 

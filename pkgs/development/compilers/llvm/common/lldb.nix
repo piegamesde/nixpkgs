@@ -53,7 +53,9 @@ stdenv.mkDerivation (
       "dev"
     ];
 
-    sourceRoot = lib.optional (lib.versionAtLeast release_version "13") "${src.name}/${pname}";
+    sourceRoot =
+      lib.optional (lib.versionAtLeast release_version "13")
+        "${src.name}/${pname}";
 
     nativeBuildInputs =
       [
@@ -191,10 +193,14 @@ stdenv.mkDerivation (
     pname = "lldb-manpages";
 
     buildPhase = lib.optionalString (lib.versionOlder release_version "15") ''
-      make ${if (lib.versionOlder release_version "12") then "docs-man" else "docs-lldb-man"}
+      make ${
+        if (lib.versionOlder release_version "12") then "docs-man" else "docs-lldb-man"
+      }
     '';
 
-    ninjaFlags = lib.optionals (lib.versionAtLeast release_version "15") [ "docs-lldb-man" ];
+    ninjaFlags = lib.optionals (lib.versionAtLeast release_version "15") [
+      "docs-lldb-man"
+    ];
 
     propagatedBuildInputs = [ ];
 

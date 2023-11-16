@@ -46,7 +46,9 @@ mkDerivation rec {
     zlib
   ];
 
-  cmakeFlags = [ "-DCMAKE_INSTALL_UDEVRULESDIR=${placeholder "out"}/lib/udev/rules.d" ];
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_UDEVRULESDIR=${placeholder "out"}/lib/udev/rules.d"
+  ];
 
   doInstallCheck = true;
   installCheckPhase = ''

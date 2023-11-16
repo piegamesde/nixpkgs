@@ -44,7 +44,9 @@ stdenv.mkDerivation (
       # We prefer the system's openssh over our own, since it might come with features not present in ours:
       # https://github.com/numtide/nixos-anywhere/issues/62
       wrapProgram $out/bin/nixos-anywhere \
-        --prefix PATH : ${lib.makeBinPath runtimeDeps} --suffix PATH : ${lib.makeBinPath [ openssh ]}
+        --prefix PATH : ${lib.makeBinPath runtimeDeps} --suffix PATH : ${
+          lib.makeBinPath [ openssh ]
+        }
     '';
 
     meta = with lib; {

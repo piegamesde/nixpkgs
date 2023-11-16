@@ -40,7 +40,9 @@ let
   filterAttrNames = f: attrs: filter (n: f (getAttr n attrs)) (attrNames attrs);
 
   concatAttrLists =
-    attrsets: zipAttrsWithNames (filterAttrNames isList (head attrsets)) (_: concatLists) attrsets;
+    attrsets:
+    zipAttrsWithNames (filterAttrNames isList (head attrsets)) (_: concatLists)
+      attrsets;
 
   template = rec {
     inherit pname version;
@@ -68,7 +70,9 @@ let
 
     pos = builtins.unsafeGetAttrPos "pname" args;
 
-    passthru.updateScript = gitUpdater { inherit rev-prefix odd-unstable patchlevel-unstable; };
+    passthru.updateScript = gitUpdater {
+      inherit rev-prefix odd-unstable patchlevel-unstable;
+    };
 
     meta = with lib; {
       homepage = "https://gitlab.xfce.org/${category}/${pname}";

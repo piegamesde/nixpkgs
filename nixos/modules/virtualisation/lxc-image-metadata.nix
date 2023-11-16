@@ -111,7 +111,9 @@ in
       contents = [
         {
           source = toYAML "metadata.yaml" {
-            architecture = builtins.elemAt (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system)) 0;
+            architecture =
+              builtins.elemAt (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system))
+                0;
             creation_date = 1;
             properties = {
               description = "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} ${pkgs.system}";

@@ -24,10 +24,16 @@ let
     formats = import ./formats.nix { inherit pkgs; };
     java-properties = recurseIntoAttrs {
       jdk8 = pkgs.callPackage ../formats/java-properties/test { jdk = pkgs.jdk8; };
-      jdk11 = pkgs.callPackage ../formats/java-properties/test { jdk = pkgs.jdk11_headless; };
-      jdk17 = pkgs.callPackage ../formats/java-properties/test { jdk = pkgs.jdk17_headless; };
+      jdk11 = pkgs.callPackage ../formats/java-properties/test {
+        jdk = pkgs.jdk11_headless;
+      };
+      jdk17 = pkgs.callPackage ../formats/java-properties/test {
+        jdk = pkgs.jdk17_headless;
+      };
     };
-    libconfig = recurseIntoAttrs (import ../formats/libconfig/test { inherit pkgs; });
+    libconfig = recurseIntoAttrs (
+      import ../formats/libconfig/test { inherit pkgs; }
+    );
   };
 
   flatten =

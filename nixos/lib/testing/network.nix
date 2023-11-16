@@ -21,7 +21,9 @@ let
     mdDoc
   ;
 
-  nodeNumbers = listToAttrs (zipListsWith nameValuePair (attrNames nodes) (range 1 254));
+  nodeNumbers = listToAttrs (
+    zipListsWith nameValuePair (attrNames nodes) (range 1 254)
+  );
 
   networkModule =
     {
@@ -41,7 +43,9 @@ let
           assignIP = true;
         }
       );
-      explicitInterfaces = lib.mapAttrsToList (n: v: v // { name = n; }) config.virtualisation.interfaces;
+      explicitInterfaces =
+        lib.mapAttrsToList (n: v: v // { name = n; })
+          config.virtualisation.interfaces;
       interfaces = vlansNumbered ++ explicitInterfaces;
       interfacesNumbered = zipLists interfaces (range 1 255);
 
@@ -52,7 +56,9 @@ let
         nameValuePair i.name {
           ipv4.addresses = [
             {
-              address = "192.168.${toString i.vlan}.${toString config.virtualisation.test.nodeNumber}";
+              address = "192.168.${toString i.vlan}.${
+                  toString config.virtualisation.test.nodeNumber
+                }";
               prefixLength = 24;
             }
           ];
@@ -61,7 +67,8 @@ let
 
       qemuOptions = lib.flatten (
         forEach interfacesNumbered (
-          { fst, snd }: qemu-common.qemuNICFlags snd fst.vlan config.virtualisation.test.nodeNumber
+          { fst, snd }:
+          qemu-common.qemuNICFlags snd fst.vlan config.virtualisation.test.nodeNumber
         )
       );
       udevRules = forEach interfacesNumbered (

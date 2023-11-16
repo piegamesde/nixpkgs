@@ -57,7 +57,9 @@ stdenv.mkDerivation rec {
     substituteInPlace tests/unit-utils-io.c --replace "| O_DIRECT" ""
   '';
 
-  NIX_LDFLAGS = lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic) "-lgcc_s";
+  NIX_LDFLAGS =
+    lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
+      "-lgcc_s";
 
   configureFlags =
     [

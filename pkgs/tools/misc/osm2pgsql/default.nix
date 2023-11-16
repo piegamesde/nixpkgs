@@ -71,7 +71,9 @@ stdenv.mkDerivation (
 
     installFlags = [ "install-gen" ];
 
-    passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+    passthru.tests.version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+    };
 
     meta = with lib; {
       description = "OpenStreetMap data to PostgreSQL converter";

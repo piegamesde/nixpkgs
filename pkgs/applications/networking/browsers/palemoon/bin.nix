@@ -164,7 +164,9 @@ stdenv.mkDerivation (
       wrapGApp $out/lib/palemoon/palemoon
     '';
 
-    passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+    passthru.tests.version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+    };
 
     meta = with lib; {
       homepage = "https://www.palemoon.org/";

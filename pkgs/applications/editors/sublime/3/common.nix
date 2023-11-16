@@ -41,9 +41,12 @@ let
     "sublime3"
   ];
   downloadUrl = "https://download.sublimetext.com/sublime_text_3_build_${buildVersion}_${arch}.tar.bz2";
-  versionUrl = "https://download.sublimetext.com/latest/${if dev then "dev" else "stable"}";
+  versionUrl = "https://download.sublimetext.com/latest/${
+      if dev then "dev" else "stable"
+    }";
   versionFile = builtins.toString ./packages.nix;
-  archSha256 = if stdenv.hostPlatform.system == "i686-linux" then x32sha256 else x64sha256;
+  archSha256 =
+    if stdenv.hostPlatform.system == "i686-linux" then x32sha256 else x64sha256;
   arch = if stdenv.hostPlatform.system == "i686-linux" then "x32" else "x64";
 
   libPath = lib.makeLibraryPath [
@@ -101,7 +104,9 @@ let
       for binary in ${builtins.concatStringsSep " " binaries}; do
         patchelf \
           --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-          --set-rpath ${libPath}:${stdenv.cc.cc.lib}/lib${lib.optionalString stdenv.is64bit "64"} \
+          --set-rpath ${libPath}:${stdenv.cc.cc.lib}/lib${
+            lib.optionalString stdenv.is64bit "64"
+          } \
           $binary
       done
 
@@ -128,7 +133,9 @@ let
 
     postFixup = ''
       wrapProgram $out/sublime_bash \
-        --set LD_PRELOAD "${stdenv.cc.cc.lib}/lib${lib.optionalString stdenv.is64bit "64"}/libgcc_s.so.1"
+        --set LD_PRELOAD "${stdenv.cc.cc.lib}/lib${
+          lib.optionalString stdenv.is64bit "64"
+        }/libgcc_s.so.1"
 
       wrapProgram $out/${primaryBinary} \
         --set LD_PRELOAD "${libredirect}/lib/libredirect.so" \

@@ -13,7 +13,8 @@ let
   cfg = config.services.fwupd;
 
   format = pkgs.formats.ini {
-    listToValue = l: lib.concatStringsSep ";" (map (s: generators.mkValueStringDefault { } s) l);
+    listToValue =
+      l: lib.concatStringsSep ";" (map (s: generators.mkValueStringDefault { } s) l);
     mkKeyValue = generators.mkKeyValueDefault { } "=";
   };
 
@@ -49,7 +50,8 @@ let
     };
   };
   remotes =
-    (foldl' (configFiles: remote: configFiles // (enableRemote cfg.package remote)) { }
+    (foldl' (configFiles: remote: configFiles // (enableRemote cfg.package remote))
+      { }
       cfg.extraRemotes
     )
     // (
@@ -57,7 +59,9 @@ let
       # to install it because it would create a cyclic dependency between
       # the outputs. We also need to enable the remote,
       # which should not be done by default.
-      lib.optionalAttrs cfg.enableTestRemote (enableRemote cfg.package.installedTests "fwupd-tests")
+      lib.optionalAttrs cfg.enableTestRemote (
+        enableRemote cfg.package.installedTests "fwupd-tests"
+      )
     );
 in
 {

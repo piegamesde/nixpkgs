@@ -79,7 +79,9 @@ stdenv.mkDerivation (
       }} mods/* \
         $out/lib/${pname}/mods/
 
-      substitute ${./mod-launch-game.sh} $out/lib/openra_2019-${mod.name}/launch-game.sh \
+      substitute ${
+        ./mod-launch-game.sh
+      } $out/lib/openra_2019-${mod.name}/launch-game.sh \
         --subst-var out \
         --subst-var-by name ${lib.escapeShellArg mod.name} \
         --subst-var-by title ${lib.escapeShellArg mod.title} \
@@ -88,7 +90,9 @@ stdenv.mkDerivation (
 
       ${wrapLaunchGame "_2019-${mod.name}" "openra-${mod.name}"}
 
-      substitute ${./openra-mod.desktop} $(mkdirp $out/share/applications)/${pname}.desktop \
+      substitute ${
+        ./openra-mod.desktop
+      } $(mkdirp $out/share/applications)/${pname}.desktop \
         --subst-var-by name ${lib.escapeShellArg mod.name} \
         --subst-var-by title ${lib.escapeShellArg mod.title} \
         --subst-var-by description ${lib.escapeShellArg mod.description}

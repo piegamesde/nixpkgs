@@ -30,7 +30,8 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = ''An open-source engine for the classic "Johnny Castaway" screensaver (engine only)'';
+    description = ''
+      An open-source engine for the classic "Johnny Castaway" screensaver (engine only)'';
     homepage = "https://github.com/jno6809/jc_reborn";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ pedrohlc ];

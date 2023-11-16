@@ -14,7 +14,10 @@
   xcode,
   tbb,
   # the default test target is sse4, but that is not supported by all Hydra agents
-  testedTargets ? if stdenv.isAarch64 || stdenv.isAarch32 then [ "neon-i32x4" ] else [ "sse2-i32x4" ],
+  testedTargets ? if stdenv.isAarch64 || stdenv.isAarch32 then
+    [ "neon-i32x4" ]
+  else
+    [ "sse2-i32x4" ],
 }:
 
 stdenv.mkDerivation rec {
@@ -86,8 +89,14 @@ stdenv.mkDerivation rec {
       "-DCLANGPP_EXECUTABLE=${llvmPackages.clang}/bin/clang++"
       "-DISPC_INCLUDE_EXAMPLES=OFF"
       "-DISPC_INCLUDE_UTILS=OFF"
-      ("-DARM_ENABLED=" + (if stdenv.isAarch64 || stdenv.isAarch32 then "TRUE" else "FALSE"))
-      ("-DX86_ENABLED=" + (if stdenv.isx86_64 || stdenv.isx86_32 then "TRUE" else "FALSE"))
+      (
+        "-DARM_ENABLED="
+        + (if stdenv.isAarch64 || stdenv.isAarch32 then "TRUE" else "FALSE")
+      )
+      (
+        "-DX86_ENABLED="
+        + (if stdenv.isx86_64 || stdenv.isx86_32 then "TRUE" else "FALSE")
+      )
     ]
     ++ lib.lists.optionals stdenv.isDarwin [
       "-DISPC_MACOS_SDK_PATH=${xcode}/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"

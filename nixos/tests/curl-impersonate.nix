@@ -55,24 +55,28 @@ import ./make-test-python.nix (
           subjectAltName = @alt_names
 
           [alt_names]
-          ${lib.concatStringsSep "\n" (lib.imap0 (idx: domain: "DNS.${toString idx} = ${domain}") domains)}
+          ${lib.concatStringsSep "\n" (
+            lib.imap0 (idx: domain: "DNS.${toString idx} = ${domain}") domains
+          )}
         '';
       in
-      pkgs.runCommand "curl-impersonate-test-certs" { nativeBuildInputs = [ pkgs.openssl ]; } ''
-        # create CA certificate and key
-        openssl req -newkey rsa:4096 -keyout ca-key.pem -out ca-csr.pem -nodes -subj '/CN=curl-impersonate-ca.nixos.test'
-        openssl x509 -req -sha512 -in ca-csr.pem -key ca-key.pem -out ca.pem -extfile ${ca-cert-conf} -days 36500
-        openssl x509 -in ca.pem -text
+      pkgs.runCommand "curl-impersonate-test-certs"
+        { nativeBuildInputs = [ pkgs.openssl ]; }
+        ''
+          # create CA certificate and key
+          openssl req -newkey rsa:4096 -keyout ca-key.pem -out ca-csr.pem -nodes -subj '/CN=curl-impersonate-ca.nixos.test'
+          openssl x509 -req -sha512 -in ca-csr.pem -key ca-key.pem -out ca.pem -extfile ${ca-cert-conf} -days 36500
+          openssl x509 -in ca.pem -text
 
-        # create server certificate and key
-        openssl req -newkey rsa:4096 -keyout key.pem -out csr.pem -nodes -subj '/CN=curl-impersonate.nixos.test'
-        openssl x509 -req -sha512 -in csr.pem -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out cert.pem -extfile ${tls-cert-conf} -days 36500
-        openssl x509 -in cert.pem -text
+          # create server certificate and key
+          openssl req -newkey rsa:4096 -keyout key.pem -out csr.pem -nodes -subj '/CN=curl-impersonate.nixos.test'
+          openssl x509 -req -sha512 -in csr.pem -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out cert.pem -extfile ${tls-cert-conf} -days 36500
+          openssl x509 -in cert.pem -text
 
-        # output CA cert and server cert and key
-        mkdir -p $out
-        cp key.pem cert.pem ca.pem $out
-      '';
+          # output CA cert and server cert and key
+          mkdir -p $out
+          cp key.pem cert.pem ca.pem $out
+        '';
 
     # Test script
     curl-impersonate-test =

@@ -118,7 +118,9 @@ buildPythonApplication rec {
 
   passthru = {
     inherit common;
-    submodulesSubset = lib.mapAttrs (k: args: fetchFromGitHub args) common.submodules;
+    submodulesSubset =
+      lib.mapAttrs (k: args: fetchFromGitHub args)
+        common.submodules;
     updateScript = ./update.sh;
   };
 

@@ -103,8 +103,9 @@ rec {
         => "usr/local/bin"
   */
   concatStringsSep =
-    builtins.concatStringsSep
-      or (separator: list: lib.foldl' (x: y: x + y) "" (intersperse separator list));
+    builtins.concatStringsSep or (
+      separator: list: lib.foldl' (x: y: x + y) "" (intersperse separator list)
+    );
 
   /* Maps a function over a list of strings and then concatenates the
      result with the specified separator interspersed between
@@ -183,7 +184,9 @@ rec {
     subDir:
     # List of base paths
     paths:
-    concatStringsSep ":" (map (path: path + "/" + subDir) (filter (x: x != null) paths));
+    concatStringsSep ":" (
+      map (path: path + "/" + subDir) (filter (x: x != null) paths)
+    );
 
   /* Construct a Unix-style search path by appending the given
      `subDir` to the specified `output` of each of the packages. If no
@@ -245,7 +248,9 @@ rec {
             This function also copies the path to the Nix store and returns the store path, the same as "''${path}" will, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
       (
-        builtins.foldl' (x: y: if y == "/" && hasSuffix "/" x then x else x + y) "" (stringToCharacters s)
+        builtins.foldl' (x: y: if y == "/" && hasSuffix "/" x then x else x + y) "" (
+          stringToCharacters s
+        )
       );
 
   /* Depending on the boolean `cond', return either the given string
@@ -323,7 +328,10 @@ rec {
             There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
             This function also copies the path to the Nix store, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
-      (lenContent >= lenSuffix && substring (lenContent - lenSuffix) lenContent content == suffix);
+      (
+        lenContent >= lenSuffix
+        && substring (lenContent - lenSuffix) lenContent content == suffix
+      );
 
   /* Determine whether a string contains the given infix
 
@@ -422,7 +430,11 @@ rec {
        escapeC [" "] "foo bar"
        => "foo\\x20bar"
   */
-  escapeC = list: replaceStrings list (map (c: "\\x${toLower (lib.toHexString (charToInt c))}") list);
+  escapeC =
+    list:
+    replaceStrings list (
+      map (c: "\\x${toLower (lib.toHexString (charToInt c))}") list
+    );
 
   /* Escape the string so it can be safely placed inside a URL
      query.
@@ -506,7 +518,8 @@ rec {
       toEscape = builtins.removeAttrs asciiTable unreserved;
     in
     replaceStrings (builtins.attrNames toEscape) (
-      lib.mapAttrsToList (_: c: "%${fixedWidthString 2 "0" (lib.toHexString c)}") toEscape
+      lib.mapAttrsToList (_: c: "%${fixedWidthString 2 "0" (lib.toHexString c)}")
+        toEscape
     );
 
   /* Quote string to be used safely within the Bourne shell.
@@ -561,16 +574,20 @@ rec {
   */
   toShellVar =
     name: value:
-    lib.throwIfNot (isValidPosixName name) "toShellVar: ${name} is not a valid shell variable name" (
-      if isAttrs value && !isStringLike value then
-        "declare -A ${name}=(${
-          concatStringsSep " " (lib.mapAttrsToList (n: v: "[${escapeShellArg n}]=${escapeShellArg v}") value)
-        })"
-      else if isList value then
-        "declare -a ${name}=(${escapeShellArgs value})"
-      else
-        "${name}=${escapeShellArg value}"
-    );
+    lib.throwIfNot (isValidPosixName name)
+      "toShellVar: ${name} is not a valid shell variable name"
+      (
+        if isAttrs value && !isStringLike value then
+          "declare -A ${name}=(${
+            concatStringsSep " " (
+              lib.mapAttrsToList (n: v: "[${escapeShellArg n}]=${escapeShellArg v}") value
+            )
+          })"
+        else if isList value then
+          "declare -a ${name}=(${escapeShellArgs value})"
+        else
+          "${name}=${escapeShellArg value}"
+      );
 
   /* Translate an attribute set into corresponding shell variable declarations
      using `toShellVar`.
@@ -938,7 +955,10 @@ rec {
         => "-Dengine=opengl"
   */
   mesonOption =
-    feature: value: assert (lib.isString feature); assert (lib.isString value); "-D${feature}=${value}";
+    feature: value:
+    assert (lib.isString feature);
+    assert (lib.isString value);
+    "-D${feature}=${value}";
 
   /* Create a -D<condition>={true,false} string that can be passed to typical
       Meson invocations.
@@ -1083,7 +1103,8 @@ rec {
       result = toString float;
       precise = float == fromJSON result;
     in
-    lib.warnIf (!precise) "Imprecise conversion from float to string ${result}" result;
+    lib.warnIf (!precise) "Imprecise conversion from float to string ${result}"
+      result;
 
   /* Soft-deprecated function. While the original implementation is available as
      isConvertibleWithToString, consider using isStringLike instead, if suitable.
@@ -1257,16 +1278,18 @@ rec {
             "/prefix/nix-profiles-library-paths.patch"
             "/prefix/compose-search-path.patch" ]
   */
-  readPathsFromFile = lib.warn "lib.readPathsFromFile is deprecated, use a list instead" (
-    rootPath: file:
-    let
-      lines = lib.splitString "\n" (readFile file);
-      removeComments = lib.filter (line: line != "" && !(lib.hasPrefix "#" line));
-      relativePaths = removeComments lines;
-      absolutePaths = map (path: rootPath + "/${path}") relativePaths;
-    in
-    absolutePaths
-  );
+  readPathsFromFile =
+    lib.warn "lib.readPathsFromFile is deprecated, use a list instead"
+      (
+        rootPath: file:
+        let
+          lines = lib.splitString "\n" (readFile file);
+          removeComments = lib.filter (line: line != "" && !(lib.hasPrefix "#" line));
+          relativePaths = removeComments lines;
+          absolutePaths = map (path: rootPath + "/${path}") relativePaths;
+        in
+        absolutePaths
+      );
 
   /* Read the contents of a file removing the trailing \n
 
@@ -1337,7 +1360,9 @@ rec {
     a: b:
     let
       # Two dimensional array with dimensions (stringLength a + 1, stringLength b + 1)
-      arr = lib.genList (i: lib.genList (j: dist i j) (stringLength b + 1)) (stringLength a + 1);
+      arr = lib.genList (i: lib.genList (j: dist i j) (stringLength b + 1)) (
+        stringLength a + 1
+      );
       d = x: y: lib.elemAt (lib.elemAt arr x) y;
       dist =
         i: j:
@@ -1378,7 +1403,9 @@ rec {
         i:
         if i >= m then
           m
-        else if substring (stringLength a - i - 1) 1 a == substring (stringLength b - i - 1) 1 b then
+        else if
+          substring (stringLength a - i - 1) 1 a == substring (stringLength b - i - 1) 1 b
+        then
           go (i + 1)
         else
           i;

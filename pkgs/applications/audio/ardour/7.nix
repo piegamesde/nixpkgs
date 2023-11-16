@@ -174,16 +174,22 @@ stdenv.mkDerivation rec {
       # wscript does not install these for some reason
       install -vDm 644 "build/gtk2_ardour/ardour.xml" \
         -t "$out/share/mime/packages"
-      install -vDm 644 "build/gtk2_ardour/ardour${lib.versions.major version}.desktop" \
+      install -vDm 644 "build/gtk2_ardour/ardour${
+        lib.versions.major version
+      }.desktop" \
         -t "$out/share/applications"
       for size in 16 22 32 48 256 512; do
         install -vDm 644 "gtk2_ardour/resources/Ardour-icon_''${size}px.png" \
-          "$out/share/icons/hicolor/''${size}x''${size}/apps/ardour${lib.versions.major version}.png"
+          "$out/share/icons/hicolor/''${size}x''${size}/apps/ardour${
+            lib.versions.major version
+          }.png"
       done
       install -vDm 644 "ardour.1"* -t "$out/share/man/man1"
 
       # install additional bundled beats, chords and progressions
-      cp -rp "${bundledContent}"/* "$out/share/ardour${lib.versions.major version}/media"
+      cp -rp "${bundledContent}"/* "$out/share/ardour${
+        lib.versions.major version
+      }/media"
     ''
     + lib.optionalString videoSupport ''
       # `harvid` and `xjadeo` must be accessible in `PATH` for video to work.

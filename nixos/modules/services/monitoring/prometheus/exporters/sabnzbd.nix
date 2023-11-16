@@ -37,7 +37,9 @@ in
   serviceOpts =
     let
       servers = lib.zipAttrs cfg.servers;
-      apiKeys = lib.concatStringsSep "," (builtins.map (file: "$(cat ${file})") servers.apiKeyFile);
+      apiKeys = lib.concatStringsSep "," (
+        builtins.map (file: "$(cat ${file})") servers.apiKeyFile
+      );
     in
     {
       environment = {

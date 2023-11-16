@@ -88,7 +88,9 @@ in
       };
 
       preseed = lib.mkOption {
-        type = lib.types.nullOr (lib.types.submodule { freeformType = preseedFormat.type; });
+        type = lib.types.nullOr (
+          lib.types.submodule { freeformType = preseedFormat.type; }
+        );
 
         default = null;
 
@@ -215,7 +217,9 @@ in
       ];
       documentation = [ "man:lxd(1)" ];
 
-      path = [ pkgs.util-linux ] ++ lib.optional cfg.zfsSupport config.boot.zfs.package;
+      path = [
+        pkgs.util-linux
+      ] ++ lib.optional cfg.zfsSupport config.boot.zfs.package;
 
       environment = lib.mkIf (cfg.ui.enable) { "LXD_UI" = cfg.ui.package; };
 

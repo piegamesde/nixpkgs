@@ -107,7 +107,9 @@ in
             listen_addrs_ipv6 = mkOption {
               type = types.listOf types.str;
               default = lib.optional config.networking.enableIPv6 "::0";
-              defaultText = literalExpression ''lib.optional config.networking.enableIPv6 "::0"'';
+              defaultText =
+                literalExpression
+                  ''lib.optional config.networking.enableIPv6 "::0"'';
               description = mdDoc ''
                 List of ipv6 addresses on which to listen for DNS queries.
               '';
@@ -130,7 +132,9 @@ in
             zones = mkOption {
               description = mdDoc "List of zones to serve.";
               default = { };
-              type = types.listOf (types.coercedTo types.str (zone: { inherit zone; }) zoneType);
+              type = types.listOf (
+                types.coercedTo types.str (zone: { inherit zone; }) zoneType
+              );
             };
           };
         };
@@ -145,7 +149,8 @@ in
       serviceConfig = {
         ExecStart =
           let
-            flags = (lib.optional cfg.debug "--debug") ++ (lib.optional cfg.quiet "--quiet");
+            flags =
+              (lib.optional cfg.debug "--debug") ++ (lib.optional cfg.quiet "--quiet");
             flagsStr = builtins.concatStringsSep " " flags;
           in
           ''

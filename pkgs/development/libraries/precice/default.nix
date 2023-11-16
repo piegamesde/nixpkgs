@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
     "-DPYTHON_INCLUDE_DIR=${python3}/include/${python3.libPrefix}"
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [ "-D_GNU_SOURCE" ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals stdenv.isDarwin [ "-D_GNU_SOURCE" ]
+  );
 
   nativeBuildInputs = [
     cmake

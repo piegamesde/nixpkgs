@@ -121,7 +121,10 @@ let
 
   overrideSDK =
     platform: version:
-    platform // lib.optionalAttrs (platform ? darwinMinVersion) { darwinMinVersion = version; };
+    platform
+    // lib.optionalAttrs (platform ? darwinMinVersion) {
+      darwinMinVersion = version;
+    };
 
   stdenv' =
     if swiftSupport && stdenv.isDarwin && stdenv.isx86_64 then

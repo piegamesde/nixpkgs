@@ -45,12 +45,18 @@ let
         hostOpts:
         hostOpts
         // {
-          certName = if hostOpts.useACMEHost != null then hostOpts.useACMEHost else hostOpts.hostName;
+          certName =
+            if hostOpts.useACMEHost != null then
+              hostOpts.useACMEHost
+            else
+              hostOpts.hostName;
         }
       )
       (filter (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null) vhosts);
 
-  dependentCertNames = unique (map (hostOpts: hostOpts.certName) acmeEnabledVhosts);
+  dependentCertNames = unique (
+    map (hostOpts: hostOpts.certName) acmeEnabledVhosts
+  );
 
   mkListenInfo =
     hostOpts:
@@ -195,7 +201,8 @@ let
   mkVHostConf =
     hostOpts:
     let
-      adminAddr = if hostOpts.adminAddr != null then hostOpts.adminAddr else cfg.adminAddr;
+      adminAddr =
+        if hostOpts.adminAddr != null then hostOpts.adminAddr else cfg.adminAddr;
       listen = filter (listen: !listen.ssl) (mkListenInfo hostOpts);
       listenSSL = filter (listen: listen.ssl) (mkListenInfo hostOpts);
 
@@ -208,9 +215,12 @@ let
         else
           abort "This case should never happen.";
 
-      sslServerCert = if useACME then "${sslCertDir}/fullchain.pem" else hostOpts.sslServerCert;
-      sslServerKey = if useACME then "${sslCertDir}/key.pem" else hostOpts.sslServerKey;
-      sslServerChain = if useACME then "${sslCertDir}/chain.pem" else hostOpts.sslServerChain;
+      sslServerCert =
+        if useACME then "${sslCertDir}/fullchain.pem" else hostOpts.sslServerCert;
+      sslServerKey =
+        if useACME then "${sslCertDir}/key.pem" else hostOpts.sslServerKey;
+      sslServerChain =
+        if useACME then "${sslCertDir}/chain.pem" else hostOpts.sslServerChain;
 
       acmeChallenge = optionalString (useACME && hostOpts.acmeRoot != null) ''
         Alias /.well-known/acme-challenge/ "${hostOpts.acmeRoot}/.well-known/acme-challenge/"
@@ -223,7 +233,9 @@ let
       '';
     in
     optionalString (listen != [ ]) ''
-      <VirtualHost ${concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}") listen}>
+      <VirtualHost ${
+        concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}") listen
+      }>
           ServerName ${hostOpts.hostName}
           ${
             concatMapStrings
@@ -253,7 +265,10 @@ let
       </VirtualHost>
     ''
     + optionalString (listenSSL != [ ]) ''
-      <VirtualHost ${concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}") listenSSL}>
+      <VirtualHost ${
+        concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}")
+          listenSSL
+      }>
           ServerName ${hostOpts.hostName}
           ${
             concatMapStrings
@@ -266,7 +281,10 @@ let
           SSLEngine on
           SSLCertificateFile ${sslServerCert}
           SSLCertificateKeyFile ${sslServerKey}
-          ${optionalString (sslServerChain != null) "SSLCertificateChainFile ${sslServerChain}"}
+          ${
+            optionalString (sslServerChain != null)
+              "SSLCertificateChainFile ${sslServerChain}"
+          }
           ${optionalString hostOpts.http2 "Protocols h2 h2c http/1.1"}
           ${acmeChallenge}
           ${mkVHostCommonConf hostOpts}
@@ -276,7 +294,11 @@ let
   mkVHostCommonConf =
     hostOpts:
     let
-      documentRoot = if hostOpts.documentRoot != null then hostOpts.documentRoot else pkgs.emptyDirectory;
+      documentRoot =
+        if hostOpts.documentRoot != null then
+          hostOpts.documentRoot
+        else
+          pkgs.emptyDirectory;
 
       mkLocations =
         locations:
@@ -345,9 +367,11 @@ let
         </Directory>
       ''}
 
-      ${optionalString (hostOpts.globalRedirect != null && hostOpts.globalRedirect != "") ''
-        RedirectPermanent / ${hostOpts.globalRedirect}
-      ''}
+      ${optionalString
+        (hostOpts.globalRedirect != null && hostOpts.globalRedirect != "")
+        ''
+          RedirectPermanent / ${hostOpts.globalRedirect}
+        ''}
 
       ${let
         makeDirConf = elem: ''
@@ -385,7 +409,10 @@ let
 
     ${let
       toStr =
-        listen: "Listen ${listen.ip}:${toString listen.port} ${if listen.ssl then "https" else "http"}";
+        listen:
+        "Listen ${listen.ip}:${toString listen.port} ${
+          if listen.ssl then "https" else "http"
+        }";
       uniqueListen = uniqList { inputList = map toStr listenInfo; };
     in
     concatStringsSep "\n" uniqueListen}
@@ -406,9 +433,9 @@ let
         else
           throw "Expecting either a string or attribute set including a name and path.";
     in
-    concatMapStringsSep "\n" (module: "LoadModule ${module.name}_module ${module.path}") (
-      unique (map mkModule modules)
-    )}
+    concatMapStringsSep "\n"
+      (module: "LoadModule ${module.name}_module ${module.path}")
+      (unique (map mkModule modules))}
 
     AddHandler type-map var
 
@@ -464,7 +491,9 @@ let
         echo "$options" >> $out
       '';
 
-  mkCertOwnershipAssertion = import ../../../security/acme/mk-cert-ownership-assertion.nix;
+  mkCertOwnershipAssertion =
+    import
+      ../../../security/acme/mk-cert-ownership-assertion.nix;
 in
 
 {
@@ -627,7 +656,9 @@ in
         type = types.path;
         default = confFile;
         defaultText = literalExpression "confFile";
-        example = literalExpression ''pkgs.writeText "httpd.conf" "# my custom config file ..."'';
+        example =
+          literalExpression
+            ''pkgs.writeText "httpd.conf" "# my custom config file ..."'';
         description = lib.mdDoc ''
           Override the configuration file used by Apache. By default,
           NixOS generates one automatically.
@@ -829,7 +860,9 @@ in
       sslCiphers = mkOption {
         type = types.str;
         default = "HIGH:!aNULL:!MD5:!EXP";
-        description = lib.mdDoc "Cipher Suite available for negotiation in SSL proxy handshake.";
+        description =
+          lib.mdDoc
+            "Cipher Suite available for negotiation in SSL proxy handshake.";
       };
 
       sslProtocols = mkOption {
@@ -858,7 +891,11 @@ in
         {
           assertion =
             all
-              (hostOpts: with hostOpts; !(addSSL && onlySSL) && !(forceSSL && onlySSL) && !(addSSL && forceSSL))
+              (
+                hostOpts:
+                with hostOpts;
+                !(addSSL && onlySSL) && !(forceSSL && onlySSL) && !(addSSL && forceSSL)
+              )
               vhosts;
           message = ''
             Options `services.httpd.virtualHosts.<name>.addSSL`,
@@ -867,7 +904,9 @@ in
           '';
         }
         {
-          assertion = all (hostOpts: !(hostOpts.enableACME && hostOpts.useACMEHost != null)) vhosts;
+          assertion =
+            all (hostOpts: !(hostOpts.enableACME && hostOpts.useACMEHost != null))
+              vhosts;
           message = ''
             Options `services.httpd.virtualHosts.<name>.enableACME` and
             `services.httpd.virtualHosts.<name>.useACMEHost` are mutually exclusive.
@@ -907,7 +946,9 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "wwwrun") { wwwrun.gid = config.ids.gids.wwwrun; };
+    users.groups = optionalAttrs (cfg.group == "wwwrun") {
+      wwwrun.gid = config.ids.gids.wwwrun;
+    };
 
     security.acme.certs =
       let
@@ -929,7 +970,9 @@ in
                 extraDomainNames = hostOpts.serverAliases;
                 # Use the vhost-specific email address if provided, otherwise let
                 # security.acme.email or security.acme.certs.<cert>.email be used.
-                email = mkOverride 2000 (if hostOpts.adminAddr != null then hostOpts.adminAddr else cfg.adminAddr);
+                email = mkOverride 2000 (
+                  if hostOpts.adminAddr != null then hostOpts.adminAddr else cfg.adminAddr
+                );
                 # Filter for enableACME-only vhosts. Don't want to create dud certs
               }
             )
@@ -1024,7 +1067,9 @@ in
     systemd.services.httpd = {
       description = "Apache HTTPD";
       wantedBy = [ "multi-user.target" ];
-      wants = concatLists (map (certName: [ "acme-finished-${certName}.target" ]) dependentCertNames);
+      wants = concatLists (
+        map (certName: [ "acme-finished-${certName}.target" ]) dependentCertNames
+      );
       after = [
         "network.target"
       ] ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames;
@@ -1073,7 +1118,9 @@ in
     systemd.services.httpd-config-reload =
       let
         sslServices = map (certName: "acme-${certName}.service") dependentCertNames;
-        sslTargets = map (certName: "acme-finished-${certName}.target") dependentCertNames;
+        sslTargets =
+          map (certName: "acme-finished-${certName}.target")
+            dependentCertNames;
       in
       mkIf (sslServices != [ ]) {
         wantedBy = sslServices ++ [ "multi-user.target" ];

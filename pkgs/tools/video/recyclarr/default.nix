@@ -22,7 +22,8 @@ let
       x86_64-darwin = "x64";
       aarch64-darwin = "arm64";
     }
-    ."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    ."${stdenv.hostPlatform.system}"
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   hash =
     {
@@ -63,7 +64,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ makeWrapper ]
-    ++ lib.optional stdenv.isLinux autoPatchelfHook ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+    ++ lib.optional stdenv.isLinux autoPatchelfHook
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
   buildInputs = [
     icu
     zlib

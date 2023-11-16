@@ -40,7 +40,10 @@ let
   ];
 
   dirStanzas =
-    baseDir: lib.concatStringsSep "\n" (map (e: "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}") libDirs);
+    baseDir:
+    lib.concatStringsSep "\n" (
+      map (e: "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}") libDirs
+    );
 
   defaultsFile = pkgs.writeText "60-defaults.conf" ''
     # 01-system-paths.conf
@@ -348,7 +351,9 @@ in
           procps
           psmisc
         ];
-        after = [ "nginx.service" ] ++ lib.optional cfg.database.createLocally "mysql.service";
+        after = [
+          "nginx.service"
+        ] ++ lib.optional cfg.database.createLocally "mysql.service";
         wantedBy = [ "multi-user.target" ];
         restartTriggers = [
           defaultsFile
@@ -356,7 +361,9 @@ in
         ];
         preStart =
           lib.optionalString useCustomDir ''
-            install -dm775 -o ${user} -g ${group} ${cfg.storageDir}/{${lib.concatStringsSep "," libDirs}}
+            install -dm775 -o ${user} -g ${group} ${cfg.storageDir}/{${
+              lib.concatStringsSep "," libDirs
+            }}
           ''
           + lib.optionalString cfg.database.createLocally ''
             if ! test -e "/var/lib/${dirName}/db-created"; then

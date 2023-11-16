@@ -47,9 +47,9 @@ let
         map
           (
             subName:
-            run (name + "." + subName) (if hasAttr subName under then getAttr subName under else "<MISSING!>") (
-              getAttr subName tests
-            )
+            run (name + "." + subName)
+              (if hasAttr subName under then getAttr subName under else "<MISSING!>")
+              (getAttr subName tests)
           )
           (attrNames tests)
       ))

@@ -24,7 +24,9 @@ symlinkJoin rec {
   ];
 
   # extend to add to the python environment of QGIS without rebuilding QGIS application.
-  pythonInputs = qgis-unwrapped.pythonBuildInputs ++ (extraPythonPackages qgis-unwrapped.py.pkgs);
+  pythonInputs =
+    qgis-unwrapped.pythonBuildInputs
+    ++ (extraPythonPackages qgis-unwrapped.py.pkgs);
 
   postBuild = ''
     # unpackPhase

@@ -20,7 +20,9 @@ let
     "6" = {
       version = "6.8";
       src = fetchurl {
-        url = "https://download.pinegrow.com/PinegrowLinux64.${versions."6".version}.zip";
+        url = "https://download.pinegrow.com/PinegrowLinux64.${
+            versions."6".version
+          }.zip";
         hash = "sha256-gqRmu0VR8Aj57UwYYLKICd4FnYZMhM6pTTSGIY5MLMk=";
       };
     };

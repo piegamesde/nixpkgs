@@ -10,7 +10,9 @@ let
 
   mdadm_conf = config.environment.etc."mdadm.conf";
 
-  enable_implicitly_for_old_state_versions = lib.versionOlder config.system.stateVersion "23.11";
+  enable_implicitly_for_old_state_versions =
+    lib.versionOlder config.system.stateVersion
+      "23.11";
 
   minimum_config_is_set =
     config_text: (builtins.match ".*(MAILADDR|PROGRAM).*" mdadm_conf.text) != null;
@@ -75,7 +77,8 @@ in
 
   config = lib.mkIf cfg.enable {
     warnings =
-      lib.mkIf (!enable_implicitly_for_old_state_versions && !minimum_config_is_set mdadm_conf)
+      lib.mkIf
+        (!enable_implicitly_for_old_state_versions && !minimum_config_is_set mdadm_conf)
         [
           "mdadm: Neither MAILADDR nor PROGRAM has been set. This will cause the `mdmon` service to crash."
         ];
@@ -111,7 +114,9 @@ in
         $out/bin/mdadm --version
       '';
 
-      extraFiles."/etc/mdadm.conf".source = pkgs.writeText "mdadm.conf" mdadm_conf.text;
+      extraFiles."/etc/mdadm.conf".source =
+        pkgs.writeText "mdadm.conf"
+          mdadm_conf.text;
 
       systemd = {
         contents."/etc/mdadm.conf".text = mdadm_conf.text;

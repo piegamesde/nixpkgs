@@ -21,7 +21,9 @@ let
       }
     else
       fetchurl {
-        url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
+        url = "mirror://kernel/linux/kernel/v${
+            lib.versions.major version
+          }.x/linux-${version}.tar.xz";
         inherit (thisKernel) hash;
       };
 

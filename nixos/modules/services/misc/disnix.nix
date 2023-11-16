@@ -26,7 +26,9 @@ in
       enableMultiUser = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc "Whether to support multi-user mode by enabling the Disnix D-Bus service";
+        description =
+          lib.mdDoc
+            "Whether to support multi-user mode by enabling the Disnix D-Bus service";
       };
 
       useWebServiceInterface = mkEnableOption (
@@ -40,12 +42,16 @@ in
         defaultText = literalExpression "pkgs.disnix";
       };
 
-      enableProfilePath = mkEnableOption (lib.mdDoc "exposing the Disnix profiles in the system's PATH");
+      enableProfilePath = mkEnableOption (
+        lib.mdDoc "exposing the Disnix profiles in the system's PATH"
+      );
 
       profiles = mkOption {
         type = types.listOf types.str;
         default = [ "default" ];
-        description = lib.mdDoc "Names of the Disnix profiles to expose in the system's PATH";
+        description =
+          lib.mdDoc
+            "Names of the Disnix profiles to expose in the system's PATH";
       };
     };
   };
@@ -59,7 +65,8 @@ in
       pkgs.disnix
     ] ++ optional cfg.useWebServiceInterface pkgs.DisnixWebService;
     environment.variables.PATH = lib.optionals cfg.enableProfilePath (
-      map (profileName: "/nix/var/nix/profiles/disnix/${profileName}/bin") cfg.profiles
+      map (profileName: "/nix/var/nix/profiles/disnix/${profileName}/bin")
+        cfg.profiles
     );
     environment.variables.DISNIX_REMOTE_CLIENT =
       lib.optionalString (cfg.enableMultiUser)
@@ -71,12 +78,16 @@ in
     services.tomcat.enable = cfg.useWebServiceInterface;
     services.tomcat.extraGroups = [ "disnix" ];
     services.tomcat.javaOpts = "${
-        optionalString cfg.useWebServiceInterface "-Djava.library.path=${pkgs.libmatthew_java}/lib/jni"
+        optionalString cfg.useWebServiceInterface
+          "-Djava.library.path=${pkgs.libmatthew_java}/lib/jni"
       } ";
     services.tomcat.sharedLibs =
-      optional cfg.useWebServiceInterface "${pkgs.DisnixWebService}/share/java/DisnixConnection.jar"
+      optional cfg.useWebServiceInterface
+        "${pkgs.DisnixWebService}/share/java/DisnixConnection.jar"
       ++ optional cfg.useWebServiceInterface "${pkgs.dbus_java}/share/java/dbus.jar";
-    services.tomcat.webapps = optional cfg.useWebServiceInterface pkgs.DisnixWebService;
+    services.tomcat.webapps =
+      optional cfg.useWebServiceInterface
+        pkgs.DisnixWebService;
 
     users.groups.disnix.gid = config.ids.gids.disnix;
 

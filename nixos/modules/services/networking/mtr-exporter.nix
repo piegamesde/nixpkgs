@@ -27,7 +27,9 @@ let
   jobsConfig = pkgs.writeText "mtr-exporter.conf" (
     concatMapStrings
       (job: ''
-        ${job.name} -- ${job.schedule} -- ${concatStringsSep " " job.flags} ${job.address}
+        ${job.name} -- ${job.schedule} -- ${
+          concatStringsSep " " job.flags
+        } ${job.address}
       '')
       cfg.jobs
   );

@@ -154,7 +154,9 @@ let
       csopen =
         "cryptsetup luksOpen ${dev.device} ${dev.name}"
         + optionalString dev.allowDiscards " --allow-discards"
-        + optionalString dev.bypassWorkqueues " --perf-no_read_workqueue --perf-no_write_workqueue"
+        +
+          optionalString dev.bypassWorkqueues
+            " --perf-no_read_workqueue --perf-no_write_workqueue"
         + optionalString (dev.header != null) " --header=${dev.header}";
       cschange = "cryptsetup luksChangeKey ${dev.device} ${
           optionalString (dev.header != null) "--header=${dev.header}"
@@ -255,13 +257,21 @@ let
               ''
                 if wait_target "key file" ${dev.keyFile}; then
                     ${csopen} --key-file=${dev.keyFile} \
-                      ${optionalString (dev.keyFileSize != null) "--keyfile-size=${toString dev.keyFileSize}"} \
-                      ${optionalString (dev.keyFileOffset != null) "--keyfile-offset=${toString dev.keyFileOffset}"}
+                      ${
+                        optionalString (dev.keyFileSize != null)
+                          "--keyfile-size=${toString dev.keyFileSize}"
+                      } \
+                      ${
+                        optionalString (dev.keyFileOffset != null)
+                          "--keyfile-offset=${toString dev.keyFileOffset}"
+                      }
                     cs_status=$?
                     if [ $cs_status -ne 0 ]; then
                       echo "Key File ${dev.keyFile} failed!"
                       if ! try_empty_passphrase; then
-                        ${if dev.fallbackToPassword then "echo" else "die"} "${dev.keyFile} is unavailable"
+                        ${
+                          if dev.fallbackToPassword then "echo" else "die"
+                        } "${dev.keyFile} is unavailable"
                         echo " - failing back to interactive password prompt"
                         do_open_passphrase
                       fi
@@ -269,7 +279,9 @@ let
                 else
                     # If the key file never shows up we should also try the empty passphrase
                     if ! try_empty_passphrase; then
-                       ${if dev.fallbackToPassword then "echo" else "die"} "${dev.keyFile} is unavailable"
+                       ${
+                         if dev.fallbackToPassword then "echo" else "die"
+                       } "${dev.keyFile} is unavailable"
                        echo " - failing back to interactive password prompt"
                        do_open_passphrase
                     fi
@@ -316,7 +328,9 @@ let
             salt="$(cat /crypt-storage${dev.yubikey.storage.path} | sed -n 1p | tr -d '\n')"
             iterations="$(cat /crypt-storage${dev.yubikey.storage.path} | sed -n 2p | tr -d '\n')"
             challenge="$(echo -n $salt | openssl-wrap dgst -binary -sha512 | rbtohex)"
-            response="$(ykchalresp -${toString dev.yubikey.slot} -x $challenge 2>/dev/null)"
+            response="$(ykchalresp -${
+              toString dev.yubikey.slot
+            } -x $challenge 2>/dev/null)"
 
             for try in $(seq 3); do
                 ${
@@ -401,7 +415,9 @@ let
 
             new_challenge="$(echo -n $new_salt | openssl-wrap dgst -binary -sha512 | rbtohex)"
 
-            new_response="$(ykchalresp -${toString dev.yubikey.slot} -x $new_challenge 2>/dev/null)"
+            new_response="$(ykchalresp -${
+              toString dev.yubikey.slot
+            } -x $new_challenge 2>/dev/null)"
 
             if [ -z "$new_response" ]; then
                 echo "Warning: Unable to generate new challenge response, current challenge persists!"
@@ -543,9 +559,9 @@ let
               echo "Waiting for your FIDO2 device..."
               fido2luks open${
                 optionalString dev.allowDiscards " --allow-discards"
-              } ${dev.device} ${dev.name} "${builtins.concatStringsSep "," fido2luksCredentials}" --await-dev ${
-                toString dev.fido2.gracePeriod
-              } --salt string:$passphrase
+              } ${dev.device} ${dev.name} "${
+                builtins.concatStringsSep "," fido2luksCredentials
+              }" --await-dev ${toString dev.fido2.gracePeriod} --salt string:$passphrase
             if [ $? -ne 0 ]; then
               echo "No FIDO2 key found, falling back to normal open procedure"
               open_normally
@@ -608,12 +624,18 @@ let
                 "no-write-workqueue"
               ]
               ++ optional (v.header != null) "header=${v.header}"
-              ++ optional (v.keyFileOffset != null) "keyfile-offset=${toString v.keyFileOffset}"
+              ++
+                optional (v.keyFileOffset != null)
+                  "keyfile-offset=${toString v.keyFileOffset}"
               ++ optional (v.keyFileSize != null) "keyfile-size=${toString v.keyFileSize}"
-              ++ optional (v.keyFileTimeout != null) "keyfile-timeout=${builtins.toString v.keyFileTimeout}s"
+              ++
+                optional (v.keyFileTimeout != null)
+                  "keyfile-timeout=${builtins.toString v.keyFileTimeout}s"
               ++ optional (v.tryEmptyPassphrase) "try-empty-password=true";
           in
-          "${n} ${v.device} ${if v.keyFile == null then "-" else v.keyFile} ${lib.concatStringsSep "," opts}"
+          "${n} ${v.device} ${if v.keyFile == null then "-" else v.keyFile} ${
+            lib.concatStringsSep "," opts
+          }"
         )
         luks.devices
     )
@@ -721,7 +743,9 @@ in
                   default = name;
                   example = "luksroot";
                   type = types.str;
-                  description = lib.mdDoc "Name of the unencrypted device in {file}`/dev/mapper`.";
+                  description =
+                    lib.mdDoc
+                      "Name of the unencrypted device in {file}`/dev/mapper`.";
                 };
 
                 device = mkOption {
@@ -800,7 +824,9 @@ in
                 preLVM = mkOption {
                   default = true;
                   type = types.bool;
-                  description = lib.mdDoc "Whether the luksOpen will be attempted before LVM scan or after it.";
+                  description =
+                    lib.mdDoc
+                      "Whether the luksOpen will be attempted before LVM scan or after it.";
                 };
 
                 allowDiscards = mkOption {
@@ -935,13 +961,17 @@ in
                           saltLength = mkOption {
                             default = 16;
                             type = types.int;
-                            description = lib.mdDoc "Length of the new salt in byte (64 is the effective maximum).";
+                            description =
+                              lib.mdDoc
+                                "Length of the new salt in byte (64 is the effective maximum).";
                           };
 
                           keyLength = mkOption {
                             default = 64;
                             type = types.int;
-                            description = lib.mdDoc "Length of the LUKS slot key derived with PBKDF2 in byte.";
+                            description =
+                              lib.mdDoc
+                                "Length of the LUKS slot key derived with PBKDF2 in byte.";
                           };
 
                           iterationStep = mkOption {
@@ -1087,17 +1117,21 @@ in
 
       {
         assertion =
-          !config.boot.initrd.systemd.enable -> all (x: x.keyFileTimeout == null) (attrValues luks.devices);
+          !config.boot.initrd.systemd.enable
+          -> all (x: x.keyFileTimeout == null) (attrValues luks.devices);
         message = "boot.initrd.luks.devices.<name>.keyFileTimeout is only supported for systemd initrd";
       }
 
       {
         assertion =
-          config.boot.initrd.systemd.enable -> all (dev: !dev.fallbackToPassword) (attrValues luks.devices);
+          config.boot.initrd.systemd.enable
+          -> all (dev: !dev.fallbackToPassword) (attrValues luks.devices);
         message = "boot.initrd.luks.devices.<name>.fallbackToPassword is implied by systemd stage 1.";
       }
       {
-        assertion = config.boot.initrd.systemd.enable -> all (dev: dev.preLVM) (attrValues luks.devices);
+        assertion =
+          config.boot.initrd.systemd.enable
+          -> all (dev: dev.preLVM) (attrValues luks.devices);
         message = "boot.initrd.luks.devices.<name>.preLVM is not used by systemd stage 1.";
       }
       {
@@ -1109,7 +1143,9 @@ in
       {
         assertion =
           config.boot.initrd.systemd.enable
-          -> all (dev: dev.preOpenCommands == "" && dev.postOpenCommands == "") (attrValues luks.devices);
+          -> all (dev: dev.preOpenCommands == "" && dev.postOpenCommands == "") (
+            attrValues luks.devices
+          );
         message = "boot.initrd.luks.devices.<name>.preOpenCommands and postOpenCommands is not supported by systemd stage 1. Please bind a service to cryptsetup.target or cryptsetup-pre.target instead.";
       }
       # TODO
@@ -1154,11 +1190,13 @@ in
     # copy the cryptsetup binary and it's dependencies
     boot.initrd.extraUtilsCommands =
       let
-        pbkdf2-sha512 = pkgs.runCommandCC "pbkdf2-sha512" { buildInputs = [ pkgs.openssl ]; } ''
-          mkdir -p "$out/bin"
-          cc -O3 -lcrypto ${./pbkdf2-sha512.c} -o "$out/bin/pbkdf2-sha512"
-          strip -s "$out/bin/pbkdf2-sha512"
-        '';
+        pbkdf2-sha512 =
+          pkgs.runCommandCC "pbkdf2-sha512" { buildInputs = [ pkgs.openssl ]; }
+            ''
+              mkdir -p "$out/bin"
+              cc -O3 -lcrypto ${./pbkdf2-sha512.c} -o "$out/bin/pbkdf2-sha512"
+              strip -s "$out/bin/pbkdf2-sha512"
+            '';
       in
       mkIf (!config.boot.initrd.systemd.enable) ''
         copy_bin_and_libs ${pkgs.cryptsetup}/bin/cryptsetup
@@ -1206,22 +1244,24 @@ in
         ''}
       '';
 
-    boot.initrd.extraUtilsCommandsTest = mkIf (!config.boot.initrd.systemd.enable) ''
-      $out/bin/cryptsetup --version
-      ${optionalString luks.yubikeySupport ''
-        $out/bin/ykchalresp -V
-        $out/bin/ykinfo -V
-        $out/bin/openssl-wrap version
-      ''}
-      ${optionalString luks.gpgSupport ''
-        $out/bin/gpg --version
-        $out/bin/gpg-agent --version
-        $out/bin/scdaemon --version
-      ''}
-      ${optionalString luks.fido2Support ''
-        $out/bin/fido2luks --version
-      ''}
-    '';
+    boot.initrd.extraUtilsCommandsTest =
+      mkIf (!config.boot.initrd.systemd.enable)
+        ''
+          $out/bin/cryptsetup --version
+          ${optionalString luks.yubikeySupport ''
+            $out/bin/ykchalresp -V
+            $out/bin/ykinfo -V
+            $out/bin/openssl-wrap version
+          ''}
+          ${optionalString luks.gpgSupport ''
+            $out/bin/gpg --version
+            $out/bin/gpg-agent --version
+            $out/bin/scdaemon --version
+          ''}
+          ${optionalString luks.fido2Support ''
+            $out/bin/fido2luks --version
+          ''}
+        '';
 
     boot.initrd.systemd = {
       contents."/etc/crypttab".source = stage1Crypttab;
@@ -1241,12 +1281,20 @@ in
     # We do this because we need the udev rules from the package
     boot.initrd.services.lvm.enable = true;
 
-    boot.initrd.preFailCommands = mkIf (!config.boot.initrd.systemd.enable) postCommands;
+    boot.initrd.preFailCommands =
+      mkIf (!config.boot.initrd.systemd.enable)
+        postCommands;
     boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (
-      commonFunctions + preCommands + concatStrings (mapAttrsToList openCommand preLVM) + postCommands
+      commonFunctions
+      + preCommands
+      + concatStrings (mapAttrsToList openCommand preLVM)
+      + postCommands
     );
     boot.initrd.postDeviceCommands = mkIf (!config.boot.initrd.systemd.enable) (
-      commonFunctions + preCommands + concatStrings (mapAttrsToList openCommand postLVM) + postCommands
+      commonFunctions
+      + preCommands
+      + concatStrings (mapAttrsToList openCommand postLVM)
+      + postCommands
     );
 
     environment.systemPackages = [ pkgs.cryptsetup ];

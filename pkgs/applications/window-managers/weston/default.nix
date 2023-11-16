@@ -110,21 +110,25 @@ stdenv.mkDerivation rec {
       xwayland
     ];
 
-  mesonFlags = [
-    (lib.mesonBool "backend-drm-screencast-vaapi" vaapiSupport)
-    (lib.mesonBool "backend-pipewire" pipewireSupport)
-    (lib.mesonBool "backend-rdp" rdpSupport)
-    (lib.mesonBool "backend-vnc" vncSupport)
-    (lib.mesonBool "color-management-lcms" lcmsSupport)
-    (lib.mesonBool "demo-clients" demoSupport)
-    (lib.mesonBool "image-jpeg" jpegSupport)
-    (lib.mesonBool "image-webp" webpSupport)
-    (lib.mesonBool "pipewire" pipewireSupport)
-    (lib.mesonBool "remoting" remotingSupport)
-    (lib.mesonOption "simple-clients" "")
-    (lib.mesonBool "test-junit-xml" false)
-    (lib.mesonBool "xwayland" xwaylandSupport)
-  ] ++ lib.optionals xwaylandSupport [ (lib.mesonOption "xwayland-path" (lib.getExe xwayland)) ];
+  mesonFlags =
+    [
+      (lib.mesonBool "backend-drm-screencast-vaapi" vaapiSupport)
+      (lib.mesonBool "backend-pipewire" pipewireSupport)
+      (lib.mesonBool "backend-rdp" rdpSupport)
+      (lib.mesonBool "backend-vnc" vncSupport)
+      (lib.mesonBool "color-management-lcms" lcmsSupport)
+      (lib.mesonBool "demo-clients" demoSupport)
+      (lib.mesonBool "image-jpeg" jpegSupport)
+      (lib.mesonBool "image-webp" webpSupport)
+      (lib.mesonBool "pipewire" pipewireSupport)
+      (lib.mesonBool "remoting" remotingSupport)
+      (lib.mesonOption "simple-clients" "")
+      (lib.mesonBool "test-junit-xml" false)
+      (lib.mesonBool "xwayland" xwaylandSupport)
+    ]
+    ++ lib.optionals xwaylandSupport [
+      (lib.mesonOption "xwayland-path" (lib.getExe xwayland))
+    ];
 
   passthru.providedSessions = [ "weston" ];
 

@@ -150,7 +150,9 @@ let
 
     systemd.services.invidious-db-clean = {
       description = "Invidious database cleanup";
-      documentation = [ "https://docs.invidious.io/Database-Information-and-Maintenance.md" ];
+      documentation = [
+        "https://docs.invidious.io/Database-Information-and-Maintenance.md"
+      ];
       startAt = lib.mkDefault "weekly";
       path = [ config.services.postgresql.package ];
       script = ''

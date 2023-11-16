@@ -24,7 +24,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ importlib-metadata ] ++ lib.optionals (pythonOlder "3.5") [ typing ];
+  propagatedBuildInputs = [
+    importlib-metadata
+  ] ++ lib.optionals (pythonOlder "3.5") [ typing ];
 
   nativeCheckInputs = [ unittestCheckHook ];
 

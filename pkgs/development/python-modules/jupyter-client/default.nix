@@ -28,15 +28,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    entrypoints
-    jupyter-core
-    nest-asyncio
-    python-dateutil
-    pyzmq
-    tornado
-    traitlets
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ] ++ lib.optional isPyPy py;
+  propagatedBuildInputs =
+    [
+      entrypoints
+      jupyter-core
+      nest-asyncio
+      python-dateutil
+      pyzmq
+      tornado
+      traitlets
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
+    ++ lib.optional isPyPy py;
 
   # Circular dependency with ipykernel
   doCheck = false;

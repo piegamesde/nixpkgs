@@ -91,9 +91,12 @@ stdenv.mkDerivation rec {
   postFixup = ''
     makeWrapper ${jre}/bin/java $out/bin/jameica \
       --add-flags "-cp $out/share/java/jameica.jar:$out/share/jameica-${version}/* ${
-        lib.optionalString stdenv.isDarwin ''-Xdock:name="Jameica" -XstartOnFirstThread''
+        lib.optionalString stdenv.isDarwin
+          ''-Xdock:name="Jameica" -XstartOnFirstThread''
       } de.willuhn.jameica.Main" \
-      --prefix LD_LIBRARY_PATH : ${lib.escapeShellArg (lib.makeLibraryPath buildInputs)} \
+      --prefix LD_LIBRARY_PATH : ${
+        lib.escapeShellArg (lib.makeLibraryPath buildInputs)
+      } \
       --chdir "$out/share/java/" \
       "''${gappsWrapperArgs[@]}"
   '';

@@ -75,6 +75,8 @@ in
 
     services.dbus.packages = [ pkgs.gnome-browser-connector ];
 
-    programs.firefox.nativeMessagingHosts.packages = [ pkgs.gnome-browser-connector ];
+    programs.firefox.nativeMessagingHosts.packages = [
+      pkgs.gnome-browser-connector
+    ];
   };
 }

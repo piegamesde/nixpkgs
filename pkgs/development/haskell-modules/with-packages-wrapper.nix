@@ -55,7 +55,8 @@ let
   isGhcjs = ghc.isGhcjs or false;
   isHaLVM = ghc.isHaLVM or false;
   ghc761OrLater = isGhcjs || isHaLVM || lib.versionOlder "7.6.1" ghc.version;
-  packageDBFlag = if ghc761OrLater then "--global-package-db" else "--global-conf";
+  packageDBFlag =
+    if ghc761OrLater then "--global-package-db" else "--global-conf";
   ghcCommand' = if isGhcjs then "ghcjs" else "ghc";
   ghcCommand = "${ghc.targetPrefix}${ghcCommand'}";
   ghcCommandCaps = lib.toUpper ghcCommand';
@@ -75,15 +76,18 @@ let
   docDir = "$out/share/doc/ghc/html";
   packageCfgDir = "${libDir}/package.conf.d";
   paths = lib.concatLists (
-    builtins.map (pkg: [ pkg ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" pkg) ]) (
-      lib.filter (x: x ? isHaskellLibrary) (lib.closePropagation packages)
-    )
+    builtins.map
+      (
+        pkg: [ pkg ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" pkg) ]
+      )
+      (lib.filter (x: x ? isHaskellLibrary) (lib.closePropagation packages))
   );
   hasLibraries = lib.any (x: x.isHaskellLibrary) paths;
   # CLang is needed on Darwin for -fllvm to work:
   # https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/codegens.html#llvm-code-generator-fllvm
   llvm = lib.makeBinPath (
-    [ llvmPackages.llvm ] ++ lib.optional stdenv.targetPlatform.isDarwin llvmPackages.clang
+    [ llvmPackages.llvm ]
+    ++ lib.optional stdenv.targetPlatform.isDarwin llvmPackages.clang
   );
 in
 
@@ -97,7 +101,10 @@ else
     # if such a feature is needed, the real compiler name should be saved
     # as a dedicated drv attribute, like `compiler-name`
     name = ghc.name + "-with-packages";
-    paths = paths ++ [ ghc ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" ghc) ];
+    paths =
+      paths
+      ++ [ ghc ]
+      ++ lib.optionals installDocumentation [ (lib.getOutput "doc" ghc) ];
     nativeBuildInputs = [ makeWrapper ];
     postBuild =
       ''
@@ -113,7 +120,8 @@ else
               --set "NIX_${ghcCommandCaps}_DOCDIR" "${docDir}"                  \
               --set "NIX_${ghcCommandCaps}_LIBDIR" "${libDir}"                  \
               ${
-                lib.optionalString (ghc.isGhcjs or false) ''--set NODE_PATH "${ghc.socket-io}/lib/node_modules"''
+                lib.optionalString (ghc.isGhcjs or false)
+                  ''--set NODE_PATH "${ghc.socket-io}/lib/node_modules"''
               } \
               ${lib.optionalString useLLVM ''--prefix "PATH" ":" "${llvm}"''}
           fi
@@ -147,7 +155,8 @@ else
         fi
 
       ''
-      + (lib.optionalString (stdenv.targetPlatform.isDarwin && !isGhcjs && !stdenv.targetPlatform.isiOS)
+      + (lib.optionalString
+        (stdenv.targetPlatform.isDarwin && !isGhcjs && !stdenv.targetPlatform.isiOS)
         ''
           # Work around a linker limit in macOS Sierra (see generic-builder.nix):
           local packageConfDir="${packageCfgDir}";

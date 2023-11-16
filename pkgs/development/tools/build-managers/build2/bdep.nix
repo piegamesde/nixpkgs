@@ -34,7 +34,9 @@ stdenv.mkDerivation rec {
     libodb-sqlite
   ];
 
-  build2ConfigureFlags = [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
+  build2ConfigureFlags = [
+    "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"
+  ];
 
   meta = with lib; {
     description = "build2 project dependency manager";

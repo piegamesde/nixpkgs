@@ -88,7 +88,9 @@ let
 
     # FIXME: This fixes dylib references in the dylibs themselves, but
     # not in the programs in $out/bin.
-    nativeBuildInputs = lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+    nativeBuildInputs =
+      lib.optional stdenv.hostPlatform.isDarwin
+        fixDarwinDylibNames;
 
     # remove dependency on bootstrap-tools in early stdenv build
     postInstall =
@@ -114,7 +116,9 @@ let
         in
         ''
           substituteInPlace "$dev/bin/icu-config" \
-            ${lib.concatMapStringsSep " " (r: "--replace '${r.from}' '${r.to}'") replacements}
+            ${
+              lib.concatMapStringsSep " " (r: "--replace '${r.from}' '${r.to}'") replacements
+            }
         ''
       );
 
@@ -144,5 +148,8 @@ let
 in
 stdenv.mkDerivation (
   finalAttrs:
-  attrs // { passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage; }
+  attrs
+  // {
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
+  }
 )

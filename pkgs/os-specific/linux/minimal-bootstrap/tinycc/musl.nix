@@ -152,10 +152,12 @@ in
       }
       "install -D ${tinycc-musl}/bin/tcc $out/bin/tcc";
 
-  libs = bash.runCommand "${pname}-${version}-libs" { inherit pname version meta; } ''
-    mkdir $out
-    cp -r ${musl}/* $out
-    chmod +w $out/lib/libtcc1.a
-    cp ${tinycc-musl}/lib/libtcc1.a $out/lib/libtcc1.a
-  '';
+  libs =
+    bash.runCommand "${pname}-${version}-libs" { inherit pname version meta; }
+      ''
+        mkdir $out
+        cp -r ${musl}/* $out
+        chmod +w $out/lib/libtcc1.a
+        cp ${tinycc-musl}/lib/libtcc1.a $out/lib/libtcc1.a
+      '';
 }

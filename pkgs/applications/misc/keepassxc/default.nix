@@ -69,7 +69,9 @@ stdenv.mkDerivation rec {
       "-DWITH_XC_UPDATECHECK=OFF"
     ]
     ++ (lib.optional (!withKeePassX11) "-DWITH_XC_X11=OFF")
-    ++ (lib.optional (withKeePassFDOSecrets && stdenv.isLinux) "-DWITH_XC_FDOSECRETS=ON")
+    ++ (lib.optional (withKeePassFDOSecrets && stdenv.isLinux)
+      "-DWITH_XC_FDOSECRETS=ON"
+    )
     ++ (lib.optional (withKeePassYubiKey && stdenv.isLinux) "-DWITH_XC_YUBIKEY=ON")
     ++ (lib.optional withKeePassBrowser "-DWITH_XC_BROWSER=ON")
     ++ (lib.optional withKeePassKeeShare "-DWITH_XC_KEESHARE=ON")

@@ -110,12 +110,16 @@ stdenv.mkDerivation (
       + lib.optionalString buildTests ''
         mkdir -p $test/bin
         find tests -executable -type f -exec mv {} $test/bin \;
-        patchelf --set-rpath ${lib.makeLibraryPath finalAttrs.buildInputs}:$out/lib $test/bin/*
+        patchelf --set-rpath ${
+          lib.makeLibraryPath finalAttrs.buildInputs
+        }:$out/lib $test/bin/*
       ''
       + lib.optionalString buildBenchmarks ''
         mkdir -p $benchmark/bin
         find examples -executable -type f -exec mv {} $benchmark/bin \;
-        patchelf --set-rpath ${lib.makeLibraryPath finalAttrs.buildInputs}:$out/lib $benchmark/bin/*
+        patchelf --set-rpath ${
+          lib.makeLibraryPath finalAttrs.buildInputs
+        }:$out/lib $benchmark/bin/*
       '';
 
     passthru.updateScript = rocmUpdateScript {

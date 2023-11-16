@@ -13,7 +13,8 @@
 let
   globWith = lib.concatMapStringsSep "\n";
   rmNoise = noiseGlobs: globWith (f: "rm -rf ${f}") noiseGlobs;
-  mvDoc = docGlobs: globWith (f: ''mv ${f} "$DOCDIR" 2>/dev/null || true'') docGlobs;
+  mvDoc =
+    docGlobs: globWith (f: ''mv ${f} "$DOCDIR" 2>/dev/null || true'') docGlobs;
 
   # Shell script that implements common move & remove actions
   # $1 is the doc directory (will be created).

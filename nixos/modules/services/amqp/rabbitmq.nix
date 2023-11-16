@@ -179,7 +179,9 @@ in
         "management.tcp.ip" = cfg.listenAddress;
       };
 
-    services.rabbitmq.plugins = optional cfg.managementPlugin.enable "rabbitmq_management";
+    services.rabbitmq.plugins =
+      optional cfg.managementPlugin.enable
+        "rabbitmq_management";
 
     systemd.services.rabbitmq = {
       description = "RabbitMQ Server";
@@ -199,16 +201,20 @@ in
         pkgs.coreutils # mkdir/chown/chmod for preStart
       ];
 
-      environment = {
-        RABBITMQ_MNESIA_BASE = "${cfg.dataDir}/mnesia";
-        RABBITMQ_LOGS = "-";
-        SYS_PREFIX = "";
-        RABBITMQ_CONFIG_FILE = config_file;
-        RABBITMQ_PLUGINS_DIR = concatStringsSep ":" cfg.pluginDirs;
-        RABBITMQ_ENABLED_PLUGINS_FILE = pkgs.writeText "enabled_plugins" ''
-          [ ${concatStringsSep "," cfg.plugins} ].
-        '';
-      } // optionalAttrs (cfg.config != "") { RABBITMQ_ADVANCED_CONFIG_FILE = advanced_config_file; };
+      environment =
+        {
+          RABBITMQ_MNESIA_BASE = "${cfg.dataDir}/mnesia";
+          RABBITMQ_LOGS = "-";
+          SYS_PREFIX = "";
+          RABBITMQ_CONFIG_FILE = config_file;
+          RABBITMQ_PLUGINS_DIR = concatStringsSep ":" cfg.pluginDirs;
+          RABBITMQ_ENABLED_PLUGINS_FILE = pkgs.writeText "enabled_plugins" ''
+            [ ${concatStringsSep "," cfg.plugins} ].
+          '';
+        }
+        // optionalAttrs (cfg.config != "") {
+          RABBITMQ_ADVANCED_CONFIG_FILE = advanced_config_file;
+        };
 
       serviceConfig = {
         ExecStart = "${cfg.package}/sbin/rabbitmq-server";

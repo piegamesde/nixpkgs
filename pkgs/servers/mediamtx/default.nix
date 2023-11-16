@@ -21,7 +21,9 @@ buildGoModule rec {
   # Tests need docker
   doCheck = false;
 
-  ldflags = [ "-X github.com/bluenviron/mediamtx/internal/core.version=v${version}" ];
+  ldflags = [
+    "-X github.com/bluenviron/mediamtx/internal/core.version=v${version}"
+  ];
 
   passthru.tests = {
     inherit (nixosTests) mediamtx;

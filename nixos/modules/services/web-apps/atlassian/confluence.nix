@@ -11,7 +11,9 @@ let
 
   cfg = config.services.confluence;
 
-  pkg = cfg.package.override (optionalAttrs cfg.sso.enable { enableSSO = cfg.sso.enable; });
+  pkg = cfg.package.override (
+    optionalAttrs cfg.sso.enable { enableSSO = cfg.sso.enable; }
+  );
 
   crowdProperties = pkgs.writeText "crowd.properties" ''
     application.name                        ${cfg.sso.applicationName}
@@ -121,13 +123,17 @@ in
         applicationPassword = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description = lib.mdDoc "Application password of this Confluence instance in Crowd";
+          description =
+            lib.mdDoc
+              "Application password of this Confluence instance in Crowd";
         };
 
         applicationPasswordFile = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description = lib.mdDoc "Path to the application password for Crowd of Confluence.";
+          description =
+            lib.mdDoc
+              "Path to the application password for Crowd of Confluence.";
         };
 
         validationInterval = mkOption {
@@ -155,7 +161,9 @@ in
         type = types.package;
         default = pkgs.oraclejre8;
         defaultText = literalExpression "pkgs.oraclejre8";
-        description = lib.mdDoc "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
+        description =
+          lib.mdDoc
+            "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
       };
     };
   };
@@ -169,7 +177,8 @@ in
     assertions = [
       {
         assertion =
-          cfg.sso.enable -> ((cfg.sso.applicationPassword == null) != (cfg.sso.applicationPasswordFile));
+          cfg.sso.enable
+          -> ((cfg.sso.applicationPassword == null) != (cfg.sso.applicationPasswordFile));
         message = "Please set either applicationPassword or applicationPasswordFile";
       }
     ];
@@ -207,14 +216,18 @@ in
         CONF_USER = cfg.user;
         JAVA_HOME = "${cfg.jrePackage}";
         CATALINA_OPTS = concatStringsSep " " cfg.catalinaOptions;
-        JAVA_OPTS = mkIf cfg.sso.enable "-Dcrowd.properties=${cfg.home}/crowd.properties";
+        JAVA_OPTS =
+          mkIf cfg.sso.enable
+            "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 
       preStart =
         ''
           mkdir -p ${cfg.home}/{logs,work,temp,deploy}
 
-          sed -e 's,port="8090",port="${toString cfg.listenPort}" address="${cfg.listenAddress}",' \
+          sed -e 's,port="8090",port="${
+            toString cfg.listenPort
+          }" address="${cfg.listenAddress}",' \
         ''
         + (lib.optionalString cfg.proxy.enable ''
           -e 's,protocol="org.apache.coyote.http11.Http11NioProtocol",protocol="org.apache.coyote.http11.Http11NioProtocol" proxyName="${cfg.proxy.name}" proxyPort="${

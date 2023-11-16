@@ -24,10 +24,13 @@ stdenv.mkDerivation rec {
     pkg-config
     installShellFiles
   ];
-  buildInputs = [
-    libftdi1
-    libusb1
-  ] ++ lib.optionals (!stdenv.isDarwin) [ pciutils ] ++ lib.optional jlinkSupport libjaylink;
+  buildInputs =
+    [
+      libftdi1
+      libusb1
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [ pciutils ]
+    ++ lib.optional jlinkSupport libjaylink;
 
   postPatch = ''
     substituteInPlace util/flashrom_udev.rules \

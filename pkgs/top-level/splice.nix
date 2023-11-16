@@ -53,10 +53,16 @@ let
               __spliced =
                 (lib.optionalAttrs (pkgsBuildBuild ? ${name}) { buildBuild = valueBuildBuild; })
                 // (lib.optionalAttrs (pkgsBuildHost ? ${name}) { buildHost = valueBuildHost; })
-                // (lib.optionalAttrs (pkgsBuildTarget ? ${name}) { buildTarget = valueBuildTarget; })
+                // (lib.optionalAttrs (pkgsBuildTarget ? ${name}) {
+                  buildTarget = valueBuildTarget;
+                })
                 // (lib.optionalAttrs (pkgsHostHost ? ${name}) { hostHost = valueHostHost; })
-                // (lib.optionalAttrs (pkgsHostTarget ? ${name}) { hostTarget = valueHostTarget; })
-                // (lib.optionalAttrs (pkgsTargetTarget ? ${name}) { targetTarget = valueTargetTarget; });
+                // (lib.optionalAttrs (pkgsHostTarget ? ${name}) {
+                  hostTarget = valueHostTarget;
+                })
+                // (lib.optionalAttrs (pkgsTargetTarget ? ${name}) {
+                  targetTarget = valueTargetTarget;
+                });
             };
             # Get the set of outputs of a derivation. If one derivation fails to
             # evaluate we don't want to diverge the entire splice, so we fall back
@@ -68,7 +74,10 @@ let
               in
               getOutputs (lib.optionalAttrs success value);
             getOutputs =
-              value: lib.genAttrs (value.outputs or (lib.optional (value ? out) "out")) (output: value.${output});
+              value:
+              lib.genAttrs (value.outputs or (lib.optional (value ? out) "out")) (
+                output: value.${output}
+              );
           in
           # The derivation along with its outputs, which we recur
           # on to splice them together.

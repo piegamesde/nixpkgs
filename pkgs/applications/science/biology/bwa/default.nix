@@ -24,7 +24,9 @@ stdenv.mkDerivation {
     sed -i '/^CC/d' Makefile
   '';
 
-  makeFlags = lib.optional stdenv.hostPlatform.isStatic "AR=${stdenv.cc.targetPrefix}ar";
+  makeFlags =
+    lib.optional stdenv.hostPlatform.isStatic
+      "AR=${stdenv.cc.targetPrefix}ar";
 
   # it's unclear which headers are intended to be part of the public interface
   # so we may find ourselves having to add more here over time

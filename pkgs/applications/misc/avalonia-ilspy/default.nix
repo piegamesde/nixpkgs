@@ -49,9 +49,9 @@ buildDotnetModule rec {
       bintools
       fixDarwinDylibNames
     ]
-    ++ lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [
-      autoSignDarwinBinariesHook
-    ];
+    ++
+      lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
+        [ autoSignDarwinBinariesHook ];
 
   buildInputs = [
     # Dependencies of nuget packages w/ native binaries

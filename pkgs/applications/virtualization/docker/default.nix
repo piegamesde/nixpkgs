@@ -338,7 +338,8 @@ rec {
             installShellCompletion --zsh  ./contrib/completion/zsh/_docker
           ''
           +
-            lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform && lib.versionOlder version "23")
+            lib.optionalString
+              (stdenv.hostPlatform == stdenv.buildPlatform && lib.versionOlder version "23")
               ''
                 # Generate man pages from cobra commands
                 echo "Generate man pages from cobra"

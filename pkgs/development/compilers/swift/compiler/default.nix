@@ -76,13 +76,18 @@ let
         #watchos
         #watchsimulator
       }
-      .${targetPlatform.darwinPlatform}
-        or (throw "Cannot build Swift for target Darwin platform '${targetPlatform.darwinPlatform}'")
+      .${targetPlatform.darwinPlatform} or (throw
+        "Cannot build Swift for target Darwin platform '${targetPlatform.darwinPlatform}'"
+      )
     else
       targetPlatform.parsed.kernel.name;
 
   # Apple Silicon uses a different CPU name in the target triple.
-  swiftArch = if stdenv.isDarwin && stdenv.isAarch64 then "arm64" else targetPlatform.parsed.cpu.name;
+  swiftArch =
+    if stdenv.isDarwin && stdenv.isAarch64 then
+      "arm64"
+    else
+      targetPlatform.parsed.cpu.name;
 
   # On Darwin, a `.swiftmodule` is a subdirectory in `lib/swift/<OS>`,
   # containing binaries for supported archs. On other platforms, binaries are
@@ -90,7 +95,10 @@ let
   # `lib/swift` for convenience.
   swiftLibSubdir = "lib/swift/${swiftOs}";
   swiftModuleSubdir =
-    if hostPlatform.isDarwin then "lib/swift/${swiftOs}" else "lib/swift/${swiftOs}/${swiftArch}";
+    if hostPlatform.isDarwin then
+      "lib/swift/${swiftOs}"
+    else
+      "lib/swift/${swiftOs}/${swiftArch}";
 
   # And then there's also a separate subtree for statically linked  modules.
   toStaticSubdir = lib.replaceStrings [ "/swift/" ] [ "/swift_static/" ];
@@ -281,7 +289,9 @@ stdenv.mkDerivation {
       ${copySource "swift"}
       ${copySource "swift-experimental-string-processing"}
       ${copySource "swift-syntax"}
-      ${lib.optionalString (!stdenv.isDarwin) (copySource "swift-corelibs-libdispatch")}
+      ${lib.optionalString (!stdenv.isDarwin) (
+        copySource "swift-corelibs-libdispatch"
+      )}
 
       chmod -R u+w .
     '';
@@ -290,7 +300,10 @@ stdenv.mkDerivation {
     # Just patch all the things for now, we can focus this later.
     # TODO: eliminate use of env.
     find -type f -print0 | xargs -0 sed -i \
-    ${lib.optionalString stdenv.isDarwin "-e 's|/usr/libexec/PlistBuddy|${xcbuild}/bin/PlistBuddy|g'"} \
+    ${
+      lib.optionalString stdenv.isDarwin
+        "-e 's|/usr/libexec/PlistBuddy|${xcbuild}/bin/PlistBuddy|g'"
+    } \
       -e 's|/usr/bin/env|${coreutils}/bin/env|g' \
       -e 's|/usr/bin/make|${gnumake}/bin/make|g' \
       -e 's|/bin/mkdir|${coreutils}/bin/mkdir|g' \
@@ -320,7 +333,9 @@ stdenv.mkDerivation {
     # This patch needs to know the lib output location, so must be substituted
     # in the same derivation as the compiler.
     storeDir="${builtins.storeDir}" \
-      substituteAll ${./patches/swift-separate-lib.patch} $TMPDIR/swift-separate-lib.patch
+      substituteAll ${
+        ./patches/swift-separate-lib.patch
+      } $TMPDIR/swift-separate-lib.patch
     patch -p1 -d swift -i $TMPDIR/swift-separate-lib.patch
 
     patch -p1 -d llvm-project/llvm -i ${./patches/llvm-module-cache.patch}
@@ -471,7 +486,9 @@ stdenv.mkDerivation {
       #   Fixed in: https://github.com/apple/swift/commit/84083afef1de5931904d5c815d53856cdb3fb232
       cmakeFlags="
         -GNinja
-        -DBOOTSTRAPPING_MODE=BOOTSTRAPPING${lib.optionalString stdenv.isDarwin "-WITH-HOSTLIBS"}
+        -DBOOTSTRAPPING_MODE=BOOTSTRAPPING${
+          lib.optionalString stdenv.isDarwin "-WITH-HOSTLIBS"
+        }
         -DSWIFT_ENABLE_EXPERIMENTAL_DIFFERENTIABLE_PROGRAMMING=ON
         -DSWIFT_ENABLE_EXPERIMENTAL_CONCURRENCY=ON
         -DSWIFT_ENABLE_EXPERIMENTAL_DISTRIBUTED=ON
@@ -529,7 +546,9 @@ stdenv.mkDerivation {
         }
         -DLibEdit_INCLUDE_DIRS=${libedit.dev}/include
         -DLibEdit_LIBRARIES=${libedit}/lib/libedit${stdenv.hostPlatform.extensions.sharedLibrary}
-        -DCURSES_INCLUDE_DIRS=${if stdenv.isDarwin then "/var/empty" else ncurses.dev}/include
+        -DCURSES_INCLUDE_DIRS=${
+          if stdenv.isDarwin then "/var/empty" else ncurses.dev
+        }/include
         -DCURSES_LIBRARIES=${ncurses}/lib/libncurses${stdenv.hostPlatform.extensions.sharedLibrary}
         -DPANEL_LIBRARIES=${ncurses}/lib/libpanel${stdenv.hostPlatform.extensions.sharedLibrary}
       ";

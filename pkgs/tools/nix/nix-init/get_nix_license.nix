@@ -44,7 +44,9 @@ let
   };
 
   lints = {
-    "deprecated licenses" = intersectLists (attrNames licenseMap) (attrNames deprecatedAliases);
+    "deprecated licenses" = intersectLists (attrNames licenseMap) (
+      attrNames deprecatedAliases
+    );
 
     "invalid aliases" = attrNames (
       filterAttrs (_: v: licenses.${v}.deprecated or true) deprecatedAliases
@@ -52,12 +54,16 @@ let
   };
 
   lint = flip pipe (
-    flip mapAttrsToList lints (k: v: if v == [ ] then id else warn "${k}: ${concatStringsSep ", " v}")
+    flip mapAttrsToList lints (
+      k: v: if v == [ ] then id else warn "${k}: ${concatStringsSep ", " v}"
+    )
   );
 
   arms = lint (
     concatStringsSep "\n        " (
-      mapAttrsToList (k: v: ''"${k}" => Some("${v}"),'') (deprecatedAliases // licenseMap)
+      mapAttrsToList (k: v: ''"${k}" => Some("${v}"),'') (
+        deprecatedAliases // licenseMap
+      )
     )
   );
 in

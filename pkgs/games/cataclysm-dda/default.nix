@@ -4,13 +4,17 @@ let
   callPackage = newScope self;
 
   stable = rec {
-    tiles = callPackage ./stable.nix { inherit (darwin.apple_sdk.frameworks) CoreFoundation Cocoa; };
+    tiles = callPackage ./stable.nix {
+      inherit (darwin.apple_sdk.frameworks) CoreFoundation Cocoa;
+    };
 
     curses = tiles.override { tiles = false; };
   };
 
   git = rec {
-    tiles = callPackage ./git.nix { inherit (darwin.apple_sdk.frameworks) CoreFoundation Cocoa; };
+    tiles = callPackage ./git.nix {
+      inherit (darwin.apple_sdk.frameworks) CoreFoundation Cocoa;
+    };
 
     curses = tiles.override { tiles = false; };
   };

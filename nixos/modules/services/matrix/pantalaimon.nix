@@ -71,7 +71,9 @@ in
   };
 
   config = mkIf (config.services.pantalaimon-headless.instances != { }) {
-    systemd.services = mapAttrs' mkPantalaimonService config.services.pantalaimon-headless.instances;
+    systemd.services =
+      mapAttrs' mkPantalaimonService
+        config.services.pantalaimon-headless.instances;
   };
 
   meta = {

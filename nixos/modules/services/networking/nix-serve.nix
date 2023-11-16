@@ -13,7 +13,9 @@ in
 {
   options = {
     services.nix-serve = {
-      enable = mkEnableOption (lib.mdDoc "nix-serve, the standalone Nix binary cache server");
+      enable = mkEnableOption (
+        lib.mdDoc "nix-serve, the standalone Nix binary cache server"
+      );
 
       port = mkOption {
         type = types.port;

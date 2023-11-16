@@ -54,7 +54,9 @@ in
       };
       users.groups.${cfg.group} = { };
 
-      environment.etc."lxd-image-server/config.toml".source = format.generate "config.toml" cfg.settings;
+      environment.etc."lxd-image-server/config.toml".source =
+        format.generate "config.toml"
+          cfg.settings;
 
       services.logrotate.settings.lxd-image-server = {
         files = "/var/log/lxd-image-server/lxd-image-server.log";
@@ -66,7 +68,9 @@ in
         copytruncate = true;
       };
 
-      systemd.tmpfiles.rules = [ "d /var/www/simplestreams 0755 lxd-image-server ${cfg.group}" ];
+      systemd.tmpfiles.rules = [
+        "d /var/www/simplestreams 0755 lxd-image-server ${cfg.group}"
+      ];
 
       systemd.services.lxd-image-server = {
         wantedBy = [ "multi-user.target" ];

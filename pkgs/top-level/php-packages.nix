@@ -49,12 +49,18 @@
 lib.makeScope pkgs.newScope (
   self:
   with self; {
-    buildPecl = callPackage ../build-support/php/build-pecl.nix { php = php.unwrapped; };
+    buildPecl = callPackage ../build-support/php/build-pecl.nix {
+      php = php.unwrapped;
+    };
 
     composerHooks = callPackages ../build-support/php/hooks { };
 
-    mkComposerRepository = callPackage ../build-support/php/build-composer-repository.nix { };
-    buildComposerProject = callPackage ../build-support/php/build-composer-project.nix { };
+    mkComposerRepository =
+      callPackage ../build-support/php/build-composer-repository.nix
+        { };
+    buildComposerProject =
+      callPackage ../build-support/php/build-composer-project.nix
+        { };
 
     # Wrap mkDerivation to prepend pname with "php-" to make names consistent
     # with how buildPecl does it and make the file easier to overview.
@@ -215,7 +221,9 @@ lib.makeScope pkgs.newScope (
 
       php-cs-fixer = callPackage ../development/php-packages/php-cs-fixer { };
 
-      php-parallel-lint = callPackage ../development/php-packages/php-parallel-lint { };
+      php-parallel-lint =
+        callPackage ../development/php-packages/php-parallel-lint
+          { };
 
       phpcbf = callPackage ../development/php-packages/phpcbf { };
 
@@ -240,7 +248,9 @@ lib.makeScope pkgs.newScope (
     extensions =
       # Contrib conditional extensions
       lib.optionalAttrs (!(lib.versionAtLeast php.version "8.3")) {
-        blackfire = callPackage ../development/tools/misc/blackfire/php-probe.nix { inherit php; };
+        blackfire = callPackage ../development/tools/misc/blackfire/php-probe.nix {
+          inherit php;
+        };
       }
       //
         # Contrib extensions
@@ -253,7 +263,9 @@ lib.makeScope pkgs.newScope (
 
           couchbase = callPackage ../development/php-packages/couchbase { };
 
-          datadog_trace = callPackage ../development/php-packages/datadog_trace { inherit (pkgs) darwin; };
+          datadog_trace = callPackage ../development/php-packages/datadog_trace {
+            inherit (pkgs) darwin;
+          };
 
           ds = callPackage ../development/php-packages/ds { };
 
@@ -281,7 +293,9 @@ lib.makeScope pkgs.newScope (
 
           memprof = callPackage ../development/php-packages/memprof { };
 
-          mongodb = callPackage ../development/php-packages/mongodb { inherit (pkgs) darwin; };
+          mongodb = callPackage ../development/php-packages/mongodb {
+            inherit (pkgs) darwin;
+          };
 
           msgpack = callPackage ../development/php-packages/msgpack { };
 
@@ -302,7 +316,9 @@ lib.makeScope pkgs.newScope (
             sourceRoot = "php-${version}/ext/pdo_oci";
 
             buildInputs = [ pkgs.oracle-instantclient ];
-            configureFlags = [ "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib" ];
+            configureFlags = [
+              "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib"
+            ];
 
             internalDeps = [ php.extensions.pdo ];
 
@@ -333,7 +349,9 @@ lib.makeScope pkgs.newScope (
 
           smbclient = callPackage ../development/php-packages/smbclient { };
 
-          snuffleupagus = callPackage ../development/php-packages/snuffleupagus { inherit (pkgs) darwin; };
+          snuffleupagus = callPackage ../development/php-packages/snuffleupagus {
+            inherit (pkgs) darwin;
+          };
 
           sqlsrv = callPackage ../development/php-packages/sqlsrv { };
 
@@ -430,7 +448,9 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "iconv";
-              configureFlags = [ "--with-iconv${lib.optionalString stdenv.isDarwin "=${libiconv}"}" ];
+              configureFlags = [
+                "--with-iconv${lib.optionalString stdenv.isDarwin "=${libiconv}"}"
+              ];
               doCheck = false;
             }
             {
@@ -514,7 +534,8 @@ lib.makeScope pkgs.newScope (
               name = "opcache";
               buildInputs =
                 [ pcre2 ]
-                ++ lib.optional (!stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind)
+                ++ lib.optional
+                  (!stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind)
                   valgrind.dev;
               zendExtension = true;
               postPatch = lib.optionalString stdenv.isDarwin ''

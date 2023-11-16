@@ -40,7 +40,8 @@ let
 
       python =
         if hasPython2 && hasPython3 then
-          throw "`plugins` attribute in uWSGI configuration shouldn't contain both python2 and python3"
+          throw
+            "`plugins` attribute in uWSGI configuration shouldn't contain both python2 and python3"
         else if hasPython2 then
           cfg.package.python2
         else if hasPython3 then
@@ -66,7 +67,9 @@ let
                 # Argh, uwsgi expects list of key-values there instead of a dictionary.
                 let
                   envs = partition (hasPrefix "PATH=") (c.env or [ ]);
-                  oldPaths = map (x: substring (stringLength "PATH=") (stringLength x) x) envs.right;
+                  oldPaths =
+                    map (x: substring (stringLength "PATH=") (stringLength x) x)
+                      envs.right;
                   paths = oldPaths ++ [ "${pythonEnv}/bin" ];
                 in
                 [ "PATH=${concatStringsSep ":" paths}" ] ++ envs.wrong;
@@ -87,7 +90,8 @@ let
               "vassals"
             ]
           else
-            throw "`type` attribute in uWSGI configuration should be either 'normal' or 'emperor'";
+            throw
+              "`type` attribute in uWSGI configuration should be either 'normal' or 'emperor'";
       };
     in
     pkgs.writeTextDir "${name}.json" (builtins.toJSON uwsgiCfg);
@@ -229,7 +233,9 @@ in
         User = cfg.user;
         Group = cfg.group;
         Type = "notify";
-        ExecStart = "${cfg.package}/bin/uwsgi --json ${buildCfg "server" cfg.instance}/server.json";
+        ExecStart = "${cfg.package}/bin/uwsgi --json ${
+            buildCfg "server" cfg.instance
+          }/server.json";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
         NotifyAccess = "main";
@@ -247,7 +253,9 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "uwsgi") { uwsgi.gid = config.ids.gids.uwsgi; };
+    users.groups = optionalAttrs (cfg.group == "uwsgi") {
+      uwsgi.gid = config.ids.gids.uwsgi;
+    };
 
     services.uwsgi.package = pkgs.uwsgi.override { plugins = unique cfg.plugins; };
   };

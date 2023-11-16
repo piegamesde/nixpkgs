@@ -33,16 +33,20 @@ stdenv.mkDerivation rec {
     sha256 = "w7xQJdfbOAWH+cjrgAxhH2taFta0t4/P+T9ih2pnfxc=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    vala
-    gtk-doc
-    docbook_xsl
-    docbook_xml_dtd_412
-    gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      vala
+      gtk-doc
+      docbook_xsl
+      docbook_xml_dtd_412
+      gobject-introspection
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [
     glib

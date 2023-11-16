@@ -49,7 +49,9 @@ stdenv.mkDerivation rec {
     #rmdir src/gambit
     #cp -a ${pkgs.gambit-unstable.src} ./src/gambit
     chmod -R u+w ./src/gambit
-    ( cd src/gambit ; ${gambit-params.fixStamp gambit-git-version gambit-stampYmd gambit-stampHms} )
+    ( cd src/gambit ; ${
+      gambit-params.fixStamp gambit-git-version gambit-stampYmd gambit-stampHms
+    } )
     for f in src/bootstrap/gerbil/compiler/driver__0.scm \
              src/build/build-libgerbil.ss \
              src/gerbil/compiler/driver.ss ; do
@@ -85,7 +87,9 @@ stdenv.mkDerivation rec {
            LD=${gccStdenv.cc}/bin/${gccStdenv.cc.targetPrefix}ld \
            XMKMF=${coreutils}/bin/false
     unset CFLAGS LDFLAGS LIBS CPPFLAGS CXXFLAGS
-    (cd src/gambit ; ${gambit-params.fixStamp gambit-git-version gambit-stampYmd gambit-stampHms})
+    (cd src/gambit ; ${
+      gambit-params.fixStamp gambit-git-version gambit-stampYmd gambit-stampHms
+    })
     ./configure ${builtins.concatStringsSep " " configureFlags}
     (cd src/gambit ;
     substituteInPlace config.status \

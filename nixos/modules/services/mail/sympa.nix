@@ -49,7 +49,8 @@ let
     }
     // commonServiceConfig;
 
-  configVal = value: if isBool value then if value then "on" else "off" else toString value;
+  configVal =
+    value: if isBool value then if value then "on" else "off" else toString value;
   configGenerator =
     c:
     concatStrings (
@@ -61,7 +62,9 @@ let
     );
 
   mainConfig = pkgs.writeText "sympa.conf" (configGenerator cfg.settings);
-  robotConfig = fqdn: domain: pkgs.writeText "${fqdn}-robot.conf" (configGenerator domain.settings);
+  robotConfig =
+    fqdn: domain:
+    pkgs.writeText "${fqdn}-robot.conf" (configGenerator domain.settings);
 
   transport = pkgs.writeText "transport.sympa" (
     concatStringsSep "\n" (
@@ -179,7 +182,9 @@ in
             };
 
             config.settings = mkIf (cfg.web.enable && config.webHost != null) {
-              wwsympa_url = mkDefault "https://${config.webHost}${strings.removeSuffix "/" config.webLocation}";
+              wwsympa_url =
+                mkDefault
+                  "https://${config.webHost}${strings.removeSuffix "/" config.webLocation}";
             };
           }
         )
@@ -239,7 +244,8 @@ in
 
       name = mkOption {
         type = str;
-        default = if cfg.database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa";
+        default =
+          if cfg.database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa";
         defaultText =
           literalExpression
             ''if database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa"'';
@@ -252,7 +258,9 @@ in
       user = mkOption {
         type = nullOr str;
         default = user;
-        description = lib.mdDoc "Database user. The system user name is used as a default.";
+        description =
+          lib.mdDoc
+            "Database user. The system user name is used as a default.";
       };
 
       passwordFile = mkOption {
@@ -438,7 +446,9 @@ in
       }
       // (flip mapAttrs' cfg.domains (
         fqdn: domain:
-        nameValuePair "etc/${fqdn}/robot.conf" (mkDefault { source = robotConfig fqdn domain; })
+        nameValuePair "etc/${fqdn}/robot.conf" (
+          mkDefault { source = robotConfig fqdn domain; }
+        )
       ));
 
     environment = {
@@ -578,7 +588,8 @@ in
       let
         vHosts = unique (remove null (mapAttrsToList (_k: v: v.webHost) cfg.domains));
         hostLocations =
-          host: map (v: v.webLocation) (filter (v: v.webHost == host) (attrValues cfg.domains));
+          host:
+          map (v: v.webLocation) (filter (v: v.webHost == host) (attrValues cfg.domains));
         httpsOpts = optionalAttrs cfg.web.https {
           forceSSL = mkDefault true;
           enableACME = mkDefault true;

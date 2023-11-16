@@ -80,12 +80,16 @@ with lib; {
     fetchTags = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc "Fetch tags for imported images and webm from gelbooru.";
+      description =
+        lib.mdDoc
+          "Fetch tags for imported images and webm from gelbooru.";
     };
   };
 
   config = mkIf cfg.enable {
-    services.hydron.passwordFile = mkDefault (pkgs.writeText "hydron-password-file" cfg.password);
+    services.hydron.passwordFile = mkDefault (
+      pkgs.writeText "hydron-password-file" cfg.password
+    );
     services.hydron.postgresArgsFile = mkDefault (
       pkgs.writeText "hydron-postgres-args" cfg.postgresArgs
     );

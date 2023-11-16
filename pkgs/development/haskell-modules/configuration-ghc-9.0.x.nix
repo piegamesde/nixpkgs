@@ -41,7 +41,10 @@ self: super: {
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
   terminfo =
-    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
+    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
+      null
+    else
+      self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -72,9 +75,13 @@ self: super: {
   tuple = addBuildDepend self.base-orphans super.tuple;
   vector-th-unbox = doJailbreak super.vector-th-unbox;
 
-  hls-cabal-plugin = super.hls-cabal-plugin.override { Cabal-syntax = self.Cabal-syntax_3_8_1_0; };
+  hls-cabal-plugin = super.hls-cabal-plugin.override {
+    Cabal-syntax = self.Cabal-syntax_3_8_1_0;
+  };
 
-  ormolu = self.ormolu_0_5_2_0.override { Cabal-syntax = self.Cabal-syntax_3_8_1_0; };
+  ormolu = self.ormolu_0_5_2_0.override {
+    Cabal-syntax = self.Cabal-syntax_3_8_1_0;
+  };
 
   stylish-haskell = doJailbreak super.stylish-haskell_0_14_4_0;
 
@@ -92,7 +99,9 @@ self: super: {
     let
       # These aren't included in hackage-packages.nix because hackage2nix is configured for GHC 9.2, under which these plugins aren't supported.
       # See https://github.com/NixOS/nixpkgs/pull/205902 for why we use `self.<package>.scope`
-      additionalDeps = with self.haskell-language-server.scope; [ (unmarkBroken hls-splice-plugin) ];
+      additionalDeps = with self.haskell-language-server.scope; [
+        (unmarkBroken hls-splice-plugin)
+      ];
     in
     addBuildDepends additionalDeps (
       disableCabalFlag "fourmolu" (
@@ -172,7 +181,9 @@ self: super: {
   # 2021-09-18: cabal2nix does not detect the need for ghc-api-compat.
   hiedb =
     overrideCabal
-      (old: { libraryHaskellDepends = old.libraryHaskellDepends ++ [ self.ghc-api-compat ]; })
+      (old: {
+        libraryHaskellDepends = old.libraryHaskellDepends ++ [ self.ghc-api-compat ];
+      })
       super.hiedb;
 
   # 2021-09-18: https://github.com/haskell/haskell-language-server/issues/2206
@@ -185,7 +196,12 @@ self: super: {
   # We use a GHC patch to support the fix for https://github.com/fpco/inline-c/issues/127
   # which means that the upstream cabal file isn't allowed to add the flag.
   inline-c-cpp =
-    (if isDarwin then appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ] else x: x)
+    (
+      if isDarwin then
+        appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ]
+      else
+        x: x
+    )
       super.inline-c-cpp;
 
   # 2022-05-31: weeder 2.4.* requires GHC 9.2
@@ -209,7 +225,9 @@ self: super: {
 
   apply-refact = self.apply-refact_0_9_3_0;
 
-  hls-hlint-plugin = super.hls-hlint-plugin.override { inherit (self) apply-refact; };
+  hls-hlint-plugin = super.hls-hlint-plugin.override {
+    inherit (self) apply-refact;
+  };
 
   # Needs OneTuple for ghc < 9.2
   binary-orphans = addBuildDepends [ self.OneTuple ] super.binary-orphans;

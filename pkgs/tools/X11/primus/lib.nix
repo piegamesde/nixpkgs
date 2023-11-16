@@ -55,7 +55,8 @@ stdenv.mkDerivation {
     ln -s $out/lib/libGL.so.1 $out/lib/libGL.so
   '';
 
-  passthru.glvnd = if nvidia_x11 != null && nvidia_x11.useGLVND then nvidia_x11 else null;
+  passthru.glvnd =
+    if nvidia_x11 != null && nvidia_x11.useGLVND then nvidia_x11 else null;
 
   meta = with lib; {
     description = "Low-overhead client-side GPU offloading";

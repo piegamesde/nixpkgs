@@ -176,7 +176,10 @@ rec {
           }") is a string-like value, but it should be a file set or a path instead.
               Paths represented as strings are not supported by `lib.fileset`, use `lib.sources` or derivations instead.''
       else
-        throw "${context} is of type ${typeOf value}, but it should be a file set or a path instead."
+        throw
+          "${context} is of type ${
+            typeOf value
+          }, but it should be a file set or a path instead."
     else if !pathExists value then
       throw "${context} (${toString value}) is a path that does not exist."
     else
@@ -188,10 +191,14 @@ rec {
   _coerceMany =
     functionContext: list:
     let
-      filesets = map ({ context, value }: _coerce "${functionContext}: ${context}" value) list;
+      filesets =
+        map ({ context, value }: _coerce "${functionContext}: ${context}" value)
+          list;
 
       # Find the first value with a base, there may be none!
-      firstWithBase = findFirst (fileset: !fileset._internalIsEmptyWithoutBase) null filesets;
+      firstWithBase =
+        findFirst (fileset: !fileset._internalIsEmptyWithoutBase) null
+          filesets;
       # This value is only accessed if first != null
       firstBaseRoot = firstWithBase._internalBaseRoot;
 
@@ -201,7 +208,8 @@ rec {
           (
             fileset:
             # The empty value without a base doesn't have a base path
-            !fileset._internalIsEmptyWithoutBase && firstBaseRoot != fileset._internalBaseRoot
+            !fileset._internalIsEmptyWithoutBase
+            && firstBaseRoot != fileset._internalBaseRoot
           )
           null
           filesets;
@@ -262,7 +270,9 @@ rec {
     if tree == "directory" || isAttrs tree then
       let
         entries = _directoryEntries path tree;
-        normalisedSubtrees = mapAttrs (name: _normaliseTreeFilter (path + "/${name}")) entries;
+        normalisedSubtrees =
+          mapAttrs (name: _normaliseTreeFilter (path + "/${name}"))
+            entries;
         subtreeValues = attrValues normalisedSubtrees;
       in
       # This triggers either when all files in a directory are filtered out
@@ -292,7 +302,9 @@ rec {
     if tree == "directory" || isAttrs tree then
       let
         entries = _directoryEntries path tree;
-        normalisedSubtrees = mapAttrs (name: _normaliseTreeMinimal (path + "/${name}")) entries;
+        normalisedSubtrees =
+          mapAttrs (name: _normaliseTreeMinimal (path + "/${name}"))
+            entries;
         subtreeValues = attrValues normalisedSubtrees;
       in
       # If there are no entries, or all entries are empty directories, return "emptyDir".
@@ -584,7 +596,9 @@ rec {
     filesets:
     let
       # All filesets that have a base, aka not the ones that are the empty value without a base
-      filesetsWithBase = filter (fileset: !fileset._internalIsEmptyWithoutBase) filesets;
+      filesetsWithBase =
+        filter (fileset: !fileset._internalIsEmptyWithoutBase)
+          filesets;
 
       # The first fileset that has a base.
       # This value is only accessed if there are at all.
@@ -624,7 +638,10 @@ rec {
       resultTree = _unionTrees trees;
     in
     # If there's no values with a base, we have no files
-    if filesetsWithBase == [ ] then _emptyWithoutBase else _create commonBase resultTree;
+    if filesetsWithBase == [ ] then
+      _emptyWithoutBase
+    else
+      _create commonBase resultTree;
 
   # The union of multiple filesetTree's with the same base path.
   # Later elements are only evaluated if necessary.
@@ -658,7 +675,9 @@ rec {
       # (/foo/bar, /foo/baz) -> /foo
       commonBaseComponentsLength =
         # TODO: Have a `lib.lists.commonPrefixLength` function such that we don't need the list allocation from commonPrefix here
-        length (commonPrefix fileset1._internalBaseComponents fileset2._internalBaseComponents);
+        length (
+          commonPrefix fileset1._internalBaseComponents fileset2._internalBaseComponents
+        );
 
       # To be able to intersect filesetTree's together, they need to have the same base path.
       # Base paths can be intersected by taking the longest one (if any)
@@ -670,7 +689,9 @@ rec {
         if commonBaseComponentsLength == length fileset1._internalBaseComponents then
           # The common prefix is the same as the first path, so the second path is equal or longer
           fileset2
-        else if commonBaseComponentsLength == length fileset2._internalBaseComponents then
+        else if
+          commonBaseComponentsLength == length fileset2._internalBaseComponents
+        then
           # The common prefix is the same as the second path, so the first path is longer
           fileset1
         else
@@ -726,7 +747,9 @@ rec {
       # (/foo/bar, /foo/baz) -> /foo
       commonBaseComponentsLength =
         # TODO: Have a `lib.lists.commonPrefixLength` function such that we don't need the list allocation from commonPrefix here
-        length (commonPrefix positive._internalBaseComponents negative._internalBaseComponents);
+        length (
+          commonPrefix positive._internalBaseComponents negative._internalBaseComponents
+        );
 
       # We need filesetTree's with the same base to be able to compute the difference between them
       # This here is the filesetTree from the negative file set, but for a base path that matches the positive file set.
@@ -744,7 +767,9 @@ rec {
           # E.g. for `difference /foo /foo/bar` the common prefix is /foo, equal to the positive file set's base
           # So we need to shorten the base of the tree for the negative argument from /foo/bar to just /foo
           _shortenTreeBase positive._internalBaseComponents negative
-        else if commonBaseComponentsLength == length negative._internalBaseComponents then
+        else if
+          commonBaseComponentsLength == length negative._internalBaseComponents
+        then
           # The common prefix is the same as the negative base path, so the first path is longer.
           # We need to lengthen the negative filesetTree to the same base path as the positive one.
           # E.g. for `difference /foo/bar /foo` the common prefix is /foo, equal to the negative file set's base
@@ -787,9 +812,12 @@ rec {
       lhs
     else
       # Otherwise we always have two attribute sets to recurse into
-      mapAttrs (name: lhsValue: _differenceTree (path + "/${name}") lhsValue (rhs.${name} or null)) (
-        _directoryEntries path lhs
-      );
+      mapAttrs
+        (
+          name: lhsValue:
+          _differenceTree (path + "/${name}") lhsValue (rhs.${name} or null)
+        )
+        (_directoryEntries path lhs);
 
   # Filters all files in a path based on a predicate
   # Type: ({ name, type, ... } -> Bool) -> Path -> FileSet
@@ -818,7 +846,10 @@ rec {
       fromDir =
         path:
         mapAttrs
-          (name: type: if type == "directory" then fromDir (path + "/${name}") else fromFile name type)
+          (
+            name: type:
+            if type == "directory" then fromDir (path + "/${name}") else fromFile name type
+          )
           (readDir path);
 
       rootType = pathType root;
@@ -827,7 +858,9 @@ rec {
       _create root (fromDir root)
     else
       # Single files are turned into a directory containing that file or nothing.
-      _create (dirOf root) { ${baseNameOf root} = fromFile (baseNameOf root) rootType; };
+      _create (dirOf root) {
+        ${baseNameOf root} = fromFile (baseNameOf root) rootType;
+      };
 
   # Support for `builtins.fetchGit` with `submodules = true` was introduced in 2.4
   # https://github.com/NixOS/nix/commit/55cefd41d63368d4286568e2956afd535cb44018
@@ -844,7 +877,11 @@ rec {
     let
       recurse =
         focusedStorePath:
-        mapAttrs (name: type: if type == "directory" then recurse (focusedStorePath + "/${name}") else type)
+        mapAttrs
+          (
+            name: type:
+            if type == "directory" then recurse (focusedStorePath + "/${name}") else type
+          )
           (builtins.readDir focusedStorePath);
     in
     _create localPath (recurse storePath);

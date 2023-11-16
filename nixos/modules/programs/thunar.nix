@@ -23,7 +23,9 @@ in
         default = [ ];
         type = types.listOf types.package;
         description = lib.mdDoc "List of thunar plugins to install.";
-        example = literalExpression "with pkgs.xfce; [ thunar-archive-plugin thunar-volman ]";
+        example =
+          literalExpression
+            "with pkgs.xfce; [ thunar-archive-plugin thunar-volman ]";
       };
     };
   };

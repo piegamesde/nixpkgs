@@ -71,7 +71,9 @@ in
 
     fileSystems =
       let
-        mountable = lib.filterAttrs (_: value: ((value.mount or null) != null)) config.ec2.zfs.datasets;
+        mountable =
+          lib.filterAttrs (_: value: ((value.mount or null) != null))
+            config.ec2.zfs.datasets;
       in
       lib.mapAttrs'
         (

@@ -105,7 +105,8 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/pyca/cryptography";
     changelog =
-      "https://cryptography.io/en/latest/changelog/#v" + replaceStrings [ "." ] [ "-" ] version;
+      "https://cryptography.io/en/latest/changelog/#v"
+      + replaceStrings [ "." ] [ "-" ] version;
     license = with licenses; [
       asl20
       bsd3

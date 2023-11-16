@@ -16,7 +16,10 @@ let
       {
         mkKeyValue =
           generators.mkKeyValueDefault
-            { mkValueString = val: if isList val then ''"'' + (toString val) + ''"'' else toString val; }
+            {
+              mkValueString =
+                val: if isList val then ''"'' + (toString val) + ''"'' else toString val;
+            }
             "=";
       }
       tlpConfig;

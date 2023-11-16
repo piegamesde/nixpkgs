@@ -75,8 +75,12 @@ in
 {
 
   options = {
-    fileSystems = mkOption { type = with lib.types; attrsOf (submodule encryptedFSOptions); };
-    swapDevices = mkOption { type = with lib.types; listOf (submodule encryptedFSOptions); };
+    fileSystems = mkOption {
+      type = with lib.types; attrsOf (submodule encryptedFSOptions);
+    };
+    swapDevices = mkOption {
+      type = with lib.types; listOf (submodule encryptedFSOptions);
+    };
   };
 
   config = mkIf anyEncrypted {

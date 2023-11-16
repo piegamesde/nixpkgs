@@ -77,7 +77,8 @@ stdenv.mkDerivation rec {
       aarch64-linux = "arm64";
       x86_64-linux = "amd64";
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
     url = "https://downloads.vivaldi.com/${branch}/vivaldi-${branch}_${version}-1_${suffix}.deb";
@@ -86,7 +87,8 @@ stdenv.mkDerivation rec {
         aarch64-linux = "sha256-PDy+cenU1D9UKlICgZgj/KKZFq5x8iSDpbtCr06ks70=";
         x86_64-linux = "sha256-uWv4odg/nEuY6B8Jzt5Br4pUFMlG0vGEt968PajxMUA=";
       }
-      .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+      .${stdenv.hostPlatform.system}
+        or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
   unpackPhase = ''
@@ -160,7 +162,9 @@ stdenv.mkDerivation rec {
 
   libPath =
     lib.makeLibraryPath buildInputs
-    + lib.optionalString (stdenv.is64bit) (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs)
+    + lib.optionalString (stdenv.is64bit) (
+      ":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs
+    )
     + ":$out/opt/${vivaldiName}/lib";
 
   buildPhase =

@@ -40,7 +40,8 @@
 }:
 
 let
-  getFirst = n: v: builtins.concatStringsSep "." (lib.take n (lib.splitString "." v));
+  getFirst =
+    n: v: builtins.concatStringsSep "." (lib.take n (lib.splitString "." v));
 in
 
 stdenv.mkDerivation rec {
@@ -48,7 +49,9 @@ stdenv.mkDerivation rec {
   version = "2.32.1.3";
 
   src = fetchurl {
-    url = "https://swdl.bluejeans.com/desktop-app/linux/${getFirst 3 version}/BlueJeans_${version}.rpm";
+    url = "https://swdl.bluejeans.com/desktop-app/linux/${
+        getFirst 3 version
+      }/BlueJeans_${version}.rpm";
     sha256 = "sha256-lsUS7JymCMOa5wlWJOwLFm4KRnAYixi9Kk5CYHB17Ac=";
   };
 
@@ -111,7 +114,9 @@ stdenv.mkDerivation rec {
       --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
       opt/BlueJeans/resources/BluejeansHelper
 
-    cc $localtime64_stub -shared -o "${placeholder "out"}"/opt/BlueJeans/liblocaltime64_stub.so
+    cc $localtime64_stub -shared -o "${
+      placeholder "out"
+    }"/opt/BlueJeans/liblocaltime64_stub.so
 
     # make xdg-open overrideable at runtime
     makeWrapper $out/opt/BlueJeans/bluejeans-v2 $out/bin/bluejeans \

@@ -87,8 +87,12 @@ stdenv.mkDerivation (
 
       # Fix paths for generating drm-formats
       substituteInPlace src/platform/graphics/CMakeLists.txt \
-        --replace "/usr/include/drm/drm_fourcc.h" "${lib.getDev libdrm}/include/libdrm/drm_fourcc.h" \
-        --replace "/usr/include/libdrm/drm_fourcc.h" "${lib.getDev libdrm}/include/libdrm/drm_fourcc.h"
+        --replace "/usr/include/drm/drm_fourcc.h" "${
+          lib.getDev libdrm
+        }/include/libdrm/drm_fourcc.h" \
+        --replace "/usr/include/libdrm/drm_fourcc.h" "${
+          lib.getDev libdrm
+        }/include/libdrm/drm_fourcc.h"
     '';
 
     strictDeps = true;

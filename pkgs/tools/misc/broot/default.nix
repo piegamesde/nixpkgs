@@ -58,15 +58,21 @@ rustPlatform.buildRustPackage rec {
   postInstall =
     lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) ''
       # Install shell function for bash.
-      ${stdenv.hostPlatform.emulator buildPackages} $out/bin/broot --print-shell-function bash > br.bash
+      ${
+        stdenv.hostPlatform.emulator buildPackages
+      } $out/bin/broot --print-shell-function bash > br.bash
       install -Dm0444 -t $out/etc/profile.d br.bash
 
       # Install shell function for zsh.
-      ${stdenv.hostPlatform.emulator buildPackages} $out/bin/broot --print-shell-function zsh > br.zsh
+      ${
+        stdenv.hostPlatform.emulator buildPackages
+      } $out/bin/broot --print-shell-function zsh > br.zsh
       install -Dm0444 br.zsh $out/share/zsh/site-functions/br
 
       # Install shell function for fish
-      ${stdenv.hostPlatform.emulator buildPackages} $out/bin/broot --print-shell-function fish > br.fish
+      ${
+        stdenv.hostPlatform.emulator buildPackages
+      } $out/bin/broot --print-shell-function fish > br.fish
       install -Dm0444 -t $out/share/fish/vendor_functions.d br.fish
 
     ''

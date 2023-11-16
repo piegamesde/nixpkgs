@@ -48,7 +48,9 @@ let
       ];
 
       buildInputs = [ zlib ];
-      configureFlags = lib.optional (buildProtobuf != null) "--with-protoc=${buildProtobuf}/bin/protoc";
+      configureFlags =
+        lib.optional (buildProtobuf != null)
+          "--with-protoc=${buildProtobuf}/bin/protoc";
 
       enableParallelBuilding = true;
 

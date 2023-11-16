@@ -114,7 +114,8 @@ rec {
 
   # Pull out specific solution keys to build ENV=val pairs
   phraseEnvs =
-    solution: value: spaces (lib.mapAttrsToList (phraseEnv solution) (removeUnneededArgs value));
+    solution: value:
+    spaces (lib.mapAttrsToList (phraseEnv solution) (removeUnneededArgs value));
 
   # Pull out specific solution keys to build CLI argstring
   phraseArgs =
@@ -183,9 +184,11 @@ rec {
     };
   phraseContextForOut = invokable: phraseContext { inherit invokable; };
 
-  phraseSolution = name: solution: (phraseContextForOut (phraseInvocation name solution));
+  phraseSolution =
+    name: solution: (phraseContextForOut (phraseInvocation name solution));
   phraseSolutions =
-    solutions: unresholved: phraseContextForOut (phraseCommands solutions unresholved);
+    solutions: unresholved:
+    phraseContextForOut (phraseCommands solutions unresholved);
 
   writeScript =
     name: partialSolution: text:
@@ -195,7 +198,9 @@ rec {
       checkPhase =
         ''
           ${(phraseContextForPWD (
-            phraseInvocation name (partialSolution // { scripts = [ "${placeholder "out"}" ]; })
+            phraseInvocation name (
+              partialSolution // { scripts = [ "${placeholder "out"}" ]; }
+            )
           ))}
         ''
         + lib.optionalString (partialSolution.interpreter != "none") ''
@@ -210,7 +215,9 @@ rec {
       destination = "/bin/${name}";
       checkPhase =
         ''
-          ${phraseContextForOut (phraseInvocation name (partialSolution // { scripts = [ "bin/${name}" ]; }))}
+          ${phraseContextForOut (
+            phraseInvocation name (partialSolution // { scripts = [ "bin/${name}" ]; })
+          )}
         ''
         + lib.optionalString (partialSolution.interpreter != "none") ''
           ${partialSolution.interpreter} -n $out/bin/${name}

@@ -248,7 +248,9 @@ import ./make-test-python.nix {
       # Function to check if the metric "some_metric" has been received and returns the correct value.
       def wait_for_metric(machine):
           return machine.wait_until_succeeds(
-              "curl -sf 'http://127.0.0.1:${toString queryPort}/api/v1/query?query=some_metric' | "
+              "curl -sf 'http://127.0.0.1:${
+                toString queryPort
+              }/api/v1/query?query=some_metric' | "
               + "jq '.data.result[0].value[1]' | grep '\"3.14\"'"
           )
 

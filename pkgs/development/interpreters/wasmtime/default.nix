@@ -38,7 +38,9 @@ rustPlatform.buildRustPackage rec {
   # SIMD tests are only executed on platforms that support all
   # required processor features (e.g. SSE3, SSSE3 and SSE4.1 on x86_64):
   # https://github.com/bytecodealliance/wasmtime/blob/v9.0.0/cranelift/codegen/src/isa/x64/mod.rs#L220
-  doCheck = with stdenv.buildPlatform; (isx86_64 -> sse3Support && ssse3Support && sse4_1Support);
+  doCheck =
+    with stdenv.buildPlatform;
+    (isx86_64 -> sse3Support && ssse3Support && sse4_1Support);
   cargoTestFlags = [
     "--package"
     "wasmtime-runtime"

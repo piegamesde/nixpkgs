@@ -39,7 +39,9 @@ let
       "";
 
   configDir = pkgs.writeTextDir "recursor.conf" (
-    concatStringsSep "\n" (flip mapAttrsToList cfg.settings (name: val: "${name}=${serialize val}"))
+    concatStringsSep "\n" (
+      flip mapAttrsToList cfg.settings (name: val: "${name}=${serialize val}")
+    )
   );
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
@@ -216,7 +218,9 @@ in
       webserver-allow-from = cfg.api.allowFrom;
 
       forward-zones = mapAttrsToList (zone: uri: "${zone}.=${uri}") cfg.forwardZones;
-      forward-zones-recurse = mapAttrsToList (zone: uri: "${zone}.=${uri}") cfg.forwardZonesRecurse;
+      forward-zones-recurse =
+        mapAttrsToList (zone: uri: "${zone}.=${uri}")
+          cfg.forwardZonesRecurse;
       export-etc-hosts = cfg.exportHosts;
       dnssec = cfg.dnssecValidation;
       serve-rfc1918 = cfg.serveRFC1918;

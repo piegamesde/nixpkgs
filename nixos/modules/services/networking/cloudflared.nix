@@ -150,7 +150,9 @@ let
 in
 {
   options.services.cloudflared = {
-    enable = mkEnableOption (lib.mdDoc "Cloudflare Tunnel client daemon (formerly Argo Tunnel)");
+    enable = mkEnableOption (
+      lib.mdDoc "Cloudflare Tunnel client daemon (formerly Argo Tunnel)"
+    );
 
     user = mkOption {
       type = types.str;
@@ -319,9 +321,13 @@ in
               tunnel = name;
               "credentials-file" = tunnel.credentialsFile;
               ingress =
-                (map (key: { hostname = key; } // getAttr key (filterConfig (filterConfig ingressesSet))) (
-                  attrNames ingressesSet
-                ))
+                (map
+                  (
+                    key:
+                    { hostname = key; } // getAttr key (filterConfig (filterConfig ingressesSet))
+                  )
+                  (attrNames ingressesSet)
+                )
                 ++ (map
                   (key: {
                     hostname = key;

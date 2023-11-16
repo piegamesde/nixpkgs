@@ -93,7 +93,9 @@ stdenv.mkDerivation rec {
     unzip
   ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString enableEXR "-I${ilmbase.dev}/include/OpenEXR";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString enableEXR
+      "-I${ilmbase.dev}/include/OpenEXR";
 
   cmakeFlags = [
     (opencvFlag "TIFF" enableTIFF)

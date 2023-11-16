@@ -50,7 +50,9 @@ stdenv.mkDerivation rec {
 
   BUILD_CC = "$(CC_FOR_BUILD)";
 
-  TCLLIBDIR = "${placeholder "out"}/lib/tcl${lib.versions.majorMinor tcl.version}";
+  TCLLIBDIR = "${placeholder "out"}/lib/tcl${
+      lib.versions.majorMinor tcl.version
+    }";
 
   postInstall = ''
     installManPage sqlcipher.1

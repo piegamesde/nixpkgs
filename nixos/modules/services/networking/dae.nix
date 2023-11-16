@@ -35,7 +35,9 @@ in
           v2ray-geoip
           v2ray-domain-list-community
         ];
-        defaultText = literalExpression "with pkgs; [ v2ray-geoip v2ray-domain-list-community ]";
+        defaultText =
+          literalExpression
+            "with pkgs; [ v2ray-geoip v2ray-domain-list-community ]";
         description = mdDoc ''
           Assets required to run dae.
         '';
@@ -134,7 +136,10 @@ in
             daeBin = lib.getExe cfg.package;
 
             configPath =
-              if cfg.configFile != null then cfg.configFile else pkgs.writeText "config.dae" cfg.config;
+              if cfg.configFile != null then
+                cfg.configFile
+              else
+                pkgs.writeText "config.dae" cfg.config;
 
             TxChecksumIpGenericWorkaround =
               with lib;
@@ -150,10 +155,14 @@ in
             wantedBy = [ "multi-user.target" ];
             serviceConfig = {
               LoadCredential = [ "config.dae:${configPath}" ];
-              ExecStartPre = [
-                ""
-                "${daeBin} validate -c \${CREDENTIALS_DIRECTORY}/config.dae"
-              ] ++ (with lib; optional cfg.disableTxChecksumIpGeneric TxChecksumIpGenericWorkaround);
+              ExecStartPre =
+                [
+                  ""
+                  "${daeBin} validate -c \${CREDENTIALS_DIRECTORY}/config.dae"
+                ]
+                ++ (
+                  with lib; optional cfg.disableTxChecksumIpGeneric TxChecksumIpGenericWorkaround
+                );
               ExecStart = [
                 ""
                 "${daeBin} run --disable-timestamp -c \${CREDENTIALS_DIRECTORY}/config.dae"
@@ -164,7 +173,9 @@ in
 
         assertions = [
           {
-            assertion = lib.pathExists (toString (genAssetsDrv cfg.assets) + "/share/v2ray");
+            assertion = lib.pathExists (
+              toString (genAssetsDrv cfg.assets) + "/share/v2ray"
+            );
             message = ''
               Packages in `assets` has no preset paths included.
               Please set `assetsPath` instead.
@@ -172,7 +183,10 @@ in
           }
 
           {
-            assertion = !((config.services.dae.config != null) && (config.services.dae.configFile != null));
+            assertion =
+              !(
+                (config.services.dae.config != null) && (config.services.dae.configFile != null)
+              );
             message = ''
               Option `config` and `configFile` could not be set
               at the same time.
@@ -180,7 +194,10 @@ in
           }
 
           {
-            assertion = !((config.services.dae.config == null) && (config.services.dae.configFile == null));
+            assertion =
+              !(
+                (config.services.dae.config == null) && (config.services.dae.configFile == null)
+              );
             message = ''
               Either `config` or `configFile` should be set.
             '';

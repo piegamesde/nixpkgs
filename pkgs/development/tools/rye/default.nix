@@ -45,12 +45,14 @@ rustPlatform.buildRustPackage rec {
       SystemConfiguration
     ];
 
-  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    installShellCompletion --cmd rye \
-      --bash <($out/bin/rye self completion -s bash) \
-      --fish <($out/bin/rye self completion -s fish) \
-      --zsh <($out/bin/rye self completion -s zsh)
-  '';
+  postInstall =
+    lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+      ''
+        installShellCompletion --cmd rye \
+          --bash <($out/bin/rye self completion -s bash) \
+          --fish <($out/bin/rye self completion -s fish) \
+          --zsh <($out/bin/rye self completion -s zsh)
+      '';
 
   checkFlags = [ "--skip=utils::test_is_inside_git_work_tree" ];
 

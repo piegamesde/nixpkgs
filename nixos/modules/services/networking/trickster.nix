@@ -129,7 +129,9 @@ in
           -origin-url ${cfg.origin-url} \
           -proxy-port ${toString cfg.proxy-port} \
           ${optionalString (cfg.configFile != null) "-config ${cfg.configFile}"} \
-          ${optionalString (cfg.profiler-port != null) "-profiler-port ${cfg.profiler-port}"} \
+          ${
+            optionalString (cfg.profiler-port != null) "-profiler-port ${cfg.profiler-port}"
+          } \
           ${optionalString (cfg.instance-id != null) "-instance-id ${cfg.instance-id}"}
         '';
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";

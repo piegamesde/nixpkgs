@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.virtualisation.vmware.guest;
-  open-vm-tools = if cfg.headless then pkgs.open-vm-tools-headless else pkgs.open-vm-tools;
+  open-vm-tools =
+    if cfg.headless then pkgs.open-vm-tools-headless else pkgs.open-vm-tools;
   xf86inputvmmouse = pkgs.xorg.xf86inputvmmouse;
 in
 {
@@ -40,13 +41,16 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = pkgs.stdenv.hostPlatform.isx86 || pkgs.stdenv.hostPlatform.isAarch64;
+        assertion =
+          pkgs.stdenv.hostPlatform.isx86 || pkgs.stdenv.hostPlatform.isAarch64;
         message = "VMWare guest is not currently supported on ${pkgs.stdenv.hostPlatform.system}";
       }
     ];
 
     boot.initrd.availableKernelModules = [ "mptspi" ];
-    boot.initrd.kernelModules = lib.optionals pkgs.stdenv.hostPlatform.isx86 [ "vmw_pvscsi" ];
+    boot.initrd.kernelModules = lib.optionals pkgs.stdenv.hostPlatform.isx86 [
+      "vmw_pvscsi"
+    ];
 
     environment.systemPackages = [ open-vm-tools ];
 

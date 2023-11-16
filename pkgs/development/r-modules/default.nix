@@ -91,7 +91,9 @@ let
         version,
         biocVersion,
       }:
-      [ "mirror://bioc/${biocVersion}/data/annotation/src/contrib/${name}_${version}.tar.gz" ];
+      [
+        "mirror://bioc/${biocVersion}/data/annotation/src/contrib/${name}_${version}.tar.gz"
+      ];
     hydraPlatforms = [ ];
   };
   deriveBiocExp = mkDerive {
@@ -102,7 +104,9 @@ let
         version,
         biocVersion,
       }:
-      [ "mirror://bioc/${biocVersion}/data/experiment/src/contrib/${name}_${version}.tar.gz" ];
+      [
+        "mirror://bioc/${biocVersion}/data/experiment/src/contrib/${name}_${version}.tar.gz"
+      ];
     hydraPlatforms = [ ];
   };
   deriveCran = mkDerive {
@@ -159,7 +163,9 @@ let
     lib.mapAttrs
       (
         name: value:
-        (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; })
+        (builtins.getAttr name old).overrideAttrs (
+          attrs: { buildInputs = attrs.buildInputs ++ value; }
+        )
       )
       overrides;
 
@@ -179,7 +185,9 @@ let
   # }
   overrideMaintainers =
     overrides: old:
-    lib.mapAttrs (name: value: (builtins.getAttr name old).override { maintainers = value; }) overrides;
+    lib.mapAttrs
+      (name: value: (builtins.getAttr name old).override { maintainers = value; })
+      overrides;
 
   # Overrides package definitions with new R dependencies.
   # For example,
@@ -204,7 +212,8 @@ let
         (builtins.getAttr name old).overrideAttrs (
           attrs: {
             nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ value;
-            propagatedNativeBuildInputs = (attrs.propagatedNativeBuildInputs or [ ]) ++ value;
+            propagatedNativeBuildInputs =
+              (attrs.propagatedNativeBuildInputs or [ ]) ++ value;
           }
         )
       )
@@ -761,7 +770,9 @@ let
     svKomodo = [ pkgs.which ];
     nat = [ pkgs.which ];
     nat_templatebrains = [ pkgs.which ];
-    pbdZMQ = [ pkgs.zeromq ] ++ lib.optionals stdenv.isDarwin [ pkgs.darwin.binutils ];
+    pbdZMQ = [
+      pkgs.zeromq
+    ] ++ lib.optionals stdenv.isDarwin [ pkgs.darwin.binutils ];
     bigmemory = lib.optionals stdenv.isLinux [ pkgs.libuuid.dev ];
     clustermq = [ pkgs.pkg-config ];
     webp = [ pkgs.libwebp ];
@@ -1304,19 +1315,27 @@ let
       }
     );
 
-    rzmq = old.rzmq.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
+    rzmq = old.rzmq.overrideAttrs (
+      attrs: { preConfigure = "patchShebangs configure"; }
+    );
 
-    clustermq = old.clustermq.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
+    clustermq = old.clustermq.overrideAttrs (
+      attrs: { preConfigure = "patchShebangs configure"; }
+    );
 
     Cairo = old.Cairo.overrideAttrs (attrs: { NIX_LDFLAGS = "-lfontconfig"; });
 
-    curl = old.curl.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
+    curl = old.curl.overrideAttrs (
+      attrs: { preConfigure = "patchShebangs configure"; }
+    );
 
     RcppParallel = old.RcppParallel.overrideAttrs (
       attrs: { preConfigure = "patchShebangs configure"; }
     );
 
-    purrr = old.purrr.overrideAttrs (attrs: { patchPhase = "patchShebangs configure"; });
+    purrr = old.purrr.overrideAttrs (
+      attrs: { patchPhase = "patchShebangs configure"; }
+    );
 
     RcppArmadillo = old.RcppArmadillo.overrideAttrs (
       attrs: { patchPhase = "patchShebangs configure"; }
@@ -1334,12 +1353,15 @@ let
     ModelMetrics = old.ModelMetrics.overrideAttrs (
       attrs: {
         env = (attrs.env or { }) // {
-          NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE + lib.optionalString stdenv.isDarwin " -fopenmp";
+          NIX_CFLAGS_COMPILE =
+            attrs.env.NIX_CFLAGS_COMPILE + lib.optionalString stdenv.isDarwin " -fopenmp";
         };
       }
     );
 
-    rpf = old.rpf.overrideAttrs (attrs: { patchPhase = "patchShebangs configure"; });
+    rpf = old.rpf.overrideAttrs (
+      attrs: { patchPhase = "patchShebangs configure"; }
+    );
 
     rJava = old.rJava.overrideAttrs (
       attrs: {
@@ -1398,7 +1420,9 @@ let
       }
     );
 
-    Rmpi = old.Rmpi.overrideAttrs (attrs: { configureFlags = [ "--with-Rmpi-type=OPENMPI" ]; });
+    Rmpi = old.Rmpi.overrideAttrs (
+      attrs: { configureFlags = [ "--with-Rmpi-type=OPENMPI" ]; }
+    );
 
     Rmpfr = old.Rmpfr.overrideAttrs (
       attrs: { configureFlags = [ "--with-mpfr-include=${pkgs.mpfr.dev}/include" ]; }
@@ -1584,12 +1608,15 @@ let
       }
     );
 
-    geojsonio = old.geojsonio.overrideAttrs (attrs: { buildInputs = [ cacert ] ++ attrs.buildInputs; });
+    geojsonio = old.geojsonio.overrideAttrs (
+      attrs: { buildInputs = [ cacert ] ++ attrs.buildInputs; }
+    );
 
     rstan = old.rstan.overrideAttrs (
       attrs: {
         env = (attrs.env or { }) // {
-          NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE + " -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION";
+          NIX_CFLAGS_COMPILE =
+            attrs.env.NIX_CFLAGS_COMPILE + " -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION";
         };
       }
     );
@@ -1606,11 +1633,17 @@ let
       }
     );
 
-    ps = old.ps.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
+    ps = old.ps.overrideAttrs (
+      attrs: { preConfigure = "patchShebangs configure"; }
+    );
 
-    rlang = old.rlang.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
+    rlang = old.rlang.overrideAttrs (
+      attrs: { preConfigure = "patchShebangs configure"; }
+    );
 
-    systemfonts = old.systemfonts.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
+    systemfonts = old.systemfonts.overrideAttrs (
+      attrs: { preConfigure = "patchShebangs configure"; }
+    );
 
     littler = old.littler.overrideAttrs (
       attrs:
@@ -1743,7 +1776,9 @@ let
 
     rgl = old.rgl.overrideAttrs (attrs: { RGL_USE_NULL = "true"; });
 
-    Rrdrand = old.Rrdrand.override { platforms = lib.platforms.x86_64 ++ lib.platforms.x86; };
+    Rrdrand = old.Rrdrand.override {
+      platforms = lib.platforms.x86_64 ++ lib.platforms.x86;
+    };
 
     symengine = old.symengine.overrideAttrs (
       _: {
@@ -1761,7 +1796,9 @@ let
       platforms = lib.platforms.x86_64 ++ lib.platforms.x86;
     };
 
-    flowClust = old.flowClust.override { platforms = lib.platforms.x86_64 ++ lib.platforms.x86; };
+    flowClust = old.flowClust.override {
+      platforms = lib.platforms.x86_64 ++ lib.platforms.x86;
+    };
 
     geomorph = old.geomorph.overrideAttrs (attrs: { RGL_USE_NULL = "true"; });
 
@@ -1785,12 +1822,16 @@ let
     rhdf5filters = old.rhdf5filters.overrideAttrs (
       attrs: {
         propagatedBuildInputs =
-          with pkgs; attrs.propagatedBuildInputs ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ];
+          with pkgs;
+          attrs.propagatedBuildInputs
+          ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ];
         patches = [ ./patches/rhdf5filters.patch ];
       }
     );
 
-    rhdf5 = old.rhdf5.overrideAttrs (attrs: { patches = [ ./patches/rhdf5.patch ]; });
+    rhdf5 = old.rhdf5.overrideAttrs (
+      attrs: { patches = [ ./patches/rhdf5.patch ]; }
+    );
 
     rmarkdown = old.rmarkdown.overrideAttrs (
       _: {
@@ -1808,7 +1849,9 @@ let
       }
     );
 
-    textshaping = old.textshaping.overrideAttrs (attrs: { env.NIX_LDFLAGS = "-lfribidi -lharfbuzz"; });
+    textshaping = old.textshaping.overrideAttrs (
+      attrs: { env.NIX_LDFLAGS = "-lfribidi -lharfbuzz"; }
+    );
 
     httpuv = old.httpuv.overrideAttrs (
       _: {

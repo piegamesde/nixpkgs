@@ -929,10 +929,14 @@ buildPythonPackage rec {
     kendra-ranking = [ types-aiobotocore-kendra-ranking ];
     keyspaces = [ types-aiobotocore-keyspaces ];
     kinesis = [ types-aiobotocore-kinesis ];
-    kinesis-video-archived-media = [ types-aiobotocore-kinesis-video-archived-media ];
+    kinesis-video-archived-media = [
+      types-aiobotocore-kinesis-video-archived-media
+    ];
     kinesis-video-media = [ types-aiobotocore-kinesis-video-media ];
     kinesis-video-signaling = [ types-aiobotocore-kinesis-video-signaling ];
-    kinesis-video-webrtc-storage = [ types-aiobotocore-kinesis-video-webrtc-storage ];
+    kinesis-video-webrtc-storage = [
+      types-aiobotocore-kinesis-video-webrtc-storage
+    ];
     kinesisanalytics = [ types-aiobotocore-kinesisanalytics ];
     kinesisanalyticsv2 = [ types-aiobotocore-kinesisanalyticsv2 ];
     kinesisvideo = [ types-aiobotocore-kinesisvideo ];
@@ -944,8 +948,12 @@ buildPythonPackage rec {
     lexv2-models = [ types-aiobotocore-lexv2-models ];
     lexv2-runtime = [ types-aiobotocore-lexv2-runtime ];
     license-manager = [ types-aiobotocore-license-manager ];
-    license-manager-linux-subscriptions = [ types-aiobotocore-license-manager-linux-subscriptions ];
-    license-manager-user-subscriptions = [ types-aiobotocore-license-manager-user-subscriptions ];
+    license-manager-linux-subscriptions = [
+      types-aiobotocore-license-manager-linux-subscriptions
+    ];
+    license-manager-user-subscriptions = [
+      types-aiobotocore-license-manager-user-subscriptions
+    ];
     lightsail = [ types-aiobotocore-lightsail ];
     location = [ types-aiobotocore-location ];
     logs = [ types-aiobotocore-logs ];
@@ -960,7 +968,9 @@ buildPythonPackage rec {
     managedblockchain-query = [ types-aiobotocore-managedblockchain-query ];
     marketplace-catalog = [ types-aiobotocore-marketplace-catalog ];
     marketplace-entitlement = [ types-aiobotocore-marketplace-entitlement ];
-    marketplacecommerceanalytics = [ types-aiobotocore-marketplacecommerceanalytics ];
+    marketplacecommerceanalytics = [
+      types-aiobotocore-marketplacecommerceanalytics
+    ];
     mediaconnect = [ types-aiobotocore-mediaconnect ];
     mediaconvert = [ types-aiobotocore-mediaconvert ];
     medialive = [ types-aiobotocore-medialive ];
@@ -975,7 +985,9 @@ buildPythonPackage rec {
     meteringmarketplace = [ types-aiobotocore-meteringmarketplace ];
     mgh = [ types-aiobotocore-mgh ];
     mgn = [ types-aiobotocore-mgn ];
-    migration-hub-refactor-spaces = [ types-aiobotocore-migration-hub-refactor-spaces ];
+    migration-hub-refactor-spaces = [
+      types-aiobotocore-migration-hub-refactor-spaces
+    ];
     migrationhub-config = [ types-aiobotocore-migrationhub-config ];
     migrationhuborchestrator = [ types-aiobotocore-migrationhuborchestrator ];
     migrationhubstrategy = [ types-aiobotocore-migrationhubstrategy ];
@@ -1031,7 +1043,9 @@ buildPythonPackage rec {
     rolesanywhere = [ types-aiobotocore-rolesanywhere ];
     route53 = [ types-aiobotocore-route53 ];
     route53-recovery-cluster = [ types-aiobotocore-route53-recovery-cluster ];
-    route53-recovery-control-config = [ types-aiobotocore-route53-recovery-control-config ];
+    route53-recovery-control-config = [
+      types-aiobotocore-route53-recovery-control-config
+    ];
     route53-recovery-readiness = [ types-aiobotocore-route53-recovery-readiness ];
     route53domains = [ types-aiobotocore-route53domains ];
     route53resolver = [ types-aiobotocore-route53resolver ];
@@ -1042,7 +1056,9 @@ buildPythonPackage rec {
     sagemaker = [ types-aiobotocore-sagemaker ];
     sagemaker-a2i-runtime = [ types-aiobotocore-sagemaker-a2i-runtime ];
     sagemaker-edge = [ types-aiobotocore-sagemaker-edge ];
-    sagemaker-featurestore-runtime = [ types-aiobotocore-sagemaker-featurestore-runtime ];
+    sagemaker-featurestore-runtime = [
+      types-aiobotocore-sagemaker-featurestore-runtime
+    ];
     sagemaker-geospatial = [ types-aiobotocore-sagemaker-geospatial ];
     sagemaker-metrics = [ types-aiobotocore-sagemaker-metrics ];
     sagemaker-runtime = [ types-aiobotocore-sagemaker-runtime ];

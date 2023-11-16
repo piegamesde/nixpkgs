@@ -28,7 +28,9 @@ buildPythonPackage rec {
     rlp
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ eth-hash.optional-dependencies.pycryptodome;
+  nativeCheckInputs = [
+    pytestCheckHook
+  ] ++ eth-hash.optional-dependencies.pycryptodome;
 
   pythonImportsCheck = [ "eth_rlp" ];
 

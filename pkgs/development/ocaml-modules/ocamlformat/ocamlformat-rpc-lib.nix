@@ -12,7 +12,11 @@
 
 let
   # for compat with ocaml-lsp
-  version_arg = if lib.versionAtLeast ocaml.version "4.13" then { } else { version = "0.20.0"; };
+  version_arg =
+    if lib.versionAtLeast ocaml.version "4.13" then
+      { }
+    else
+      { version = "0.20.0"; };
 
   inherit (callPackage ./generic.nix (args // version_arg)) src version;
 in

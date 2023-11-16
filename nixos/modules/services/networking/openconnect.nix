@@ -17,7 +17,9 @@ let
     options = {
       autoStart = mkOption {
         default = true;
-        description = lib.mdDoc "Whether this VPN connection should be started automatically.";
+        description =
+          lib.mdDoc
+            "Whether this VPN connection should be started automatically.";
         type = types.bool;
       };
 
@@ -99,9 +101,9 @@ let
   generateExtraConfig =
     extra_cfg:
     strings.concatStringsSep "\n" (
-      attrsets.mapAttrsToList (name: value: if (value == true) then name else "${name}=${value}") (
-        attrsets.filterAttrs (_: value: value != false) extra_cfg
-      )
+      attrsets.mapAttrsToList
+        (name: value: if (value == true) then name else "${name}=${value}")
+        (attrsets.filterAttrs (_: value: value != false) extra_cfg)
     );
   generateConfig =
     name: icfg:
@@ -126,8 +128,12 @@ let
 
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${openconnect}/bin/openconnect --config=${generateConfig name icfg} ${icfg.gateway}";
-      StandardInput = lib.mkIf (icfg.passwordFile != null) "file:${icfg.passwordFile}";
+      ExecStart = "${openconnect}/bin/openconnect --config=${
+          generateConfig name icfg
+        } ${icfg.gateway}";
+      StandardInput =
+        lib.mkIf (icfg.passwordFile != null)
+          "file:${icfg.passwordFile}";
 
       ProtectHome = true;
     };

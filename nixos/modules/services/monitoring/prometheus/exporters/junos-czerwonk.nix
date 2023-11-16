@@ -11,7 +11,10 @@ let
   cfg = config.services.prometheus.exporters.junos-czerwonk;
 
   configFile =
-    if cfg.configuration != null then configurationFile else (escapeShellArg cfg.configurationFile);
+    if cfg.configuration != null then
+      configurationFile
+    else
+      (escapeShellArg cfg.configurationFile);
 
   configurationFile = pkgs.writeText "prometheus-junos-czerwonk-exporter.conf" (
     builtins.toJSON (cfg.configuration)

@@ -37,7 +37,10 @@ let
       (import ./main-programs.nix);
 
   aliases =
-    final: prev: lib.optionalAttrs config.allowAliases (import ./aliases.nix pkgs lib final prev);
+    final: prev:
+    lib.optionalAttrs config.allowAliases (
+      import ./aliases.nix pkgs lib final prev
+    );
 
   extensions = composeManyExtensions [
     aliases

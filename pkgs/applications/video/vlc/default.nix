@@ -218,12 +218,16 @@ stdenv.mkDerivation (
       ]
       ++ optional (waylandSupport && withQt5) qtwayland;
 
-    env = {
-      # vlc depends on a c11-gcc wrapper script which we don't have so we need to
-      # set the path to the compiler
-      BUILDCC = "${pkgsBuildBuild.stdenv.cc}/bin/gcc";
-      PKG_CONFIG_WAYLAND_SCANNER_WAYLAND_SCANNER = "wayland-scanner";
-    } // lib.optionalAttrs (!stdenv.hostPlatform.isAarch) { LIVE555_PREFIX = live555; };
+    env =
+      {
+        # vlc depends on a c11-gcc wrapper script which we don't have so we need to
+        # set the path to the compiler
+        BUILDCC = "${pkgsBuildBuild.stdenv.cc}/bin/gcc";
+        PKG_CONFIG_WAYLAND_SCANNER_WAYLAND_SCANNER = "wayland-scanner";
+      }
+      // lib.optionalAttrs (!stdenv.hostPlatform.isAarch) {
+        LIVE555_PREFIX = live555;
+      };
 
     patches =
       [
@@ -266,7 +270,10 @@ stdenv.mkDerivation (
       ''
         find $out/lib/vlc/plugins -exec touch -d @1 '{}' ';'
         ${
-          if stdenv.buildPlatform.canExecute stdenv.hostPlatform then "$out" else pkgsBuildBuild.libvlc
+          if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
+            "$out"
+          else
+            pkgsBuildBuild.libvlc
         }/lib/vlc/vlc-cache-gen $out/vlc/plugins
       ''
       + optionalString withQt5 ''

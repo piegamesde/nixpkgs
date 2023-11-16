@@ -36,7 +36,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Lg42QqsHYFxeUjZjYFVJFxeJv2MzOpjoShfbIg/095A=";
   };
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional enablePython python3Packages.sphinx;
+  nativeBuildInputs = [
+    cmake
+  ] ++ lib.optional enablePython python3Packages.sphinx;
   buildInputs =
     [
       swig

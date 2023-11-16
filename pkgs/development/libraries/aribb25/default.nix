@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
 
   patches =
     let
-      url = commit: "https://code.videolan.org/videolan/${pname}/-/commit/${commit}.diff";
+      url =
+        commit: "https://code.videolan.org/videolan/${pname}/-/commit/${commit}.diff";
     in
     [
       (fetchpatch {

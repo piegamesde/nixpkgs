@@ -37,7 +37,9 @@ in
 
   git-undo = callPackage ./manual-packages/git-undo { };
 
-  haskell-unicode-input-method = callPackage ./manual-packages/haskell-unicode-input-method { };
+  haskell-unicode-input-method =
+    callPackage ./manual-packages/haskell-unicode-input-method
+      { };
 
   helm-words = callPackage ./manual-packages/helm-words { };
 
@@ -65,7 +67,9 @@ in
 
   lspce = callPackage ./manual-packages/lspce { };
 
-  matrix-client = callPackage ./manual-packages/matrix-client { _map = self.map; };
+  matrix-client = callPackage ./manual-packages/matrix-client {
+    _map = self.map;
+  };
 
   mu4e = callPackage ./manual-packages/mu4e { };
 
@@ -83,7 +87,9 @@ in
 
   sv-kalender = callPackage ./manual-packages/sv-kalender { };
 
-  tree-sitter-langs = callPackage ./manual-packages/tree-sitter-langs { final = self; };
+  tree-sitter-langs = callPackage ./manual-packages/tree-sitter-langs {
+    final = self;
+  };
 
   treesit-grammars = callPackage ./manual-packages/treesit-grammars { };
 
@@ -105,7 +111,9 @@ in
   hsc3-mode = callPackage ./manual-packages/hsc3 { };
   prolog-mode = callPackage ./manual-packages/prolog { };
   rect-mark = callPackage ./manual-packages/rect-mark { };
-  session-management-for-emacs = callPackage ./manual-packages/session-management-for-emacs { };
+  session-management-for-emacs =
+    callPackage ./manual-packages/session-management-for-emacs
+      { };
   sunrise-commander = callPackage ./manual-packages/sunrise-commander { };
 
   # camelCase aliases for some of the kebab-case expressions above

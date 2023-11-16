@@ -10,7 +10,10 @@ let
   hasVPrefix = ver: (builtins.elemAt (lib.stringToCharacters ver) 0) == "v";
   k3sVersionSet =
     if k3sVersion != null then
-      if hasVPrefix k3sVersion then throw "k3sVersion should not have a v prefix" else true
+      if hasVPrefix k3sVersion then
+        throw "k3sVersion should not have a v prefix"
+      else
+        true
     else
       false;
 in

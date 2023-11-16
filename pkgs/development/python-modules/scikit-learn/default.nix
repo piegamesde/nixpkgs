@@ -81,7 +81,9 @@ buildPythonPackage rec {
     # https://github.com/scikit-learn/scikit-learn/issues/17582
     # Since we are overriding '-k' we need to include the 'disabledTests' from above manually.
     "-k"
-    "'not (NuSVC and memmap) ${toString (lib.forEach disabledTests (t: "and not ${t}"))}'"
+    "'not (NuSVC and memmap) ${
+      toString (lib.forEach disabledTests (t: "and not ${t}"))
+    }'"
   ];
 
   preCheck = ''

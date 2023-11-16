@@ -939,8 +939,12 @@ buildPythonPackage rec {
     lexv2-models = [ mypy-boto3-lexv2-models ];
     lexv2-runtime = [ mypy-boto3-lexv2-runtime ];
     license-manager = [ mypy-boto3-license-manager ];
-    license-manager-linux-subscriptions = [ mypy-boto3-license-manager-linux-subscriptions ];
-    license-manager-user-subscriptions = [ mypy-boto3-license-manager-user-subscriptions ];
+    license-manager-linux-subscriptions = [
+      mypy-boto3-license-manager-linux-subscriptions
+    ];
+    license-manager-user-subscriptions = [
+      mypy-boto3-license-manager-user-subscriptions
+    ];
     lightsail = [ mypy-boto3-lightsail ];
     location = [ mypy-boto3-location ];
     logs = [ mypy-boto3-logs ];
@@ -1026,7 +1030,9 @@ buildPythonPackage rec {
     rolesanywhere = [ mypy-boto3-rolesanywhere ];
     route53 = [ mypy-boto3-route53 ];
     route53-recovery-cluster = [ mypy-boto3-route53-recovery-cluster ];
-    route53-recovery-control-config = [ mypy-boto3-route53-recovery-control-config ];
+    route53-recovery-control-config = [
+      mypy-boto3-route53-recovery-control-config
+    ];
     route53-recovery-readiness = [ mypy-boto3-route53-recovery-readiness ];
     route53domains = [ mypy-boto3-route53domains ];
     route53resolver = [ mypy-boto3-route53resolver ];

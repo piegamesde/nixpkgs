@@ -77,9 +77,11 @@ in
     };
 
     # openvpn --version would exit with 1 instead of 0
-    boot.initrd.extraUtilsCommandsTest = mkIf (!config.boot.initrd.systemd.enable) ''
-      $out/bin/openvpn --show-gateway
-    '';
+    boot.initrd.extraUtilsCommandsTest =
+      mkIf (!config.boot.initrd.systemd.enable)
+        ''
+          $out/bin/openvpn --show-gateway
+        '';
 
     boot.initrd.network.postCommands = mkIf (!config.boot.initrd.systemd.enable) ''
       openvpn /etc/initrd.ovpn &

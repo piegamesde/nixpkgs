@@ -67,7 +67,10 @@
     ]
     ++
       lib.optionals
-        (stdenv.hostPlatform.isAarch -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version "6")
+        (
+          stdenv.hostPlatform.isAarch
+          -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version "6"
+        )
         [
           # QEMU virtualized GPU (aka VirGL)
           # Requires ATOMIC_INT_LOCK_FREE == 2.
@@ -94,8 +97,8 @@
   ,
   OpenGL,
   Xplugin,
-  withValgrind ?
-    lib.meta.availableOn stdenv.hostPlatform valgrind-light && !valgrind-light.meta.broken,
+  withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind-light
+    && !valgrind-light.meta.broken,
   valgrind-light,
   enableGalliumNine ? stdenv.isLinux,
   enableOSMesa ? stdenv.isLinux,
@@ -137,13 +140,19 @@ let
   # two different LLVMs are loaded in the same process.
   # FIXME: these should really go into some sort of versioned LLVM package set
   rust-bindgen' = rust-bindgen.override {
-    rust-bindgen-unwrapped = rust-bindgen.unwrapped.override { clang = llvmPackages.clang; };
+    rust-bindgen-unwrapped = rust-bindgen.unwrapped.override {
+      clang = llvmPackages.clang;
+    };
   };
-  spirv-llvm-translator' = spirv-llvm-translator.override { inherit (llvmPackages) llvm; };
+  spirv-llvm-translator' = spirv-llvm-translator.override {
+    inherit (llvmPackages) llvm;
+  };
 
   haveWayland = lib.elem "wayland" eglPlatforms;
   haveZink = lib.elem "zink" galliumDrivers;
-  haveDozen = (lib.elem "d3d12" galliumDrivers) || (lib.elem "microsoft-experimental" vulkanDrivers);
+  haveDozen =
+    (lib.elem "d3d12" galliumDrivers)
+    || (lib.elem "microsoft-experimental" vulkanDrivers);
   self = stdenv.mkDerivation {
     pname = "mesa";
     inherit version;
@@ -232,7 +241,9 @@ let
         "-Dmicrosoft-clc=disabled" # Only relevant on Windows (OpenCL 1.2 API on top of D3D12)
 
         # To enable non-mesa gbm backends to be found (e.g. Nvidia)
-        "-Dgbm-backends-path=${libglvnd.driverLink}/lib/gbm:${placeholder "out"}/lib/gbm"
+        "-Dgbm-backends-path=${libglvnd.driverLink}/lib/gbm:${
+          placeholder "out"
+        }/lib/gbm"
 
         # meson auto_features enables these features, but we do not want them
         "-Dandroid-libbacktrace=disabled"
@@ -254,7 +265,9 @@ let
         "-Dclang-libdir=${llvmPackages.clang-unwrapped.lib}/lib"
       ]
       ++ lib.optionals (!withValgrind) [ "-Dvalgrind=disabled" ]
-      ++ lib.optional enablePatentEncumberedCodecs "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec"
+      ++
+        lib.optional enablePatentEncumberedCodecs
+          "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec"
       ++
         lib.optional (vulkanLayers != [ ])
           "-D vulkan-layers=${builtins.concatStringsSep "," vulkanLayers}";

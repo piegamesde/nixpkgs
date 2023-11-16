@@ -44,7 +44,8 @@
       actual,
       expected,
     }:
-    runCommand "equal-contents-${lib.strings.toLower assertion}" { inherit assertion actual expected; }
+    runCommand "equal-contents-${lib.strings.toLower assertion}"
+      { inherit assertion actual expected; }
       ''
         echo "Checking:"
         echo "$assertion"
@@ -80,7 +81,8 @@
   testVersion =
     {
       package,
-      command ? "${package.meta.mainProgram or package.pname or package.name} --version",
+      command ?
+        "${package.meta.mainProgram or package.pname or package.name} --version",
       version ? package.version,
     }:
     runCommand "${package.name}-test-version"
@@ -113,7 +115,9 @@
     let
       drvPath = (f args).drvPath;
       # It's safe to discard the context, because we don't access the path.
-      salt = builtins.unsafeDiscardStringContext (lib.substring 0 12 (baseNameOf drvPath));
+      salt = builtins.unsafeDiscardStringContext (
+        lib.substring 0 12 (baseNameOf drvPath)
+      );
       # New derivation incorporating the original drv hash in the name
       salted = f (args // { name = "${args.name or "source"}-salted-${salt}"; });
       # Make sure we did change the derivation. If the fetcher ignores `name`,
@@ -137,7 +141,10 @@
     nixos.runTest {
       _file = "pkgs.runNixOSTest implementation";
       imports = [
-        (lib.setDefaultModuleLocation "the argument that was passed to pkgs.runNixOSTest" testModule)
+        (lib.setDefaultModuleLocation
+          "the argument that was passed to pkgs.runNixOSTest"
+          testModule
+        )
       ];
       hostPkgs = pkgs;
       node.pkgs = pkgs;
@@ -153,7 +160,9 @@
         (import ../../../nixos/lib/testing-python.nix {
           inherit (stdenv.hostPlatform) system;
           inherit pkgs;
-          extraConfigurations = [ ({ lib, ... }: { config.nixpkgs.pkgs = lib.mkDefault pkgs; }) ];
+          extraConfigurations = [
+            ({ lib, ... }: { config.nixpkgs.pkgs = lib.mkDefault pkgs; })
+          ];
         });
     in
     test:

@@ -20,7 +20,9 @@ stdenv.mkDerivation (
 
     nativeBuildInputs = [ cmake ];
 
-    cmakeFlags = lib.optionals finalAttrs.finalPackage.doCheck [ "-DRAPIDFUZZ_BUILD_TESTING=ON" ];
+    cmakeFlags = lib.optionals finalAttrs.finalPackage.doCheck [
+      "-DRAPIDFUZZ_BUILD_TESTING=ON"
+    ];
 
     CXXFLAGS =
       lib.optionals stdenv.cc.isClang

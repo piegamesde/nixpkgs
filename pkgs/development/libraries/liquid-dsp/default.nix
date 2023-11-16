@@ -19,7 +19,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3UKAwhYaYZ42+d+wiW/AB6x5TSOel8d++d3HeZqAg/8=";
   };
 
-  configureFlags = lib.optionals stdenv.isDarwin [ "LIBTOOL=${cctools}/bin/libtool" ];
+  configureFlags = lib.optionals stdenv.isDarwin [
+    "LIBTOOL=${cctools}/bin/libtool"
+  ];
 
   nativeBuildInputs =
     [ autoreconfHook ]

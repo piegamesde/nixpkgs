@@ -53,7 +53,8 @@ with lib;
 
     services.gnome.evolution-data-server = {
       enable = mkEnableOption (
-        lib.mdDoc "Evolution Data Server, a collection of services for storing addressbooks and calendars"
+        lib.mdDoc
+          "Evolution Data Server, a collection of services for storing addressbooks and calendars"
       );
       plugins = mkOption {
         type = types.listOf types.package;

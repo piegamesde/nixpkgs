@@ -227,7 +227,9 @@ in
         "server"
         "PROTOCOL"
       ]
-      (config: if config.services.forgejo.enableUnixSocket then "http+unix" else "http")
+      (
+        config: if config.services.forgejo.enableUnixSocket then "http+unix" else "http"
+      )
     )
     (mkRemovedOptionModule
       [
@@ -353,7 +355,9 @@ in
         path = mkOption {
           type = types.str;
           default = "${cfg.stateDir}/data/forgejo.db";
-          defaultText = literalExpression ''"''${config.${opt.stateDir}}/data/forgejo.db"'';
+          defaultText =
+            literalExpression
+              ''"''${config.${opt.stateDir}}/data/forgejo.db"'';
           description = mdDoc "Path to the sqlite3 database file.";
         };
 
@@ -386,7 +390,9 @@ in
           type = types.str;
           default = "${cfg.stateDir}/dump";
           defaultText = literalExpression ''"''${config.${opt.stateDir}}/dump"'';
-          description = mdDoc "Path to the directory where the dump archives will be stored.";
+          description =
+            mdDoc
+              "Path to the directory where the dump archives will be stored.";
         };
 
         type = mkOption {
@@ -505,7 +511,9 @@ in
                   "fcgi+unix"
                 ];
                 default = "http";
-                description = mdDoc ''Listen protocol. `+unix` means "over unix", not "in addition to."'';
+                description =
+                  mdDoc
+                    ''Listen protocol. `+unix` means "over unix", not "in addition to."'';
               };
 
               HTTP_ADDR = mkOption {
@@ -536,7 +544,9 @@ in
 
               ROOT_URL = mkOption {
                 type = types.str;
-                default = "http://${cfg.settings.server.DOMAIN}:${toString cfg.settings.server.HTTP_PORT}/";
+                default = "http://${cfg.settings.server.DOMAIN}:${
+                    toString cfg.settings.server.HTTP_PORT
+                  }/";
                 defaultText =
                   literalExpression
                     ''
@@ -589,7 +599,8 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.database.createDatabase -> useSqlite || cfg.database.user == cfg.user;
+        assertion =
+          cfg.database.createDatabase -> useSqlite || cfg.database.user == cfg.user;
         message = "services.forgejo.database.user must match services.forgejo.user if the database is to be automatically provisioned";
       }
     ];
@@ -645,19 +656,21 @@ in
       lfs = mkIf cfg.lfs.enable { PATH = cfg.lfs.contentDir; };
     };
 
-    services.postgresql = optionalAttrs (usePostgresql && cfg.database.createDatabase) {
-      enable = mkDefault true;
-
-      ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [
+    services.postgresql =
+      optionalAttrs (usePostgresql && cfg.database.createDatabase)
         {
-          name = cfg.database.user;
-          ensurePermissions = {
-            "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
-          };
-        }
-      ];
-    };
+          enable = mkDefault true;
+
+          ensureDatabases = [ cfg.database.name ];
+          ensureUsers = [
+            {
+              name = cfg.database.user;
+              ensurePermissions = {
+                "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+              };
+            }
+          ];
+        };
 
     # Work around 'pq: permission denied for schema public' with postgres v15, until a
     # solution for `services.postgresql.ensureUsers` is found.
@@ -721,11 +734,14 @@ in
 
     systemd.services.forgejo = {
       description = "Forgejo (Beyond coding. We forge.)";
-      after = [
-        "network.target"
-      ] ++ optionals usePostgresql [ "postgresql.service" ] ++ optionals useMysql [ "mysql.service" ];
+      after =
+        [ "network.target" ]
+        ++ optionals usePostgresql [ "postgresql.service" ]
+        ++ optionals useMysql [ "mysql.service" ];
       requires =
-        optionals (cfg.database.createDatabase && usePostgresql) [ "postgresql.service" ]
+        optionals (cfg.database.createDatabase && usePostgresql) [
+          "postgresql.service"
+        ]
         ++ optionals (cfg.database.createDatabase && useMysql) [ "mysql.service" ];
       wantedBy = [ "multi-user.target" ];
       path = [
@@ -890,7 +906,9 @@ in
       };
     };
 
-    services.openssh.settings.AcceptEnv = mkIf (!cfg.settings.START_SSH_SERVER or false) "GIT_PROTOCOL";
+    services.openssh.settings.AcceptEnv =
+      mkIf (!cfg.settings.START_SSH_SERVER or false)
+        "GIT_PROTOCOL";
 
     users.users = mkIf (cfg.user == "forgejo") {
       forgejo = {

@@ -49,7 +49,9 @@ stdenv.mkDerivation rec {
       xfce.xfce4-panel
     ];
 
-  configureFlags = [ ] ++ lib.optionals enableXfcePanelApplet [ "--with-xfce4-panel-applet" ];
+  configureFlags =
+    [ ]
+    ++ lib.optionals enableXfcePanelApplet [ "--with-xfce4-panel-applet" ];
 
   postFixup = ''
     wrapPythonProgramsIn "$out/lib/jgmenu"

@@ -111,7 +111,9 @@ in
       plugin = mkOption {
         type = types.nullOr types.str;
         default = null;
-        example = literalExpression ''"''${pkgs.shadowsocks-v2ray-plugin}/bin/v2ray-plugin"'';
+        example =
+          literalExpression
+            ''"''${pkgs.shadowsocks-v2ray-plugin}/bin/v2ray-plugin"'';
         description = lib.mdDoc ''
           SIP003 plugin for shadowsocks
         '';
@@ -156,15 +158,18 @@ in
       description = "shadowsocks-libev Daemon";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      path = [
-        pkgs.shadowsocks-libev
-      ] ++ optional (cfg.plugin != null) cfg.plugin ++ optional (cfg.passwordFile != null) pkgs.jq;
+      path =
+        [ pkgs.shadowsocks-libev ]
+        ++ optional (cfg.plugin != null) cfg.plugin
+        ++ optional (cfg.passwordFile != null) pkgs.jq;
       serviceConfig.PrivateTmp = true;
       script = ''
         ${optionalString (cfg.passwordFile != null) ''
           cat ${configFile} | jq --arg password "$(cat "${cfg.passwordFile}")" '. + { password: $password }' > /tmp/shadowsocks.json
         ''}
-        exec ss-server -c ${if cfg.passwordFile != null then "/tmp/shadowsocks.json" else configFile}
+        exec ss-server -c ${
+          if cfg.passwordFile != null then "/tmp/shadowsocks.json" else configFile
+        }
       '';
     };
   };

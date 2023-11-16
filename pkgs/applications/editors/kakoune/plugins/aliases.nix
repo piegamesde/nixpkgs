@@ -17,23 +17,30 @@ let
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
-  removeDistribute = alias: with lib; if isDerivation alias then dontDistribute alias else alias;
+  removeDistribute =
+    alias: with lib; if isDerivation alias then dontDistribute alias else alias;
 
   # Make sure that we are not shadowing something from
   # all-packages.nix.
   checkInPkgs =
     n: alias:
-    if builtins.hasAttr n overridden then throw "Alias ${n} is still in kakounePlugins" else alias;
+    if builtins.hasAttr n overridden then
+      throw "Alias ${n} is still in kakounePlugins"
+    else
+      alias;
 
   mapAliases =
     aliases:
-    lib.mapAttrs (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
+    lib.mapAttrs
+      (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
       aliases;
 
   deprecations =
     lib.mapAttrs
       (
-        old: info: throw "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}."
+        old: info:
+        throw
+          "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}."
       )
       (lib.importJSON ./deprecated.json);
 in

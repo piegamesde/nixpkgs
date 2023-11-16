@@ -38,9 +38,10 @@ stdenv.mkDerivation rec {
     gtk3
   ] ++ lib.optional withALSA alsa-lib;
 
-  configureFlags = [
-    "--enable-release-build"
-  ] ++ lib.optional withNetworking "--enable-networking" ++ lib.optional withALSA "--enable-alsa";
+  configureFlags =
+    [ "--enable-release-build" ]
+    ++ lib.optional withNetworking "--enable-networking"
+    ++ lib.optional withALSA "--enable-alsa";
 
   meta = with lib; {
     description = "Emulator for IBM PC computers and clones";

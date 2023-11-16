@@ -165,12 +165,16 @@ in
 
           force_sync = lib.mkOption {
             type = lib.types.bool;
-            description = lib.mdDoc "calls fsync system call after every write to disk in local storage";
+            description =
+              lib.mdDoc
+                "calls fsync system call after every write to disk in local storage";
             default = true;
           };
           data_dir = lib.mkOption {
             type = lib.types.str;
-            description = lib.mdDoc "path to the local directory where all files are stored";
+            description =
+              lib.mdDoc
+                "path to the local directory where all files are stored";
             default = "/var/lib/rustus";
           };
           dir_structure = lib.mkOption {
@@ -223,7 +227,9 @@ in
           RUSTUS_LOG_LEVEL = cfg.log_level;
           RUSTUS_MAX_BODY_SIZE = cfg.max_body_size;
           RUSTUS_URL = cfg.url;
-          RUSTUS_DISABLE_HEALTH_ACCESS_LOG = lib.mkIf cfg.disable_health_access_logs "true";
+          RUSTUS_DISABLE_HEALTH_ACCESS_LOG =
+            lib.mkIf cfg.disable_health_access_logs
+              "true";
           RUSTUS_CORS = lib.concatStringsSep "," cfg.cors;
           RUSTUS_TUS_EXTENSIONS = lib.concatStringsSep "," cfg.tus_extensions;
           RUSTUS_REMOVE_PARTS = if cfg.remove_parts then "true" else "false";

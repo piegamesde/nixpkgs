@@ -41,9 +41,9 @@ stdenv.mkDerivation rec {
     ]
     # The preFixup hook rewrites the binary, which invaliates the code
     # signature. Add the fixup hook to sign the output.
-    ++ lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [
-      autoSignDarwinBinariesHook
-    ];
+    ++
+      lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
+        [ autoSignDarwinBinariesHook ];
 
   buildInputs =
     [

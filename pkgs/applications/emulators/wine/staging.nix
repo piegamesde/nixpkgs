@@ -12,9 +12,11 @@ with callPackage ./util.nix { };
 
 let
   patch = (callPackage ./sources.nix { }).staging;
-  build-inputs = pkgNames: extra: (mkBuildInputs wineUnstable.pkgArches pkgNames) ++ extra;
+  build-inputs =
+    pkgNames: extra: (mkBuildInputs wineUnstable.pkgArches pkgNames) ++ extra;
 in
-assert lib.versions.majorMinor wineUnstable.version == lib.versions.majorMinor patch.version;
+assert lib.versions.majorMinor wineUnstable.version
+  == lib.versions.majorMinor patch.version;
 
 (lib.overrideDerivation wineUnstable (
   self: {

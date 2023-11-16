@@ -185,7 +185,9 @@ in
     services.xserver.displayManager.job = {
       environment =
         {
-          GDM_X_SERVER_EXTRA_ARGS = toString (filter (arg: arg != "-terminate") cfg.xserverArgs);
+          GDM_X_SERVER_EXTRA_ARGS = toString (
+            filter (arg: arg != "-terminate") cfg.xserverArgs
+          );
           XDG_DATA_DIRS = lib.makeSearchPath "share" [
             gdm # for gnome-login.session
             cfg.sessionData.desktops
@@ -259,7 +261,9 @@ in
     # conflicts display-manager.service, then when nixos-rebuild
     # switch starts multi-user.target, display-manager.service is
     # stopped so plymouth-quit.service can be started.)
-    systemd.services.plymouth-quit = mkIf config.boot.plymouth.enable { wantedBy = lib.mkForce [ ]; };
+    systemd.services.plymouth-quit = mkIf config.boot.plymouth.enable {
+      wantedBy = lib.mkForce [ ];
+    };
 
     systemd.services.display-manager.serviceConfig = {
       # Restart = "always"; - already defined in xserver.nix
@@ -324,7 +328,8 @@ in
 
     environment.etc."gdm/custom.conf".source = configFile;
 
-    environment.etc."gdm/Xsession".source = config.services.xserver.displayManager.sessionData.wrapper;
+    environment.etc."gdm/Xsession".source =
+      config.services.xserver.displayManager.sessionData.wrapper;
 
     # GDM LFS PAM modules, adapted somehow to NixOS
     security.pam.services = {

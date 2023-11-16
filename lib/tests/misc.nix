@@ -406,7 +406,9 @@ runTests {
       in
       {
         storePath = isStorePath goodPath;
-        storePathDerivation = isStorePath (import ../.. { system = "x86_64-linux"; }).hello;
+        storePathDerivation =
+          isStorePath
+            (import ../.. { system = "x86_64-linux"; }).hello;
         storePathAppendix = isStorePath "${goodPath}/bin/python";
         nonAbsolute = isStorePath (concatStrings (tail (stringToCharacters goodPath)));
         asPath = isStorePath (/. + goodPath);
@@ -1181,11 +1183,14 @@ runTests {
   };
 
   testFindFirstIndexExample1 = {
-    expr = lists.findFirstIndex (x: x > 3) (abort "index found, so a default must not be evaluated") [
-      1
-      6
-      4
-    ];
+    expr =
+      lists.findFirstIndex (x: x > 3)
+        (abort "index found, so a default must not be evaluated")
+        [
+          1
+          6
+          4
+        ];
     expected = 1;
   };
 
@@ -1199,7 +1204,11 @@ runTests {
   };
 
   testFindFirstIndexEmpty = {
-    expr = lists.findFirstIndex (abort "when the list is empty, the predicate is not needed") null [ ];
+    expr =
+      lists.findFirstIndex
+        (abort "when the list is empty, the predicate is not needed")
+        null
+        [ ];
     expected = null;
   };
 
@@ -1486,7 +1495,8 @@ runTests {
     in
     {
       expr = {
-        isReverseToListToAttrs = builtins.listToAttrs (attrsToList exampleAttrs) == exampleAttrs;
+        isReverseToListToAttrs =
+          builtins.listToAttrs (attrsToList exampleAttrs) == exampleAttrs;
         isReverseToAttrsToList =
           attrsToList (builtins.listToAttrs exampleSingletonList) == exampleSingletonList;
         testDuplicatePruningBehaviour = attrsToList (
@@ -1514,7 +1524,9 @@ runTests {
       };
     };
 
-  testAttrsToListsCanDealWithFunctions = testingEval (attrsToList { someFunc = a: a + 1; });
+  testAttrsToListsCanDealWithFunctions = testingEval (
+    attrsToList { someFunc = a: a + 1; }
+  );
 
   # GENERATORS
   # these tests assume attributes are converted to lists
@@ -1859,8 +1871,9 @@ runTests {
     in
     {
       expr =
-        (builtins.tryEval (generators.toPretty { } (generators.withRecursion { depthLimit = 2; } a)))
-        .success;
+        (builtins.tryEval (
+          generators.toPretty { } (generators.withRecursion { depthLimit = 2; } a)
+        )).success;
       expected = false;
     };
 
@@ -2108,7 +2121,9 @@ runTests {
         "typescript-language-server"
         "--stdio"
       ];
-      settings.workspace.library = generators.mkLuaInline ''vim.api.nvim_get_runtime_file("", true)'';
+      settings.workspace.library =
+        generators.mkLuaInline
+          ''vim.api.nvim_get_runtime_file("", true)'';
     };
     expected = ''
       {
@@ -2208,11 +2223,17 @@ runTests {
         submodule =
           { lib, ... }:
           {
-            freeformType = lib.types.attrsOf (lib.types.submodule { options.bar = lib.mkOption { }; });
+            freeformType = lib.types.attrsOf (
+              lib.types.submodule { options.bar = lib.mkOption { }; }
+            );
             options.bar = lib.mkOption { };
           };
 
-        module = { lib, ... }: { options.foo = lib.mkOption { type = lib.types.submodule submodule; }; };
+        module =
+          { lib, ... }:
+          {
+            options.foo = lib.mkOption { type = lib.types.submodule submodule; };
+          };
 
         options = (evalModules { modules = [ module ]; }).options;
 
@@ -2991,7 +3012,11 @@ runTests {
     expected = "somelonghash/bin/mainProgram";
   };
 
-  testGetExe'FailureFirstArg = testingThrow (getExe' "not a derivation" "executable");
+  testGetExe'FailureFirstArg = testingThrow (
+    getExe' "not a derivation" "executable"
+  );
 
-  testGetExe'FailureSecondArg = testingThrow (getExe' { type = "derivation"; } "dir/executable");
+  testGetExe'FailureSecondArg = testingThrow (
+    getExe' { type = "derivation"; } "dir/executable"
+  );
 }

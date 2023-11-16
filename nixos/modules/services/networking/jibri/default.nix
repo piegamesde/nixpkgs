@@ -26,7 +26,10 @@ let
   # from an attribute name, which may not be a valid bash identifier.
   toVarName =
     s:
-    "XMPP_PASSWORD_" + stringAsChars (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_") s;
+    "XMPP_PASSWORD_"
+    +
+      stringAsChars (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_")
+        s;
 
   defaultJibriConfig = {
     id = "";
@@ -311,7 +314,9 @@ in
                 nick = mkDefault (
                   builtins.replaceStrings [ "." ] [ "-" ] (
                     config.networking.hostName
-                    + optionalString (config.networking.domain != null) ".${config.networking.domain}"
+                    +
+                      optionalString (config.networking.domain != null)
+                        ".${config.networking.domain}"
                   )
                 );
               in
@@ -441,9 +446,9 @@ in
     systemd.tmpfiles.rules = [ "d /var/log/jitsi/jibri 755 jibri jibri" ];
 
     # Configure Chromium to not show the "Chrome is being controlled by automatic test software" message.
-    environment.etc."chromium/policies/managed/managed_policies.json".text = builtins.toJSON {
-      CommandLineFlagSecurityWarningsEnabled = false;
-    };
+    environment.etc."chromium/policies/managed/managed_policies.json".text =
+      builtins.toJSON
+        { CommandLineFlagSecurityWarningsEnabled = false; };
     warnings = [
       "All security warnings for Chromium have been disabled. This is necessary for Jibri, but it also impacts all other uses of Chromium on this system."
     ];

@@ -32,10 +32,13 @@ stdenv.mkDerivation (
       hash = "sha256-Mo7Khj2pgdJ9kT3npFXnh1WTSsY/B1egWTccbAXFNY8=";
     };
 
-    outputs = [
-      "out"
-      "dev"
-    ] ++ lib.optionals withExamples [ "bin" ] ++ lib.optionals withDocumentation [ "devdoc" ];
+    outputs =
+      [
+        "out"
+        "dev"
+      ]
+      ++ lib.optionals withExamples [ "bin" ]
+      ++ lib.optionals withDocumentation [ "devdoc" ];
 
     patches =
       [
@@ -114,7 +117,8 @@ stdenv.mkDerivation (
       # Cross requires hostPlatform emulation during build
       # https://gitlab.com/ubports/development/core/geonames/-/issues/1
       broken =
-        stdenv.buildPlatform != stdenv.hostPlatform && !stdenv.hostPlatform.emulatorAvailable buildPackages;
+        stdenv.buildPlatform != stdenv.hostPlatform
+        && !stdenv.hostPlatform.emulatorAvailable buildPackages;
       pkgConfigModules = [ "geonames" ];
     };
   }

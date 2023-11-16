@@ -32,7 +32,10 @@ buildPythonPackage rec {
   patches = [ ./fix-includedir.patch ];
 
   preConfigure =
-    lib.optionalString (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11" && stdenv.isDarwin)
+    lib.optionalString
+      (
+        lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11" && stdenv.isDarwin
+      )
       ''
         MACOSX_DEPLOYMENT_TARGET=10.16
       '';

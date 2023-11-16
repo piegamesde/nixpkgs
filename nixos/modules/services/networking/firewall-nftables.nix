@@ -16,7 +16,8 @@ let
   portsToNftSet =
     ports: portRanges:
     concatStringsSep ", " (
-      map (x: toString x) ports ++ map (x: "${toString x.from}-${toString x.to}") portRanges
+      map (x: toString x) ports
+      ++ map (x: "${toString x.from}-${toString x.to}") portRanges
     );
 in
 
@@ -64,7 +65,8 @@ in
       }
       {
         assertion = cfg.pingLimit == null || !(hasPrefix "--" cfg.pingLimit);
-        message = ''nftables syntax like "2/second" should be used in networking.firewall.pingLimit'';
+        message = ''
+          nftables syntax like "2/second" should be used in networking.firewall.pingLimit'';
       }
       {
         assertion = config.networking.nftables.rulesetFile == null;
@@ -79,7 +81,9 @@ in
           type filter hook prerouting priority mangle + 10; policy drop;
 
           meta nfproto ipv4 udp sport . udp dport { 67 . 68, 68 . 67 } accept comment "DHCPv4 client/server"
-          fib saddr . mark ${optionalString (cfg.checkReversePath != "loose") ". iif"} oif exists accept
+          fib saddr . mark ${
+            optionalString (cfg.checkReversePath != "loose") ". iif"
+          } oif exists accept
 
           ${
             optionalString cfg.logReversePathDrops ''
@@ -93,7 +97,10 @@ in
       chain input {
         type filter hook input priority filter; policy drop;
 
-        ${optionalString (ifaceSet != "") ''iifname { ${ifaceSet} } accept comment "trusted interfaces"''}
+        ${
+          optionalString (ifaceSet != "")
+            ''iifname { ${ifaceSet} } accept comment "trusted interfaces"''
+        }
 
         # Some ICMPv6 types like NDP is untracked
         ct state vmap {

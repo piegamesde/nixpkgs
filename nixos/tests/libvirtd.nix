@@ -27,7 +27,8 @@ import ./make-test-python.nix (
 
     testScript =
       let
-        nixosInstallISO = (import ../release.nix { }).iso_minimal.${pkgs.stdenv.hostPlatform.system};
+        nixosInstallISO =
+          (import ../release.nix { }).iso_minimal.${pkgs.stdenv.hostPlatform.system};
         virshShutdownCmd = if pkgs.stdenv.isx86_64 then "shutdown" else "destroy";
       in
       ''

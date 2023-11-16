@@ -96,7 +96,9 @@ in
               options = {
                 url = mkOption {
                   type = str;
-                  description = lib.mdDoc "The URL to the home server for client-server API calls";
+                  description =
+                    lib.mdDoc
+                      "The URL to the home server for client-server API calls";
                 };
 
                 domain = mkOption {
@@ -165,7 +167,9 @@ in
     systemd.services.matrix-appservice-irc = {
       description = "Matrix-IRC bridge";
       before = [ "matrix-synapse.service" ]; # So the registration can be used by Synapse
-      after = lib.optionals (cfg.settings.database.engine == "postgres") [ "postgresql.service" ];
+      after = lib.optionals (cfg.settings.database.engine == "postgres") [
+        "postgresql.service"
+      ];
       wantedBy = [ "multi-user.target" ];
 
       preStart = ''
@@ -205,7 +209,9 @@ in
 
       serviceConfig = rec {
         Type = "simple";
-        ExecStart = "${bin} --config ${configFile} --file ${registrationFile} --port ${toString cfg.port}";
+        ExecStart = "${bin} --config ${configFile} --file ${registrationFile} --port ${
+            toString cfg.port
+          }";
 
         ProtectHome = true;
         PrivateDevices = true;
@@ -218,7 +224,9 @@ in
         User = "matrix-appservice-irc";
         Group = "matrix-appservice-irc";
 
-        CapabilityBoundingSet = [ "CAP_CHOWN" ] ++ optional (cfg.needBindingCap) "CAP_NET_BIND_SERVICE";
+        CapabilityBoundingSet = [
+          "CAP_CHOWN"
+        ] ++ optional (cfg.needBindingCap) "CAP_NET_BIND_SERVICE";
         AmbientCapabilities = CapabilityBoundingSet;
         NoNewPrivileges = true;
 

@@ -64,7 +64,9 @@ stdenv.mkDerivation rec {
     + ''
       yarn --offline run electron-builder --dir \
         --config electron-builder-linux-mac.json \
-        -c.electronDist=${if stdenv.isDarwin then "." else "${electron}/libexec/electron"} \
+        -c.electronDist=${
+          if stdenv.isDarwin then "." else "${electron}/libexec/electron"
+        } \
         -c.electronVersion=${electron.version}
 
       runHook postBuild

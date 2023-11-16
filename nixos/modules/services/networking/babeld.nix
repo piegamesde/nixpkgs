@@ -11,13 +11,14 @@ let
 
   cfg = config.services.babeld;
 
-  conditionalBoolToString = value: if (isBool value) then (boolToString value) else (toString value);
+  conditionalBoolToString =
+    value: if (isBool value) then (boolToString value) else (toString value);
 
   paramsString =
     params:
-    concatMapStringsSep " " (name: "${name} ${conditionalBoolToString (getAttr name params)}") (
-      attrNames params
-    );
+    concatMapStringsSep " "
+      (name: "${name} ${conditionalBoolToString (getAttr name params)}")
+      (attrNames params);
 
   interfaceConfig =
     name:
@@ -106,7 +107,10 @@ in
         "net.ipv4.conf.all.rp_filter" = 0;
       }
       // lib.mapAttrs'
-        (ifname: _: lib.nameValuePair "net.ipv4.conf.${ifname}.rp_filter" (lib.mkDefault 0))
+        (
+          ifname: _:
+          lib.nameValuePair "net.ipv4.conf.${ifname}.rp_filter" (lib.mkDefault 0)
+        )
         config.services.babeld.interfaces;
 
     systemd.services.babeld = {

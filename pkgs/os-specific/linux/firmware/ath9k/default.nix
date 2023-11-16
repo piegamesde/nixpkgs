@@ -109,12 +109,14 @@ stdenv.mkDerivation (
 
     passthru = {
       inherit (finalAttrs) src;
-      updateScript = writeScript "${finalAttrs.pname}-${finalAttrs.version}-updateScript" ''
-        nix-shell '<nixpkgs>' -A ${finalAttrs.pname}${
-          lib.optionalString enableUnstable "-unstable"
-        }.passthru.update \
-        > pkgs/os-specific/linux/firmware/ath9k/urls-and-hashes-${finalAttrs.version}.nix
-      '';
+      updateScript =
+        writeScript "${finalAttrs.pname}-${finalAttrs.version}-updateScript"
+          ''
+            nix-shell '<nixpkgs>' -A ${finalAttrs.pname}${
+              lib.optionalString enableUnstable "-unstable"
+            }.passthru.update \
+            > pkgs/os-specific/linux/firmware/ath9k/urls-and-hashes-${finalAttrs.version}.nix
+          '';
       update = stdenv.mkDerivation {
         name = "${finalAttrs.pname}-${finalAttrs.version}-update";
         shellHook =

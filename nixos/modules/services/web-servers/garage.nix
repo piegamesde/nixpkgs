@@ -23,7 +23,9 @@ in
 
     extraEnvironment = mkOption {
       type = types.attrsOf types.str;
-      description = lib.mdDoc "Extra environment variables to pass to the Garage server.";
+      description =
+        lib.mdDoc
+          "Extra environment variables to pass to the Garage server.";
       default = { };
       example = {
         RUST_BACKTRACE = "yes";
@@ -32,7 +34,9 @@ in
 
     environmentFile = mkOption {
       type = types.nullOr types.path;
-      description = lib.mdDoc "File containing environment variables to be passed to the Garage server.";
+      description =
+        lib.mdDoc
+          "File containing environment variables to be passed to the Garage server.";
       default = null;
     };
 
@@ -57,7 +61,9 @@ in
           metadata_dir = mkOption {
             default = "/var/lib/garage/meta";
             type = types.path;
-            description = lib.mdDoc "The metadata directory, put this on a fast disk (e.g. SSD) if possible.";
+            description =
+              lib.mdDoc
+                "The metadata directory, put this on a fast disk (e.g. SSD) if possible.";
           };
 
           data_dir = mkOption {
@@ -136,7 +142,9 @@ in
         DynamicUser = lib.mkDefault true;
         ProtectHome = true;
         NoNewPrivileges = true;
-        EnvironmentFile = lib.optional (cfg.environmentFile != null) cfg.environmentFile;
+        EnvironmentFile =
+          lib.optional (cfg.environmentFile != null)
+            cfg.environmentFile;
       };
       environment = {
         RUST_LOG = lib.mkDefault "garage=${cfg.logLevel}";

@@ -51,7 +51,9 @@ rustPlatform.buildRustPackage rec {
     # Add patch adding the collection variant to rspotify used by spotify-tu
     # This fixes the issue of getting an error when playing liked songs
     # see https://github.com/NixOS/nixpkgs/pull/170915
-    patch -p1 -d $cargoDepsCopy/rspotify-0.10.0 < ${./0001-Add-Collection-SearchType.patch}
+    patch -p1 -d $cargoDepsCopy/rspotify-0.10.0 < ${
+      ./0001-Add-Collection-SearchType.patch
+    }
   '';
 
   postInstall = ''

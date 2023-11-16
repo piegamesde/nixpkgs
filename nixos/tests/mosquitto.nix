@@ -67,7 +67,8 @@ import ./make-test-python.nix (
 
     nodes =
       let
-        client = { pkgs, ... }: { environment.systemPackages = with pkgs; [ mosquitto ]; };
+        client =
+          { pkgs, ... }: { environment.systemPackages = with pkgs; [ mosquitto ]; };
       in
       {
         server =
@@ -220,7 +221,9 @@ import ./make-test-python.nix (
                   "anonReader", port=${toString anonPort})),
               lambda: [
                   wait_uuid("fd56032c-d9cb-4813-a3b4-6be0e04c8fc3"),
-                  client2.succeed(publish("-m test", "anonWriter", port=${toString anonPort}))
+                  client2.succeed(publish("-m test", "anonWriter", port=${
+                    toString anonPort
+                  }))
               ])
     '';
   }

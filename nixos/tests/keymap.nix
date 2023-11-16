@@ -84,7 +84,9 @@ let
                 machine.succeed("grep -q 'PASS:' ${resultFile}")
 
 
-        with open("${pkgs.writeText "tests.json" (builtins.toJSON tests)}") as json_file:
+        with open("${
+          pkgs.writeText "tests.json" (builtins.toJSON tests)
+        }") as json_file:
             tests = json.load(json_file)
 
         # These environments used to run in the opposite order, causing the

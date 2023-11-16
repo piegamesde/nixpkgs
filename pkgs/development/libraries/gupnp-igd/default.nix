@@ -51,7 +51,9 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "-Dgtk_doc=${lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)}"
-    "-Dintrospection=${lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)}"
+    "-Dintrospection=${
+      lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)
+    }"
   ];
 
   # Seems to get stuck sometimes.

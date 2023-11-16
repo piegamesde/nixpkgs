@@ -59,7 +59,12 @@ stdenv.mkDerivation (
     '';
 
     makeFlags = [
-      "SYSTEM=${if stdenv.hostPlatform.isMinGW then "mingw" else stdenv.hostPlatform.parsed.kernel.name}"
+      "SYSTEM=${
+        if stdenv.hostPlatform.isMinGW then
+          "mingw"
+        else
+          stdenv.hostPlatform.parsed.kernel.name
+      }"
     ];
 
     passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;

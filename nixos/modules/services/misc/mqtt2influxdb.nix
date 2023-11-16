@@ -219,7 +219,9 @@ in
         verify_ssl = mkOption {
           type = types.bool;
           default = true;
-          description = mdDoc "Verify SSL certificate when connecting to the InfluxDB server.";
+          description =
+            mdDoc
+              "Verify SSL certificate when connecting to the InfluxDB server.";
         };
       };
       points = mkOption {
@@ -234,7 +236,11 @@ in
     systemd.services.bigclown-mqtt2influxdb =
       let
         envConfig = cfg.environmentFiles != [ ];
-        finalConfig = if envConfig then "$RUNTIME_DIRECTORY/mqtt2influxdb.config.yaml" else configFile;
+        finalConfig =
+          if envConfig then
+            "$RUNTIME_DIRECTORY/mqtt2influxdb.config.yaml"
+          else
+            configFile;
       in
       {
         description = "BigClown MQTT to InfluxDB bridge";

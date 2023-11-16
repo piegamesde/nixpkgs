@@ -30,7 +30,9 @@
   },
 }:
 
-with import ./release-lib.nix { inherit supportedSystems scrubJobs nixpkgsArgs; };
+with import ./release-lib.nix {
+  inherit supportedSystems scrubJobs nixpkgsArgs;
+};
 
 let
   nativePlatforms = all;
@@ -137,7 +139,9 @@ in
             path: crossSystem: system:
             builtins.toString (lib.getAttrFromPath path (pkgsForCross crossSystem system));
         in
-        assertTrue (f path null system == f ([ "buildPackages" ] ++ path) crossSystem system);
+        assertTrue (
+          f path null system == f ([ "buildPackages" ] ++ path) crossSystem system
+        );
 
       testEqual = path: systems: forMatchingSystems systems (testEqualOne path);
 
@@ -189,20 +193,26 @@ in
   remarkable2 = mapTestOnCross lib.systems.examples.remarkable2 linuxCommon;
 
   # Linux on armv7l-hf
-  armv7l-hf = mapTestOnCross lib.systems.examples.armv7l-hf-multiplatform linuxCommon;
+  armv7l-hf =
+    mapTestOnCross lib.systems.examples.armv7l-hf-multiplatform
+      linuxCommon;
 
   pogoplug4 = mapTestOnCross lib.systems.examples.pogoplug4 linuxCommon;
 
   # Linux on aarch64
   aarch64 = mapTestOnCross lib.systems.examples.aarch64-multiplatform linuxCommon;
-  aarch64-musl = mapTestOnCross lib.systems.examples.aarch64-multiplatform-musl linuxCommon;
+  aarch64-musl =
+    mapTestOnCross lib.systems.examples.aarch64-multiplatform-musl
+      linuxCommon;
 
   # Linux on RISCV
   riscv64 = mapTestOnCross lib.systems.examples.riscv64 linuxCommon;
   riscv32 = mapTestOnCross lib.systems.examples.riscv32 linuxCommon;
 
   # Linux on LoongArch
-  loongarch64-linux = mapTestOnCross lib.systems.examples.loongarch64-linux linuxCommon;
+  loongarch64-linux =
+    mapTestOnCross lib.systems.examples.loongarch64-linux
+      linuxCommon;
 
   m68k = mapTestOnCross lib.systems.examples.m68k linuxCommon;
   s390x = mapTestOnCross lib.systems.examples.s390x linuxCommon;
@@ -216,8 +226,12 @@ in
   ppc64le = mapTestOnCross lib.systems.examples.powernv linuxCommon;
   ppc64le-musl = mapTestOnCross lib.systems.examples.musl-power linuxCommon;
 
-  android64 = mapTestOnCross lib.systems.examples.aarch64-android-prebuilt linuxCommon;
-  android32 = mapTestOnCross lib.systems.examples.armv7a-android-prebuilt linuxCommon;
+  android64 =
+    mapTestOnCross lib.systems.examples.aarch64-android-prebuilt
+      linuxCommon;
+  android32 =
+    mapTestOnCross lib.systems.examples.armv7a-android-prebuilt
+      linuxCommon;
 
   wasi32 = mapTestOnCross lib.systems.examples.wasi32 wasiCommon;
 
@@ -228,14 +242,24 @@ in
   avr = mapTestOnCross lib.systems.examples.avr embedded;
   arm-embedded = mapTestOnCross lib.systems.examples.arm-embedded embedded;
   armhf-embedded = mapTestOnCross lib.systems.examples.armhf-embedded embedded;
-  aarch64-embedded = mapTestOnCross lib.systems.examples.aarch64-embedded embedded;
-  aarch64be-embedded = mapTestOnCross lib.systems.examples.aarch64be-embedded embedded;
+  aarch64-embedded =
+    mapTestOnCross lib.systems.examples.aarch64-embedded
+      embedded;
+  aarch64be-embedded =
+    mapTestOnCross lib.systems.examples.aarch64be-embedded
+      embedded;
   powerpc-embedded = mapTestOnCross lib.systems.examples.ppc-embedded embedded;
-  powerpcle-embedded = mapTestOnCross lib.systems.examples.ppcle-embedded embedded;
+  powerpcle-embedded =
+    mapTestOnCross lib.systems.examples.ppcle-embedded
+      embedded;
   i686-embedded = mapTestOnCross lib.systems.examples.i686-embedded embedded;
   x86_64-embedded = mapTestOnCross lib.systems.examples.x86_64-embedded embedded;
-  riscv64-embedded = mapTestOnCross lib.systems.examples.riscv64-embedded embedded;
-  riscv32-embedded = mapTestOnCross lib.systems.examples.riscv32-embedded embedded;
+  riscv64-embedded =
+    mapTestOnCross lib.systems.examples.riscv64-embedded
+      embedded;
+  riscv32-embedded =
+    mapTestOnCross lib.systems.examples.riscv32-embedded
+      embedded;
   rx-embedded = mapTestOnCross lib.systems.examples.rx-embedded embedded;
 
   x86_64-freebsd = mapTestOnCross lib.systems.examples.x86_64-freebsd common;
@@ -243,12 +267,16 @@ in
 
   # we test `embedded` instead of `linuxCommon` because very few packages
   # successfully cross-compile to Redox so far
-  x86_64-redox = mapTestOnCross lib.systems.examples.x86_64-unknown-redox embedded;
+  x86_64-redox =
+    mapTestOnCross lib.systems.examples.x86_64-unknown-redox
+      embedded;
 
   # Cross-built bootstrap tools for every supported platform
   bootstrapTools =
     let
-      tools = import ../stdenv/linux/make-bootstrap-tools-cross.nix { system = "x86_64-linux"; };
+      tools = import ../stdenv/linux/make-bootstrap-tools-cross.nix {
+        system = "x86_64-linux";
+      };
       maintainers = [ lib.maintainers.dezgeg ];
       mkBootstrapToolsJob =
         drv:
@@ -279,5 +307,7 @@ in
   mips64el-nixCrossStatic =
     mapTestOnCross lib.systems.examples.mips64el-linux-gnuabi64
       nixCrossStatic;
-  powerpc64le-nixCrossStatic = mapTestOnCross lib.systems.examples.powernv nixCrossStatic;
+  powerpc64le-nixCrossStatic =
+    mapTestOnCross lib.systems.examples.powernv
+      nixCrossStatic;
 }

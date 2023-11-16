@@ -34,11 +34,14 @@ let
   hasWorkers = cfg.workers != { };
 
   listenerSupportsResource =
-    resource: listener: lib.any ({ names, ... }: builtins.elem resource names) listener.resources;
+    resource: listener:
+    lib.any ({ names, ... }: builtins.elem resource names) listener.resources;
 
   clientListener = findFirst (listenerSupportsResource "client") null (
     cfg.settings.listeners
-    ++ concatMap ({ worker_listeners, ... }: worker_listeners) (attrValues cfg.workers)
+    ++ concatMap ({ worker_listeners, ... }: worker_listeners) (
+      attrValues cfg.workers
+    )
   );
 
   registerNewMatrixUser =
@@ -54,10 +57,14 @@ let
     pkgs.writeShellScriptBin "matrix-synapse-register_new_matrix_user" ''
       exec ${cfg.package}/bin/register_new_matrix_user \
         $@ \
-        ${lib.concatMapStringsSep " " (x: "-c ${x}") ([ configFile ] ++ cfg.extraConfigFiles)} \
-        "${listenerProtocol}://${if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"}:${
-          builtins.toString clientListener.port
-        }/"
+        ${
+          lib.concatMapStringsSep " " (x: "-c ${x}") (
+            [ configFile ] ++ cfg.extraConfigFiles
+          )
+        } \
+        "${listenerProtocol}://${
+          if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"
+        }:${builtins.toString clientListener.port}/"
     '';
 
   defaultExtras = [
@@ -106,7 +113,9 @@ let
 
       ```
       ${generators.toPretty { } (
-        recursiveUpdate defaultCommonLogConfig { handlers.journal.SYSLOG_IDENTIFIER = logName; }
+        recursiveUpdate defaultCommonLogConfig {
+          handlers.journal.SYSLOG_IDENTIFIER = logName;
+        }
       )}
       ```
     '';
@@ -1102,7 +1111,11 @@ in
                     "sqlite3"
                     "psycopg2"
                   ];
-                  default = if versionAtLeast config.system.stateVersion "18.03" then "psycopg2" else "sqlite3";
+                  default =
+                    if versionAtLeast config.system.stateVersion "18.03" then
+                      "psycopg2"
+                    else
+                      "sqlite3";
                   defaultText = literalExpression ''
                     if versionAtLeast config.system.stateVersion "18.03"
                     then "psycopg2"
@@ -1484,7 +1497,9 @@ in
                   listener:
                   listener.port == main.port
                   && listenerSupportsResource "replication" listener
-                  && (lib.any (bind: bind == main.host || bind == "0.0.0.0" || bind == "::") listener.bind_addresses)
+                  && (lib.any (bind: bind == main.host || bind == "0.0.0.0" || bind == "::")
+                    listener.bind_addresses
+                  )
                 )
                 null
                 cfg.settings.listeners;
@@ -1519,7 +1534,9 @@ in
     # default them, so they are additive
     services.matrix-synapse.extras = defaultExtras;
 
-    services.matrix-synapse.log = mapAttrsRecursive (const mkDefault) defaultCommonLogConfig;
+    services.matrix-synapse.log =
+      mapAttrsRecursive (const mkDefault)
+        defaultCommonLogConfig;
 
     users.users.matrix-synapse = {
       group = "matrix-synapse";
@@ -1535,7 +1552,9 @@ in
 
     systemd.targets.matrix-synapse = lib.mkIf hasWorkers {
       description = "Synapse Matrix parent target";
-      after = [ "network-online.target" ] ++ optional hasLocalPostgresDB "postgresql.service";
+      after = [
+        "network-online.target"
+      ] ++ optional hasLocalPostgresDB "postgresql.service";
       wantedBy = [ "multi-user.target" ];
     };
 
@@ -1551,7 +1570,9 @@ in
             }
           else
             {
-              after = [ "network-online.target" ] ++ optional hasLocalPostgresDB "postgresql.service";
+              after = [
+                "network-online.target"
+              ] ++ optional hasLocalPostgresDB "postgresql.service";
               requires = optional hasLocalPostgresDB "postgresql.service";
               wantedBy = [ "multi-user.target" ];
             };
@@ -1667,7 +1688,9 @@ in
               ExecStart = ''
                 ${cfg.package}/bin/synapse_homeserver \
                   ${
-                    concatMapStringsSep "\n  " (x: "--config-path ${x} \\") ([ configFile ] ++ cfg.extraConfigFiles)
+                    concatMapStringsSep "\n  " (x: "--config-path ${x} \\") (
+                      [ configFile ] ++ cfg.extraConfigFiles
+                    )
                   }
                   --keys-directory ${cfg.dataDir}
               '';

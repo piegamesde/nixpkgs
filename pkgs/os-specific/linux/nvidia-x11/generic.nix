@@ -112,7 +112,9 @@ let
   '';
 
   self = stdenv.mkDerivation {
-    name = "nvidia-${if useFabricmanager then "dc" else "x11"}-${version}${nameSuffix}";
+    name = "nvidia-${
+        if useFabricmanager then "dc" else "x11"
+      }-${version}${nameSuffix}";
 
     builder = ./builder.sh;
 
@@ -143,7 +145,9 @@ let
               ];
           sha256 = sha256_32bit;
         }
-      else if stdenv.hostPlatform.system == "aarch64-linux" && sha256_aarch64 != null then
+      else if
+        stdenv.hostPlatform.system == "aarch64-linux" && sha256_aarch64 != null
+      then
         fetchurl {
           urls =
             if args ? url then
@@ -228,12 +232,14 @@ let
           { };
       persistenced =
         if usePersistenced then
-          mapNullable (hash: callPackage (import ./persistenced.nix self hash) { }) persistencedSha256
+          mapNullable (hash: callPackage (import ./persistenced.nix self hash) { })
+            persistencedSha256
         else
           { };
       fabricmanager =
         if useFabricmanager then
-          mapNullable (hash: callPackage (import ./fabricmanager.nix self hash) { }) fabricmanagerSha256
+          mapNullable (hash: callPackage (import ./fabricmanager.nix self hash) { })
+            fabricmanagerSha256
         else
           { };
       inherit persistencedVersion settingsVersion;

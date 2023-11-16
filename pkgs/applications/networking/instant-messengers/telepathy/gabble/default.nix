@@ -49,7 +49,9 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ dbus ];
 
-  configureFlags = [ "--with-ca-certificates=/etc/ssl/certs/ca-certificates.crt" ];
+  configureFlags = [
+    "--with-ca-certificates=/etc/ssl/certs/ca-certificates.crt"
+  ];
 
   enableParallelBuilding = true;
   doCheck = true;

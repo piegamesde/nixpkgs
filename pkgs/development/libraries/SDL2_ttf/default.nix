@@ -27,13 +27,18 @@ stdenv.mkDerivation (
 
     nativeBuildInputs = [ pkg-config ];
 
-    buildInputs = [
-      SDL2
-      freetype
-      harfbuzz
-    ] ++ lib.optional (!stdenv.isDarwin) libGL ++ lib.optional stdenv.isDarwin darwin.libobjc;
+    buildInputs =
+      [
+        SDL2
+        freetype
+        harfbuzz
+      ]
+      ++ lib.optional (!stdenv.isDarwin) libGL
+      ++ lib.optional stdenv.isDarwin darwin.libobjc;
 
-    passthru.tests.pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+    passthru.tests.pkg-config = testers.hasPkgConfigModules {
+      package = finalAttrs.finalPackage;
+    };
 
     meta = with lib; {
       description = "Support for TrueType (.ttf) font files with Simple Directmedia Layer";

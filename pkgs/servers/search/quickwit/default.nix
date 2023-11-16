@@ -34,7 +34,9 @@ rustPlatform.buildRustPackage rec {
 
   sourceRoot = "${src.name}/quickwit";
 
-  buildInputs = [ rust-jemalloc-sys ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [
+    rust-jemalloc-sys
+  ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;

@@ -18,7 +18,9 @@ in
     services.xserver.gdk-pixbuf.modulePackages = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = [ ];
-      description = lib.mdDoc "Packages providing GDK-Pixbuf modules, for cache generation.";
+      description =
+        lib.mdDoc
+          "Packages providing GDK-Pixbuf modules, for cache generation.";
     };
   };
 

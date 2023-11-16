@@ -84,9 +84,9 @@ in
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/surreal start --bind ${cfg.host}:${toString cfg.port} ${
-            escapeShellArgs cfg.extraFlags
-          } -- ${cfg.dbPath}";
+        ExecStart = "${cfg.package}/bin/surreal start --bind ${cfg.host}:${
+            toString cfg.port
+          } ${escapeShellArgs cfg.extraFlags} -- ${cfg.dbPath}";
         DynamicUser = true;
         Restart = "on-failure";
         StateDirectory = "surrealdb";

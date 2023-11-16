@@ -47,7 +47,10 @@ in
           --web-listen-port ${toString cfg.port} \
           --knot-socket-path ${cfg.knotSocketPath} \
           --knot-socket-timeout ${toString cfg.knotSocketTimeout} \
-          ${lib.optionalString (cfg.knotLibraryPath != null) "--knot-library-path ${cfg.knotLibraryPath}"} \
+          ${
+            lib.optionalString (cfg.knotLibraryPath != null)
+              "--knot-library-path ${cfg.knotLibraryPath}"
+          } \
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
       SupplementaryGroups = [ "knot" ];

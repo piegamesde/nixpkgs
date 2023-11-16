@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
 
   # Disable jit on Apple Silicon, https://github.com/zherczeg/sljit/issues/51
   configureFlags =
-    lib.optional (!(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)) "--enable-jit=auto"
+    lib.optional (!(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64))
+      "--enable-jit=auto"
     ++ [
       "--enable-unicode-properties"
       "--disable-cpp"
@@ -51,7 +52,8 @@ stdenv.mkDerivation rec {
   '';
 
   doCheck =
-    !(with stdenv.hostPlatform; isCygwin || isFreeBSD) && stdenv.hostPlatform == stdenv.buildPlatform;
+    !(with stdenv.hostPlatform; isCygwin || isFreeBSD)
+    && stdenv.hostPlatform == stdenv.buildPlatform;
   # XXX: test failure on Cygwin
   # we are running out of stack on both freeBSDs on Hydra
 

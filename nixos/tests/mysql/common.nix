@@ -10,5 +10,8 @@
     inherit (pkgs) percona-server_8_0;
   };
   mkTestName =
-    pkg: "mariadb_${builtins.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor pkg.version)}";
+    pkg:
+    "mariadb_${
+      builtins.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor pkg.version)
+    }";
 }

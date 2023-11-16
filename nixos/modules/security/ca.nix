@@ -22,15 +22,19 @@ in
 {
 
   options = {
-    security.pki.installCACerts = mkEnableOption "Add CA certificates to system" // {
-      default = true;
-      internal = true;
-    };
+    security.pki.installCACerts =
+      mkEnableOption "Add CA certificates to system"
+      // {
+        default = true;
+        internal = true;
+      };
 
     security.pki.certificateFiles = mkOption {
       type = types.listOf types.path;
       default = [ ];
-      example = literalExpression ''[ "''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ]'';
+      example =
+        literalExpression
+          ''[ "''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ]'';
       description = lib.mdDoc ''
         A list of files containing trusted root certificates in PEM
         format. These are concatenated to form

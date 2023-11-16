@@ -18,7 +18,9 @@ in
 {
   options = {
     deferred = mkOption { type = deferredModule; };
-    result = mkOption { default = (evalModules { modules = [ config.deferred ]; }).config.result; };
+    result = mkOption {
+      default = (evalModules { modules = [ config.deferred ]; }).config.result;
+    };
   };
   config = {
     deferred =

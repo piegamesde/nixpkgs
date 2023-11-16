@@ -71,19 +71,22 @@ stdenv.mkDerivation rec {
     "pie"
   ] ++ lib.optionals enableStatic [ "fortify" ];
 
-  patches = [
-    ./busybox-in-store.patch
-    (fetchurl {
-      name = "CVE-2022-28391.patch";
-      url = "https://git.alpinelinux.org/aports/plain/main/busybox/0001-libbb-sockaddr2str-ensure-only-printable-characters-.patch?id=ed92963eb55bbc8d938097b9ccb3e221a94653f4";
-      sha256 = "sha256-yviw1GV+t9tbHbY7YNxEqPi7xEreiXVqbeRyf8c6Awo=";
-    })
-    (fetchurl {
-      name = "CVE-2022-28391.patch";
-      url = "https://git.alpinelinux.org/aports/plain/main/busybox/0002-nslookup-sanitize-all-printed-strings-with-printable.patch?id=ed92963eb55bbc8d938097b9ccb3e221a94653f4";
-      sha256 = "sha256-vl1wPbsHtXY9naajjnTicQ7Uj3N+EQ8pRNnrdsiow+w=";
-    })
-  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) ./clang-cross.patch;
+  patches =
+    [
+      ./busybox-in-store.patch
+      (fetchurl {
+        name = "CVE-2022-28391.patch";
+        url = "https://git.alpinelinux.org/aports/plain/main/busybox/0001-libbb-sockaddr2str-ensure-only-printable-characters-.patch?id=ed92963eb55bbc8d938097b9ccb3e221a94653f4";
+        sha256 = "sha256-yviw1GV+t9tbHbY7YNxEqPi7xEreiXVqbeRyf8c6Awo=";
+      })
+      (fetchurl {
+        name = "CVE-2022-28391.patch";
+        url = "https://git.alpinelinux.org/aports/plain/main/busybox/0002-nslookup-sanitize-all-printed-strings-with-printable.patch?id=ed92963eb55bbc8d938097b9ccb3e221a94653f4";
+        sha256 = "sha256-vl1wPbsHtXY9naajjnTicQ7Uj3N+EQ8pRNnrdsiow+w=";
+      })
+    ]
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+      ./clang-cross.patch;
 
   separateDebugInfo = true;
 
@@ -142,9 +145,11 @@ stdenv.mkDerivation rec {
     runHook postConfigure
   '';
 
-  postConfigure = lib.optionalString (useMusl && stdenv.hostPlatform.libc != "musl") ''
-    makeFlagsArray+=("CC=${stdenv.cc.targetPrefix}cc -isystem ${musl.dev}/include -B${musl}/lib -L${musl}/lib")
-  '';
+  postConfigure =
+    lib.optionalString (useMusl && stdenv.hostPlatform.libc != "musl")
+      ''
+        makeFlagsArray+=("CC=${stdenv.cc.targetPrefix}cc -isystem ${musl.dev}/include -B${musl}/lib -L${musl}/lib")
+      '';
 
   makeFlags = [ "SKIP_STRIP=y" ];
 
@@ -161,10 +166,12 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  buildInputs = lib.optionals (enableStatic && !useMusl && stdenv.cc.libc ? static) [
-    stdenv.cc.libc
-    stdenv.cc.libc.static
-  ];
+  buildInputs =
+    lib.optionals (enableStatic && !useMusl && stdenv.cc.libc ? static)
+      [
+        stdenv.cc.libc
+        stdenv.cc.libc.static
+      ];
 
   enableParallelBuilding = true;
 

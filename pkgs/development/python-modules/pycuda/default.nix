@@ -34,9 +34,9 @@ buildPythonPackage rec {
     ${python.pythonOnBuildForHost.interpreter} configure.py --boost-inc-dir=${boost.dev}/include \
                           --boost-lib-dir=${boost}/lib \
                           --no-use-shipped-boost \
-                          --boost-python-libname=boost_python${major python.version}${
-                            minor python.version
-                          } \
+                          --boost-python-libname=boost_python${
+                            major python.version
+                          }${minor python.version} \
                           --cuda-root=${cudatoolkit}
   '';
 

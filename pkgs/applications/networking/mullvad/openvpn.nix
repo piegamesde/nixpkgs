@@ -35,7 +35,9 @@ openvpn.overrideAttrs (
       pkg-config
     ];
 
-    buildInputs = oldAttrs.buildInputs or [ ] ++ optional stdenv.isLinux [ libnl.dev ];
+    buildInputs =
+      oldAttrs.buildInputs or [ ]
+      ++ optional stdenv.isLinux [ libnl.dev ];
 
     configureFlags =
       [

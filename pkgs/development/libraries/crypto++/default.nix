@@ -33,12 +33,16 @@ stdenv.mkDerivation rec {
       --replace "ARFLAGS = -static -o" "ARFLAGS = -cru"
   '';
 
-  buildInputs = lib.optionals (stdenv.cc.isClang && withOpenMP) [ llvmPackages.openmp ];
+  buildInputs = lib.optionals (stdenv.cc.isClang && withOpenMP) [
+    llvmPackages.openmp
+  ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   buildFlags =
-    lib.optional enableStatic "static" ++ lib.optional enableShared "shared" ++ [ "libcryptopp.pc" ];
+    lib.optional enableStatic "static"
+    ++ lib.optional enableShared "shared"
+    ++ [ "libcryptopp.pc" ];
 
   enableParallelBuilding = true;
   hardeningDisable = [ "fortify" ];

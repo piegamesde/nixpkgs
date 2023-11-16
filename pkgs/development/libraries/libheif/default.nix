@@ -58,7 +58,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   # Fix installation path for gdk-pixbuf module
-  PKG_CONFIG_GDK_PIXBUF_2_0_GDK_PIXBUF_MODULEDIR = "${placeholder "out"}/${gdk-pixbuf.moduleDir}";
+  PKG_CONFIG_GDK_PIXBUF_2_0_GDK_PIXBUF_MODULEDIR = "${
+      placeholder "out"
+    }/${gdk-pixbuf.moduleDir}";
 
   passthru.tests = {
     inherit

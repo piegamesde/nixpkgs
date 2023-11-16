@@ -100,7 +100,9 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_PREFIX_PYTHON=lib"
         # "-DAMD_FP16_SUPPORT=ON" `error: typedef redefinition with different types ('__half' vs 'half_float::half')`
       ]
-      ++ lib.optionals (gpuTargets != [ ]) [ "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}" ]
+      ++ lib.optionals (gpuTargets != [ ]) [
+        "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
+      ]
       ++ lib.optionals (!useOpenCL && !useCPU) [ "-DBACKEND=HIP" ]
       ++ lib.optionals (useOpenCL && !useCPU) [ "-DBACKEND=OCL" ]
       ++ lib.optionals useCPU [ "-DBACKEND=CPU" ];

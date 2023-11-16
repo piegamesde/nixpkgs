@@ -63,7 +63,10 @@ let
 
   selectPartitionTableLayout =
     { useEFIBoot, useDefaultFilesystems }:
-    if useDefaultFilesystems then if useEFIBoot then "efi" else "legacy" else "none";
+    if useDefaultFilesystems then
+      if useEFIBoot then "efi" else "legacy"
+    else
+      "none";
 
   driveCmdline =
     idx:
@@ -145,7 +148,9 @@ let
           else
             ''
               # Create an empty disk image without a filesystem.
-              ${qemu}/bin/qemu-img create -f qcow2 "$NIX_DISK_IMAGE" "${toString cfg.diskSize}M"
+              ${qemu}/bin/qemu-img create -f qcow2 "$NIX_DISK_IMAGE" "${
+                toString cfg.diskSize
+              }M"
             ''
         }
         echo "Virtualisation disk image created."
@@ -250,7 +255,9 @@ let
       # will stop it.
       coproc waitingswtpm {
         read || :
-        echo "" | ${lib.getExe hostPkgs.socat} STDIO UNIX-CONNECT:"$NIX_SWTPM_DIR"/socket
+        echo "" | ${
+          lib.getExe hostPkgs.socat
+        } STDIO UNIX-CONNECT:"$NIX_SWTPM_DIR"/socket
       }
       # Clear `FD_CLOEXEC` on the coprocess' file descriptor stdin.
       fdflags -s-cloexec ''${waitingswtpm[1]}
@@ -278,7 +285,10 @@ let
         ${
           concatStringsSep " \\\n    " (
             mapAttrsToList
-              (tag: share: "-virtfs local,path=${share.source},security_model=none,mount_tag=${tag}")
+              (
+                tag: share:
+                "-virtfs local,path=${share.source},security_model=none,mount_tag=${tag}"
+              )
               config.virtualisation.sharedDirectories
           )
         } \
@@ -288,7 +298,9 @@ let
         "$@"
   '';
 
-  regInfo = hostPkgs.closureInfo { rootPaths = config.virtualisation.additionalPaths; };
+  regInfo = hostPkgs.closureInfo {
+    rootPaths = config.virtualisation.additionalPaths;
+  };
 
   # Use well-defined and persistent filesystem labels to identify block devices.
   rootFilesystemLabel = "nixos";
@@ -311,7 +323,9 @@ let
     format = "qcow2";
     onlyNixStore = false;
     label = rootFilesystemLabel;
-    partitionTableType = selectPartitionTableLayout { inherit (cfg) useDefaultFilesystems useEFIBoot; };
+    partitionTableType = selectPartitionTableLayout {
+      inherit (cfg) useDefaultFilesystems useEFIBoot;
+    };
     # Bootloader should be installed on the system image only if we are booting through bootloaders.
     # Though, if a user is not using our default filesystems, it is possible to not have any ESP
     # or a strange partition table that's incompatible with GRUB configuration.
@@ -436,7 +450,8 @@ in
 
     virtualisation.bootPartition = mkOption {
       type = types.nullOr types.path;
-      default = if cfg.useEFIBoot then "/dev/disk/by-label/${espFilesystemLabel}" else null;
+      default =
+        if cfg.useEFIBoot then "/dev/disk/by-label/${espFilesystemLabel}" else null;
       defaultText =
         literalExpression
           ''if cfg.useEFIBoot then "/dev/disk/by-label/${espFilesystemLabel}" else null'';
@@ -505,11 +520,15 @@ in
         types.submodule {
           options.source = mkOption {
             type = types.str;
-            description = lib.mdDoc "The path of the directory to share, can be a shell variable";
+            description =
+              lib.mdDoc
+                "The path of the directory to share, can be a shell variable";
           };
           options.target = mkOption {
             type = types.path;
-            description = lib.mdDoc "The mount point of the directory inside the virtual machine";
+            description =
+              lib.mdDoc
+                "The mount point of the directory inside the virtual machine";
           };
         }
       );
@@ -634,7 +653,9 @@ in
     virtualisation.vlans = mkOption {
       type = types.listOf types.ints.unsigned;
       default = if config.virtualisation.interfaces == { } then [ 1 ] else [ ];
-      defaultText = lib.literalExpression "if config.virtualisation.interfaces == {} then [ 1 ] else [ ]";
+      defaultText =
+        lib.literalExpression
+          "if config.virtualisation.interfaces == {} then [ 1 ] else [ ]";
       example = [
         1
         2
@@ -730,7 +751,9 @@ in
       package = mkOption {
         type = types.package;
         default =
-          if hostPkgs.stdenv.hostPlatform.qemuArch == pkgs.stdenv.hostPlatform.qemuArch then
+          if
+            hostPkgs.stdenv.hostPlatform.qemuArch == pkgs.stdenv.hostPlatform.qemuArch
+          then
             hostPkgs.qemu_kvm
           else
             hostPkgs.qemu;
@@ -933,7 +956,9 @@ in
     };
 
     virtualisation.tpm = {
-      enable = mkEnableOption "a TPM device in the virtual machine with a driver, using swtpm.";
+      enable =
+        mkEnableOption
+          "a TPM device in the virtual machine with a driver, using swtpm.";
 
       package = mkPackageOptionMD cfg.host.pkgs "swtpm" { };
 
@@ -948,7 +973,8 @@ in
               "armv7-linux" = "tpm-tis-device";
               "aarch64-linux" = "tpm-tis-device";
             }
-            .${pkgs.hostPlatform.system} or (throw "Unsupported system for TPM2 emulation in QEMU")
+            .${pkgs.hostPlatform.system}
+              or (throw "Unsupported system for TPM2 emulation in QEMU")
           );
         defaultText = ''
           Based on the guest platform Linux system:
@@ -1037,7 +1063,8 @@ in
         }
         {
           assertion =
-            cfg.directBoot.enable || cfg.directBoot.initrd == options.virtualisation.directBoot.initrd.default;
+            cfg.directBoot.enable
+            || cfg.directBoot.initrd == options.virtualisation.directBoot.initrd.default;
           message = ''
             You changed the default of `virtualisation.directBoot.initrd` but you are not
             using QEMU direct boot. This initrd will not be used in your current
@@ -1080,12 +1107,19 @@ in
     # legacy and UEFI. In order to avoid this, we have to put "nodev" to force UEFI-only installs.
     # Otherwise, we set the proper bootloader device for this.
     # FIXME: make a sense of this mess wrt to multiple ESP present in the system, probably use boot.efiSysMountpoint?
-    boot.loader.grub.device = mkVMOverride (if cfg.useEFIBoot then "nodev" else cfg.bootLoaderDevice);
-    boot.loader.grub.gfxmodeBios = with cfg.resolution; "${toString x}x${toString y}";
+    boot.loader.grub.device = mkVMOverride (
+      if cfg.useEFIBoot then "nodev" else cfg.bootLoaderDevice
+    );
+    boot.loader.grub.gfxmodeBios =
+      with cfg.resolution; "${toString x}x${toString y}";
 
-    boot.initrd.kernelModules = optionals (cfg.useNixStoreImage && !cfg.writableStore) [ "erofs" ];
+    boot.initrd.kernelModules =
+      optionals (cfg.useNixStoreImage && !cfg.writableStore)
+        [ "erofs" ];
 
-    boot.loader.supportsInitrdSecrets = mkIf (!cfg.useBootLoader) (mkVMOverride false);
+    boot.loader.supportsInitrdSecrets = mkIf (!cfg.useBootLoader) (
+      mkVMOverride false
+    );
 
     boot.initrd.postMountCommands = lib.mkIf (!config.boot.initrd.systemd.enable) ''
       # Mark this as a NixOS machine.
@@ -1171,7 +1205,8 @@ in
       in
       [
         "-net nic,netdev=user.0,model=virtio"
-        ''-netdev user,id=user.0,${forwardingOptions}${restrictNetworkOption}"$QEMU_NET_OPTS"''
+        ''
+          -netdev user,id=user.0,${forwardingOptions}${restrictNetworkOption}"$QEMU_NET_OPTS"''
       ];
 
     virtualisation.qemu.options = mkMerge [
@@ -1192,7 +1227,9 @@ in
           # Replace all non-alphanumeric characters with underscores
           sanitizeShellIdent =
             s:
-            concatMapStrings (c: if builtins.elem c alphaNumericChars then c else "_") (stringToCharacters s);
+            concatMapStrings (c: if builtins.elem c alphaNumericChars then c else "_") (
+              stringToCharacters s
+            );
         in
         mkIf cfg.directBoot.enable [
           "-kernel \${NIXPKGS_QEMU_KERNEL_${
@@ -1254,7 +1291,11 @@ in
     virtualisation.fileSystems =
       let
         mkSharedDir = tag: share: {
-          name = if tag == "nix-store" && cfg.writableStore then "/nix/.ro-store" else share.target;
+          name =
+            if tag == "nix-store" && cfg.writableStore then
+              "/nix/.ro-store"
+            else
+              share.target;
           value.device = tag;
           value.fsType = "9p";
           value.neededForBoot = true;
@@ -1293,11 +1334,13 @@ in
               "size=${toString config.boot.tmp.tmpfsSize}"
             ];
           };
-          "/nix/${if cfg.writableStore then ".ro-store" else "store"}" = lib.mkIf cfg.useNixStoreImage {
-            device = "/dev/disk/by-label/${nixStoreFilesystemLabel}";
-            neededForBoot = true;
-            options = [ "ro" ];
-          };
+          "/nix/${if cfg.writableStore then ".ro-store" else "store"}" =
+            lib.mkIf cfg.useNixStoreImage
+              {
+                device = "/dev/disk/by-label/${nixStoreFilesystemLabel}";
+                neededForBoot = true;
+                options = [ "ro" ];
+              };
           "/nix/.rw-store" = lib.mkIf (cfg.writableStore && cfg.writableStoreUseTmpfs) {
             fsType = "tmpfs";
             options = [ "mode=0755" ];
@@ -1311,34 +1354,40 @@ in
         }
       ];
 
-    boot.initrd.systemd = lib.mkIf (config.boot.initrd.systemd.enable && cfg.writableStore) {
-      mounts = [
+    boot.initrd.systemd =
+      lib.mkIf (config.boot.initrd.systemd.enable && cfg.writableStore)
         {
-          where = "/sysroot/nix/store";
-          what = "overlay";
-          type = "overlay";
-          options = "lowerdir=/sysroot/nix/.ro-store,upperdir=/sysroot/nix/.rw-store/store,workdir=/sysroot/nix/.rw-store/work";
-          wantedBy = [ "initrd-fs.target" ];
-          before = [ "initrd-fs.target" ];
-          requires = [ "rw-store.service" ];
-          after = [ "rw-store.service" ];
-          unitConfig.RequiresMountsFor = "/sysroot/nix/.ro-store";
-        }
-      ];
-      services.rw-store = {
-        unitConfig = {
-          DefaultDependencies = false;
-          RequiresMountsFor = "/sysroot/nix/.rw-store";
+          mounts = [
+            {
+              where = "/sysroot/nix/store";
+              what = "overlay";
+              type = "overlay";
+              options = "lowerdir=/sysroot/nix/.ro-store,upperdir=/sysroot/nix/.rw-store/store,workdir=/sysroot/nix/.rw-store/work";
+              wantedBy = [ "initrd-fs.target" ];
+              before = [ "initrd-fs.target" ];
+              requires = [ "rw-store.service" ];
+              after = [ "rw-store.service" ];
+              unitConfig.RequiresMountsFor = "/sysroot/nix/.ro-store";
+            }
+          ];
+          services.rw-store = {
+            unitConfig = {
+              DefaultDependencies = false;
+              RequiresMountsFor = "/sysroot/nix/.rw-store";
+            };
+            serviceConfig = {
+              Type = "oneshot";
+              ExecStart = "/bin/mkdir -p -m 0755 /sysroot/nix/.rw-store/store /sysroot/nix/.rw-store/work /sysroot/nix/store";
+            };
+          };
         };
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart = "/bin/mkdir -p -m 0755 /sysroot/nix/.rw-store/store /sysroot/nix/.rw-store/work /sysroot/nix/store";
-        };
-      };
-    };
 
-    swapDevices = (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault) [ ];
-    boot.initrd.luks.devices = (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault) { };
+    swapDevices =
+      (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault)
+        [ ];
+    boot.initrd.luks.devices =
+      (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault)
+        { };
 
     # Don't run ntpd in the guest.  It should get the correct time from KVM.
     services.timesyncd.enable = false;
@@ -1354,7 +1403,9 @@ in
         ''
           mkdir -p $out/bin
           ln -s ${config.system.build.toplevel} $out/system
-          ln -s ${hostPkgs.writeScript "run-nixos-vm" startVM} $out/bin/run-${config.system.name}-vm
+          ln -s ${
+            hostPkgs.writeScript "run-nixos-vm" startVM
+          } $out/bin/run-${config.system.name}-vm
         '';
 
     # When building a regular system configuration, override whatever

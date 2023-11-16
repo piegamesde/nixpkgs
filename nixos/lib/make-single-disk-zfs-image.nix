@@ -112,7 +112,9 @@ let
     '';
 
   closureInfo = pkgs.closureInfo {
-    rootPaths = [ config.system.build.toplevel ] ++ (lib.optional includeChannel channelSources);
+    rootPaths = [
+      config.system.build.toplevel
+    ] ++ (lib.optional includeChannel channelSources);
   };
 
   modulesTree = pkgs.aggregateModules (
@@ -142,7 +144,10 @@ let
     prefix: properties:
     lib.concatStringsSep " \\\n" (
       lib.mapAttrsToList
-        (property: value: "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}")
+        (
+          property: value:
+          "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}"
+        )
         properties
     );
 
@@ -150,7 +155,8 @@ let
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
       sorted =
-        lib.sort (left: right: (lib.stringLength left.name) < (lib.stringLength right.name))
+        lib.sort
+          (left: right: (lib.stringLength left.name) < (lib.stringLength right.name))
           datasetlist;
       cmd =
         { name, value }:
@@ -166,7 +172,11 @@ let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
       mounts = lib.filter ({ value, ... }: hasDefinedMount value) datasetlist;
       sorted =
-        lib.sort (left: right: (lib.stringLength left.value.mount) < (lib.stringLength right.value.mount))
+        lib.sort
+          (
+            left: right:
+            (lib.stringLength left.value.mount) < (lib.stringLength right.value.mount)
+          )
           mounts;
       cmd =
         { name, value }:
@@ -182,7 +192,11 @@ let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
       mounts = lib.filter ({ value, ... }: hasDefinedMount value) datasetlist;
       sorted =
-        lib.sort (left: right: (lib.stringLength left.value.mount) > (lib.stringLength right.value.mount))
+        lib.sort
+          (
+            left: right:
+            (lib.stringLength left.value.mount) > (lib.stringLength right.value.mount)
+          )
           mounts;
       cmd =
         { name, value }:
@@ -230,16 +244,18 @@ let
     if configFile == null then
       fileSystemsCfgFile
     else
-      pkgs.runCommand "configuration.nix" { buildInputs = with pkgs; [ nixpkgs-fmt ]; } ''
-        (
-          echo '{ imports = ['
-          printf "(%s)\n" "$(cat ${fileSystemsCfgFile})";
-          printf "(%s)\n" "$(cat ${configFile})";
-          echo ']; }'
-        ) > $out
+      pkgs.runCommand "configuration.nix"
+        { buildInputs = with pkgs; [ nixpkgs-fmt ]; }
+        ''
+          (
+            echo '{ imports = ['
+            printf "(%s)\n" "$(cat ${fileSystemsCfgFile})";
+            printf "(%s)\n" "$(cat ${configFile})";
+            echo ']; }'
+          ) > $out
 
-        nixpkgs-fmt $out
-      '';
+          nixpkgs-fmt $out
+        '';
 
   image =
     (pkgs.vmTools.override {

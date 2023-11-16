@@ -38,7 +38,8 @@ let
   };
   # Allow faster cross compiler generation by reusing Build artifacts
   fastCross =
-    (stdenv.buildPlatform == stdenv.hostPlatform) && (stdenv.hostPlatform != stdenv.targetPlatform);
+    (stdenv.buildPlatform == stdenv.hostPlatform)
+    && (stdenv.hostPlatform != stdenv.targetPlatform);
 in
 {
   lib = lib';
@@ -124,7 +125,9 @@ in
           else
             self.callPackage ./cargo_cross.nix { };
         cargo-auditable = self.callPackage ./cargo-auditable.nix { };
-        cargo-auditable-cargo-wrapper = self.callPackage ./cargo-auditable-cargo-wrapper.nix { };
+        cargo-auditable-cargo-wrapper =
+          self.callPackage ./cargo-auditable-cargo-wrapper.nix
+            { };
         clippy = self.callPackage ./clippy.nix {
           # We want to use self, not buildRustPackages, so that
           # buildPackages.clippy uses the cross compiler and supports

@@ -31,13 +31,17 @@ stdenv.mkDerivation rec {
     let
       makeDirs =
         output: subDir:
-        lib.concatStringsSep " " (map (path: lib.getOutput output path + "/" + subDir) buildInputs);
+        lib.concatStringsSep " " (
+          map (path: lib.getOutput output path + "/" + subDir) buildInputs
+        );
     in
     ''
       substituteInPlace configure \
         --replace '$LIBDIRS' "${makeDirs "lib" "lib"}" \
         --replace '$INCDIRS' "${makeDirs "dev" "include"}" \
-        --replace "/usr/include/math.h" "${lib.getDev stdenv.cc.libc}/include/math.h" \
+        --replace "/usr/include/math.h" "${
+          lib.getDev stdenv.cc.libc
+        }/include/math.h" \
         --replace "libcurses.so" "libncurses.so" \
         --replace "-lcurses" "-lncurses"
     '';

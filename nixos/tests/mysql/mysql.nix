@@ -174,7 +174,9 @@ lib.mapAttrs
     }
   )
   mysqlPackages
-// (lib.mapAttrs (_: package: makeMySQLTest { inherit package; }) mariadbPackages)
+// (lib.mapAttrs (_: package: makeMySQLTest { inherit package; })
+  mariadbPackages
+)
 // (lib.mapAttrs
   (
     _: package:

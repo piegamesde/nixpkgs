@@ -85,7 +85,8 @@ stdenv.mkDerivation rec {
           versionPolicy = "odd-unstable";
         };
         updatePatch =
-          _experimental-update-script-combinators.copyAttrOutputToFile "evolution-ews.hardcodeGsettingsPatch"
+          _experimental-update-script-combinators.copyAttrOutputToFile
+            "evolution-ews.hardcodeGsettingsPatch"
             ./hardcode-gsettings.patch;
       in
       _experimental-update-script-combinators.sequence [

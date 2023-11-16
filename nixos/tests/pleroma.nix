@@ -178,14 +178,16 @@ import ./make-test-python.nix (
         pleroma_ctl user new jamy jamy@nixos.test --password 'jamy-password' --moderator --admin -y
     '';
 
-    tls-cert = pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
-      mkdir -p $out
-      openssl req -x509 \
-        -subj '/CN=pleroma.nixos.test/' -days 49710 \
-        -addext 'subjectAltName = DNS:pleroma.nixos.test' \
-        -keyout "$out/key.pem" -newkey ed25519 \
-        -out "$out/cert.pem" -noenc
-    '';
+    tls-cert =
+      pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; }
+        ''
+          mkdir -p $out
+          openssl req -x509 \
+            -subj '/CN=pleroma.nixos.test/' -days 49710 \
+            -addext 'subjectAltName = DNS:pleroma.nixos.test' \
+            -keyout "$out/key.pem" -newkey ed25519 \
+            -out "$out/cert.pem" -noenc
+        '';
 
     hosts = nodes: ''
       ${nodes.pleroma.networking.primaryIPAddress} pleroma.nixos.test

@@ -44,10 +44,13 @@ import ./make-test-python.nix (
           extraPackages = python3Packages: with python3Packages; [ psycopg2 ];
 
           # test loading custom components
-          customComponents = with pkgs.home-assistant-custom-components; [ prometheus-sensor ];
+          customComponents =
+            with pkgs.home-assistant-custom-components; [ prometheus-sensor ];
 
           # test loading lovelace modules
-          customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [ mini-graph-card ];
+          customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
+            mini-graph-card
+          ];
 
           config = {
             homeassistant = {
@@ -118,7 +121,9 @@ import ./make-test-python.nix (
         # Cause a configuration change inside `configuration.yml` and verify that the process is being reloaded.
         specialisation.differentName = {
           inheritParentConfig = true;
-          configuration.services.home-assistant.config.homeassistant.name = lib.mkForce "Test Home";
+          configuration.services.home-assistant.config.homeassistant.name =
+            lib.mkForce
+              "Test Home";
         };
 
         # Cause a configuration change that requires a service restart as we added a new runtime dependency

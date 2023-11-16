@@ -51,7 +51,9 @@ let
 
   script = writeScriptBin name ''
     #!${runtimeShell}
-    exec ${google-chrome}/bin/${google-chrome.meta.mainProgram} ${lib.escapeShellArgs commandLineArgs} \
+    exec ${google-chrome}/bin/${google-chrome.meta.mainProgram} ${
+      lib.escapeShellArgs commandLineArgs
+    } \
       --app=https://netflix.com \
       --no-first-run \
       --no-default-browser-check \

@@ -20,7 +20,9 @@ buildPythonPackage rec {
   # Tests use relative paths
   doCheck = false;
 
-  propagatedBuildInputs = [ ruamel-base ] ++ lib.optional (!isPyPy) ruamel-yaml-clib;
+  propagatedBuildInputs = [
+    ruamel-base
+  ] ++ lib.optional (!isPyPy) ruamel-yaml-clib;
 
   pythonImportsCheck = [ "ruamel.yaml" ];
 

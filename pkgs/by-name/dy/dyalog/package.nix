@@ -185,8 +185,12 @@ stdenv.mkDerivation (
       + ''
         install -Dm644 dyalog.svg $out/share/icons/hicolor/scalable/apps/dyalog.svg
 
-        makeWrapper ${dyalogHome}/dyalog $out/bin/dyalog ${lib.concatStringsSep " " makeWrapperArgs}
-        makeWrapper ${dyalogHome}/mapl $out/bin/mapl ${lib.concatStringsSep " " makeWrapperArgs}
+        makeWrapper ${dyalogHome}/dyalog $out/bin/dyalog ${
+          lib.concatStringsSep " " makeWrapperArgs
+        }
+        makeWrapper ${dyalogHome}/mapl $out/bin/mapl ${
+          lib.concatStringsSep " " makeWrapperArgs
+        }
 
         install -Dm755 scriptbin/dyalogscript $out/bin/dyalogscript
         substituteInPlace $out/bin/dyalogscript \

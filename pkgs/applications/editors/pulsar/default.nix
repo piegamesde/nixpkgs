@@ -43,7 +43,8 @@ let
       aarch64-linux.tarname = "ARM.Linux.${pname}-${version}-arm64.tar.gz";
       aarch64-linux.hash = "sha256-KIY/qzfl7CU0YwIgQlNHoAMhLfrTbQe7ZZvzdkUVw+M=";
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   newLibpath = lib.makeLibraryPath [
     alsa-lib
@@ -76,7 +77,9 @@ let
   ];
 
   # Hunspell
-  hunspellDirs = builtins.map (lang: "${hunspellDicts.${lang}}/share/hunspell") languages;
+  hunspellDirs =
+    builtins.map (lang: "${hunspellDicts.${lang}}/share/hunspell")
+      languages;
   hunspellTargetDirs = "$out/opt/Pulsar/resources/app.asar.unpacked/node_modules/spellchecker/vendor/hunspell_dictionaries";
   hunspellCopyCommands =
     lib.concatMapStringsSep "\n" (lang: "cp -r ${lang}/* ${hunspellTargetDirs};")

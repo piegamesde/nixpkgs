@@ -23,7 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-TuaDnZqn9mRUsoDJkj9JK4ztvzl9JTwAk8nghIkZBvw=";
   };
 
-  propagatedBuildInputs = [ pycodestyle ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [
+    pycodestyle
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = [
     glibcLocales

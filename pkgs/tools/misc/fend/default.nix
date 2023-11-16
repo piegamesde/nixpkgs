@@ -29,7 +29,9 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
     copyDesktopItems
   ];
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.Security
+  ];
 
   postBuild = ''
     patchShebangs --build ./documentation/build.sh

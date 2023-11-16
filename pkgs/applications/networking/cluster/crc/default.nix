@@ -49,7 +49,9 @@ buildGoModule rec {
     "-X github.com/crc-org/crc/pkg/crc/version.ocpVersion=${openShiftVersion}"
     "-X github.com/crc-org/crc/pkg/crc/version.okdVersion=${okdVersion}"
     "-X github.com/crc-org/crc/pkg/crc/version.podmanVersion=${podmanVersion}"
-    "-X github.com/crc-org/crc/pkg/crc/version.commitSha=${builtins.substring 0 8 gitCommit}"
+    "-X github.com/crc-org/crc/pkg/crc/version.commitSha=${
+      builtins.substring 0 8 gitCommit
+    }"
     "-X github.com/crc-org/crc/pkg/crc/segment.WriteKey=${writeKey}"
   ];
 

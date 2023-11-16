@@ -76,13 +76,16 @@ let
 
         configurePhase = ''
           runHook preConfigure
-          ${lib.optionalString (checkouts != null) "cp --no-preserve=all -R ${checkouts}/_checkouts ."}
+          ${lib.optionalString (checkouts != null)
+            "cp --no-preserve=all -R ${checkouts}/_checkouts ."}
           runHook postConfigure
         '';
 
         buildPhase = ''
           runHook preBuild
-          HOME=. DEBUG=1 rebar3 as ${profile} ${if releaseType == "escript" then "escriptize" else "release"}
+          HOME=. DEBUG=1 rebar3 as ${profile} ${
+            if releaseType == "escript" then "escriptize" else "release"
+          }
           runHook postBuild
         '';
 

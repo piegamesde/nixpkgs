@@ -18,9 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-FdFuSodbniF7A40C8CnDgAxKatZF4/c8nhB+omurOts=";
   };
 
-  propagatedBuildInputs = [
-    packaging
-  ] ++ lib.optional (stdenv.isLinux) pyxdg ++ lib.optional (pythonOlder "3.8") importlib-metadata;
+  propagatedBuildInputs =
+    [ packaging ]
+    ++ lib.optional (stdenv.isLinux) pyxdg
+    ++ lib.optional (pythonOlder "3.8") importlib-metadata;
 
   meta = with lib; {
     homepage = "https://github.com/damonlynch/showinfilemanager";

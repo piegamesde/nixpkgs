@@ -15,7 +15,9 @@ import ./make-test-python.nix (
           ./common/user-account.nix
         ];
         test-support.displayManager.auto.user = "alice";
-        services.xserver.displayManager.defaultSession = lib.mkForce "none+herbstluftwm";
+        services.xserver.displayManager.defaultSession =
+          lib.mkForce
+            "none+herbstluftwm";
         services.xserver.windowManager.herbstluftwm.enable = true;
         environment.systemPackages = [ pkgs.dzen2 ]; # needed for upstream provided panel
       };

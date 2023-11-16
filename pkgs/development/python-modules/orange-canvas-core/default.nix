@@ -53,7 +53,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [ "orangecanvas/canvas/items/tests/test_graphicstextitem.py" ];
+  disabledTestPaths = [
+    "orangecanvas/canvas/items/tests/test_graphicstextitem.py"
+  ];
 
   meta = {
     description = "Orange framework for building graphical user interfaces for editing workflows";

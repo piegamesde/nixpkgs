@@ -49,12 +49,16 @@ in
     domain = mkOption {
       default = "skydns.local.";
       type = types.str;
-      description = lib.mdDoc "Skydns default domain if not specified by etcd config.";
+      description =
+        lib.mdDoc
+          "Skydns default domain if not specified by etcd config.";
     };
 
     nameservers = mkOption {
       default = map (n: n + ":53") config.networking.nameservers;
-      defaultText = literalExpression ''map (n: n + ":53") config.networking.nameservers'';
+      defaultText =
+        literalExpression
+          ''map (n: n + ":53") config.networking.nameservers'';
       type = types.listOf types.str;
       description =
         lib.mdDoc

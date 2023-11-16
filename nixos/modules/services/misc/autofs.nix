@@ -98,9 +98,9 @@ in
       serviceConfig = {
         Type = "forking";
         PIDFile = "/run/autofs.pid";
-        ExecStart = "${pkgs.autofs5}/bin/automount ${optionalString cfg.debug "-d"} -p /run/autofs.pid -t ${
-            builtins.toString cfg.timeout
-          } ${autoMaster}";
+        ExecStart = "${pkgs.autofs5}/bin/automount ${
+            optionalString cfg.debug "-d"
+          } -p /run/autofs.pid -t ${builtins.toString cfg.timeout} ${autoMaster}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };
     };

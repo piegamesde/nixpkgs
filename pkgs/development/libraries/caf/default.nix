@@ -23,7 +23,9 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DCAF_ENABLE_EXAMPLES:BOOL=OFF" ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-faligned-allocation";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin
+      "-faligned-allocation";
 
   doCheck = !stdenv.isDarwin;
   checkTarget = "test";

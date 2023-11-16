@@ -13,7 +13,8 @@
   bash-completion,
   bash,
   buildPackages,
-  withIntrospection ? lib.meta.availableOn stdenv.hostPlatform gobject-introspection
+  withIntrospection ?
+    lib.meta.availableOn stdenv.hostPlatform gobject-introspection
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
   withDocs ? stdenv.hostPlatform == stdenv.buildPlatform,
   gobject-introspection,
@@ -69,7 +70,8 @@ stdenv.mkDerivation rec {
       pkg-config
       python3
     ]
-    ++ lib.optionals withDocs [ help2man ] ++ lib.optionals withIntrospection [ gobject-introspection ];
+    ++ lib.optionals withDocs [ help2man ]
+    ++ lib.optionals withIntrospection [ gobject-introspection ];
 
   buildInputs = [
     glib

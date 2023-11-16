@@ -62,7 +62,9 @@ stdenv.mkDerivation rec {
     lapack
   ];
   propagatedBuildInputs = [ mpi ];
-  hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
+  hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [
+    "stackprotector"
+  ];
 
   # xslu and xsllt tests seem to time out on x86_64-darwin.
   # this line is left so those who force installation on x86_64-darwin can still build

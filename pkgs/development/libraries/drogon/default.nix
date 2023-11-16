@@ -39,7 +39,9 @@ stdenv.mkDerivation (
     nativeBuildInputs = [ cmake ];
 
     cmakeFlags = [
-      "-DBUILD_TESTING=${if finalAttrs.finalPackage.doInstallCheck then "ON" else "OFF"}"
+      "-DBUILD_TESTING=${
+        if finalAttrs.finalPackage.doInstallCheck then "ON" else "OFF"
+      }"
       "-DBUILD_EXAMPLES=OFF"
     ];
 

@@ -34,7 +34,8 @@ let
         [${name}]
         type = "${config.type}"
         ${optionalString (config.instance != null) ''instance = "${config.instance}"''}
-        ${optionalString (config.type == "local" || config.type == "remote") ''path = "${config.path}"''}
+        ${optionalString (config.type == "local" || config.type == "remote")
+          ''path = "${config.path}"''}
         ${optionalString (config.type != "local") ''
           host = "${config.host}"
           ${optionalString (config.port != null) ''port = "${toString config.port}"''}

@@ -144,7 +144,9 @@ let
   remote_SOURCES = [ "src/remote-stub.c" ];
   sources = make_SOURCES ++ glob_SOURCES ++ remote_SOURCES ++ [ "src/posixos.c" ];
 
-  objects = map (x: lib.replaceStrings [ ".c" ] [ ".o" ] (builtins.baseNameOf x)) sources;
+  objects =
+    map (x: lib.replaceStrings [ ".c" ] [ ".o" ] (builtins.baseNameOf x))
+      sources;
 in
 kaem.runCommand "${pname}-${version}"
   {

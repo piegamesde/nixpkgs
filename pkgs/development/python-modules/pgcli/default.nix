@@ -50,7 +50,9 @@ buildPythonPackage rec {
     mock
   ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [ "test_application_name_db_uri" ];
+  disabledTests = lib.optionals stdenv.isDarwin [
+    "test_application_name_db_uri"
+  ];
 
   meta = with lib; {
     description = "Command-line interface for PostgreSQL";

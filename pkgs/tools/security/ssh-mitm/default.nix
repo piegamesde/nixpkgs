@@ -15,7 +15,9 @@ let
             hash = "sha256-aVD6ymgZrNMhnUrmlKI8eofuONCE9wwXJLDA27i3V2k=";
           };
           patches = [ ];
-          propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ python3.pkgs.icecream ];
+          propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
+            python3.pkgs.icecream
+          ];
         }
       );
     };

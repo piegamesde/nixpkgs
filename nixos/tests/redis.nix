@@ -53,7 +53,9 @@ import ./make-test-python.nix (
 
         machine.succeed("redis-cli ping | grep PONG")
         machine.succeed("redis-cli -s ${redis.servers."".unixSocket} ping | grep PONG")
-        machine.succeed("redis-cli -s ${redis.servers."test".unixSocket} ping | grep PONG")
+        machine.succeed("redis-cli -s ${
+          redis.servers."test".unixSocket
+        } ping | grep PONG")
       '';
   }
 )

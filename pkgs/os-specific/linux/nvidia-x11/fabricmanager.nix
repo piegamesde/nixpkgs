@@ -8,7 +8,8 @@ nvidia_x11: sha256:
 }:
 
 let
-  sys = with lib; concatStringsSep "-" (reverseList (splitString "-" stdenv.system));
+  sys =
+    with lib; concatStringsSep "-" (reverseList (splitString "-" stdenv.system));
   bsys = builtins.replaceStrings [ "_" ] [ "-" ] sys;
   fmver = nvidia_x11.version;
 in

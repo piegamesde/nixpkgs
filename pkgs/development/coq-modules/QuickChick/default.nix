@@ -141,7 +141,9 @@ in
       after_1_6 = lib.versions.isGe "1.6" o.version || o.version == "dev";
     in
     {
-      nativeBuildInputs = o.nativeBuildInputs ++ lib.optional after_1_6 coq.ocamlPackages.cppo;
+      nativeBuildInputs =
+        o.nativeBuildInputs
+        ++ lib.optional after_1_6 coq.ocamlPackages.cppo;
       propagatedBuildInputs =
         o.propagatedBuildInputs
         ++ lib.optionals after_1_6 (

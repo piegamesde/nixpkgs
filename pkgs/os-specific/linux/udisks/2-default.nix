@@ -152,7 +152,8 @@ stdenv.mkDerivation rec {
       lgpl2Plus
       gpl2Plus
     ]; # lgpl2Plus for the library, gpl2Plus for the tools & daemon
-    maintainers = teams.freedesktop.members ++ (with maintainers; [ johnazoidberg ]);
+    maintainers =
+      teams.freedesktop.members ++ (with maintainers; [ johnazoidberg ]);
     platforms = platforms.linux;
   };
 }

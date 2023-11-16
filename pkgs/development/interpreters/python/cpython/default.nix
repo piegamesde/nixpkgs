@@ -62,15 +62,18 @@
   withReadline ? !stdenv.hostPlatform.isWindows,
   # enableNoSemanticInterposition is a subset of the enableOptimizations flag that doesn't harm reproducibility.
   # clang starts supporting `-fno-sematic-interposition` with version 10
-  enableNoSemanticInterposition ?
-    (!stdenv.cc.isClang || (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "10")),
+  enableNoSemanticInterposition ? (
+    !stdenv.cc.isClang
+    || (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "10")
+  ),
   # enableLTO is a subset of the enableOptimizations flag that doesn't harm reproducibility.
   # enabling LTO on 32bit arch causes downstream packages to fail when linking
   # enabling LTO on *-darwin causes python3 to fail when linking.
   enableLTO ? stdenv.is64bit && stdenv.isLinux,
   reproducibleBuild ? false,
   pythonAttr ? "python${sourceVersion.major}${sourceVersion.minor}",
-  noldconfigPatch ? ./. + "/${sourceVersion.major}.${sourceVersion.minor}/no-ldconfig.patch",
+  noldconfigPatch ?
+    ./. + "/${sourceVersion.major}.${sourceVersion.minor}/no-ldconfig.patch",
   testers,
 }@inputs:
 
@@ -79,7 +82,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-assert x11Support -> tcl != null && tk != null && xorgproto != null && libX11 != null;
+assert x11Support
+  -> tcl != null && tk != null && xorgproto != null && libX11 != null;
 
 assert bluezSupport -> bluez != null;
 
@@ -111,7 +115,9 @@ let
   passthru =
     let
       # When we override the interpreter we also need to override the spliced versions of the interpreter
-      inputs' = lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs;
+      inputs' =
+        lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
+          inputs;
       override =
         attr:
         let
@@ -131,9 +137,9 @@ let
       pythonOnBuildForHost = override pkgsBuildHost.${pythonAttr};
       pythonOnBuildForTarget = override pkgsBuildTarget.${pythonAttr};
       pythonOnHostForHost = override pkgsHostHost.${pythonAttr};
-      pythonOnTargetForTarget = lib.optionalAttrs (lib.hasAttr pythonAttr pkgsTargetTarget) (
-        override pkgsTargetTarget.${pythonAttr}
-      );
+      pythonOnTargetForTarget =
+        lib.optionalAttrs (lib.hasAttr pythonAttr pkgsTargetTarget)
+          (override pkgsTargetTarget.${pythonAttr});
     };
 
   version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
@@ -305,7 +311,8 @@ stdenv.mkDerivation (
     inherit src version;
 
     inherit nativeBuildInputs;
-    buildInputs = lib.optionals (!stdenv.hostPlatform.isWindows) [ bash ] ++ buildInputs; # bash is only used for patchShebangs
+    buildInputs =
+      lib.optionals (!stdenv.hostPlatform.isWindows) [ bash ] ++ buildInputs; # bash is only used for patchShebangs
 
     prePatch =
       optionalString stdenv.isDarwin ''
@@ -432,13 +439,15 @@ stdenv.mkDerivation (
       CPPFLAGS = concatStringsSep " " (map (p: "-I${getDev p}/include") buildInputs);
       LDFLAGS = concatStringsSep " " (map (p: "-L${getLib p}/lib") buildInputs);
       LIBS = "${optionalString (!stdenv.isDarwin) "-lcrypt"}";
-      NIX_LDFLAGS = lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic) (
-        {
-          "glibc" = "-lgcc_s";
-          "musl" = "-lgcc_eh";
-        }
-        ."${stdenv.hostPlatform.libc}" or ""
-      );
+      NIX_LDFLAGS =
+        lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
+          (
+            {
+              "glibc" = "-lgcc_s";
+              "musl" = "-lgcc_eh";
+            }
+            ."${stdenv.hostPlatform.libc}" or ""
+          );
       # Determinism: We fix the hashes of str, bytes and datetime objects.
       PYTHONHASHSEED = 0;
     };
@@ -450,7 +459,9 @@ stdenv.mkDerivation (
         "--with-system-ffi"
       ]
       ++ optionals (!static && !enableFramework) [ "--enable-shared" ]
-      ++ optionals enableFramework [ "--enable-framework=${placeholder "out"}/Library/Frameworks" ]
+      ++ optionals enableFramework [
+        "--enable-framework=${placeholder "out"}/Library/Frameworks"
+      ]
       ++ optionals enableOptimizations [ "--enable-optimizations" ]
       ++ optionals enableLTO [ "--with-lto" ]
       ++
@@ -459,7 +470,9 @@ stdenv.mkDerivation (
             # This is unconditionally true starting in CPython 3.7.
             "--with-threads"
           ]
-      ++ optionals (sqlite != null && isPy3k) [ "--enable-loadable-sqlite-extensions" ]
+      ++ optionals (sqlite != null && isPy3k) [
+        "--enable-loadable-sqlite-extensions"
+      ]
       ++ optionals (openssl' != null) [ "--with-openssl=${openssl'.dev}" ]
       ++ optionals (libxcrypt != null) [
         "CFLAGS=-I${libxcrypt}/include"
@@ -488,9 +501,9 @@ stdenv.mkDerivation (
         "ac_cv_file__dev_ptmx=${if stdenv.hostPlatform.isWindows then "no" else "yes"}"
         "ac_cv_file__dev_ptc=${if stdenv.hostPlatform.isWindows then "no" else "yes"}"
       ]
-      ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11") [
-        "--with-build-python=${pythonOnBuildForHostInterpreter}"
-      ]
+      ++
+        optionals (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11")
+          [ "--with-build-python=${pythonOnBuildForHostInterpreter}" ]
       ++
         optionals stdenv.hostPlatform.isLinux
           [
@@ -510,7 +523,9 @@ stdenv.mkDerivation (
       ''
       + optionalString stdenv.isDarwin ''
         # Override the auto-detection in setup.py, which assumes a universal build
-        export PYTHON_DECIMAL_WITH_MACHINE=${if stdenv.isAarch64 then "uint128" else "x64"}
+        export PYTHON_DECIMAL_WITH_MACHINE=${
+          if stdenv.isAarch64 then "uint128" else "x64"
+        }
       ''
       + optionalString (stdenv.isDarwin && x11Support && pythonAtLeast "3.11") ''
         export TCLTK_LIBS="-L${tcl}/lib -L${tk}/lib -l${tcl.libPrefix} -l${tk.libPrefix}"

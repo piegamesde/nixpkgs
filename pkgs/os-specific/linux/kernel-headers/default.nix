@@ -68,14 +68,17 @@ let
           flex
           rsync
         ]
-        ++ lib.optionals (stdenvNoCC.buildPlatform.isDarwin && stdenvNoCC.hostPlatform.isMips) [
-          darwin-endian-h
-          darwin-byteswap-h
-        ];
+        ++
+          lib.optionals
+            (stdenvNoCC.buildPlatform.isDarwin && stdenvNoCC.hostPlatform.isMips)
+            [
+              darwin-endian-h
+              darwin-byteswap-h
+            ];
 
-      extraIncludeDirs = lib.optionals (with stdenvNoCC.hostPlatform; isPower && is32bit && isBigEndian) [
-        "ppc"
-      ];
+      extraIncludeDirs =
+        lib.optionals (with stdenvNoCC.hostPlatform; isPower && is32bit && isBigEndian)
+          [ "ppc" ];
 
       inherit patches;
 
@@ -148,7 +151,9 @@ in
     makeLinuxHeaders {
       inherit version;
       src = fetchurl {
-        url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
+        url = "mirror://kernel/linux/kernel/v${
+            lib.versions.major version
+          }.x/linux-${version}.tar.xz";
         hash = "sha256-eldLvCCALqdrUsp/rwcmf3IEXoYbGJFcUnKpjCer+IQ=";
       };
       patches = [

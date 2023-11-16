@@ -23,7 +23,9 @@ in
 
     extraEnvironment = mkOption {
       type = types.attrsOf types.str;
-      description = lib.mdDoc "Extra Environment variables to pass to the conduit server.";
+      description =
+        lib.mdDoc
+          "Extra Environment variables to pass to the conduit server.";
       default = { };
       example = {
         RUST_BACKTRACE = "yes";
@@ -60,7 +62,9 @@ in
           global.max_request_size = mkOption {
             type = types.ints.positive;
             default = 20000000;
-            description = lib.mdDoc "Max request size in bytes. Don't forget to also change it in the proxy.";
+            description =
+              lib.mdDoc
+                "Max request size in bytes. Don't forget to also change it in the proxy.";
           };
           global.allow_registration = mkOption {
             type = types.bool;
@@ -89,7 +93,9 @@ in
           global.address = mkOption {
             type = types.str;
             default = "::1";
-            description = lib.mdDoc "Address to listen on for connections by the reverse proxy/tls terminator.";
+            description =
+              lib.mdDoc
+                "Address to listen on for connections by the reverse proxy/tls terminator.";
           };
           global.database_path = mkOption {
             type = types.str;

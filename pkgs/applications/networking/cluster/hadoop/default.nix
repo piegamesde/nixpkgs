@@ -44,7 +44,9 @@ let
     stdenv.mkDerivation (
       finalAttrs: {
         inherit pname jdk;
-        version = platformAttrs.${stdenv.system}.version or (throw "Unsupported system: ${stdenv.system}");
+        version =
+          platformAttrs.${stdenv.system}.version
+            or (throw "Unsupported system: ${stdenv.system}");
         src = fetchurl {
           url =
             "mirror://apache/hadoop/common/hadoop-${finalAttrs.version}/hadoop-${finalAttrs.version}"
@@ -65,7 +67,9 @@ let
           else
             "";
 
-        nativeBuildInputs = [ makeWrapper ] ++ optionals stdenv.isLinux [ autoPatchelfHook ];
+        nativeBuildInputs = [
+          makeWrapper
+        ] ++ optionals stdenv.isLinux [ autoPatchelfHook ];
         buildInputs = optionals stdenv.isLinux [
           stdenv.cc.cc.lib
           openssl

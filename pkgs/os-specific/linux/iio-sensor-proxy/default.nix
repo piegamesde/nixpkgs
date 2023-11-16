@@ -48,7 +48,9 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     (lib.mesonOption "udevrulesdir" "${placeholder "out"}/lib/udev/rules.d")
-    (lib.mesonOption "systemdsystemunitdir" "${placeholder "out"}/lib/systemd/system")
+    (lib.mesonOption "systemdsystemunitdir"
+      "${placeholder "out"}/lib/systemd/system"
+    )
   ];
 
   meta = with lib; {

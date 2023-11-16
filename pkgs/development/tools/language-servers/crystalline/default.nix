@@ -44,7 +44,9 @@ crystal.buildCrystalPackage {
   };
 
   postInstall = ''
-    wrapProgram "$out/bin/crystalline" --prefix PATH : '${lib.makeBinPath [ llvmPackages.llvm.dev ]}'
+    wrapProgram "$out/bin/crystalline" --prefix PATH : '${
+      lib.makeBinPath [ llvmPackages.llvm.dev ]
+    }'
   '';
 
   meta = with lib; {

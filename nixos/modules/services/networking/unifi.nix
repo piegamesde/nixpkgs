@@ -21,8 +21,12 @@ let
       "--add-opens=java.base/java.io=ALL-UNNAMED"
       "--add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED"
     ]
-    ++ (lib.optional (cfg.initialJavaHeapSize != null) "-Xms${(toString cfg.initialJavaHeapSize)}m")
-    ++ (lib.optional (cfg.maximumJavaHeapSize != null) "-Xmx${(toString cfg.maximumJavaHeapSize)}m")
+    ++ (lib.optional (cfg.initialJavaHeapSize != null)
+      "-Xms${(toString cfg.initialJavaHeapSize)}m"
+    )
+    ++ (lib.optional (cfg.maximumJavaHeapSize != null)
+      "-Xmx${(toString cfg.maximumJavaHeapSize)}m"
+    )
     ++ cfg.extraJvmOptions
     ++ [
       "-jar"

@@ -137,7 +137,9 @@ in
       postrotate = "systemctl reload peroxide";
     };
 
-    environment.etc."peroxide.conf".source = settingsFormat.generate "peroxide.conf" cfg.settings;
+    environment.etc."peroxide.conf".source =
+      settingsFormat.generate "peroxide.conf"
+        cfg.settings;
     environment.systemPackages = [ cfg.package ];
   };
 

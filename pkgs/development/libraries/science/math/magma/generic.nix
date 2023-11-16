@@ -46,12 +46,16 @@ let
   # NOTE: The hip.gpuTargets are prefixed with "gfx" instead of "sm" like cudaFlags.realArches.
   #   For some reason, Magma's CMakeLists.txt file does not handle the "gfx" prefix, so we must
   #   remove it.
-  rocmArches = lists.map (x: strings.removePrefix "gfx" x) rocmPackages.clr.gpuTargets;
+  rocmArches =
+    lists.map (x: strings.removePrefix "gfx" x)
+      rocmPackages.clr.gpuTargets;
   supportedRocmArches = lists.intersectLists rocmArches supportedGpuTargets;
   unsupportedRocmArches = lists.subtractLists supportedRocmArches rocmArches;
 
   supportedCustomGpuTargets = lists.intersectLists gpuTargets supportedGpuTargets;
-  unsupportedCustomGpuTargets = lists.subtractLists supportedCustomGpuTargets gpuTargets;
+  unsupportedCustomGpuTargets =
+    lists.subtractLists supportedCustomGpuTargets
+      gpuTargets;
 
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
@@ -173,6 +177,8 @@ stdenv.mkDerivation {
     platforms = platforms.unix;
     maintainers = with maintainers; [ connorbaker ];
     # CUDA and ROCm are mutually exclusive
-    broken = cudaSupport && rocmSupport || cudaSupport && strings.versionOlder cudaVersion "9";
+    broken =
+      cudaSupport && rocmSupport
+      || cudaSupport && strings.versionOlder cudaVersion "9";
   };
 }

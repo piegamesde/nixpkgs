@@ -10,7 +10,9 @@ let
 
   python = python3.override {
     packageOverrides = self: super: {
-      antlr4-python3-runtime = super.antlr4-python3-runtime.override { antlr4 = antlr4_9; };
+      antlr4-python3-runtime = super.antlr4-python3-runtime.override {
+        antlr4 = antlr4_9;
+      };
 
       baserow_premium = self.buildPythonPackage rec {
         pname = "baserow_premium";

@@ -13,7 +13,8 @@ in
 {
   options.services.switcherooControl = {
     enable = mkEnableOption (
-      lib.mdDoc "switcheroo-control, a D-Bus service to check the availability of dual-GPU"
+      lib.mdDoc
+        "switcheroo-control, a D-Bus service to check the availability of dual-GPU"
     );
   };
 

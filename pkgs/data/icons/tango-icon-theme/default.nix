@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--enable-png-creation" ];
 
-  postInstall = '''${gtk.out}/bin/gtk-update-icon-cache' "$out/share/icons/Tango" '';
+  postInstall = ''
+    '${gtk.out}/bin/gtk-update-icon-cache' "$out/share/icons/Tango" '';
 
   meta = with lib; {
     description = "A basic set of icons";

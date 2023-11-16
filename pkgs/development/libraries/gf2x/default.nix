@@ -27,7 +27,9 @@ stdenv.mkDerivation rec {
   # for an indirect test, run ntl's test suite
   doCheck = true;
 
-  configureFlags = lib.optionals (!optimize) [ "--disable-hardware-specific-code" ];
+  configureFlags = lib.optionals (!optimize) [
+    "--disable-hardware-specific-code"
+  ];
 
   meta = with lib; {
     description = "Routines for fast arithmetic in GF(2)[x]";

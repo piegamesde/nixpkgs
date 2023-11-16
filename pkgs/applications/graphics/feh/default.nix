@@ -44,10 +44,13 @@ stdenv.mkDerivation rec {
     libexif
   ];
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-    "exif=1"
-  ] ++ lib.optional stdenv.isDarwin "verscmp=0" ++ lib.optional enableAutoreload "inotify=1";
+  makeFlags =
+    [
+      "PREFIX=${placeholder "out"}"
+      "exif=1"
+    ]
+    ++ lib.optional stdenv.isDarwin "verscmp=0"
+    ++ lib.optional enableAutoreload "inotify=1";
 
   installTargets = [ "install" ];
   postInstall = ''

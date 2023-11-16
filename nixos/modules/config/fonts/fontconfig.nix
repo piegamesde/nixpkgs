@@ -59,7 +59,9 @@ let
       <!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
       <fontconfig>
         <!-- Font directories -->
-        ${concatStringsSep "\n" (map (font: "<dir>${font}</dir>") config.fonts.packages)}
+        ${
+          concatStringsSep "\n" (map (font: "<dir>${font}</dir>") config.fonts.packages)
+        }
         ${
           optionalString (pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform) ''
             <!-- Pre-generated font caches -->
@@ -211,15 +213,18 @@ let
     )}
 
     ${optionalString (cfg.hinting.style != "slight") (
-      replaceDefaultConfig "10-hinting-slight.conf" "10-hinting-${cfg.hinting.style}.conf"
+      replaceDefaultConfig "10-hinting-slight.conf"
+        "10-hinting-${cfg.hinting.style}.conf"
     )}
 
     ${optionalString (cfg.subpixel.rgba != "none") (
-      replaceDefaultConfig "10-sub-pixel-none.conf" "10-sub-pixel-${cfg.subpixel.rgba}.conf"
+      replaceDefaultConfig "10-sub-pixel-none.conf"
+        "10-sub-pixel-${cfg.subpixel.rgba}.conf"
     )}
 
     ${optionalString (cfg.subpixel.lcdfilter != "default") (
-      replaceDefaultConfig "11-lcdfilter-default.conf" "11-lcdfilter-${cfg.subpixel.lcdfilter}.conf"
+      replaceDefaultConfig "11-lcdfilter-default.conf"
+        "11-lcdfilter-${cfg.subpixel.lcdfilter}.conf"
     )}
 
     # 00-nixos-cache.conf

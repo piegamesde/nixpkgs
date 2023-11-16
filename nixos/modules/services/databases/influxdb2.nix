@@ -63,7 +63,8 @@ let
 
   # Determines whether at least one active api token is defined
   anyAuthDefined = flip any (attrValues cfg.provision.organizations) (
-    o: o.present && flip any (attrValues o.auths) (a: a.present && a.tokenFile != null)
+    o:
+    o.present && flip any (attrValues o.auths) (a: a.present && a.tokenFile != null)
   );
 
   provisionState = pkgs.writeText "provision_state.json" (
@@ -75,7 +76,8 @@ let
     export INFLUX_HOST="http://"${
       escapeShellArg (
         if
-          !hasAttr "http-bind-address" cfg.settings || hasInfix "0.0.0.0" cfg.settings.http-bind-address
+          !hasAttr "http-bind-address" cfg.settings
+          || hasInfix "0.0.0.0" cfg.settings.http-bind-address
         then
           "localhost:8086"
         else
@@ -141,7 +143,9 @@ let
     {
       options = {
         present = mkOption {
-          description = mdDoc "Whether to ensure that this organization is present or absent.";
+          description =
+            mdDoc
+              "Whether to ensure that this organization is present or absent.";
           type = types.bool;
           default = true;
         };
@@ -189,7 +193,9 @@ let
         };
 
         auths = mkOption {
-          description = mdDoc "API tokens to provision for the user in this organization.";
+          description =
+            mdDoc
+              "API tokens to provision for the user in this organization.";
           default = { };
           type = types.attrsOf (
             types.submodule (
@@ -204,7 +210,9 @@ let
                       mdDoc
                         "A unique identifier for this authentication token. Since influx doesn't store names for tokens, this will be hashed and appended to the description to identify the token.";
                     readOnly = true;
-                    default = builtins.substring 0 32 (builtins.hashString "sha256" "${org}:${auth}");
+                    default = builtins.substring 0 32 (
+                      builtins.hashString "sha256" "${org}:${auth}"
+                    );
                     defaultText = "<a hash derived from org and name>";
                     type = types.str;
                   };
@@ -229,7 +237,9 @@ let
                   tokenFile = mkOption {
                     type = types.nullOr types.path;
                     default = null;
-                    description = mdDoc "The token value. If not given, influx will automatically generate one.";
+                    description =
+                      mdDoc
+                        "The token value. If not given, influx will automatically generate one.";
                   };
 
                   operator = mkOption {
@@ -283,13 +293,17 @@ let
                   };
 
                   readBuckets = mkOption {
-                    description = mdDoc "The organization's buckets which should be allowed to be read";
+                    description =
+                      mdDoc
+                        "The organization's buckets which should be allowed to be read";
                     default = [ ];
                     type = types.listOf types.str;
                   };
 
                   writeBuckets = mkOption {
-                    description = mdDoc "The organization's buckets which should be allowed to be written";
+                    description =
+                      mdDoc
+                        "The organization's buckets which should be allowed to be written";
                     default = [ ];
                     type = types.listOf types.str;
                   };
@@ -354,12 +368,16 @@ in
 
           passwordFile = mkOption {
             type = types.path;
-            description = mdDoc "Password for primary user. Don't use a file from the nix store!";
+            description =
+              mdDoc
+                "Password for primary user. Don't use a file from the nix store!";
           };
 
           tokenFile = mkOption {
             type = types.path;
-            description = mdDoc "API Token to set for the admin user. Don't use a file from the nix store!";
+            description =
+              mdDoc
+                "API Token to set for the admin user. Don't use a file from the nix store!";
           };
         };
 
@@ -428,7 +446,8 @@ in
     assertions =
       [
         {
-          assertion = !(hasAttr "bolt-path" cfg.settings) && !(hasAttr "engine-path" cfg.settings);
+          assertion =
+            !(hasAttr "bolt-path" cfg.settings) && !(hasAttr "engine-path" cfg.settings);
           message = "services.influxdb2.config: bolt-path and engine-path should not be set as they are managed by systemd";
         }
       ]
@@ -546,14 +565,18 @@ in
                   )
               )
           );
-          tokenMappings = pkgs.writeText "token_mappings.json" (builtins.toJSON tokenPaths);
+          tokenMappings = pkgs.writeText "token_mappings.json" (
+            builtins.toJSON tokenPaths
+          );
         in
         mkIf cfg.provision.enable ''
           if ! test -e "$STATE_DIRECTORY/influxd.bolt"; then
             touch "$STATE_DIRECTORY/.first_startup"
           else
             # Manipulate provisioned api tokens if necessary
-            ${getExe pkgs.influxdb2-token-manipulator} "$STATE_DIRECTORY/influxd.bolt" ${tokenMappings}
+            ${
+              getExe pkgs.influxdb2-token-manipulator
+            } "$STATE_DIRECTORY/influxd.bolt" ${tokenMappings}
           fi
         '';
     };

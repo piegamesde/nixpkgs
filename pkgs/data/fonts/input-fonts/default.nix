@@ -51,7 +51,9 @@ stdenv.mkDerivation rec {
           ttx_file=$(dirname "$ttf_file")/$(basename "$ttf_file" .ttf).ttx
           ttx "$ttf_file"
           rm "$ttf_file"
-          touch -m -t ${builtins.replaceStrings [ "-" ] [ "" ] releaseDate}0000 "$ttx_file"
+          touch -m -t ${
+            builtins.replaceStrings [ "-" ] [ "" ] releaseDate
+          }0000 "$ttx_file"
           ttx --recalc-timestamp "$ttx_file"
           rm "$ttx_file"
         done

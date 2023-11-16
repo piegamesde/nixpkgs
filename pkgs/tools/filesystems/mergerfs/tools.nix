@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
   postInstall = with lib; ''
     wrapProgram $out/bin/mergerfs.balance --prefix PATH : ${makeBinPath [ rsync ]}
     wrapProgram $out/bin/mergerfs.dup --prefix PATH : ${makeBinPath [ rsync ]}
-    wrapProgram $out/bin/mergerfs.mktrash --prefix PATH : ${makeBinPath [ python3.pkgs.xattr ]}
+    wrapProgram $out/bin/mergerfs.mktrash --prefix PATH : ${
+      makeBinPath [ python3.pkgs.xattr ]
+    }
   '';
 
   meta = with lib; {

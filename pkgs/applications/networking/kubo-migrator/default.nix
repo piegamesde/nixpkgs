@@ -17,7 +17,9 @@ buildEnv {
 
   postBuild = ''
     wrapProgram "$out/bin/fs-repo-migrations" \
-      --prefix PATH ':' '${lib.makeBinPath [ kubo-migrator-all-fs-repo-migrations ]}'
+      --prefix PATH ':' '${
+        lib.makeBinPath [ kubo-migrator-all-fs-repo-migrations ]
+      }'
   '';
 
   inherit (kubo-migrator-unwrapped) meta;

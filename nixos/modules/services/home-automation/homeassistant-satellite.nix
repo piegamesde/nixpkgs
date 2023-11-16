@@ -26,9 +26,15 @@ let
     oldAttrs: {
       propagatedBuildInputs =
         oldAttrs.propagatedBuildInputs
-        ++ lib.optional (cfg.vad == "webrtcvad") cfg.package.optional-dependencies.webrtc
-        ++ lib.optional (cfg.vad == "silero") cfg.package.optional-dependencies.silerovad
-        ++ lib.optional (cfg.pulseaudio.enable) cfg.package.optional-dependencies.pulseaudio;
+        ++
+          lib.optional (cfg.vad == "webrtcvad")
+            cfg.package.optional-dependencies.webrtc
+        ++
+          lib.optional (cfg.vad == "silero")
+            cfg.package.optional-dependencies.silerovad
+        ++
+          lib.optional (cfg.pulseaudio.enable)
+            cfg.package.optional-dependencies.pulseaudio;
     }
   );
 in
@@ -166,7 +172,9 @@ in
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [ ffmpeg-headless ] ++ lib.optionals (!cfg.pulseaudio.enable) [ alsa-utils ];
+      path =
+        with pkgs;
+        [ ffmpeg-headless ] ++ lib.optionals (!cfg.pulseaudio.enable) [ alsa-utils ];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -182,12 +190,22 @@ in
               lib.optionalString (cfg.pulseaudio.socket != null) "=${cfg.pulseaudio.socket}"
             } \
             ${
-              lib.optionalString (cfg.pulseaudio.enable && cfg.pulseaudio.duckingVolume != null)
+              lib.optionalString
+                (cfg.pulseaudio.enable && cfg.pulseaudio.duckingVolume != null)
                 "--ducking-volume=${toString cfg.pulseaudio.duckingVolume}"
             } \
-            ${lib.optionalString (cfg.pulseaudio.enable && cfg.pulseaudio.echoCancellation) "--echo-cancel"} \
-            ${lib.optionalString (cfg.sounds.awake != null) "--awake-sound=${toString cfg.sounds.awake}"} \
-            ${lib.optionalString (cfg.sounds.done != null) "--done-sound=${toString cfg.sounds.done}"} \
+            ${
+              lib.optionalString (cfg.pulseaudio.enable && cfg.pulseaudio.echoCancellation)
+                "--echo-cancel"
+            } \
+            ${
+              lib.optionalString (cfg.sounds.awake != null)
+                "--awake-sound=${toString cfg.sounds.awake}"
+            } \
+            ${
+              lib.optionalString (cfg.sounds.done != null)
+                "--done-sound=${toString cfg.sounds.done}"
+            } \
             ${cfg.extraArgs}
         '';
         CapabilityBoundingSet = "";

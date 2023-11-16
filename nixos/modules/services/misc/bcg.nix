@@ -111,7 +111,9 @@ in
       retainNodeMessages = mkOption {
         type = types.bool;
         default = false;
-        description = mdDoc "Specify that node messages should be retaied in MQTT broker.";
+        description =
+          mdDoc
+            "Specify that node messages should be retaied in MQTT broker.";
       };
       qosNodeMessages = mkOption {
         type = types.int;
@@ -160,7 +162,8 @@ in
     systemd.services.bcg =
       let
         envConfig = cfg.environmentFiles != [ ];
-        finalConfig = if envConfig then "$RUNTIME_DIRECTORY/bcg.config.yaml" else configFile;
+        finalConfig =
+          if envConfig then "$RUNTIME_DIRECTORY/bcg.config.yaml" else configFile;
       in
       {
         description = "BigClown Gateway";

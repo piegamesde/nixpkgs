@@ -72,7 +72,9 @@ stdenv.mkDerivation rec {
     ninja
     python3
   ];
-  buildInputs = lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm) libunwind;
+  buildInputs =
+    lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm)
+      libunwind;
 
   cmakeFlags =
     [
@@ -125,7 +127,9 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     mkdir -p "$dev/include"
-    install -m 644 ../../${pname}/include/${if stdenv.isDarwin then "*" else "cxxabi.h"} "$dev/include"
+    install -m 644 ../../${pname}/include/${
+      if stdenv.isDarwin then "*" else "cxxabi.h"
+    } "$dev/include"
   '';
 
   passthru = {

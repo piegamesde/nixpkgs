@@ -48,9 +48,13 @@ let
             else
               "";
 
-          fetchMetadata = (if authenticated then requireFile else fetchurl) { inherit (metadata) url sha1; };
+          fetchMetadata = (if authenticated then requireFile else fetchurl) {
+            inherit (metadata) url sha1;
+          };
 
-          layout = "${builtins.replaceStrings [ "." ] [ "/" ] groupId}/${artifactId}/${versionDir}";
+          layout = "${
+              builtins.replaceStrings [ "." ] [ "/" ] groupId
+            }/${artifactId}/${versionDir}";
         in
         lib.optional (url != "") {
           layout = "${layout}/${fetch.name}";
@@ -64,7 +68,9 @@ let
             }
           ]
           ++ lib.optional (fetch != "") {
-            layout = "${layout}/${builtins.replaceStrings [ version ] [ dep.unresolved-version ] fetch.name}";
+            layout = "${layout}/${
+                builtins.replaceStrings [ version ] [ dep.unresolved-version ] fetch.name
+              }";
             drv = fetch;
           }
         )
@@ -102,7 +108,8 @@ in
       builtins.filterSource
         (
           path: type:
-          (toString path) != (toString (src + "/target")) && (toString path) != (toString (src + "/.git"))
+          (toString path) != (toString (src + "/target"))
+          && (toString path) != (toString (src + "/.git"))
         )
         src;
 

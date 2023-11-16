@@ -31,12 +31,14 @@ buildGoModule rec {
 
   doCheck = false; # requires docker, container-diff (unpackaged yet)
 
-  postInstall = lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
-    for shell in bash fish zsh; do
-      $out/bin/executor completion $shell > executor.$shell
-      installShellCompletion executor.$shell
-    done
-  '';
+  postInstall =
+    lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform)
+      ''
+        for shell in bash fish zsh; do
+          $out/bin/executor completion $shell > executor.$shell
+          installShellCompletion executor.$shell
+        done
+      '';
 
   passthru.tests.version = testers.testVersion {
     package = kaniko;

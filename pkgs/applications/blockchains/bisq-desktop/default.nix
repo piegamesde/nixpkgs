@@ -108,7 +108,9 @@ stdenv.mkDerivation rec {
     makeWrapper ${bisq-launcher ""} $out/bin/bisq-desktop \
       --prefix PATH : $out/bin
 
-    makeWrapper ${bisq-launcher "-Dglass.gtk.uiScale=2.0"} $out/bin/bisq-desktop-hidpi \
+    makeWrapper ${
+      bisq-launcher "-Dglass.gtk.uiScale=2.0"
+    } $out/bin/bisq-desktop-hidpi \
       --prefix PATH : $out/bin
 
     for n in 16 24 32 48 64 96 128 256; do

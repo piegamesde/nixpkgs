@@ -36,13 +36,15 @@ let
   stdenv = clangStdenv;
 
   # The LLVM 9 headers have a couple bugs we need to patch
-  fixedLlvmDev = runCommand "llvm-dev-${llvmPackages_9.llvm.version}" { buildInputs = [ git ]; } ''
-    mkdir $out
-    cp -r ${llvmPackages_9.llvm.dev}/include $out
-    cd $out
-    chmod -R u+w include
-    git apply ${./fix-llvm-include.patch}
-  '';
+  fixedLlvmDev =
+    runCommand "llvm-dev-${llvmPackages_9.llvm.version}" { buildInputs = [ git ]; }
+      ''
+        mkdir $out
+        cp -r ${llvmPackages_9.llvm.dev}/include $out
+        cd $out
+        chmod -R u+w include
+        git apply ${./fix-llvm-include.patch}
+      '';
 
   unwrapped = stdenv.mkDerivation rec {
     pname = "cling-unwrapped";

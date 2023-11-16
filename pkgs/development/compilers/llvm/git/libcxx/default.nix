@@ -55,9 +55,11 @@ stdenv.mkDerivation rec {
     chmod -R u+w .
   '';
 
-  patches = [
-    ./gnu-install-dirs.patch
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [ ../../libcxx-0001-musl-hacks.patch ];
+  patches =
+    [ ./gnu-install-dirs.patch ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
+      ../../libcxx-0001-musl-hacks.patch
+    ];
 
   postPatch = ''
     cd ../runtimes
@@ -85,7 +87,8 @@ stdenv.mkDerivation rec {
           "c++abi" = "system-libcxxabi";
           "cxxrt" = "libcxxrt";
         }
-        .${cxxabi.libName} or (throw "unknown cxxabi: ${cxxabi.libName} (${cxxabi.pname})");
+        .${cxxabi.libName}
+          or (throw "unknown cxxabi: ${cxxabi.libName} (${cxxabi.pname})");
     in
     [
       "-DLLVM_ENABLE_RUNTIMES=libcxx"

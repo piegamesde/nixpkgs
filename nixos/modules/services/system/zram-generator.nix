@@ -14,7 +14,9 @@ in
   };
 
   options.services.zram-generator = {
-    enable = lib.mkEnableOption (lib.mdDoc "Systemd unit generator for zram devices");
+    enable = lib.mkEnableOption (
+      lib.mdDoc "Systemd unit generator for zram devices"
+    );
 
     package = lib.mkPackageOptionMD pkgs "zram-generator" { };
 
@@ -29,7 +31,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    system.requiredKernelConfig = with config.lib.kernelConfig; [ (isModule "ZRAM") ];
+    system.requiredKernelConfig =
+      with config.lib.kernelConfig; [ (isModule "ZRAM") ];
 
     systemd.packages = [ cfg.package ];
     systemd.services."systemd-zram-setup@".path = [ pkgs.util-linux ]; # for mkswap

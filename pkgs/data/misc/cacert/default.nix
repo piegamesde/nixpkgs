@@ -151,13 +151,15 @@ stdenv.mkDerivation rec {
               "CFCA EV ROOT" = "5C:C3:D7:8E:4E:1D:5E:45:54:7A:04:E6:87:3E:64:F9:0C:F9:53:6D:1C:CC:2E:F8:00:F3:55:C4:C5:FD:70:FD";
               "NetLock Arany (Class Gold) Főtanúsítvány" = "6C:61:DA:C3:A2:DE:F0:31:50:6B:E0:36:D2:A6:FE:40:19:94:FB:D1:3D:F9:C8:D4:66:59:92:74:C4:46:EC:98";
             };
-            mapBlacklist = f: lib.concatStringsSep "\n" (lib.mapAttrsToList f blacklistCAToFingerprint);
+            mapBlacklist =
+              f: lib.concatStringsSep "\n" (lib.mapAttrsToList f blacklistCAToFingerprint);
           in
           runCommand "verify-the-cacert-filter-output"
             {
               cacert = cacert.unbundled;
               cacertWithExcludes =
-                (cacert.override { blacklist = builtins.attrNames blacklistCAToFingerprint; }).unbundled;
+                (cacert.override { blacklist = builtins.attrNames blacklistCAToFingerprint; })
+                .unbundled;
 
               nativeBuildInputs = [ openssl ];
             }
@@ -213,7 +215,9 @@ stdenv.mkDerivation rec {
               # File
               "NixOS cacert extra certificate file" = "88:B8:BE:A7:57:AC:F1:FE:D6:98:8B:50:E0:BD:0A:AE:88:C7:DF:70:26:E1:67:5E:F5:F6:91:27:FF:02:D4:A5";
             };
-            mapExtra = f: lib.concatStringsSep "\n" (lib.mapAttrsToList f extraCertificatesToFingerprint);
+            mapExtra =
+              f:
+              lib.concatStringsSep "\n" (lib.mapAttrsToList f extraCertificatesToFingerprint);
           in
           runCommand "verify-the-cacert-extra-output"
             {

@@ -106,7 +106,8 @@ let
             ninja
             pkg-config
           ];
-          buildInputs = lib.optional stdenv.isDarwin CoreFoundation ++ extraCppBuildInputs;
+          buildInputs =
+            lib.optional stdenv.isDarwin CoreFoundation ++ extraCppBuildInputs;
 
           cmakeFlags = extraCppCmakeFlags;
 

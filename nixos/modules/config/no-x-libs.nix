@@ -36,16 +36,22 @@ with lib;
           ffmpeg_5 = super.ffmpeg_5.override { ffmpegVariant = "headless"; };
           # dep of graphviz, libXpm is optional for Xpm support
           gd = super.gd.override { withXorg = false; };
-          gobject-introspection = super.gobject-introspection.override { x11Support = false; };
+          gobject-introspection = super.gobject-introspection.override {
+            x11Support = false;
+          };
           gpsd = super.gpsd.override { guiSupport = false; };
           graphviz = super.graphviz-nox;
           gst_all_1 = super.gst_all_1 // {
-            gst-plugins-bad = super.gst_all_1.gst-plugins-bad.override { guiSupport = false; };
+            gst-plugins-bad = super.gst_all_1.gst-plugins-bad.override {
+              guiSupport = false;
+            };
             gst-plugins-base = super.gst_all_1.gst-plugins-base.override {
               enableWayland = false;
               enableX11 = false;
             };
-            gst-plugins-good = super.gst_all_1.gst-plugins-good.override { enableX11 = false; };
+            gst-plugins-good = super.gst_all_1.gst-plugins-good.override {
+              enableX11 = false;
+            };
           };
           imagemagick = super.imagemagick.override {
             libX11Support = false;
@@ -67,11 +73,19 @@ with lib;
           };
           msmtp = super.msmtp.override { withKeyring = false; };
           neofetch = super.neofetch.override { x11Support = false; };
-          networkmanager-fortisslvpn = super.networkmanager-fortisslvpn.override { withGnome = false; };
-          networkmanager-iodine = super.networkmanager-iodine.override { withGnome = false; };
+          networkmanager-fortisslvpn = super.networkmanager-fortisslvpn.override {
+            withGnome = false;
+          };
+          networkmanager-iodine = super.networkmanager-iodine.override {
+            withGnome = false;
+          };
           networkmanager-l2tp = super.networkmanager-l2tp.override { withGnome = false; };
-          networkmanager-openconnect = super.networkmanager-openconnect.override { withGnome = false; };
-          networkmanager-openvpn = super.networkmanager-openvpn.override { withGnome = false; };
+          networkmanager-openconnect = super.networkmanager-openconnect.override {
+            withGnome = false;
+          };
+          networkmanager-openvpn = super.networkmanager-openvpn.override {
+            withGnome = false;
+          };
           networkmanager-sstp = super.networkmanager-vpnc.override { withGnome = false; };
           networkmanager-vpnc = super.networkmanager-vpnc.override { withGnome = false; };
           pango = super.pango.override { x11Support = false; };

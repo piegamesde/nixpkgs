@@ -13,7 +13,9 @@ in
 {
   ###### interface
   options = {
-    services.xserver.windowManager.tinywm.enable = mkEnableOption (lib.mdDoc "tinywm");
+    services.xserver.windowManager.tinywm.enable = mkEnableOption (
+      lib.mdDoc "tinywm"
+    );
   };
 
   ###### implementation

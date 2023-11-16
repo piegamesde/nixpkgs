@@ -17,7 +17,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-GNuWag8Y1aSkBMzXcHpwfVU80zmhusLIOrKtZSe/jI0=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.AppKit
+  ];
 
   meta = with lib; {
     description = "A simple TUI for interacting with systemd services and their logs";

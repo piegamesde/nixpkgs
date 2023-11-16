@@ -39,7 +39,9 @@ in
 
       dbpath = mkOption {
         default = "/var/db/rethinkdb";
-        description = lib.mdDoc "Location where RethinkDB stores its data, 1 data directory per instance.";
+        description =
+          lib.mdDoc
+            "Location where RethinkDB stores its data, 1 data directory per instance.";
       };
 
       pidpath = mkOption {
@@ -102,6 +104,8 @@ in
       isSystemUser = true;
     };
 
-    users.groups = optionalAttrs (cfg.group == "rethinkdb") (singleton { name = "rethinkdb"; });
+    users.groups = optionalAttrs (cfg.group == "rethinkdb") (
+      singleton { name = "rethinkdb"; }
+    );
   };
 }

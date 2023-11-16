@@ -670,7 +670,10 @@ rec {
           right = [ ];
         };
       in
-      if len < 2 then list else (sort strictLess pivot.left) ++ [ first ] ++ (sort strictLess pivot.right)
+      if len < 2 then
+        list
+      else
+        (sort strictLess pivot.left) ++ [ first ] ++ (sort strictLess pivot.right)
     );
 
   /* Compare two lists element-by-element.
@@ -711,7 +714,11 @@ rec {
   naturalSort =
     lst:
     let
-      vectorise = s: map (x: if isList x then toInt (head x) else x) (builtins.split "(0|[1-9][0-9]*)" s);
+      vectorise =
+        s:
+        map (x: if isList x then toInt (head x) else x) (
+          builtins.split "(0|[1-9][0-9]*)" s
+        );
       prepared =
         map
           (x: [
@@ -782,7 +789,8 @@ rec {
     if hasPrefix list1 list2 then
       drop (length list1) list2
     else
-      throw "lib.lists.removePrefix: First argument is not a list prefix of the second argument";
+      throw
+        "lib.lists.removePrefix: First argument is not a list prefix of the second argument";
 
   /* Return a list consisting of at most `count` elements of `list`,
      starting at index `start`.
@@ -875,9 +883,10 @@ rec {
        crossLists (x:y: "${toString x}${toString y}") [[1 2] [3 4]]
        => [ "13" "14" "23" "24" ]
   */
-  crossLists = builtins.trace "lib.crossLists is deprecated, use lib.cartesianProductOfSets instead" (
-    f: foldl (fs: args: concatMap (f: map f args) fs) [ f ]
-  );
+  crossLists =
+    builtins.trace
+      "lib.crossLists is deprecated, use lib.cartesianProductOfSets instead"
+      (f: foldl (fs: args: concatMap (f: map f args) fs) [ f ]);
 
   /* Remove duplicate elements from the list. O(n^2) complexity.
 

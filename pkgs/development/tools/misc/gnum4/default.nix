@@ -19,7 +19,9 @@ stdenv.mkDerivation rec {
   };
 
   # https://gitweb.gentoo.org/repo/gentoo.git/tree/sys-devel/m4/m4-1.4.19-r1.ebuild
-  patches = lib.optional stdenv.hostPlatform.isLoongArch64 ./loong-fix-build.patch;
+  patches =
+    lib.optional stdenv.hostPlatform.isLoongArch64
+      ./loong-fix-build.patch;
   postPatch =
     if stdenv.hostPlatform.isLoongArch64 then
       ''

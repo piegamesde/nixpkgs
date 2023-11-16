@@ -26,7 +26,8 @@
   systemdMinimal,
   elogind,
   buildPackages,
-  withIntrospection ? lib.meta.availableOn stdenv.hostPlatform gobject-introspection
+  withIntrospection ?
+    lib.meta.availableOn stdenv.hostPlatform gobject-introspection
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
   # A few tests currently fail on musl (polkitunixusertest, polkitunixgrouptest, polkitidentitytest segfault).
   # Not yet investigated; it may be due to the "Make netgroup support optional"
@@ -89,9 +90,10 @@ stdenv.mkDerivation rec {
       gobject-introspection
       gtk-doc
     ]
-    ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
-    ];
+    ++
+      lib.optionals
+        (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+        [ mesonEmulatorHook ];
 
   buildInputs =
     [

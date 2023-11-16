@@ -132,7 +132,9 @@ with lib;
     recommendedProxySettings = mkOption {
       type = types.bool;
       default = config.services.nginx.recommendedProxySettings;
-      defaultText = literalExpression "config.services.nginx.recommendedProxySettings";
+      defaultText =
+        literalExpression
+          "config.services.nginx.recommendedProxySettings";
       description = lib.mdDoc ''
         Enable recommended proxy settings.
       '';

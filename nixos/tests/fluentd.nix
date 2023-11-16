@@ -34,7 +34,9 @@ import ./make-test-python.nix (
       let
         testMessage = "an example log message";
 
-        payload = pkgs.writeText "test-message.json" (builtins.toJSON { inherit testMessage; });
+        payload = pkgs.writeText "test-message.json" (
+          builtins.toJSON { inherit testMessage; }
+        );
       in
       ''
         machine.start()

@@ -10,7 +10,10 @@
   pname ? "",
   version ? "",
   urls ? [ ],
-  url ? if urls == [ ] then abort "Expect either non-empty `urls` or `url`" else builtins.head urls,
+  url ? if urls == [ ] then
+    abort "Expect either non-empty `urls` or `url`"
+  else
+    builtins.head urls,
   hash ? lib.fakeHash,
 }:
 

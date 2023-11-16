@@ -48,12 +48,15 @@ buildDunePackage rec {
     findlib
     ppxlib
   ];
-  propagatedBuildInputs = lib.optional (lib.versionOlder version "5.2") ocaml-migrate-parsetree ++ [
-    ppx_derivers
-    result
-  ];
+  propagatedBuildInputs =
+    lib.optional (lib.versionOlder version "5.2") ocaml-migrate-parsetree
+    ++ [
+      ppx_derivers
+      result
+    ];
 
-  doCheck = lib.versionAtLeast ocaml.version "4.08" && lib.versionOlder ocaml.version "5.0";
+  doCheck =
+    lib.versionAtLeast ocaml.version "4.08" && lib.versionOlder ocaml.version "5.0";
   checkInputs = [ (if lib.versionAtLeast version "5.2" then ounit2 else ounit) ];
 
   meta = with lib; {

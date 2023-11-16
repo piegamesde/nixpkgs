@@ -9,7 +9,8 @@ let
   setuppy = ../run_setup.py;
 in
 {
-  makePythonHook = args: pkgs.makeSetupHook ({ passthru.provides.setupHook = true; } // args);
+  makePythonHook =
+    args: pkgs.makeSetupHook ({ passthru.provides.setupHook = true; } // args);
 
   condaInstallHook =
     callPackage
@@ -133,7 +134,9 @@ in
             # Such conflicts don't happen within the standard nixpkgs python package
             #   set, but in downstream projects that build packages depending on other
             #   versions of this hook's dependencies.
-            passthru.tests = import ./pypa-build-hook-tests.nix { inherit pythonOnBuildForHost runCommand; };
+            passthru.tests = import ./pypa-build-hook-tests.nix {
+              inherit pythonOnBuildForHost runCommand;
+            };
           }
           ./pypa-build-hook.sh
       )
@@ -238,7 +241,8 @@ in
     callPackage
       (
         { makePythonHook }:
-        makePythonHook { name = "python-output-dist-hook"; } ./python-output-dist-hook.sh
+        makePythonHook { name = "python-output-dist-hook"; }
+          ./python-output-dist-hook.sh
       )
       { };
 
@@ -285,7 +289,8 @@ in
     callPackage
       (
         { makePythonHook }:
-        makePythonHook { name = "python-remove-bin-bytecode-hook"; } ./python-remove-bin-bytecode-hook.sh
+        makePythonHook { name = "python-remove-bin-bytecode-hook"; }
+          ./python-remove-bin-bytecode-hook.sh
       )
       { };
 
@@ -413,7 +418,9 @@ in
       )
       { };
 
-  wrapPython = callPackage ../wrap-python.nix { inherit (pkgs.buildPackages) makeWrapper; };
+  wrapPython = callPackage ../wrap-python.nix {
+    inherit (pkgs.buildPackages) makeWrapper;
+  };
 
   sphinxHook =
     callPackage

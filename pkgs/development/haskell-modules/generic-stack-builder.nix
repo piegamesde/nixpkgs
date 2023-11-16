@@ -35,7 +35,9 @@ stdenv.mkDerivation (
     # `--option sandbox false` to be able to build this
     __noChroot = true;
 
-    buildInputs = buildInputs ++ lib.optional (stdenv.hostPlatform.libc == "glibc") glibcLocales;
+    buildInputs =
+      buildInputs
+      ++ lib.optional (stdenv.hostPlatform.libc == "glibc") glibcLocales;
 
     nativeBuildInputs = nativeBuildInputs ++ [
       ghc

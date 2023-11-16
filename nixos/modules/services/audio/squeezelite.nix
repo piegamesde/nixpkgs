@@ -24,7 +24,9 @@ in
   ###### interface
 
   options.services.squeezelite = {
-    enable = mkEnableOption (lib.mdDoc "Squeezelite, a software Squeezebox emulator");
+    enable = mkEnableOption (
+      lib.mdDoc "Squeezelite, a software Squeezebox emulator"
+    );
 
     pulseAudio = mkEnableOption (lib.mdDoc "pulseaudio support");
 

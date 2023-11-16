@@ -118,9 +118,15 @@ stdenv.mkDerivation {
 
   postInstall = ''
     # Taken from https://wiki.rpcs3.net/index.php?title=Help:Controller_Configuration
-    install -D ${./99-ds3-controllers.rules} $out/etc/udev/rules.d/99-ds3-controllers.rules
-    install -D ${./99-ds4-controllers.rules} $out/etc/udev/rules.d/99-ds4-controllers.rules
-    install -D ${./99-dualsense-controllers.rules} $out/etc/udev/rules.d/99-dualsense-controllers.rules
+    install -D ${
+      ./99-ds3-controllers.rules
+    } $out/etc/udev/rules.d/99-ds3-controllers.rules
+    install -D ${
+      ./99-ds4-controllers.rules
+    } $out/etc/udev/rules.d/99-ds4-controllers.rules
+    install -D ${
+      ./99-dualsense-controllers.rules
+    } $out/etc/udev/rules.d/99-dualsense-controllers.rules
   '';
 
   meta = with lib; {

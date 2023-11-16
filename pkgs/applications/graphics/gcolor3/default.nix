@@ -43,9 +43,9 @@ stdenv.mkDerivation rec {
     patchShebangs meson_install.sh
 
     # https://gitlab.gnome.org/World/gcolor3/merge_requests/151
-    substituteInPlace meson.build --replace "dependency(${"\n"}  'libportal'" "dependency(${
+    substituteInPlace meson.build --replace "dependency(${
       "\n"
-    }  'libportal-gtk3'"
+    }  'libportal'" "dependency(${"\n"}  'libportal-gtk3'"
     substituteInPlace src/gcolor3-color-selection.c --replace "libportal/portal-gtk3.h" "libportal-gtk3/portal-gtk3.h"
   '';
 

@@ -20,7 +20,9 @@ perlPackages.buildPerlPackage rec {
 
   outputs = [ "out" ];
 
-  nativeBuildInputs = [ installShellFiles ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
+  nativeBuildInputs = [
+    installShellFiles
+  ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
 
   nativeCheckInputs = [
     perlPackages.TestPerlCritic

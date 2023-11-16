@@ -177,7 +177,8 @@ stdenv.mkDerivation rec {
   };
 
   inherit pname;
-  version = if (stable) then kicadVersion else builtins.substring 0 10 src.src.rev;
+  version =
+    if (stable) then kicadVersion else builtins.substring 0 10 src.src.rev;
 
   src = base;
   dontUnpack = true;
@@ -193,7 +194,9 @@ stdenv.mkDerivation rec {
     ]
     ++ addonsDrvs;
 
-  nativeBuildInputs = [ makeWrapper ] ++ optionals (withScripting) [ python.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    makeWrapper
+  ] ++ optionals (withScripting) [ python.pkgs.wrapPython ];
 
   # KICAD7_TEMPLATE_DIR only works with a single path (it does not handle : separated paths)
   # but it's used to find both the templates and the symbol/footprint library tables
@@ -236,11 +239,15 @@ stdenv.mkDerivation rec {
       in
       [ "--set-default NIX_KICAD7_STOCK_DATA_PATH ${stockDataPath}" ]
     )
-    ++ optionals (with3d) [ "--set-default KICAD7_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels" ]
+    ++ optionals (with3d) [
+      "--set-default KICAD7_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels"
+    ]
     ++ optionals (withNgspice) [ "--prefix LD_LIBRARY_PATH : ${libngspice}/lib" ]
 
     # infinisil's workaround for #39493
-    ++ [ "--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache" ];
+    ++ [
+      "--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
+    ];
 
   # why does $makeWrapperArgs have to be added explicitly?
   # $out and $program_PYTHONPATH don't exist when makeWrapperArgs gets set?

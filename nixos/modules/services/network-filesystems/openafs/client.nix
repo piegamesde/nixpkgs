@@ -34,7 +34,9 @@ let
     mkdir -p $out
     echo ${cfg.cellName} > $out/ThisCell
     cat ${cellServDB} ${clientServDB} > $out/CellServDB
-    echo "${cfg.mountPoint}:${cfg.cache.directory}:${toString cfg.cache.blocks}" > $out/cacheinfo
+    echo "${cfg.mountPoint}:${cfg.cache.directory}:${
+      toString cfg.cache.blocks
+    }" > $out/cacheinfo
   '';
 in
 {
@@ -170,13 +172,17 @@ in
           default = config.boot.kernelPackages.openafs;
           defaultText = literalExpression "config.boot.kernelPackages.openafs";
           type = types.package;
-          description = lib.mdDoc "OpenAFS kernel module package. MUST match the userland package!";
+          description =
+            lib.mdDoc
+              "OpenAFS kernel module package. MUST match the userland package!";
         };
         programs = mkOption {
           default = getBin pkgs.openafs;
           defaultText = literalExpression "getBin pkgs.openafs";
           type = types.package;
-          description = lib.mdDoc "OpenAFS programs package. MUST match the kernel module package!";
+          description =
+            lib.mdDoc
+              "OpenAFS programs package. MUST match the kernel module package!";
         };
       };
 
@@ -235,7 +241,9 @@ in
     systemd.services.afsd = {
       description = "AFS client";
       wantedBy = [ "multi-user.target" ];
-      after = singleton (if cfg.startDisconnected then "network.target" else "network-online.target");
+      after = singleton (
+        if cfg.startDisconnected then "network.target" else "network-online.target"
+      );
       serviceConfig = {
         RemainAfterExit = true;
       };

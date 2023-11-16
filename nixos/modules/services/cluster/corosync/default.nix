@@ -133,8 +133,10 @@ in
       };
     };
 
-    environment.etc."sysconfig/corosync".text = lib.optionalString (cfg.extraOptions != [ ]) ''
-      COROSYNC_OPTIONS="${lib.escapeShellArgs cfg.extraOptions}"
-    '';
+    environment.etc."sysconfig/corosync".text =
+      lib.optionalString (cfg.extraOptions != [ ])
+        ''
+          COROSYNC_OPTIONS="${lib.escapeShellArgs cfg.extraOptions}"
+        '';
   };
 }

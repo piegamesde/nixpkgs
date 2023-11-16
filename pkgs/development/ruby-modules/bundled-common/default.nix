@@ -42,7 +42,10 @@ let
   gemFiles = bundlerFiles args;
 
   importedGemset =
-    if builtins.typeOf gemFiles.gemset != "set" then import gemFiles.gemset else gemFiles.gemset;
+    if builtins.typeOf gemFiles.gemset != "set" then
+      import gemFiles.gemset
+    else
+      gemFiles.gemset;
 
   filteredGemset = filterGemset { inherit ruby groups; } importedGemset;
 
@@ -59,9 +62,15 @@ let
 
   hasBundler = builtins.hasAttr "bundler" filteredGemset;
 
-  bundler = if hasBundler then gems.bundler else defs.bundler.override (attrs: { inherit ruby; });
+  bundler =
+    if hasBundler then
+      gems.bundler
+    else
+      defs.bundler.override (attrs: { inherit ruby; });
 
-  gems = lib.flip lib.mapAttrs configuredGemset (name: attrs: buildGem name attrs);
+  gems = lib.flip lib.mapAttrs configuredGemset (
+    name: attrs: buildGem name attrs
+  );
 
   name' =
     if name != null then

@@ -67,7 +67,9 @@ stdenv.mkDerivation rec {
     "--with-exsid"
   ] ++ lib.optional doCheck "--enable-tests";
 
-  FONTCONFIG_FILE = lib.optionalString docSupport (makeFontsConf { fontDirectories = [ ]; });
+  FONTCONFIG_FILE = lib.optionalString docSupport (
+    makeFontsConf { fontDirectories = [ ]; }
+  );
 
   preBuild = ''
     # Reduce noise from fontconfig during doc building

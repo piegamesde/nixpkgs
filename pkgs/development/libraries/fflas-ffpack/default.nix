@@ -53,8 +53,12 @@ stdenv.mkDerivation rec {
       "--${if stdenv.hostPlatform.avxSupport then "enable" else "disable"}-avx"
       "--${if stdenv.hostPlatform.avx2Support then "enable" else "disable"}-avx2"
       "--${if stdenv.hostPlatform.avx512Support then "enable" else "disable"}-avx512f"
-      "--${if stdenv.hostPlatform.avx512Support then "enable" else "disable"}-avx512dq"
-      "--${if stdenv.hostPlatform.avx512Support then "enable" else "disable"}-avx512vl"
+      "--${
+        if stdenv.hostPlatform.avx512Support then "enable" else "disable"
+      }-avx512dq"
+      "--${
+        if stdenv.hostPlatform.avx512Support then "enable" else "disable"
+      }-avx512vl"
       "--${if stdenv.hostPlatform.fmaSupport then "enable" else "disable"}-fma"
       "--${if stdenv.hostPlatform.fma4Support then "enable" else "disable"}-fma4"
     ];

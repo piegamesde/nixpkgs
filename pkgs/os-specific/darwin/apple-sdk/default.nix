@@ -13,7 +13,9 @@
 }:
 
 let
-  xarMinimal = xar.override { libxml2 = libxml2.override { pythonSupport = false; }; };
+  xarMinimal = xar.override {
+    libxml2 = libxml2.override { pythonSupport = false; };
+  };
   # sadly needs to be exported because security_tool needs it
   sdk = stdenv.mkDerivation rec {
     pname = "MacOS_SDK";
@@ -331,7 +333,9 @@ rec {
 
       Carbon = lib.overrideDerivation super.Carbon (
         drv: {
-          extraTBDFiles = [ "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd" ];
+          extraTBDFiles = [
+            "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd"
+          ];
         }
       );
 
@@ -364,7 +368,9 @@ rec {
         }
       );
 
-      Security = lib.overrideDerivation super.Security (drv: { setupHook = ./security-setup-hook.sh; });
+      Security = lib.overrideDerivation super.Security (
+        drv: { setupHook = ./security-setup-hook.sh; }
+      );
 
       QuartzCore = lib.overrideDerivation super.QuartzCore (
         drv: {

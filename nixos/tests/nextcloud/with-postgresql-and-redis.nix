@@ -55,7 +55,10 @@ args@{
             extraAppsEnable = true;
             extraApps = {
               inherit
-                (pkgs."nextcloud${lib.versions.major config.services.nextcloud.package.version}Packages".apps)
+                (pkgs."nextcloud${
+                    lib.versions.major config.services.nextcloud.package.version
+                  }Packages".apps
+                )
                 notify_push
               ;
             };

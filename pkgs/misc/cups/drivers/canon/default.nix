@@ -32,7 +32,8 @@ let
     else if stdenv.targetPlatform.system == "aarch64-linux" then
       "arm"
     else
-      throw "Unsupported platform for Canon UFR2 Drivers: ${stdenv.targetPlatform.system}";
+      throw
+        "Unsupported platform for Canon UFR2 Drivers: ${stdenv.targetPlatform.system}";
   ld64 = "${stdenv.cc}/nix-support/dynamic-linker";
   libs = pkgs: lib.makeLibraryPath buildInputs;
 

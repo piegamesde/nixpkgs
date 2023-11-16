@@ -31,21 +31,24 @@ let
   build-with-compile-into-pwd =
     args:
     let
-      build = (build-asdf-system (args // { version = args.version + "-build"; })).overrideAttrs (
-        o: {
-          buildPhase = with builtins; ''
-            mkdir __fasls
-            export ASDF_OUTPUT_TRANSLATIONS="$(pwd):$(pwd)/__fasls:${storeDir}:${storeDir}"
-            export CL_SOURCE_REGISTRY=$CL_SOURCE_REGISTRY:$(pwd)//
-            ${o.pkg}/bin/${o.program} ${toString (o.flags or [ ])} < ${o.buildScript}
-          '';
-          installPhase = ''
-            mkdir -pv $out
-            rm -rf __fasls
-            cp -r * $out
-          '';
-        }
-      );
+      build =
+        (build-asdf-system (args // { version = args.version + "-build"; }))
+        .overrideAttrs
+          (
+            o: {
+              buildPhase = with builtins; ''
+                mkdir __fasls
+                export ASDF_OUTPUT_TRANSLATIONS="$(pwd):$(pwd)/__fasls:${storeDir}:${storeDir}"
+                export CL_SOURCE_REGISTRY=$CL_SOURCE_REGISTRY:$(pwd)//
+                ${o.pkg}/bin/${o.program} ${toString (o.flags or [ ])} < ${o.buildScript}
+              '';
+              installPhase = ''
+                mkdir -pv $out
+                rm -rf __fasls
+                cp -r * $out
+              '';
+            }
+          );
     in
     build-asdf-system (
       args
@@ -103,7 +106,9 @@ let
           url = "https://github.com/cffi/cffi/archive/3f842b92ef808900bf20dae92c2d74232c2f6d3a.tar.gz";
           sha256 = "1jilvmbbfrmb23j07lwmkbffc6r35wnvas5s4zjc84i856ccclm2";
         };
-        patches = optionals stdenv.isDarwin [ ./patches/cffi-libffi-darwin-ffi-h.patch ];
+        patches = optionals stdenv.isDarwin [
+          ./patches/cffi-libffi-darwin-ffi-h.patch
+        ];
       };
 
       cl-unicode = build-with-compile-into-pwd {
@@ -890,7 +895,9 @@ let
         lispLibs = [ super.alexandria ];
       };
 
-      nsb-cga = super.nsb-cga.overrideLispAttrs (oa: { lispLibs = oa.lispLibs ++ [ self.sb-cga ]; });
+      nsb-cga = super.nsb-cga.overrideLispAttrs (
+        oa: { lispLibs = oa.lispLibs ++ [ self.sb-cga ]; }
+      );
     }
   );
 in

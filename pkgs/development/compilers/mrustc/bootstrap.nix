@@ -132,7 +132,9 @@ stdenv.mkDerivation rec {
     cp run_rustc/${outputDir}/prefix/bin/rustc_binary $out/bin/rustc
 
     cp -r run_rustc/${outputDir}/prefix/lib/* $out/lib/
-    cp $out/lib/rustlib/${rust.toRustTarget stdenv.targetPlatform}/lib/*.so $out/lib/
+    cp $out/lib/rustlib/${
+      rust.toRustTarget stdenv.targetPlatform
+    }/lib/*.so $out/lib/
     runHook postInstall
   '';
 

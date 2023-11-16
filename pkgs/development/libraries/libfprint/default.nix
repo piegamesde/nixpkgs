@@ -70,7 +70,9 @@ stdenv.mkDerivation rec {
     "-Dudev_hwdb_dir=${placeholder "out"}/lib/udev/hwdb.d"
   ];
 
-  nativeInstallCheckInputs = [ (python3.withPackages (p: with p; [ pygobject3 ])) ];
+  nativeInstallCheckInputs = [
+    (python3.withPackages (p: with p; [ pygobject3 ]))
+  ];
 
   # We need to run tests _after_ install so all the paths that get loaded are in
   # the right place.

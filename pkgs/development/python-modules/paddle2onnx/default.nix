@@ -12,7 +12,9 @@ let
   pname = "paddle2onnx";
   version = "1.1.0";
   format = "wheel";
-  pyShortVersion = "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+  pyShortVersion = "cp${
+      builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion
+    }";
   src = fetchPypi {
     inherit pname version format;
     dist = pyShortVersion;

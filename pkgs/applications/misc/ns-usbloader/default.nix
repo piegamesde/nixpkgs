@@ -13,7 +13,8 @@ let
 
   selectSystem =
     attrs:
-    attrs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    attrs.${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   jreWithJavaFX = jre.override { enableJavaFX = true; };
 in
@@ -57,7 +58,9 @@ maven.buildMavenPackage rec {
       --append-flags "-jar $out/share/java/ns-usbloader.jar"
 
     mkdir -p $out/lib/udev/rules.d
-    install -Dm644 ${./99-ns-usbloader.rules} $out/lib/udev/rules.d/99-ns-usbloader.rules
+    install -Dm644 ${
+      ./99-ns-usbloader.rules
+    } $out/lib/udev/rules.d/99-ns-usbloader.rules
 
     mkdir -p $out/share/icons/hicolor
     install -Dm644 target/classes/res/app_icon32x32.png $out/share/icons/hicolor/32x32/apps/ns-usbloader.png

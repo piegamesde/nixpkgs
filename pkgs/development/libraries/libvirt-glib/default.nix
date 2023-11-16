@@ -12,7 +12,8 @@
   libvirt,
   libxml2,
   buildPackages,
-  withIntrospection ? lib.meta.availableOn stdenv.hostPlatform gobject-introspection
+  withIntrospection ?
+    lib.meta.availableOn stdenv.hostPlatform gobject-introspection
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
   gobject-introspection,
   withDocs ? stdenv.hostPlatform == stdenv.buildPlatform,

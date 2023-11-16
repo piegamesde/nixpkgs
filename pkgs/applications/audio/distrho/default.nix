@@ -51,7 +51,9 @@ stdenv.mkDerivation rec {
       $out/lib/vst/vitalium.so \
       $out/lib/vst3/vitalium.vst3/Contents/x86_64-linux/vitalium.so
     do
-      patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}:$(patchelf --print-rpath $file)" $file
+      patchelf --set-rpath "${
+        lib.makeLibraryPath rpathLibs
+      }:$(patchelf --print-rpath $file)" $file
     done
   '';
 

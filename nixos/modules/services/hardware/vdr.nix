@@ -24,7 +24,9 @@ in
         type = types.package;
         default = pkgs.vdr;
         defaultText = literalExpression "pkgs.vdr";
-        example = literalExpression "pkgs.wrapVdr.override { plugins = with pkgs.vdrPlugins; [ hello ]; }";
+        example =
+          literalExpression
+            "pkgs.wrapVdr.override { plugins = with pkgs.vdrPlugins; [ hello ]; }";
         description = lib.mdDoc "Package to use.";
       };
 

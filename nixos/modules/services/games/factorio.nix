@@ -45,7 +45,9 @@ let
   serverSettingsFile = pkgs.writeText "server-settings.json" (
     builtins.toJSON (filterAttrsRecursive (n: v: v != null) serverSettings)
   );
-  serverAdminsFile = pkgs.writeText "server-adminlist.json" (builtins.toJSON cfg.admins);
+  serverAdminsFile = pkgs.writeText "server-adminlist.json" (
+    builtins.toJSON cfg.admins
+  );
   modDir = pkgs.factorio-utils.mkModDirDrv cfg.mods cfg.mods-dat;
 in
 {
@@ -280,7 +282,9 @@ in
           "--config=${cfg.configFile}"
           "--port=${toString cfg.port}"
           "--bind=${cfg.bind}"
-          (optionalString (!cfg.loadLatestSave) "--start-server=${mkSavePath cfg.saveName}")
+          (optionalString (!cfg.loadLatestSave)
+            "--start-server=${mkSavePath cfg.saveName}"
+          )
           "--server-settings=${serverSettingsFile}"
           (optionalString cfg.loadLatestSave "--start-server-load-latest")
           (optionalString (cfg.mods != [ ]) "--mod-directory=${modDir}")

@@ -9,12 +9,16 @@ with lib;
 
 let
 
-  configurationPrefix = optionalString (versionAtLeast config.system.stateVersion "22.05") "nixos-";
+  configurationPrefix =
+    optionalString (versionAtLeast config.system.stateVersion "22.05")
+      "nixos-";
   configurationDirectoryName = "${configurationPrefix}containers";
   configurationDirectory = "/etc/${configurationDirectoryName}";
   stateDirectory = "/var/lib/${configurationPrefix}containers";
 
-  nixos-container = pkgs.nixos-container.override { inherit stateDirectory configurationDirectory; };
+  nixos-container = pkgs.nixos-container.override {
+    inherit stateDirectory configurationDirectory;
+  };
 
   # The container's init script, a small wrapper around the regular
   # NixOS stage-2 init script.
@@ -126,7 +130,9 @@ let
       extraFlags+=" --network-bridge=$HOST_BRIDGE"
     fi
 
-    extraFlags+=" ${concatStringsSep " " (mapAttrsToList nspawnExtraVethArgs cfg.extraVeths)}"
+    extraFlags+=" ${
+      concatStringsSep " " (mapAttrsToList nspawnExtraVethArgs cfg.extraVeths)
+    }"
 
     for iface in $INTERFACES; do
       extraFlags+=" --network-interface=$iface"
@@ -173,7 +179,8 @@ let
       --setenv PATH="$PATH" \
       ${optionalString cfg.ephemeral "--ephemeral"} \
       ${
-        optionalString (cfg.additionalCapabilities != null && cfg.additionalCapabilities != [ ])
+        optionalString
+          (cfg.additionalCapabilities != null && cfg.additionalCapabilities != [ ])
           ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
       } \
       ${
@@ -194,7 +201,8 @@ let
     fi
 
     ${concatStringsSep "\n" (
-      mapAttrsToList (name: cfg: "ip link del dev ${name} 2> /dev/null || true ") cfg.extraVeths
+      mapAttrsToList (name: cfg: "ip link del dev ${name} 2> /dev/null || true ")
+        cfg.extraVeths
     )}
   '';
 
@@ -268,7 +276,9 @@ let
 
     Type = "notify";
 
-    RuntimeDirectory = lib.optional cfg.ephemeral "${configurationDirectoryName}/%i";
+    RuntimeDirectory =
+      lib.optional cfg.ephemeral
+        "${configurationDirectoryName}/%i";
 
     # Note that on reboot, systemd-nspawn returns 133, so this
     # unit will be restarted. On poweroff, it returns 0, so the
@@ -315,7 +325,9 @@ let
         isReadOnly = mkOption {
           default = true;
           type = types.bool;
-          description = lib.mdDoc "Determine whether the mounted path will be accessed in read-only mode.";
+          description =
+            lib.mdDoc
+              "Determine whether the mounted path will be accessed in read-only mode.";
         };
       };
 
@@ -350,7 +362,11 @@ let
     d:
     let
       flagPrefix = if d.isReadOnly then " --bind-ro=" else " --bind=";
-      mountstr = if d.hostPath != null then "${d.hostPath}:${d.mountPoint}" else "${d.mountPoint}";
+      mountstr =
+        if d.hostPath != null then
+          "${d.hostPath}:${d.mountPoint}"
+        else
+          "${d.mountPoint}";
     in
     flagPrefix + mountstr;
 
@@ -374,7 +390,9 @@ let
             protocol = mkOption {
               type = types.str;
               default = "tcp";
-              description = lib.mdDoc "The protocol specifier for port forwarding between host and container";
+              description =
+                lib.mdDoc
+                  "The protocol specifier for port forwarding between host and container";
             };
             hostPort = mkOption {
               type = types.int;
@@ -513,7 +531,9 @@ in
                               _file = "module at ${__curPos.file}:${toString __curPos.line}";
                               config = {
                                 nixpkgs =
-                                  if options.nixpkgs ? hostPlatform && host.options.nixpkgs.hostPlatform.isDefined then
+                                  if
+                                    options.nixpkgs ? hostPlatform && host.options.nixpkgs.hostPlatform.isDefined
+                                  then
                                     { inherit (host.config.nixpkgs) hostPlatform; }
                                   else
                                     { inherit (host.config.nixpkgs) localSystem; };
@@ -847,7 +867,10 @@ in
     {
       warnings =
         (optional
-          (config.virtualisation.containers.enable && versionOlder config.system.stateVersion "22.05")
+          (
+            config.virtualisation.containers.enable
+            && versionOlder config.system.stateVersion "22.05"
+          )
           ''
             Enabling both boot.enableContainers & virtualisation.containers on system.stateVersion < 22.05 is unsupported.
           ''
@@ -887,9 +910,14 @@ in
                   script = startScript containerConfig;
                   postStart = postStartScript containerConfig;
                   serviceConfig = serviceDirectives containerConfig;
-                  unitConfig.RequiresMountsFor = lib.optional (!containerConfig.ephemeral) "${stateDirectory}/%i";
+                  unitConfig.RequiresMountsFor =
+                    lib.optional (!containerConfig.ephemeral)
+                      "${stateDirectory}/%i";
                   environment.root =
-                    if containerConfig.ephemeral then "/run/nixos-containers/%i" else "${stateDirectory}/%i";
+                    if containerConfig.ephemeral then
+                      "/run/nixos-containers/%i"
+                    else
+                      "${stateDirectory}/%i";
                 }
                 // (optionalAttrs containerConfig.autoStart {
                   wantedBy = [ "machines.target" ];
@@ -919,7 +947,12 @@ in
             + ":"
             + (toString p.hostPort)
             + ":"
-            + (if p.containerPort == null then toString p.hostPort else toString p.containerPort);
+            + (
+              if p.containerPort == null then
+                toString p.hostPort
+              else
+                toString p.containerPort
+            );
         in
         mapAttrs'
           (
@@ -955,7 +988,9 @@ in
                 ''}
                 EXTRA_NSPAWN_FLAGS="${
                   mkBindFlags cfg.bindMounts
-                  + optionalString (cfg.extraFlags != [ ]) (" " + concatStringsSep " " cfg.extraFlags)
+                  + optionalString (cfg.extraFlags != [ ]) (
+                    " " + concatStringsSep " " cfg.extraFlags
+                  )
                 }"
               '';
             }
@@ -979,10 +1014,12 @@ in
         "vb-*"
       ];
 
-      services.udev.extraRules = optionalString config.networking.networkmanager.enable ''
-        # Don't manage interfaces created by nixos-container.
-        ENV{INTERFACE}=="v[eb]-*", ENV{NM_UNMANAGED}="1"
-      '';
+      services.udev.extraRules =
+        optionalString config.networking.networkmanager.enable
+          ''
+            # Don't manage interfaces created by nixos-container.
+            ENV{INTERFACE}=="v[eb]-*", ENV{NM_UNMANAGED}="1"
+          '';
 
       environment.systemPackages = [ nixos-container ];
 

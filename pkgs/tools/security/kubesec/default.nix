@@ -22,7 +22,9 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/controlplaneio/kubesec/v${lib.versions.major version}/cmd.version=v${version}"
+    "-X github.com/controlplaneio/kubesec/v${
+      lib.versions.major version
+    }/cmd.version=v${version}"
   ];
 
   # Tests wants to download the kubernetes schema for use with kubeval

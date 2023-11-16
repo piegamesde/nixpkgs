@@ -44,7 +44,9 @@ stdenv.mkDerivation {
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm) libunwind;
+  buildInputs =
+    lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm)
+      libunwind;
 
   cmakeFlags =
     lib.optionals (stdenv.hostPlatform.useLLVM or false) [
@@ -81,7 +83,9 @@ stdenv.mkDerivation {
 
   postInstall = ''
     mkdir -p "$dev/include"
-    install -m 644 ../include/${if stdenv.isDarwin then "*" else "cxxabi.h"} "$dev/include"
+    install -m 644 ../include/${
+      if stdenv.isDarwin then "*" else "cxxabi.h"
+    } "$dev/include"
   '';
 
   passthru = {

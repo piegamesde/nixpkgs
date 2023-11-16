@@ -30,7 +30,9 @@ buildGoModule rec {
   # Checks fail because they require network access.
   doCheck = false;
 
-  passthru.tests.version = testers.testVersion { package = woodpecker-plugin-git; };
+  passthru.tests.version = testers.testVersion {
+    package = woodpecker-plugin-git;
+  };
 
   meta = with lib; {
     description = "Woodpecker plugin for cloning Git repositories.";

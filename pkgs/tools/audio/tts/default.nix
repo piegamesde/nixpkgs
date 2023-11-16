@@ -46,7 +46,8 @@ python.pkgs.buildPythonApplication rec {
       sed -r -i \
         ${
           lib.concatStringsSep "\n" (
-            map (package: "-e 's/${package}\\s*[<>=]+.+/${package}/g' \\") relaxedConstraints
+            map (package: "-e 's/${package}\\s*[<>=]+.+/${package}/g' \\")
+              relaxedConstraints
           )
         }
       requirements.txt
@@ -54,7 +55,8 @@ python.pkgs.buildPythonApplication rec {
       sed -r -i \
         ${
           lib.concatStringsSep "\n" (
-            map (package: ''-e 's/${package}\s*[<>=]+[^"]+/${package}/g' \'') relaxedConstraints
+            map (package: ''-e 's/${package}\s*[<>=]+[^"]+/${package}/g' \'')
+              relaxedConstraints
           )
         }
       pyproject.toml

@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
         hash = "sha256-HJu1lRa3zOTohsPMe23puHxg1VMWNR2aOjDQJqc4TqE=";
       };
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   nativeBuildInputs = [
     autoPatchelfHook

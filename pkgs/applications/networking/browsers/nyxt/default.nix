@@ -50,7 +50,9 @@ stdenv.mkDerivation rec {
     enchant
   ] ++ gstBuildInputs;
 
-  GST_PLUGIN_SYSTEM_PATH_1_0 = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" gstBuildInputs;
+  GST_PLUGIN_SYSTEM_PATH_1_0 =
+    lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0"
+      gstBuildInputs;
 
   # The executable is already built in sbclPackages.nyxt, buildPhase tries to build using the makefile which we ignore
   dontBuild = true;

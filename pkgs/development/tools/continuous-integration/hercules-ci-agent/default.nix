@@ -35,7 +35,11 @@ let
           }
         '';
       })
-      (addBuildTools [ makeBinaryWrapper ] (justStaticExecutables haskellPackages.hercules-ci-agent));
+      (
+        addBuildTools [ makeBinaryWrapper ] (
+          justStaticExecutables haskellPackages.hercules-ci-agent
+        )
+      );
 in
 pkg.overrideAttrs (
   finalAttrs: o: {

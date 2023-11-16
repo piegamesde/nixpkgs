@@ -28,7 +28,9 @@ rustPlatform.buildRustPackage rec {
     asciidoctor
     installShellFiles
   ] ++ lib.optional withPCRE2 pkg-config;
-  buildInputs = lib.optional withPCRE2 pcre2 ++ lib.optional stdenv.isDarwin Security;
+  buildInputs =
+    lib.optional withPCRE2 pcre2
+    ++ lib.optional stdenv.isDarwin Security;
 
   buildFeatures = lib.optional withPCRE2 "pcre2";
 

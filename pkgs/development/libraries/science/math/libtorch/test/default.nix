@@ -39,7 +39,9 @@ stdenv.mkDerivation {
 
   buildInputs = [ libtorch-bin ] ++ lib.optionals cudaSupport [ cudnn ];
 
-  cmakeFlags = lib.optionals cudaSupport [ "-DCUDA_TOOLKIT_ROOT_DIR=${cudatoolkit_joined}" ];
+  cmakeFlags = lib.optionals cudaSupport [
+    "-DCUDA_TOOLKIT_ROOT_DIR=${cudatoolkit_joined}"
+  ];
 
   doCheck = true;
 

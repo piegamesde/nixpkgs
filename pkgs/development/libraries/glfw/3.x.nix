@@ -77,7 +77,9 @@ stdenv.mkDerivation rec {
 
   postPatch = lib.optionalString waylandSupport ''
     substituteInPlace src/wl_init.c \
-      --replace "libxkbcommon.so.0" "${lib.getLib libxkbcommon}/lib/libxkbcommon.so.0"
+      --replace "libxkbcommon.so.0" "${
+        lib.getLib libxkbcommon
+      }/lib/libxkbcommon.so.0"
   '';
 
   meta = with lib; {

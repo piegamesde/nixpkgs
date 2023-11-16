@@ -20,7 +20,9 @@ let
           default = false;
         };
         members = lib.mkOption {
-          type = types.listOf (types.submodule (import ./maintainer-module.nix { inherit lib; }));
+          type = types.listOf (
+            types.submodule (import ./maintainer-module.nix { inherit lib; })
+          );
           default = [ ];
         };
         githubTeams = lib.mkOption {

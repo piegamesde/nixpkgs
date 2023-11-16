@@ -35,7 +35,8 @@
   pythonVersion,
   hash,
   passthruFun,
-  pythonAttr ? "pypy${lib.substring 0 1 pythonVersion}${lib.substring 2 3 pythonVersion}",
+  pythonAttr ?
+    "pypy${lib.substring 0 1 pythonVersion}${lib.substring 2 3 pythonVersion}",
 }:
 
 assert zlibSupport -> zlib != null;
@@ -54,9 +55,14 @@ let
     implementation = "pypy";
     libPrefix = "pypy${pythonVersion}";
     executable = "pypy${
-        if isPy39OrNewer then lib.versions.majorMinor pythonVersion else lib.optionalString isPy3k "3"
+        if isPy39OrNewer then
+          lib.versions.majorMinor pythonVersion
+        else
+          lib.optionalString isPy3k "3"
       }";
-    sitePackages = "${lib.optionalString isPy38OrNewer "lib/${libPrefix}/"}site-packages";
+    sitePackages = "${
+        lib.optionalString isPy38OrNewer "lib/${libPrefix}/"
+      }site-packages";
     hasDistutilsCxxPatch = false;
     inherit pythonAttr;
 
@@ -135,7 +141,9 @@ stdenv.mkDerivation rec {
     substituteInPlace lib_pypy/pypy_tools/build_cffi_imports.py \
       --replace "multiprocessing.cpu_count()" "$NIX_BUILD_CORES"
 
-    substituteInPlace "lib-python/${if isPy3k then "3/tkinter/tix.py" else "2.7/lib-tk/Tix.py"}" \
+    substituteInPlace "lib-python/${
+      if isPy3k then "3/tkinter/tix.py" else "2.7/lib-tk/Tix.py"
+    }" \
       --replace "os.environ.get('TIX_LIBRARY')" "os.environ.get('TIX_LIBRARY') or '${tix}/lib'"
   '';
 
@@ -158,11 +166,14 @@ stdenv.mkDerivation rec {
     cp -R {include,lib_pypy,lib-python,${executable}-c} $out/${executable}-c
     cp lib${executable}-c${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/
     ln -s $out/${executable}-c/${executable}-c $out/bin/${executable}
-    ${lib.optionalString isPy39OrNewer "ln -s $out/bin/${executable} $out/bin/pypy3"}
+    ${lib.optionalString isPy39OrNewer
+      "ln -s $out/bin/${executable} $out/bin/pypy3"}
 
     # other packages expect to find stuff according to libPrefix
     ln -s $out/${executable}-c/include $out/include/${libPrefix}
-    ln -s $out/${executable}-c/lib-python/${if isPy3k then "3" else pythonVersion} $out/lib/${libPrefix}
+    ln -s $out/${executable}-c/lib-python/${
+      if isPy3k then "3" else pythonVersion
+    } $out/lib/${libPrefix}
 
     # Include a sitecustomize.py file
     cp ${../sitecustomize.py} $out/${

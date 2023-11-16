@@ -22,7 +22,9 @@ python3.pkgs.buildPythonApplication rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ installShellFiles ] ++ (with python3.pkgs; [ setuptools-scm ]);
+  nativeBuildInputs = [
+    installShellFiles
+  ] ++ (with python3.pkgs; [ setuptools-scm ]);
 
   propagatedBuildInputs = with python3.pkgs; [
     atomicwrites
@@ -52,7 +54,9 @@ python3.pkgs.buildPythonApplication rec {
 
   postInstall = ''
     installShellCompletion --bash contrib/completion/bash/_todo
-    substituteInPlace contrib/completion/zsh/_todo --replace "jq " "${lib.getExe jq} "
+    substituteInPlace contrib/completion/zsh/_todo --replace "jq " "${
+      lib.getExe jq
+    } "
     installShellCompletion --zsh contrib/completion/zsh/_todo
   '';
 

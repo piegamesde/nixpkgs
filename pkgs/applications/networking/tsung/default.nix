@@ -39,7 +39,9 @@ stdenv.mkDerivation rec {
     # Add Template Toolkit and gnuplot to tsung_stats.pl
     wrapProgram $out/bin/tsung_stats.pl \
         --prefix PATH : ${lib.makeBinPath [ gnuplot ]} \
-        --set PERL5LIB "${perlPackages.makePerlPath [ perlPackages.TemplateToolkit ]}"
+        --set PERL5LIB "${
+          perlPackages.makePerlPath [ perlPackages.TemplateToolkit ]
+        }"
   '';
 
   meta = with lib; {

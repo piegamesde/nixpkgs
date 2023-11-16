@@ -160,7 +160,9 @@ mkDerivation rec {
         enblend-enfuse
       ]
     })
-    qtWrapperArgs+=(--suffix DK_PLUGIN_PATH : ${placeholder "out"}/${qtbase.qtPluginPrefix}/${pname})
+    qtWrapperArgs+=(--suffix DK_PLUGIN_PATH : ${
+      placeholder "out"
+    }/${qtbase.qtPluginPrefix}/${pname})
     substituteInPlace $out/bin/digitaglinktree \
       --replace "/usr/bin/perl" "${perl}/bin/perl" \
       --replace "/usr/bin/sqlite3" "${sqlite}/bin/sqlite3"

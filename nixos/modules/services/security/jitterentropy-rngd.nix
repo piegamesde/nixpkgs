@@ -9,7 +9,9 @@ let
 in
 {
   options.services.jitterentropy-rngd = {
-    enable = lib.mkEnableOption (lib.mdDoc "jitterentropy-rngd service configuration");
+    enable = lib.mkEnableOption (
+      lib.mdDoc "jitterentropy-rngd service configuration"
+    );
     package = lib.mkPackageOptionMD pkgs "jitterentropy-rngd" { };
   };
 

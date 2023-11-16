@@ -24,7 +24,10 @@ let
     key.path = "${cfg.dataDir}/signing.key";
     storage = {
       provider.sqlite.database =
-        if isMa1sd cfg.package then "${cfg.dataDir}/ma1sd.db" else "${cfg.dataDir}/mxisd.db";
+        if isMa1sd cfg.package then
+          "${cfg.dataDir}/ma1sd.db"
+        else
+          "${cfg.dataDir}/mxisd.db";
     };
   } // optionalAttrs (server != { }) { inherit server; };
 
@@ -67,7 +70,9 @@ in
       extraConfig = mkOption {
         type = types.attrs;
         default = { };
-        description = lib.mdDoc "Extra options merged into the mxisd/ma1sd configuration";
+        description =
+          lib.mdDoc
+            "Extra options merged into the mxisd/ma1sd configuration";
       };
 
       matrix = {

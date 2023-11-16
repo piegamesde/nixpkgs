@@ -54,7 +54,9 @@ buildGoModule rec {
       --bash <($out/bin/olaris-server completion bash) \
       --fish <($out/bin/olaris-server completion fish) \
       --zsh <($out/bin/olaris-server completion zsh)
-      wrapProgram $out/bin/olaris-server --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+      wrapProgram $out/bin/olaris-server --prefix PATH : ${
+        lib.makeBinPath [ ffmpeg ]
+      }
   '';
 
   meta = with lib; {

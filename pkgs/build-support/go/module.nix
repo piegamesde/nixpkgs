@@ -23,7 +23,8 @@
   #
   # if vendorHash is null, then we won't fetch any dependencies and
   # rely on the vendor folder within the source.
-  vendorHash ? args'.vendorSha256 or (throw "buildGoModule: vendorHash is missing"),
+  vendorHash ? args'.vendorSha256
+    or (throw "buildGoModule: vendorHash is missing"),
   # Whether to delete the vendor folder supplied with the source.
   deleteVendor ? false,
   # Whether to fetch (go mod download) and proxy the vendor directory.
@@ -54,7 +55,8 @@
   ...
 }@args':
 
-assert goPackagePath != "" -> throw "`goPackagePath` is not needed with `buildGoModule`";
+assert goPackagePath != ""
+  -> throw "`goPackagePath` is not needed with `buildGoModule`";
 assert (args' ? vendorHash && args' ? vendorSha256)
   -> throw "both `vendorHash` and `vendorSha256` set. only one can be set.";
 
@@ -176,7 +178,8 @@ let
 
         outputHashMode = "recursive";
         outputHash = vendorHash;
-        outputHashAlgo = if args' ? vendorSha256 || vendorHash == "" then "sha256" else null;
+        outputHashAlgo =
+          if args' ? vendorSha256 || vendorHash == "" then "sha256" else null;
       }).overrideAttrs
         overrideModAttrs;
 
@@ -347,7 +350,14 @@ let
 
       disallowedReferences = lib.optional (!allowGoReference) go;
 
-      passthru = passthru // { inherit go goModules vendorHash; } // { inherit (args') vendorSha256; };
+      passthru =
+        passthru
+        // {
+          inherit go goModules vendorHash;
+        }
+        // {
+          inherit (args') vendorSha256;
+        };
 
       meta = {
         # Add default meta information
@@ -356,7 +366,8 @@ let
     }
   );
 in
-lib.warnIf (args' ? vendorSha256) "`vendorSha256` is deprecated. Use `vendorHash` instead"
+lib.warnIf (args' ? vendorSha256)
+  "`vendorSha256` is deprecated. Use `vendorHash` instead"
   lib.warnIf
   (buildFlags != "" || buildFlagsArray != "")
   "Use the `ldflags` and/or `tags` attributes instead of `buildFlags`/`buildFlagsArray`"

@@ -38,7 +38,9 @@ stdenv.mkDerivation (
 
     postPatch = ''
       substituteInPlace "subprojects/libdisplay-info/tool/gen-search-table.py" \
-        --replace "/usr/bin/env python3" "${lib.getBin pkgsBuildHost.python3}/bin/python3"
+        --replace "/usr/bin/env python3" "${
+          lib.getBin pkgsBuildHost.python3
+        }/bin/python3"
     '';
 
     nativeBuildInputs = [

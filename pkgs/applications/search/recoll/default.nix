@@ -156,7 +156,9 @@ mkDerivation rec {
         filters
     )
     + ''
-          substituteInPlace $f --replace '"pstotext"'  '"${lib.getBin ghostscript}/bin/ps2ascii"'
+          substituteInPlace $f --replace '"pstotext"'  '"${
+            lib.getBin ghostscript
+          }/bin/ps2ascii"'
           substituteInPlace $f --replace /usr/bin/perl   ${
             lib.getBin (perl.passthru.withPackages (p: [ p.ImageExifTool ]))
           }/bin/perl

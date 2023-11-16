@@ -45,7 +45,9 @@ kaem.runCommand "${pname}-${version}"
 
     # libc.c
     catm ''${TMPDIR}/first.c ${lib.concatStringsSep " " firstLibc}
-    catm ''${out}/lib/libc.c ''${TMPDIR}/first.c ${lib.concatStringsSep " " lastLibc}
+    catm ''${out}/lib/libc.c ''${TMPDIR}/first.c ${
+      lib.concatStringsSep " " lastLibc
+    }
 
     # crt{1,n,i}.c
     cp lib/linux/x86-mes-gcc/crt1.c ''${out}/lib

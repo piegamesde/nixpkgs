@@ -22,7 +22,8 @@ let
   # Find the hpack derivation that is a dependency of stack.  Throw exception
   # if hpack cannot be found.
   hpack =
-    lib.findFirst (v: v.pname or "" == "hpack") (throw "could not find stack's hpack dependency")
+    lib.findFirst (v: v.pname or "" == "hpack")
+      (throw "could not find stack's hpack dependency")
       stack.passthru.getCabalDeps.executableHaskellDepends;
 
   # This is a statically linked version of stack, so it should be usable within

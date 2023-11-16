@@ -22,7 +22,8 @@ let
         "adoptopenjdk-${sourcePerArch.vmType}-bin"
       else
         "adoptopenjdk-${sourcePerArch.packageType}-${sourcePerArch.vmType}-bin";
-    version = sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
+    version =
+      sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
 
     src = fetchurl { inherit (sourcePerArch.${cpuName}) url sha256; };
 

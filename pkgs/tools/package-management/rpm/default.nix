@@ -49,22 +49,25 @@ stdenv.mkDerivation rec {
     pkg-config
     pandoc
   ];
-  buildInputs = [
-    cpio
-    zlib
-    zstd
-    bzip2
-    file
-    libarchive
-    libgcrypt
-    nspr
-    nss
-    db
-    xz
-    python
-    lua
-    sqlite
-  ] ++ lib.optional stdenv.cc.isClang llvmPackages.openmp ++ lib.optional stdenv.isLinux libcap;
+  buildInputs =
+    [
+      cpio
+      zlib
+      zstd
+      bzip2
+      file
+      libarchive
+      libgcrypt
+      nspr
+      nss
+      db
+      xz
+      python
+      lua
+      sqlite
+    ]
+    ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
+    ++ lib.optional stdenv.isLinux libcap;
 
   # rpm/rpmlib.h includes popt.h, and then the pkg-config file mentions these as linkage requirements
   propagatedBuildInputs = [

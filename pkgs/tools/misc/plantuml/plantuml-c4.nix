@@ -39,13 +39,17 @@ let
         c4-lib
         sprites
       ];
-      includeFlag = "-Dplantuml.include.path=${lib.escapeShellArg plantumlIncludePath}";
-      postFixedJre = runCommand "jre-postfixed" { nativeBuildInputs = [ makeWrapper ]; } ''
-        mkdir -p $out/bin
+      includeFlag = "-Dplantuml.include.path=${
+          lib.escapeShellArg plantumlIncludePath
+        }";
+      postFixedJre =
+        runCommand "jre-postfixed" { nativeBuildInputs = [ makeWrapper ]; }
+          ''
+            mkdir -p $out/bin
 
-        makeWrapper ${jre}/bin/java $out/bin/java \
-          --add-flags ${lib.escapeShellArg includeFlag}
-      '';
+            makeWrapper ${jre}/bin/java $out/bin/java \
+              --add-flags ${lib.escapeShellArg includeFlag}
+          '';
     in
     plantuml.override { jre = postFixedJre; };
 in

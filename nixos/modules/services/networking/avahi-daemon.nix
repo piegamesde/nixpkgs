@@ -27,10 +27,12 @@ let
       use-ipv6=${yesNo ipv6}
       ${optionalString (allowInterfaces != null)
         "allow-interfaces=${concatStringsSep "," allowInterfaces}"}
-      ${optionalString (denyInterfaces != null) "deny-interfaces=${concatStringsSep "," denyInterfaces}"}
+      ${optionalString (denyInterfaces != null)
+        "deny-interfaces=${concatStringsSep "," denyInterfaces}"}
       ${optionalString (domainName != null) "domain-name=${domainName}"}
       allow-point-to-point=${yesNo allowPointToPoint}
-      ${optionalString (cacheEntriesMax != null) "cache-entries-max=${toString cacheEntriesMax}"}
+      ${optionalString (cacheEntriesMax != null)
+        "cache-entries-max=${toString cacheEntriesMax}"}
 
       [wide-area]
       enable-wide-area=${yesNo wideArea}
@@ -177,7 +179,9 @@ in
     reflector = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc "Reflect incoming mDNS requests to all allowed network interfaces.";
+      description =
+        lib.mdDoc
+          "Reflect incoming mDNS requests to all allowed network interfaces.";
     };
 
     extraServiceFiles = mkOption {
@@ -215,13 +219,17 @@ in
       userServices = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to publish user services. Will set `addresses=true`.";
+        description =
+          lib.mdDoc
+            "Whether to publish user services. Will set `addresses=true`.";
       };
 
       addresses = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to register mDNS address records for all local IP addresses.";
+        description =
+          lib.mdDoc
+            "Whether to register mDNS address records for all local IP addresses.";
       };
 
       hinfo = mkOption {

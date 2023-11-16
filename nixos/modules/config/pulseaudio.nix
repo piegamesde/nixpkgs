@@ -21,7 +21,9 @@ let
     in
     z.publish.enable || z.discovery.enable;
 
-  overriddenPackage = cfg.package.override (optionalAttrs hasZeroconf { zeroconfSupport = true; });
+  overriddenPackage = cfg.package.override (
+    optionalAttrs hasZeroconf { zeroconfSupport = true; }
+  );
   binary = "${getBin overriddenPackage}/bin/pulseaudio";
   binaryNoDaemon = "${binary} --daemonize=no";
 
@@ -30,7 +32,9 @@ let
   enable32BitAlsaPlugins =
     cfg.support32Bit
     && stdenv.isx86_64
-    && (pkgs.pkgsi686Linux.alsa-lib != null && pkgs.pkgsi686Linux.libpulseaudio != null);
+    && (
+      pkgs.pkgsi686Linux.alsa-lib != null && pkgs.pkgsi686Linux.libpulseaudio != null
+    );
 
   myConfigFile =
     let
@@ -165,7 +169,11 @@ in
 
       package = mkOption {
         type = types.package;
-        default = if config.services.jack.jackd.enable then pkgs.pulseaudioFull else pkgs.pulseaudio;
+        default =
+          if config.services.jack.jackd.enable then
+            pkgs.pulseaudioFull
+          else
+            pkgs.pulseaudio;
         defaultText = literalExpression "pkgs.pulseaudio";
         example = literalExpression "pkgs.pulseaudioFull";
         description = lib.mdDoc ''
@@ -200,14 +208,20 @@ in
         config = mkOption {
           type = types.attrsOf types.unspecified;
           default = { };
-          description = lib.mdDoc "Config of the pulse daemon. See `man pulse-daemon.conf`.";
+          description =
+            lib.mdDoc
+              "Config of the pulse daemon. See `man pulse-daemon.conf`.";
           example = literalExpression ''{ realtime-scheduling = "yes"; }'';
         };
       };
 
       zeroconf = {
-        discovery.enable = mkEnableOption (lib.mdDoc "discovery of pulseaudio sinks in the local network");
-        publish.enable = mkEnableOption (lib.mdDoc "publishing the pulseaudio sink in the local network");
+        discovery.enable = mkEnableOption (
+          lib.mdDoc "discovery of pulseaudio sinks in the local network"
+        );
+        publish.enable = mkEnableOption (
+          lib.mdDoc "publishing the pulseaudio sink in the local network"
+        );
       };
 
       # TODO: enable by default?
@@ -215,7 +229,9 @@ in
         enable = mkEnableOption (lib.mdDoc "tcp streaming support");
 
         anonymousClients = {
-          allowAll = mkEnableOption (lib.mdDoc "all anonymous clients to stream to the server");
+          allowAll = mkEnableOption (
+            lib.mdDoc "all anonymous clients to stream to the server"
+          );
           allowedIpRanges = mkOption {
             type = types.listOf types.str;
             default = [ ];
@@ -235,7 +251,9 @@ in
         "pulse/client.conf".source = clientConf;
       };
 
-      hardware.pulseaudio.configFile = mkDefault "${getBin overriddenPackage}/etc/pulse/default.pa";
+      hardware.pulseaudio.configFile =
+        mkDefault
+          "${getBin overriddenPackage}/etc/pulse/default.pa";
     }
 
     (mkIf cfg.enable {

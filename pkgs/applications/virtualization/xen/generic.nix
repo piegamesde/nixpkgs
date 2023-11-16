@@ -338,14 +338,18 @@ stdenv.mkDerivation (
       homepage = "http://www.xen.org/";
       description =
         "Xen hypervisor and related components"
-        + optionalString (args ? meta && args.meta ? description) " (${args.meta.description})";
+        +
+          optionalString (args ? meta && args.meta ? description)
+            " (${args.meta.description})";
       longDescription =
         (args.meta.longDescription or "")
         + ''
 
           Includes:
         ''
-        + withXenfiles (name: x: "* ${name}: ${x.meta.description or "(No description)"}.");
+        + withXenfiles (
+          name: x: "* ${name}: ${x.meta.description or "(No description)"}."
+        );
       platforms = [ "x86_64-linux" ];
       maintainers = [ ];
       license = lib.licenses.gpl2;

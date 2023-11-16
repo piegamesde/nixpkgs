@@ -92,7 +92,9 @@ buildPythonPackage rec {
   # prefer pkg-config over hardcoded framework paths
   USE_OSX_FRAMEWORKS = 0;
   # work around python distutils compiling C++ with $CC (see issue #26709)
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin
+      "-I${lib.getDev libcxx}/include/c++/v1";
 
   postPatch = lib.optionalString stdenv.isLinux ''
     substituteInPlace kivy/lib/mtdev.py \

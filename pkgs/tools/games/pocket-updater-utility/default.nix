@@ -31,7 +31,9 @@ buildDotnetModule rec {
   patches = [ ./add-runtime-identifier.patch ];
   postPatch = ''
     substituteInPlace pocket_updater.csproj \
-      --replace @RuntimeIdentifier@ "${dotnetCorePackages.systemToDotnetRid targetPlatform.system}"
+      --replace @RuntimeIdentifier@ "${
+        dotnetCorePackages.systemToDotnetRid targetPlatform.system
+      }"
   '';
 
   projectFile = "pocket_updater.csproj";
@@ -43,7 +45,9 @@ buildDotnetModule rec {
   executables = [ "pocket_updater" ];
 
   dotnetFlags = [
-    "-p:PackageRuntime=${dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system}"
+    "-p:PackageRuntime=${
+      dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system
+    }"
   ];
 
   dotnet-sdk = dotnetCorePackages.sdk_6_0;

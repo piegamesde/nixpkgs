@@ -36,7 +36,9 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   dontAddWafCrossFlags = true;
-  wafFlags = lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "--disable-tests";
+  wafFlags =
+    lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
+      "--disable-tests";
 
   postPatch = ''
     # U was removed in python 3.11 because it had no effect

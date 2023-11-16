@@ -44,7 +44,8 @@ let
       "s390x" = "s390x";
       "x86_64" = "amd64";
     }
-    .${platform.parsed.cpu.name} or (throw "Unsupported system: ${platform.parsed.cpu.name}");
+    .${platform.parsed.cpu.name}
+      or (throw "Unsupported system: ${platform.parsed.cpu.name}");
 
   # We need a target compiler which is still runnable at build time,
   # to handle the cross-building case where build != host == target
@@ -66,7 +67,9 @@ stdenv.mkDerivation (
     buildInputs =
       [ ]
       ++ lib.optionals stdenv.isLinux [ stdenv.cc.libc.out ]
-      ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [ stdenv.cc.libc.static ];
+      ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [
+        stdenv.cc.libc.static
+      ];
 
     depsTargetTargetPropagated = lib.optionals stdenv.targetPlatform.isDarwin [
       Foundation
@@ -76,7 +79,9 @@ stdenv.mkDerivation (
 
     depsBuildTarget = lib.optional isCross targetCC;
 
-    depsTargetTarget = lib.optional stdenv.targetPlatform.isWindows threadsCross.package;
+    depsTargetTarget =
+      lib.optional stdenv.targetPlatform.isWindows
+        threadsCross.package;
 
     postPatch = ''
       patchShebangs .
@@ -113,8 +118,10 @@ stdenv.mkDerivation (
 
     # {CC,CXX}_FOR_TARGET must be only set for cross compilation case as go expect those
     # to be different from CC/CXX
-    CC_FOR_TARGET = if isCross then "${targetCC}/bin/${targetCC.targetPrefix}cc" else null;
-    CXX_FOR_TARGET = if isCross then "${targetCC}/bin/${targetCC.targetPrefix}c++" else null;
+    CC_FOR_TARGET =
+      if isCross then "${targetCC}/bin/${targetCC.targetPrefix}cc" else null;
+    CXX_FOR_TARGET =
+      if isCross then "${targetCC}/bin/${targetCC.targetPrefix}c++" else null;
 
     GOARM = toString (
       lib.intersectLists [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [
@@ -126,7 +133,8 @@ stdenv.mkDerivation (
     GO386 = "softfloat"; # from Arch: don't assume sse2 on i686
     CGO_ENABLED = 1;
 
-    GOROOT_BOOTSTRAP = if useGccGoBootstrap then goBootstrap else "${goBootstrap}/share/go";
+    GOROOT_BOOTSTRAP =
+      if useGccGoBootstrap then goBootstrap else "${goBootstrap}/share/go";
 
     buildPhase = ''
       runHook preBuild
@@ -161,20 +169,31 @@ stdenv.mkDerivation (
             mv bin/*_*/* bin
             rmdir bin/*_*
             ${lib.optionalString
-              (!(finalAttrs.GOHOSTARCH == finalAttrs.GOARCH && finalAttrs.GOOS == finalAttrs.GOHOSTOS))
+              (
+                !(
+                  finalAttrs.GOHOSTARCH == finalAttrs.GOARCH
+                  && finalAttrs.GOOS == finalAttrs.GOHOSTOS
+                )
+              )
               ''
                 rm -rf pkg/${finalAttrs.GOHOSTOS}_${finalAttrs.GOHOSTARCH} pkg/tool/${finalAttrs.GOHOSTOS}_${finalAttrs.GOHOSTARCH}
               ''}
           ''
         else
-          lib.optionalString (stdenv.hostPlatform.system != stdenv.targetPlatform.system) ''
-            rm -rf bin/*_*
-            ${lib.optionalString
-              (!(finalAttrs.GOHOSTARCH == finalAttrs.GOARCH && finalAttrs.GOOS == finalAttrs.GOHOSTOS))
-              ''
-                rm -rf pkg/${finalAttrs.GOOS}_${finalAttrs.GOARCH} pkg/tool/${finalAttrs.GOOS}_${finalAttrs.GOARCH}
-              ''}
-          ''
+          lib.optionalString (stdenv.hostPlatform.system != stdenv.targetPlatform.system)
+            ''
+              rm -rf bin/*_*
+              ${lib.optionalString
+                (
+                  !(
+                    finalAttrs.GOHOSTARCH == finalAttrs.GOARCH
+                    && finalAttrs.GOOS == finalAttrs.GOHOSTOS
+                  )
+                )
+                ''
+                  rm -rf pkg/${finalAttrs.GOOS}_${finalAttrs.GOARCH} pkg/tool/${finalAttrs.GOOS}_${finalAttrs.GOARCH}
+                ''}
+            ''
       );
 
     installPhase = ''
@@ -201,7 +220,9 @@ stdenv.mkDerivation (
     };
 
     meta = with lib; {
-      changelog = "https://go.dev/doc/devel/release#go${lib.versions.majorMinor finalAttrs.version}";
+      changelog = "https://go.dev/doc/devel/release#go${
+          lib.versions.majorMinor finalAttrs.version
+        }";
       description = "The Go Programming language";
       homepage = "https://go.dev/";
       license = licenses.bsd3;

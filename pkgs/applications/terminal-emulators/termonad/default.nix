@@ -7,7 +7,9 @@
 }:
 
 let
-  termonadEnv = haskellPackages.ghcWithPackages (self: [ self.termonad ] ++ packages self);
+  termonadEnv = haskellPackages.ghcWithPackages (
+    self: [ self.termonad ] ++ packages self
+  );
 in
 stdenv.mkDerivation {
   pname = "termonad-with-packages";

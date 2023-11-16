@@ -23,7 +23,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoBuildFlags = [ "--features=cli" ];
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+  nativeBuildInputs = [
+    pkg-config
+  ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
 
   buildInputs = [
     libusb1

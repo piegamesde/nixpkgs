@@ -32,7 +32,9 @@ stdenv.mkDerivation (
     ];
 
     postFixup = ''
-      patchelf --set-rpath ${lib.makeLibraryPath finalAttrs.buildInputs} "$out/bin/atari++"
+      patchelf --set-rpath ${
+        lib.makeLibraryPath finalAttrs.buildInputs
+      } "$out/bin/atari++"
     '';
 
     meta = with lib; {

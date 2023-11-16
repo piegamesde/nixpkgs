@@ -25,7 +25,9 @@ import ../../make-test-python.nix (
 
       systemd.tmpfiles.rules =
         let
-          dashboard = pkgs.writeText "test.json" (builtins.readFile ./test_dashboard.json);
+          dashboard = pkgs.writeText "test.json" (
+            builtins.readFile ./test_dashboard.json
+          );
         in
         [
           "d /var/lib/grafana/dashboards 0700 grafana grafana -"

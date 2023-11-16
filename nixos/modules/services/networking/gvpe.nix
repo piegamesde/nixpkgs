@@ -21,7 +21,8 @@ let
         text = cfg.configText;
       }
     else
-      throw "You must either specify contents of the config file or the config file itself for GVPE";
+      throw
+        "You must either specify contents of the config file or the config file itself for GVPE";
 
   ifupScript =
     if cfg.ipAddress == null || cfg.subnet == null then

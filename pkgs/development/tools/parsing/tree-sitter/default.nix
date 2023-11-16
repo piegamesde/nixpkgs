@@ -57,7 +57,9 @@ let
     + (lib.concatStrings (
       lib.mapAttrsToList
         (name: grammar: ''
-          ln -s ${if grammar ? src then grammar.src else fetchGrammar grammar} $out/${name}
+          ln -s ${
+            if grammar ? src then grammar.src else fetchGrammar grammar
+          } $out/${name}
         '')
         (import ./grammars { inherit lib; })
     ))
@@ -151,7 +153,9 @@ let
           {
             name =
               (lib.strings.replaceStrings [ "-" ] [ "_" ] (
-                lib.strings.removePrefix "tree-sitter-" (lib.strings.removeSuffix "-grammar" name)
+                lib.strings.removePrefix "tree-sitter-" (
+                  lib.strings.removeSuffix "-grammar" name
+                )
               ))
               + ".so";
             path = "${drv}/parser";

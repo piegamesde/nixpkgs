@@ -61,7 +61,8 @@ stdenv.mkDerivation rec {
       "export DYLD_LIBRARY_PATH=$(pwd)/src/"
     else
       "export LD_LIBRARY_PATH=$(pwd)/src/"}
-    ${lib.optionalString enablePython "sed -i -e 's|^#!.*|#!${stdenv.shell}|' python/py.test.sh"}
+    ${lib.optionalString enablePython
+      "sed -i -e 's|^#!.*|#!${stdenv.shell}|' python/py.test.sh"}
   '';
 
   cmakeFlags =

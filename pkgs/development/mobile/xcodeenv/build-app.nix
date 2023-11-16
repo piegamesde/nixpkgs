@@ -34,7 +34,8 @@ assert release
     && provisioningProfile != null
     && signMethod != null
     && codeSignIdentity != null;
-assert enableWirelessDistribution -> installURL != null && bundleId != null && appVersion != null;
+assert enableWirelessDistribution
+  -> installURL != null && bundleId != null && appVersion != null;
 
 let
   # Set some default values here
@@ -42,7 +43,10 @@ let
   _target = if target == null then name else target;
 
   _configuration =
-    if configuration == null then if release then "Release" else "Debug" else configuration;
+    if configuration == null then
+      if release then "Release" else "Debug"
+    else
+      configuration;
 
   _sdk =
     if sdk == null then
@@ -123,7 +127,8 @@ stdenv.mkDerivation (
       xcodebuild -target ${_target} -configuration ${_configuration} ${
         lib.optionalString (scheme != null) "-scheme ${scheme}"
       } -sdk ${_sdk} TARGETED_DEVICE_FAMILY="1, 2" ONLY_ACTIVE_ARCH=NO CONFIGURATION_TEMP_DIR=$TMPDIR CONFIGURATION_BUILD_DIR=$out ${
-        lib.optionalString (generateIPA || generateXCArchive) ''-archivePath "${name}.xcarchive" archive''
+        lib.optionalString (generateIPA || generateXCArchive)
+          ''-archivePath "${name}.xcarchive" archive''
       } ${
         lib.optionalString release
           ''

@@ -45,7 +45,9 @@ in
 
     enable = mkEnableOption (lib.mdDoc "elasticsearch curator");
     interval = mkOption {
-      description = lib.mdDoc "The frequency to run curator, a systemd.time such as 'hourly'";
+      description =
+        lib.mdDoc
+          "The frequency to run curator, a systemd.time such as 'hourly'";
       default = "hourly";
       type = types.str;
     };
@@ -95,7 +97,8 @@ in
       startAt = cfg.interval;
       serviceConfig = {
         ExecStart =
-          "${pkgs.elasticsearch-curator}/bin/curator" + " --config ${curatorConfig} ${curatorAction}";
+          "${pkgs.elasticsearch-curator}/bin/curator"
+          + " --config ${curatorConfig} ${curatorAction}";
       };
     };
   };

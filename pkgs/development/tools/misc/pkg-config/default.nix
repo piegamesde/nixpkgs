@@ -57,7 +57,9 @@ stdenv.mkDerivation rec {
     ];
 
   # Silence "incompatible integer to pointer conversion passing 'gsize'" when building with Clang.
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-int-conversion";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.cc.isClang
+      "-Wno-int-conversion";
 
   enableParallelBuilding = true;
   doCheck = true;

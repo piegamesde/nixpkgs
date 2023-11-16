@@ -73,10 +73,13 @@ stdenv.mkDerivation (
         "-DINSTALL_LIB=${mkFlag installLib}"
       ];
 
-    nativeBuildInputs = [
-      pkg-config
-      cmake
-    ] ++ lib.optionals enableGTK3 [ wrapGAppsHook ] ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ];
+    nativeBuildInputs =
+      [
+        pkg-config
+        cmake
+      ]
+      ++ lib.optionals enableGTK3 [ wrapGAppsHook ]
+      ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ];
 
     buildInputs =
       [

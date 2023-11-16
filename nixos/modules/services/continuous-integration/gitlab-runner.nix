@@ -17,7 +17,9 @@ let
   genRunnerName =
     name: service:
     let
-      hash = substring 0 12 (hashString "md5" (unsafeDiscardStringContext (toJSON service)));
+      hash = substring 0 12 (
+        hashString "md5" (unsafeDiscardStringContext (toJSON service))
+      );
     in
     if service ? description && service.description != null then
       "${hash} ${service.description}"
@@ -115,10 +117,18 @@ let
                         ++ service.registrationFlags
                         ++ optional (service.buildsDir != null) "--builds-dir ${service.buildsDir}"
                         ++ optional (service.cloneUrl != null) "--clone-url ${service.cloneUrl}"
-                        ++ optional (service.preCloneScript != null) "--pre-clone-script ${service.preCloneScript}"
-                        ++ optional (service.preBuildScript != null) "--pre-build-script ${service.preBuildScript}"
-                        ++ optional (service.postBuildScript != null) "--post-build-script ${service.postBuildScript}"
-                        ++ optional (service.tagList != [ ]) "--tag-list ${concatStringsSep "," service.tagList}"
+                        ++
+                          optional (service.preCloneScript != null)
+                            "--pre-clone-script ${service.preCloneScript}"
+                        ++
+                          optional (service.preBuildScript != null)
+                            "--pre-build-script ${service.preBuildScript}"
+                        ++
+                          optional (service.postBuildScript != null)
+                            "--post-build-script ${service.postBuildScript}"
+                        ++
+                          optional (service.tagList != [ ])
+                            "--tag-list ${concatStringsSep "," service.tagList}"
                         ++ optional service.runUntagged "--run-untagged"
                         ++ optional service.protected "--access-level ref_protected"
                         ++ optional service.debugTraceDisabled "--debug-trace-disabled"
@@ -134,8 +144,12 @@ let
                           ++ optional service.dockerPrivileged "--docker-privileged"
                           ++ map (v: "--docker-volumes ${escapeShellArg v}") service.dockerVolumes
                           ++ map (v: "--docker-extra-hosts ${escapeShellArg v}") service.dockerExtraHosts
-                          ++ map (v: "--docker-allowed-images ${escapeShellArg v}") service.dockerAllowedImages
-                          ++ map (v: "--docker-allowed-services ${escapeShellArg v}") service.dockerAllowedServices
+                          ++
+                            map (v: "--docker-allowed-images ${escapeShellArg v}")
+                              service.dockerAllowedImages
+                          ++
+                            map (v: "--docker-allowed-services ${escapeShellArg v}")
+                              service.dockerAllowedServices
                         )
                       )
                     )
@@ -613,7 +627,11 @@ in
     };
     # Enable periodic clear-docker-cache script
     systemd.services.gitlab-runner-clear-docker-cache =
-      mkIf (cfg.clear-docker-cache.enable && (any (s: s.executor == "docker") (attrValues cfg.services)))
+      mkIf
+        (
+          cfg.clear-docker-cache.enable
+          && (any (s: s.executor == "docker") (attrValues cfg.services))
+        )
         {
           description = "Prune gitlab-runner docker resources";
           restartIfChanged = false;
@@ -627,15 +645,17 @@ in
           ];
 
           script = ''
-            ${pkgs.gitlab-runner}/bin/clear-docker-cache ${toString cfg.clear-docker-cache.flags}
+            ${pkgs.gitlab-runner}/bin/clear-docker-cache ${
+              toString cfg.clear-docker-cache.flags
+            }
           '';
 
           startAt = cfg.clear-docker-cache.dates;
         };
     # Enable docker if `docker` executor is used in any service
-    virtualisation.docker.enable = mkIf (any (s: s.executor == "docker") (attrValues cfg.services)) (
-      mkDefault true
-    );
+    virtualisation.docker.enable =
+      mkIf (any (s: s.executor == "docker") (attrValues cfg.services))
+        (mkDefault true);
   };
   imports = [
     (mkRenamedOptionModule

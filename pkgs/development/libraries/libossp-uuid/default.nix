@@ -13,7 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "11a615225baa5f8bb686824423f50e4427acd3f70d394765bdff32801f0fd5b0";
   };
 
-  configureFlags = [ "ac_cv_va_copy=yes" ] ++ lib.optional stdenv.isFreeBSD "--with-pic";
+  configureFlags = [
+    "ac_cv_va_copy=yes"
+  ] ++ lib.optional stdenv.isFreeBSD "--with-pic";
 
   patches = [ ./shtool.patch ];
 

@@ -35,7 +35,9 @@ buildPythonPackage rec {
       --replace "--no-cov-on-fail " ""
   '';
 
-  propagatedBuildInputs = [ quart ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs = [
+    quart
+  ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   pythonImportsCheck = [ "quart_cors" ];
 

@@ -105,7 +105,9 @@ buildRubyGem rec {
       cp -av contrib/bash/completion.sh $out/share/bash-completion/completions/vagrant
     ''
     + lib.optionalString withLibvirt ''
-      substitute ${./vagrant-libvirt.json.in} $out/vagrant-plugins/plugins.d/vagrant-libvirt.json \
+      substitute ${
+        ./vagrant-libvirt.json.in
+      } $out/vagrant-plugins/plugins.d/vagrant-libvirt.json \
         --subst-var-by ruby_version ${ruby.version} \
         --subst-var-by vagrant_version ${version}
     '';

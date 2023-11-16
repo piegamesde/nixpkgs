@@ -31,7 +31,9 @@ buildNpmPackage {
 
   npmDepsHash = "sha256-mV6rWNf2p2w4H0ESUT0/Ybtx9YEdvO5l2gCvlWFXK+U=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.CoreServices
+  ];
   nativeBuildInputs = [
     nodePackages.node-gyp
     python3

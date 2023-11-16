@@ -72,7 +72,8 @@ stdenv.mkDerivation rec {
   ];
 
   # https://hydra.nixos.org/build/222679737/nixlog/3/tail
-  NIX_CFLAGS_COMPILE = if stdenv.isAarch64 then "-Wno-error=maybe-uninitialized" else null;
+  NIX_CFLAGS_COMPILE =
+    if stdenv.isAarch64 then "-Wno-error=maybe-uninitialized" else null;
 
   doInstallCheck = true;
 
@@ -126,7 +127,9 @@ stdenv.mkDerivation rec {
       "-DBUILD_TESTING:BOOL=ON"
       "-DGOOGLE_CLOUD_CPP_ENABLE_EXAMPLES:BOOL=OFF"
     ]
-    ++ lib.optionals (apis != [ "*" ]) [ "-DGOOGLE_CLOUD_CPP_ENABLE=${lib.concatStringsSep ";" apis}" ];
+    ++ lib.optionals (apis != [ "*" ]) [
+      "-DGOOGLE_CLOUD_CPP_ENABLE=${lib.concatStringsSep ";" apis}"
+    ];
 
   requiredSystemFeatures = [ "big-parallel" ];
 

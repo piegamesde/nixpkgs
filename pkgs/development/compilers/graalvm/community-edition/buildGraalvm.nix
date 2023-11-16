@@ -66,7 +66,9 @@ let
   musl-gcc =
     (runCommandCC "musl-gcc" { } ''
       mkdir -p $out/bin
-      ln -s ${lib.getDev musl}/bin/musl-gcc $out/bin/${stdenv.hostPlatform.system}-musl-gcc
+      ln -s ${
+        lib.getDev musl
+      }/bin/musl-gcc $out/bin/${stdenv.hostPlatform.system}-musl-gcc
     '');
   # GraalVM 23.0.0+ (i.e.: JDK 21.0.0+) clean-up the environment inside darwin
   # So we need to re-added some env vars to make everything work correctly again
@@ -86,7 +88,9 @@ let
       ''
     );
   binPath = lib.makeBinPath (
-    lib.optionals stdenv.isDarwin [ darwin-cc ] ++ lib.optionals useMusl [ musl-gcc ] ++ [ stdenv.cc ]
+    lib.optionals stdenv.isDarwin [ darwin-cc ]
+    ++ lib.optionals useMusl [ musl-gcc ]
+    ++ [ stdenv.cc ]
   );
 
   runtimeLibraryPath = lib.makeLibraryPath (
@@ -116,7 +120,9 @@ let
         #   graalvm-ce-java11-20.3.0/Contents/Home/*
         #
         # We therefor use --strip-components=1 vs 3 depending on the platform.
-        tar xf "$src" -C "$out" --strip-components=${if stdenv.isLinux then "1" else "3"}
+        tar xf "$src" -C "$out" --strip-components=${
+          if stdenv.isLinux then "1" else "3"
+        }
 
         # Sanity check
         if [ ! -d "$out/bin" ]; then

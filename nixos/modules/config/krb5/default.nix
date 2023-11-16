@@ -14,7 +14,9 @@ let
   # This is to provide support for old configuration options (as much as is
   # reasonable). This can be removed after 18.03 was released.
   defaultConfig = {
-    libdefaults = optionalAttrs (cfg.defaultRealm != null) { default_realm = cfg.defaultRealm; };
+    libdefaults = optionalAttrs (cfg.defaultRealm != null) {
+      default_realm = cfg.defaultRealm;
+    };
 
     realms =
       optionalAttrs
@@ -60,7 +62,9 @@ let
   filterEmbeddedMetadata =
     value:
     if isAttrs value then
-      (filterAttrs (attrName: attrValue: attrName != "_module" && attrValue != null) value)
+      (filterAttrs (attrName: attrValue: attrName != "_module" && attrValue != null)
+        value
+      )
     else
       value;
 
@@ -83,7 +87,9 @@ let
       (toString value)
     else if (isAttrs value) then
       let
-        configLines = concatLists (map (splitString "\n") (mapAttrsToList mkRelation value));
+        configLines = concatLists (
+          map (splitString "\n") (mapAttrsToList mkRelation value)
+        );
       in
       (concatStringsSep
         ''
@@ -99,10 +105,14 @@ let
 
   mkMappedAttrsOrString =
     value:
-    concatMapStringsSep "\n" (line: if builtins.stringLength line > 0 then "${indent}${line}" else line)
+    concatMapStringsSep "\n"
+      (line: if builtins.stringLength line > 0 then "${indent}${line}" else line)
       (
         splitString "\n" (
-          if isAttrs value then concatStringsSep "\n" (mapAttrsToList mkRelation value) else value
+          if isAttrs value then
+            concatStringsSep "\n" (mapAttrsToList mkRelation value)
+          else
+            value
         )
       );
 in
@@ -112,7 +122,9 @@ in
 
   options = {
     krb5 = {
-      enable = mkEnableOption (lib.mdDoc "building krb5.conf, configuration file for Kerberos V");
+      enable = mkEnableOption (
+        lib.mdDoc "building krb5.conf, configuration file for Kerberos V"
+      );
 
       kerberos = mkOption {
         type = types.package;
@@ -352,7 +364,9 @@ in
             [plugins]
             ${mkMappedAttrsOrString mergedConfig.plugins}
           ''
-          + optionalString (mergedConfig.extraConfig != null) ("\n" + mergedConfig.extraConfig)
+          + optionalString (mergedConfig.extraConfig != null) (
+            "\n" + mergedConfig.extraConfig
+          )
         );
 
     warnings = flatten [

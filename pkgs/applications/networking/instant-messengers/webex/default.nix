@@ -118,7 +118,9 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
-  libPath = "$out/opt/Webex/lib:$out/opt/Webex/bin:${lib.makeLibraryPath buildInputs}";
+  libPath = "$out/opt/Webex/lib:$out/opt/Webex/bin:${
+      lib.makeLibraryPath buildInputs
+    }";
 
   unpackPhase = ''
     7z x $src

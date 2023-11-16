@@ -19,7 +19,9 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     name = "marvin-${version}.deb";
-    url = "http://dl.chemaxon.com/marvin/${version}/marvin_linux_${versions.majorMinor version}.deb";
+    url = "http://dl.chemaxon.com/marvin/${version}/marvin_linux_${
+        versions.majorMinor version
+      }.deb";
     hash = "sha256-5ycOteXcdgZaeDl3WQ95H2lD0OnnobCbmnVlfYwVdeI=";
   };
 
@@ -57,7 +59,9 @@ stdenv.mkDerivation rec {
     ${concatStrings (
       map
         (name: ''
-          substitute ${./. + "/${name}.desktop"} $out/share/applications/${name}.desktop --subst-var out
+          substitute ${
+            ./. + "/${name}.desktop"
+          } $out/share/applications/${name}.desktop --subst-var out
         '')
         [
           "LicenseManager"

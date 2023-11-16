@@ -167,9 +167,13 @@ mapAttrs
               done
               sleep infinity
             '')
-            (pkgs.writeShellScriptBin "run-in-this-term" "sudo -u alice run-in-this-term-wrapped $1")
+            (pkgs.writeShellScriptBin "run-in-this-term"
+              "sudo -u alice run-in-this-term-wrapped $1"
+            )
 
-            (pkgs.writeShellScriptBin "run-in-this-term-wrapped" ''command="$(which "$1")"; ${cmd}'')
+            (pkgs.writeShellScriptBin "run-in-this-term-wrapped"
+              ''command="$(which "$1")"; ${cmd}''
+            )
           ];
 
           # Helpful reminder to add this test to passthru.tests
@@ -194,7 +198,9 @@ mapAttrs
 
           with subtest("have the terminal run a command"):
               # We run this command synchronously, so we can be certain the exit codes are happy
-              machine.${if kill then "execute" else "succeed"}("run-in-this-term report-success")
+              machine.${
+                if kill then "execute" else "succeed"
+              }("run-in-this-term report-success")
               machine.wait_for_file("/tmp/term-ran-successfully")
           ${optionalString colourTest ''
 

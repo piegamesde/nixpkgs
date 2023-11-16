@@ -22,7 +22,13 @@ let
       (pkgs.buildEnv {
         name = "kubernetes-cni-config";
         paths =
-          imap (i: entry: pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (builtins.toJSON entry))
+          imap
+            (
+              i: entry:
+              pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (
+                builtins.toJSON entry
+              )
+            )
             cfg.cni.config;
       });
 
@@ -139,12 +145,16 @@ in
     clusterDomain = mkOption {
       description = lib.mdDoc "Use alternative domain.";
       default = config.services.kubernetes.addons.dns.clusterDomain;
-      defaultText = literalExpression "config.${options.services.kubernetes.addons.dns.clusterDomain}";
+      defaultText =
+        literalExpression
+          "config.${options.services.kubernetes.addons.dns.clusterDomain}";
       type = str;
     };
 
     clientCaFile = mkOption {
-      description = lib.mdDoc "Kubernetes apiserver CA file for client authentication.";
+      description =
+        lib.mdDoc
+          "Kubernetes apiserver CA file for client authentication.";
       default = top.caFile;
       defaultText = literalExpression "config.${otop.caFile}";
       type = nullOr path;
@@ -191,7 +201,9 @@ in
     };
 
     containerRuntimeEndpoint = mkOption {
-      description = lib.mdDoc "Endpoint at which to find the container runtime api interface/socket";
+      description =
+        lib.mdDoc
+          "Endpoint at which to find the container runtime api interface/socket";
       type = str;
       default = "unix:///run/containerd/containerd.sock";
     };
@@ -282,7 +294,9 @@ in
     };
 
     tlsKeyFile = mkOption {
-      description = lib.mdDoc "File containing x509 private key matching tlsCertFile.";
+      description =
+        lib.mdDoc
+          "File containing x509 private key matching tlsCertFile.";
       default = null;
       type = nullOr path;
     };
@@ -374,12 +388,20 @@ in
                         --authentication-token-webhook \
                         --authentication-token-webhook-cache-ttl="10s" \
                         --authorization-mode=Webhook \
-                        ${optionalString (cfg.clientCaFile != null) "--client-ca-file=${cfg.clientCaFile}"} \
-                        ${optionalString (cfg.clusterDns != "") "--cluster-dns=${cfg.clusterDns}"} \
-                        ${optionalString (cfg.clusterDomain != "") "--cluster-domain=${cfg.clusterDomain}"} \
+                        ${
+                          optionalString (cfg.clientCaFile != null) "--client-ca-file=${cfg.clientCaFile}"
+                        } \
+                        ${
+                          optionalString (cfg.clusterDns != "") "--cluster-dns=${cfg.clusterDns}"
+                        } \
+                        ${
+                          optionalString (cfg.clusterDomain != "") "--cluster-domain=${cfg.clusterDomain}"
+                        } \
                         ${
                           optionalString (cfg.featureGates != [ ])
-                            "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
+                            "--feature-gates=${
+                              concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates
+                            }"
                         } \
                         --hairpin-mode=hairpin-veth \
                         --healthz-bind-address=${cfg.healthz.bind} \
@@ -388,14 +410,25 @@ in
                         --kubeconfig=${kubeconfig} \
                         ${optionalString (cfg.nodeIp != null) "--node-ip=${cfg.nodeIp}"} \
                         --pod-infra-container-image=pause \
-                        ${optionalString (cfg.manifests != { }) "--pod-manifest-path=/etc/${manifestPath}"} \
+                        ${
+                          optionalString (cfg.manifests != { }) "--pod-manifest-path=/etc/${manifestPath}"
+                        } \
                         --port=${toString cfg.port} \
                         --register-node=${boolToString cfg.registerNode} \
-                        ${optionalString (taints != "") "--register-with-taints=${taints}"} \
+                        ${
+                          optionalString (taints != "") "--register-with-taints=${taints}"
+                        } \
                         --root-dir=${top.dataDir} \
-                        ${optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"} \
-                        ${optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"} \
-                        ${optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"} \
+                        ${
+                          optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"
+                        } \
+                        ${
+                          optionalString (cfg.tlsKeyFile != null)
+                            "--tls-private-key-file=${cfg.tlsKeyFile}"
+                        } \
+                        ${
+                          optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"
+                        } \
                         --container-runtime-endpoint=${cfg.containerRuntimeEndpoint} \
                         --cgroup-driver=systemd \
                         ${cfg.extraOpts}
@@ -418,7 +451,9 @@ in
         "overlay"
       ];
 
-      services.kubernetes.kubelet.hostname = mkDefault config.networking.fqdnOrHostName;
+      services.kubernetes.kubelet.hostname =
+        mkDefault
+          config.networking.fqdnOrHostName;
 
       services.kubernetes.pki.certs = with top.lib; {
         kubelet = mkCert {

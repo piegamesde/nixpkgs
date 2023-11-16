@@ -121,7 +121,8 @@ in
 {
   options.services.ndppd = {
     enable = mkEnableOption (
-      lib.mdDoc "daemon that proxies NDP (Neighbor Discovery Protocol) messages between interfaces"
+      lib.mdDoc
+        "daemon that proxies NDP (Neighbor Discovery Protocol) messages between interfaces"
     );
     interface = mkOption {
       type = types.nullOr types.str;

@@ -49,7 +49,8 @@ let
             mkdir -p $out/lib
             mv lpeg.so $out/lib/lpeg.dylib
           '';
-          nativeBuildInputs = oa.nativeBuildInputs ++ (lib.optional stdenv.isDarwin fixDarwinDylibNames);
+          nativeBuildInputs =
+            oa.nativeBuildInputs ++ (lib.optional stdenv.isDarwin fixDarwinDylibNames);
         }
       ))
     else
@@ -182,7 +183,9 @@ stdenv.mkDerivation rec {
         -e "s|\$<TARGET_FILE:nvim|\${stdenv.hostPlatform.emulator buildPackages} &|g"
     '';
   # check that the above patching actually works
-  disallowedReferences = [ stdenv.cc ] ++ lib.optional (lua != codegenLua) codegenLua;
+  disallowedReferences = [
+    stdenv.cc
+  ] ++ lib.optional (lua != codegenLua) codegenLua;
 
   cmakeFlags =
     [

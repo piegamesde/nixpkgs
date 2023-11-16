@@ -164,8 +164,12 @@ import ./make-test-python.nix (
         with subtest("manual config dir"):
           machine.succeed(
             'mkdir /var/db/slapd.d /var/db/openldap',
-            'slapadd -F /var/db/slapd.d -n0 -l ${pkgs.writeText "config.ldif" ldifConfig}',
-            'slapadd -F /var/db/slapd.d -n1 -l ${pkgs.writeText "contents.ldif" dbContents}',
+            'slapadd -F /var/db/slapd.d -n0 -l ${
+              pkgs.writeText "config.ldif" ldifConfig
+            }',
+            'slapadd -F /var/db/slapd.d -n1 -l ${
+              pkgs.writeText "contents.ldif" dbContents
+            }',
             'chown -R openldap:openldap /var/db/slapd.d /var/db/openldap',
             '${specializations}/manualConfigDir/bin/switch-to-configuration test',
           )

@@ -21,7 +21,8 @@ let
 
       suffixedVariables = flip mapAttrs cfg.profileRelativeEnvVars (
         envVar: listSuffixes:
-        concatMap (profile: map (suffix: "${profile}${suffix}") listSuffixes) cfg.profiles
+        concatMap (profile: map (suffix: "${profile}${suffix}") listSuffixes)
+          cfg.profiles
       );
 
       allVariables = zipAttrsWith (n: concatLists) [
@@ -29,7 +30,9 @@ let
         suffixedVariables
       ];
 
-      exportVariables = mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'') allVariables;
+      exportVariables =
+        mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'')
+          allVariables;
     in
     concatStringsSep "\n" exportVariables;
 in
@@ -196,7 +199,8 @@ in
     # terminal instead of logging out of X11).
     environment.variables = config.environment.sessionVariables;
 
-    environment.profileRelativeEnvVars = config.environment.profileRelativeSessionVariables;
+    environment.profileRelativeEnvVars =
+      config.environment.profileRelativeSessionVariables;
 
     environment.shellAliases = mapAttrs (name: mkDefault) {
       ls = "ls --color=tty";

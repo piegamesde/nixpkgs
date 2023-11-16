@@ -19,7 +19,8 @@ in
     command = "cloudflared help";
   };
   refuses-to-autoupdate =
-    runCommand "cloudflared-${version}-refuses-to-autoupdate" { nativeBuildInputs = [ cloudflared ]; }
+    runCommand "cloudflared-${version}-refuses-to-autoupdate"
+      { nativeBuildInputs = [ cloudflared ]; }
       ''
         set -e
         cloudflared update 2>&1 | tee output.txt
@@ -31,19 +32,22 @@ in
         mkdir $out
       '';
 }
-// lib.optionalAttrs (buildPlatform.isLinux && (buildPlatform.isi686 || buildPlatform.isx86_64)) {
-  runs-through-wine =
-    runCommand "cloudflared-${version}-runs-through-wine"
-      {
-        nativeBuildInputs = [ wine ];
-        exe = "${pkgsCross.mingw32.cloudflared}/bin/cloudflared.exe";
-      }
-      ''
-        export HOME="$(mktemp -d)"
-        wine $exe help
-        mkdir $out
-      '';
-}
+//
+  lib.optionalAttrs
+    (buildPlatform.isLinux && (buildPlatform.isi686 || buildPlatform.isx86_64))
+    {
+      runs-through-wine =
+        runCommand "cloudflared-${version}-runs-through-wine"
+          {
+            nativeBuildInputs = [ wine ];
+            exe = "${pkgsCross.mingw32.cloudflared}/bin/cloudflared.exe";
+          }
+          ''
+            export HOME="$(mktemp -d)"
+            wine $exe help
+            mkdir $out
+          '';
+    }
 // lib.optionalAttrs (buildPlatform.isLinux && buildPlatform.isx86_64) {
   runs-through-wine64 =
     runCommand "cloudflared-${version}-runs-through-wine64"

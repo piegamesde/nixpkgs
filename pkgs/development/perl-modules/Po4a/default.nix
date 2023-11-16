@@ -48,7 +48,9 @@ buildPerlPackage rec {
     # shellscript that suffices for the tests in t/fmt/tex/, i.e. it looks up
     # article.cls to an existing file, but doesn't find article-wrong.cls.
     let
-      kpsewhich-stub = writeShellScriptBin "kpsewhich" ''[[ $1 = "article.cls" ]] && echo /dev/null'';
+      kpsewhich-stub =
+        writeShellScriptBin "kpsewhich"
+          ''[[ $1 = "article.cls" ]] && echo /dev/null'';
     in
     [
       gettext
@@ -62,13 +64,15 @@ buildPerlPackage rec {
       kpsewhich-stub
       glibcLocales
     ];
-  propagatedBuildInputs = lib.optional (!stdenv.hostPlatform.isMusl) TextWrapI18N ++ [
-    LocaleGettext
-    SGMLSpm
-    UnicodeLineBreak
-    PodParser
-    YAMLTiny
-  ];
+  propagatedBuildInputs =
+    lib.optional (!stdenv.hostPlatform.isMusl) TextWrapI18N
+    ++ [
+      LocaleGettext
+      SGMLSpm
+      UnicodeLineBreak
+      PodParser
+      YAMLTiny
+    ];
   # TODO: TermReadKey was temporarily removed from propagatedBuildInputs to unfreeze the build
   buildInputs = [ bash ];
   LC_ALL = "en_US.UTF-8";

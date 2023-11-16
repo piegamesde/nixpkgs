@@ -12,7 +12,10 @@ let
   cfg = config.services.vdirsyncer;
 
   toIniJson =
-    with generators; toINI { mkKeyValue = mkKeyValueDefault { mkValueString = builtins.toJSON; } "="; };
+    with generators;
+    toINI {
+      mkKeyValue = mkKeyValueDefault { mkValueString = builtins.toJSON; } "=";
+    };
 
   toConfigFile =
     name: cfg':
@@ -40,7 +43,9 @@ let
         Group = if cfg'.group == null then "vdirsyncer" else cfg'.group;
       }
       // (optionalAttrs (cfg'.user == null) { DynamicUser = true; })
-      // (optionalAttrs (cfg'.additionalGroups != [ ]) { SupplementaryGroups = cfg'.additionalGroups; })
+      // (optionalAttrs (cfg'.additionalGroups != [ ]) {
+        SupplementaryGroups = cfg'.additionalGroups;
+      })
       // (optionalAttrs (cfg'.config.statusPath == null) {
         StateDirectory = "vdirsyncer/${name}";
         StateDirectoryMode = "0700";

@@ -66,7 +66,9 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     install -Dm0644 ./ui/static/logos/liana-app-icon.svg $out/share/icons/hicolor/scalable/apps/liana.svg
-    wrapProgram $out/bin/liana-gui --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibs}"
+    wrapProgram $out/bin/liana-gui --prefix LD_LIBRARY_PATH : "${
+      lib.makeLibraryPath runtimeLibs
+    }"
   '';
 
   desktopItems = [

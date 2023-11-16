@@ -6,7 +6,9 @@
   python3,
 }:
 let
-  py = python3.override { packageOverrides = final: prev: { django = prev.django_4; }; };
+  py = python3.override {
+    packageOverrides = final: prev: { django = prev.django_4; };
+  };
 in
 py.pkgs.buildPythonApplication rec {
   pname = "healthchecks";

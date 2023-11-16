@@ -49,7 +49,9 @@ python3Packages.buildPythonApplication rec {
     mkdir -p $out/lib/password-store/extensions
     cp ${src}/import.bash $out/lib/password-store/extensions/import.bash
     wrapProgram $out/lib/password-store/extensions/import.bash \
-      --prefix PATH : "${python3Packages.python.withPackages (_: propagatedBuildInputs)}/bin" \
+      --prefix PATH : "${
+        python3Packages.python.withPackages (_: propagatedBuildInputs)
+      }/bin" \
       --prefix PYTHONPATH : "$out/${python3Packages.python.sitePackages}" \
       --run "export PREFIX"
     cp -r ${src}/share $out/

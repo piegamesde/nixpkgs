@@ -35,12 +35,14 @@
 let
   is64Bit = stdenv.hostPlatform.parsed.cpu.bits == 64;
   # multi-lib glibc is only supported on x86_64
-  isMultiBuild = multiPkgs != null && stdenv.hostPlatform.system == "x86_64-linux";
+  isMultiBuild =
+    multiPkgs != null && stdenv.hostPlatform.system == "x86_64-linux";
   isTargetBuild = !isMultiBuild;
 
   # list of packages (usually programs) which are only be installed for the
   # host's architecture
-  targetPaths = targetPkgs pkgs ++ (if multiPkgs == null then [ ] else multiPkgs pkgs);
+  targetPaths =
+    targetPkgs pkgs ++ (if multiPkgs == null then [ ] else multiPkgs pkgs);
 
   # list of packages which are installed for both x86 and x86_64 on x86_64
   # systems
@@ -240,7 +242,8 @@ let
     ln -Ls ${staticUsrProfileTarget}/lib/32/ld-linux.so.2 lib/
   '';
 
-  setupLibDirs = if isTargetBuild then setupLibDirs_target else setupLibDirs_multi;
+  setupLibDirs =
+    if isTargetBuild then setupLibDirs_target else setupLibDirs_multi;
 
   # the target profile is the actual profile that will be used for the chroot
   setupTargetProfile = ''

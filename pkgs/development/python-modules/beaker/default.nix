@@ -67,7 +67,10 @@ buildPythonPackage rec {
     nosetests \
       -e ".*test_ext_.*" \
       -e "test_upgrade" \
-      ${lib.optionalString (!stdenv.isLinux) ''-e "test_cookie_expires_different_locale"''} \
+      ${
+        lib.optionalString (!stdenv.isLinux)
+          ''-e "test_cookie_expires_different_locale"''
+      } \
       -vv tests
   '';
 

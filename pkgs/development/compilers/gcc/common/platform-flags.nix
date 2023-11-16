@@ -7,7 +7,9 @@ let
 in
 lib.concatLists [
   # --with-arch= is unknown flag on x86_64 and aarch64-darwin.
-  (lib.optional (!targetPlatform.isx86_64 && !isAarch64Darwin && p ? arch) "--with-arch=${p.arch}")
+  (lib.optional (!targetPlatform.isx86_64 && !isAarch64Darwin && p ? arch)
+    "--with-arch=${p.arch}"
+  )
   # --with-cpu on aarch64-darwin fails with "Unknown cpu used in --with-cpu=apple-a13".
   (lib.optional (!isAarch64Darwin && p ? cpu) "--with-cpu=${p.cpu}")
   (lib.optional (p ? abi) "--with-abi=${p.abi}")

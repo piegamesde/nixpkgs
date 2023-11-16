@@ -24,7 +24,9 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optional (!opensslSupport) pkg-config;
+  nativeBuildInputs = [
+    makeWrapper
+  ] ++ lib.optional (!opensslSupport) pkg-config;
   buildInputs = [
     libgcrypt
     perl

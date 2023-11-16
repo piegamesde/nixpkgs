@@ -30,7 +30,9 @@ rustPlatform.buildRustPackage rec {
     makeWrapper
   ] ++ lib.optionals stdenv.isDarwin [ (writeScriptBin "diskutil" "") ];
 
-  buildInputs = [ python3 ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = [
+    python3
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   preBuild = ''
     export HOME=$TMPDIR

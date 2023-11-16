@@ -19,7 +19,9 @@
 let
   d2u = if normalizeCore then (lib.replaceStrings [ "-" ] [ "_" ]) else (x: x);
   coreDir = placeholder "out" + libretroCore;
-  coreFilename = "${d2u core}_libretro${stdenv.hostPlatform.extensions.sharedLibrary}";
+  coreFilename = "${
+      d2u core
+    }_libretro${stdenv.hostPlatform.extensions.sharedLibrary}";
   mainProgram = "retroarch-${core}";
   extraArgs = builtins.removeAttrs args [
     "lib"
@@ -53,7 +55,8 @@ stdenv.mkDerivation (
           darwin = "osx";
           windows = "win";
         }
-        .${stdenv.hostPlatform.parsed.kernel.name} or stdenv.hostPlatform.parsed.kernel.name
+        .${stdenv.hostPlatform.parsed.kernel.name}
+          or stdenv.hostPlatform.parsed.kernel.name
       }"
       "ARCH=${
         {

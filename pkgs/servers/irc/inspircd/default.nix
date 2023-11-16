@@ -217,7 +217,9 @@ stdenv.mkDerivation rec {
       license =
         [ lib.licenses.gpl2Only ]
         ++ lib.concatMap getLicenses extraInputs
-        ++ lib.optionals (anyMembers extraModules libcModules) (getLicenses stdenv.cc.libc)
+        ++ lib.optionals (anyMembers extraModules libcModules) (
+          getLicenses stdenv.cc.libc
+        )
         # FIXME(sternenseemann): get license of used lib(std)c++ somehow
         ++ lib.optional (anyMembers extraModules libcxxModules) "Unknown"
         # Hack: Definitely prevent a hydra from building this package on

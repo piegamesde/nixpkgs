@@ -25,13 +25,15 @@ let
       $JAVA_CALL ${class} ${configPath}
     '';
 
-  dirReplicationConfig = pkgs.writeText "xtreemfs-dir-replication-plugin.properties" ''
-    babudb.repl.backupDir = ${home}/server-repl-dir
-    plugin.jar = ${xtreemfs}/share/java/BabuDB_replication_plugin.jar
-    babudb.repl.dependency.0 = ${xtreemfs}/share/java/Flease.jar
+  dirReplicationConfig =
+    pkgs.writeText "xtreemfs-dir-replication-plugin.properties"
+      ''
+        babudb.repl.backupDir = ${home}/server-repl-dir
+        plugin.jar = ${xtreemfs}/share/java/BabuDB_replication_plugin.jar
+        babudb.repl.dependency.0 = ${xtreemfs}/share/java/Flease.jar
 
-    ${cfg.dir.replication.extraConfig}
-  '';
+        ${cfg.dir.replication.extraConfig}
+      '';
 
   dirConfig = pkgs.writeText "xtreemfs-dir-config.properties" ''
     uuid = ${cfg.dir.uuid}
@@ -40,20 +42,25 @@ let
     http_port = ${toString cfg.dir.httpPort}
     babudb.baseDir = ${home}/dir/database
     babudb.logDir = ${home}/dir/db-log
-    babudb.sync = ${if cfg.dir.replication.enable then "FDATASYNC" else cfg.dir.syncMode}
+    babudb.sync = ${
+      if cfg.dir.replication.enable then "FDATASYNC" else cfg.dir.syncMode
+    }
 
-    ${optionalString cfg.dir.replication.enable "babudb.plugin.0 = ${dirReplicationConfig}"}
+    ${optionalString cfg.dir.replication.enable
+      "babudb.plugin.0 = ${dirReplicationConfig}"}
 
     ${cfg.dir.extraConfig}
   '';
 
-  mrcReplicationConfig = pkgs.writeText "xtreemfs-mrc-replication-plugin.properties" ''
-    babudb.repl.backupDir = ${home}/server-repl-mrc
-    plugin.jar = ${xtreemfs}/share/java/BabuDB_replication_plugin.jar
-    babudb.repl.dependency.0 = ${xtreemfs}/share/java/Flease.jar
+  mrcReplicationConfig =
+    pkgs.writeText "xtreemfs-mrc-replication-plugin.properties"
+      ''
+        babudb.repl.backupDir = ${home}/server-repl-mrc
+        plugin.jar = ${xtreemfs}/share/java/BabuDB_replication_plugin.jar
+        babudb.repl.dependency.0 = ${xtreemfs}/share/java/Flease.jar
 
-    ${cfg.mrc.replication.extraConfig}
-  '';
+        ${cfg.mrc.replication.extraConfig}
+      '';
 
   mrcConfig = pkgs.writeText "xtreemfs-mrc-config.properties" ''
     uuid = ${cfg.mrc.uuid}
@@ -62,9 +69,12 @@ let
     http_port = ${toString cfg.mrc.httpPort}
     babudb.baseDir = ${home}/mrc/database
     babudb.logDir = ${home}/mrc/db-log
-    babudb.sync = ${if cfg.mrc.replication.enable then "FDATASYNC" else cfg.mrc.syncMode}
+    babudb.sync = ${
+      if cfg.mrc.replication.enable then "FDATASYNC" else cfg.mrc.syncMode
+    }
 
-    ${optionalString cfg.mrc.replication.enable "babudb.plugin.0 = ${mrcReplicationConfig}"}
+    ${optionalString cfg.mrc.replication.enable
+      "babudb.plugin.0 = ${mrcReplicationConfig}"}
 
     ${cfg.mrc.extraConfig}
   '';

@@ -50,7 +50,9 @@ stdenv.mkDerivation (
     pname = "rdc";
     version = "5.7.1";
 
-    outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ];
+    outputs = [
+      "out"
+    ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ];
 
     src = fetchFromGitHub {
       owner = "RadeonOpenCompute";

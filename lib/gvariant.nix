@@ -88,7 +88,9 @@ rec {
   mkArray =
     elems:
     let
-      vs = map mkValue (lib.throwIf (elems == [ ]) "Please create empty array with mkEmptyArray." elems);
+      vs = map mkValue (
+        lib.throwIf (elems == [ ]) "Please create empty array with mkEmptyArray." elems
+      );
       elemType =
         lib.throwIfNot (lib.all (t: (head vs).type == t) (map (v: v.type) vs))
           "Elements in a list should have same type."
@@ -96,7 +98,8 @@ rec {
     in
     mkPrimitive (type.arrayOf elemType) vs
     // {
-      __toString = self: "@${self.type} [${concatMapStringsSep "," toString self.value}]";
+      __toString =
+        self: "@${self.type} [${concatMapStringsSep "," toString self.value}]";
     };
 
   /* Returns the GVariant array from the given empty Nix list.
@@ -109,7 +112,11 @@ rec {
        lib.gvariant.mkEmptyArray (lib.gvariant.type.string)
   */
   mkEmptyArray =
-    elemType: mkPrimitive (type.arrayOf elemType) [ ] // { __toString = self: "@${self.type} []"; };
+    elemType:
+    mkPrimitive (type.arrayOf elemType) [ ]
+    // {
+      __toString = self: "@${self.type} []";
+    };
 
   /* Returns the GVariant variant from the given Nix value. Variants are containers
      of different GVariant type.
@@ -128,7 +135,10 @@ rec {
     let
       gvarElem = mkValue elem;
     in
-    mkPrimitive type.variant gvarElem // { __toString = self: "<${toString self.value}>"; };
+    mkPrimitive type.variant gvarElem
+    // {
+      __toString = self: "<${toString self.value}>";
+    };
 
   /* Returns the GVariant dictionary entry from the given key and value.
 
@@ -168,7 +178,11 @@ rec {
     mkPrimitive (type.maybeOf elemType) elem
     // {
       __toString =
-        self: if self.value == null then "@${self.type} nothing" else "just ${toString self.value}";
+        self:
+        if self.value == null then
+          "@${self.type} nothing"
+        else
+          "just ${toString self.value}";
     };
 
   /* Returns the GVariant nothing from the given element type.
@@ -203,7 +217,8 @@ rec {
     in
     mkPrimitive tupleType gvarElems
     // {
-      __toString = self: "@${self.type} (${concatMapStringsSep "," toString self.value})";
+      __toString =
+        self: "@${self.type} (${concatMapStringsSep "," toString self.value})";
     };
 
   /* Returns the GVariant boolean from the given Nix bool value.
@@ -212,7 +227,11 @@ rec {
        mkBoolean :: Bool -> gvariant
   */
   mkBoolean =
-    v: mkPrimitive type.boolean v // { __toString = self: if self.value then "true" else "false"; };
+    v:
+    mkPrimitive type.boolean v
+    // {
+      __toString = self: if self.value then "true" else "false";
+    };
 
   /* Returns the GVariant string from the given Nix string value.
 
@@ -241,7 +260,11 @@ rec {
        mkObjectpath :: String -> gvariant
   */
   mkObjectpath =
-    v: mkPrimitive type.string v // { __toString = self: "objectpath '${escape [ "'" ] self.value}'"; };
+    v:
+    mkPrimitive type.string v
+    // {
+      __toString = self: "objectpath '${escape [ "'" ] self.value}'";
+    };
 
   /* Returns the GVariant uchar from the given Nix int value.
 
@@ -269,7 +292,8 @@ rec {
      Type:
        mkInt32 :: Int -> gvariant
   */
-  mkInt32 = v: mkPrimitive type.int32 v // { __toString = self: toString self.value; };
+  mkInt32 =
+    v: mkPrimitive type.int32 v // { __toString = self: toString self.value; };
 
   /* Returns the GVariant uint32 from the given Nix int value.
 
@@ -297,5 +321,6 @@ rec {
      Type:
        mkDouble :: Float -> gvariant
   */
-  mkDouble = v: mkPrimitive type.double v // { __toString = self: toString self.value; };
+  mkDouble =
+    v: mkPrimitive type.double v // { __toString = self: toString self.value; };
 }

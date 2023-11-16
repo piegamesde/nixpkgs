@@ -142,7 +142,9 @@ with lib;
       SCRIPT_DIR=$( cd -- "$( dirname -- "''${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
       kexec --load ''${SCRIPT_DIR}/bzImage \
         --initrd=''${SCRIPT_DIR}/initrd.gz \
-        --command-line "init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams}"
+        --command-line "init=${config.system.build.toplevel}/init ${
+          toString config.boot.kernelParams
+        }"
       kexec -e
     '';
 

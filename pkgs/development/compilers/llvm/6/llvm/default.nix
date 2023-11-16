@@ -16,7 +16,9 @@
   zlib,
   buildLlvmTools,
   fetchpatch,
-  doCheck ? stdenv.isLinux && (!stdenv.isi686) && (stdenv.hostPlatform == stdenv.buildPlatform),
+  doCheck ? stdenv.isLinux
+    && (!stdenv.isi686)
+    && (stdenv.hostPlatform == stdenv.buildPlatform),
   debugVersion ? false,
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
@@ -67,7 +69,9 @@ stdenv.mkDerivation (
     inherit version;
 
     src = fetch "llvm" "1qpls3vk85lydi5b4axl0809fv932qgsqgdgrk098567z4jc7mmn";
-    polly_src = fetch "polly" "1k2frwg5mkqh0raia8xf69h3jhdw7a5nxd6vjscjn44cdkgmyxp7";
+    polly_src =
+      fetch "polly"
+        "1k2frwg5mkqh0raia8xf69h3jhdw7a5nxd6vjscjn44cdkgmyxp7";
 
     unpackPhase =
       ''
@@ -223,7 +227,9 @@ stdenv.mkDerivation (
         "-DSPHINX_OUTPUT_HTML=OFF"
         "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
       ]
-      ++ optionals (enableGoldPlugin) [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ]
+      ++ optionals (enableGoldPlugin) [
+        "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
+      ]
       ++ optionals (isDarwin) [
         "-DLLVM_ENABLE_LIBCXX=ON"
         "-DCAN_TARGET_i386=false"

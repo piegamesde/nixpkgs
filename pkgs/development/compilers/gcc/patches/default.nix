@@ -127,10 +127,14 @@ in
 ## Darwin
 
 # Fix detection of bootstrap compiler Ada support (cctools as) on Nix Darwin
-++ optional (atLeast12 && stdenv.isDarwin && langAda) ./ada-cctools-as-detection-configure.patch
+++
+  optional (atLeast12 && stdenv.isDarwin && langAda)
+    ./ada-cctools-as-detection-configure.patch
 
 # Use absolute path in GNAT dylib install names on Darwin
-++ optional (atLeast12 && stdenv.isDarwin && langAda) ./gnat-darwin-dylib-install-name.patch
+++
+  optional (atLeast12 && stdenv.isDarwin && langAda)
+    ./gnat-darwin-dylib-install-name.patch
 
 # We only apply this patch when building a native toolchain for aarch64-darwin, as it breaks building
 # a foreign one: https://github.com/iains/gcc-12-branch/issues/18
@@ -197,10 +201,14 @@ in
 ## gcc 11.0 and older ##############################################################################
 
 # https://github.com/osx-cross/homebrew-avr/issues/280#issuecomment-1272381808
-++ optional (is11 && stdenv.isDarwin && targetPlatform.isAvr) ./avr-gcc-11.3-darwin.patch
+++
+  optional (is11 && stdenv.isDarwin && targetPlatform.isAvr)
+    ./avr-gcc-11.3-darwin.patch
 
 # libgcc’s `configure` script misdetects aarch64-darwin, resulting in an invalid deployment target.
-++ optional (is11 && stdenv.isDarwin && stdenv.isAarch64) ./11/libgcc-aarch64-darwin-detection.patch
+++
+  optional (is11 && stdenv.isDarwin && stdenv.isAarch64)
+    ./11/libgcc-aarch64-darwin-detection.patch
 
 # openjdk build fails without this on -march=opteron; is upstream in gcc12
 ++ optionals (is11) [ ./11/gcc-issue-103910.patch ]
@@ -208,12 +216,19 @@ in
 ## gcc 10.0 and older ##############################################################################
 
 ++ optional (langAda && (is9 || is10)) ./gnat-cflags.patch
-++ optional (is10 && buildPlatform.system == "aarch64-darwin" && targetPlatform != buildPlatform) (
-  fetchpatch {
-    url = "https://raw.githubusercontent.com/richard-vd/musl-cross-make/5e9e87f06fc3220e102c29d3413fbbffa456fcd6/patches/gcc-${version}/0008-darwin-aarch64-self-host-driver.patch";
-    sha256 = "sha256-XtykrPd5h/tsnjY1wGjzSOJ+AyyNLsfnjuOZ5Ryq9vA=";
-  }
-)
+++
+  optional
+    (
+      is10
+      && buildPlatform.system == "aarch64-darwin"
+      && targetPlatform != buildPlatform
+    )
+    (
+      fetchpatch {
+        url = "https://raw.githubusercontent.com/richard-vd/musl-cross-make/5e9e87f06fc3220e102c29d3413fbbffa456fcd6/patches/gcc-${version}/0008-darwin-aarch64-self-host-driver.patch";
+        sha256 = "sha256-XtykrPd5h/tsnjY1wGjzSOJ+AyyNLsfnjuOZ5Ryq9vA=";
+      }
+    )
 
 # Fix undefined symbol errors when building older versions with clang
 ++
@@ -222,8 +237,12 @@ in
 
 ## gcc 9.0 and older ##############################################################################
 
-++ optional (majorVersion == "9") ./9/fix-struct-redefinition-on-glibc-2.36.patch
-++ optional (atLeast7 && !atLeast10 && targetPlatform.isNetBSD) ./libstdc++-netbsd-ctypes.patch
+++
+  optional (majorVersion == "9")
+    ./9/fix-struct-redefinition-on-glibc-2.36.patch
+++
+  optional (atLeast7 && !atLeast10 && targetPlatform.isNetBSD)
+    ./libstdc++-netbsd-ctypes.patch
 
 # Make Darwin bootstrap respect whether the assembler supports `--gstabs`,
 # which is not supported by the clang integrated assembler used by default on Darwin.
@@ -258,12 +277,15 @@ in
   (./. + "/${majorVersion}/gcc8-asan-glibc-2.34.patch")
   (./. + "/${majorVersion}/0001-Fix-build-for-glibc-2.31.patch")
 ]
-++ optional ((is6 || is7) && targetPlatform.libc == "musl" && targetPlatform.isx86_32) (
-  fetchpatch {
-    url = "https://git.alpinelinux.org/aports/plain/main/gcc/gcc-6.1-musl-libssp.patch?id=5e4b96e23871ee28ef593b439f8c07ca7c7eb5bb";
-    sha256 = "1jf1ciz4gr49lwyh8knfhw6l5gvfkwzjy90m7qiwkcbsf4a3fqn2";
-  }
-)
+++
+  optional
+    ((is6 || is7) && targetPlatform.libc == "musl" && targetPlatform.isx86_32)
+    (
+      fetchpatch {
+        url = "https://git.alpinelinux.org/aports/plain/main/gcc/gcc-6.1-musl-libssp.patch?id=5e4b96e23871ee28ef593b439f8c07ca7c7eb5bb";
+        sha256 = "1jf1ciz4gr49lwyh8knfhw6l5gvfkwzjy90m7qiwkcbsf4a3fqn2";
+      }
+    )
 ++
   optional ((is6 || is7 || is8) && !atLeast9 && targetPlatform.libc == "musl")
     ./libgomp-dont-force-initial-exec.patch
@@ -272,8 +294,12 @@ in
 
 ++ optional (is6 && langGo) ./gogcc-workaround-glibc-2.36.patch
 ++ optional (is49 || is6) ./9/fix-struct-redefinition-on-glibc-2.36.patch
-++ optional (is49 || (is6 && !stdenv.targetPlatform.isRedox)) ./use-source-date-epoch.patch
-++ optional (is6 && !stdenv.targetPlatform.isRedox) ./6/0001-Fix-build-for-glibc-2.31.patch
+++
+  optional (is49 || (is6 && !stdenv.targetPlatform.isRedox))
+    ./use-source-date-epoch.patch
+++
+  optional (is6 && !stdenv.targetPlatform.isRedox)
+    ./6/0001-Fix-build-for-glibc-2.31.patch
 ++ optionals (is6 && langAda) [
   ./gnat-cflags.patch
   ./6/gnat-glibc234.patch
@@ -283,15 +309,30 @@ in
 # Fortunately, it does not exhibit the problem GCC has with the cctools assembler.
 # This patch can be dropped should darwin.cctools-llvm ever implement support.
 ++
-  optional (!atLeast7 && hostPlatform.isDarwin && lib.versionAtLeast (lib.getVersion stdenv.cc) "12")
+  optional
+    (
+      !atLeast7
+      && hostPlatform.isDarwin
+      && lib.versionAtLeast (lib.getVersion stdenv.cc) "12"
+    )
     ./4.9/darwin-clang-as.patch
 
 ## gcc 4.9 and older ##############################################################################
 
 ++ optional (!atLeast6) ./parallel-bconfig.patch
 ++ optionals (is49) [
-  (./. + "/${lib.versions.major version}.${lib.versions.minor version}/parallel-strsignal.patch")
-  (./. + "/${lib.versions.major version}.${lib.versions.minor version}/libsanitizer.patch")
+  (
+    ./.
+    + "/${lib.versions.major version}.${
+        lib.versions.minor version
+      }/parallel-strsignal.patch"
+  )
+  (
+    ./.
+    + "/${lib.versions.major version}.${
+        lib.versions.minor version
+      }/libsanitizer.patch"
+  )
   (fetchpatch {
     name = "avoid-ustat-glibc-2.28.patch";
     url = "https://gitweb.gentoo.org/proj/gcc-patches.git/plain/4.9.4/gentoo/100_all_avoid-ustat-glibc-2.28.patch?id=55fcb515620a8f7d3bb77eba938aa0fcf0d67c96";
@@ -383,7 +424,9 @@ in
 
 ## gcc 4.8 only ##############################################################################
 
-++ optional (!atLeast49 && hostPlatform.isDarwin) ./gfortran-darwin-NXConstStr.patch
+++
+  optional (!atLeast49 && hostPlatform.isDarwin)
+    ./gfortran-darwin-NXConstStr.patch
 ++ optionals is48 [
   (fetchpatch {
     name = "libc_name_p.diff"; # needed to build with gcc6

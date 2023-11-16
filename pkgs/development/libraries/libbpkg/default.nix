@@ -25,7 +25,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ build2 ];
   buildInputs = [ libbutl ];
 
-  build2ConfigureFlags = [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
+  build2ConfigureFlags = [
+    "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"
+  ];
 
   strictDeps = true;
 

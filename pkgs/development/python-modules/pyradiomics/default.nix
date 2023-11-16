@@ -58,7 +58,9 @@ buildPythonPackage rec {
   # note the above elements of disabledTests are patterns, not exact tests,
   # so simply setting `disabledTests` does not suffice:
   pytestFlagsArray = [
-    "-k '${toString (lib.intersperse "and" (lib.forEach disabledTests (t: "not ${t}")))}'"
+    "-k '${
+      toString (lib.intersperse "and" (lib.forEach disabledTests (t: "not ${t}")))
+    }'"
   ];
 
   pythonImportsCheck = [ "radiomics" ];

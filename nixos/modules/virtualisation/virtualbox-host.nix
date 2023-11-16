@@ -12,10 +12,13 @@ let
 
   virtualbox = cfg.package.override {
     inherit (cfg) enableHardening headless enableWebService;
-    extensionPack = if cfg.enableExtensionPack then pkgs.virtualboxExtpack else null;
+    extensionPack =
+      if cfg.enableExtensionPack then pkgs.virtualboxExtpack else null;
   };
 
-  kernelModules = config.boot.kernelPackages.virtualbox.override { inherit virtualbox; };
+  kernelModules = config.boot.kernelPackages.virtualbox.override {
+    inherit virtualbox;
+  };
 in
 
 {
@@ -31,16 +34,18 @@ in
       '';
     };
 
-    enableExtensionPack = mkEnableOption (lib.mdDoc "VirtualBox extension pack") // {
-      description = lib.mdDoc ''
-        Whether to install the Oracle Extension Pack for VirtualBox.
+    enableExtensionPack =
+      mkEnableOption (lib.mdDoc "VirtualBox extension pack")
+      // {
+        description = lib.mdDoc ''
+          Whether to install the Oracle Extension Pack for VirtualBox.
 
-        ::: {.important}
-        You must set `nixpkgs.config.allowUnfree = true` in
-        order to use this.  This requires you accept the VirtualBox PUEL.
-        :::
-      '';
-    };
+          ::: {.important}
+          You must set `nixpkgs.config.allowUnfree = true` in
+          order to use this.  This requires you accept the VirtualBox PUEL.
+          :::
+        '';
+      };
 
     package = mkOption {
       type = types.package;

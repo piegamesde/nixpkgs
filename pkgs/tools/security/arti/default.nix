@@ -26,9 +26,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
 
-  buildInputs = [
-    sqlite
-  ] ++ lib.optionals stdenv.isLinux [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs =
+    [ sqlite ]
+    ++ lib.optionals stdenv.isLinux [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   cargoBuildFlags = [
     "--package"

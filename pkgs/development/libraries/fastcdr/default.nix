@@ -26,7 +26,9 @@ stdenv.mkDerivation (
     cmakeFlags =
       lib.optional (stdenv.hostPlatform.isStatic) "-DBUILD_SHARED_LIBS=OFF"
       # fastcdr doesn't respect BUILD_TESTING
-      ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "-DEPROSIMA_BUILD_TESTS=ON"
+      ++
+        lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
+          "-DEPROSIMA_BUILD_TESTS=ON"
       ++ lib.optional withDocs "-DBUILD_DOCUMENTATION=ON";
 
     outputs = [ "out" ] ++ lib.optional withDocs "doc";

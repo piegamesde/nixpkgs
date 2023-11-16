@@ -26,7 +26,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    boot.extraModulePackages = optional (versionOlder kernel.kernel.version "5.6") kernel.wireguard;
+    boot.extraModulePackages =
+      optional (versionOlder kernel.kernel.version "5.6")
+        kernel.wireguard;
 
     environment.systemPackages = [ cfg.package ];
 

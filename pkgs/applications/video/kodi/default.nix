@@ -1,7 +1,9 @@
 { callPackage, ... }@args:
 let
   unwrapped = callPackage ./unwrapped.nix (removeAttrs args [ "callPackage" ]);
-  kodiPackages = callPackage ../../../top-level/kodi-packages.nix { kodi = unwrapped; };
+  kodiPackages = callPackage ../../../top-level/kodi-packages.nix {
+    kodi = unwrapped;
+  };
 in
 unwrapped.overrideAttrs (
   oldAttrs: {

@@ -40,7 +40,9 @@ in
       gestures = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc "Whether or not to enable libstroke for gesture support";
+        description =
+          lib.mdDoc
+            "Whether or not to enable libstroke for gesture support";
       };
     };
   };

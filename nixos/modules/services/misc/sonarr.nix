@@ -53,7 +53,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules = [
+      "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -"
+    ];
 
     systemd.services.sonarr = {
       description = "Sonarr";
@@ -79,6 +81,8 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "sonarr") { sonarr.gid = config.ids.gids.sonarr; };
+    users.groups = mkIf (cfg.group == "sonarr") {
+      sonarr.gid = config.ids.gids.sonarr;
+    };
   };
 }

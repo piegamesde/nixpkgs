@@ -9,8 +9,10 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.node;
-  collectorIsEnabled = final: any (collector: (final == collector)) cfg.enabledCollectors;
-  collectorIsDisabled = final: any (collector: (final == collector)) cfg.disabledCollectors;
+  collectorIsEnabled =
+    final: any (collector: (final == collector)) cfg.enabledCollectors;
+  collectorIsDisabled =
+    final: any (collector: (final == collector)) cfg.disabledCollectors;
 in
 {
   port = 9100;
@@ -51,7 +53,11 @@ in
             "AF_UNIX"
           ]
         ++ optionals
-          (collectorIsEnabled "network_route" || collectorIsEnabled "wifi" || !collectorIsDisabled "netdev")
+          (
+            collectorIsEnabled "network_route"
+            || collectorIsEnabled "wifi"
+            || !collectorIsDisabled "netdev"
+          )
           [
             # needs netlink sockets for wireless collector
             "AF_NETLINK"

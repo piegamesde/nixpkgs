@@ -70,7 +70,9 @@ stdenv.mkDerivation (
         # Needed for at least the remote plugin server
         for file in $out/bin/*; do
             wrapProgram "$file" --prefix SOAPY_SDR_PLUGIN_PATH : ${
-              lib.escapeShellArg (lib.makeSearchPath finalAttrs.passthru.searchPath extraPackages)
+              lib.escapeShellArg (
+                lib.makeSearchPath finalAttrs.passthru.searchPath extraPackages
+              )
             }
         done
       ''
@@ -78,7 +80,9 @@ stdenv.mkDerivation (
 
     passthru = {
       tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-      searchPath = "lib/SoapySDR/modules${lib.versions.majorMinor finalAttrs.version}";
+      searchPath = "lib/SoapySDR/modules${
+          lib.versions.majorMinor finalAttrs.version
+        }";
     };
 
     meta = with lib; {

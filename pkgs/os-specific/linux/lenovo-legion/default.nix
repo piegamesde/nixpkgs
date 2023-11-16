@@ -23,8 +23,12 @@ stdenv.mkDerivation {
     "SHELL=bash"
     "KERNELVERSION=${kernel.modDirVersion}"
     "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    "INSTALLDIR=${placeholder "out"}/lib/modules/${kernel.modDirVersion}/kernel/drivers/platform/x86"
-    "MODDESTDIR=${placeholder "out"}/lib/modules/${kernel.modDirVersion}/kernel/drivers/platform/x86"
+    "INSTALLDIR=${
+      placeholder "out"
+    }/lib/modules/${kernel.modDirVersion}/kernel/drivers/platform/x86"
+    "MODDESTDIR=${
+      placeholder "out"
+    }/lib/modules/${kernel.modDirVersion}/kernel/drivers/platform/x86"
     "DKMSDIR=${placeholder "out"}/lib/modules/${kernel.modDirVersion}/misc"
   ];
 

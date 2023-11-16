@@ -84,7 +84,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall && !cfg.enableUnixSocket) [ cfg.port ];
+    networking.firewall.allowedTCPPorts =
+      mkIf (cfg.openFirewall && !cfg.enableUnixSocket)
+        [ cfg.port ];
 
     systemd.services.esphome = {
       description = "ESPHome dashboard";

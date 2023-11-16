@@ -100,7 +100,9 @@ stdenv.mkDerivation rec {
       "--enable-webviewwebkit"
     ];
 
-  SEARCH_LIB = lib.optionalString (!stdenv.isDarwin) "${libGLU.out}/lib ${libGL.out}/lib ";
+  SEARCH_LIB =
+    lib.optionalString (!stdenv.isDarwin)
+      "${libGLU.out}/lib ${libGL.out}/lib ";
 
   preConfigure =
     ''

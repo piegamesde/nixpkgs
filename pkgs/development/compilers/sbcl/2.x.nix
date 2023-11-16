@@ -170,9 +170,13 @@ stdenv.mkDerivation rec {
 
     sh make.sh --prefix=$out --xc-host="${bootstrapLisp}" ${
       lib.concatStringsSep " " (
-        builtins.map (x: "--with-${x}") enableFeatures ++ builtins.map (x: "--without-${x}") disableFeatures
+        builtins.map (x: "--with-${x}") enableFeatures
+        ++ builtins.map (x: "--without-${x}") disableFeatures
       )
-    } ${lib.optionalString (stdenv.hostPlatform.system == "aarch64-darwin") "--arch=arm64"}
+    } ${
+      lib.optionalString (stdenv.hostPlatform.system == "aarch64-darwin")
+        "--arch=arm64"
+    }
     (cd doc/manual ; make info)
 
     runHook postBuild

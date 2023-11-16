@@ -87,7 +87,11 @@ stdenv.mkDerivation rec {
   ];
 
   passthru.tests = {
-    inherit (nixosTests) keymap kbd-setfont-decompress kbd-update-search-paths-patch;
+    inherit (nixosTests)
+      keymap
+      kbd-setfont-decompress
+      kbd-update-search-paths-patch
+    ;
   };
   passthru = {
     gzip = gzip;

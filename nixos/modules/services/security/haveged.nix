@@ -57,7 +57,9 @@ in
       ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.haveged}/bin/haveged -w ${toString cfg.refill_threshold} --Foreground -v 1";
+        ExecStart = "${pkgs.haveged}/bin/haveged -w ${
+            toString cfg.refill_threshold
+          } --Foreground -v 1";
         Restart = "always";
         SuccessExitStatus = "137 143";
         SecureBits = "noroot-locked";

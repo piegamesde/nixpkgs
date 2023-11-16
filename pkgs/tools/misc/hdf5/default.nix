@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
     url =
       let
         majorMinor = lib.versions.majorMinor version;
-        majorMinorPatch = with lib.versions; "${major version}.${minor version}.${patch version}";
+        majorMinorPatch =
+          with lib.versions; "${major version}.${minor version}.${patch version}";
       in
       "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${majorMinor}/hdf5-${majorMinorPatch}/src/hdf5-${version}.tar.bz2";
     sha256 = "sha256-6jxeJX7zIq9ed/weUurTrWvzu0rAZIDdF+45ANeiTPs=";
@@ -73,7 +74,9 @@ stdenv.mkDerivation rec {
   ] ++ optional fortranSupport fortran;
 
   buildInputs =
-    optional fortranSupport fortran ++ optional szipSupport szip ++ optional javaSupport jdk;
+    optional fortranSupport fortran
+    ++ optional szipSupport szip
+    ++ optional javaSupport jdk;
 
   propagatedBuildInputs = optional zlibSupport zlib ++ optional mpiSupport mpi;
 

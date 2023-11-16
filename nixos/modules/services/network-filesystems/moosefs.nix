@@ -43,7 +43,9 @@ let
       generate =
         name: value:
         pkgs.writeText name (
-          lib.concatStringsSep "\n" (lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value)
+          lib.concatStringsSep "\n" (
+            lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value
+          )
         );
     };
 
@@ -61,10 +63,14 @@ let
   masterCfg = settingsFormat.generate "mfsmaster.cfg" cfg.master.settings;
 
   # metalogger config file
-  metaloggerCfg = settingsFormat.generate "mfsmetalogger.cfg" cfg.metalogger.settings;
+  metaloggerCfg =
+    settingsFormat.generate "mfsmetalogger.cfg"
+      cfg.metalogger.settings;
 
   # chunkserver config file
-  chunkserverCfg = settingsFormat.generate "mfschunkserver.cfg" cfg.chunkserver.settings;
+  chunkserverCfg =
+    settingsFormat.generate "mfschunkserver.cfg"
+      cfg.chunkserver.settings;
 
   # generic template for all daemons
   systemdService = name: extraConfig: configFile: {
@@ -128,7 +134,9 @@ in
 
         openFirewall = mkOption {
           type = types.bool;
-          description = lib.mdDoc "Whether to automatically open the necessary ports in the firewall.";
+          description =
+            lib.mdDoc
+              "Whether to automatically open the necessary ports in the firewall.";
           default = false;
         };
 
@@ -161,7 +169,9 @@ in
             };
           };
 
-          description = lib.mdDoc "Contents of metalogger config file (mfsmetalogger.cfg).";
+          description =
+            lib.mdDoc
+              "Contents of metalogger config file (mfsmetalogger.cfg).";
         };
       };
 
@@ -170,14 +180,18 @@ in
 
         openFirewall = mkOption {
           type = types.bool;
-          description = lib.mdDoc "Whether to automatically open the necessary ports in the firewall.";
+          description =
+            lib.mdDoc
+              "Whether to automatically open the necessary ports in the firewall.";
           default = false;
         };
 
         hdds = mkOption {
           type = with types; listOf str;
           default = null;
-          description = lib.mdDoc "Mount points to be used by chunkserver for storage (see mfshdd.cfg).";
+          description =
+            lib.mdDoc
+              "Mount points to be used by chunkserver for storage (see mfshdd.cfg).";
           example = [ "/mnt/hdd1" ];
         };
 
@@ -192,7 +206,9 @@ in
             };
           };
 
-          description = lib.mdDoc "Contents of chunkserver config file (mfschunkserver.cfg).";
+          description =
+            lib.mdDoc
+              "Contents of chunkserver config file (mfschunkserver.cfg).";
         };
       };
     };
@@ -201,10 +217,18 @@ in
   ###### implementation
 
   config =
-    mkIf (cfg.client.enable || cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable)
+    mkIf
+      (
+        cfg.client.enable
+        || cfg.master.enable
+        || cfg.metalogger.enable
+        || cfg.chunkserver.enable
+      )
       {
 
-        warnings = [ (mkIf (!cfg.runAsUser) "Running moosefs services as root is not recommended.") ];
+        warnings = [
+          (mkIf (!cfg.runAsUser) "Running moosefs services as root is not recommended.")
+        ];
 
         # Service settings
         services.moosefs = {
@@ -231,7 +255,11 @@ in
 
         # Create system user account for daemons
         users =
-          mkIf (cfg.runAsUser && (cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable))
+          mkIf
+            (
+              cfg.runAsUser
+              && (cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable)
+            )
             {
               users.moosefs = {
                 isSystemUser = true;
@@ -242,7 +270,8 @@ in
             };
 
         environment.systemPackages =
-          (lib.optional cfg.client.enable pkgs.moosefs) ++ (lib.optional cfg.master.enable initTool);
+          (lib.optional cfg.client.enable pkgs.moosefs)
+          ++ (lib.optional cfg.master.enable initTool);
 
         networking.firewall.allowedTCPPorts =
           (lib.optionals cfg.master.openFirewall [
@@ -254,7 +283,8 @@ in
 
         # Ensure storage directories exist
         systemd.tmpfiles.rules =
-          optional cfg.master.enable "d ${cfg.master.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
+          optional cfg.master.enable
+            "d ${cfg.master.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
           ++
             optional cfg.metalogger.enable
               "d ${cfg.metalogger.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"

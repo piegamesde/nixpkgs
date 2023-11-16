@@ -156,7 +156,10 @@ in
             dbsqlpath=${ts3}/lib/teamspeak/sql/ logpath=${cfg.logPath} \
             ${optionalString (cfg.voiceIP != null) "voice_ip=${cfg.voiceIP}"} \
             default_voice_port=${toString cfg.defaultVoicePort} \
-            ${optionalString (cfg.fileTransferIP != null) "filetransfer_ip=${cfg.fileTransferIP}"} \
+            ${
+              optionalString (cfg.fileTransferIP != null)
+                "filetransfer_ip=${cfg.fileTransferIP}"
+            } \
             filetransfer_port=${toString cfg.fileTransferPort} \
             ${optionalString (cfg.queryIP != null) "query_ip=${cfg.queryIP}"} \
             query_port=${toString cfg.queryPort} license_accepted=1

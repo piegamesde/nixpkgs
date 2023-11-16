@@ -34,7 +34,9 @@ stdenv.mkDerivation rec {
       "-DBUILD_STATIC_LIBS=${if stdenv.hostPlatform.isStatic then "ON" else "OFF"}"
     ]
     ++ lib.optionals (!stdenv.isDarwin) [
-      "-DBUILD_SHARED_BINARIES=${if stdenv.hostPlatform.isStatic then "OFF" else "ON"}"
+      "-DBUILD_SHARED_BINARIES=${
+        if stdenv.hostPlatform.isStatic then "OFF" else "ON"
+      }"
     ];
 
   # https://github.com/google/jsonnet/issues/778

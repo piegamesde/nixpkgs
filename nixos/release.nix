@@ -20,7 +20,8 @@ let
 
   version = fileContents ../.version;
   versionSuffix =
-    (if stableBranch then "." else "pre") + "${toString nixpkgs.revCount}.${nixpkgs.shortRev}";
+    (if stableBranch then "." else "pre")
+    + "${toString nixpkgs.revCount}.${nixpkgs.shortRev}";
 
   # Run the tests for each platform.  You can run a test by doing
   # e.g. ‘nix-build release.nix -A tests.login.x86_64-linux’,
@@ -43,7 +44,9 @@ let
       };
     };
 
-  allTests = foldAttrs recursiveUpdate { } (map allTestsForSystem supportedSystems);
+  allTests = foldAttrs recursiveUpdate { } (
+    map allTestsForSystem supportedSystems
+  );
 
   pkgs = import ./.. { system = "x86_64-linux"; };
 
@@ -121,7 +124,8 @@ let
       inherit config;
     };
 
-  makeClosure = module: buildFromConfig module (config: config.system.build.toplevel);
+  makeClosure =
+    module: buildFromConfig module (config: config.system.build.toplevel);
 
   buildFromConfig =
     module: sel:
@@ -179,17 +183,26 @@ rec {
     ;
   };
 
-  manualHTML = buildFromConfig ({ ... }: { }) (config: config.system.build.manual.manualHTML);
+  manualHTML = buildFromConfig ({ ... }: { }) (
+    config: config.system.build.manual.manualHTML
+  );
   manual = manualHTML; # TODO(@oxij): remove eventually
-  manualEpub = (buildFromConfig ({ ... }: { }) (config: config.system.build.manual.manualEpub));
+  manualEpub =
+    (buildFromConfig ({ ... }: { }) (
+      config: config.system.build.manual.manualEpub
+    ));
   nixos-configuration-reference-manpage = buildFromConfig ({ ... }: { }) (
     config: config.system.build.manual.nixos-configuration-reference-manpage
   );
   options =
-    (buildFromConfig ({ ... }: { }) (config: config.system.build.manual.optionsJSON)).x86_64-linux;
+    (buildFromConfig ({ ... }: { }) (
+      config: config.system.build.manual.optionsJSON
+    )).x86_64-linux;
 
   # Build the initial ramdisk so Hydra can keep track of its size over time.
-  initialRamdisk = buildFromConfig ({ ... }: { }) (config: config.system.build.initialRamdisk);
+  initialRamdisk = buildFromConfig ({ ... }: { }) (
+    config: config.system.build.initialRamdisk
+  );
 
   kexec = forMatchingSystems supportedSystems (
     system:
@@ -613,7 +626,9 @@ rec {
       }
     );
 
-    ec2 = makeClosure ({ ... }: { imports = [ modules/virtualisation/amazon-image.nix ]; });
+    ec2 = makeClosure (
+      { ... }: { imports = [ modules/virtualisation/amazon-image.nix ]; }
+    );
 
     kde = makeClosure (
       { ... }:

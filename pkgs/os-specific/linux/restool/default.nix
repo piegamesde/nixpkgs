@@ -58,7 +58,9 @@ stdenv.mkDerivation rec {
     # symlinks). Instead, inject the environment directly into the shell
     # scripts we need to wrap.
     for tool in ls-append-dpl ls-debug ls-main; do
-      sed -i "1 a export PATH=\"$out/bin:${lib.makeBinPath buildInputs}:\$PATH\"" $out/bin/$tool
+      sed -i "1 a export PATH=\"$out/bin:${
+        lib.makeBinPath buildInputs
+      }:\$PATH\"" $out/bin/$tool
     done
   '';
 

@@ -34,7 +34,9 @@ stdenv.mkDerivation rec {
       --replace '-i ""' '-i'
   '';
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
+  nativeBuildInputs = [
+    makeWrapper
+  ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
   buildInputs =
     [
@@ -57,9 +59,9 @@ stdenv.mkDerivation rec {
       "USE_SYSTEM_OPENCL=1"
       "USE_SYSTEM_XXHASH=1"
     ]
-    ++ lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform == stdenv.buildPlatform) [
-      "IS_APPLE_SILICON='${if stdenv.hostPlatform.isAarch64 then "1" else "0"}'"
-    ];
+    ++ lib.optionals
+      (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform == stdenv.buildPlatform)
+      [ "IS_APPLE_SILICON='${if stdenv.hostPlatform.isAarch64 then "1" else "0"}'" ];
 
   enableParallelBuilding = true;
 
@@ -74,7 +76,8 @@ stdenv.mkDerivation rec {
   postFixup =
     let
       LD_LIBRARY_PATH = builtins.concatStringsSep ":" (
-        [ "${ocl-icd}/lib" ] ++ lib.optionals cudaSupport [ "${cudaPackages.cudatoolkit}/lib" ]
+        [ "${ocl-icd}/lib" ]
+        ++ lib.optionals cudaSupport [ "${cudaPackages.cudatoolkit}/lib" ]
       );
     in
     ''

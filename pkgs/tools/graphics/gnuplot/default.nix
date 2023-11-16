@@ -35,7 +35,8 @@
   qtsvg,
 }:
 
-assert libX11 != null -> (fontconfig != null && gnused != null && coreutils != null);
+assert libX11 != null
+  -> (fontconfig != null && gnused != null && coreutils != null);
 let
   withX = libX11 != null && !aquaterm && !stdenv.isDarwin;
 in
@@ -113,7 +114,9 @@ in
 
   # When cross-compiling, don't build docs and demos.
   # Inspiration taken from https://sourceforge.net/p/gnuplot/gnuplot-main/merge-requests/10/
-  makeFlags = lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ "-C src" ];
+  makeFlags =
+    lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+      [ "-C src" ];
 
   enableParallelBuilding = true;
 

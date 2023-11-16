@@ -176,7 +176,9 @@ let
         passthru.elkPackages = elk;
         testScript =
           let
-            valueObject = lib.optionalString (lib.versionAtLeast elk.elasticsearch.version "7") ".value";
+            valueObject =
+              lib.optionalString (lib.versionAtLeast elk.elasticsearch.version "7")
+                ".value";
           in
           ''
             import json

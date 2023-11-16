@@ -63,7 +63,8 @@ let
         sha256 = "sha256-R6mejxuxSZv37nyjnt/oGvgqCw1pULCHCWnlw+pq8iY=";
       };
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 in
 stdenv.mkDerivation rec {
   inherit pname version meta;

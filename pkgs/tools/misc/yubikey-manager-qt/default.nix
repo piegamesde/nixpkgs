@@ -41,7 +41,9 @@ mkDerivation rec {
     qtquickcontrols2
   ];
 
-  pythonPath = [ (yubikey-manager4.override { python3Packages = python3.pkgs; }) ];
+  pythonPath = [
+    (yubikey-manager4.override { python3Packages = python3.pkgs; })
+  ];
 
   postInstall = ''
     # Desktop files

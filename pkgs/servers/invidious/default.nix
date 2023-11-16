@@ -45,8 +45,10 @@ crystal.buildCrystalPackage rec {
       # Replacing by the value (templates) of the variables ensures that building
       # fails if upstream changes the way the metadata is formatted.
       branchTemplate = ''{{ "#{`git branch | sed -n '/* /s///p'`.strip}" }}'';
-      commitTemplate = ''{{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit`.strip}" }}'';
-      versionTemplate = ''{{ "#{`git log -1 --format=%ci | awk '{print $1}' | sed s/-/./g`.strip}" }}'';
+      commitTemplate = ''
+        {{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit`.strip}" }}'';
+      versionTemplate = ''
+        {{ "#{`git log -1 --format=%ci | awk '{print $1}' | sed s/-/./g`.strip}" }}'';
       # This always uses the latest commit which invalidates the cache even if
       # the assets were not changed
       assetCommitTemplate = ''
@@ -59,7 +61,9 @@ crystal.buildCrystalPackage rec {
       # build-time
       substituteInPlace src/invidious.cr \
           --replace ${lib.escapeShellArg branchTemplate} '"master"' \
-          --replace ${lib.escapeShellArg commitTemplate} '"${lib.substring 0 7 versions.invidious.rev}"' \
+          --replace ${lib.escapeShellArg commitTemplate} '"${
+            lib.substring 0 7 versions.invidious.rev
+          }"' \
           --replace ${lib.escapeShellArg versionTemplate} '"${
             lib.replaceStrings [ "-" ] [ "." ] (lib.substring 9 10 version)
           }"' \
@@ -69,16 +73,22 @@ crystal.buildCrystalPackage rec {
 
       # Patch the assets and locales paths to be absolute
       substituteInPlace src/invidious.cr \
-          --replace 'public_folder "assets"' 'public_folder "${placeholder "out"}/share/invidious/assets"'
+          --replace 'public_folder "assets"' 'public_folder "${
+            placeholder "out"
+          }/share/invidious/assets"'
       substituteInPlace src/invidious/helpers/i18n.cr \
-          --replace 'File.read("locales/' 'File.read("${placeholder "out"}/share/invidious/locales/'
+          --replace 'File.read("locales/' 'File.read("${
+            placeholder "out"
+          }/share/invidious/locales/'
 
       # Reference sql initialisation/migration scripts by absolute path
       substituteInPlace src/invidious/database/base.cr \
             --replace 'config/sql' '${placeholder "out"}/share/invidious/config/sql'
 
       substituteInPlace src/invidious/user/captcha.cr \
-          --replace 'Process.run(%(rsvg-convert' 'Process.run(%(${lib.getBin librsvg}/bin/rsvg-convert'
+          --replace 'Process.run(%(rsvg-convert' 'Process.run(%(${
+            lib.getBin librsvg
+          }/bin/rsvg-convert'
     '';
 
   nativeBuildInputs = [

@@ -100,7 +100,8 @@ in
           root-files;
       # Subdirectories of the root with a cabal file.
       cabal-subdirs =
-        builtins.filter ({ name, value }: builtins.pathExists (value + "/${name}.cabal"))
+        builtins.filter
+          ({ name, value }: builtins.pathExists (value + "/${name}.cabal"))
           root-files-with-paths;
     in
     builtins.listToAttrs cabal-subdirs;
@@ -120,7 +121,9 @@ in
         path:
         let
           files = builtins.attrNames (builtins.readDir path);
-          matches = builtins.filter (match: match != null) (map (builtins.match pattern) files);
+          matches = builtins.filter (match: match != null) (
+            map (builtins.match pattern) files
+          );
         in
         if builtins.length matches != 0 then
           { inherit path matches; }

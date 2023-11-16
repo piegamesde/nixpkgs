@@ -19,9 +19,16 @@ let
       #     package = pkgs.postgresql_<major>;
       #   };
       # works.
-      base = if cfg.enableJIT && !cfg.package.jitSupport then cfg.package.withJIT else cfg.package;
+      base =
+        if cfg.enableJIT && !cfg.package.jitSupport then
+          cfg.package.withJIT
+        else
+          cfg.package;
     in
-    if cfg.extraPlugins == [ ] then base else base.withPackages (_: cfg.extraPlugins);
+    if cfg.extraPlugins == [ ] then
+      base
+    else
+      base.withPackages (_: cfg.extraPlugins);
 
   toStr =
     value:
@@ -88,7 +95,9 @@ in
       checkConfig = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc "Check the syntax of the configuration file at compile time";
+        description =
+          lib.mdDoc
+            "Check the syntax of the configuration file at compile time";
       };
 
       dataDir = mkOption {
@@ -412,7 +421,9 @@ in
       extraPlugins = mkOption {
         type = types.listOf types.path;
         default = [ ];
-        example = literalExpression "with pkgs.postgresql_15.pkgs; [ postgis pg_repack ]";
+        example =
+          literalExpression
+            "with pkgs.postgresql_15.pkgs; [ postgis pg_repack ]";
         description = lib.mdDoc ''
           List of PostgreSQL plugins. PostgreSQL version for each plugin should
           match version for `services.postgresql.package` value.
@@ -489,7 +500,9 @@ in
 
     services.postgresql.package =
       let
-        mkThrow = ver: throw "postgresql_${ver} was removed, please upgrade your postgresql version.";
+        mkThrow =
+          ver:
+          throw "postgresql_${ver} was removed, please upgrade your postgresql version.";
         base =
           if versionAtLeast config.system.stateVersion "23.11" then
             pkgs.postgresql_15
@@ -509,7 +522,9 @@ in
       # systems!
       mkDefault (if cfg.enableJIT then base.withJIT else base);
 
-    services.postgresql.dataDir = mkDefault "/var/lib/postgresql/${cfg.package.psqlSchema}";
+    services.postgresql.dataDir =
+      mkDefault
+        "/var/lib/postgresql/${cfg.package.psqlSchema}";
 
     services.postgresql.authentication = mkMerge [
       (mkBefore "# Generated file; do not edit!")
@@ -537,7 +552,8 @@ in
     environment.pathsToLink = [ "/share/postgresql" ];
 
     system.checks =
-      lib.optional (cfg.checkConfig && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform)
+      lib.optional
+        (cfg.checkConfig && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform)
         configFileCheck;
 
     systemd.services.postgresql = {
@@ -602,16 +618,23 @@ in
               let
                 userPermissions = concatStringsSep "\n" (
                   mapAttrsToList
-                    (database: permission: ''$PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' '')
+                    (
+                      database: permission:
+                      ''$PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' ''
+                    )
                     user.ensurePermissions
                 );
 
                 filteredClauses = filterAttrs (name: value: value != null) user.ensureClauses;
 
-                clauseSqlStatements = attrValues (mapAttrs (n: v: if v then n else "no${n}") filteredClauses);
+                clauseSqlStatements = attrValues (
+                  mapAttrs (n: v: if v then n else "no${n}") filteredClauses
+                );
 
                 userClauses = ''
-                  $PSQL -tAc 'ALTER ROLE "${user.name}" ${concatStringsSep " " clauseSqlStatements}' '';
+                  $PSQL -tAc 'ALTER ROLE "${user.name}" ${
+                    concatStringsSep " " clauseSqlStatements
+                  }' '';
               in
               ''
                 $PSQL -tAc "SELECT 1 FROM pg_roles WHERE rolname='${user.name}'" | grep -q 1 || $PSQL -tAc 'CREATE USER "${user.name}"'

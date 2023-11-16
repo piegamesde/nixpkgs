@@ -30,7 +30,9 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.Security
+  ];
 
   nativeCheckInputs = [ unixtools.script ];
 
@@ -45,7 +47,9 @@ rustPlatform.buildRustPackage rec {
 
   postPatch = ''
     substituteInPlace src/helper/args/mod.rs \
-      --subst-var-by releaseDir target/${rust.toRustTargetSpec stdenv.hostPlatform}/$cargoCheckType
+      --subst-var-by releaseDir target/${
+        rust.toRustTargetSpec stdenv.hostPlatform
+      }/$cargoCheckType
   '';
 
   preCheck = ''

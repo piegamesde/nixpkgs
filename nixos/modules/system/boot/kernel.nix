@@ -181,7 +181,9 @@ in
       type = types.listOf types.package;
       default = [ ];
       example = literalExpression "[ config.boot.kernelPackages.nvidia_x11 ]";
-      description = lib.mdDoc "A list of additional packages supplying kernel modules.";
+      description =
+        lib.mdDoc
+          "A list of additional packages supplying kernel modules.";
     };
 
     boot.kernelModules = mkOption {
@@ -272,61 +274,63 @@ in
 
   config = mkMerge [
     (mkIf config.boot.initrd.enable {
-      boot.initrd.availableKernelModules = optionals config.boot.initrd.includeDefaultModules (
-        [
-          # Note: most of these (especially the SATA/PATA modules)
-          # shouldn't be included by default since nixos-generate-config
-          # detects them, but I'm keeping them for now for backwards
-          # compatibility.
+      boot.initrd.availableKernelModules =
+        optionals config.boot.initrd.includeDefaultModules
+          (
+            [
+              # Note: most of these (especially the SATA/PATA modules)
+              # shouldn't be included by default since nixos-generate-config
+              # detects them, but I'm keeping them for now for backwards
+              # compatibility.
 
-          # Some SATA/PATA stuff.
-          "ahci"
-          "sata_nv"
-          "sata_via"
-          "sata_sis"
-          "sata_uli"
-          "ata_piix"
-          "pata_marvell"
+              # Some SATA/PATA stuff.
+              "ahci"
+              "sata_nv"
+              "sata_via"
+              "sata_sis"
+              "sata_uli"
+              "ata_piix"
+              "pata_marvell"
 
-          # NVMe
-          "nvme"
+              # NVMe
+              "nvme"
 
-          # Standard SCSI stuff.
-          "sd_mod"
-          "sr_mod"
+              # Standard SCSI stuff.
+              "sd_mod"
+              "sr_mod"
 
-          # SD cards and internal eMMC drives.
-          "mmc_block"
+              # SD cards and internal eMMC drives.
+              "mmc_block"
 
-          # Support USB keyboards, in case the boot fails and we only have
-          # a USB keyboard, or for LUKS passphrase prompt.
-          "uhci_hcd"
-          "ehci_hcd"
-          "ehci_pci"
-          "ohci_hcd"
-          "ohci_pci"
-          "xhci_hcd"
-          "xhci_pci"
-          "usbhid"
-          "hid_generic"
-          "hid_lenovo"
-          "hid_apple"
-          "hid_roccat"
-          "hid_logitech_hidpp"
-          "hid_logitech_dj"
-          "hid_microsoft"
-          "hid_cherry"
-        ]
-        ++ optionals pkgs.stdenv.hostPlatform.isx86 [
-          # Misc. x86 keyboard stuff.
-          "pcips2"
-          "atkbd"
-          "i8042"
+              # Support USB keyboards, in case the boot fails and we only have
+              # a USB keyboard, or for LUKS passphrase prompt.
+              "uhci_hcd"
+              "ehci_hcd"
+              "ehci_pci"
+              "ohci_hcd"
+              "ohci_pci"
+              "xhci_hcd"
+              "xhci_pci"
+              "usbhid"
+              "hid_generic"
+              "hid_lenovo"
+              "hid_apple"
+              "hid_roccat"
+              "hid_logitech_hidpp"
+              "hid_logitech_dj"
+              "hid_microsoft"
+              "hid_cherry"
+            ]
+            ++ optionals pkgs.stdenv.hostPlatform.isx86 [
+              # Misc. x86 keyboard stuff.
+              "pcips2"
+              "atkbd"
+              "i8042"
 
-          # x86 RTC needed by the stage 2 init script.
-          "rtc_cmos"
-        ]
-      );
+              # x86 RTC needed by the stage 2 init script.
+              "rtc_cmos"
+            ]
+          );
 
       boot.initrd.kernelModules =
         optionals config.boot.initrd.includeDefaultModules
@@ -348,8 +352,12 @@ in
       system.systemBuilderArgs.kernelParams = config.boot.kernelParams;
       system.systemBuilderCommands =
         let
-          kernelPath = "${config.boot.kernelPackages.kernel}/" + "${config.system.boot.loader.kernelFile}";
-          initrdPath = "${config.system.build.initialRamdisk}/" + "${config.system.boot.loader.initrdFile}";
+          kernelPath =
+            "${config.boot.kernelPackages.kernel}/"
+            + "${config.system.boot.loader.kernelFile}";
+          initrdPath =
+            "${config.system.build.initialRamdisk}/"
+            + "${config.system.boot.loader.initrdFile}";
         in
         ''
           if [ ! -f ${kernelPath} ]; then

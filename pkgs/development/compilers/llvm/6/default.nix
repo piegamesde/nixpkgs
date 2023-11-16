@@ -183,4 +183,8 @@ let
   );
   noExtend = extensible: lib.attrsets.removeAttrs extensible [ "extend" ];
 in
-{ inherit tools libraries release_version; } // (noExtend libraries) // (noExtend tools)
+{
+  inherit tools libraries release_version;
+}
+// (noExtend libraries)
+// (noExtend tools)

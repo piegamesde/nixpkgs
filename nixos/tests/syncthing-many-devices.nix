@@ -122,31 +122,35 @@ import ./make-test-python.nix (
       # explained in: https://github.com/NixOS/nixpkgs/issues/259256
       folder = "DeleteMe";
     };
-    addDeviceToDeleteScript = pkgs.writers.writeBash "syncthing-add-device-to-delete.sh" ''
-      set -euo pipefail
+    addDeviceToDeleteScript =
+      pkgs.writers.writeBash "syncthing-add-device-to-delete.sh"
+        ''
+          set -euo pipefail
 
-      export RUNTIME_DIRECTORY=/tmp
+          export RUNTIME_DIRECTORY=/tmp
 
-      curl() {
-          # get the api key by parsing the config.xml
-          while
-              ! ${pkgs.libxml2}/bin/xmllint \
-                  --xpath 'string(configuration/gui/apikey)' \
-                  ${configPath} \
-                  >"$RUNTIME_DIRECTORY/api_key"
-          do sleep 1; done
+          curl() {
+              # get the api key by parsing the config.xml
+              while
+                  ! ${pkgs.libxml2}/bin/xmllint \
+                      --xpath 'string(configuration/gui/apikey)' \
+                      ${configPath} \
+                      >"$RUNTIME_DIRECTORY/api_key"
+              do sleep 1; done
 
-          (printf "X-API-Key: "; cat "$RUNTIME_DIRECTORY/api_key") >"$RUNTIME_DIRECTORY/headers"
+              (printf "X-API-Key: "; cat "$RUNTIME_DIRECTORY/api_key") >"$RUNTIME_DIRECTORY/headers"
 
-          ${pkgs.curl}/bin/curl -sSLk -H "@$RUNTIME_DIRECTORY/headers" \
-              --retry 1000 --retry-delay 1 --retry-all-errors \
-              "$@"
-      }
-      curl -d ${lib.escapeShellArg (builtins.toJSON { deviceID = IDsToDelete.device; })} \
-          -X POST 127.0.0.1:8384/rest/config/devices
-      curl -d ${lib.escapeShellArg (builtins.toJSON { id = IDsToDelete.folder; })} \
-          -X POST 127.0.0.1:8384/rest/config/folders
-    '';
+              ${pkgs.curl}/bin/curl -sSLk -H "@$RUNTIME_DIRECTORY/headers" \
+                  --retry 1000 --retry-delay 1 --retry-all-errors \
+                  "$@"
+          }
+          curl -d ${
+            lib.escapeShellArg (builtins.toJSON { deviceID = IDsToDelete.device; })
+          } \
+              -X POST 127.0.0.1:8384/rest/config/devices
+          curl -d ${lib.escapeShellArg (builtins.toJSON { id = IDsToDelete.folder; })} \
+              -X POST 127.0.0.1:8384/rest/config/folders
+        '';
   in
   {
     name = "syncthing-init";

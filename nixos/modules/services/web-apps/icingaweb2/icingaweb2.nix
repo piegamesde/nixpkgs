@@ -61,7 +61,9 @@ in
       migrate.enable = mkEnableOption (lib.mdDoc "the icingaweb2 migrate module");
       setup.enable = mkEnableOption (lib.mdDoc "the icingaweb2 setup module");
       test.enable = mkEnableOption (lib.mdDoc "the icingaweb2 test module");
-      translation.enable = mkEnableOption (lib.mdDoc "the icingaweb2 translation module");
+      translation.enable = mkEnableOption (
+        lib.mdDoc "the icingaweb2 translation module"
+      );
     };
 
     modulePackages = mkOption {
@@ -192,7 +194,9 @@ in
             )
           );
         };
-        phpPackage = pkgs.php.withExtensions ({ enabled, all }: [ all.imagick ] ++ enabled);
+        phpPackage = pkgs.php.withExtensions (
+          { enabled, all }: [ all.imagick ] ++ enabled
+        );
         phpOptions = ''
           date.timezone = "${cfg.timezone}"
         '';
@@ -214,7 +218,9 @@ in
       thirdparty = pkgs.icingaweb2-thirdparty;
     };
 
-    systemd.services."phpfpm-${poolName}".serviceConfig.ReadWritePaths = [ "/etc/icingaweb2" ];
+    systemd.services."phpfpm-${poolName}".serviceConfig.ReadWritePaths = [
+      "/etc/icingaweb2"
+    ];
 
     services.nginx = {
       enable = true;
@@ -255,7 +261,8 @@ in
       in
       { }
       # Module packages
-      // (mapAttrs' (k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; })
+      // (mapAttrs'
+        (k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; })
         cfg.modulePackages
       )
       # Built-in modules
@@ -266,7 +273,9 @@ in
       // doModule "translation"
       # Configs
       // optionalAttrs (cfg.generalConfig != null) {
-        "icingaweb2/config.ini".text = generators.toINI { } (defaultConfig // cfg.generalConfig);
+        "icingaweb2/config.ini".text = generators.toINI { } (
+          defaultConfig // cfg.generalConfig
+        );
       }
       // optionalAttrs (cfg.resources != null) {
         "icingaweb2/resources.ini".text = generators.toINI { } cfg.resources;

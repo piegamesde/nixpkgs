@@ -16,7 +16,9 @@ stdenv.mkDerivation (
       sha256 = "524f2fae47db785234f166551520d9605b9a27551ca438bd807e3509ce246cf0";
     };
 
-    buildInputs = [ sndio ] ++ lib.optional (!stdenv.isDarwin && !stdenv.targetPlatform.isBSD) libbsd;
+    buildInputs = [
+      sndio
+    ] ++ lib.optional (!stdenv.isDarwin && !stdenv.targetPlatform.isBSD) libbsd;
 
     outputs = [
       "out"

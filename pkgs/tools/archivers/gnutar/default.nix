@@ -46,12 +46,15 @@ stdenv.mkDerivation rec {
   #  "_libintl_textdomain", referenced from:
   #    _main in tar.o
   #  ld: symbol(s) not found for architecture x86_64
-  buildInputs = lib.optional stdenv.isLinux acl ++ lib.optional stdenv.isDarwin libintl;
+  buildInputs =
+    lib.optional stdenv.isLinux acl
+    ++ lib.optional stdenv.isDarwin libintl;
 
   # May have some issues with root compilation because the bootstrap tool
   # cannot be used as a login shell for now.
   FORCE_UNSAFE_CONFIGURE =
-    lib.optionalString (stdenv.hostPlatform.system == "armv7l-linux" || stdenv.isSunOS)
+    lib.optionalString
+      (stdenv.hostPlatform.system == "armv7l-linux" || stdenv.isSunOS)
       "1";
 
   preConfigure =

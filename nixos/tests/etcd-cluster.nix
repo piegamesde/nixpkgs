@@ -4,7 +4,8 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   let
 
-    runWithOpenSSL = file: cmd: pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd;
+    runWithOpenSSL =
+      file: cmd: pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd;
 
     ca_key = runWithOpenSSL "ca-key.pem" "openssl genrsa -out $out 2048";
     ca_pem = runWithOpenSSL "ca.pem" ''
@@ -28,7 +29,9 @@ import ./make-test-python.nix (
         -extfile ${openssl_cnf}
     '';
 
-    etcd_client_key = runWithOpenSSL "etcd-client-key.pem" "openssl genrsa -out $out 2048";
+    etcd_client_key =
+      runWithOpenSSL "etcd-client-key.pem"
+        "openssl genrsa -out $out 2048";
 
     etcd_client_csr = runWithOpenSSL "etcd-client-key.pem" ''
       openssl req \

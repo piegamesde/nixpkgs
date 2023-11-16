@@ -41,7 +41,9 @@ buildPythonPackage rec {
     setuptools # needs pkg_resources at runtime
   ] ++ cachecontrol.optional-dependencies.filecache;
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.pycodegen;
+  nativeCheckInputs = [
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.pycodegen;
 
   preCheck = ''
     rm tox.ini

@@ -175,7 +175,9 @@ in
             if [ "${cfg.accessToken}" != "" ]; then
                (umask 0077; printf "${cfg.accessToken}" >"$access_token_file")
             fi
-            jenkins_url="http://${jenkinsCfg.listenAddress}:${toString jenkinsCfg.port}${jenkinsCfg.prefix}"
+            jenkins_url="http://${jenkinsCfg.listenAddress}:${
+              toString jenkinsCfg.port
+            }${jenkinsCfg.prefix}"
             auth_file="$RUNTIME_DIRECTORY/jenkins_auth_file.txt"
             trap 'rm -f "$auth_file"' EXIT
             (umask 0077; printf "${cfg.accessUser}:@password_placeholder@" >"$auth_file")

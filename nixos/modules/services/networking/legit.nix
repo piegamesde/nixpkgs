@@ -154,7 +154,9 @@ in
           [ ]
           ++ optional (cfg.settings.repo.scanPath == defaultStateDir) "legit"
           ++ optional (cfg.settings.dirs.static == defaultStaticDir) "legit/static"
-          ++ optional (cfg.settings.dirs.templates == defaultTemplatesDir) "legit/templates";
+          ++
+            optional (cfg.settings.dirs.templates == defaultTemplatesDir)
+              "legit/templates";
 
         # Hardening
         CapabilityBoundingSet = [ "" ];

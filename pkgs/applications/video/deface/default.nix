@@ -33,7 +33,9 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   # Native onnxruntime lib used by Python module onnxruntime can't find its other libs without this
-  makeWrapperArgs = [ ''--prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ pkgs.onnxruntime ]}"'' ];
+  makeWrapperArgs = [
+    ''--prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ pkgs.onnxruntime ]}"''
+  ];
 
   patchPhase = ''
     substituteInPlace pyproject.toml requirements.txt --replace "opencv-python" "opencv"

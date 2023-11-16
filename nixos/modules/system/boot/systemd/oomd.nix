@@ -11,9 +11,15 @@ in
 
     # Fedora enables the first and third option by default. See the 10-oomd-* files here:
     # https://src.fedoraproject.org/rpms/systemd/tree/acb90c49c42276b06375a66c73673ac351025597
-    enableRootSlice = lib.mkEnableOption (lib.mdDoc "oomd on the root slice (`-.slice`)");
-    enableSystemSlice = lib.mkEnableOption (lib.mdDoc "oomd on the system slice (`system.slice`)");
-    enableUserServices = lib.mkEnableOption (lib.mdDoc "oomd on all user services (`user@.service`)");
+    enableRootSlice = lib.mkEnableOption (
+      lib.mdDoc "oomd on the root slice (`-.slice`)"
+    );
+    enableSystemSlice = lib.mkEnableOption (
+      lib.mdDoc "oomd on the system slice (`system.slice`)"
+    );
+    enableUserServices = lib.mkEnableOption (
+      lib.mdDoc "oomd on all user services (`user@.service`)"
+    );
 
     extraConfig = lib.mkOption {
       type =
@@ -26,7 +32,9 @@ in
           ]
         );
       default = { };
-      example = lib.literalExpression ''{ DefaultMemoryPressureDurationSec = "20s"; }'';
+      example =
+        lib.literalExpression
+          ''{ DefaultMemoryPressureDurationSec = "20s"; }'';
       description = lib.mdDoc ''
         Extra config options for `systemd-oomd`. See {command}`man oomd.conf`
         for available options.
@@ -41,9 +49,13 @@ in
     ];
     systemd.services.systemd-oomd.wantedBy = [ "multi-user.target" ];
 
-    environment.etc."systemd/oomd.conf".text = lib.generators.toINI { } { OOM = cfg.extraConfig; };
+    environment.etc."systemd/oomd.conf".text = lib.generators.toINI { } {
+      OOM = cfg.extraConfig;
+    };
 
-    systemd.oomd.extraConfig.DefaultMemoryPressureDurationSec = lib.mkDefault "20s"; # Fedora default
+    systemd.oomd.extraConfig.DefaultMemoryPressureDurationSec =
+      lib.mkDefault
+        "20s"; # Fedora default
 
     users.users.systemd-oom = {
       description = "systemd-oomd service user";
@@ -52,8 +64,12 @@ in
     };
     users.groups.systemd-oom = { };
 
-    systemd.slices."-".sliceConfig = lib.mkIf cfg.enableRootSlice { ManagedOOMSwap = "kill"; };
-    systemd.slices."system".sliceConfig = lib.mkIf cfg.enableSystemSlice { ManagedOOMSwap = "kill"; };
+    systemd.slices."-".sliceConfig = lib.mkIf cfg.enableRootSlice {
+      ManagedOOMSwap = "kill";
+    };
+    systemd.slices."system".sliceConfig = lib.mkIf cfg.enableSystemSlice {
+      ManagedOOMSwap = "kill";
+    };
     systemd.services."user@".serviceConfig = lib.mkIf cfg.enableUserServices {
       ManagedOOMMemoryPressure = "kill";
       ManagedOOMMemoryPressureLimit = "50%";

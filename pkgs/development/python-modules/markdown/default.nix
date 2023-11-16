@@ -30,7 +30,9 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [
+    importlib-metadata
+  ];
 
   nativeCheckInputs = [
     unittestCheckHook

@@ -19,9 +19,14 @@ let
       "--status-srv=${cfg.statusListenAddress}:${toString cfg.statusPort}"
       "--provided-by=${escapeShellArg cfg.providedBy}"
     ]
-    ++ optional (cfg.pools != null) "--pools=${escapeShellArg (concatStringsSep "," cfg.pools)}"
-    ++ optional (cfg.globalRateBps != null) "--global-rate=${toString cfg.globalRateBps}"
-    ++ optional (cfg.perSessionRateBps != null) "--per-session-rate=${toString cfg.perSessionRateBps}"
+    ++ optional (cfg.pools != null)
+      "--pools=${escapeShellArg (concatStringsSep "," cfg.pools)}"
+    ++
+      optional (cfg.globalRateBps != null)
+        "--global-rate=${toString cfg.globalRateBps}"
+    ++
+      optional (cfg.perSessionRateBps != null)
+        "--per-session-rate=${toString cfg.perSessionRateBps}"
     ++ cfg.extraOptions;
 in
 {
@@ -120,7 +125,9 @@ in
         StateDirectory = baseNameOf dataDirectory;
 
         Restart = "on-failure";
-        ExecStart = "${pkgs.syncthing-relay}/bin/strelaysrv ${concatStringsSep " " relayOptions}";
+        ExecStart = "${pkgs.syncthing-relay}/bin/strelaysrv ${
+            concatStringsSep " " relayOptions
+          }";
       };
     };
   };

@@ -74,7 +74,8 @@ let
         ''
       else
         unit "atop.service" "inactive";
-    atopRotateTimer = present: unit "atop-rotate.timer" (if present then "active" else "inactive");
+    atopRotateTimer =
+      present: unit "atop-rotate.timer" (if present then "active" else "inactive");
     atopacctService =
       present:
       if present then
@@ -116,7 +117,8 @@ let
     atopgpu =
       present:
       if present then
-        (unit "atopgpu.service" "active") + (path "atopgpud" "/run/current-system/sw/bin/atopgpud")
+        (unit "atopgpu.service" "active")
+        + (path "atopgpud" "/run/current-system/sw/bin/atopgpud")
       else
         (unit "atopgpu.service" "inactive")
         + ''

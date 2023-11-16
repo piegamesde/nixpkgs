@@ -99,7 +99,9 @@ let
         else
           null;
 
-      runtimeDependencyLibraryPath = lib.makeLibraryPath finalAttrs.runtimeDependencies;
+      runtimeDependencyLibraryPath =
+        lib.makeLibraryPath
+          finalAttrs.runtimeDependencies;
 
       nativeBuildInputs =
         (args.nativeBuildInputs or [ ])
@@ -147,7 +149,8 @@ let
   );
 
   packageOverrideRepository =
-    (callPackage ../../../development/compilers/dart/package-overrides { }) // customPackageOverrides;
+    (callPackage ../../../development/compilers/dart/package-overrides { })
+    // customPackageOverrides;
   productPackages = builtins.filter (package: package.kind != "dev") (
     if autoDepsList then
       lib.importJSON dartDeps.depsListFile

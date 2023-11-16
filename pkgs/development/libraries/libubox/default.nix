@@ -23,7 +23,9 @@ stdenv.mkDerivation {
 
   cmakeFlags = [
     "-DBUILD_EXAMPLES=OFF"
-    (if with_lua then "-DLUAPATH=${placeholder "out"}/lib/lua" else "-DBUILD_LUA=OFF")
+    (
+      if with_lua then "-DLUAPATH=${placeholder "out"}/lib/lua" else "-DBUILD_LUA=OFF"
+    )
   ];
 
   nativeBuildInputs = [

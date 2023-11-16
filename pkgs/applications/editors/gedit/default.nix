@@ -39,7 +39,9 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gedit/${lib.versions.major version}/gedit-${version}.tar.xz";
+    url = "mirror://gnome/sources/gedit/${
+        lib.versions.major version
+      }/gedit-${version}.tar.xz";
     sha256 = "O7sbN3XUwnfa9UqqtEsOuDpOsfCfA5GAAEHJ5WiT7BE=";
   };
 
@@ -50,21 +52,25 @@ stdenv.mkDerivation rec {
       ./correct-gir-lib-path.patch
     ];
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    itstool
-    libxml2
-    meson
-    ninja
-    perl
-    pkg-config
-    python3
-    vala
-    wrapGAppsHook
-    gtk-doc
-    gobject-introspection
-    docbook-xsl-nons
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs =
+    [
+      desktop-file-utils
+      itstool
+      libxml2
+      meson
+      ninja
+      perl
+      pkg-config
+      python3
+      vala
+      wrapGAppsHook
+      gtk-doc
+      gobject-introspection
+      docbook-xsl-nons
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [
     amtk

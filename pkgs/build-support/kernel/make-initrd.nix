@@ -16,7 +16,9 @@ let
   # Get the basename of the actual compression program from the whole
   # compression command, for the purpose of guessing the u-boot
   # compression type and filename extension.
-  compressorName = fullCommand: builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1;
+  compressorName =
+    fullCommand:
+    builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1;
 in
 {
   stdenvNoCC,
@@ -34,7 +36,9 @@ in
   compressor ? "gzip",
   _compressorFunction ? if lib.isFunction compressor then
     compressor
-  else if !builtins.hasContext compressor && builtins.hasAttr compressor compressors then
+  else if
+    !builtins.hasContext compressor && builtins.hasAttr compressor compressors
+  then
     compressors.${compressor}.executable
   else
     _: compressor,
@@ -44,15 +48,18 @@ in
 
   # List of arguments to pass to the compressor program, or null to use its defaults
   compressorArgs ? null,
-  _compressorArgsReal ?
-    if compressorArgs == null then _compressorMeta.defaultArgs or [ ] else compressorArgs,
+  _compressorArgsReal ? if compressorArgs == null then
+    _compressorMeta.defaultArgs or [ ]
+  else
+    compressorArgs,
 
   # Filename extension to use for the compressed initramfs. This is
   # included for clarity, but $out/initrd will always be a symlink to
   # the final image.
   # If this isn't guessed, you may want to complete the metadata above and send a PR :)
-  extension ? _compressorMeta.extension
-    or (throw "Unrecognised compressor ${_compressorName}, please specify filename extension"),
+  extension ? _compressorMeta.extension or (throw
+    "Unrecognised compressor ${_compressorName}, please specify filename extension"
+  ),
 
   # List of { object = path_or_derivation; symlink = "/path"; }
   # The paths are copied into the initramfs in their nix store path
@@ -76,13 +83,18 @@ in
   # The name of the compression, as recognised by u-boot.
   # See https://gitlab.denx.de/u-boot/u-boot/-/blob/9bfb567e5f1bfe7de8eb41f8c6d00f49d2b9a426/common/image.c#L195-204 for a list.
   # If this isn't guessed, you may want to complete the metadata above and send a PR :)
-  uInitrdCompression ? _compressorMeta.ubootName
-    or (throw "Unrecognised compressor ${_compressorName}, please specify uInitrdCompression"),
+  uInitrdCompression ? _compressorMeta.ubootName or (throw
+    "Unrecognised compressor ${_compressorName}, please specify uInitrdCompression"
+  ),
 }:
 let
   # !!! Move this into a public lib function, it is probably useful for others
   toValidStoreName =
-    x: with builtins; lib.concatStringsSep "-" (filter (x: !(isList x)) (split "[^a-zA-Z0-9_=.?-]+" x));
+    x:
+    with builtins;
+    lib.concatStringsSep "-" (
+      filter (x: !(isList x)) (split "[^a-zA-Z0-9_=.?-]+" x)
+    );
 in
 stdenvNoCC.mkDerivation rec {
   inherit
@@ -102,7 +114,9 @@ stdenvNoCC.mkDerivation rec {
     libarchive
   ] ++ lib.optional makeUInitrd ubootTools;
 
-  compress = "${_compressorExecutable} ${lib.escapeShellArgs _compressorArgsReal}";
+  compress = "${_compressorExecutable} ${
+      lib.escapeShellArgs _compressorArgsReal
+    }";
 
   # Pass the function through, for reuse in append-initrd-secrets. The
   # function is used instead of the string, in order to support

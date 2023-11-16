@@ -100,7 +100,10 @@ stdenv.mkDerivation rec {
   configureFlags =
     [ "--without-python" ]
     ++ (
-      if enableDbus then [ "--with-dbusconfdir=${placeholder "out"}/share" ] else [ "--without-dbus" ]
+      if enableDbus then
+        [ "--with-dbusconfdir=${placeholder "out"}/share" ]
+      else
+        [ "--without-dbus" ]
     )
     ++ (
       if enableVideo then

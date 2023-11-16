@@ -17,7 +17,9 @@ in
   ###### interface
 
   options = {
-    services.xserver.windowManager."2bwm".enable = mkEnableOption (lib.mdDoc "2bwm");
+    services.xserver.windowManager."2bwm".enable = mkEnableOption (
+      lib.mdDoc "2bwm"
+    );
   };
 
   ###### implementation

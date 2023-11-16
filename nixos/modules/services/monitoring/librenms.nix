@@ -206,7 +206,9 @@ in
 
     nginx = mkOption {
       type = types.submodule (
-        recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) { }
+        recursiveUpdate
+          (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
+          { }
       );
       default = { };
       example = literalExpression ''
@@ -420,10 +422,12 @@ in
     services.mysql = lib.mkIf cfg.database.createLocally {
       enable = true;
       package = lib.mkDefault pkgs.mariadb;
-      settings.mysqld = {
-        innodb_file_per_table = 1;
-        lower_case_table_names = 0;
-      } // (lib.optionalAttrs cfg.useDistributedPollers { bind-address = "0.0.0.0"; });
+      settings.mysqld =
+        {
+          innodb_file_per_table = 1;
+          lower_case_table_names = 0;
+        }
+        // (lib.optionalAttrs cfg.useDistributedPollers { bind-address = "0.0.0.0"; });
       ensureDatabases = [ cfg.database.database ];
       ensureUsers = [
         {
@@ -511,7 +515,9 @@ in
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [
+          cfg.environmentFile
+        ];
         User = cfg.user;
         Group = cfg.group;
         ExecStartPre = lib.mkIf cfg.database.createLocally [
@@ -548,9 +554,10 @@ in
           ${pkgs.gnused}/bin/sed -i /^DB_/d ${cfg.dataDir}/.env
           ${pkgs.gnused}/bin/sed -i /^CACHE_DRIVER/d ${cfg.dataDir}/.env
         fi
-        ${lib.optionalString (cfg.useDistributedPollers || cfg.distributedPoller.enable) ''
-          echo "CACHE_DRIVER=memcached" >> ${cfg.dataDir}/.env
-        ''}
+        ${lib.optionalString (cfg.useDistributedPollers || cfg.distributedPoller.enable)
+          ''
+            echo "CACHE_DRIVER=memcached" >> ${cfg.dataDir}/.env
+          ''}
         echo "DB_HOST=${cfg.database.host}" >> ${cfg.dataDir}/.env
         echo "DB_PORT=${toString cfg.database.port}" >> ${cfg.dataDir}/.env
         echo "DB_DATABASE=${cfg.database.database}" >> ${cfg.dataDir}/.env
@@ -569,7 +576,9 @@ in
         OLD_ENABLED=$(cat ${cfg.dataDir}/one_minute_enabled)
         if [[ $OLD_ENABLED != "${lib.boolToString cfg.enableOneMinutePolling}" ]]; then
           ${package}/scripts/rrdstep.php -h all
-          echo "${lib.boolToString cfg.enableOneMinutePolling}" > ${cfg.dataDir}/one_minute_enabled
+          echo "${
+            lib.boolToString cfg.enableOneMinutePolling
+          }" > ${cfg.dataDir}/one_minute_enabled
         fi
 
         # migrate db

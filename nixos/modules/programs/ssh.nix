@@ -35,7 +35,9 @@ let
     ))
     + "\n";
 
-  knownHostsFiles = [ "/etc/ssh/ssh_known_hosts" ] ++ map pkgs.copyPathToStore cfg.knownHostsFiles;
+  knownHostsFiles = [
+    "/etc/ssh/ssh_known_hosts"
+  ] ++ map pkgs.copyPathToStore cfg.knownHostsFiles;
 in
 {
   ###### interface
@@ -54,7 +56,9 @@ in
       askPassword = mkOption {
         type = types.str;
         default = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
-        defaultText = literalExpression ''"''${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass"'';
+        defaultText =
+          literalExpression
+            ''"''${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass"'';
         description = lib.mdDoc "Program used by SSH to ask for passwords.";
       };
 
@@ -177,7 +181,9 @@ in
                 hostNames = mkOption {
                   type = types.listOf types.str;
                   default = [ name ] ++ config.extraHostNames;
-                  defaultText = literalExpression "[ ${name} ] ++ config.${options.extraHostNames}";
+                  defaultText =
+                    literalExpression
+                      "[ ${name} ] ++ config.${options.extraHostNames}";
                   description = lib.mdDoc ''
                     A list of host names and/or IP numbers used for accessing
                     the host's ssh service. This list includes the name of the
@@ -356,7 +362,8 @@ in
         "HostKeyAlgorithms ${concatStringsSep "," cfg.hostKeyAlgorithms}"}
       ${optionalString (cfg.kexAlgorithms != null)
         "KexAlgorithms ${concatStringsSep "," cfg.kexAlgorithms}"}
-      ${optionalString (cfg.ciphers != null) "Ciphers ${concatStringsSep "," cfg.ciphers}"}
+      ${optionalString (cfg.ciphers != null)
+        "Ciphers ${concatStringsSep "," cfg.ciphers}"}
       ${optionalString (cfg.macs != null) "MACs ${concatStringsSep "," cfg.macs}"}
     '';
 
@@ -372,7 +379,9 @@ in
         ExecStart =
           "${cfg.package}/bin/ssh-agent "
           + optionalString (cfg.agentTimeout != null) ("-t ${cfg.agentTimeout} ")
-          + optionalString (cfg.agentPKCS11Whitelist != null) ("-P ${cfg.agentPKCS11Whitelist} ")
+          + optionalString (cfg.agentPKCS11Whitelist != null) (
+            "-P ${cfg.agentPKCS11Whitelist} "
+          )
           + "-a %t/ssh-agent";
         StandardOutput = "null";
         Type = "forking";
@@ -382,7 +391,9 @@ in
       # Allow ssh-agent to ask for confirmation. This requires the
       # unit to know about the user's $DISPLAY (via ‘systemctl
       # import-environment’).
-      environment.SSH_ASKPASS = optionalString cfg.enableAskPassword askPasswordWrapper;
+      environment.SSH_ASKPASS =
+        optionalString cfg.enableAskPassword
+          askPasswordWrapper;
       environment.DISPLAY = "fake"; # required to make ssh-agent start $SSH_ASKPASS
     };
 
@@ -392,6 +403,8 @@ in
       fi
     '';
 
-    environment.variables.SSH_ASKPASS = optionalString cfg.enableAskPassword askPassword;
+    environment.variables.SSH_ASKPASS =
+      optionalString cfg.enableAskPassword
+        askPassword;
   };
 }

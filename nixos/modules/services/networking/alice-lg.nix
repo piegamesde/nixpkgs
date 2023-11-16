@@ -55,7 +55,9 @@ in
 
   config = lib.mkIf cfg.enable {
     environment = {
-      etc."alice-lg/alice.conf".source = settingsFormat.generate "alice-lg.conf" cfg.settings;
+      etc."alice-lg/alice.conf".source =
+        settingsFormat.generate "alice-lg.conf"
+          cfg.settings;
     };
     systemd.services = {
       alice-lg = {

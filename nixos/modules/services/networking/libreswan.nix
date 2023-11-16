@@ -27,7 +27,9 @@ let
       );
     in
     lib.optionalString (nonchars != [ ]) (
-      substring (head nonchars).ind (add 1 (sub (last nonchars).ind (head nonchars).ind)) str
+      substring (head nonchars).ind
+        (add 1 (sub (last nonchars).ind (head nonchars).ind))
+        str
     );
   indent =
     str:
@@ -114,7 +116,9 @@ in
             ''';
           }
         '';
-        description = lib.mdDoc "A set of connections to define for the Libreswan IPsec service";
+        description =
+          lib.mdDoc
+            "A set of connections to define for the Libreswan IPsec service";
       };
 
       policies = mkOption {

@@ -29,21 +29,24 @@ stdenv.mkDerivation (
     # NOTE: cbmbasic uses microsoft style linebreaks `\r\n`, and testing has to
     # accommodate that, else you get very cryptic diffs
     passthru = {
-      tests.run = runCommand "cbmbasic-test-run" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
-        echo '#!${lib.getExe finalAttrs.finalPackage}' > helloI.bas;
-        echo 'PRINT"Hello, World!"' >> helloI.bas;
-        chmod +x helloI.bas
+      tests.run =
+        runCommand "cbmbasic-test-run"
+          { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
+          ''
+            echo '#!${lib.getExe finalAttrs.finalPackage}' > helloI.bas;
+            echo 'PRINT"Hello, World!"' >> helloI.bas;
+            chmod +x helloI.bas
 
-        diff -U3 --color=auto <(./helloI.bas) <(echo -e "Hello, World!\r");
+            diff -U3 --color=auto <(./helloI.bas) <(echo -e "Hello, World!\r");
 
-        echo '#!/usr/bin/env cbmbasic' > hello.bas;
-        echo 'PRINT"Hello, World!"' >> hello.bas;
-        chmod +x hello.bas
+            echo '#!/usr/bin/env cbmbasic' > hello.bas;
+            echo 'PRINT"Hello, World!"' >> hello.bas;
+            chmod +x hello.bas
 
-        diff -U3 --color=auto <(cbmbasic ./hello.bas) <(echo -e "Hello, World!\r");
+            diff -U3 --color=auto <(cbmbasic ./hello.bas) <(echo -e "Hello, World!\r");
 
-        touch $out;
-      '';
+            touch $out;
+          '';
     };
 
     meta = with lib; {

@@ -9,22 +9,27 @@
     "user-search"
   ]
     ++
-      lib.optional (lib.meta.availableOn stdenv.hostPlatform matrix-synapse-unwrapped.python.pkgs.systemd)
+      lib.optional
+        (lib.meta.availableOn stdenv.hostPlatform
+          matrix-synapse-unwrapped.python.pkgs.systemd
+        )
         "systemd",
   plugins ? [ ],
   ...
 }:
 
 let
-  extraPackages = lib.concatMap (extra: matrix-synapse-unwrapped.optional-dependencies.${extra}) (
-    lib.unique extras
-  );
+  extraPackages =
+    lib.concatMap (extra: matrix-synapse-unwrapped.optional-dependencies.${extra})
+      (lib.unique extras);
 
-  pluginsEnv = matrix-synapse-unwrapped.python.buildEnv.override { extraLibs = plugins; };
+  pluginsEnv = matrix-synapse-unwrapped.python.buildEnv.override {
+    extraLibs = plugins;
+  };
 
-  searchPath = lib.makeSearchPathOutput "lib" matrix-synapse-unwrapped.python.sitePackages (
-    extraPackages ++ [ pluginsEnv ]
-  );
+  searchPath =
+    lib.makeSearchPathOutput "lib" matrix-synapse-unwrapped.python.sitePackages
+      (extraPackages ++ [ pluginsEnv ]);
 in
 stdenv.mkDerivation {
   name = (lib.appendToName "wrapped" matrix-synapse-unwrapped).name;

@@ -33,7 +33,9 @@ let
   # The attribute set mapping names to the package files defining them
   # This is defined up here in order to allow reuse of the value (it's kind of expensive to compute)
   # if the overlay has to be applied multiple times
-  packageFiles = mergeAttrsList (mapAttrsToList namesForShard (readDir baseDirectory));
+  packageFiles = mergeAttrsList (
+    mapAttrsToList namesForShard (readDir baseDirectory)
+  );
 in
 # TODO: Consider optimising this using `builtins.deepSeq packageFiles`,
 # which could free up the above thunks and reduce GC times.

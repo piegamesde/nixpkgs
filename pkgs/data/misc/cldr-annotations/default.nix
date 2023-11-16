@@ -9,7 +9,9 @@ stdenvNoCC.mkDerivation rec {
   version = "43.0";
 
   src = fetchzip {
-    url = "https://unicode.org/Public/cldr/${lib.versions.major version}/cldr-common-${version}.zip";
+    url = "https://unicode.org/Public/cldr/${
+        lib.versions.major version
+      }/cldr-common-${version}.zip";
     stripRoot = false;
     hash = "sha256-L8ikzRpSw4mDCV79TiUqhPHWC0PmGi4i4He0OAB54R0=";
   };

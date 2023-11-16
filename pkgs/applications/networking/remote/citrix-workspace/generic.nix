@@ -180,7 +180,10 @@ stdenv.mkDerivation rec {
           "-icaroot";
       wrap = program: ''
         wrapProgram $out/opt/citrix-icaclient/${program} \
-          ${lib.optionalString (icaFlag program != null) ''--add-flags "${icaFlag program} $ICAInstDir"''} \
+          ${
+            lib.optionalString (icaFlag program != null)
+              ''--add-flags "${icaFlag program} $ICAInstDir"''
+          } \
           --set ICAROOT "$ICAInstDir" \
           --prefix LD_LIBRARY_PATH : "$ICAInstDir:$ICAInstDir/lib" \
           --set LD_PRELOAD "${libredirect}/lib/libredirect.so" \

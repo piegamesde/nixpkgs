@@ -8,7 +8,8 @@ with lib;
 let
   pkg = pkgs._3proxy;
   cfg = config.services._3proxy;
-  optionalList = list: if list == [ ] then "*" else concatMapStringsSep "," toString list;
+  optionalList =
+    list: if list == [ ] then "*" else concatMapStringsSep "," toString list;
 in
 {
   options.services._3proxy = {

@@ -38,7 +38,8 @@ stdenv.mkDerivation (
         ncurses
         zlib
       ]
-      ++ lib.optionals enableX11 [ gsettings-desktop-schemas ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+      ++ lib.optionals enableX11 [ gsettings-desktop-schemas ]
+      ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
     preBuild =
       lib.optionalString enableX11 ''

@@ -33,7 +33,9 @@ stdenv.mkDerivation (
     version = "23.01";
 
     src = fetchurl {
-      url = "https://7-zip.org/a/7z${lib.replaceStrings [ "." ] [ "" ] finalAttrs.version}-src.tar.xz";
+      url = "https://7-zip.org/a/7z${
+          lib.replaceStrings [ "." ] [ "" ] finalAttrs.version
+        }-src.tar.xz";
       hash =
         {
           free = "sha256-F1ybQsyReF2NBR/3eMZySvxVEntpwq2VUlRCHp/5nZs=";

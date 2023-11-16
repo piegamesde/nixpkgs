@@ -19,7 +19,9 @@
         name = "create-trivial-project";
         dontUnpack = true;
         nativeBuildInputs = [ pkgs.makeWrapper ];
-        installPhase = "install -m755 -D ${./create-trivial-project.sh} $out/bin/create-trivial-project.sh";
+        installPhase = "install -m755 -D ${
+            ./create-trivial-project.sh
+          } $out/bin/create-trivial-project.sh";
         postFixup = ''
           wrapProgram "$out/bin/create-trivial-project.sh" --prefix PATH ":" ${
             pkgs.lib.makeBinPath [ pkgs.curl ]

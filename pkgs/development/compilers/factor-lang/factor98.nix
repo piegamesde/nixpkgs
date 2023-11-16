@@ -67,7 +67,9 @@ let
       ${if to then "makeWrapper ${from} ${to}" else "wrapProgram ${from}"} \
         --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE" \
         --argv0 factor \
-        --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib:${lib.makeLibraryPath runtimeLibs} \
+        --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib:${
+          lib.makeLibraryPath runtimeLibs
+        } \
         --prefix PATH : ${lib.makeBinPath [ graphviz ]}
     '';
 
@@ -161,7 +163,9 @@ stdenv.mkDerivation {
     # out of known libraries. The side effect is that find-lib
     # will work only on the known libraries. There does not seem
     # to be a generic solution here.
-    find $(echo ${lib.makeLibraryPath runtimeLibs} | sed -e 's#:# #g') -name \*.so.\* > $TMPDIR/so.lst
+    find $(echo ${
+      lib.makeLibraryPath runtimeLibs
+    } | sed -e 's#:# #g') -name \*.so.\* > $TMPDIR/so.lst
     (echo $(cat $TMPDIR/so.lst | wc -l) "libs found in cache \`/etc/ld.so.cache'";
       for l in $(<$TMPDIR/so.lst); do
         echo " $(basename $l) (libc6,x86-64) => $l";

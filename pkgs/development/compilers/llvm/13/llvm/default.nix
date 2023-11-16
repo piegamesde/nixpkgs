@@ -35,7 +35,8 @@ let
   inherit (lib) optional optionals optionalString;
 
   # Used when creating a version-suffixed symlink of libLLVM.dylib
-  shortVersion = with lib; concatStringsSep "." (take 1 (splitString "." release_version));
+  shortVersion =
+    with lib; concatStringsSep "." (take 1 (splitString "." release_version));
 
   # Ordinarily we would just the `doCheck` and `checkDeps` functionality
   # `mkDerivation` gives us to manage our test dependencies (instead of breaking
@@ -93,9 +94,9 @@ stdenv.mkDerivation (
       libffi
     ] ++ optional enablePFM libpfm; # exegesis
 
-    propagatedBuildInputs = optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ ncurses ] ++ [
-      zlib
-    ];
+    propagatedBuildInputs =
+      optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ ncurses ]
+      ++ [ zlib ];
 
     nativeCheckInputs = [ which ];
 
@@ -191,7 +192,9 @@ stdenv.mkDerivation (
     '';
 
     # E.g. mesa.drivers use the build-id as a cache key (see #93946):
-    LDFLAGS = optionalString (enableSharedLibraries && !stdenv.isDarwin) "-Wl,--build-id=sha1";
+    LDFLAGS =
+      optionalString (enableSharedLibraries && !stdenv.isDarwin)
+        "-Wl,--build-id=sha1";
 
     cmakeBuildType = if debugVersion then "Debug" else "Release";
 
@@ -235,7 +238,9 @@ stdenv.mkDerivation (
         "-DSPHINX_OUTPUT_HTML=OFF"
         "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
       ]
-      ++ optionals (enableGoldPlugin) [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ]
+      ++ optionals (enableGoldPlugin) [
+        "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
+      ]
       ++ optionals isDarwin [
         "-DLLVM_ENABLE_LIBCXX=ON"
         "-DCAN_TARGET_i386=false"

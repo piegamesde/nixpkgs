@@ -63,7 +63,9 @@ mkDerivation rec {
     mkdir -p 3rdparty/{perfparser,PrefixTickLabels}/.git
   '';
 
-  qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ rustc-demangle ]}" ];
+  qtWrapperArgs = [
+    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ rustc-demangle ]}"
+  ];
 
   meta = with lib; {
     description = "A GUI for Linux perf";

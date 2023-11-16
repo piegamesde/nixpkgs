@@ -76,7 +76,9 @@ in
       cgiUrl = mkOption {
         type = types.str;
         default = "http://${cfg.hostName}:${toString cfg.port}/smokeping.cgi";
-        defaultText = literalExpression ''"http://''${hostName}:''${toString port}/smokeping.cgi"'';
+        defaultText =
+          literalExpression
+            ''"http://''${hostName}:''${toString port}/smokeping.cgi"'';
         example = "https://somewhere.example.com/smokeping.cgi";
         description = lib.mdDoc "URL to the smokeping cgi.";
       };
@@ -240,7 +242,9 @@ in
       presentationTemplate = mkOption {
         type = types.str;
         default = "${pkgs.smokeping}/etc/basepage.html.dist";
-        defaultText = literalExpression ''"''${pkgs.smokeping}/etc/basepage.html.dist"'';
+        defaultText =
+          literalExpression
+            ''"''${pkgs.smokeping}/etc/basepage.html.dist"'';
         description = lib.mdDoc "Default page layout for the web UI.";
       };
       probeConfig = mkOption {

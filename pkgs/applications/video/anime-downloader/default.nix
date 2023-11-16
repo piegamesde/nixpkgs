@@ -46,7 +46,9 @@ python3.pkgs.buildPythonApplication rec {
     );
 
   preFixup = ''
-    wrapQtApp "$out/bin/anime" --prefix PATH : ${lib.makeBinPath propagatedBuildInputs}
+    wrapQtApp "$out/bin/anime" --prefix PATH : ${
+      lib.makeBinPath propagatedBuildInputs
+    }
   '';
 
   doCheck = false;

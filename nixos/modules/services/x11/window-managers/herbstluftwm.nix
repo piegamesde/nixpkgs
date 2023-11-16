@@ -42,7 +42,9 @@ in
       name = "herbstluftwm";
       start =
         let
-          configFileClause = optionalString (cfg.configFile != null) ''-c "${cfg.configFile}"'';
+          configFileClause =
+            optionalString (cfg.configFile != null)
+              ''-c "${cfg.configFile}"'';
         in
         "${cfg.package}/bin/herbstluftwm ${configFileClause} &";
     };

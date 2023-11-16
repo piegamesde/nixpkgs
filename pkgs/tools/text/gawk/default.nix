@@ -44,7 +44,9 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional (!interactive) "man";
 
   # no-pma fix
-  nativeBuildInputs = [ autoreconfHook ] ++ lib.optional (doCheck && stdenv.isLinux) glibcLocales;
+  nativeBuildInputs = [
+    autoreconfHook
+  ] ++ lib.optional (doCheck && stdenv.isLinux) glibcLocales;
 
   buildInputs =
     lib.optional withSigsegv libsigsegv
@@ -52,8 +54,15 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin locale;
 
   configureFlags = [
-    (if withSigsegv then "--with-libsigsegv-prefix=${libsigsegv}" else "--without-libsigsegv")
-    (if interactive then "--with-readline=${readline.dev}" else "--without-readline")
+    (
+      if withSigsegv then
+        "--with-libsigsegv-prefix=${libsigsegv}"
+      else
+        "--without-libsigsegv"
+    )
+    (
+      if interactive then "--with-readline=${readline.dev}" else "--without-readline"
+    )
   ];
 
   makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];

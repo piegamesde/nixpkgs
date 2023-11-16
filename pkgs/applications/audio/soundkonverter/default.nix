@@ -137,7 +137,9 @@ mkDerivation rec {
   sourceRoot = "${src.name}/src";
   # add runt-time deps to PATH
   postInstall = ''
-    wrapProgram $out/bin/soundkonverter --prefix PATH : ${lib.makeBinPath runtimeDeps}
+    wrapProgram $out/bin/soundkonverter --prefix PATH : ${
+      lib.makeBinPath runtimeDeps
+    }
   '';
   meta = {
     license = lib.licenses.gpl2;

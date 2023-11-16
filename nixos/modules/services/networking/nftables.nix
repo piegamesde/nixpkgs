@@ -84,7 +84,9 @@ in
     };
 
     networking.nftables.checkRulesetRedirects = mkOption {
-      type = types.addCheck (types.attrsOf types.path) (attrs: all types.path.check (attrNames attrs));
+      type = types.addCheck (types.attrsOf types.path) (
+        attrs: all types.path.check (attrNames attrs)
+      );
       default = {
         "/etc/hosts" = config.environment.etc.hosts.source;
         "/etc/protocols" = config.environment.etc.protocols.source;
@@ -262,7 +264,8 @@ in
     environment.systemPackages = [ pkgs.nftables ];
     # versionOlder for backportability, remove afterwards
     networking.nftables.flushRuleset = mkDefault (
-      versionOlder config.system.stateVersion "23.11" || (cfg.rulesetFile != null || cfg.ruleset != "")
+      versionOlder config.system.stateVersion "23.11"
+      || (cfg.rulesetFile != null || cfg.ruleset != "")
     );
     systemd.services.nftables = {
       description = "nftables firewall";
@@ -327,7 +330,11 @@ in
               sed 's|include "${deletionsScriptVar}"||' -i ruleset.conf
               ${cfg.preCheckRuleset}
               export NIX_REDIRECTS=${
-                escapeShellArg (concatStringsSep ":" (mapAttrsToList (n: v: "${n}=${v}") cfg.checkRulesetRedirects))
+                escapeShellArg (
+                  concatStringsSep ":" (
+                    mapAttrsToList (n: v: "${n}=${v}") cfg.checkRulesetRedirects
+                  )
+                )
               }
               LD_PRELOAD="${pkgs.buildPackages.libredirect}/lib/libredirect.so ${pkgs.buildPackages.lklWithFirewall.lib}/lib/liblkl-hijack.so" \
                 ${pkgs.buildPackages.nftables}/bin/nft --check --file ruleset.conf

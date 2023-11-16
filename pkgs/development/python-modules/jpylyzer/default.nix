@@ -47,7 +47,9 @@ buildPythonPackage rec {
   preCheck = lib.optionalString doFullCheck ''
     sed -i '/^testFilesDir = /ctestFilesDir = "${testFiles}"' tests/unit/test_testfiles.py
   '';
-  disabledTestPaths = lib.optionals (!doFullCheck) [ "tests/unit/test_testfiles.py" ];
+  disabledTestPaths = lib.optionals (!doFullCheck) [
+    "tests/unit/test_testfiles.py"
+  ];
 
   pythonImportsCheck = [ "jpylyzer" ];
 

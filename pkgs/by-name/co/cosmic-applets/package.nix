@@ -71,13 +71,13 @@ rustPlatform.buildRustPackage {
   ];
 
   # Force linking to libwayland-client, which is always dlopen()ed.
-  "CARGO_TARGET_${rust.toRustTargetForUseInEnvVars stdenv.hostPlatform}_RUSTFLAGS" =
-    map (a: "-C link-arg=${a}")
-      [
-        "-Wl,--push-state,--no-as-needed"
-        "-lwayland-client"
-        "-Wl,--pop-state"
-      ];
+  "CARGO_TARGET_${
+    rust.toRustTargetForUseInEnvVars stdenv.hostPlatform
+  }_RUSTFLAGS" = map (a: "-C link-arg=${a}") [
+    "-Wl,--push-state,--no-as-needed"
+    "-lwayland-client"
+    "-Wl,--pop-state"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/pop-os/cosmic-applets";

@@ -7,7 +7,11 @@
 }:
 args@{
   pkgFilter ? (
-    pkg: pkg.tlType == "run" || pkg.tlType == "bin" || pkg.pname == "core" || pkg.hasManpages or false
+    pkg:
+    pkg.tlType == "run"
+    || pkg.tlType == "bin"
+    || pkg.pname == "core"
+    || pkg.hasManpages or false
   ),
   extraName ? "combined",
   extraVersion ? "",
@@ -68,7 +72,9 @@ let
       outputSpecified = true;
       tlOutputName = tlTypeToOut.${tlType};
     };
-  all = lib.filter pkgFilter combined ++ lib.filter (pkg: pkg.tlType == "tlpkg") combined;
+  all =
+    lib.filter pkgFilter combined
+    ++ lib.filter (pkg: pkg.tlType == "tlpkg") combined;
   converted = builtins.map toSpecified all;
 in
 buildTeXEnv {

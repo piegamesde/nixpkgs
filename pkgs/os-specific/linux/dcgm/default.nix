@@ -105,7 +105,9 @@ gcc11Stdenv.mkDerivation rec {
   };
 
   # Add our paths to the CUDA paths so FindCuda.cmake can find them.
-  EXTRA_CUDA_PATHS = lib.concatMapStringsSep "\n" mkAppendCudaPaths cudaPackageSetByVersion;
+  EXTRA_CUDA_PATHS =
+    lib.concatMapStringsSep "\n" mkAppendCudaPaths
+      cudaPackageSetByVersion;
   prePatch = ''
     echo "$EXTRA_CUDA_PATHS"$'\n'"$(cat cmake/FindCuda.cmake)" > cmake/FindCuda.cmake
   '';

@@ -181,7 +181,9 @@ let
   system = if stdenv.hostPlatform.isDarwin then "darwin" else "linux";
 
   # on aarch64 Darwin, `uname -m` returns "arm64"
-  arch = with stdenv.hostPlatform; if isDarwin && isAarch64 then "arm64" else parsed.cpu.name;
+  arch =
+    with stdenv.hostPlatform;
+    if isDarwin && isAarch64 then "arm64" else parsed.cpu.name;
 
   bazelRC = writeTextFile {
     name = "bazel-rc";
@@ -243,7 +245,8 @@ stdenv.mkDerivation rec {
     # we accept this fact because xcode_locator is only a short-lived process used during the build.
     (substituteAll {
       src = ./no-arc.patch;
-      multiBinPatch = if stdenv.hostPlatform.system == "aarch64-darwin" then "arm64" else "x86_64";
+      multiBinPatch =
+        if stdenv.hostPlatform.system == "aarch64-darwin" then "arm64" else "x86_64";
     })
 
     # --experimental_strict_action_env (which may one day become the default
@@ -499,7 +502,9 @@ stdenv.mkDerivation rec {
 
         # libcxx includes aren't added by libcxx hook
         # https://github.com/NixOS/nixpkgs/pull/41589
-        export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -isystem ${lib.getDev libcxx}/include/c++/v1"
+        export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -isystem ${
+          lib.getDev libcxx
+        }/include/c++/v1"
 
         # don't use system installed Xcode to run clang, use Nix clang instead
         sed -i -E "s;/usr/bin/xcrun (--sdk macosx )?clang;${stdenv.cc}/bin/clang $NIX_CFLAGS_COMPILE $(bazelLinkFlags) -framework CoreFoundation;g" \

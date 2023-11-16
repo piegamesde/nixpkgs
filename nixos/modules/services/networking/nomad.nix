@@ -181,7 +181,9 @@ in
           Restart = "on-failure";
           RestartSec = 2;
           TasksMax = "infinity";
-          LoadCredential = lib.mapAttrsToList (key: value: "${key}:${value}") cfg.credentials;
+          LoadCredential =
+            lib.mapAttrsToList (key: value: "${key}:${value}")
+              cfg.credentials;
         }
         (mkIf cfg.enableDocker {
           SupplementaryGroups = "docker"; # space-separated string
@@ -198,7 +200,8 @@ in
     assertions = [
       {
         assertion = cfg.dropPrivileges -> cfg.settings.data_dir == "/var/lib/nomad";
-        message = ''settings.data_dir must be equal to "/var/lib/nomad" if dropPrivileges is true'';
+        message = ''
+          settings.data_dir must be equal to "/var/lib/nomad" if dropPrivileges is true'';
       }
     ];
 

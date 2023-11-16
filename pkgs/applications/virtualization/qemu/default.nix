@@ -37,13 +37,18 @@
   rez,
   setfile,
   vmnet,
-  guestAgentSupport ?
-    (with stdenv.hostPlatform; isLinux || isNetBSD || isOpenBSD || isSunOS || isWindows) && !toolsOnly,
+  guestAgentSupport ? (
+    with stdenv.hostPlatform;
+    isLinux || isNetBSD || isOpenBSD || isSunOS || isWindows
+  )
+    && !toolsOnly,
   numaSupport ? stdenv.isLinux && !stdenv.isAarch32 && !toolsOnly,
   numactl,
   seccompSupport ? stdenv.isLinux && !toolsOnly,
   libseccomp,
-  alsaSupport ? lib.hasSuffix "linux" stdenv.hostPlatform.system && !nixosTestRunner && !toolsOnly,
+  alsaSupport ? lib.hasSuffix "linux" stdenv.hostPlatform.system
+    && !nixosTestRunner
+    && !toolsOnly,
   pulseSupport ? !stdenv.isDarwin && !nixosTestRunner && !toolsOnly,
   libpulseaudio,
   pipewireSupport ? !stdenv.isDarwin && !nixosTestRunner && !toolsOnly,
@@ -100,7 +105,10 @@
     if toolsOnly then
       [ ]
     else if hostCpuOnly then
-      (lib.optional stdenv.isx86_64 "i386-softmmu" ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ])
+      (
+        lib.optional stdenv.isx86_64 "i386-softmmu"
+        ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ]
+      )
     else
       null
   ),
@@ -129,7 +137,9 @@ stdenv.mkDerivation (
       hash = "sha256-VBUmp2RXbrSU0v9exGrrJT5i6ikDXRwjwKivTmzU8Ic=";
     };
 
-    depsBuildBuild = [ buildPackages.stdenv.cc ] ++ lib.optionals hexagonSupport [ pkg-config ];
+    depsBuildBuild = [
+      buildPackages.stdenv.cc
+    ] ++ lib.optionals hexagonSupport [ pkg-config ];
 
     nativeBuildInputs =
       [
@@ -287,7 +297,9 @@ stdenv.mkDerivation (
       ++ lib.optional smartcardSupport "--enable-smartcard"
       ++ lib.optional spiceSupport "--enable-spice"
       ++ lib.optional usbredirSupport "--enable-usb-redir"
-      ++ lib.optional (hostCpuTargets != null) "--target-list=${lib.concatStringsSep "," hostCpuTargets}"
+      ++
+        lib.optional (hostCpuTargets != null)
+          "--target-list=${lib.concatStringsSep "," hostCpuTargets}"
       ++ lib.optionals stdenv.isDarwin [
         "--enable-cocoa"
         "--enable-hvf"

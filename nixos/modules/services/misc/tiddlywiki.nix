@@ -10,7 +10,9 @@ with lib;
 let
 
   cfg = config.services.tiddlywiki;
-  listenParams = concatStrings (mapAttrsToList (n: v: " '${n}=${toString v}' ") cfg.listenOptions);
+  listenParams = concatStrings (
+    mapAttrsToList (n: v: " '${n}=${toString v}' ") cfg.listenOptions
+  );
   exe = "${pkgs.nodePackages.tiddlywiki}/lib/node_modules/.bin/tiddlywiki";
   name = "tiddlywiki";
   dataDir = "/var/lib/" + name;

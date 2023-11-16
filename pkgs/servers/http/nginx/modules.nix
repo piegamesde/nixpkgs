@@ -311,13 +311,15 @@ let
     http_proxy_connect_module_v24 =
       http_proxy_connect_module_generic "proxy_connect_rewrite_102101"
       // {
-        supports = with lib.versions; version: major version == "1" && minor version == "24";
+        supports =
+          with lib.versions; version: major version == "1" && minor version == "24";
       };
 
     http_proxy_connect_module_v25 =
       http_proxy_connect_module_generic "proxy_connect_rewrite_102101"
       // {
-        supports = with lib.versions; version: major version == "1" && minor version == "25";
+        supports =
+          with lib.versions; version: major version == "1" && minor version == "25";
       };
 
     ipscrub = {

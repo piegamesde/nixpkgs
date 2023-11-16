@@ -230,19 +230,21 @@ in
       }
     ];
 
-    services.mysql = optionalAttrs (cfg.database.createLocally && cfg.database.type == "MySQL") {
-      enable = true;
-      package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [
+    services.mysql =
+      optionalAttrs (cfg.database.createLocally && cfg.database.type == "MySQL")
         {
-          name = cfg.database.user;
-          ensurePermissions = {
-            "${cfg.database.name}.*" = "ALL PRIVILEGES";
-          };
-        }
-      ];
-    };
+          enable = true;
+          package = mkDefault pkgs.mariadb;
+          ensureDatabases = [ cfg.database.name ];
+          ensureUsers = [
+            {
+              name = cfg.database.user;
+              ensurePermissions = {
+                "${cfg.database.name}.*" = "ALL PRIVILEGES";
+              };
+            }
+          ];
+        };
 
     services.postgresql =
       optionalAttrs (cfg.database.createLocally && cfg.database.type == "PostgreSQL")
@@ -299,7 +301,10 @@ in
 
         if [ `${config.services.postgresql.package}/bin/psql \
                   --host ${cfg.database.host} \
-                  ${optionalString (cfg.database.port != null) "--port ${toString cfg.database.port}"} \
+                  ${
+                    optionalString (cfg.database.port != null)
+                      "--port ${toString cfg.database.port}"
+                  } \
                   --username ${cfg.database.user} \
                   --dbname ${cfg.database.name} \
                   --command "SELECT COUNT(*) FROM pg_class c \
@@ -324,7 +329,9 @@ in
       requires = [ "zammad-web.service" ];
       description = "Zammad websocket";
       wantedBy = [ "multi-user.target" ];
-      script = "./script/websocket-server.rb -b ${cfg.host} -p ${toString cfg.websocketPort} start";
+      script = "./script/websocket-server.rb -b ${cfg.host} -p ${
+          toString cfg.websocketPort
+        } start";
     };
 
     systemd.services.zammad-scheduler = {

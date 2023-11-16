@@ -43,7 +43,9 @@ stdenv.mkDerivation (
 
     postPatch = ''
       substituteInPlace src/bindings/python/CMakeLists.txt \
-        --replace "\''${Python_SITEARCH}" "${placeholder "out"}/${python3.sitePackages}"
+        --replace "\''${Python_SITEARCH}" "${
+          placeholder "out"
+        }/${python3.sitePackages}"
     '';
 
     nativeBuildInputs = [

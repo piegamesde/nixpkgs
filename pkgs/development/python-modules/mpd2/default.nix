@@ -23,7 +23,9 @@ buildPythonPackage rec {
     twisted = [ twisted ];
   };
 
-  nativeCheckInputs = [ unittestCheckHook ] ++ passthru.optional-dependencies.twisted;
+  nativeCheckInputs = [
+    unittestCheckHook
+  ] ++ passthru.optional-dependencies.twisted;
 
   meta = with lib; {
     changelog = "https://github.com/Mic92/python-mpd2/blob/v${version}/doc/changes.rst";

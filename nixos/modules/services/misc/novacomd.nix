@@ -15,7 +15,9 @@ in
 
   options = {
     services.novacomd = {
-      enable = mkEnableOption (lib.mdDoc "Novacom service for connecting to WebOS devices");
+      enable = mkEnableOption (
+        lib.mdDoc "Novacom service for connecting to WebOS devices"
+      );
     };
   };
 

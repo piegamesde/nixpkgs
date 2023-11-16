@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
   ];
 
   C_INCLUDE_PATH =
-    "${libxml2.dev}/include/libxml2/:" + lib.makeSearchPathOutput "dev" "include" buildInputs;
+    "${libxml2.dev}/include/libxml2/:"
+    + lib.makeSearchPathOutput "dev" "include" buildInputs;
   LIBRARY_PATH = lib.makeLibraryPath buildInputs;
 
   doCheck = false;

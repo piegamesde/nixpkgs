@@ -43,7 +43,9 @@ python3.pkgs.buildPythonApplication rec {
     vte
   ];
 
-  makeWrapperArgs = [ "--set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive" ];
+  makeWrapperArgs = [
+    "--set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive"
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     dbus-python
@@ -58,7 +60,9 @@ python3.pkgs.buildPythonApplication rec {
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   preFixup = ''
-    gappsWrapperArgs+=(--prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libutempter ]}")
+    gappsWrapperArgs+=(--prefix LD_LIBRARY_PATH : "${
+      lib.makeLibraryPath [ libutempter ]
+    }")
   '';
 
   passthru.tests.test = nixosTests.terminal-emulators.guake;

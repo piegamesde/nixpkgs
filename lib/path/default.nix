@@ -40,7 +40,8 @@ let
       ''The given string "${value}" starts with a `/`, representing an absolute path''
     # We don't support ".." components, see ./path.md#parent-directory
     else if match "(.*/)?\\.\\.(/.*)?" value != null then
-      ''The given string "${value}" contains a `..` component, which is not allowed in subpaths''
+      ''
+        The given string "${value}" contains a `..` component, which is not allowed in subpaths''
     else
       null;
 
@@ -178,7 +179,9 @@ in
     # The subpath string to append
     subpath:
     assert assertMsg (isPath path)
-        "lib.path.append: The first argument is of type ${builtins.typeOf path}, but a path was expected";
+        "lib.path.append: The first argument is of type ${
+          builtins.typeOf path
+        }, but a path was expected";
     assert assertMsg (isValid subpath) ''
       lib.path.append: Second argument is not a valid subpath string:
           ${subpathInvalidReason subpath}'';
@@ -208,20 +211,28 @@ in
   hasPrefix =
     path1:
     assert assertMsg (isPath path1)
-        "lib.path.hasPrefix: First argument is of type ${typeOf path1}, but a path was expected";
+        "lib.path.hasPrefix: First argument is of type ${
+          typeOf path1
+        }, but a path was expected";
     let
       path1Deconstructed = deconstructPath path1;
     in
     path2:
     assert assertMsg (isPath path2)
-        "lib.path.hasPrefix: Second argument is of type ${typeOf path2}, but a path was expected";
+        "lib.path.hasPrefix: Second argument is of type ${
+          typeOf path2
+        }, but a path was expected";
     let
       path2Deconstructed = deconstructPath path2;
     in
     assert assertMsg (path1Deconstructed.root == path2Deconstructed.root) ''
       lib.path.hasPrefix: Filesystem roots must be the same for both paths, but paths with different roots were given:
-          first argument: "${toString path1}" with root "${toString path1Deconstructed.root}"
-          second argument: "${toString path2}" with root "${toString path2Deconstructed.root}"'';
+          first argument: "${toString path1}" with root "${
+            toString path1Deconstructed.root
+          }"
+          second argument: "${toString path2}" with root "${
+            toString path2Deconstructed.root
+          }"'';
     take (length path1Deconstructed.components) path2Deconstructed.components
     == path1Deconstructed.components;
 
@@ -250,17 +261,22 @@ in
   removePrefix =
     path1:
     assert assertMsg (isPath path1)
-        "lib.path.removePrefix: First argument is of type ${typeOf path1}, but a path was expected.";
+        "lib.path.removePrefix: First argument is of type ${
+          typeOf path1
+        }, but a path was expected.";
     let
       path1Deconstructed = deconstructPath path1;
       path1Length = length path1Deconstructed.components;
     in
     path2:
     assert assertMsg (isPath path2)
-        "lib.path.removePrefix: Second argument is of type ${typeOf path2}, but a path was expected.";
+        "lib.path.removePrefix: Second argument is of type ${
+          typeOf path2
+        }, but a path was expected.";
     let
       path2Deconstructed = deconstructPath path2;
-      success = take path1Length path2Deconstructed.components == path1Deconstructed.components;
+      success =
+        take path1Length path2Deconstructed.components == path1Deconstructed.components;
       components =
         if success then
           drop path1Length path2Deconstructed.components
@@ -269,12 +285,18 @@ in
             ''
               lib.path.removePrefix: The first path argument "${
                 toString path1
-              }" is not a component-wise prefix of the second path argument "${toString path2}".'';
+              }" is not a component-wise prefix of the second path argument "${
+                toString path2
+              }".'';
     in
     assert assertMsg (path1Deconstructed.root == path2Deconstructed.root) ''
       lib.path.removePrefix: Filesystem roots must be the same for both paths, but paths with different roots were given:
-          first argument: "${toString path1}" with root "${toString path1Deconstructed.root}"
-          second argument: "${toString path2}" with root "${toString path2Deconstructed.root}"'';
+          first argument: "${toString path1}" with root "${
+            toString path1Deconstructed.root
+          }"
+          second argument: "${toString path2}" with root "${
+            toString path2Deconstructed.root
+          }"'';
     joinRelPath components;
 
   /* Split the filesystem root from a [path](https://nixos.org/manual/nix/stable/language/values.html#type-path).
@@ -315,7 +337,9 @@ in
     # The path to split the root off of
     path:
     assert assertMsg (isPath path)
-        "lib.path.splitRoot: Argument is of type ${typeOf path}, but a path was expected";
+        "lib.path.splitRoot: Argument is of type ${
+          typeOf path
+        }, but a path was expected";
     let
       deconstructed = deconstructPath path;
     in
@@ -442,7 +466,9 @@ in
             i + 1
           else
             throw ''
-              lib.path.subpath.join: Element at index ${toString i} is not a valid subpath string:
+              lib.path.subpath.join: Element at index ${
+                toString i
+              } is not a valid subpath string:
                   ${subpathInvalidReason path}''
         )
         0

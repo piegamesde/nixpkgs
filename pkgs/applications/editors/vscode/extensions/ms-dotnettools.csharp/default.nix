@@ -52,7 +52,11 @@ let
       aarch64-darwin = {
         url = "https://github.com/OmniSharp/omnisharp-vscode/releases/download/v${version}/csharp-${version}-darwin-arm64.vsix";
         sha256 = "08406xz2raal8f10bmnkz1mwdfprsbkjxzc01v0i4sax1hr2a2yl";
-        binaries = darwinAarch64DebuggerBins ++ darwinX86DebuggerBins ++ omniSharpBins ++ razorBins;
+        binaries =
+          darwinAarch64DebuggerBins
+          ++ darwinX86DebuggerBins
+          ++ omniSharpBins
+          ++ razorBins;
       };
     }
     .${system} or (throw "Unsupported system: ${system}");

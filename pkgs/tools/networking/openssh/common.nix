@@ -101,7 +101,9 @@ stdenv.mkDerivation {
     ]
     ++ lib.optional (etcDir != null) "--sysconfdir=${etcDir}"
     ++ lib.optional withFIDO "--with-security-key-builtin=yes"
-    ++ lib.optional withKerberos (assert libkrb5 != null; "--with-kerberos5=${libkrb5}")
+    ++ lib.optional withKerberos (
+      assert libkrb5 != null; "--with-kerberos5=${libkrb5}"
+    )
     ++ lib.optional stdenv.isDarwin "--disable-libutil"
     ++ lib.optional (!linkOpenssl) "--without-openssl"
     ++ lib.optional withLdns "--with-ldns"

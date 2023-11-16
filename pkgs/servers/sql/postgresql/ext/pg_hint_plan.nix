@@ -29,8 +29,9 @@ let
         hash = "sha256-64/dlm6e4flCxMQ8efsxfKSlja+Tko0zsghTgLatN+Y=";
       };
     }
-    .${lib.versions.major postgresql.version}
-      or (throw "Source for pg_hint_plan is not available for ${postgresql.version}");
+    .${lib.versions.major postgresql.version} or (throw
+      "Source for pg_hint_plan is not available for ${postgresql.version}"
+    );
 in
 stdenv.mkDerivation {
   pname = "pg_hint_plan";

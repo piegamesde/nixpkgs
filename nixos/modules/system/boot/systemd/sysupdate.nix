@@ -11,7 +11,9 @@ let
 
   format = pkgs.formats.ini { };
 
-  definitionsDirectory = utils.systemdUtils.lib.definitions "sysupdate.d" format cfg.transfers;
+  definitionsDirectory =
+    utils.systemdUtils.lib.definitions "sysupdate.d" format
+      cfg.transfers;
 in
 {
   options.systemd.sysupdate = {
@@ -30,44 +32,50 @@ in
       '';
     };
 
-    timerConfig = utils.systemdUtils.unitOptions.timerOptions.options.timerConfig // {
-      default = { };
-      description = lib.mdDoc ''
-        The timer configuration for performing the update.
-
-        By default, the upstream configuration is used:
-        <https://github.com/systemd/systemd/blob/main/units/systemd-sysupdate.timer>
-      '';
-    };
-
-    reboot = {
-      enable = lib.mkEnableOption (lib.mdDoc "automatically rebooting after an update") // {
-        description = lib.mdDoc ''
-          Whether to automatically reboot after an update.
-
-          If set to `true`, the system will automatically reboot via a
-          `systemd.timer` unit but only after a new version was installed.
-
-          This uses a unit completely separate from the one performing the
-          update because it is typically advisable to download updates
-          regularly while the system is up, but delay reboots until the
-          appropriate time (i.e. typically at night).
-
-          Set this to `false` if you do not want to reboot after an update. This
-          is useful when you update a container image or another source where
-          rebooting is not necessary in order to finalize the update.
-        '';
-      };
-
-      timerConfig = utils.systemdUtils.unitOptions.timerOptions.options.timerConfig // {
+    timerConfig =
+      utils.systemdUtils.unitOptions.timerOptions.options.timerConfig
+      // {
         default = { };
         description = lib.mdDoc ''
-          The timer configuration for rebooting after an update.
+          The timer configuration for performing the update.
 
           By default, the upstream configuration is used:
-          <https://github.com/systemd/systemd/blob/main/units/systemd-sysupdate-reboot.timer>
+          <https://github.com/systemd/systemd/blob/main/units/systemd-sysupdate.timer>
         '';
       };
+
+    reboot = {
+      enable =
+        lib.mkEnableOption (lib.mdDoc "automatically rebooting after an update")
+        // {
+          description = lib.mdDoc ''
+            Whether to automatically reboot after an update.
+
+            If set to `true`, the system will automatically reboot via a
+            `systemd.timer` unit but only after a new version was installed.
+
+            This uses a unit completely separate from the one performing the
+            update because it is typically advisable to download updates
+            regularly while the system is up, but delay reboots until the
+            appropriate time (i.e. typically at night).
+
+            Set this to `false` if you do not want to reboot after an update. This
+            is useful when you update a container image or another source where
+            rebooting is not necessary in order to finalize the update.
+          '';
+        };
+
+      timerConfig =
+        utils.systemdUtils.unitOptions.timerOptions.options.timerConfig
+        // {
+          default = { };
+          description = lib.mdDoc ''
+            The timer configuration for rebooting after an update.
+
+            By default, the upstream configuration is used:
+            <https://github.com/systemd/systemd/blob/main/units/systemd-sysupdate-reboot.timer>
+          '';
+        };
     };
 
     transfers = lib.mkOption {

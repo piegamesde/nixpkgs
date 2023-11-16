@@ -11,7 +11,9 @@ lib.makeScope pkgs.newScope (
 
     # Temporary helper until gdk-pixbuf supports multiple cache files.
     # This will go away, do not use outside Nixpkgs.
-    _gdkPixbufCacheBuilder_DO_NOT_USE = callPackage ./gdk-pixbuf-cache-builder.nix { };
+    _gdkPixbufCacheBuilder_DO_NOT_USE =
+      callPackage ./gdk-pixbuf-cache-builder.nix
+        { };
 
     libsoup = pkgs.libsoup.override { gnomeSupport = true; };
     libchamplain = pkgs.libchamplain.override { libsoup = libsoup; };
@@ -107,17 +109,25 @@ lib.makeScope pkgs.newScope (
 
     nautilus = callPackage ./core/nautilus { };
 
-    networkmanager-openvpn = pkgs.networkmanager-openvpn.override { withGnome = true; };
+    networkmanager-openvpn = pkgs.networkmanager-openvpn.override {
+      withGnome = true;
+    };
 
     networkmanager-vpnc = pkgs.networkmanager-vpnc.override { withGnome = true; };
 
-    networkmanager-openconnect = pkgs.networkmanager-openconnect.override { withGnome = true; };
+    networkmanager-openconnect = pkgs.networkmanager-openconnect.override {
+      withGnome = true;
+    };
 
-    networkmanager-fortisslvpn = pkgs.networkmanager-fortisslvpn.override { withGnome = true; };
+    networkmanager-fortisslvpn = pkgs.networkmanager-fortisslvpn.override {
+      withGnome = true;
+    };
 
     networkmanager-l2tp = pkgs.networkmanager-l2tp.override { withGnome = true; };
 
-    networkmanager-iodine = pkgs.networkmanager-iodine.override { withGnome = true; };
+    networkmanager-iodine = pkgs.networkmanager-iodine.override {
+      withGnome = true;
+    };
 
     nixos-gsettings-overrides = callPackage ./nixos/gsettings-overrides { };
 
@@ -267,7 +277,9 @@ lib.makeScope pkgs.newScope (
     throw
       "The ‘gnome.libgnome-games-support’ alias was removed. Please use ‘pkgs.libgnome-games-support’ directly."; # converted to throw on 2022-10-26
 
-  gnome-books = throw "The ‘gnome.gnome-books’ package was removed as it is broken and abandoned."; # added 2022-10-26
+  gnome-books =
+    throw
+      "The ‘gnome.gnome-books’ package was removed as it is broken and abandoned."; # added 2022-10-26
   gnome-documents =
     throw
       "The ‘gnome.gnome-documents’ package was removed as it is broken and abandoned."; # added 2022-10-26
@@ -278,7 +290,9 @@ lib.makeScope pkgs.newScope (
   mutter338 =
     throw
       "The ‘gnome.mutter338’ package was removed as it is no longer needed by Pantheon."; # added 2023-02-22
-  mutter42 = throw "The ‘gnome.mutter42’ package was removed as it is no longer needed by Pantheon."; # added 2023-03-23
+  mutter42 =
+    throw
+      "The ‘gnome.mutter42’ package was removed as it is no longer needed by Pantheon."; # added 2023-03-23
   gnome-settings-daemon338 =
     throw
       "The ‘gnome.gnome-settings-daemon338’ package was removed as it is no longer needed by Pantheon."; # added 2023-02-22

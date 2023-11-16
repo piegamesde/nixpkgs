@@ -33,7 +33,8 @@ in
 
 # TODO: loop over targetPrefixed binaries too
 stdenv.mkDerivation {
-  pname = "${targetPrefix}cctools-binutils-darwin" + lib.optionalString dualAs "-dualas";
+  pname =
+    "${targetPrefix}cctools-binutils-darwin" + lib.optionalString dualAs "-dualas";
   inherit (cctools) version;
   outputs = [
     "out"
@@ -55,7 +56,9 @@ stdenv.mkDerivation {
       # - strip: the binutils one seems to break mach-o files
       # - lipo: gcc build assumes it exists
       # - nm: the gnu one doesn't understand many new load commands
-      for i in ${lib.concatStringsSep " " (builtins.map (e: targetPrefix + e) cmds)}; do
+      for i in ${
+        lib.concatStringsSep " " (builtins.map (e: targetPrefix + e) cmds)
+      }; do
         ln -sf "${cctools}/bin/$i" "$out/bin/$i"
       done
 

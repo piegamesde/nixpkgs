@@ -3336,7 +3336,12 @@ let
       sources."asynckit-0.4.0"
       sources."balanced-match-1.0.2"
       sources."base64-js-1.5.1"
-      (sources."basic-auth-2.0.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
+      (
+        sources."basic-auth-2.0.1"
+        // {
+          dependencies = [ sources."safe-buffer-5.1.2" ];
+        }
+      )
       sources."better-sqlite3-7.6.2"
       sources."bindings-1.5.0"
       sources."bintrees-1.0.2"
@@ -3362,7 +3367,12 @@ let
       sources."canvas-2.10.1"
       sources."chalk-4.1.2"
       sources."chownr-2.0.0"
-      (sources."clone-response-1.0.3" // { dependencies = [ sources."mimic-response-1.0.1" ]; })
+      (
+        sources."clone-response-1.0.3"
+        // {
+          dependencies = [ sources."mimic-response-1.0.1" ];
+        }
+      )
       sources."color-3.2.1"
       sources."color-convert-1.9.3"
       sources."color-name-1.1.3"
@@ -3490,7 +3500,9 @@ let
       sources."highlight.js-10.7.3"
       sources."html-to-text-6.0.0"
       sources."htmlencode-0.0.4"
-      (sources."htmlparser2-4.1.0" // { dependencies = [ sources."entities-2.2.0" ]; })
+      (
+        sources."htmlparser2-4.1.0" // { dependencies = [ sources."entities-2.2.0" ]; }
+      )
       sources."http-cache-semantics-4.1.0"
       sources."http-errors-2.0.0"
       sources."http2-wrapper-1.0.3"
@@ -3634,7 +3646,9 @@ let
         }
       )
       sources."semver-7.3.7"
-      (sources."semver-closest-0.1.2" // { dependencies = [ sources."semver-5.7.1" ]; })
+      (
+        sources."semver-closest-0.1.2" // { dependencies = [ sources."semver-5.7.1" ]; }
+      )
       (
         sources."send-0.18.0"
         // {
@@ -3735,7 +3749,12 @@ let
           ];
         }
       )
-      (sources."winston-daily-rotate-file-3.10.0" // { dependencies = [ sources."semver-6.3.0" ]; })
+      (
+        sources."winston-daily-rotate-file-3.10.0"
+        // {
+          dependencies = [ sources."semver-6.3.0" ];
+        }
+      )
       sources."winston-transport-4.5.0"
       (sources."wordwrapjs-3.0.0" // { dependencies = [ sources."typical-2.6.1" ]; })
       sources."wrappy-1.0.2"

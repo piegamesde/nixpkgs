@@ -58,7 +58,9 @@ mkDerivation {
     substituteInPlace "$out/share/backintime/qt/serviceHelper.py" \
       --replace "'which'" "'${lib.getBin which}/bin/which'" \
       --replace "/bin/su" "${lib.getBin su}/bin/su" \
-      --replace "/usr/bin/backintime" "${lib.getBin backintime-common}/bin/backintime" \
+      --replace "/usr/bin/backintime" "${
+        lib.getBin backintime-common
+      }/bin/backintime" \
       --replace "/usr/bin/nice" "${lib.getBin coreutils}/bin/nice" \
       --replace "/usr/bin/ionice" "${lib.getBin util-linux}/bin/ionice"
 

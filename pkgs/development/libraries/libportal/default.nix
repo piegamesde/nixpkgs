@@ -16,7 +16,10 @@
   variant ? null,
 }:
 
-assert variant == null || variant == "gtk3" || variant == "gtk4" || variant == "qt5";
+assert variant == null
+  || variant == "gtk3"
+  || variant == "gtk4"
+  || variant == "qt5";
 
 stdenv.mkDerivation rec {
   pname = "libportal" + lib.optionalString (variant != null) "-${variant}";

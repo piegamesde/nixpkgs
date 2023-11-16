@@ -17,7 +17,8 @@ let
       aarch64-linux = "linux-arm64";
       x86_64-linux = "linux-x86_64";
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
     url = "https://github.com/trezor/${pname}/releases/download/v${version}/Trezor-Suite-${version}-${suffix}.AppImage";
@@ -27,7 +28,8 @@ let
         aarch64-linux = "sha512-MR9BYg6R+Oof3zh02KSh48V2m6J7JpsrYpi6gj5kTvKuCU5Ci5AwPEAvnTjHAR6xlappvoNQmeA5nCEoTWaL7A==";
         x86_64-linux = "sha512-BqdfhYLG4z+9B7KbJGWGPml7U2fl/RQ1nZK0vdeA/cKhG0SjH0K8er9bemg60RPBXj0AeuK80v/6vMbDtyEnRQ==";
       }
-      .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+      .${stdenv.hostPlatform.system}
+        or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
   appimageContents = appimageTools.extractType2 { inherit name src; };

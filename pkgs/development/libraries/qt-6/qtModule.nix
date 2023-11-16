@@ -32,7 +32,9 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals stdenv.isDarwin [ moveBuildTree ];
     propagatedBuildInputs =
-      (lib.warnIf (args ? qtInputs) "qt6.qtModule's qtInputs argument is deprecated" args.qtInputs or [ ])
+      (lib.warnIf (args ? qtInputs) "qt6.qtModule's qtInputs argument is deprecated"
+        args.qtInputs or [ ]
+      )
       ++ (args.propagatedBuildInputs or [ ]);
 
     moveToDev = false;

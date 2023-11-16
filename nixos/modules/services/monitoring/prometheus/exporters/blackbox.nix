@@ -69,7 +69,10 @@ in
   serviceOpts =
     let
       adjustedConfigFile =
-        if cfg.enableConfigCheck then checkConfig cfg.configFile else checkConfigLocation cfg.configFile;
+        if cfg.enableConfigCheck then
+          checkConfig cfg.configFile
+        else
+          checkConfigLocation cfg.configFile;
     in
     {
       serviceConfig = {

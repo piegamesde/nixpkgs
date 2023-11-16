@@ -32,16 +32,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    cu2qu
-    fonttools
-    defcon
-    compreffor
-    booleanoperations
-    cffsubr
-    ufoLib2
-    skia-pathops
-  ] ++ fonttools.optional-dependencies.lxml ++ fonttools.optional-dependencies.ufo;
+  propagatedBuildInputs =
+    [
+      cu2qu
+      fonttools
+      defcon
+      compreffor
+      booleanoperations
+      cffsubr
+      ufoLib2
+      skia-pathops
+    ]
+    ++ fonttools.optional-dependencies.lxml ++ fonttools.optional-dependencies.ufo;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

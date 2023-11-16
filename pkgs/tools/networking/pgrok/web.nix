@@ -6,7 +6,8 @@
   stdenvNoCC,
 }:
 let
-  build-deps = nodePackages."pgrok-build-deps-../../tools/networking/pgrok/build-deps";
+  build-deps =
+    nodePackages."pgrok-build-deps-../../tools/networking/pgrok/build-deps";
 in
 stdenvNoCC.mkDerivation {
   pname = "pgrok-web";

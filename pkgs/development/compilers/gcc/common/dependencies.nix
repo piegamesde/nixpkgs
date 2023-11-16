@@ -52,7 +52,9 @@ in
     ]
     ++ optionals (perl != null) [ perl ]
     ++ optionals javaAwtGtk [ pkg-config ]
-    ++ optionals (with stdenv.targetPlatform; isVc4 || isRedox && flex != null) [ flex ]
+    ++ optionals (with stdenv.targetPlatform; isVc4 || isRedox && flex != null) [
+      flex
+    ]
     ++ optionals langAda [ gnat-bootstrap ]
     # The builder relies on GNU sed (for instance, Darwin's `sed' fails with
     # "-i may not be used with stdin"), and `stdenvNative' doesn't provide it.
@@ -104,6 +106,7 @@ in
 
   # threadsCross.package after gcc6 so i assume its okay for 4.8 and 4.9 too
   depsTargetTarget =
-    optionals (!withoutTargetLibc && threadsCross != { } && threadsCross.package != null)
+    optionals
+      (!withoutTargetLibc && threadsCross != { } && threadsCross.package != null)
       [ threadsCross.package ];
 }

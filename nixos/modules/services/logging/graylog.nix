@@ -42,9 +42,15 @@ in
       package = mkOption {
         type = types.package;
         default =
-          if versionOlder config.system.stateVersion "23.05" then pkgs.graylog-3_3 else pkgs.graylog-5_1;
+          if versionOlder config.system.stateVersion "23.05" then
+            pkgs.graylog-3_3
+          else
+            pkgs.graylog-5_1;
         defaultText = literalExpression (
-          if versionOlder config.system.stateVersion "23.05" then "pkgs.graylog-3_3" else "pkgs.graylog-5_1"
+          if versionOlder config.system.stateVersion "23.05" then
+            "pkgs.graylog-3_3"
+          else
+            "pkgs.graylog-5_1"
         );
         description = lib.mdDoc "Graylog package to use.";
       };
@@ -58,7 +64,9 @@ in
       isMaster = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc "Whether this is the master instance of your Graylog cluster";
+        description =
+          lib.mdDoc
+            "Whether this is the master instance of your Graylog cluster";
       };
 
       nodeIdFile = mkOption {
@@ -96,7 +104,9 @@ in
 
       elasticsearchHosts = mkOption {
         type = types.listOf types.str;
-        example = literalExpression ''[ "http://node1:9200" "http://user:password@node2:19200" ]'';
+        example =
+          literalExpression
+            ''[ "http://node1:9200" "http://user:password@node2:19200" ]'';
         description =
           lib.mdDoc
             "List of valid URIs of the http ports of your elastic nodes. If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that requires authentication";

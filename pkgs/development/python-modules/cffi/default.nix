@@ -56,7 +56,8 @@ else
           hash = "sha256-+2daRTvxtyrCPimOEAmVbiVm1Bso9hxGbaAbd03E+ws=";
         })
       ]
-      ++ lib.optionals (stdenv.cc.isClang && lib.versionAtLeast (lib.getVersion stdenv.cc) "13")
+      ++ lib.optionals
+        (stdenv.cc.isClang && lib.versionAtLeast (lib.getVersion stdenv.cc) "13")
         [
           # -Wnull-pointer-subtraction is enabled with -Wextra. Suppress it to allow the following tests
           # to run and pass when cffi is built with newer versions of clang:

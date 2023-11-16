@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
   inherit pname version;
 
   src =
-    srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    srcs.${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   sourceRoot = ".";
 

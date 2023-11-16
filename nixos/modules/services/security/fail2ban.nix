@@ -12,7 +12,9 @@ let
 
   settingsFormat = pkgs.formats.keyValue { };
 
-  configFormat = pkgs.formats.ini { mkKeyValue = generators.mkKeyValueDefault { } " = "; };
+  configFormat = pkgs.formats.ini {
+    mkKeyValue = generators.mkKeyValueDefault { } " = ";
+  };
 
   mkJailConfig =
     name: attrs:
@@ -111,7 +113,9 @@ in
         defaultText = literalExpression "pkgs.fail2ban";
         type = types.package;
         example = literalExpression "pkgs.fail2ban_0_11";
-        description = lib.mdDoc "The fail2ban package to use for running the fail2ban service.";
+        description =
+          lib.mdDoc
+            "The fail2ban package to use for running the fail2ban service.";
       };
 
       packageFirewall = mkOption {
@@ -147,10 +151,15 @@ in
       };
 
       banaction = mkOption {
-        default = if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport";
+        default =
+          if config.networking.nftables.enable then
+            "nftables-multiport"
+          else
+            "iptables-multiport";
         defaultText =
           literalExpression
-            ''if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"'';
+            ''
+              if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"'';
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,
@@ -161,10 +170,15 @@ in
       };
 
       banaction-allports = mkOption {
-        default = if config.networking.nftables.enable then "nftables-allport" else "iptables-allport";
+        default =
+          if config.networking.nftables.enable then
+            "nftables-allport"
+          else
+            "iptables-allport";
         defaultText =
           literalExpression
-            ''if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"'';
+            ''
+              if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"'';
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,
@@ -362,16 +376,18 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.bantime-increment.formula == null || cfg.bantime-increment.multipliers == null;
+        assertion =
+          cfg.bantime-increment.formula == null
+          || cfg.bantime-increment.multipliers == null;
         message = ''
           Options `services.fail2ban.bantime-increment.formula` and `services.fail2ban.bantime-increment.multipliers` cannot be both specified.
         '';
       }
     ];
 
-    warnings = mkIf (!config.networking.firewall.enable && !config.networking.nftables.enable) [
-      "fail2ban can not be used without a firewall"
-    ];
+    warnings =
+      mkIf (!config.networking.firewall.enable && !config.networking.nftables.enable)
+        [ "fail2ban can not be used without a firewall" ];
 
     environment.systemPackages = [ cfg.package ];
 

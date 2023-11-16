@@ -21,7 +21,8 @@
 
 let
   # Do either a coverage analysis build or a standard build.
-  builder = if coverageAnalysis != null then coverageAnalysis else stdenv.mkDerivation;
+  builder =
+    if coverageAnalysis != null then coverageAnalysis else stdenv.mkDerivation;
 in
 builder rec {
   pname = "guile";
@@ -44,7 +45,9 @@ builder rec {
       [ buildPackages.darwin.apple_sdk_11_0.stdenv.cc ]
     else
       [ buildPackages.stdenv.cc ]
-      ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) pkgsBuildBuild.guile_3_0;
+      ++
+        lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+          pkgsBuildBuild.guile_3_0;
   nativeBuildInputs = [
     makeWrapper
     pkg-config
@@ -87,7 +90,9 @@ builder rec {
   # "libgcc_s.so.1 must be installed for pthread_cancel to work".
 
   # don't have "libgcc_s.so.1" on clang
-  LDFLAGS = lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic) "-lgcc_s";
+  LDFLAGS =
+    lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
+      "-lgcc_s";
 
   configureFlags =
     [ "--with-libreadline-prefix=${lib.getDev readline}" ]

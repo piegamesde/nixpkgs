@@ -22,7 +22,9 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     patchelf \
-      --set-rpath "${lib.makeLibraryPath [ openssl ]}:$(patchelf --print-rpath $out/bin/tpm_mkaik)" \
+      --set-rpath "${
+        lib.makeLibraryPath [ openssl ]
+      }:$(patchelf --print-rpath $out/bin/tpm_mkaik)" \
       $out/bin/tpm_mkaik
   '';
 

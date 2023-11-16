@@ -18,7 +18,9 @@
   zlib,
   buildLlvmTools,
   debugVersion ? false,
-  doCheck ? stdenv.isLinux && (!stdenv.isx86_32) && (stdenv.hostPlatform == stdenv.buildPlatform),
+  doCheck ? stdenv.isLinux
+    && (!stdenv.isx86_32)
+    && (stdenv.hostPlatform == stdenv.buildPlatform),
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
   # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
@@ -70,7 +72,9 @@ stdenv.mkDerivation (
     inherit version;
 
     src = fetch "llvm" "0r1p5didv4rkgxyvbkyz671xddg6i3dxvbpsi1xxipkla0l9pk0v";
-    polly_src = fetch "polly" "16qkns4ab4x0azrvhy4j7cncbyb2rrbdrqj87zphvqxm5pvm8m1h";
+    polly_src =
+      fetch "polly"
+        "16qkns4ab4x0azrvhy4j7cncbyb2rrbdrqj87zphvqxm5pvm8m1h";
 
     unpackPhase =
       ''
@@ -243,7 +247,9 @@ stdenv.mkDerivation (
         "-DSPHINX_OUTPUT_HTML=OFF"
         "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
       ]
-      ++ optionals (enableGoldPlugin) [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ]
+      ++ optionals (enableGoldPlugin) [
+        "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
+      ]
       ++ optionals (isDarwin) [
         "-DLLVM_ENABLE_LIBCXX=ON"
         "-DCAN_TARGET_i386=false"

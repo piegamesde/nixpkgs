@@ -127,14 +127,18 @@ stdenv.mkDerivation {
     mkdir -p $out/lib/swipl/pack
   '';
 
-  postInstall = builtins.concatStringsSep "\n" (builtins.map (packInstall "$out") extraPacks);
+  postInstall = builtins.concatStringsSep "\n" (
+    builtins.map (packInstall "$out") extraPacks
+  );
 
   meta = {
     homepage = "https://www.swi-prolog.org";
     description = "A Prolog compiler and interpreter";
     license = lib.licenses.bsd2;
     mainProgram = "swipl";
-    platforms = lib.platforms.linux ++ lib.optionals (!withGui) lib.platforms.darwin;
+    platforms =
+      lib.platforms.linux
+      ++ lib.optionals (!withGui) lib.platforms.darwin;
     maintainers = [ lib.maintainers.meditans ];
   };
 }

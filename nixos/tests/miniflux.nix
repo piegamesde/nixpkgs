@@ -62,7 +62,9 @@ import ./make-test-python.nix (
 
       default.wait_for_unit("miniflux.service")
       default.wait_for_open_port(${toString defaultPort})
-      default.succeed("curl --fail 'http://localhost:${toString defaultPort}/healthcheck' | grep OK")
+      default.succeed("curl --fail 'http://localhost:${
+        toString defaultPort
+      }/healthcheck' | grep OK")
       default.succeed(
           "curl 'http://localhost:${
             toString defaultPort
@@ -72,7 +74,9 @@ import ./make-test-python.nix (
 
       withoutSudo.wait_for_unit("miniflux.service")
       withoutSudo.wait_for_open_port(${toString defaultPort})
-      withoutSudo.succeed("curl --fail 'http://localhost:${toString defaultPort}/healthcheck' | grep OK")
+      withoutSudo.succeed("curl --fail 'http://localhost:${
+        toString defaultPort
+      }/healthcheck' | grep OK")
       withoutSudo.succeed(
           "curl 'http://localhost:${
             toString defaultPort
@@ -82,7 +86,9 @@ import ./make-test-python.nix (
 
       customized.wait_for_unit("miniflux.service")
       customized.wait_for_open_port(${toString port})
-      customized.succeed("curl --fail 'http://localhost:${toString port}/healthcheck' | grep OK")
+      customized.succeed("curl --fail 'http://localhost:${
+        toString port
+      }/healthcheck' | grep OK")
       customized.succeed(
           "curl 'http://localhost:${
             toString port

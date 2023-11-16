@@ -87,7 +87,9 @@ rec {
             };
           }
         )
-        (lib.filter (cpu: lib.hasPrefix "armv7" cpu.arch or "") (lib.attrValues cpuTypes));
+        (
+          lib.filter (cpu: lib.hasPrefix "armv7" cpu.arch or "") (lib.attrValues cpuTypes)
+        );
     isAarch64 = {
       cpu = {
         family = "arm";
@@ -416,7 +418,9 @@ rec {
             lib.recursiveUpdateUntil
               (
                 path: subattr1: subattr2:
-                if (builtins.intersectAttrs subattr1 subattr2) == { } || subattr1 == subattr2 then
+                if
+                  (builtins.intersectAttrs subattr1 subattr2) == { } || subattr1 == subattr2
+                then
                   true
                 else
                   throw ''

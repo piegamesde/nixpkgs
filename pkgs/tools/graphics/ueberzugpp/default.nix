@@ -82,7 +82,10 @@ stdenv.mkDerivation rec {
 
   # error: aligned deallocation function of type 'void (void *, std::align_val_t) noexcept' is only available on macOS 10.14 or newer
   preBuild =
-    lib.optionalString (stdenv.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "11.0")
+    lib.optionalString
+      (
+        stdenv.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "11.0"
+      )
       ''
         export MACOSX_DEPLOYMENT_TARGET=10.14
       '';

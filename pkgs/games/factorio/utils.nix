@@ -40,11 +40,16 @@ with lib; {
 
       # Use the name of the zip, but endstrip ".zip" and possibly the querystring that gets left in by fetchurl
       name = replaceStrings [ "_" ] [ "-" ] (
-        if name != null then name else removeSuffix ".zip" (head (splitString "?" src.name))
+        if name != null then
+          name
+        else
+          removeSuffix ".zip" (head (splitString "?" src.name))
       );
 
       deps =
-        deps ++ optionals allOptionalMods optionalDeps ++ optionals allRecommendedMods recommendedDeps;
+        deps
+        ++ optionals allOptionalMods optionalDeps
+        ++ optionals allRecommendedMods recommendedDeps;
 
       preferLocalBuild = true;
       buildCommand = ''

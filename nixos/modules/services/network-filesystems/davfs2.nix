@@ -62,7 +62,9 @@ in
     environment.systemPackages = [ pkgs.davfs2 ];
     environment.etc."davfs2/davfs2.conf".source = cfgFile;
 
-    users.groups = optionalAttrs (cfg.davGroup == "davfs2") { davfs2.gid = config.ids.gids.davfs2; };
+    users.groups = optionalAttrs (cfg.davGroup == "davfs2") {
+      davfs2.gid = config.ids.gids.davfs2;
+    };
 
     users.users = optionalAttrs (cfg.davUser == "davfs2") {
       davfs2 = {

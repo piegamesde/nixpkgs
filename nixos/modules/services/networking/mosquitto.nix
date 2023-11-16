@@ -162,7 +162,8 @@ let
     pipe users [
       attrNames
       (imap0 (
-        index: user: nameValuePair user (users.${user} // { scope = userScope listenerScope index; })
+        index: user:
+        nameValuePair user (users.${user} // { scope = userScope listenerScope index; })
       ))
       listToAttrs
     ];
@@ -171,7 +172,9 @@ let
     user: credentials:
     pipe credentials [
       (filter (credential: user.${credential} != null))
-      (map (credential: "${credentialID user.scope credential}:${user.${credential}}"))
+      (map (
+        credential: "${credentialID user.scope credential}:${user.${credential}}"
+      ))
     ];
   usersCredentials =
     listenerScope: users: credentials:
@@ -198,14 +201,20 @@ let
         mapAttrsToList
           (
             name: user:
-            ''addLine ${escapeShellArg name} "$(systemd-creds cat ${credentialID user.scope store})"''
+            ''
+              addLine ${escapeShellArg name} "$(systemd-creds cat ${
+                credentialID user.scope store
+              })"''
           )
           (filterAttrs (_: user: user.${store} != null) scopedUsers)
         ++
           mapAttrsToList
             (
               name: user:
-              ''addFile ${escapeShellArg name} "''${CREDENTIALS_DIRECTORY}/${credentialID user.scope file}"''
+              ''
+                addFile ${escapeShellArg name} "''${CREDENTIALS_DIRECTORY}/${
+                  credentialID user.scope file
+                }"''
             )
             (filterAttrs (_: user: user.${file} != null) scopedUsers);
       plainLines = makeLines "password" "passwordFile";
@@ -413,7 +422,9 @@ let
     prefix: listener:
     assertKeysValid "${prefix}.settings" freeformListenerKeys listener.settings
     ++ userAsserts prefix listener.users
-    ++ imap0 (i: v: authAsserts "${prefix}.authPlugins.${toString i}" v) listener.authPlugins;
+    ++
+      imap0 (i: v: authAsserts "${prefix}.authPlugins.${toString i}" v)
+        listener.authPlugins;
 
   formatListener =
     idx: listener:
@@ -421,7 +432,9 @@ let
       "listener ${toString listener.port} ${toString listener.address}"
       "acl_file ${makeACLFile idx listener.users listener.acl}"
     ]
-    ++ optional (!listener.omitPasswordAuth) "password_file ${cfg.dataDir}/passwd-${toString idx}"
+    ++
+      optional (!listener.omitPasswordAuth)
+        "password_file ${cfg.dataDir}/passwd-${toString idx}"
     ++ formatFreeform { } listener.settings
     ++ concatMap formatAuthPlugin listener.authPlugins;
 
@@ -527,7 +540,9 @@ let
     name: bridge:
     [
       "connection ${name}"
-      "addresses ${concatMapStringsSep " " (a: "${a.address}:${toString a.port}") bridge.addresses}"
+      "addresses ${
+        concatMapStringsSep " " (a: "${a.address}:${toString a.port}") bridge.addresses
+      }"
     ]
     ++ map (t: "topic ${t}") bridge.topics
     ++ formatFreeform { } bridge.settings;
@@ -669,7 +684,9 @@ let
     prefix: cfg:
     flatten [
       (assertKeysValid "${prefix}.settings" freeformGlobalKeys cfg.settings)
-      (imap0 (n: l: listenerAsserts "${prefix}.listener.${toString n}" l) cfg.listeners)
+      (imap0 (n: l: listenerAsserts "${prefix}.listener.${toString n}" l)
+        cfg.listeners
+      )
       (mapAttrsToList (n: b: bridgeAsserts "${prefix}.bridge.${n}" b) cfg.bridges)
     ];
 
@@ -679,14 +696,18 @@ let
       "per_listener_settings true"
       "persistence ${optionToString cfg.persistence}"
     ]
-    ++ map (d: if path.check d then "log_dest file ${d}" else "log_dest ${d}") cfg.logDest
+    ++
+      map (d: if path.check d then "log_dest file ${d}" else "log_dest ${d}")
+        cfg.logDest
     ++ map (t: "log_type ${t}") cfg.logType
     ++ formatFreeform { } cfg.settings
     ++ concatLists (imap0 formatListener cfg.listeners)
     ++ concatLists (mapAttrsToList formatBridge cfg.bridges)
     ++ map (d: "include_dir ${d}") cfg.includeDirs;
 
-  configFile = pkgs.writeText "mosquitto.conf" (concatStringsSep "\n" (formatGlobal cfg));
+  configFile = pkgs.writeText "mosquitto.conf" (
+    concatStringsSep "\n" (formatGlobal cfg)
+  );
 in
 
 {
@@ -813,7 +834,8 @@ in
         imap0
           (
             idx: listener:
-            makePasswordFile (listenerScope idx) listener.users "${cfg.dataDir}/passwd-${toString idx}"
+            makePasswordFile (listenerScope idx) listener.users
+              "${cfg.dataDir}/passwd-${toString idx}"
           )
           cfg.listeners
       );

@@ -36,7 +36,8 @@ buildPythonPackage {
       src = ./setup.patch;
       boost_version =
         let
-          pythonVersion = with lib.versions; "${major python.version}${minor python.version}";
+          pythonVersion =
+            with lib.versions; "${major python.version}${minor python.version}";
         in
         "boost_python${pythonVersion}";
     })

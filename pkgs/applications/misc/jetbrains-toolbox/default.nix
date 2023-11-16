@@ -20,7 +20,8 @@ let
   };
 
   appimageContents =
-    runCommand "${pname}-extracted" { nativeBuildInputs = [ appimageTools.appimage-exec ]; }
+    runCommand "${pname}-extracted"
+      { nativeBuildInputs = [ appimageTools.appimage-exec ]; }
       ''
         appimage-exec.sh -x $out ${src}/${pname}-${version}/${pname}
       '';

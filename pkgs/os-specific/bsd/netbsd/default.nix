@@ -35,7 +35,10 @@ let
 
   defaultMakeFlags = [
     "MKSOFTFLOAT=${
-      if stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft" then
+      if
+        stdenv.hostPlatform.gcc.float
+          or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft"
+      then
         "yes"
       else
         "no"
@@ -104,7 +107,8 @@ makeScopeWithSplicing' {
                   i586 = "i386";
                   i686 = "i386";
                 }
-                .${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name;
+                .${stdenv'.hostPlatform.parsed.cpu.name}
+                  or stdenv'.hostPlatform.parsed.cpu.name;
 
               MACHINE =
                 {
@@ -114,7 +118,8 @@ makeScopeWithSplicing' {
                   i586 = "i386";
                   i686 = "i386";
                 }
-                .${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name;
+                .${stdenv'.hostPlatform.parsed.cpu.name}
+                  or stdenv'.hostPlatform.parsed.cpu.name;
 
               COMPONENT_PATH = attrs.path;
 
@@ -334,8 +339,12 @@ makeScopeWithSplicing' {
                 include.src
                 libc.src
                 libutil.src
-                (fetchNetBSD "external/bsd/flex" "9.2" "0h98jpfj7vx5zh7vd7bk6b1hmzgkcb757a8j6d9zgygxxv13v43m")
-                (fetchNetBSD "sys/sys" "9.2" "0zawhw51klaigqqwkx0lzrx3mim2jywrc24cm7c66qsf1im9awgd")
+                (fetchNetBSD "external/bsd/flex" "9.2"
+                  "0h98jpfj7vx5zh7vd7bk6b1hmzgkcb757a8j6d9zgygxxv13v43m"
+                )
+                (fetchNetBSD "sys/sys" "9.2"
+                  "0zawhw51klaigqqwkx0lzrx3mim2jywrc24cm7c66qsf1im9awgd"
+                )
                 (fetchNetBSD "common/include/rpc/types.h" "9.2"
                   "0n2df12mlc3cbc48jxq35yzl1y7ghgpykvy7jnfh898rdhac7m9a"
                 )
@@ -406,11 +415,15 @@ makeScopeWithSplicing' {
           ];
           propagatedBuildInputs = with self; compatIfNeeded;
           extraPaths = with self; [
-            (fetchNetBSD "lib/libc/gen/fts.c" "9.2" "1a8hmf26242nmv05ipn3ircxb0jqmmi66rh78kkyi9vjwkfl3qn7")
+            (fetchNetBSD "lib/libc/gen/fts.c" "9.2"
+              "1a8hmf26242nmv05ipn3ircxb0jqmmi66rh78kkyi9vjwkfl3qn7"
+            )
             (fetchNetBSD "lib/libc/include/namespace.h" "9.2"
               "0kksr3pdwdc1cplqf5z12ih4cml6l11lqrz91f7hjjm64y7785kc"
             )
-            (fetchNetBSD "lib/libc/gen/fts.3" "9.2" "1asxw0n3fhjdadwkkq3xplfgqgl3q32w1lyrvbakfa3gs0wz5zc1")
+            (fetchNetBSD "lib/libc/gen/fts.3" "9.2"
+              "1asxw0n3fhjdadwkkq3xplfgqgl3q32w1lyrvbakfa3gs0wz5zc1"
+            )
           ];
           skipIncludesPhase = true;
           buildPhase = ''
@@ -555,7 +568,9 @@ makeScopeWithSplicing' {
             make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
           '';
           extraPaths = [
-            (fetchNetBSD "share/mk" "9.2" "0w9x77cfnm6zwy40slradzi0ip9gz80x6lk7pvnlxzsr2m5ra5sy")
+            (fetchNetBSD "share/mk" "9.2"
+              "0w9x77cfnm6zwy40slradzi0ip9gz80x6lk7pvnlxzsr2m5ra5sy"
+            )
           ];
         };
 
@@ -636,8 +651,12 @@ makeScopeWithSplicing' {
           makeFlags = defaultMakeFlags ++ [ "TOOLDIR=$(out)" ];
           extraPaths = with self; [
             libterminfo.src
-            (fetchNetBSD "usr.bin/tic" "9.2" "1mwdfg7yx1g43ss378qsgl5rqhsxskqvsd2mqvrn38qw54i8v5i1")
-            (fetchNetBSD "tools/Makefile.host" "9.2" "15b4ab0n36lqj00j5lz2xs83g7l8isk3wx1wcapbrn66qmzz2sxy")
+            (fetchNetBSD "usr.bin/tic" "9.2"
+              "1mwdfg7yx1g43ss378qsgl5rqhsxskqvsd2mqvrn38qw54i8v5i1"
+            )
+            (fetchNetBSD "tools/Makefile.host" "9.2"
+              "15b4ab0n36lqj00j5lz2xs83g7l8isk3wx1wcapbrn66qmzz2sxy"
+            )
           ];
         };
 
@@ -716,10 +735,14 @@ makeScopeWithSplicing' {
           headersOnly = true;
           noCC = true;
           meta.platforms = lib.platforms.netbsd;
-          makeFlags = defaultMakeFlags ++ [ "RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp" ];
+          makeFlags = defaultMakeFlags ++ [
+            "RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp"
+          ];
         };
 
-        common = fetchNetBSD "common" "9.2" "1pfylz9r3ap5wnwwbwczbfjb1m5qdyspzbnmxmcdkpzz2zgj64b9";
+        common =
+          fetchNetBSD "common" "9.2"
+            "1pfylz9r3ap5wnwwbwczbfjb1m5qdyspzbnmxmcdkpzz2zgj64b9";
 
         sys-headers = mkDerivation {
           pname = "sys-headers";
@@ -899,7 +922,9 @@ makeScopeWithSplicing' {
             make -C $BSDSRCDIR/share/terminfo $makeFlags BINDIR=$out/share install
           '';
           extraPaths = with self; [
-            (fetchNetBSD "share/terminfo" "9.2" "1vh9rl4w8118a9qdpblfxmv1wkpm83rm9gb4rzz5bpm56i6d7kk7")
+            (fetchNetBSD "share/terminfo" "9.2"
+              "1vh9rl4w8118a9qdpblfxmv1wkpm83rm9gb4rzz5bpm56i6d7kk7"
+            )
           ];
         };
 
@@ -1107,7 +1132,9 @@ makeScopeWithSplicing' {
             with self;
             _mainLibcExtraPaths
             ++ [
-              (fetchNetBSD "external/bsd/jemalloc" "9.2" "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb")
+              (fetchNetBSD "external/bsd/jemalloc" "9.2"
+                "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb"
+              )
             ];
           nativeBuildInputs = with buildPackages.netbsd; [
             bsdSetupHook

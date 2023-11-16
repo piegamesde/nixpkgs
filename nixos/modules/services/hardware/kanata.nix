@@ -84,7 +84,9 @@ let
   mkName = name: "kanata-${name}";
 
   mkDevices =
-    devices: optionalString ((length devices) > 0) "linux-dev ${concatStringsSep ":" devices}";
+    devices:
+    optionalString ((length devices) > 0)
+      "linux-dev ${concatStringsSep ":" devices}";
 
   mkConfig =
     name: keyboard:
@@ -140,7 +142,9 @@ let
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [ "AF_UNIX" ] ++ optional (keyboard.port != null) "AF_INET";
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+        ] ++ optional (keyboard.port != null) "AF_INET";
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = [ "native" ];
@@ -180,7 +184,9 @@ in
   config = mkIf cfg.enable {
     warnings =
       let
-        keyboardsWithEmptyDevices = filterAttrs (name: keyboard: keyboard.devices == [ ]) cfg.keyboards;
+        keyboardsWithEmptyDevices =
+          filterAttrs (name: keyboard: keyboard.devices == [ ])
+            cfg.keyboards;
         existEmptyDevices = length (attrNames keyboardsWithEmptyDevices) > 0;
         moreThanOneKeyboard = length (attrNames cfg.keyboards) > 1;
       in

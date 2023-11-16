@@ -53,7 +53,9 @@ stdenv.mkDerivation rec {
       --replace "get_option('prefix'), get_option('libdir')" "'${python3}/lib'"
   '';
 
-  PKG_CONFIG_LIBNEMO_EXTENSION_EXTENSIONDIR = "${placeholder "out"}/${nemo.extensiondir}";
+  PKG_CONFIG_LIBNEMO_EXTENSION_EXTENSIONDIR = "${
+      placeholder "out"
+    }/${nemo.extensiondir}";
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/nemo-extensions/tree/master/nemo-python";

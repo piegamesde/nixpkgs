@@ -72,7 +72,8 @@ let
       if supports nginxVersion then
         mod.${attrPath} or [ ]
       else
-        throw "Module at ${toString mod.src} does not support nginx version ${nginxVersion}!"
+        throw
+          "Module at ${toString mod.src} does not support nginx version ${nginxVersion}!"
     );
 in
 
@@ -164,7 +165,9 @@ stdenv.mkDerivation {
     ++ lib.optional (gd != null) "--with-http_image_filter_module"
     ++ lib.optional (geoip != null) "--with-http_geoip_module"
     ++ lib.optional (withStream && geoip != null) "--with-stream_geoip_module"
-    ++ lib.optional (with stdenv.hostPlatform; isLinux || isFreeBSD) "--with-file-aio"
+    ++
+      lib.optional (with stdenv.hostPlatform; isLinux || isFreeBSD)
+        "--with-file-aio"
     ++ configureFlags
     ++ map (mod: "--add-module=${mod.src}") modules;
 

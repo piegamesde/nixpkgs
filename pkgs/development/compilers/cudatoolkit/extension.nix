@@ -47,7 +47,8 @@ let
     (final.callPackage
       (
         { makeSetupHook }:
-        makeSetupHook { name = "mark-for-cudatoolkit-root-hook"; } ./hooks/mark-for-cudatoolkit-root-hook.sh
+        makeSetupHook { name = "mark-for-cudatoolkit-root-hook"; }
+          ./hooks/mark-for-cudatoolkit-root-hook.sh
       )
       { }
     );

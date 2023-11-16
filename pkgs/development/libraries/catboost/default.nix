@@ -85,7 +85,9 @@ stdenv.mkDerivation (
     cmakeFlags = [
       "-DCMAKE_BINARY_DIR=$out"
       "-DCMAKE_POSITION_INDEPENDENT_CODE=on"
-      "-DCATBOOST_COMPONENTS=app;libs${lib.optionalString pythonSupport ";python-package"}"
+      "-DCATBOOST_COMPONENTS=app;libs${
+        lib.optionalString pythonSupport ";python-package"
+      }"
     ] ++ lib.optionals cudaSupport [ "-DHAVE_CUDA=on" ];
 
     installPhase = ''

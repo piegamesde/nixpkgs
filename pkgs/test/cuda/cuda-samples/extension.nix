@@ -20,5 +20,7 @@ let
   };
 in
 prev.lib.attrsets.optionalAttrs (builtins.hasAttr prev.cudaVersion sha256) {
-  cuda-samples = final.callPackage ./generic.nix { sha256 = sha256.${prev.cudaVersion}; };
+  cuda-samples = final.callPackage ./generic.nix {
+    sha256 = sha256.${prev.cudaVersion};
+  };
 }

@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-o2DlYOBTkFhQMEDJySlVSNlVqLNbBzacyv2oTwxrXto=";
       };
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   dontStrip = true; # Don't strip, otherwise patching the rpaths breaks
   sourceRoot = ".";

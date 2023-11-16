@@ -71,4 +71,5 @@ in
 if stdenv.isDarwin then
   darwin
 else
-  throw "Teams app for Linux has been removed as it is unmaintained by upstream. (2023-09-29)"
+  throw
+    "Teams app for Linux has been removed as it is unmaintained by upstream. (2023-09-29)"

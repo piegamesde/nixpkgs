@@ -25,7 +25,9 @@ import ./make-test-python.nix (
             serviceConfig.Type = "oneshot";
           };
 
-          networking.primaryIPAddress = "192.168.1.${toString config.virtualisation.test.nodeNumber}";
+          networking.primaryIPAddress = "192.168.1.${
+              toString config.virtualisation.test.nodeNumber
+            }";
 
           virtualisation.vlans = [
             1

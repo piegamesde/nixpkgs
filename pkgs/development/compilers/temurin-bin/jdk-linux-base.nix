@@ -51,7 +51,8 @@ let
       else
         "${name-prefix}-${sourcePerArch.packageType}-bin";
 
-    version = sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
+    version =
+      sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
 
     src = fetchurl { inherit (sourcePerArch.${cpuName}) url sha256; };
 

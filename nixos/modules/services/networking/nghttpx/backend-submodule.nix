@@ -2,7 +2,9 @@
 {
   options = {
     server = lib.mkOption {
-      type = lib.types.either (lib.types.submodule (import ./server-options.nix)) (lib.types.path);
+      type = lib.types.either (lib.types.submodule (import ./server-options.nix)) (
+        lib.types.path
+      );
       example = {
         host = "127.0.0.1";
         port = 8888;
@@ -34,7 +36,9 @@
     };
 
     params = lib.mkOption {
-      type = lib.types.nullOr (lib.types.submodule (import ./backend-params-submodule.nix));
+      type = lib.types.nullOr (
+        lib.types.submodule (import ./backend-params-submodule.nix)
+      );
       example = {
         proto = "h2";
         tls = true;

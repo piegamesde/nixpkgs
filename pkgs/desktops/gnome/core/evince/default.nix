@@ -55,7 +55,9 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/evince/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/evince/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "O4uhWBpHpun1f2tqoI8PtnVJxgEhqiTjEUDpOUe4NiI=";
   };
 

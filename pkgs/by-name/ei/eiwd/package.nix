@@ -23,10 +23,13 @@ stdenv.mkDerivation (
       fetchSubmodules = true;
     };
 
-    outputs = [
-      "out"
-      "doc"
-    ] ++ lib.optionals enableManpages [ "man" ] ++ lib.optionals finalAttrs.doCheck [ "test" ];
+    outputs =
+      [
+        "out"
+        "doc"
+      ]
+      ++ lib.optionals enableManpages [ "man" ]
+      ++ lib.optionals finalAttrs.doCheck [ "test" ];
 
     postUnpack = ''
       patchShebangs .

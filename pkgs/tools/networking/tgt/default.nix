@@ -65,7 +65,9 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     substituteInPlace $out/sbin/tgt-admin \
-      --replace "#!/usr/bin/perl" "#! ${perl.withPackages (p: [ p.ConfigGeneral ])}/bin/perl"
+      --replace "#!/usr/bin/perl" "#! ${
+        perl.withPackages (p: [ p.ConfigGeneral ])
+      }/bin/perl"
     wrapProgram $out/sbin/tgt-admin --prefix PATH : \
       ${
         lib.makeBinPath [

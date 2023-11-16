@@ -78,11 +78,14 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  makeFlags = [
-    "-C"
-    "bsnes"
-    "prefix=$(out)"
-  ] ++ lib.optionals stdenv.isLinux [ "hiro=gtk3" ] ++ lib.optionals stdenv.isDarwin [ "hiro=cocoa" ];
+  makeFlags =
+    [
+      "-C"
+      "bsnes"
+      "prefix=$(out)"
+    ]
+    ++ lib.optionals stdenv.isLinux [ "hiro=gtk3" ]
+    ++ lib.optionals stdenv.isDarwin [ "hiro=cocoa" ];
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/bin

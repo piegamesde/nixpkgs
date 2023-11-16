@@ -16,5 +16,7 @@ with lib; {
     };
   };
 
-  config = mkIf config.xdg.autostart.enable { environment.pathsToLink = [ "/etc/xdg/autostart" ]; };
+  config = mkIf config.xdg.autostart.enable {
+    environment.pathsToLink = [ "/etc/xdg/autostart" ];
+  };
 }

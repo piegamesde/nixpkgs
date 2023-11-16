@@ -20,7 +20,9 @@ stdenv.mkDerivation rec {
     sha256 = "06bdnhb0l81srdzg6gn2v2ydhhaazza7rshrcj3q8dpqr3gn97dd";
   };
 
-  buildInputs = [ texinfo ] ++ optional stdenv.isLinux alsa-lib ++ optional stdenv.isDarwin CoreAudio;
+  buildInputs = [
+    texinfo
+  ] ++ optional stdenv.isLinux alsa-lib ++ optional stdenv.isDarwin CoreAudio;
   propagatedBuildInputs = optional stdenv.isLinux libpulseaudio;
 
   outputs = [

@@ -111,7 +111,8 @@ lib.makeOverridable (
           {
             isSet = attr: hasAttr (attrName attr) config;
 
-            getValue = attr: if config.isSet attr then getAttr (attrName attr) config else null;
+            getValue =
+              attr: if config.isSet attr then getAttr (attrName attr) config else null;
 
             isYes = attr: (config.getValue attr) == "y";
 
@@ -162,14 +163,18 @@ lib.makeOverridable (
           map (p: p.patch) kernelPatches
           # Required for deterministic builds along with some postPatch magic.
           ++ optional (lib.versionOlder version "5.19") ./randstruct-provide-seed.patch
-          ++ optional (lib.versionAtLeast version "5.19") ./randstruct-provide-seed-5.19.patch
+          ++
+            optional (lib.versionAtLeast version "5.19")
+              ./randstruct-provide-seed-5.19.patch
           # Linux 5.12 marked certain PowerPC-only symbols as GPL, which breaks
           # OpenZFS; this was fixed in Linux 5.19 so we backport the fix
           # https://github.com/openzfs/zfs/pull/13367
           ++
             optional
               (
-                lib.versionAtLeast version "5.12" && lib.versionOlder version "5.19" && stdenv.hostPlatform.isPower
+                lib.versionAtLeast version "5.12"
+                && lib.versionOlder version "5.19"
+                && stdenv.hostPlatform.isPower
               )
               (
                 fetchpatch {
@@ -423,7 +428,9 @@ lib.makeOverridable (
               if kernelPatches == [ ] then
                 ""
               else
-                " (with patches: " + lib.concatStringsSep ", " (map (x: x.name) kernelPatches) + ")"
+                " (with patches: "
+                + lib.concatStringsSep ", " (map (x: x.name) kernelPatches)
+                + ")"
             );
           license = lib.licenses.gpl2Only;
           homepage = "https://www.kernel.org/";
@@ -466,7 +473,8 @@ lib.makeOverridable (
           python3Minimal
           kmod
         ]
-        ++ optional (stdenv.hostPlatform.linux-kernel.target == "uImage") buildPackages.ubootTools
+        ++ optional (stdenv.hostPlatform.linux-kernel.target == "uImage")
+          buildPackages.ubootTools
         ++ optional (lib.versionOlder version "5.8") libelf
         ++ optionals (lib.versionAtLeast version "4.16") [
           bison

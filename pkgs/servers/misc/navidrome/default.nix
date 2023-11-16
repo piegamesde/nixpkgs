@@ -45,7 +45,9 @@ buildGoModule rec {
   ];
 
   overrideModAttrs = oldAttrs: {
-    nativeBuildInputs = lib.filter (drv: drv != npmHooks.npmConfigHook) oldAttrs.nativeBuildInputs;
+    nativeBuildInputs =
+      lib.filter (drv: drv != npmHooks.npmConfigHook)
+        oldAttrs.nativeBuildInputs;
     preBuild = null;
   };
 

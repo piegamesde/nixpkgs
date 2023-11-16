@@ -66,7 +66,9 @@ stdenv.mkDerivation rec {
     intltool
   ];
 
-  mesonFlags = [ "-Dmathjax-directory=${nodePackages.mathjax}" ] ++ (map (x: "-D${x}=true") backends);
+  mesonFlags = [
+    "-Dmathjax-directory=${nodePackages.mathjax}"
+  ] ++ (map (x: "-D${x}=true") backends);
 
   buildInputs = [
     glib

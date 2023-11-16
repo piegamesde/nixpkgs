@@ -120,7 +120,9 @@ in
         staticDir = mkOption {
           type = types.path;
           default = "${cfg.package}/share/nitter/public";
-          defaultText = literalExpression ''"''${config.services.nitter.package}/share/nitter/public"'';
+          defaultText =
+            literalExpression
+              ''"''${config.services.nitter.package}/share/nitter/public"'';
           description = lib.mdDoc "Path to the static files directory.";
         };
 
@@ -142,7 +144,9 @@ in
         listMinutes = mkOption {
           type = types.int;
           default = 240;
-          description = lib.mdDoc "How long to cache list info (not the tweets, so keep it high).";
+          description =
+            lib.mdDoc
+              "How long to cache list info (not the tweets, so keep it high).";
         };
 
         rssMinutes = mkOption {
@@ -227,21 +231,27 @@ in
           type = types.str;
           default = "";
           example = "nitter.net";
-          description = lib.mdDoc "Replace Twitter links with links to this instance (blank to disable).";
+          description =
+            lib.mdDoc
+              "Replace Twitter links with links to this instance (blank to disable).";
         };
 
         replaceYouTube = mkOption {
           type = types.str;
           default = "";
           example = "piped.kavin.rocks";
-          description = lib.mdDoc "Replace YouTube links with links to this instance (blank to disable).";
+          description =
+            lib.mdDoc
+              "Replace YouTube links with links to this instance (blank to disable).";
         };
 
         replaceReddit = mkOption {
           type = types.str;
           default = "";
           example = "teddit.net";
-          description = lib.mdDoc "Replace Reddit links with links to this instance (blank to disable).";
+          description =
+            lib.mdDoc
+              "Replace Reddit links with links to this instance (blank to disable).";
         };
 
         mp4Playback = mkOption {
@@ -259,7 +269,9 @@ in
         proxyVideos = mkOption {
           type = types.bool;
           default = true;
-          description = lib.mdDoc "Proxy video streaming through the server (might be slow).";
+          description =
+            lib.mdDoc
+              "Proxy video streaming through the server (might be slow).";
         };
 
         muteVideos = mkOption {
@@ -283,7 +295,9 @@ in
         infiniteScroll = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc "Infinite scrolling (requires JavaScript, experimental!).";
+          description =
+            lib.mdDoc
+              "Infinite scrolling (requires JavaScript, experimental!).";
         };
 
         stickyProfile = mkOption {
@@ -295,7 +309,9 @@ in
         bidiSupport = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc "Support bidirectional text (makes clicking on tweets harder).";
+          description =
+            lib.mdDoc
+              "Support bidirectional text (makes clicking on tweets harder).";
         };
 
         hideTweetStats = mkOption {
@@ -358,7 +374,8 @@ in
     assertions = [
       {
         assertion =
-          !cfg.redisCreateLocally || (cfg.cache.redisHost == "localhost" && cfg.cache.redisPort == 6379);
+          !cfg.redisCreateLocally
+          || (cfg.cache.redisHost == "localhost" && cfg.cache.redisPort == 6379);
         message = "When services.nitter.redisCreateLocally is enabled, you need to use localhost:6379 as a cache server.";
       }
     ];
@@ -377,11 +394,14 @@ in
         WorkingDirectory = "${cfg.package}/share/nitter";
         ExecStart = "${cfg.package}/bin/nitter";
         ExecStartPre = "${preStart}";
-        AmbientCapabilities = lib.mkIf (cfg.server.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = lib.mkIf (cfg.server.port < 1024) [
+          "CAP_NET_BIND_SERVICE"
+        ];
         Restart = "on-failure";
         RestartSec = "5s";
         # Hardening
-        CapabilityBoundingSet = if (cfg.server.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
+        CapabilityBoundingSet =
+          if (cfg.server.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -420,6 +440,8 @@ in
       port = cfg.cache.redisPort;
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.server.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.server.port ];
+    };
   };
 }

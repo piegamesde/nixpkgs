@@ -29,7 +29,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ django ] ++ passthru.optional-dependencies.phonenumbers;
+  propagatedBuildInputs = [
+    django
+  ] ++ passthru.optional-dependencies.phonenumbers;
 
   nativeCheckInputs = [
     babel

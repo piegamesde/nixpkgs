@@ -24,7 +24,9 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  ldflags = [ "-X github.com/vmware-tanzu/carvel-kapp/pkg/kapp/version.Version=${version}" ];
+  ldflags = [
+    "-X github.com/vmware-tanzu/carvel-kapp/pkg/kapp/version.Version=${version}"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 

@@ -25,7 +25,9 @@ stdenv.mkDerivation rec {
     qtbase
   ];
   propagatedBuildInputs = [ qt5compat ];
-  nativeBuildInputs = [ cmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    cmake
+  ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   dontWrapQtApps = true;
 

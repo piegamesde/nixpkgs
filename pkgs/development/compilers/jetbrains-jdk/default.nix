@@ -34,7 +34,8 @@ let
       "aarch64-linux" = "aarch64";
       "x86_64-linux" = "x64";
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   cpu = stdenv.hostPlatform.parsed.cpu.name;
 in
 openjdk17.overrideAttrs (
@@ -83,7 +84,9 @@ openjdk17.overrideAttrs (
           -i jb/project/tools/linux/scripts/mkimages_${arch}.sh
 
       patchShebangs .
-      ./jb/project/tools/linux/scripts/mkimages_${arch}.sh ${build} ${if debugBuild then "fd" else "jcef"}
+      ./jb/project/tools/linux/scripts/mkimages_${arch}.sh ${build} ${
+        if debugBuild then "fd" else "jcef"
+      }
 
       runHook postBuild
     '';

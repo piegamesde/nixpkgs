@@ -109,7 +109,9 @@ let
                   id = n;
                   subnet = "fd00:1234:5678:${toString n}::/64";
                   interface = "eth${toString n}";
-                  pools = [ { pool = "fd00:1234:5678:${toString n}::2-fd00:1234:5678:${toString n}::2"; } ];
+                  pools = [
+                    { pool = "fd00:1234:5678:${toString n}::2-fd00:1234:5678:${toString n}::2"; }
+                  ];
                 })
                 vlanIfs;
           };
@@ -1404,7 +1406,12 @@ mapAttrs
   (const (
     attrs:
     makeTest (
-      attrs // { name = "${attrs.name}-Networking-${if networkd then "Networkd" else "Scripted"}"; }
+      attrs
+      // {
+        name = "${attrs.name}-Networking-${
+            if networkd then "Networkd" else "Scripted"
+          }";
+      }
     )
   ))
   testCases

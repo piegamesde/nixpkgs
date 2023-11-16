@@ -80,7 +80,14 @@ stdenv.mkDerivation (
       + lib.optionalString svnSupport "-with-svn"
       +
         lib.optionalString
-          (!svnSupport && !guiSupport && !sendEmailSupport && !withManual && !pythonSupport && !withpcre2)
+          (
+            !svnSupport
+            && !guiSupport
+            && !sendEmailSupport
+            && !withManual
+            && !pythonSupport
+            && !withpcre2
+          )
           "-minimal";
     inherit version;
 
@@ -162,7 +169,8 @@ stdenv.mkDerivation (
 
     # required to support pthread_cancel()
     NIX_LDFLAGS =
-      lib.optionalString (stdenv.cc.isGNU && stdenv.hostPlatform.libc == "glibc") "-lgcc_s"
+      lib.optionalString (stdenv.cc.isGNU && stdenv.hostPlatform.libc == "glibc")
+        "-lgcc_s"
       + lib.optionalString (stdenv.isFreeBSD) "-lthr";
 
     configureFlags =
@@ -181,15 +189,32 @@ stdenv.mkDerivation (
       [ "prefix=\${out}" ]
       # Git does not allow setting a shell separately for building and run-time.
       # Therefore lets leave it at the default /bin/sh when cross-compiling
-      ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform) "SHELL_PATH=${stdenv.shell}"
-      ++ (if perlSupport then [ "PERL_PATH=${perlPackages.perl}/bin/perl" ] else [ "NO_PERL=1" ])
-      ++ (if pythonSupport then [ "PYTHON_PATH=${python3}/bin/python" ] else [ "NO_PYTHON=1" ])
+      ++
+        lib.optional (stdenv.buildPlatform == stdenv.hostPlatform)
+          "SHELL_PATH=${stdenv.shell}"
+      ++ (
+        if perlSupport then
+          [ "PERL_PATH=${perlPackages.perl}/bin/perl" ]
+        else
+          [ "NO_PERL=1" ]
+      )
+      ++ (
+        if pythonSupport then
+          [ "PYTHON_PATH=${python3}/bin/python" ]
+        else
+          [ "NO_PYTHON=1" ]
+      )
       ++ lib.optionals stdenv.isSunOS [
         "INSTALL=install"
         "NO_INET_NTOP="
         "NO_INET_PTON="
       ]
-      ++ (if stdenv.isDarwin then [ "NO_APPLE_COMMON_CRYPTO=1" ] else [ "sysconfdir=/etc" ])
+      ++ (
+        if stdenv.isDarwin then
+          [ "NO_APPLE_COMMON_CRYPTO=1" ]
+        else
+          [ "sysconfdir=/etc" ]
+      )
       ++ lib.optionals stdenv.hostPlatform.isMusl [
         "NO_SYS_POLL_H=1"
         "NO_GETTEXT=YesPlease"
@@ -205,9 +230,9 @@ stdenv.mkDerivation (
       # See https://github.com/Homebrew/homebrew-core/commit/dfa3ccf1e7d3901e371b5140b935839ba9d8b706
       ++ lib.optional stdenv.isDarwin "TKFRAMEWORK=/nonexistent";
 
-    disallowedReferences = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      stdenv.shellPackage
-    ];
+    disallowedReferences =
+      lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+        [ stdenv.shellPackage ];
 
     postBuild =
       ''
@@ -502,7 +527,9 @@ stdenv.mkDerivation (
     passthru = {
       shellPath = "/bin/git-shell";
       tests = {
-        withInstallCheck = finalAttrs.finalPackage.overrideAttrs (_: { doInstallCheck = true; });
+        withInstallCheck = finalAttrs.finalPackage.overrideAttrs (
+          _: { doInstallCheck = true; }
+        );
         buildbot-integration = nixosTests.buildbot;
       } // tests.fetchgit;
     };

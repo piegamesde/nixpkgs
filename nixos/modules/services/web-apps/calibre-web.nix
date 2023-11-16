@@ -141,7 +141,9 @@ in
           ++
             optional cfg.options.enableBookConversion
               "config_converterpath = '${pkgs.calibre}/bin/ebook-convert'"
-          ++ optional cfg.options.enableKepubify "config_kepubifypath = '${pkgs.kepubify}/bin/kepubify'"
+          ++
+            optional cfg.options.enableKepubify
+              "config_kepubifypath = '${pkgs.kepubify}/bin/kepubify'"
         );
       in
       {
@@ -171,7 +173,9 @@ in
         };
       };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.listen.port ];
+    };
 
     users.users = mkIf (cfg.user == "calibre-web") {
       calibre-web = {

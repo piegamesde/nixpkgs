@@ -29,7 +29,11 @@ toPythonModule (
       hash = "sha256-szQyw5kYfrQEeXRQzjQ0hzULuzTfmGod6ZxG9PDRj5M=";
     };
 
-    cmakeFlags = [ "-DPYGMO_INSTALL_PATH=${placeholder "out"}/lib/${python.libPrefix}/site-packages" ];
+    cmakeFlags = [
+      "-DPYGMO_INSTALL_PATH=${
+        placeholder "out"
+      }/lib/${python.libPrefix}/site-packages"
+    ];
 
     nativeBuildInputs = [ cmake ];
 

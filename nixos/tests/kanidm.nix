@@ -65,7 +65,9 @@ import ./make-test-python.nix (
           };
         };
 
-        networking.hosts."${nodes.server.networking.primaryIPAddress}" = [ serverDomain ];
+        networking.hosts."${nodes.server.networking.primaryIPAddress}" = [
+          serverDomain
+        ];
 
         security.pki.certificateFiles = [ certs.ca.cert ];
       };
@@ -81,7 +83,9 @@ import ./make-test-python.nix (
         filteredConfig =
           pkgs.lib.converge (pkgs.lib.filterAttrsRecursive (_: v: v != null))
             nodes.server.services.kanidm.serverSettings;
-        serverConfigFile = (pkgs.formats.toml { }).generate "server.toml" filteredConfig;
+        serverConfigFile =
+          (pkgs.formats.toml { }).generate "server.toml"
+            filteredConfig;
       in
       ''
         start_all()

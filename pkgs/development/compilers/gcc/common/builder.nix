@@ -5,7 +5,9 @@
 }:
 
 let
-  forceLibgccToBuildCrtStuff = import ./libgcc-buildstuff.nix { inherit lib stdenv; };
+  forceLibgccToBuildCrtStuff = import ./libgcc-buildstuff.nix {
+    inherit lib stdenv;
+  };
 in
 
 originalAttrs:
@@ -208,7 +210,11 @@ originalAttrs:
       +
         # Make `lib64` symlinks to `lib`.
         lib.optionalString
-          (!enableMultilib && stdenv.hostPlatform.is64bit && !stdenv.hostPlatform.isMips64n32)
+          (
+            !enableMultilib
+            && stdenv.hostPlatform.is64bit
+            && !stdenv.hostPlatform.isMips64n32
+          )
           ''
             ln -s lib "$out/''${targetConfig}/lib64"
             ln -s lib "''${!outputLib}/''${targetConfig}/lib64"

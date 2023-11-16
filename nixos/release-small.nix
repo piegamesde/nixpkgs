@@ -109,7 +109,10 @@ rec {
     let
       onSupported = x: map (system: "${x}.${system}") supportedSystems;
       onSystems =
-        systems: x: map (system: "${x}.${system}") (pkgs.lib.intersectLists systems supportedSystems);
+        systems: x:
+        map (system: "${x}.${system}") (
+          pkgs.lib.intersectLists systems supportedSystems
+        );
     in
     pkgs.releaseTools.aggregate {
       name = "nixos-${nixos.channel.version}";

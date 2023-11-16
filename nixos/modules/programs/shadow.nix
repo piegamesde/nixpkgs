@@ -42,7 +42,9 @@ in
           */
           options = {
             DEFAULT_HOME = mkOption {
-              description = mdDoc "Indicate if login is allowed if we can't cd to the home directory.";
+              description =
+                mdDoc
+                  "Indicate if login is allowed if we can't cd to the home directory.";
               default = "yes";
               type = enum [
                 "yes"
@@ -192,18 +194,24 @@ in
       }
     ];
 
-    security.loginDefs.settings.CHFN_RESTRICT = mkIf (cfg.chfnRestrict != null) cfg.chfnRestrict;
+    security.loginDefs.settings.CHFN_RESTRICT =
+      mkIf (cfg.chfnRestrict != null)
+        cfg.chfnRestrict;
 
     environment.systemPackages =
       optional config.users.mutableUsers cfg.package
-      ++ optional (types.shellPackage.check config.users.defaultUserShell) config.users.defaultUserShell
+      ++
+        optional (types.shellPackage.check config.users.defaultUserShell)
+          config.users.defaultUserShell
       ++ optional (cfg.chfnRestrict != null) pkgs.util-linux;
 
     environment.etc =
       # Create custom toKeyValue generator
       # see https://man7.org/linux/man-pages/man5/login.defs.5.html for config specification
       let
-        toKeyValue = generators.toKeyValue { mkKeyValue = generators.mkKeyValueDefault { } " "; };
+        toKeyValue = generators.toKeyValue {
+          mkKeyValue = generators.mkKeyValueDefault { } " ";
+        };
       in
       {
         # /etc/login.defs: global configuration for pwdutils.

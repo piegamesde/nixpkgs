@@ -122,7 +122,9 @@ let
       rebar3 ? _rebar3,
     }:
     let
-      pluginLibDirs = map (p: "${p}/lib/erlang/lib") (lib.unique (plugins ++ globalPlugins));
+      pluginLibDirs = map (p: "${p}/lib/erlang/lib") (
+        lib.unique (plugins ++ globalPlugins)
+      );
       globalPluginNames = lib.unique (map (p: p.packageName) globalPlugins);
       rebar3Patched =
         (rebar3.overrideAttrs (

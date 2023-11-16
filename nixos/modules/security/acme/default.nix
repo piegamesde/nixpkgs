@@ -18,11 +18,14 @@ let
 
   # Used to make unique paths for each cert/account config set
   mkHash = with builtins; val: substring 0 20 (hashString "sha256" val);
-  mkAccountHash = acmeServer: data: mkHash "${toString acmeServer} ${data.keyType} ${data.email}";
+  mkAccountHash =
+    acmeServer: data: mkHash "${toString acmeServer} ${data.keyType} ${data.email}";
   accountDirRoot = "/var/lib/acme/.lego/accounts/";
 
   lockdir = "/run/acme/";
-  concurrencyLockfiles = map (n: "${toString n}.lock") (lib.range 1 cfg.maxConcurrentRenewals);
+  concurrencyLockfiles = map (n: "${toString n}.lock") (
+    lib.range 1 cfg.maxConcurrentRenewals
+  );
   # Assign elements of `baseList` to each element of `needAssignmentList`, until the latter is exhausted.
   # returns: [{fst = "element of baseList"; snd = "element of needAssignmentList"}]
   roundRobinAssign =
@@ -230,7 +233,9 @@ let
       useDns = data.dnsProvider != null;
       useDnsOrS3 = useDns || data.s3Bucket != null;
       destPath = "/var/lib/acme/${cert}";
-      selfsignedDeps = optionals (cfg.preliminarySelfsigned) [ "acme-selfsigned-${cert}.service" ];
+      selfsignedDeps = optionals (cfg.preliminarySelfsigned) [
+        "acme-selfsigned-${cert}.service"
+      ];
 
       # Minica and lego have a "feature" which replaces * with _. We need
       # to make this substitution to reference the output files from both programs.
@@ -339,7 +344,11 @@ let
       # We need to collect all the ACME webroots to grant them write
       # access in the systemd service.
       webroots = lib.remove null (
-        lib.unique (builtins.map (certAttrs: certAttrs.webroot) (lib.attrValues config.security.acme.certs))
+        lib.unique (
+          builtins.map (certAttrs: certAttrs.webroot) (
+            lib.attrValues config.security.acme.certs
+          )
+        )
       );
     in
     {
@@ -401,39 +410,54 @@ let
         # Working directory will be /tmp
         # minica will output to a folder sharing the name of the first domain
         # in the list, which will be ${data.domain}
-        script = (if (lockfileName == null) then lib.id else wrapInFlock "${lockdir}${lockfileName}") ''
-          minica \
-            --ca-key ca/key.pem \
-            --ca-cert ca/cert.pem \
-            --domains ${escapeShellArg (builtins.concatStringsSep "," ([ data.domain ] ++ extraDomains))}
+        script =
+          (
+            if (lockfileName == null) then
+              lib.id
+            else
+              wrapInFlock "${lockdir}${lockfileName}"
+          )
+            ''
+              minica \
+                --ca-key ca/key.pem \
+                --ca-cert ca/cert.pem \
+                --domains ${
+                  escapeShellArg (builtins.concatStringsSep "," ([ data.domain ] ++ extraDomains))
+                }
 
-          # Create files to match directory layout for real certificates
-          cd '${keyName}'
-          cp ../ca/cert.pem chain.pem
-          cat cert.pem chain.pem > fullchain.pem
-          cat key.pem fullchain.pem > full.pem
+              # Create files to match directory layout for real certificates
+              cd '${keyName}'
+              cp ../ca/cert.pem chain.pem
+              cat cert.pem chain.pem > fullchain.pem
+              cat key.pem fullchain.pem > full.pem
 
-          # Group might change between runs, re-apply it
-          chown '${user}:${data.group}' *
+              # Group might change between runs, re-apply it
+              chown '${user}:${data.group}' *
 
-          # Default permissions make the files unreadable by group + anon
-          # Need to be readable by group
-          chmod 640 *
-        '';
+              # Default permissions make the files unreadable by group + anon
+              # Need to be readable by group
+              chmod 640 *
+            '';
       };
 
       renewService = lockfileName: {
         description = "Renew ACME certificate for ${cert}";
-        after = [
-          "network.target"
-          "network-online.target"
-          "acme-fixperms.service"
-          "nss-lookup.target"
-        ] ++ selfsignedDeps ++ optional (cfg.maxConcurrentRenewals > 0) "acme-lockfiles.service";
-        wants = [
-          "network-online.target"
-          "acme-fixperms.service"
-        ] ++ selfsignedDeps ++ optional (cfg.maxConcurrentRenewals > 0) "acme-lockfiles.service";
+        after =
+          [
+            "network.target"
+            "network-online.target"
+            "acme-fixperms.service"
+            "nss-lookup.target"
+          ]
+          ++ selfsignedDeps
+          ++ optional (cfg.maxConcurrentRenewals > 0) "acme-lockfiles.service";
+        wants =
+          [
+            "network-online.target"
+            "acme-fixperms.service"
+          ]
+          ++ selfsignedDeps
+          ++ optional (cfg.maxConcurrentRenewals > 0) "acme-lockfiles.service";
 
         # https://github.com/NixOS/nixpkgs/pull/81371#issuecomment-605526099
         wantedBy = optionals (!config.boot.isContainer) [ "multi-user.target" ];
@@ -475,9 +499,13 @@ let
 
             EnvironmentFile = mkIf useDnsOrS3 data.environmentFile;
 
-            Environment = mkIf useDnsOrS3 (mapAttrsToList (k: v: ''"${k}=%d/${k}"'') data.credentialFiles);
+            Environment = mkIf useDnsOrS3 (
+              mapAttrsToList (k: v: ''"${k}=%d/${k}"'') data.credentialFiles
+            );
 
-            LoadCredential = mkIf useDnsOrS3 (mapAttrsToList (k: v: "${k}:${v}") data.credentialFiles);
+            LoadCredential = mkIf useDnsOrS3 (
+              mapAttrsToList (k: v: "${k}:${v}") data.credentialFiles
+            );
 
             # Run as root (Prefixed with +)
             ExecStartPost =
@@ -489,118 +517,130 @@ let
                   ${data.postRun}
                   ${
                     optionalString (data.reloadServices != [ ])
-                      "systemctl --no-block try-reload-or-restart ${escapeShellArgs data.reloadServices}"
+                      "systemctl --no-block try-reload-or-restart ${
+                        escapeShellArgs data.reloadServices
+                      }"
                   }
                 fi
               '');
           }
           //
-            optionalAttrs (data.listenHTTP != null && toInt (last (splitString ":" data.listenHTTP)) < 1024)
+            optionalAttrs
+              (
+                data.listenHTTP != null && toInt (last (splitString ":" data.listenHTTP)) < 1024
+              )
               {
                 CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
                 AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
               };
 
         # Working directory will be /tmp
-        script = (if (lockfileName == null) then lib.id else wrapInFlock "${lockdir}${lockfileName}") ''
-          ${optionalString data.enableDebugLogs "set -x"}
-          set -euo pipefail
+        script =
+          (
+            if (lockfileName == null) then
+              lib.id
+            else
+              wrapInFlock "${lockdir}${lockfileName}"
+          )
+            ''
+              ${optionalString data.enableDebugLogs "set -x"}
+              set -euo pipefail
 
-          # This reimplements the expiration date check, but without querying
-          # the acme server first. By doing this offline, we avoid errors
-          # when the network or DNS are unavailable, which can happen during
-          # nixos-rebuild switch.
-          is_expiration_skippable() {
-            pem=$1
+              # This reimplements the expiration date check, but without querying
+              # the acme server first. By doing this offline, we avoid errors
+              # when the network or DNS are unavailable, which can happen during
+              # nixos-rebuild switch.
+              is_expiration_skippable() {
+                pem=$1
 
-            # This function relies on set -e to exit early if any of the
-            # conditions or programs fail.
+                # This function relies on set -e to exit early if any of the
+                # conditions or programs fail.
 
-            [[ -e $pem ]]
+                [[ -e $pem ]]
 
-            expiration_line="$(
-              set -euxo pipefail
-              openssl x509 -noout -enddate <$pem \
-                    | grep notAfter \
-                    | sed -e 's/^notAfter=//'
-            )"
-            [[ -n "$expiration_line" ]]
+                expiration_line="$(
+                  set -euxo pipefail
+                  openssl x509 -noout -enddate <$pem \
+                        | grep notAfter \
+                        | sed -e 's/^notAfter=//'
+                )"
+                [[ -n "$expiration_line" ]]
 
-            expiration_date="$(date -d "$expiration_line" +%s)"
-            now="$(date +%s)"
-            expiration_s=$[expiration_date - now]
-            expiration_days=$[expiration_s / (3600 * 24)]   # rounds down
+                expiration_date="$(date -d "$expiration_line" +%s)"
+                now="$(date +%s)"
+                expiration_s=$[expiration_date - now]
+                expiration_days=$[expiration_s / (3600 * 24)]   # rounds down
 
-            [[ $expiration_days -gt ${toString data.validMinDays} ]]
-          }
-
-          ${optionalString (data.webroot != null) ''
-            # Ensure the webroot exists. Fixing group is required in case configuration was changed between runs.
-            # Lego will fail if the webroot does not exist at all.
-            (
-              mkdir -p '${data.webroot}/.well-known/acme-challenge' \
-              && chgrp '${data.group}' ${data.webroot}/.well-known/acme-challenge
-            ) || (
-              echo 'Please ensure ${data.webroot}/.well-known/acme-challenge exists and is writable by acme:${data.group}' \
-              && exit 1
-            )
-          ''}
-
-          echo '${domainHash}' > domainhash.txt
-
-          # Check if we can renew.
-          # We can only renew if the list of domains has not changed.
-          # We also need an account key. Avoids #190493
-          if cmp -s domainhash.txt certificates/domainhash.txt && [ -e 'certificates/${keyName}.key' -a -e 'certificates/${keyName}.crt' -a -n "$(find accounts -name '${data.email}.key')" ]; then
-
-            # Even if a cert is not expired, it may be revoked by the CA.
-            # Try to renew, and silently fail if the cert is not expired.
-            # Avoids #85794 and resolves #129838
-            if ! lego ${renewOpts} --days ${toString data.validMinDays}; then
-              if is_expiration_skippable out/full.pem; then
-                echo 1>&2 "nixos-acme: Ignoring failed renewal because expiration isn't within the coming ${
-                  toString data.validMinDays
-                } days"
-              else
-                # High number to avoid Systemd reserved codes.
-                exit 11
-              fi
-            fi
-
-          # Otherwise do a full run
-          elif ! lego ${runOpts}; then
-            # Produce a nice error for those doing their first nixos-rebuild with these certs
-            echo Failed to fetch certificates. \
-              This may mean your DNS records are set up incorrectly. \
-              ${
-                optionalString (cfg.preliminarySelfsigned)
-                  "Selfsigned certs are in place and dependant services will still start."
+                [[ $expiration_days -gt ${toString data.validMinDays} ]]
               }
-            # Exit 10 so that users can potentially amend SuccessExitStatus to ignore this error.
-            # High number to avoid Systemd reserved codes.
-            exit 10
-          fi
 
-          mv domainhash.txt certificates/
+              ${optionalString (data.webroot != null) ''
+                # Ensure the webroot exists. Fixing group is required in case configuration was changed between runs.
+                # Lego will fail if the webroot does not exist at all.
+                (
+                  mkdir -p '${data.webroot}/.well-known/acme-challenge' \
+                  && chgrp '${data.group}' ${data.webroot}/.well-known/acme-challenge
+                ) || (
+                  echo 'Please ensure ${data.webroot}/.well-known/acme-challenge exists and is writable by acme:${data.group}' \
+                  && exit 1
+                )
+              ''}
 
-          # Group might change between runs, re-apply it
-          chown '${user}:${data.group}' certificates/*
+              echo '${domainHash}' > domainhash.txt
 
-          # Copy all certs to the "real" certs directory
-          if ! cmp -s 'certificates/${keyName}.crt' out/fullchain.pem; then
-            touch out/renewed
-            echo Installing new certificate
-            cp -vp 'certificates/${keyName}.crt' out/fullchain.pem
-            cp -vp 'certificates/${keyName}.key' out/key.pem
-            cp -vp 'certificates/${keyName}.issuer.crt' out/chain.pem
-            ln -sf fullchain.pem out/cert.pem
-            cat out/key.pem out/fullchain.pem > out/full.pem
-          fi
+              # Check if we can renew.
+              # We can only renew if the list of domains has not changed.
+              # We also need an account key. Avoids #190493
+              if cmp -s domainhash.txt certificates/domainhash.txt && [ -e 'certificates/${keyName}.key' -a -e 'certificates/${keyName}.crt' -a -n "$(find accounts -name '${data.email}.key')" ]; then
 
-          # By default group will have no access to the cert files.
-          # This chmod will fix that.
-          chmod 640 out/*
-        '';
+                # Even if a cert is not expired, it may be revoked by the CA.
+                # Try to renew, and silently fail if the cert is not expired.
+                # Avoids #85794 and resolves #129838
+                if ! lego ${renewOpts} --days ${toString data.validMinDays}; then
+                  if is_expiration_skippable out/full.pem; then
+                    echo 1>&2 "nixos-acme: Ignoring failed renewal because expiration isn't within the coming ${
+                      toString data.validMinDays
+                    } days"
+                  else
+                    # High number to avoid Systemd reserved codes.
+                    exit 11
+                  fi
+                fi
+
+              # Otherwise do a full run
+              elif ! lego ${runOpts}; then
+                # Produce a nice error for those doing their first nixos-rebuild with these certs
+                echo Failed to fetch certificates. \
+                  This may mean your DNS records are set up incorrectly. \
+                  ${
+                    optionalString (cfg.preliminarySelfsigned)
+                      "Selfsigned certs are in place and dependant services will still start."
+                  }
+                # Exit 10 so that users can potentially amend SuccessExitStatus to ignore this error.
+                # High number to avoid Systemd reserved codes.
+                exit 10
+              fi
+
+              mv domainhash.txt certificates/
+
+              # Group might change between runs, re-apply it
+              chown '${user}:${data.group}' certificates/*
+
+              # Copy all certs to the "real" certs directory
+              if ! cmp -s 'certificates/${keyName}.crt' out/fullchain.pem; then
+                touch out/renewed
+                echo Installing new certificate
+                cp -vp 'certificates/${keyName}.crt' out/fullchain.pem
+                cp -vp 'certificates/${keyName}.key' out/key.pem
+                cp -vp 'certificates/${keyName}.issuer.crt' out/chain.pem
+                ln -sf fullchain.pem out/cert.pem
+                cat out/key.pem out/fullchain.pem > out/full.pem
+              fi
+
+              # By default group will have no access to the cert files.
+              # This chmod will fix that.
+              chmod 640 out/*
+            '';
       };
     };
 
@@ -616,17 +656,23 @@ let
         # When ! isDefaults then this is the option declaration for the
         # security.acme.certs.<name> path, which has the extra inheritDefaults
         # option, which if disabled means that we can't inherit it
-        default = if isDefaults || !config.inheritDefaults then default else cfg.defaults.${name};
+        default =
+          if isDefaults || !config.inheritDefaults then default else cfg.defaults.${name};
         # The docs however don't need to depend on inheritDefaults, they should
         # stay constant. Though notably it wouldn't matter much, because to get
         # the option information, a submodule with name `<name>` is evaluated
         # without any definitions.
         defaultText =
-          if isDefaults then default else literalExpression "config.security.acme.defaults.${name}";
+          if isDefaults then
+            default
+          else
+            literalExpression "config.security.acme.defaults.${name}";
       };
     in
     {
-      imports = [ (mkRenamedOptionModule [ "credentialsFile" ] [ "environmentFile" ]) ];
+      imports = [
+        (mkRenamedOptionModule [ "credentialsFile" ] [ "environmentFile" ])
+      ];
 
       options = {
         validMinDays = mkOption {
@@ -644,9 +690,11 @@ let
           '';
         };
 
-        enableDebugLogs = mkEnableOption (lib.mdDoc "debug logging for this certificate") // {
-          inherit (defaultAndText "enableDebugLogs" true) default defaultText;
-        };
+        enableDebugLogs =
+          mkEnableOption (lib.mdDoc "debug logging for this certificate")
+          // {
+            inherit (defaultAndText "enableDebugLogs" true) default defaultText;
+          };
 
         webroot = mkOption {
           type = types.nullOr types.str;
@@ -842,13 +890,17 @@ let
           type = types.str;
           readOnly = true;
           default = "/var/lib/acme/${name}";
-          description = lib.mdDoc "Directory where certificate and other state is stored.";
+          description =
+            lib.mdDoc
+              "Directory where certificate and other state is stored.";
         };
 
         domain = mkOption {
           type = types.str;
           default = name;
-          description = lib.mdDoc "Domain to fetch certificate for (defaults to the entry name).";
+          description =
+            lib.mdDoc
+              "Domain to fetch certificate for (defaults to the entry name).";
         };
 
         extraDomainNames = mkOption {
@@ -891,7 +943,9 @@ let
         inheritDefaults = mkOption {
           default = true;
           example = true;
-          description = lib.mdDoc "Whether to inherit values set in `security.acme.defaults` or not.";
+          description =
+            lib.mdDoc
+              "Whether to inherit values set in `security.acme.defaults` or not.";
           type = lib.types.bool;
         };
       };
@@ -1198,7 +1252,9 @@ in
                   };
                 in
                 {
-                  assertion = lib.length (lib.filter (x: x != null) (builtins.attrValues exclusiveAttrs)) == 1;
+                  assertion =
+                    lib.length (lib.filter (x: x != null) (builtins.attrValues exclusiveAttrs))
+                    == 1;
                   message = ''
                     Exactly one of the options
                     `security.acme.certs.${cert}.dnsProvider`,
@@ -1246,7 +1302,8 @@ in
             else
               mapAttrs (_: f: f null) renewServiceFunctions;
           selfsignServiceFunctions =
-            mapAttrs' (cert: conf: nameValuePair "acme-selfsigned-${cert}" conf.selfsignService)
+            mapAttrs'
+              (cert: conf: nameValuePair "acme-selfsigned-${cert}" conf.selfsignService)
               certConfigs;
           selfsignServices =
             if cfg.maxConcurrentRenewals > 0 then
@@ -1257,13 +1314,17 @@ in
         {
           "acme-fixperms" = userMigrationService;
         }
-        // (optionalAttrs (cfg.maxConcurrentRenewals > 0) { "acme-lockfiles" = lockfilePrepareService; })
+        // (optionalAttrs (cfg.maxConcurrentRenewals > 0) {
+          "acme-lockfiles" = lockfilePrepareService;
+        })
         // renewServices
         // (optionalAttrs (cfg.preliminarySelfsigned) (
           { "acme-selfsigned-ca" = selfsignCAService; } // selfsignServices
         ));
 
-      systemd.timers = mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer) certConfigs;
+      systemd.timers =
+        mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer)
+          certConfigs;
 
       systemd.targets =
         let
@@ -1295,7 +1356,9 @@ in
                 hash: confs:
                 let
                   leader = "acme-${(builtins.head confs).cert}.service";
-                  dependantServices = map (conf: "acme-${conf.cert}.service") (builtins.tail confs);
+                  dependantServices = map (conf: "acme-${conf.cert}.service") (
+                    builtins.tail confs
+                  );
                 in
                 nameValuePair "acme-account-${hash}" {
                   requiredBy = dependantServices;

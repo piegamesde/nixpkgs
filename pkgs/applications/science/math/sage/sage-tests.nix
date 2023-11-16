@@ -22,7 +22,9 @@ let
   runAllTests = files == null;
   testArgs = if runAllTests then "--all" else testFileList;
   patienceSpecifier = lib.optionalString longTests "--long";
-  timeSpecifier = lib.optionalString (timeLimit != null) "--short ${toString timeLimit}";
+  timeSpecifier =
+    lib.optionalString (timeLimit != null)
+      "--short ${toString timeLimit}";
   relpathToArg = relpath: lib.escapeShellArg "${src}/${relpath}"; # paths need to be absolute
   testFileList = lib.concatStringsSep " " (map relpathToArg files);
 in

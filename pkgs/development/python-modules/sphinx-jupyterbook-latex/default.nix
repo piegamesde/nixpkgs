@@ -25,7 +25,9 @@ buildPythonPackage rec {
       --replace "sphinx>=4,<5.1" "sphinx"
   '';
 
-  propagatedBuildInputs = [ sphinx ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs = [
+    sphinx
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   pythonImportsCheck = [ "sphinx_jupyterbook_latex" ];
 

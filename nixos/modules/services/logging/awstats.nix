@@ -75,7 +75,9 @@ let
               "ValidHTTPCodes" = "404";
             }
           '';
-          description = lib.mdDoc "Extra configuration to be appended to awstats.\${name}.conf.";
+          description =
+            lib.mdDoc
+              "Extra configuration to be appended to awstats.\${name}.conf.";
         };
 
         webService = {
@@ -242,7 +244,8 @@ in
     # create data directory with the correct permissions
     systemd.tmpfiles.rules =
       [ "d '${cfg.dataDir}' 755 root root - -" ]
-      ++ mapAttrsToList (name: opts: "d '${cfg.dataDir}/${name}' 755 root root - -") cfg.configs
+      ++ mapAttrsToList (name: opts: "d '${cfg.dataDir}/${name}' 755 root root - -")
+        cfg.configs
       ++ [ "Z '${cfg.dataDir}' 755 root root - -" ];
 
     # nginx options

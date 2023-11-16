@@ -195,7 +195,10 @@ let
     platformName = stdenv.hostPlatform.linux-kernel.name;
     # e.g. "defconfig"
     kernelBaseConfig =
-      if defconfig != null then defconfig else stdenv.hostPlatform.linux-kernel.baseConfig;
+      if defconfig != null then
+        defconfig
+      else
+        stdenv.hostPlatform.linux-kernel.baseConfig;
     # e.g. "bzImage"
     kernelTarget = stdenv.hostPlatform.linux-kernel.target;
 
@@ -272,25 +275,27 @@ let
     };
   }; # end of configfile derivation
 
-  kernel = (callPackage ./manual-config.nix { inherit lib stdenv buildPackages; }) (
-    basicArgs
-    // {
-      inherit
-        kernelPatches
-        randstructSeed
-        extraMakeFlags
-        extraMeta
-        configfile
-      ;
-      pos = builtins.unsafeGetAttrPos "version" args;
+  kernel =
+    (callPackage ./manual-config.nix { inherit lib stdenv buildPackages; })
+      (
+        basicArgs
+        // {
+          inherit
+            kernelPatches
+            randstructSeed
+            extraMakeFlags
+            extraMeta
+            configfile
+          ;
+          pos = builtins.unsafeGetAttrPos "version" args;
 
-      config = {
-        CONFIG_MODULES = "y";
-        CONFIG_FW_LOADER = "m";
-      };
-    }
-    // lib.optionalAttrs (modDirVersion != null) { inherit modDirVersion; }
-  );
+          config = {
+            CONFIG_MODULES = "y";
+            CONFIG_FW_LOADER = "m";
+          };
+        }
+        // lib.optionalAttrs (modDirVersion != null) { inherit modDirVersion; }
+      );
 
   passthru = basicArgs // {
     features = kernelFeatures;
@@ -336,7 +341,8 @@ let
               overridableKernel;
         };
       in
-      [ (nixosTests.kernel-generic.passthru.testsForKernel overridableKernel) ] ++ kernelTests;
+      [ (nixosTests.kernel-generic.passthru.testsForKernel overridableKernel) ]
+      ++ kernelTests;
   };
 
   finalKernel = lib.extendDerivation true passthru kernel;

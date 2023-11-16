@@ -47,7 +47,9 @@ in
       openFirewallPort = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether the listening port should be opened automatically.";
+        description =
+          lib.mdDoc
+            "Whether the listening port should be opened automatically.";
       };
 
       memoryLimit = mkOption {
@@ -78,7 +80,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewallPort [ cfg.port ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewallPort [
+      cfg.port
+    ];
 
     systemd.services.pykms = {
       description = "Python KMS";
@@ -89,7 +93,9 @@ in
       serviceConfig = with pkgs; {
         DynamicUser = true;
         StateDirectory = baseNameOf libDir;
-        ExecStartPre = "${getBin pykms}/libexec/create_pykms_db.sh ${libDir}/clients.db";
+        ExecStartPre = "${
+            getBin pykms
+          }/libexec/create_pykms_db.sh ${libDir}/clients.db";
         ExecStart = lib.concatStringsSep " " (
           [
             "${getBin pykms}/bin/server"

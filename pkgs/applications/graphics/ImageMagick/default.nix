@@ -65,13 +65,15 @@ let
     if stdenv.hostPlatform.system == "i686-linux" then
       "i686"
     else if
-      stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system == "x86_64-darwin"
+      stdenv.hostPlatform.system == "x86_64-linux"
+      || stdenv.hostPlatform.system == "x86_64-darwin"
     then
       "x86-64"
     else if stdenv.hostPlatform.system == "armv7l-linux" then
       "armv7l"
     else if
-      stdenv.hostPlatform.system == "aarch64-linux" || stdenv.hostPlatform.system == "aarch64-darwin"
+      stdenv.hostPlatform.system == "aarch64-linux"
+      || stdenv.hostPlatform.system == "aarch64-darwin"
     then
       "aarch64"
     else if stdenv.hostPlatform.system == "powerpc64le-linux" then
@@ -109,7 +111,9 @@ stdenv.mkDerivation (
         (lib.withFeature librsvgSupport "pango")
         (lib.withFeature liblqr1Support "lqr")
         (lib.withFeature libjxlSupport "jxl")
-        (lib.withFeatureAs ghostscriptSupport "gs-font-dir" "${ghostscript}/share/ghostscript/fonts")
+        (lib.withFeatureAs ghostscriptSupport "gs-font-dir"
+          "${ghostscript}/share/ghostscript/fonts"
+        )
         (lib.withFeature ghostscriptSupport "gslib")
       ]
       ++ lib.optionals stdenv.hostPlatform.isMinGW [

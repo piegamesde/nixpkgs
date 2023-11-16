@@ -26,7 +26,9 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.async;
 
-  pythonImportsCheck = [ "ppadb.client" ] ++ lib.optionals doCheck [ "ppadb.client_async" ];
+  pythonImportsCheck = [
+    "ppadb.client"
+  ] ++ lib.optionals doCheck [ "ppadb.client_async" ];
 
   meta = with lib; {
     description = "Pure python implementation of the adb client";

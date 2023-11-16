@@ -17,7 +17,9 @@ in
 
   ###### interface
   options.services.touchegg = {
-    enable = mkEnableOption (lib.mdDoc "touchegg, a multi-touch gesture recognizer");
+    enable = mkEnableOption (
+      lib.mdDoc "touchegg, a multi-touch gesture recognizer"
+    );
 
     package = mkOption {
       type = types.package;

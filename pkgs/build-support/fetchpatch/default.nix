@@ -52,7 +52,9 @@ lib.throwIfNot (excludes == [ ] || includes == [ ])
           set +e
           ${decode} < "$out" > "$tmpfile"
           if [ $? -ne 0 ] || [ ! -s "$tmpfile" ]; then
-              echo 'Failed to decode patch with command "'${lib.escapeShellArg decode}'"' >&2
+              echo 'Failed to decode patch with command "'${
+                lib.escapeShellArg decode
+              }'"' >&2
               echo 'Fetched file was (limited to 128 bytes):' >&2
               od -A x -t x1z -v -N 128 "$out" >&2
               exit 1
@@ -61,7 +63,10 @@ lib.throwIfNot (excludes == [ ] || includes == [ ])
           mv "$tmpfile" "$out"
 
           "${patchutils}/bin/lsdiff" \
-            ${lib.optionalString (relative != null) "-p1 -i ${lib.escapeShellArg relative}/'*'"} \
+            ${
+              lib.optionalString (relative != null)
+                "-p1 -i ${lib.escapeShellArg relative}/'*'"
+            } \
             "$out" \
           | sort -u | sed -e 's/[*?]/\\&/g' \
           | xargs -I{} \
@@ -86,8 +91,12 @@ lib.throwIfNot (excludes == [ ] || includes == [ ])
 
           ${patchutils}/bin/filterdiff \
             -p1 \
-            ${builtins.toString (builtins.map (x: "-x ${lib.escapeShellArg x}") excludes)} \
-            ${builtins.toString (builtins.map (x: "-i ${lib.escapeShellArg x}") includes)} \
+            ${
+              builtins.toString (builtins.map (x: "-x ${lib.escapeShellArg x}") excludes)
+            } \
+            ${
+              builtins.toString (builtins.map (x: "-i ${lib.escapeShellArg x}") includes)
+            } \
             "$tmpfile" > "$out"
 
           if [ ! -s "$out" ]; then

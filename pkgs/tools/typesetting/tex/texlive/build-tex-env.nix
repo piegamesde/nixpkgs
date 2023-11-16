@@ -42,7 +42,9 @@ lib.fix (
   let
     ### texlive.combine backward compatibility
     # if necessary, convert old style { pkgs = [ ... ]; } packages to attribute sets
-    isOldPkgList = p: !p.outputSpecified or false && p ? pkgs && builtins.all (p: p ? tlType) p.pkgs;
+    isOldPkgList =
+      p:
+      !p.outputSpecified or false && p ? pkgs && builtins.all (p: p ? tlType) p.pkgs;
     ensurePkgSets =
       ps:
       if !__fromCombineWrapper && builtins.any isOldPkgList ps then
@@ -58,7 +60,9 @@ lib.fix (
       all =
         let
           # order of packages is irrelevant
-          packages = builtins.sort (a: b: a.pname < b.pname) (ensurePkgSets (requiredTeXPackages tl));
+          packages = builtins.sort (a: b: a.pname < b.pname) (
+            ensurePkgSets (requiredTeXPackages tl)
+          );
           runtime =
             builtins.partition
               (
@@ -72,7 +76,12 @@ lib.fix (
               )
               packages;
           keySet = p: {
-            key = ((p.name or "${p.pname}-${p.version}") + "-" + p.tlOutputName or p.outputName or "");
+            key =
+              (
+                (p.name or "${p.pname}-${p.version}")
+                + "-"
+                + p.tlOutputName or p.outputName or ""
+              );
             inherit p;
             tlDeps = p.tlDeps or (p.requiredTeXPackages or (_: [ ]) [ ]);
           };
@@ -91,7 +100,9 @@ lib.fix (
 
       # group the specified outputs
       specified = builtins.partition (p: p.outputSpecified or false) all;
-      specifiedOutputs = lib.groupBy (p: p.tlOutputName or p.outputName) specified.right;
+      specifiedOutputs =
+        lib.groupBy (p: p.tlOutputName or p.outputName)
+          specified.right;
       otherOutputNames = builtins.catAttrs "key" (
         builtins.genericClosure {
           startSet = map (key: { inherit key; }) (
@@ -100,13 +111,17 @@ lib.fix (
           operator = _: [ ];
         }
       );
-      otherOutputs = lib.genAttrs otherOutputNames (n: builtins.catAttrs n specified.wrong);
+      otherOutputs = lib.genAttrs otherOutputNames (
+        n: builtins.catAttrs n specified.wrong
+      );
       outputsToInstall = builtins.catAttrs "key" (
         builtins.genericClosure {
           startSet = map (key: { inherit key; }) (
             [ "out" ]
             ++ lib.optional (splitOutputs ? man) "man"
-            ++ lib.concatLists (builtins.catAttrs "outputsToInstall" (builtins.catAttrs "meta" specified.wrong))
+            ++ lib.concatLists (
+              builtins.catAttrs "outputsToInstall" (builtins.catAttrs "meta" specified.wrong)
+            )
           );
           operator = _: [ ];
         }
@@ -244,7 +259,10 @@ lib.fix (
           lib.concatMapStringsSep "\n - "
             (
               p:
-              p.pname + (lib.optionalString (p.outputSpecified or false) " (${p.tlOutputName or p.outputName})")
+              p.pname
+              + (lib.optionalString (p.outputSpecified or false)
+                " (${p.tlOutputName or p.outputName})"
+              )
             )
             (requiredTeXPackages tl);
     };
@@ -267,7 +285,8 @@ lib.fix (
         (buildEnv {
           inherit name;
           paths = builtins.catAttrs "outPath" (
-            pkgList.otherOutputs.${outName} or [ ] ++ pkgList.specifiedOutputs.${outName} or [ ]
+            pkgList.otherOutputs.${outName} or [ ]
+            ++ pkgList.specifiedOutputs.${outName} or [ ]
           );
           # force the output to be ${outName} or nix-env will not work
           nativeBuildInputs = [
@@ -298,7 +317,9 @@ lib.fix (
           ++ pkgList.nonbin
           ++
             lib.optionals (!__fromCombineWrapper)
-              (lib.concatMap (n: (pkgList.otherOutputs.${n} or [ ] ++ pkgList.specifiedOutputs.${n} or [ ])))
+              (lib.concatMap (
+                n: (pkgList.otherOutputs.${n} or [ ] ++ pkgList.specifiedOutputs.${n} or [ ])
+              ))
               pkgList.nonEnvOutputs
         );
         # useful for inclusion in the `fonts.packages` nixos option or for use in devshells
@@ -455,7 +476,9 @@ lib.fix (
                       lib.filter (p: p.hasHyphens or false && p.tlOutputName or p.outputName == "tex")
                         pkgList.nonbin;
                     hyphenPNames = map (p: p.pname) hyphens;
-                    formats = lib.filter (p: p ? formats && p.tlOutputName or p.outputName == "tex") pkgList.nonbin;
+                    formats =
+                      lib.filter (p: p ? formats && p.tlOutputName or p.outputName == "tex")
+                        pkgList.nonbin;
                     formatPNames = map (p: p.pname) formats;
                     # sed expression that prints the lines in /start/,/end/ except for /end/
                     section = start: end: ''
@@ -475,7 +498,11 @@ lib.fix (
                       # pick up all sections matching packages that we combine
                       +
                         lib.concatMapStrings
-                          (pname: section "^% from ${pname}:$" "^% from|^%%% No changes may be made beyond this point.$")
+                          (
+                            pname:
+                            section "^% from ${pname}:$"
+                              "^% from|^%%% No changes may be made beyond this point.$"
+                          )
                           hyphenPNames
                       # pick up the footer (for language.def)
                       + ''
@@ -491,7 +518,9 @@ lib.fix (
                       + ''
                         2,/^-- END of language.us.lua/p;
                       ''
-                      + lib.concatMapStrings (pname: section "^-- from ${pname}:$" "^}$|^-- from") hyphenPNames
+                      +
+                        lib.concatMapStrings (pname: section "^-- from ${pname}:$" "^}$|^-- from")
+                          hyphenPNames
                       + ''
                         $p;
                       ''
@@ -504,7 +533,9 @@ lib.fix (
                     fmtutilSed = writeText "fmtutil.sed" (
                       # document how file was generated
                       ''
-                        1{ s/^(# Generated by .*)$/\1, modified by ${if __combine then "texlive.combine" else "Nixpkgs"}/; }
+                        1{ s/^(# Generated by .*)$/\1, modified by ${
+                          if __combine then "texlive.combine" else "Nixpkgs"
+                        }/; }
                       ''
                       # disable all formats, even those already disabled
                       + ''

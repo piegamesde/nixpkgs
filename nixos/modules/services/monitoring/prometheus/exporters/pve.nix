@@ -15,7 +15,8 @@ let
     text = "default:";
   };
 
-  computedConfigFile = if cfg.configFile == null then emptyConfigFile else cfg.configFile;
+  computedConfigFile =
+    if cfg.configFile == null then emptyConfigFile else cfg.configFile;
 in
 {
   port = 9221;
@@ -104,20 +105,24 @@ in
     };
   };
   serviceOpts = {
-    serviceConfig = {
-      DynamicUser = cfg.environmentFile == null;
-      LoadCredential = "configFile:${computedConfigFile}";
-      ExecStart = ''
-        ${cfg.package}/bin/pve_exporter \
-          --${optionalString (!cfg.collectors.status) "no-"}collector.status \
-          --${optionalString (!cfg.collectors.version) "no-"}collector.version \
-          --${optionalString (!cfg.collectors.node) "no-"}collector.node \
-          --${optionalString (!cfg.collectors.cluster) "no-"}collector.cluster \
-          --${optionalString (!cfg.collectors.resources) "no-"}collector.resources \
-          --${optionalString (!cfg.collectors.config) "no-"}collector.config \
-          %d/configFile \
-          ${toString cfg.port} ${cfg.listenAddress}
-      '';
-    } // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
+    serviceConfig =
+      {
+        DynamicUser = cfg.environmentFile == null;
+        LoadCredential = "configFile:${computedConfigFile}";
+        ExecStart = ''
+          ${cfg.package}/bin/pve_exporter \
+            --${optionalString (!cfg.collectors.status) "no-"}collector.status \
+            --${optionalString (!cfg.collectors.version) "no-"}collector.version \
+            --${optionalString (!cfg.collectors.node) "no-"}collector.node \
+            --${optionalString (!cfg.collectors.cluster) "no-"}collector.cluster \
+            --${optionalString (!cfg.collectors.resources) "no-"}collector.resources \
+            --${optionalString (!cfg.collectors.config) "no-"}collector.config \
+            %d/configFile \
+            ${toString cfg.port} ${cfg.listenAddress}
+        '';
+      }
+      // optionalAttrs (cfg.environmentFile != null) {
+        EnvironmentFile = cfg.environmentFile;
+      };
   };
 }

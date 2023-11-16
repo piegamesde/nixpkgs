@@ -26,7 +26,8 @@ buildGoModule rec {
   buildPhase = ''
     runHook preBuild
     make GO_LDFLAGS="-s -w" GH_VERSION=${version} bin/gh ${
-      lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) "manpages"
+      lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+        "manpages"
     }
     runHook postBuild
   '';

@@ -8,7 +8,9 @@ with lib;
 let
   cfg = config.programs.hyprland;
 
-  finalPortalPackage = cfg.portalPackage.override { hyprland = cfg.finalPackage; };
+  finalPortalPackage = cfg.portalPackage.override {
+    hyprland = cfg.finalPackage;
+  };
 in
 {
   options.programs.hyprland = {
@@ -32,7 +34,9 @@ in
         enableXWayland = cfg.xwayland.enable;
         enableNvidiaPatches = cfg.enableNvidiaPatches;
       };
-      defaultText = literalExpression "`programs.hyprland.package` with applied configuration";
+      defaultText =
+        literalExpression
+          "`programs.hyprland.package` with applied configuration";
       description = mdDoc ''
         The Hyprland package after applying configuration.
       '';
@@ -44,7 +48,9 @@ in
       default = true;
     };
 
-    enableNvidiaPatches = mkEnableOption (mdDoc "patching wlroots for better Nvidia support");
+    enableNvidiaPatches = mkEnableOption (
+      mdDoc "patching wlroots for better Nvidia support"
+    );
   };
 
   config = mkIf cfg.enable {

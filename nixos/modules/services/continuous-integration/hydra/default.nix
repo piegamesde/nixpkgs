@@ -217,7 +217,9 @@ in
       buildMachinesFiles = mkOption {
         type = types.listOf types.path;
         default = optional (config.nix.buildMachines != [ ]) "/etc/nix/machines";
-        defaultText = literalExpression ''optional (config.nix.buildMachines != []) "/etc/nix/machines"'';
+        defaultText =
+          literalExpression
+            ''optional (config.nix.buildMachines != []) "/etc/nix/machines"'';
         example = [
           "/etc/nix/machines"
           "/var/lib/hydra/provisioner/machines"

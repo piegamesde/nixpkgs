@@ -38,7 +38,9 @@ let
     options = {
       address = mkOption {
         type = types.str;
-        description = lib.mdDoc "The external IP address or hostname where the host can be reached.";
+        description =
+          lib.mdDoc
+            "The external IP address or hostname where the host can be reached.";
       };
 
       port = mkOption {
@@ -154,7 +156,9 @@ let
       };
 
       config.settings = {
-        Address = mkDefault (map (address: "${address.address} ${toString address.port}") config.addresses);
+        Address = mkDefault (
+          map (address: "${address.address} ${toString address.port}") config.addresses
+        );
 
         Subnet = mkDefault (
           map
@@ -360,9 +364,15 @@ in
                     Ed25519PrivateKeyFile = mkIf (config.ed25519PrivateKeyFile != null) (
                       mkDefault config.ed25519PrivateKeyFile
                     );
-                    PrivateKeyFile = mkIf (config.rsaPrivateKeyFile != null) (mkDefault config.rsaPrivateKeyFile);
-                    ListenAddress = mkIf (config.listenAddress != null) (mkDefault config.listenAddress);
-                    BindToAddress = mkIf (config.bindToAddress != null) (mkDefault config.bindToAddress);
+                    PrivateKeyFile = mkIf (config.rsaPrivateKeyFile != null) (
+                      mkDefault config.rsaPrivateKeyFile
+                    );
+                    ListenAddress = mkIf (config.listenAddress != null) (
+                      mkDefault config.listenAddress
+                    );
+                    BindToAddress = mkIf (config.bindToAddress != null) (
+                      mkDefault config.bindToAddress
+                    );
                   };
                 };
               }
@@ -417,13 +427,19 @@ in
             description = "Tinc Daemon - ${network}";
             wantedBy = [ "multi-user.target" ];
             path = [ data.package ];
-            reloadTriggers = mkIf (versionAtLeast version "1.1pre") [ (builtins.toJSON etcConfig) ];
-            restartTriggers = mkIf (versionOlder version "1.1pre") [ (builtins.toJSON etcConfig) ];
+            reloadTriggers = mkIf (versionAtLeast version "1.1pre") [
+              (builtins.toJSON etcConfig)
+            ];
+            restartTriggers = mkIf (versionOlder version "1.1pre") [
+              (builtins.toJSON etcConfig)
+            ];
             serviceConfig = {
               Type = "simple";
               Restart = "always";
               RestartSec = "3";
-              ExecReload = mkIf (versionAtLeast version "1.1pre") "${data.package}/bin/tinc -n ${network} reload";
+              ExecReload =
+                mkIf (versionAtLeast version "1.1pre")
+                  "${data.package}/bin/tinc -n ${network} reload";
               ExecStart = "${data.package}/bin/tincd -D -U tinc.${network} -n ${network} ${
                   optionalString (data.chroot) "-R"
                 } --pidfile /run/tinc.${network}.pid -d ${toString data.debugLevel}";
@@ -493,7 +509,9 @@ in
           group = "tinc.${network}";
         })
       );
-      users.groups = flip mapAttrs' cfg.networks (network: _: nameValuePair "tinc.${network}" { });
+      users.groups = flip mapAttrs' cfg.networks (
+        network: _: nameValuePair "tinc.${network}" { }
+      );
     }
   );
 

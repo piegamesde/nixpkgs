@@ -410,29 +410,39 @@ let
     TF_NEED_MPI = tfFeature cudaSupport;
 
     TF_NEED_CUDA = tfFeature cudaSupport;
-    TF_CUDA_PATHS = lib.optionalString cudaSupport "${cudatoolkit_joined},${cudnn},${nccl}";
+    TF_CUDA_PATHS =
+      lib.optionalString cudaSupport
+        "${cudatoolkit_joined},${cudnn},${nccl}";
     TF_CUDA_COMPUTE_CAPABILITIES = lib.concatStringsSep "," cudaCapabilities;
 
     # Needed even when we override stdenv: e.g. for ar
-    GCC_HOST_COMPILER_PREFIX = lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin";
-    GCC_HOST_COMPILER_PATH = lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin/cc";
+    GCC_HOST_COMPILER_PREFIX =
+      lib.optionalString cudaSupport
+        "${cudatoolkit_cc_joined}/bin";
+    GCC_HOST_COMPILER_PATH =
+      lib.optionalString cudaSupport
+        "${cudatoolkit_cc_joined}/bin/cc";
 
-    patches = [
-      "${gentoo-patches}/0002-systemlib-Latest-absl-LTS-has-split-cord-libs.patch"
-      "${gentoo-patches}/0005-systemlib-Updates-for-Abseil-20220623-LTS.patch"
-      "${gentoo-patches}/0007-systemlibs-Add-well_known_types_py_pb2-target.patch"
-      # https://github.com/conda-forge/tensorflow-feedstock/pull/329/commits/0a63c5a962451b4da99a9948323d8b3ed462f461
-      (fetchpatch {
-        name = "fix-layout-proto-duplicate-loading.patch";
-        url = "https://raw.githubusercontent.com/conda-forge/tensorflow-feedstock/0a63c5a962451b4da99a9948323d8b3ed462f461/recipe/patches/0001-Omit-linking-to-layout_proto_cc-if-protobuf-linkage-.patch";
-        hash = "sha256-/7buV6DinKnrgfqbe7KKSh9rCebeQdXv2Uj+Xg/083w=";
-      })
-      ./com_google_absl_add_log.patch
-      ./absl_py_argparse_flags.patch
-      ./protobuf_python.patch
-      ./pybind11_protobuf_python_runtime_dep.patch
-      ./pybind11_protobuf_newer_version.patch
-    ] ++ lib.optionals (stdenv.hostPlatform.system == "aarch64-darwin") [ ./absl_to_std.patch ];
+    patches =
+      [
+        "${gentoo-patches}/0002-systemlib-Latest-absl-LTS-has-split-cord-libs.patch"
+        "${gentoo-patches}/0005-systemlib-Updates-for-Abseil-20220623-LTS.patch"
+        "${gentoo-patches}/0007-systemlibs-Add-well_known_types_py_pb2-target.patch"
+        # https://github.com/conda-forge/tensorflow-feedstock/pull/329/commits/0a63c5a962451b4da99a9948323d8b3ed462f461
+        (fetchpatch {
+          name = "fix-layout-proto-duplicate-loading.patch";
+          url = "https://raw.githubusercontent.com/conda-forge/tensorflow-feedstock/0a63c5a962451b4da99a9948323d8b3ed462f461/recipe/patches/0001-Omit-linking-to-layout_proto_cc-if-protobuf-linkage-.patch";
+          hash = "sha256-/7buV6DinKnrgfqbe7KKSh9rCebeQdXv2Uj+Xg/083w=";
+        })
+        ./com_google_absl_add_log.patch
+        ./absl_py_argparse_flags.patch
+        ./protobuf_python.patch
+        ./pybind11_protobuf_python_runtime_dep.patch
+        ./pybind11_protobuf_newer_version.patch
+      ]
+      ++ lib.optionals (stdenv.hostPlatform.system == "aarch64-darwin") [
+        ./absl_to_std.patch
+      ];
 
     postPatch =
       ''
@@ -523,7 +533,8 @@ let
           x86_64-darwin = "sha256-gqb03kB0z2pZQ6m1fyRp1/Nbt8AVVHWpOJSeZNCLc4w=";
           aarch64-darwin = "sha256-WdgAaFZU+ePwWkVBhLzjlNT7ELfGHOTaMdafcAMD5yo=";
         }
-        .${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}");
+        .${stdenv.hostPlatform.system}
+          or (throw "unsupported system ${stdenv.hostPlatform.system}");
     };
 
     buildAttrs = {

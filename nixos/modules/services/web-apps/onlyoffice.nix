@@ -53,7 +53,9 @@ in
     postgresHost = mkOption {
       type = types.str;
       default = "/run/postgresql";
-      description = lib.mdDoc "The Postgresql hostname or socket path OnlyOffice should connect to.";
+      description =
+        lib.mdDoc
+          "The Postgresql hostname or socket path OnlyOffice should connect to.";
     };
 
     postgresName = mkOption {
@@ -83,7 +85,9 @@ in
     rabbitmqUrl = mkOption {
       type = types.str;
       default = "amqp://guest:guest@localhost:5672";
-      description = lib.mdDoc "The Rabbitmq in amqp URI style OnlyOffice should connect to.";
+      description =
+        lib.mdDoc
+          "The Rabbitmq in amqp URI style OnlyOffice should connect to.";
     };
   };
 

@@ -44,11 +44,14 @@ stdenv.mkDerivation rec {
     yasm
   ];
 
-  buildInputs = [
-    freetype
-    fribidi
-    harfbuzz
-  ] ++ lib.optional fontconfigSupport fontconfig ++ lib.optional stdenv.isDarwin libiconv;
+  buildInputs =
+    [
+      freetype
+      fribidi
+      harfbuzz
+    ]
+    ++ lib.optional fontconfigSupport fontconfig
+    ++ lib.optional stdenv.isDarwin libiconv;
 
   meta = with lib; {
     description = "Portable ASS/SSA subtitle renderer";

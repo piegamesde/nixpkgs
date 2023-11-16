@@ -12,7 +12,9 @@ let
     hooks:
     let
       mkHookEntry = name: text: ''
-        ln --symbolic ${pkgs.writeShellApplication { inherit name text; }}/bin/${name} $out/${name}
+        ln --symbolic ${
+          pkgs.writeShellApplication { inherit name text; }
+        }/bin/${name} $out/${name}
       '';
     in
     pkgs.runCommandLocal "buildkite-agent-hooks" { } ''
@@ -55,7 +57,9 @@ let
             pkgs.git
             pkgs.nix
           ];
-          defaultText = lib.literalExpression "[ pkgs.bash pkgs.gnutar pkgs.gzip pkgs.git pkgs.nix ]";
+          defaultText =
+            lib.literalExpression
+              "[ pkgs.bash pkgs.gnutar pkgs.gzip pkgs.git pkgs.nix ]";
           description = lib.mdDoc "Add programs to the buildkite-agent environment";
           type = lib.types.listOf lib.types.package;
         };
@@ -79,7 +83,9 @@ let
         };
 
         tags = lib.mkOption {
-          type = lib.types.attrsOf (lib.types.either lib.types.str (lib.types.listOf lib.types.str));
+          type = lib.types.attrsOf (
+            lib.types.either lib.types.str (lib.types.listOf lib.types.str)
+          );
           default = { };
           example = {
             queue = "default";
@@ -133,7 +139,9 @@ let
         hooksPath = lib.mkOption {
           type = lib.types.path;
           default = hooksDir config.hooks;
-          defaultText = lib.literalMD "generated from {option}`services.buildkite-agents.<name>.hooks`";
+          defaultText =
+            lib.literalMD
+              "generated from {option}`services.buildkite-agents.<name>.hooks`";
           description = lib.mdDoc ''
             Path to the directory storing the hooks.
             Consider using {option}`services.buildkite-agents.<name>.hooks.<name>`
@@ -179,7 +187,9 @@ in
       };
     }
   );
-  config.users.groups = mapAgents (name: cfg: { "buildkite-agent-${name}" = { }; });
+  config.users.groups = mapAgents (
+    name: cfg: { "buildkite-agent-${name}" = { }; }
+  );
 
   config.systemd.services = mapAgents (
     name: cfg: {

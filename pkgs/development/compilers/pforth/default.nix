@@ -23,7 +23,9 @@ stdenv.mkDerivation (
       runHook preBuild
       make -C platforms/unix pfdicapp
       pushd fth/
-      ${stdenv.hostPlatform.emulator buildPackages} ../platforms/unix/pforth -i system.fth
+      ${
+        stdenv.hostPlatform.emulator buildPackages
+      } ../platforms/unix/pforth -i system.fth
       ${
         stdenv.hostPlatform.emulator buildPackages
       } ../platforms/unix/pforth -d pforth.dic <<< "include savedicd.fth sdad bye"

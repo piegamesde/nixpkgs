@@ -49,7 +49,9 @@ stdenv.mkDerivation (
       export LD=$CC
     '';
 
-    NIX_CFLAGS_LINK = lib.optionalString stdenv.isDarwin "-headerpad_max_install_names";
+    NIX_CFLAGS_LINK =
+      lib.optionalString stdenv.isDarwin
+        "-headerpad_max_install_names";
 
     postBuild = lib.optionalString pythonSupport ''
       make -C pjsip-apps/src/swig/python
@@ -114,10 +116,14 @@ stdenv.mkDerivation (
       command = "pjsua --version";
     };
 
-    passthru.tests.pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+    passthru.tests.pkg-config = testers.hasPkgConfigModules {
+      package = finalAttrs.finalPackage;
+    };
 
     passthru.tests.python-pjsua2 = runCommand "python-pjsua2" { } ''
-      ${(python3.withPackages (pkgs: [ pkgs.pjsua2 ])).interpreter} -c "import pjsua2" > $out
+      ${
+        (python3.withPackages (pkgs: [ pkgs.pjsua2 ])).interpreter
+      } -c "import pjsua2" > $out
     '';
 
     meta = with lib; {

@@ -13,7 +13,9 @@ in
 {
   options = {
     services.audiobookshelf = {
-      enable = mkEnableOption "Audiobookshelf, self-hosted audiobook and podcast server.";
+      enable =
+        mkEnableOption
+          "Audiobookshelf, self-hosted audiobook and podcast server.";
 
       package = mkPackageOption pkgs "audiobookshelf" { };
 
@@ -69,7 +71,9 @@ in
         Group = cfg.group;
         StateDirectory = cfg.dataDir;
         WorkingDirectory = "/var/lib/${cfg.dataDir}";
-        ExecStart = "${cfg.package}/bin/audiobookshelf --host ${cfg.host} --port ${toString cfg.port}";
+        ExecStart = "${cfg.package}/bin/audiobookshelf --host ${cfg.host} --port ${
+            toString cfg.port
+          }";
         Restart = "on-failure";
       };
     };

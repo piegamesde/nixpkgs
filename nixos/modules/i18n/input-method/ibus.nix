@@ -66,7 +66,9 @@ in
         description =
           let
             enginesDrv = filterAttrs (const isDerivation) pkgs.ibus-engines;
-            engines = concatStringsSep ", " (map (name: "`${name}`") (attrNames enginesDrv));
+            engines = concatStringsSep ", " (
+              map (name: "`${name}`") (attrNames enginesDrv)
+            );
           in
           lib.mdDoc "Enabled IBus engines. Available engines are: ${engines}.";
       };

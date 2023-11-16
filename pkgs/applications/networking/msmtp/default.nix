@@ -51,11 +51,14 @@ let
       "--with-libgsasl"
     ] ++ optionals stdenv.isDarwin [ "--with-macosx-keyring" ];
 
-    buildInputs = [
-      gnutls
-      gsasl
-      libidn2
-    ] ++ optionals stdenv.isDarwin [ Security ] ++ optionals withKeyring [ libsecret ];
+    buildInputs =
+      [
+        gnutls
+        gsasl
+        libidn2
+      ]
+      ++ optionals stdenv.isDarwin [ Security ]
+      ++ optionals withKeyring [ libsecret ];
 
     nativeBuildInputs = [
       autoreconfHook

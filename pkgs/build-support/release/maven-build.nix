@@ -26,7 +26,9 @@ stdenv.mkDerivation (
     inherit name src;
     phases = "setupPhase unpackPhase patchPhase mvnCompile ${
         lib.optionalString doTestCompile "mvnTestCompile mvnTestJar"
-      } ${lib.optionalString doTest "mvnTest"} ${lib.optionalString doJavadoc "mvnJavadoc"} ${
+      } ${lib.optionalString doTest "mvnTest"} ${
+        lib.optionalString doJavadoc "mvnJavadoc"
+      } ${
         lib.optionalString doCheckstyle "mvnCheckstyle"
       } mvnJar mvnAssembly mvnRelease finalPhase";
 

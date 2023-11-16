@@ -21,7 +21,9 @@ python3Packages.buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace "ykman/pcsc/__init__.py" \
-      --replace 'pkill' '${if stdenv.isLinux then "${procps}" else "/usr"}/bin/pkill'
+      --replace 'pkill' '${
+        if stdenv.isLinux then "${procps}" else "/usr"
+      }/bin/pkill'
   '';
 
   nativeBuildInputs = with python3Packages; [

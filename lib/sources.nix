@@ -25,7 +25,9 @@ let
       # Filter out version control software files/directories
       (
         baseName == ".git"
-        || type == "directory" && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg")
+        ||
+          type == "directory"
+          && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg")
       )
       ||
         # Filter out editor backup / swap files.
@@ -120,7 +122,8 @@ let
       }
     )
     // {
-      satisfiesSubpathInvariant = src ? satisfiesSubpathInvariant && src.satisfiesSubpathInvariant;
+      satisfiesSubpathInvariant =
+        src ? satisfiesSubpathInvariant && src.satisfiesSubpathInvariant;
     };
 
   /* Filter sources by a list of regular expressions.
@@ -197,7 +200,8 @@ let
           fileName = path + "/${file}";
           packedRefsName = path + "/packed-refs";
           absolutePath =
-            base: path: if lib.hasPrefix "/" path then path else toString (/. + "${base}/${path}");
+            base: path:
+            if lib.hasPrefix "/" path then path else toString (/. + "${base}/${path}");
         in
         if
           pathIsRegularFile path
@@ -212,7 +216,10 @@ let
             let
               gitDir = absolutePath (dirOf path) (lib.head m);
               commonDir'' =
-                if pathIsRegularFile "${gitDir}/commondir" then lib.fileContents "${gitDir}/commondir" else gitDir;
+                if pathIsRegularFile "${gitDir}/commondir" then
+                  lib.fileContents "${gitDir}/commondir"
+                else
+                  gitDir;
               commonDir' = lib.removeSuffix "/" commonDir'';
               commonDir = absolutePath gitDir commonDir';
               refFile = lib.removePrefix "${commonDir}/" "${gitDir}/${file}";
@@ -228,7 +235,10 @@ let
             fileContent = lib.fileContents fileName;
             matchRef = match "^ref: (.*)$" fileContent;
           in
-          if matchRef == null then { value = fileContent; } else readCommitFromFile (lib.head matchRef) path
+          if matchRef == null then
+            { value = fileContent; }
+          else
+            readCommitFromFile (lib.head matchRef) path
 
         else if
           pathIsRegularFile packedRefsName
@@ -255,7 +265,8 @@ let
 
   pathHasContext = builtins.hasContext or (lib.hasPrefix storeDir);
 
-  canCleanSource = src: src ? _isLibCleanSourceWith || !(pathHasContext (toString src));
+  canCleanSource =
+    src: src ? _isLibCleanSourceWith || !(pathHasContext (toString src));
 
   # -------------------------------------------------------------------------- #
   # Internal functions

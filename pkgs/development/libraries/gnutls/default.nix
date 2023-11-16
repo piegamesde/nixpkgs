@@ -52,7 +52,10 @@ let
 
   # XXX: Gnulib's `test-select' fails on FreeBSD:
   # https://hydra.nixos.org/build/2962084/nixlog/1/raw .
-  doCheck = !stdenv.isFreeBSD && !stdenv.isDarwin && stdenv.buildPlatform == stdenv.hostPlatform;
+  doCheck =
+    !stdenv.isFreeBSD
+    && !stdenv.isDarwin
+    && stdenv.buildPlatform == stdenv.hostPlatform;
 
   inherit (stdenv.hostPlatform) isDarwin;
 in
@@ -62,7 +65,9 @@ stdenv.mkDerivation rec {
   version = "3.8.1";
 
   src = fetchurl {
-    url = "mirror://gnupg/gnutls/v${lib.versions.majorMinor version}/gnutls-${version}.tar.xz";
+    url = "mirror://gnupg/gnutls/v${
+        lib.versions.majorMinor version
+      }/gnutls-${version}.tar.xz";
     hash = "sha256-uoueFa4gq6iPRGYZePW1hjSUMW/n5yLt6dBp/mKUgpw=";
   };
 
@@ -121,18 +126,21 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildInputs = [
-    lzo
-    lzip
-    libtasn1
-    libidn2
-    zlib
-    gmp
-    libunistring
-    unbound
-    gettext
-    libiconv
-  ] ++ lib.optional (withP11-kit) p11-kit ++ lib.optional (tpmSupport && stdenv.isLinux) trousers;
+  buildInputs =
+    [
+      lzo
+      lzip
+      libtasn1
+      libidn2
+      zlib
+      gmp
+      libunistring
+      unbound
+      gettext
+      libiconv
+    ]
+    ++ lib.optional (withP11-kit) p11-kit
+    ++ lib.optional (tpmSupport && stdenv.isLinux) trousers;
 
   nativeBuildInputs =
     [

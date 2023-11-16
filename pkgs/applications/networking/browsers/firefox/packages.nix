@@ -110,7 +110,9 @@
     };
 
     meta = {
-      changelog = "https://www.mozilla.org/en-US/firefox/${lib.removeSuffix "esr" version}/releasenotes/";
+      changelog = "https://www.mozilla.org/en-US/firefox/${
+          lib.removeSuffix "esr" version
+        }/releasenotes/";
       description = "A web browser built from Firefox Extended Support Release source tree";
       homepage = "http://www.mozilla.com/en-US/firefox/";
       maintainers = with lib.maintainers; [ hexa ];

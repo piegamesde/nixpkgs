@@ -38,12 +38,14 @@ buildGoModule rec {
   ];
 
   nativeBuildInputs = [ installShellFiles ];
-  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    installShellCompletion --cmd glow \
-      --bash <($out/bin/glow completion bash) \
-      --fish <($out/bin/glow completion fish) \
-      --zsh <($out/bin/glow completion zsh)
-  '';
+  postInstall =
+    lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+      ''
+        installShellCompletion --cmd glow \
+          --bash <($out/bin/glow completion bash) \
+          --fish <($out/bin/glow completion fish) \
+          --zsh <($out/bin/glow completion zsh)
+      '';
 
   meta = with lib; {
     description = "Render markdown on the CLI, with pizzazz!";

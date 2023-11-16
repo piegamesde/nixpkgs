@@ -34,7 +34,9 @@ stdenv.mkDerivation rec {
 
   # Don't try to install `xlock' setuid. Password authentication works
   # fine via PAM without super user privileges.
-  configureFlags = [ "--disable-setuid" ] ++ (lib.optional (pam != null) "--enable-pam");
+  configureFlags = [
+    "--disable-setuid"
+  ] ++ (lib.optional (pam != null) "--enable-pam");
 
   postPatch =
     let

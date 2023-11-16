@@ -57,7 +57,9 @@ stdenv.mkDerivation rec {
               # See https://github.com/google/glog/issues/937
               "DeathNoAllocNewHook.logging"
             ]
-        ++ lib.optionals stdenv.isDarwin [ "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled" ];
+        ++ lib.optionals stdenv.isDarwin [
+          "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled"
+        ];
     in
     "-${builtins.concatStringsSep ":" filteredTests}";
 

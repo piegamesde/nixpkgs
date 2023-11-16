@@ -162,7 +162,8 @@ let
       ''; # */
 
   prefixStringLines =
-    prefix: str: concatMapStringsSep "\n" (line: prefix + line) (splitString "\n" str);
+    prefix: str:
+    concatMapStringsSep "\n" (line: prefix + line) (splitString "\n" str);
 
   indent = prefixStringLines "  ";
 
@@ -325,7 +326,9 @@ in
         default = [ ];
         example = literalExpression "[ pkgs.xterm ]";
         type = types.listOf types.package;
-        description = lib.mdDoc "Which X11 packages to exclude from the default environment";
+        description =
+          lib.mdDoc
+            "Which X11 packages to exclude from the default environment";
       };
 
       exportConfiguration = mkOption {
@@ -383,7 +386,9 @@ in
         type = types.listOf types.path;
         default = [ ];
         example = literalExpression "[ pkgs.xf86_input_wacom ]";
-        description = lib.mdDoc "Packages to be added to the module search path of the X server.";
+        description =
+          lib.mdDoc
+            "Packages to be added to the module search path of the X server.";
       };
 
       resolutions = mkOption {
@@ -550,14 +555,18 @@ in
         type = types.lines;
         default = "";
         example = ''FontPath "/path/to/my/fonts"'';
-        description = lib.mdDoc "Contents of the first `Files` section of the X server configuration file.";
+        description =
+          lib.mdDoc
+            "Contents of the first `Files` section of the X server configuration file.";
       };
 
       deviceSection = mkOption {
         type = types.lines;
         default = "";
         example = "VideoRAM 131072";
-        description = lib.mdDoc "Contents of the first Device section of the X server configuration file.";
+        description =
+          lib.mdDoc
+            "Contents of the first Device section of the X server configuration file.";
       };
 
       screenSection = mkOption {
@@ -566,14 +575,18 @@ in
         example = ''
           Option "RandRRotation" "on"
         '';
-        description = lib.mdDoc "Contents of the first Screen section of the X server configuration file.";
+        description =
+          lib.mdDoc
+            "Contents of the first Screen section of the X server configuration file.";
       };
 
       monitorSection = mkOption {
         type = types.lines;
         default = "";
         example = "HorizSync 28-49";
-        description = lib.mdDoc "Contents of the first Monitor section of the X server configuration file.";
+        description =
+          lib.mdDoc
+            "Contents of the first Monitor section of the X server configuration file.";
       };
 
       extraConfig = mkOption {
@@ -599,7 +612,11 @@ in
         ];
         type =
           with types;
-          listOf (coercedTo str (output: { inherit output; }) (submodule { options = xrandrOptions; }));
+          listOf (
+            coercedTo str (output: { inherit output; }) (
+              submodule { options = xrandrOptions; }
+            )
+          );
         # Set primary to true for the first head if no other has been set
         # primary already.
         apply =
@@ -647,7 +664,9 @@ in
           Option "SuspendTime" "0"
           Option "OffTime" "0"
         '';
-        description = lib.mdDoc "Contents of the ServerFlags section of the X server configuration file.";
+        description =
+          lib.mdDoc
+            "Contents of the ServerFlags section of the X server configuration file.";
       };
 
       moduleSection = mkOption {
@@ -657,7 +676,9 @@ in
           SubSection "extmod"
           EndSubsection
         '';
-        description = lib.mdDoc "Contents of the Module section of the X server configuration file.";
+        description =
+          lib.mdDoc
+            "Contents of the Module section of the X server configuration file.";
       };
 
       serverLayoutSection = mkOption {
@@ -666,14 +687,18 @@ in
         example = ''
           Option "AIGLX" "true"
         '';
-        description = lib.mdDoc "Contents of the ServerLayout section of the X server configuration file.";
+        description =
+          lib.mdDoc
+            "Contents of the ServerLayout section of the X server configuration file.";
       };
 
       extraDisplaySettings = mkOption {
         type = types.lines;
         default = "";
         example = "Virtual 2048 2048";
-        description = lib.mdDoc "Lines to be added to every Display subsection of the Screen section.";
+        description =
+          lib.mdDoc
+            "Lines to be added to every Display subsection of the Screen section.";
       };
 
       defaultDepth = mkOption {
@@ -793,13 +818,20 @@ in
       let
         dmConf = cfg.displayManager;
         noDmUsed =
-          !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable || dmConf.lightdm.enable);
+          !(
+            dmConf.gdm.enable
+            || dmConf.sddm.enable
+            || dmConf.xpra.enable
+            || dmConf.lightdm.enable
+          );
       in
       mkIf (noDmUsed) (mkDefault false);
 
     hardware.opengl.enable = mkDefault true;
 
-    services.xserver.videoDrivers = mkIf (cfg.videoDriver != null) [ cfg.videoDriver ];
+    services.xserver.videoDrivers = mkIf (cfg.videoDriver != null) [
+      cfg.videoDriver
+    ];
 
     # FIXME: somehow check for unknown driver names.
     services.xserver.drivers = flip concatMap cfg.videoDrivers (
@@ -807,7 +839,12 @@ in
       let
         driver =
           attrByPath [ name ]
-            (if xorg ? ${"xf86video" + name} then { modules = [ xorg.${"xf86video" + name} ]; } else null)
+            (
+              if xorg ? ${"xf86video" + name} then
+                { modules = [ xorg.${"xf86video" + name} ]; }
+              else
+                null
+            )
             knownVideoDrivers;
       in
       optional (driver != null) (
@@ -960,8 +997,12 @@ in
       ++ optional (cfg.logFile != null) "-logfile ${toString cfg.logFile}"
       ++ optional (cfg.verbose != null) "-verbose ${toString cfg.verbose}"
       ++ optional (!cfg.enableTCP) "-nolisten tcp"
-      ++ optional (cfg.autoRepeatDelay != null) "-ardelay ${toString cfg.autoRepeatDelay}"
-      ++ optional (cfg.autoRepeatInterval != null) "-arinterval ${toString cfg.autoRepeatInterval}"
+      ++
+        optional (cfg.autoRepeatDelay != null)
+          "-ardelay ${toString cfg.autoRepeatDelay}"
+      ++
+        optional (cfg.autoRepeatInterval != null)
+          "-arinterval ${toString cfg.autoRepeatInterval}"
       ++ optional cfg.terminateOnReset "-terminate";
 
     services.xserver.modules = concatLists (catAttrs "modules" cfg.drivers) ++ [
@@ -1065,7 +1106,11 @@ in
                 optionalString
                   (
                     driver.name != "virtualbox"
-                    && (cfg.resolutions != [ ] || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null)
+                    && (
+                      cfg.resolutions != [ ]
+                      || cfg.extraDisplaySettings != ""
+                      || cfg.virtualScreen != null
+                    )
                   )
                   (
                     let
@@ -1074,7 +1119,10 @@ in
                           Depth ${toString depth}
                           ${
                             optionalString (cfg.resolutions != [ ])
-                              "Modes ${concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'') cfg.resolutions}"
+                              "Modes ${
+                                concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'')
+                                  cfg.resolutions
+                              }"
                           }
                         ${indent cfg.extraDisplaySettings}
                           ${
@@ -1104,7 +1152,12 @@ in
 
     fonts.enableDefaultPackages = mkDefault true;
     fonts.packages = [
-      (if cfg.upscaleDefaultCursor then fontcursormisc_hidpi else pkgs.xorg.fontcursormisc)
+      (
+        if cfg.upscaleDefaultCursor then
+          fontcursormisc_hidpi
+        else
+          pkgs.xorg.fontcursormisc
+      )
       pkgs.xorg.fontmiscmisc
     ];
   };

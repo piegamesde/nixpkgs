@@ -20,7 +20,9 @@ stdenv.mkDerivation rec {
   ];
   postPatch = ''
     substituteInPlace configure        --subst-var-by openssl.dev ${openssl.dev} \
-                                       --subst-var-by openssl-lib ${lib.getLib openssl}
+                                       --subst-var-by openssl-lib ${
+                                         lib.getLib openssl
+                                       }
     substituteInPlace src/libssl.cc    --subst-var-by openssl ${lib.getLib openssl}
     substituteInPlace src/libcrypto.cc --subst-var-by openssl ${lib.getLib openssl}
   '';

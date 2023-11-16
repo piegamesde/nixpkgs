@@ -46,7 +46,9 @@ buildNpmPackage rec {
         ];
       }
       ''
-        yosys -p "prep -top helloworld -flatten; aigmap; write_json circuit.json" ${./test.v}
+        yosys -p "prep -top helloworld -flatten; aigmap; write_json circuit.json" ${
+          ./test.v
+        }
         netlistsvg circuit.json -o circuit.svg
         test -s circuit.svg
         touch $out

@@ -83,7 +83,8 @@ stdenv.mkDerivation rec {
           "c++abi" = "system-libcxxabi";
           "cxxrt" = "libcxxrt";
         }
-        .${cxxabi.libName} or (throw "unknown cxxabi: ${cxxabi.libName} (${cxxabi.pname})");
+        .${cxxabi.libName}
+          or (throw "unknown cxxabi: ${cxxabi.libName} (${cxxabi.pname})");
     in
     [
       "-DLLVM_ENABLE_RUNTIMES=libcxx"

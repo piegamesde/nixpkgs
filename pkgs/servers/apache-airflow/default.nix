@@ -10,7 +10,9 @@ let
     packageOverrides = pySelf: pySuper: {
       # flask-appbuilder doesn't work with sqlalchemy 2.x, flask-appbuilder 3.x
       # https://github.com/dpgaspar/Flask-AppBuilder/issues/2038
-      flask-appbuilder = pySuper.flask-appbuilder.overridePythonAttrs (o: { meta.broken = false; });
+      flask-appbuilder = pySuper.flask-appbuilder.overridePythonAttrs (
+        o: { meta.broken = false; }
+      );
       # a knock-on effect from overriding the sqlalchemy version
       flask-sqlalchemy = pySuper.flask-sqlalchemy.overridePythonAttrs (
         o: {

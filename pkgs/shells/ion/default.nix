@@ -36,7 +36,9 @@ rustPlatform.buildRustPackage rec {
       ./build-script.patch
     ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.Security
+  ];
 
   checkFlags =
     lib.optionals stdenv.isDarwin

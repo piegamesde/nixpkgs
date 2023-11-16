@@ -32,7 +32,8 @@ in
       type = types.path;
       defaultText =
         literalExpression
-          ''"/var/lib/postgresql/''${config.services.patroni.postgresqlPackage.psqlSchema}"'';
+          ''
+            "/var/lib/postgresql/''${config.services.patroni.postgresqlPackage.psqlSchema}"'';
       example = "/var/lib/postgresql/14";
       default = "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}";
       description = mdDoc ''
@@ -241,7 +242,8 @@ in
         script = ''
           ${concatStringsSep "\n" (
             attrValues (
-              mapAttrs (name: path: ''export ${name}="$(< ${escapeShellArg path})"'') cfg.environmentFiles
+              mapAttrs (name: path: ''export ${name}="$(< ${escapeShellArg path})"'')
+                cfg.environmentFiles
             )
           )}
           exec ${pkgs.patroni}/bin/patroni ${configFile}
@@ -259,7 +261,8 @@ in
           }
           (mkIf
             (
-              cfg.postgresqlDataDir == "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}"
+              cfg.postgresqlDataDir
+              == "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}"
               && cfg.dataDir == "/var/lib/patroni"
             )
             {

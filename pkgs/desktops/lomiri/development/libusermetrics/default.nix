@@ -106,7 +106,9 @@ stdenv.mkDerivation (
       runHook preCheck
 
       export QT_PLUGIN_PATH=${lib.getBin qtbase}/lib/qt-${qtbase.version}/plugins/
-      export QML2_IMPORT_PATH=${lib.getBin qtdeclarative}/lib/qt-${qtbase.version}/qml/
+      export QML2_IMPORT_PATH=${
+        lib.getBin qtdeclarative
+      }/lib/qt-${qtbase.version}/qml/
       dbus-run-session --config-file=${dbus}/share/dbus-1/session.conf -- \
         make test "''${enableParallelChecking:+-j $NIX_BUILD_CORES}"
 

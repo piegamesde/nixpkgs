@@ -75,14 +75,19 @@ let
 
   arch = mozillaPlatforms.${stdenv.hostPlatform.system};
 
-  isPrefixOf = prefix: string: builtins.substring 0 (builtins.stringLength prefix) string == prefix;
+  isPrefixOf =
+    prefix: string:
+    builtins.substring 0 (builtins.stringLength prefix) string == prefix;
 
-  sourceMatches = locale: source: (isPrefixOf source.locale locale) && source.arch == arch;
+  sourceMatches =
+    locale: source: (isPrefixOf source.locale locale) && source.arch == arch;
 
   policies = {
     DisableAppUpdate = true;
   } // config.thunderbird.policies or { };
-  policiesJson = writeText "thunderbird-policies.json" (builtins.toJSON { inherit policies; });
+  policiesJson = writeText "thunderbird-policies.json" (
+    builtins.toJSON { inherit policies; }
+  );
 
   defaultSource = lib.findFirst (sourceMatches "en-US") { } sources;
 

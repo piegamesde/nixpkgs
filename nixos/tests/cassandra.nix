@@ -80,7 +80,9 @@ import ./make-test-python.nix (
           remoteJmx = true;
         }
       );
-      cass2 = nodeCfg "192.168.1.3" { jvmOpts = [ "-Dcassandra.replace_address=cass1" ]; };
+      cass2 = nodeCfg "192.168.1.3" {
+        jvmOpts = [ "-Dcassandra.replace_address=cass1" ];
+      };
     };
 
     testScript =

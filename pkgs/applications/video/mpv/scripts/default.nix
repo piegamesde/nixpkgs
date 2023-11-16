@@ -17,7 +17,9 @@ lib.recurseIntoAttrs (
     convert = callPackage ./convert.nix { inherit buildLua; };
     inhibit-gnome = callPackage ./inhibit-gnome.nix { };
     mpris = callPackage ./mpris.nix { };
-    mpv-playlistmanager = callPackage ./mpv-playlistmanager.nix { inherit buildLua; };
+    mpv-playlistmanager = callPackage ./mpv-playlistmanager.nix {
+      inherit buildLua;
+    };
     mpv-webm = callPackage ./mpv-webm.nix { };
     mpvacious = callPackage ./mpvacious.nix { };
     quality-menu = callPackage ./quality-menu.nix { inherit buildLua; };
@@ -34,5 +36,7 @@ lib.recurseIntoAttrs (
   // (callPackage ./occivink.nix { inherit buildLua; })
 )
 // lib.optionalAttrs config.allowAliases {
-  youtube-quality = throw "'youtube-quality' is no longer maintained, use 'quality-menu' instead"; # added 2023-07-14
+  youtube-quality =
+    throw
+      "'youtube-quality' is no longer maintained, use 'quality-menu' instead"; # added 2023-07-14
 }

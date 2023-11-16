@@ -31,7 +31,9 @@ in
 
   config = mkIf cfg.enable {
     assertions = singleton {
-      assertion = versionAtLeast (getVersion config.boot.kernelPackages.kernel) "4.18";
+      assertion =
+        versionAtLeast (getVersion config.boot.kernelPackages.kernel)
+          "4.18";
       message = "Waydroid needs user namespace support to work properly";
     };
 

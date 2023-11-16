@@ -53,7 +53,9 @@ let
         putenv('TTRSS_MYSQL_CHARSET=UTF8');
 
         putenv('TTRSS_DB_TYPE=${cfg.database.type}');
-        putenv('TTRSS_DB_HOST=${optionalString (cfg.database.host != null) cfg.database.host}');
+        putenv('TTRSS_DB_HOST=${
+          optionalString (cfg.database.host != null) cfg.database.host
+        }');
         putenv('TTRSS_DB_USER=${cfg.database.user}');
         putenv('TTRSS_DB_NAME=${cfg.database.name}');
         putenv('TTRSS_DB_PASS=' ${optionalString (password != null) ". ${password}"});
@@ -102,7 +104,9 @@ let
         putenv('TTRSS_PUBSUBHUBBUB_HUB=${cfg.pubSubHubbub.hub}');
 
         putenv('TTRSS_SPHINX_SERVER=${cfg.sphinx.server}');
-        putenv('TTRSS_SPHINX_INDEX=${builtins.concatStringsSep "," cfg.sphinx.index}');
+        putenv('TTRSS_SPHINX_INDEX=${
+          builtins.concatStringsSep "," cfg.sphinx.index
+        }');
 
         putenv('TTRSS_ENABLE_REGISTRATION=${boolToString cfg.registration.enable}');
         putenv('TTRSS_REG_NOTIFY_ADDRESS=${cfg.registration.notifyAddress}');
@@ -663,7 +667,9 @@ in
     ];
 
     systemd.services = {
-      phpfpm-tt-rss = mkIf (cfg.pool == "${poolName}") { restartTriggers = [ servedRoot ]; };
+      phpfpm-tt-rss = mkIf (cfg.pool == "${poolName}") {
+        restartTriggers = [ servedRoot ];
+      };
 
       tt-rss = {
         description = "Tiny Tiny RSS feeds update daemon";
@@ -682,10 +688,13 @@ in
         };
 
         wantedBy = [ "multi-user.target" ];
-        requires = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
-        after = [
-          "network.target"
-        ] ++ optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
+        requires =
+          optional mysqlLocal "mysql.service"
+          ++ optional pgsqlLocal "postgresql.service";
+        after =
+          [ "network.target" ]
+          ++ optional mysqlLocal "mysql.service"
+          ++ optional pgsqlLocal "postgresql.service";
       };
     };
 

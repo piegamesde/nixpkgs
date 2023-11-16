@@ -30,9 +30,12 @@ stdenv.mkDerivation rec {
         hash = "sha256-6i5Z3m0gMzPuqWm/SJOuxjO3ioh/Uhk3A9uykksYfPo=";
       };
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+    autoPatchelfHook
+  ];
 
   dontStrip = stdenv.isDarwin;
 
