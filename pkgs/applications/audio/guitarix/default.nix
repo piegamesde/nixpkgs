@@ -36,8 +36,7 @@
   wrapGAppsHook,
   zita-convolver,
   zita-resampler,
-  optimizationSupport ? false # Enable support for native CPU extensions
-  ,
+  optimizationSupport ? false, # Enable support for native CPU extensions
 }:
 
 let

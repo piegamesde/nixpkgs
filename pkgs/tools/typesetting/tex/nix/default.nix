@@ -5,10 +5,8 @@ rec {
   runLaTeX =
     {
       rootFile,
-      generatePDF ? true # generate PDF, not DVI
-      ,
-      generatePS ? false # generate PS in addition to DVI
-      ,
+      generatePDF ? true, # generate PDF, not DVI
+      generatePS ? false, # generate PS in addition to DVI
       extraFiles ? [ ],
       compressBlanksInIndex ? true,
       packages ? [ ],

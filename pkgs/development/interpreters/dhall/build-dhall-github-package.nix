@@ -10,9 +10,8 @@ lib.makePackageOverridable (
     # Arguments passed through to `buildDhallPackage`
     name,
     dependencies ? [ ],
-    source ? false
+    source ? false,
 
-    ,
     # The directory containing the Dhall files, if other than the root of the
     # repository
     directory ? "",
@@ -24,10 +23,9 @@ lib.makePackageOverridable (
     # Arguments passed through to `fetchFromGitHub`
     owner,
     repo,
-    rev
+    rev,
     # Extra arguments passed through to `fetchFromGitHub`, such as the hash
     # or `fetchSubmodules`
-    ,
     ...
   }@args:
 

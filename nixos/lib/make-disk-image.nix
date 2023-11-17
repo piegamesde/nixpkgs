@@ -82,31 +82,26 @@
 */
 {
   pkgs,
-  lib
+  lib,
 
-  ,
   # The NixOS configuration to be installed onto the disk image.
-  config
+  config,
 
-  ,
   # The size of the disk, in megabytes.
   # if "auto" size is calculated based on the contents copied to it and
   #   additionalSpace is taken into account.
-  diskSize ? "auto"
+  diskSize ? "auto",
 
-  ,
   # additional disk space to be added to the image if diskSize "auto"
   # is used
-  additionalSpace ? "512M"
+  additionalSpace ? "512M",
 
-  ,
   # size of the boot partition, is only used if partitionTableType is
   # either "efi" or "hybrid"
   # This will be undersized slightly, as this is actually the offset of
   # the end of the partition. Generally it will be 1MiB smaller.
-  bootSize ? "256M"
+  bootSize ? "256M",
 
-  ,
   # The files and directories to be placed in the target file system.
   # This is a list of attribute sets {source, target, mode, user, group} where
   # `source' is the file system object (regular file or directory) to be
@@ -115,9 +110,8 @@
   # user and group name that will be set as owner of the files.
   # `mode', `user', and `group' are optional.
   # When setting one of `user' or `group', the other needs to be set too.
-  contents ? [ ]
+  contents ? [ ],
 
-  ,
   # Type of partition table to use; either "legacy", "efi", or "none".
   # For "efi" images, the GPT partition table is used and a mandatory ESP
   #   partition of reasonable size is created in addition to the root partition.
@@ -131,58 +125,46 @@
   #   Also a legacy MBR will be present.
   # For "none", no partition table is created. Enabling `installBootLoader`
   #   most likely fails as GRUB will probably refuse to install.
-  partitionTableType ? "legacy"
+  partitionTableType ? "legacy",
 
-  ,
   # Whether to invoke `switch-to-configuration boot` during image creation
-  installBootLoader ? true
+  installBootLoader ? true,
 
-  ,
   # Whether to output have EFIVARS available in $out/efi-vars.fd and use it during disk creation
-  touchEFIVars ? false
+  touchEFIVars ? false,
 
-  ,
   # OVMF firmware derivation
-  OVMF ? pkgs.OVMF.fd
+  OVMF ? pkgs.OVMF.fd,
 
-  ,
   # EFI firmware
-  efiFirmware ? OVMF.firmware
+  efiFirmware ? OVMF.firmware,
 
-  ,
   # EFI variables
-  efiVariables ? OVMF.variables
+  efiVariables ? OVMF.variables,
 
-  ,
   # The root file system type.
-  fsType ? "ext4"
+  fsType ? "ext4",
 
-  ,
   # Filesystem label
-  label ? if onlyNixStore then "nix-store" else "nixos"
+  label ? if onlyNixStore then "nix-store" else "nixos",
 
-  ,
   # The initial NixOS configuration file to be copied to
   # /etc/nixos/configuration.nix.
-  configFile ? null
+  configFile ? null,
 
-  ,
   # Shell code executed after the VM has finished.
-  postVM ? ""
+  postVM ? "",
 
-  ,
   # Guest memory size
-  memSize ? 1024
+  memSize ? 1024,
 
-  ,
   # Copy the contents of the Nix store to the root of the image and
   # skip further setup. Incompatible with `contents`,
   # `installBootLoader` and `configFile`.
   onlyNixStore ? false,
 
-  name ? "nixos-disk-image"
+  name ? "nixos-disk-image",
 
-  ,
   # Disk image format, one of qcow2, qcow2-compressed, vdi, vpc, raw.
   format ? "raw",
 
@@ -200,16 +182,14 @@
   rootGPUID ? "F222513B-DED1-49FA-B591-20CE86A2FE7F",
   # When fsType = ext4, this is the root Filesystem Unique Identifier.
   # TODO: support other filesystems someday.
-  rootFSUID ? (if fsType == "ext4" then rootGPUID else null)
+  rootFSUID ? (if fsType == "ext4" then rootGPUID else null),
 
-  ,
   # Whether a nix channel based on the current source tree should be
   # made available inside the image. Useful for interactive use of nix
   # utils, but changes the hash of the image when the sources are
   # updated.
-  copyChannel ? true
+  copyChannel ? true,
 
-  ,
   # Additional store paths to copy to the image's store.
   additionalPaths ? [ ],
 }:

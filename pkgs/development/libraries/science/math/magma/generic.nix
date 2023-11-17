@@ -18,8 +18,7 @@
   fetchurl,
   gfortran,
   cudaCapabilities ? cudaPackages.cudaFlags.cudaCapabilities,
-  gpuTargets ? [ ] # Non-CUDA targets, that is HIP
-  ,
+  gpuTargets ? [ ], # Non-CUDA targets, that is HIP
   hip,
   hipblas,
   hipsparse,

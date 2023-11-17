@@ -23,8 +23,7 @@
   withOpenssl ? !minimal,
   openssl,
   withPrefix ? false,
-  singleBinary ? "symlinks" # you can also pass "shebangs" or false
-  ,
+  singleBinary ? "symlinks", # you can also pass "shebangs" or false
 }:
 
 # Note: this package is used for bootstrapping fetchurl, and thus cannot use

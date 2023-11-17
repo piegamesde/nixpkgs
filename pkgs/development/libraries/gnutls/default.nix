@@ -19,8 +19,7 @@
   dns-root-data,
   gettext,
   util-linux,
-  cxxBindings ? !stdenv.hostPlatform.isStatic # tries to link libstdc++.so
-  ,
+  cxxBindings ? !stdenv.hostPlatform.isStatic, # tries to link libstdc++.so
   tpmSupport ? false,
   trousers,
   which,

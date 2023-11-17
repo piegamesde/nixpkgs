@@ -3,8 +3,7 @@
   stdenv,
   fetchFromGitHub,
   autoreconfHook,
-  drmSupport ? false # Digital Radio Mondiale
-  ,
+  drmSupport ? false, # Digital Radio Mondiale
 
   # for passthru.tests
   gst_all_1,

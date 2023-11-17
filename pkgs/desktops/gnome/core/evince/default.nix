@@ -36,11 +36,9 @@
   texlive,
   gst_all_1,
   gi-docgen,
-  supportMultimedia ? true # PDF multimedia
-  ,
+  supportMultimedia ? true, # PDF multimedia
   libgxps,
-  supportXPS ? true # Open XML Paper Specification via libgxps
-  ,
+  supportXPS ? true, # Open XML Paper Specification via libgxps
   withLibsecret ? true,
 }:
 

@@ -45,8 +45,7 @@
   # Libint does not build them and their derivatives by default.
   enableOneBody ? false,
   oneBodyDerivOrd ? 2,
-  multipoleOrd ? 4 # Maximum order of multipole integrals, 4=octopoles
-  ,
+  multipoleOrd ? 4, # Maximum order of multipole integrals, 4=octopoles
 
   # Whether to enable generic code if angular momentum is unsupported
   enableGeneric ? true,
@@ -55,15 +54,11 @@
   enableContracted ? true,
 
   # Spherical harmonics/Cartesian orbital conventions
-  cartGaussOrd ? "standard" # Ordering of Cartesian basis functions, "standard" is CCA
-  ,
-  shGaussOrd ? "standard" # Ordering of spherical harmonic basis functions. "standard" is -l to +l, "guassian" is 0, 1, -1, 2, -2, ...
-  ,
+  cartGaussOrd ? "standard", # Ordering of Cartesian basis functions, "standard" is CCA
+  shGaussOrd ? "standard", # Ordering of spherical harmonic basis functions. "standard" is -l to +l, "guassian" is 0, 1, -1, 2, -2, ...
   shellSet ? "standard",
-  eri3PureSh ? false # Transformation of 3-centre ERIs into spherical harmonics
-  ,
-  eri2PureSh ? false # Transformation of 2-centre ERIs into spherical harmonics
-  ,
+  eri3PureSh ? false, # Transformation of 3-centre ERIs into spherical harmonics
+  eri2PureSh ? false, # Transformation of 2-centre ERIs into spherical harmonics
 }:
 
 # Check that Fortran bindings are not used together with SIMD real type

@@ -13,8 +13,7 @@
 
   # optional features without extra dependencies
   mpdSupport ? true,
-  ibmSupport ? true # IBM/Lenovo notebooks
-  ,
+  ibmSupport ? true, # IBM/Lenovo notebooks
 
   # optional features with extra dependencies
 

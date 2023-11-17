@@ -10,8 +10,7 @@
   withInternalSeabios ? true,
   withSeabios ? !withInternalSeabios,
   seabios,
-  withInternalOVMF ? false # FIXME: tricky to build
-  ,
+  withInternalOVMF ? false, # FIXME: tricky to build
   withOVMF ? false,
   OVMF,
   withLibHVM ? false,

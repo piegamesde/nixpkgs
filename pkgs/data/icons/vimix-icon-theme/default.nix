@@ -6,8 +6,7 @@
   gtk3,
   hicolor-icon-theme,
   jdupes,
-  colorVariants ? [ ] # default: all
-  ,
+  colorVariants ? [ ], # default: all
 }:
 
 let

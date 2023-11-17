@@ -36,10 +36,9 @@ let
       # expects { plugin=far-vim; config = "let g:far#source='rg'"; optional = false; }
       plugins ? [ ],
       # custom viml config appended after plugin-specific config
-      customRC ? ""
+      customRC ? "",
 
       # for forward compability, when adding new environments, haskell etc.
-      ,
       ...
     }@args:
     let
@@ -216,10 +215,9 @@ let
     {
       withPython3 ? true,
       withNodeJs ? false,
-      withRuby ? true
+      withRuby ? true,
 
       # so that we can pass the full neovim config while ignoring it
-      ,
       ...
     }:
     let

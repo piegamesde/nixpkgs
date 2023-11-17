@@ -4,8 +4,7 @@
   lib,
   gtk3,
   jdupes,
-  nordzy-themes ? [ "all" ] # Override this to only install selected themes
-  ,
+  nordzy-themes ? [ "all" ], # Override this to only install selected themes
 }:
 
 stdenvNoCC.mkDerivation rec {

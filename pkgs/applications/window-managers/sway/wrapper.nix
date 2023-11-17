@@ -12,8 +12,7 @@
   gdk-pixbuf,
   glib,
   gtk3,
-  extraOptions ? [ ] # E.g.: [ "--verbose" ]
-  ,
+  extraOptions ? [ ], # E.g.: [ "--verbose" ]
   # Used by the NixOS module:
   isNixOS ? false,
 

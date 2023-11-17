@@ -14,8 +14,7 @@
   atomicparsleySupport ? true,
   ffmpegSupport ? true,
   rtmpSupport ? true,
-  withAlias ? false # Provides bin/youtube-dl for backcompat
-  ,
+  withAlias ? false, # Provides bin/youtube-dl for backcompat
   update-python-libraries,
 }:
 

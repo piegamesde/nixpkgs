@@ -30,10 +30,8 @@ outer@{
   pname ? "nginx",
   version,
   nginxVersion ? version,
-  src ? null # defaults to upstream nginx ${version}
-  ,
-  hash ? null # when not specifying src
-  ,
+  src ? null, # defaults to upstream nginx ${version}
+  hash ? null, # when not specifying src
   configureFlags ? [ ],
   nativeBuildInputs ? [ ],
   buildInputs ? [ ],

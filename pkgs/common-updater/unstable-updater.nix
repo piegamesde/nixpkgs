@@ -10,13 +10,10 @@
 # This is an updater for unstable packages that should always use the latest
 # commit.
 {
-  url ? null # The git url, if empty it will be set to src.gitRepoUrl
-  ,
+  url ? null, # The git url, if empty it will be set to src.gitRepoUrl
   branch ? null,
-  stableVersion ? false # Use version format according to RFC 107 (i.e. LAST_TAG+date=YYYY-MM-DD)
-  ,
-  tagPrefix ? "" # strip this prefix from a tag name when using stable version
-  ,
+  stableVersion ? false, # Use version format according to RFC 107 (i.e. LAST_TAG+date=YYYY-MM-DD)
+  tagPrefix ? "", # strip this prefix from a tag name when using stable version
 }:
 
 let

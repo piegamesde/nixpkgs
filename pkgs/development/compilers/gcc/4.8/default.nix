@@ -19,8 +19,7 @@
   enableShared ? !stdenv.targetPlatform.isStatic,
   enableLTO ? !stdenv.hostPlatform.isStatic,
   texinfo ? null,
-  perl ? null # optional, for texi2pod (then pod2man); required for Java
-  ,
+  perl ? null, # optional, for texi2pod (then pod2man); required for Java
   gmp,
   mpfr,
   libmpc,
@@ -29,8 +28,7 @@
   patchelf,
   binutils,
   cloog ? null,
-  isl ? null # optional, for the Graphite optimization framework.
-  ,
+  isl ? null, # optional, for the Graphite optimization framework.
   zlib ? null,
   boehmgc ? null,
   zip ? null,
@@ -49,12 +47,10 @@
   libXi ? null,
   x11Support ? langJava,
   enableMultilib ? false,
-  enablePlugin ? stdenv.hostPlatform == stdenv.buildPlatform # Whether to support user-supplied plug-ins
-  ,
+  enablePlugin ? stdenv.hostPlatform == stdenv.buildPlatform, # Whether to support user-supplied plug-ins
   name ? "gcc",
   libcCross ? null,
-  threadsCross ? null # for MinGW
-  ,
+  threadsCross ? null, # for MinGW
   crossStageStatic ? false,
   gnused ? null,
   buildPackages,

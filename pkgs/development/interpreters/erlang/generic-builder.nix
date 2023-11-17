@@ -13,10 +13,8 @@
   openssl,
   perl,
   autoconf,
-  openjdk11 ? null # javacSupport
-  ,
-  unixODBC ? null # odbcSupport
-  ,
+  openjdk11 ? null, # javacSupport
+  unixODBC ? null, # odbcSupport
   libGL ? null,
   libGLU ? null,
   wxGTK ? null,
@@ -24,8 +22,7 @@
   parallelBuild ? false,
   systemd,
   wxSupport ? true,
-  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd # systemd support in epmd
-  ,
+  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, # systemd support in epmd
   # updateScript deps
   writeScript,
   common-updater-scripts,

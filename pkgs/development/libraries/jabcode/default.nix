@@ -2,8 +2,7 @@
   stdenv,
   fetchFromGitHub,
   lib,
-  subproject ? "library" # one of "library", "reader" or  "writer"
-  ,
+  subproject ? "library", # one of "library", "reader" or  "writer"
   zlib,
   libpng,
   libtiff,

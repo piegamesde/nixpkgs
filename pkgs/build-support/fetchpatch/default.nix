@@ -13,8 +13,7 @@
 {
   relative ? null,
   stripLen ? 0,
-  decode ? "cat" # custom command to decode patch e.g. base64 -d
-  ,
+  decode ? "cat", # custom command to decode patch e.g. base64 -d
   extraPrefix ? null,
   excludes ? [ ],
   includes ? [ ],

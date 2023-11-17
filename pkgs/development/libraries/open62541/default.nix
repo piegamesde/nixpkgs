@@ -14,8 +14,7 @@
 
   withExamples ? false,
 
-  withEncryption ? false # or "openssl" or "mbedtls"
-  ,
+  withEncryption ? false, # or "openssl" or "mbedtls"
   openssl,
   mbedtls,
 

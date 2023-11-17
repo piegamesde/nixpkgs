@@ -22,8 +22,7 @@
   enableLTO ? !stdenv.hostPlatform.isStatic,
   texinfo ? null,
   flex,
-  perl ? null # optional, for texi2pod (then pod2man); required for Java
-  ,
+  perl ? null, # optional, for texi2pod (then pod2man); required for Java
   gmp,
   mpfr,
   libmpc,
@@ -31,8 +30,7 @@
   which,
   patchelf,
   binutils,
-  isl ? null # optional, for the Graphite optimization framework.
-  ,
+  isl ? null, # optional, for the Graphite optimization framework.
   zlib ? null,
   boehmgc ? null,
   gnat-bootstrap ? null,
@@ -52,16 +50,13 @@
   libXi ? null,
   x11Support ? langJava,
   enableMultilib ? false,
-  enablePlugin ? stdenv.hostPlatform == stdenv.buildPlatform # Whether to support user-supplied plug-ins
-  ,
+  enablePlugin ? stdenv.hostPlatform == stdenv.buildPlatform, # Whether to support user-supplied plug-ins
   name ? "gcc",
   libcCross ? null,
-  threadsCross ? null # for MinGW
-  ,
+  threadsCross ? null, # for MinGW
   crossStageStatic ? false,
   gnused ? null,
-  cloog ? null # unused; just for compat with gcc4, as we override the parameter on some places
-  ,
+  cloog ? null, # unused; just for compat with gcc4, as we override the parameter on some places
   buildPackages,
 }:
 

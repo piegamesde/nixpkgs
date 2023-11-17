@@ -10,20 +10,13 @@
   libxml2,
   sassc,
   util-linux,
-  altVariants ? [ ] # default: normal
-  ,
-  colorVariants ? [ ] # default: all
-  ,
-  opacityVariants ? [ ] # default: all
-  ,
-  themeVariants ? [ ] # default: default (BigSur-like theme)
-  ,
-  nautilusSize ? null # default: 200px
-  ,
-  panelOpacity ? null # default: 15%
-  ,
-  panelSize ? null # default: 32px
-  ,
+  altVariants ? [ ], # default: normal
+  colorVariants ? [ ], # default: all
+  opacityVariants ? [ ], # default: all
+  themeVariants ? [ ], # default: default (BigSur-like theme)
+  nautilusSize ? null, # default: 200px
+  panelOpacity ? null, # default: 15%
+  panelSize ? null, # default: 32px
 }:
 
 let

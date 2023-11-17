@@ -20,8 +20,7 @@
   libsignal-protocol-c,
   usrsctp,
 
-  chatType ? "basic" # See the assertion below for available options
-  ,
+  chatType ? "basic", # See the assertion below for available options
   qtwebkit,
   qtwebengine,
 

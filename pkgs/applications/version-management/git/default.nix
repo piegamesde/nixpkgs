@@ -50,8 +50,7 @@
   libsecret,
   gzip, # needed at runtime by gitweb.cgi
   withSsh ? false,
-  doInstallCheck ? !stdenv.isDarwin # extremely slow on darwin
-  ,
+  doInstallCheck ? !stdenv.isDarwin, # extremely slow on darwin
   tests,
 }:
 

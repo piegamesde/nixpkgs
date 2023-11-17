@@ -70,8 +70,7 @@ let
       # https://github.com/mozilla/policy-templates#enterprisepoliciesenabled
       extraPolicies ? { },
       extraPoliciesFiles ? [ ],
-      libName ? browser.libName or "firefox" # Important for tor package or the like
-      ,
+      libName ? browser.libName or "firefox", # Important for tor package or the like
       nixExtensions ? null,
     }:
 

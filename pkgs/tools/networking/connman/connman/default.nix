@@ -13,13 +13,10 @@
   gnutls,
   readline,
   # configureable options
-  firewallType ? "iptables" # or "nftables"
-  ,
+  firewallType ? "iptables", # or "nftables"
   iptables ? null,
-  libnftnl ? null # for nftables
-  ,
-  dnsType ? "internal" # or "systemd-resolved"
-  ,
+  libnftnl ? null, # for nftables
+  dnsType ? "internal", # or "systemd-resolved"
   # optional features which are turned *on* by default
   enableOpenconnect ? true,
   openconnect ? null,

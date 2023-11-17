@@ -87,8 +87,7 @@
   withAnalyze ? true,
   withApparmor ? true,
   withAudit ? true,
-  withCompression ? true # adds bzip2, lz4, xz and zstd
-  ,
+  withCompression ? true, # adds bzip2, lz4, xz and zstd
   withCoredump ? true,
   withCryptsetup ? true,
   withDocumentation ? true,
@@ -123,8 +122,7 @@
   withTimedated ? true,
   withTimesyncd ? true,
   withTpm2Tss ? true,
-  withUkify ? false # adds python to closure which is too much by default
-  ,
+  withUkify ? false, # adds python to closure which is too much by default
   withUserDb ? true,
   withUtmp ? !stdenv.hostPlatform.isMusl,
   # tests assume too much system access for them to be feasible for us right now

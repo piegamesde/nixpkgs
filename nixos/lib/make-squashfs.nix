@@ -1,9 +1,8 @@
 {
   stdenv,
   squashfsTools,
-  closureInfo
+  closureInfo,
 
-  ,
   # The root directory of the squashfs filesystem is filled with the
   # closures of the Nix store paths listed here.
   storeContents ? [ ],

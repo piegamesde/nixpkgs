@@ -8,8 +8,7 @@
   util-linux,
   fetchpatch,
   boost,
-  withStatic ? false # build only shared libs by default, build static+shared if true
-  ,
+  withStatic ? false, # build only shared libs by default, build static+shared if true
 }:
 
 # NOTICE: pkg-config, pcap and pcre intentionally omitted from build inputs

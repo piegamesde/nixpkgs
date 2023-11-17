@@ -12,9 +12,8 @@
   brotli,
   libpng,
   gnumake,
-  glib
+  glib,
 
-  ,
   # FreeType supports LCD filtering (colloquially referred to as sub-pixel rendering).
   # LCD filtering is also known as ClearType and covered by several Microsoft patents.
   # This option allows it to be disabled. See http://www.freetype.org/patents.html.

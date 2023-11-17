@@ -32,8 +32,7 @@
   nodejs,
   mkYarnModules,
   qmake,
-  server ? false # build server version
-  ,
+  server ? false, # build server version
   sqlite,
   pam,
   nixosTests,

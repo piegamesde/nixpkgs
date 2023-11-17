@@ -16,8 +16,7 @@
   jdk,
   jdk8,
   gsettings-desktop-schemas,
-  webkitgtk ? null # for internal web browser
-  ,
+  webkitgtk ? null, # for internal web browser
   buildEnv,
   runCommand,
   callPackage,

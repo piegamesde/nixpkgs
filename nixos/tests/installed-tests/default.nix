@@ -30,11 +30,10 @@ let
       withX11 ? false,
 
       # Extra flags to pass to gnome-desktop-testing-runner.
-      testRunnerFlags ? [ ]
+      testRunnerFlags ? [ ],
 
       # Extra attributes to pass to makeTest.
       # They will be recursively merged into the attrset created by this function.
-      ,
       ...
     }@args:
     makeTest (

@@ -1,8 +1,6 @@
 {
-  gtkWidgets ? false # build GTK widgets for libinfinity
-  ,
-  avahiSupport ? false # build support for Avahi in libinfinity
-  ,
+  gtkWidgets ? false, # build GTK widgets for libinfinity
+  avahiSupport ? false, # build support for Avahi in libinfinity
   lib,
   stdenv,
   fetchurl,

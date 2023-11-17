@@ -58,9 +58,8 @@
 
   # needed for buildFlags{,Array} warning
   buildFlags ? "",
-  buildFlagsArray ? ""
+  buildFlagsArray ? "",
 
-  ,
   ...
 }@args':
 

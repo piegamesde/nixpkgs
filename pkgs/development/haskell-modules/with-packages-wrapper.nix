@@ -13,8 +13,7 @@
   installDocumentation ? true,
   hoogleWithPackages,
   postBuild ? "",
-  ghcLibdir ? null # only used by ghcjs, when resolving plugins
-  ,
+  ghcLibdir ? null, # only used by ghcjs, when resolving plugins
 }:
 
 # This argument is a function which selects a list of Haskell packages from any

@@ -6,8 +6,7 @@
   six,
   lxml,
   pytestCheckHook,
-  doFullCheck ? false # weird filenames cause issues on some filesystems
-  ,
+  doFullCheck ? false, # weird filenames cause issues on some filesystems
 
   # for passthru.tests
   jpylyzer,

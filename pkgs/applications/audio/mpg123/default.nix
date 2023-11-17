@@ -4,8 +4,7 @@
   fetchurl,
   makeWrapper,
   pkg-config,
-  libOnly ? false # whether to build only the library
-  ,
+  libOnly ? false, # whether to build only the library
   withAlsa ? stdenv.hostPlatform.isLinux,
   alsa-lib,
   withPulse ? stdenv.hostPlatform.isLinux,

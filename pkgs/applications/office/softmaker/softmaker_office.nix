@@ -10,9 +10,8 @@
     version = "1032";
     edition = "2021";
     hash = "sha256-LchSqLVBdkmWJQ8hCEvtwRPgIUSDE0URKPzCkEexGbc=";
-  }
+  },
 
-  ,
   ...
 }@args:
 

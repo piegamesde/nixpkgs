@@ -66,8 +66,7 @@ in
   # TODO enable shared libs for cross-compiling
   enableSharedExecutables ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic && (ghc.enableShared or false),
-  enableDeadCodeElimination ? (!stdenv.isDarwin) # TODO: use -dead_strip for darwin
-  ,
+  enableDeadCodeElimination ? (!stdenv.isDarwin), # TODO: use -dead_strip for darwin
   enableStaticLibraries ? !(stdenv.hostPlatform.isWindows or stdenv.hostPlatform.isWasm),
   enableHsc2hsViaAsm ? stdenv.hostPlatform.isWindows && lib.versionAtLeast ghc.version "8.4",
   extraLibraries ? [ ],
@@ -79,8 +78,7 @@ in
   libraryFrameworkDepends ? [ ],
   executableFrameworkDepends ? [ ],
   homepage ? "https://hackage.haskell.org/package/${pname}",
-  platforms ? with lib.platforms; all # GHC can cross-compile
-  ,
+  platforms ? with lib.platforms; all, # GHC can cross-compile
   badPlatforms ? lib.platforms.none,
   hydraPlatforms ? null,
   hyperlinkSource ? true,
@@ -135,8 +133,7 @@ in
   preFixup ? null,
   postFixup ? null,
   shellHook ? "",
-  coreSetup ? false # Use only core packages to build Setup.hs.
-  ,
+  coreSetup ? false, # Use only core packages to build Setup.hs.
   useCpphs ? false,
   hardeningDisable ? null,
   enableSeparateBinOutput ? false,
@@ -146,8 +143,7 @@ in
   # same package in the (recursive) dependencies of the package being
   # built. Will delay failures, if any, to compile time.
   allowInconsistentDependencies ? false,
-  maxBuildCores ? 16 # more cores usually don't improve performance: https://ghc.haskell.org/trac/ghc/ticket/9221
-  ,
+  maxBuildCores ? 16, # more cores usually don't improve performance: https://ghc.haskell.org/trac/ghc/ticket/9221
   # If set to true, this builds a pre-linked .o file for this Haskell library.
   # This can make it slightly faster to load this library into GHCi, but takes
   # extra disk space and compile time.

@@ -37,13 +37,11 @@
 
   x11Support ? false,
 
-  useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+  useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
 
-  ,
   # Whether to support the JACK sound system as a backend.
-  jackaudioSupport ? false
+  jackaudioSupport ? false,
 
-  ,
   # Whether to build the OSS wrapper ("padsp").
   ossWrapper ? true,
 
@@ -57,9 +55,8 @@
   zeroconfSupport ? false,
 
   alsaSupport ? stdenv.isLinux,
-  udevSupport ? stdenv.isLinux
+  udevSupport ? stdenv.isLinux,
 
-  ,
   # Whether to build only the library.
   libOnly ? false,
 

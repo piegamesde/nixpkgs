@@ -18,12 +18,10 @@
   GLUT,
   Cocoa,
   # Python bindings
-  pythonBindings ? true # Python bindings
-  ,
+  pythonBindings ? true, # Python bindings
   python3Packages,
   # Build apps
-  buildApps ? true # Utility applications
-  ,
+  buildApps ? true, # Utility applications
   lcms2,
   openexr_3,
 }:

@@ -14,16 +14,14 @@
   ##
 
   # Utility functions, could just import but passing in for efficiency
-  lib
+  lib,
 
-  ,
   # Use to reevaluate Nixpkgs
-  nixpkgsFun
+  nixpkgsFun,
 
   ## Other parameters
   ##
 
-  ,
   # Either null or an object in the form:
   #
   #   {
@@ -40,32 +38,27 @@
   # they are instead defined internally as the current stage. This allows us to
   # avoid expensive splicing. `pkgsHostTarget` is skipped because it is always
   # defined as the current stage.
-  adjacentPackages
+  adjacentPackages,
 
-  ,
   # The standard environment to use for building packages.
-  stdenv
+  stdenv,
 
-  ,
   # This is used because stdenv replacement and the stdenvCross do benefit from
   # the overridden configuration provided by the user, as opposed to the normal
   # bootstrapping stdenvs.
-  allowCustomOverrides
+  allowCustomOverrides,
 
-  ,
   # Non-GNU/Linux OSes are currently "impure" platforms, with their libc
   # outside of the store.  Thus, GCC, GFortran, & co. must always look for files
   # in standard system directories (/usr/include, etc.)
   noSysDirs ? stdenv.buildPlatform.system != "x86_64-freebsd"
     && stdenv.buildPlatform.system != "i686-freebsd"
     && stdenv.buildPlatform.system != "x86_64-solaris"
-    && stdenv.buildPlatform.system != "x86_64-kfreebsd-gnu"
+    && stdenv.buildPlatform.system != "x86_64-kfreebsd-gnu",
 
-  ,
   # The configuration attribute set
-  config
+  config,
 
-  ,
   # A list of overlays (Additional `self: super: { .. }` customization
   # functions) to be fixed together in the produced package set
   overlays,

@@ -134,12 +134,9 @@ rec {
     {
       name, # the name of the derivation
       text,
-      executable ? false # run chmod +x ?
-      ,
-      destination ? "" # relative path appended to $out eg "/bin/foo"
-      ,
-      checkPhase ? "" # syntax checks, e.g. for scripts
-      ,
+      executable ? false, # run chmod +x ?
+      destination ? "", # relative path appended to $out eg "/bin/foo"
+      checkPhase ? "", # syntax checks, e.g. for scripts
       meta ? { },
       allowSubstitutes ? false,
       preferLocalBuild ? true,
@@ -408,12 +405,9 @@ rec {
     {
       name, # the name of the derivation
       files,
-      executable ? false # run chmod +x ?
-      ,
-      destination ? "" # relative path appended to $out eg "/bin/foo"
-      ,
-      checkPhase ? "" # syntax checks, e.g. for scripts
-      ,
+      executable ? false, # run chmod +x ?
+      destination ? "", # relative path appended to $out eg "/bin/foo"
+      checkPhase ? "", # syntax checks, e.g. for scripts
       meta ? { },
     }:
     runCommandLocal name

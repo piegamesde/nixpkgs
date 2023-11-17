@@ -45,8 +45,7 @@
   # see https://github.com/boostorg/process/issues/55
   enableS3 ? (!stdenv.isDarwin)
     || (lib.versionOlder boost.version "1.69" || lib.versionAtLeast boost.version "1.70"),
-  enableGcs ? (!stdenv.isDarwin) && (lib.versionAtLeast grpc.cxxStandard "17") # google-cloud-cpp is not supported on darwin, needs to support C++17
-  ,
+  enableGcs ? (!stdenv.isDarwin) && (lib.versionAtLeast grpc.cxxStandard "17"), # google-cloud-cpp is not supported on darwin, needs to support C++17
 }:
 
 assert lib.asserts.assertMsg

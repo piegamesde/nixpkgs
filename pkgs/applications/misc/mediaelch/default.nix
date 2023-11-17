@@ -12,8 +12,7 @@
   ffmpeg,
   libmediainfo,
   libzen,
-  qt5compat ? null # qt6 only
-  ,
+  qt5compat ? null, # qt6 only
   qtbase,
   qtdeclarative,
   qtmultimedia,

@@ -20,8 +20,7 @@
   isBootstrap ? false,
   useOpenSSL ? !isBootstrap,
   useSharedLibraries ? (!isBootstrap && !stdenv.isCygwin),
-  uiToolkits ? [ ] # can contain "ncurses" and/or "qt5"
-  ,
+  uiToolkits ? [ ], # can contain "ncurses" and/or "qt5"
   buildDocs ? !(isBootstrap || (uiToolkits == [ ])),
   darwin,
   libsForQt5,

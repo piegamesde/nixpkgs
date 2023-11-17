@@ -12,16 +12,11 @@
   optipng,
   sassc,
   which,
-  buttonSizeVariants ? [ ] # default to standard
-  ,
-  buttonVariants ? [ ] # default to all
-  ,
-  colorVariants ? [ ] # default to all
-  ,
-  opacityVariants ? [ ] # default to all
-  ,
-  themeVariants ? [ ] # default to MacOS blue
-  ,
+  buttonSizeVariants ? [ ], # default to standard
+  buttonVariants ? [ ], # default to all
+  colorVariants ? [ ], # default to all
+  opacityVariants ? [ ], # default to all
+  themeVariants ? [ ], # default to MacOS blue
   wallpapers ? false,
   gitUpdater,
 }:

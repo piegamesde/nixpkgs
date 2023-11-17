@@ -30,9 +30,8 @@
   edition,
   suiteName,
   src,
-  archive
+  archive,
 
-  ,
   ...
 }:
 

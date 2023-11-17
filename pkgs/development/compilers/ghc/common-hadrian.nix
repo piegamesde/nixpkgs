@@ -34,9 +34,8 @@
 
   libiconv ? null,
   ncurses,
-  glibcLocales ? null
+  glibcLocales ? null,
 
-  ,
   # GHC can be built with system libffi or a bundled one.
   libffi ? null,
 
@@ -51,33 +50,28 @@
   # non-x86, we need LLVM to bootstrap later stages, so it becomes a
   # build-time dependency too.
   buildTargetLlvmPackages,
-  llvmPackages
+  llvmPackages,
 
-  ,
   # If enabled, GHC will be built with the GPL-free but slightly slower native
   # bignum backend instead of the faster but GPLed gmp backend.
   enableNativeBignum ?
     !(lib.meta.availableOn stdenv.hostPlatform gmp && lib.meta.availableOn stdenv.targetPlatform gmp)
     || stdenv.targetPlatform.isGhcjs,
-  gmp
+  gmp,
 
-  ,
   # If enabled, use -fPIC when compiling static libs.
   enableRelocatedStaticLibs ? stdenv.targetPlatform != stdenv.hostPlatform,
 
   # aarch64 outputs otherwise exceed 2GB limit
-  enableProfiledLibs ? !stdenv.targetPlatform.isAarch64
+  enableProfiledLibs ? !stdenv.targetPlatform.isAarch64,
 
-  ,
   # Whether to build dynamic libs for the standard library (on the target
   # platform). Static libs are always built.
-  enableShared ? with stdenv.targetPlatform; !isWindows && !useiOSPrebuilt && !isStatic && !isGhcjs
+  enableShared ? with stdenv.targetPlatform; !isWindows && !useiOSPrebuilt && !isStatic && !isGhcjs,
 
-  ,
   # Whether to build terminfo.
-  enableTerminfo ? !(stdenv.targetPlatform.isWindows || stdenv.targetPlatform.isGhcjs)
+  enableTerminfo ? !(stdenv.targetPlatform.isWindows || stdenv.targetPlatform.isGhcjs),
 
-  ,
   # Libdw.c only supports x86_64, i686 and s390x as of 2022-08-04
   enableDwarf ?
     (stdenv.targetPlatform.isx86 || (stdenv.targetPlatform.isS390 && stdenv.targetPlatform.is64bit))
@@ -88,9 +82,8 @@
       # which availableOn can't tell.
       !stdenv.targetPlatform.isStatic
     && !stdenv.hostPlatform.isStatic,
-  elfutils
+  elfutils,
 
-  ,
   # What flavour to build. Flavour string may contain a flavour and flavour
   # transformers as accepted by hadrian.
   ghcFlavour ? let
@@ -111,9 +104,8 @@
       # profiling.
       ++ lib.optionals (!stdenv.targetPlatform.isWindows) [ "split_sections" ];
   in
-  baseFlavour + lib.concatMapStrings (t: "+${t}") transformers
+  baseFlavour + lib.concatMapStrings (t: "+${t}") transformers,
 
-  ,
   # Contents of the UserSettings.hs file to use when compiling hadrian.
   hadrianUserSettings ? ''
     module UserSettings (
@@ -153,9 +145,8 @@
     verboseCommand = do
         verbosity <- expr getVerbosity
         return $ verbosity >= Verbose
-  ''
+  '',
 
-  ,
   #  Whether to build sphinx documentation.
   enableDocs ? (
     # Docs disabled for musl and cross because it's a large task to keep
@@ -163,9 +154,8 @@
     # `sphinx` pulls in among others:
     # Ruby, Python, Perl, Rust, OpenGL, Xorg, gtk, LLVM.
     (stdenv.targetPlatform == stdenv.hostPlatform) && !stdenv.hostPlatform.isMusl
-  )
+  ),
 
-  ,
   # Whether to disable the large address space allocator
   # necessary fix for iOS: https://www.reddit.com/r/haskell/comments/4ttdz1/building_an_osxi386_to_iosarm64_cross_compiler/d5qvd67/
   disableLargeAddressSpace ? stdenv.targetPlatform.isiOS,

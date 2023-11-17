@@ -21,8 +21,7 @@
   pname ? "mastodon",
   version ? import ./version.nix,
   srcOverride ? null,
-  dependenciesDir ? ./. # Should contain gemset.nix, yarn.nix and package.json.
-  ,
+  dependenciesDir ? ./., # Should contain gemset.nix, yarn.nix and package.json.
 }:
 
 stdenv.mkDerivation rec {

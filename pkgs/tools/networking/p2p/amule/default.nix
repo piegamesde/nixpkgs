@@ -1,12 +1,8 @@
 {
-  monolithic ? true # build monolithic amule
-  ,
-  enableDaemon ? false # build amule daemon
-  ,
-  httpServer ? false # build web interface for the daemon
-  ,
-  client ? false # build amule remote gui
-  ,
+  monolithic ? true, # build monolithic amule
+  enableDaemon ? false, # build amule daemon
+  httpServer ? false, # build web interface for the daemon
+  client ? false, # build amule remote gui
   fetchFromGitHub,
   fetchpatch,
   stdenv,

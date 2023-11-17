@@ -11,8 +11,7 @@
   qscintilla-qt4,
   libpulseaudio,
   libjack2,
-  audioBackend ? "pulse" # "pulse", "alsa", or "jack"
-  ,
+  audioBackend ? "pulse", # "pulse", "alsa", or "jack"
 }:
 
 stdenv.mkDerivation rec {

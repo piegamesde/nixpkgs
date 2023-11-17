@@ -2,16 +2,13 @@
   lib,
   perlPackages,
   fetchFromGitHub,
-  withCupsAccess ? false # needed to access local cups server
-  ,
+  withCupsAccess ? false, # needed to access local cups server
   cups,
   cups-filters,
   curl,
-  withSocketAccess ? false # needed to access network printers
-  ,
+  withSocketAccess ? false, # needed to access network printers
   netcat-gnu,
-  withSMBAccess ? false # needed to access SMB-connected printers
-  ,
+  withSMBAccess ? false, # needed to access SMB-connected printers
   samba,
   autoconf,
   automake,

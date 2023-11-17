@@ -17,21 +17,17 @@
   lib,
   pkgs,
   # The NixOS configuration to be installed onto the disk image.
-  config
+  config,
 
-  ,
   # size of the FAT partition, in megabytes.
-  bootSize ? 1024
+  bootSize ? 1024,
 
-  ,
   # The size of the root partition, in megabytes.
-  rootSize ? 2048
+  rootSize ? 2048,
 
-  ,
   # The name of the ZFS pool
-  rootPoolName ? "tank"
+  rootPoolName ? "tank",
 
-  ,
   # zpool properties
   rootPoolProperties ? { autoexpand = "on"; },
   # pool-wide filesystem properties
@@ -41,41 +37,35 @@
     compression = "on";
     mountpoint = "legacy";
     xattr = "sa";
-  }
+  },
 
-  ,
   # datasets, with per-attribute options:
   # mount: (optional) mount point in the VM
   # properties: (optional) ZFS properties on the dataset, like filesystemProperties
   # Notes:
   # 1. datasets will be created from shorter to longer names as a simple topo-sort
   # 2. you should define a root's dataset's mount for `/`
-  datasets ? { }
+  datasets ? { },
 
-  ,
   # The files and directories to be placed in the target file system.
   # This is a list of attribute sets {source, target} where `source'
   # is the file system object (regular file or directory) to be
   # grafted in the file system at path `target'.
-  contents ? [ ]
+  contents ? [ ],
 
-  ,
   # The initial NixOS configuration file to be copied to
   # /etc/nixos/configuration.nix. This configuration will be embedded
   # inside a configuration which includes the described ZFS fileSystems.
-  configFile ? null
+  configFile ? null,
 
-  ,
   # Shell code executed after the VM has finished.
   postVM ? "",
 
-  name ? "nixos-disk-image"
+  name ? "nixos-disk-image",
 
-  ,
   # Disk image format, one of qcow2, qcow2-compressed, vdi, vpc, raw.
-  format ? "raw"
+  format ? "raw",
 
-  ,
   # Include a copy of Nixpkgs in the disk image
   includeChannel ? true,
 }:

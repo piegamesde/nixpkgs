@@ -32,11 +32,9 @@
   # options
   buildClient ? true,
   buildServer ? true,
-  buildServerGui ? true # if false builds a headless server
-  ,
+  buildServerGui ? true, # if false builds a headless server
   buildExtraTools ? false,
-  enableKisTablet ? false # enable improved graphics tablet support
-  ,
+  enableKisTablet ? false, # enable improved graphics tablet support
 }:
 
 with lib;

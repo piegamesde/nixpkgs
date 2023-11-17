@@ -24,10 +24,8 @@
   mods-dat ? null,
   versionsJson ? ./versions.json,
   username ? "",
-  token ? "" # get/reset token at https://factorio.com/profile
-  ,
-  experimental ? false # true means to always use the latest branch
-  ,
+  token ? "", # get/reset token at https://factorio.com/profile
+  experimental ? false, # true means to always use the latest branch
 }:
 
 assert releaseType == "alpha" || releaseType == "headless" || releaseType == "demo";

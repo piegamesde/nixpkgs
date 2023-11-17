@@ -99,9 +99,8 @@
 
   doCheck ? config.doCheckByDefault or false,
 
-  disabledTestPaths ? [ ]
+  disabledTestPaths ? [ ],
 
-  ,
   ...
 }@attrs:
 

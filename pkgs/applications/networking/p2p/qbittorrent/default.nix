@@ -11,10 +11,8 @@
   qtsvg,
   debugSupport ? false,
   guiSupport ? true,
-  dbus ? null # GUI (disable to run headless)
-  ,
-  webuiSupport ? true # WebUI
-  ,
+  dbus ? null, # GUI (disable to run headless)
+  webuiSupport ? true, # WebUI
   trackerSearch ? true,
   python3 ? null,
 }:

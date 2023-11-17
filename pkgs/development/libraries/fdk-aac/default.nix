@@ -2,8 +2,7 @@
   lib,
   stdenv,
   fetchurl,
-  exampleSupport ? false # Example encoding program
-  ,
+  exampleSupport ? false, # Example encoding program
 }:
 
 stdenv.mkDerivation rec {

@@ -12,8 +12,7 @@
   x11Support ? stdenv.isLinux || stdenv.hostPlatform.isBSD,
   xclip ? null,
   xsel ? null,
-  preferXsel ? false # if true and xsel is non-null, use it instead of xclip
-  ,
+  preferXsel ? false, # if true and xsel is non-null, use it instead of xclip
 }:
 
 let

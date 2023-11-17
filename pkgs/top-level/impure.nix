@@ -24,9 +24,8 @@ in
   # These are needed only because nix's `--arg` command-line logic doesn't work
   # with unnamed parameters allowed by ...
   system ? localSystem.system,
-  crossSystem ? localSystem
+  crossSystem ? localSystem,
 
-  ,
   # Fallback: The contents of the configuration file found at $NIXPKGS_CONFIG or
   # $HOME/.config/nixpkgs/config.nix.
   config ? let
@@ -41,9 +40,8 @@ in
   else if homeDir != "" && builtins.pathExists configFile3 then
     import configFile3
   else
-    { }
+    { },
 
-  ,
   # Overlays are used to extend Nixpkgs collection with additional
   # collections of packages.  These collection of packages are part of the
   # fix-point made by Nixpkgs.
@@ -98,9 +96,8 @@ in
   else
     [ ],
 
-  crossOverlays ? [ ]
+  crossOverlays ? [ ],
 
-  ,
   ...
 }@args:
 

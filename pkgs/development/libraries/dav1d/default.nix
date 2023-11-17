@@ -7,8 +7,7 @@
   nasm,
   pkg-config,
   xxHash,
-  withTools ? false # "dav1d" binary
-  ,
+  withTools ? false, # "dav1d" binary
   withExamples ? false,
   SDL2, # "dav1dplay" binary
   useVulkan ? false,

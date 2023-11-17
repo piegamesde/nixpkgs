@@ -28,8 +28,7 @@
   p11-kit,
   util-linux,
   qtbase,
-  qtx11extras ? null # doesn't exist in qt6
-  ,
+  qtx11extras ? null, # doesn't exist in qt6
   qttools,
   withGstreamer ? true,
   glib-networking,

@@ -4,8 +4,7 @@
   fetchurl,
   ncurses,
   libressl,
-  patches ? [ ] # allow users to easily override config.def.h
-  ,
+  patches ? [ ], # allow users to easily override config.def.h
 }:
 
 stdenv.mkDerivation rec {

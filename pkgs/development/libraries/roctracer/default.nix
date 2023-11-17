@@ -14,8 +14,7 @@
   gcc-unwrapped,
   rocm-runtime,
   python3Packages,
-  buildDocs ? false # Nothing seems to be generated, so not making the output
-  ,
+  buildDocs ? false, # Nothing seems to be generated, so not making the output
   buildTests ? false,
 }:
 

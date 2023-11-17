@@ -52,8 +52,7 @@ let
       includeBuildSystem ? true,
       groups ? [ ],
       checkGroups ? [ "dev" ],
-      extras ? [ "*" ] # * means all extras, otherwise include the dependencies for a given extra
-      ,
+      extras ? [ "*" ], # * means all extras, otherwise include the dependencies for a given extra
     }:
     let
       getInputs = attr: attrs.${attr} or [ ];

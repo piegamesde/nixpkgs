@@ -4,8 +4,7 @@
   version,
   src,
   liboggSupport ? true,
-  libogg ? null # if disabled only the library will be built
-  ,
+  libogg ? null, # if disabled only the library will be built
   prePatch ? "",
   ...
 }:

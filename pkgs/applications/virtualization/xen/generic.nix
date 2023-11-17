@@ -55,9 +55,8 @@ config:
   texinfo,
   pandoc,
 
-  binutils-unwrapped
+  binutils-unwrapped,
 
-  ,
   ...
 }@args:
 

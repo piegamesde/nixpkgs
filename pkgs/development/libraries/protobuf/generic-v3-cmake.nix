@@ -15,9 +15,8 @@
   sha256,
 
   # downstream dependencies
-  python3
+  python3,
 
-  ,
   ...
 }:
 

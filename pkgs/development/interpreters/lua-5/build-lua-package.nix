@@ -61,9 +61,8 @@
   rockspecDir ? ".",
 
   # must be set for packages that don't have a rock
-  knownRockspec ? null
+  knownRockspec ? null,
 
-  ,
   ...
 }@attrs:
 

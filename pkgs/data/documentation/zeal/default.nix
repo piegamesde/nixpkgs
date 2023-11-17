@@ -8,8 +8,7 @@
   qtbase,
   qtimageformats,
   qtwebengine,
-  qtx11extras ? null # qt5 only
-  ,
+  qtx11extras ? null, # qt5 only
   libarchive,
   libXdmcp,
   libpthreadstubs,

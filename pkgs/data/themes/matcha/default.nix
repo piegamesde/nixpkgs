@@ -7,10 +7,8 @@
   jdupes,
   librsvg,
   gitUpdater,
-  colorVariants ? [ ] # default: all
-  ,
-  themeVariants ? [ ] # default: blue
-  ,
+  colorVariants ? [ ], # default: all
+  themeVariants ? [ ], # default: blue
 }:
 
 let

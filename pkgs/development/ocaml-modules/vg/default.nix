@@ -14,8 +14,7 @@
   js_of_ocaml,
   js_of_ocaml-ppx,
   pdfBackend ? true, # depends on uutf and otfm
-  htmlcBackend ? true # depends on js_of_ocaml
-  ,
+  htmlcBackend ? true, # depends on js_of_ocaml
 }:
 
 let

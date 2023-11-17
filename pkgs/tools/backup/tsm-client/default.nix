@@ -15,8 +15,7 @@
   jdk8, # Java GUI (needed for `enableGui`)
   buildEnv,
   makeWrapper,
-  enableGui ? false # enables Java GUI `dsmj`
-  ,
+  enableGui ? false, # enables Java GUI `dsmj`
   # path to `dsm.sys` configuration files
   dsmSysCli ? "/etc/tsm-client/cli.dsm.sys",
   dsmSysApi ? "/etc/tsm-client/api.dsm.sys",

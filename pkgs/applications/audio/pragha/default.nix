@@ -32,11 +32,9 @@
   libsoup,
   withLibsoup ? false,
   libgudev,
-  withGudev ? false # experimental
-  ,
+  withGudev ? false, # experimental
   libmtp,
-  withMtp ? false # experimental
-  ,
+  withMtp ? false, # experimental
   xfce,
   withXfce4ui ? false,
   totem-pl-parser,

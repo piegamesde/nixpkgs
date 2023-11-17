@@ -35,8 +35,7 @@
   systemd,
 
   # Recommended
-  withRecommended ? true # Install recommended tools
-  ,
+  withRecommended ? true, # Install recommended tools
   mcelog,
   hdparm,
   acpica-tools,
@@ -54,8 +53,7 @@
   opensc,
 
   # Suggested
-  withSuggested ? false # Install (most) suggested tools
-  ,
+  withSuggested ? false, # Install (most) suggested tools
   hplip,
   sane-backends,
 # , pnputils # pnputils (lspnp) isn't currently in nixpkgs and appears to be poorly maintained

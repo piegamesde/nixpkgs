@@ -15,20 +15,13 @@
   multibitdepthSupport ? (stdenv.is64bit && !(stdenv.isAarch64 && stdenv.isLinux)),
 
   # Other options:
-  cliSupport ? true # Build standalone CLI application
-  ,
-  custatsSupport ? false # Internal profiling of encoder work
-  ,
-  debugSupport ? false # Run-time sanity checks (debugging)
-  ,
-  ppaSupport ? false # PPA profiling instrumentation
-  ,
-  unittestsSupport ? (stdenv.is64bit && !(stdenv.isDarwin && stdenv.isAarch64)) # Unit tests - only testing x64 assembly
-  ,
-  vtuneSupport ? false # Vtune profiling instrumentation
-  ,
-  werrorSupport ? false # Warnings as errors
-  ,
+  cliSupport ? true, # Build standalone CLI application
+  custatsSupport ? false, # Internal profiling of encoder work
+  debugSupport ? false, # Run-time sanity checks (debugging)
+  ppaSupport ? false, # PPA profiling instrumentation
+  unittestsSupport ? (stdenv.is64bit && !(stdenv.isDarwin && stdenv.isAarch64)), # Unit tests - only testing x64 assembly
+  vtuneSupport ? false, # Vtune profiling instrumentation
+  werrorSupport ? false, # Warnings as errors
 }:
 
 let

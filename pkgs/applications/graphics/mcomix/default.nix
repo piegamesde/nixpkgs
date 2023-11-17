@@ -14,8 +14,7 @@
   mupdf,
   p7zip,
   unrar,
-  unrarSupport ? false # unfree software
-  ,
+  unrarSupport ? false, # unfree software
 }:
 
 python3.pkgs.buildPythonApplication rec {

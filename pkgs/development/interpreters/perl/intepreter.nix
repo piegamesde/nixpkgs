@@ -21,8 +21,7 @@
   makeWrapper,
   enableCrypt ? true,
   libxcrypt ? null,
-  overrides ? config.perlPackageOverrides or (p: { }) # TODO: (self: super: {}) like in python
-  ,
+  overrides ? config.perlPackageOverrides or (p: { }), # TODO: (self: super: {}) like in python
 }@inputs:
 
 # Note: this package is used for bootstrapping fetchurl, and thus

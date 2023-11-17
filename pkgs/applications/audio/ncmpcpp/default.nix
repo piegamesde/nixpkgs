@@ -10,12 +10,10 @@
   libiconv,
   icu,
   curl,
-  outputsSupport ? true # outputs screen
-  ,
+  outputsSupport ? true, # outputs screen
   visualizerSupport ? false,
   fftw, # visualizer screen
-  clockSupport ? true # clock screen
-  ,
+  clockSupport ? true, # clock screen
   taglibSupport ? true,
   taglib, # tag editor
 }:

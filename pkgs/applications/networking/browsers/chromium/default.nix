@@ -32,8 +32,7 @@
   channel ? "stable",
   proprietaryCodecs ? true,
   enableWideVine ? false,
-  ungoogled ? false # Whether to build chromium or ungoogled-chromium
-  ,
+  ungoogled ? false, # Whether to build chromium or ungoogled-chromium
   cupsSupport ? true,
   pulseSupport ? config.pulseaudio or stdenv.isLinux,
   commandLineArgs ? "",

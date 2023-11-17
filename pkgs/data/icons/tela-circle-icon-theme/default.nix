@@ -10,8 +10,7 @@
   gitUpdater,
   allColorVariants ? false,
   circularFolder ? false,
-  colorVariants ? [ ] # default is standard
-  ,
+  colorVariants ? [ ], # default is standard
 }:
 
 let

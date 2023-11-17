@@ -19,10 +19,8 @@
   ApplicationServices,
   CoreText,
   withCoreText ? false,
-  withIcu ? false # recommended by upstream as default, but most don't needed and it's big
-  ,
-  withGraphite2 ? true # it is small and major distros do include it
-  ,
+  withIcu ? false, # recommended by upstream as default, but most don't needed and it's big
+  withGraphite2 ? true, # it is small and major distros do include it
   python3,
   gtk-doc,
   docbook-xsl-nons,

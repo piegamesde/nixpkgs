@@ -9,8 +9,7 @@
   name ? builtins.baseNameOf s3url,
   sha256,
   region ? "us-east-1",
-  credentials ? null # Default to looking at local EC2 metadata service
-  ,
+  credentials ? null, # Default to looking at local EC2 metadata service
   recursiveHash ? false,
   postFetch ? null,
 }:

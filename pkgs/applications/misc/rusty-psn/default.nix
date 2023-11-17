@@ -9,8 +9,7 @@
   openssl,
   xorg,
   libGL,
-  withGui ? false # build GUI version
-  ,
+  withGui ? false, # build GUI version
 }:
 
 rustPlatform.buildRustPackage rec {

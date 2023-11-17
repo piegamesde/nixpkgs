@@ -29,11 +29,9 @@
   vdpauSupport ? true,
   libvdpau ? null,
   freetypeSupport ? true,
-  freetype ? null # it's small and almost everywhere
-  ,
+  freetype ? null, # it's small and almost everywhere
   SDL, # only for avplay in $bin, adds nontrivial closure to it
-  enableGPL ? true # ToDo: some additional default stuff may need GPL
-  ,
+  enableGPL ? true, # ToDo: some additional default stuff may need GPL
   enableUnfree ? faacSupport,
 }:
 

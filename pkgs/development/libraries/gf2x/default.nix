@@ -4,8 +4,7 @@
   fetchgit,
   autoreconfHook,
   buildPackages,
-  optimize ? false # impure hardware optimizations
-  ,
+  optimize ? false, # impure hardware optimizations
 }:
 stdenv.mkDerivation rec {
   pname = "gf2x";

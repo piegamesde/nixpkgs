@@ -15,8 +15,7 @@
   procps,
   libiberty_static,
   runtimeShell,
-  sysconfDir ? "" # set this parameter to override the default value $out/etc
-  ,
+  sysconfDir ? "", # set this parameter to override the default value $out/etc
   static ? false,
 }:
 

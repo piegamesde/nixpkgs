@@ -10,10 +10,8 @@
   librsvg,
   sassc,
   which,
-  themeVariants ? [ ] # default: blue
-  ,
-  colorVariants ? [ ] # default: all
-  ,
+  themeVariants ? [ ], # default: blue
+  colorVariants ? [ ], # default: all
   tweaks ? [ ],
 }:
 

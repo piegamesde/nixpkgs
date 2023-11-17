@@ -36,8 +36,7 @@ lib.makeOverridable (
     gemName,
     version ? null,
     type ? "gem",
-    document ? [ ] # e.g. [ "ri" "rdoc" ]
-    ,
+    document ? [ ], # e.g. [ "ri" "rdoc" ]
     platform ? "ruby",
     ruby ? defs.ruby,
     stdenv ? ruby.stdenv,

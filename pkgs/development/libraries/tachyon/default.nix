@@ -5,10 +5,8 @@
   Carbon,
   libjpeg,
   libpng,
-  withJpegSupport ? true # support jpeg output
-  ,
-  withPngSupport ? true # support png output
-  ,
+  withJpegSupport ? true, # support jpeg output
+  withPngSupport ? true, # support png output
 }:
 
 stdenv.mkDerivation rec {

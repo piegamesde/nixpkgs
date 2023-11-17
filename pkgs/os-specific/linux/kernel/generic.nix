@@ -9,21 +9,17 @@
   mpfr ? null,
   pahole,
   lib,
-  stdenv
+  stdenv,
 
-  ,
   # The kernel source tarball.
-  src
+  src,
 
-  ,
   # The kernel version.
-  version
+  version,
 
-  ,
   # Allows overriding the default defconfig
-  defconfig ? null
+  defconfig ? null,
 
-  ,
   # Legacy overrides to the intermediate kernel config, as string
   extraConfig ? "",
 
@@ -31,26 +27,22 @@
   extraMakeFlags ? [ ]
 
   , # kernel intermediate config overrides, as a set
-  structuredExtraConfig ? { }
+  structuredExtraConfig ? { },
 
-  ,
   # The version number used for the module directory
   # If unspecified, this is determined automatically from the version.
-  modDirVersion ? null
+  modDirVersion ? null,
 
-  ,
   # An attribute set whose attributes express the availability of
   # certain features in this kernel.  E.g. `{iwlwifi = true;}'
   # indicates a kernel that provides Intel wireless support.  Used in
   # NixOS to implement kernel-specific behaviour.
-  features ? { }
+  features ? { },
 
-  ,
   # Custom seed used for CONFIG_GCC_PLUGIN_RANDSTRUCT if enabled. This is
   # automatically extended with extra per-version and per-config values.
-  randstructSeed ? ""
+  randstructSeed ? "",
 
-  ,
   # A list of patches to apply to the kernel.  Each element of this list
   # should be an attribute set {name, patch} where `name' is a
   # symbolic name and `patch' is the actual patch.  The patch may

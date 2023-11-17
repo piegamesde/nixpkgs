@@ -20,8 +20,7 @@
   lockfile ? null,
   gemset ? null,
   ruby ? defs.ruby,
-  copyGemFiles ? false # Copy gem files instead of symlinking
-  ,
+  copyGemFiles ? false, # Copy gem files instead of symlinking
   gemConfig ? defaultGemConfig,
   postBuild ? null,
   document ? [ ],

@@ -4,8 +4,7 @@
   aiofiles,
   beautifulsoup4,
   buildPythonPackage,
-  doCheck ? !stdenv.isDarwin # on Darwin, tests fail but pkg still works
-  ,
+  doCheck ? !stdenv.isDarwin, # on Darwin, tests fail but pkg still works
   fetchFromGitHub,
   gunicorn,
   httptools,

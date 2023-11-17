@@ -13,8 +13,7 @@
   runCommandLocal,
   makeWrapper,
   coreutils,
-  scalingFactor ? 2 # this is to resize the fixed-size zod_launcher window
-  ,
+  scalingFactor ? 2, # this is to resize the fixed-size zod_launcher window
   substituteAll,
 }:
 let

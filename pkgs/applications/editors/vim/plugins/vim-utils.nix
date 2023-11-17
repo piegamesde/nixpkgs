@@ -335,9 +335,8 @@ rec {
           # If set to true, return the *vim wrappers only.
           # If set to false, overlay the wrappers on top of the original vim derivation.
           # This ensures that things like man pages and .desktop files are available.
-          standalone ? name != "vim" && wrapManual != true
+          standalone ? name != "vim" && wrapManual != true,
 
-          ,
           # deprecated arguments (TODO: remove eventually)
           wrapManual ? null,
           wrapGui ? null,

@@ -19,8 +19,7 @@
   ocamlPackages_4_12,
   ocamlPackages_4_14,
   ncurses,
-  buildIde ? null # default is true for Coq < 8.14 and false for Coq >= 8.14
-  ,
+  buildIde ? null, # default is true for Coq < 8.14 and false for Coq >= 8.14
   glib,
   gnome,
   wrapGAppsHook,

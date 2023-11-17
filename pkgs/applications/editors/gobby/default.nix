@@ -1,6 +1,5 @@
 {
-  avahiSupport ? false # build support for Avahi in libinfinity
-  ,
+  avahiSupport ? false, # build support for Avahi in libinfinity
   lib,
   stdenv,
   fetchFromGitHub,

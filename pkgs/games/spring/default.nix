@@ -25,8 +25,7 @@
   xorg,
   xz,
   zlib,
-  withAI ? true # support for AI Interfaces and Skirmish AIs
-  ,
+  withAI ? true, # support for AI Interfaces and Skirmish AIs
 }:
 
 stdenv.mkDerivation rec {

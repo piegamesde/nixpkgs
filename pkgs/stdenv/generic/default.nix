@@ -5,9 +5,8 @@ let
     argsStdenv@{
       name ? "stdenv",
       preHook ? "",
-      initialPath
+      initialPath,
 
-      ,
       # If we don't have a C compiler, we might either have `cc = null` or `cc =
       # throw ...`, but if we do have a C compiler we should definiely have `cc !=
       # null`.
@@ -21,9 +20,8 @@ let
       extraAttrs ? { },
       overrides ? (self: super: { }),
       config,
-      disallowedRequisites ? [ ]
+      disallowedRequisites ? [ ],
 
-      ,
       # The `fetchurl' to use for downloading curl and its dependencies
       # (see all-packages.nix).
       fetchurlBoot,
@@ -35,7 +33,7 @@ let
       __stdenvImpureHostDeps ? [ ],
       __extraImpureHostDeps ? [ ],
       stdenvSandboxProfile ? "",
-      extraSandboxProfile ? ""
+      extraSandboxProfile ? "",
 
       ## Platform parameters
       ##
@@ -50,21 +48,17 @@ let
       ## current one.
       ##
 
-      ,
       # The platform on which packages are built. Consists of `system`, a
       # string (e.g.,`i686-linux') identifying the most import attributes of the
       # build platform, and `platform` a set of other details.
-      buildPlatform
+      buildPlatform,
 
-      ,
       # The platform on which packages run.
-      hostPlatform
+      hostPlatform,
 
-      ,
       # The platform which build tools (especially compilers) build for in this stage,
-      targetPlatform
+      targetPlatform,
 
-      ,
       # The implementation of `mkDerivation`, parameterized with the final stdenv so we can tie the knot.
       # This is convient to have as a parameter so the stdenv "adapters" work better
       mkDerivationFromStdenv ? import ./make-derivation.nix { inherit lib config; },

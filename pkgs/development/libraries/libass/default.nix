@@ -8,12 +8,9 @@
   fribidi,
   harfbuzz,
   fontconfigSupport ? true,
-  fontconfig ? null # fontconfig support
-  ,
-  rasterizerSupport ? false # Internal rasterizer
-  ,
-  largeTilesSupport ? false # Use larger tiles in the rasterizer
-  ,
+  fontconfig ? null, # fontconfig support
+  rasterizerSupport ? false, # Internal rasterizer
+  largeTilesSupport ? false, # Use larger tiles in the rasterizer
   libiconv,
 }:
 

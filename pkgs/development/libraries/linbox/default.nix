@@ -9,8 +9,7 @@
   lapack,
   fflas-ffpack,
   gmpxx,
-  withSage ? false # sage support
-  ,
+  withSage ? false, # sage support
 }:
 
 assert (!blas.isILP64) && (!lapack.isILP64);

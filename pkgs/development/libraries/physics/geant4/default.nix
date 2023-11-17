@@ -1,8 +1,7 @@
 {
   enableMultiThreading ? true,
   enableInventor ? false,
-  enableQT ? false # deprecated name
-  ,
+  enableQT ? false, # deprecated name
   enableQt ? enableQT,
   enableXM ? false,
   enableOpenGLX11 ? true,

@@ -339,8 +339,7 @@ let
       postBootCommands ? "",
       extraConfig ? "",
       extraInstallerConfig ? { },
-      bootLoader ? "grub" # either "grub" or "systemd-boot"
-      ,
+      bootLoader ? "grub", # either "grub" or "systemd-boot"
       grubVersion ? 2,
       grubDevice ? "/dev/vda",
       grubIdentifier ? "uuid",

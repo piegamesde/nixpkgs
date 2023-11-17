@@ -53,12 +53,10 @@
   networkmanager,
   systemd,
   # Support groups
-  supportWpaWps ? true # Most common use-case
-  ,
+  supportWpaWps ? true, # Most common use-case
   supportHashCracking ? false,
   supportEvilTwin ? false,
-  supportX11 ? false # Allow using xterm instead of tmux, hard to test
-  ,
+  supportX11 ? false, # Allow using xterm instead of tmux, hard to test
 }:
 let
   deps =

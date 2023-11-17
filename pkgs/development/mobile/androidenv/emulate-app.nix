@@ -15,8 +15,7 @@
   package ? null,
   activity ? null,
   androidUserHome ? null,
-  avdHomeDir ? null # Support old variable with non-standard naming!
-  ,
+  avdHomeDir ? null, # Support old variable with non-standard naming!
   androidAvdHome ? avdHomeDir,
   sdkExtraArgs ? { },
   androidAvdFlags ? null,

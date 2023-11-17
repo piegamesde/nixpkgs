@@ -8,12 +8,9 @@
   jdupes,
   sassc,
   gitUpdater,
-  themeVariants ? [ ] # default: doder (blue)
-  ,
-  colorVariants ? [ ] # default: all
-  ,
-  sizeVariants ? [ ] # default: standard
-  ,
+  themeVariants ? [ ], # default: doder (blue)
+  colorVariants ? [ ], # default: all
+  sizeVariants ? [ ], # default: standard
   tweaks ? [ ],
 }:
 

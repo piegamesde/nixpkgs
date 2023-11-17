@@ -49,9 +49,8 @@
 
   meta ? { },
 
-  passthru ? { }
+  passthru ? { },
 
-  ,
   ...
 }@attrs:
 

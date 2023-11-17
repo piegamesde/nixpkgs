@@ -3,8 +3,7 @@
 import ./make-test-python.nix (
   {
     pkgs,
-    socket ? true # whether to use socket activation
-    ,
+    socket ? true, # whether to use socket activation
     ...
   }:
 

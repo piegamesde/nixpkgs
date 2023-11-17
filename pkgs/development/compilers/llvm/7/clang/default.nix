@@ -13,8 +13,7 @@
   buildLlvmTools,
   fixDarwinDylibNames,
   enableManpages ? false,
-  enablePolly ? false # TODO: get this info from llvm (passthru?)
-  ,
+  enablePolly ? false, # TODO: get this info from llvm (passthru?)
 }:
 
 let

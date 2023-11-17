@@ -16,8 +16,7 @@
   supportedSystems ? [
     "aarch64-linux"
     "x86_64-linux"
-  ] # no i686-linux
-  ,
+  ], # no i686-linux
 }:
 
 let

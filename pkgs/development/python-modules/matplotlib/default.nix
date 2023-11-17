@@ -43,8 +43,7 @@
   pygobject3,
 
   # Tk
-  enableTk ? !stdenv.isDarwin # darwin has its own "MacOSX" backend
-  ,
+  enableTk ? !stdenv.isDarwin, # darwin has its own "MacOSX" backend
   tcl,
   tk,
   tkinter,

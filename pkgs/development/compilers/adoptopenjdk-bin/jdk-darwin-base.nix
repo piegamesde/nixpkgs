@@ -4,8 +4,7 @@
 }:
 
 {
-  swingSupport ? true # not used for now
-  ,
+  swingSupport ? true, # not used for now
   lib,
   stdenv,
   fetchurl,

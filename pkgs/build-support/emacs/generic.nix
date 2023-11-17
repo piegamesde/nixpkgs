@@ -19,9 +19,8 @@ with lib;
   buildInputs ? [ ],
   packageRequires ? [ ],
 
-  meta ? { }
+  meta ? { },
 
-  ,
   ...
 }@args:
 

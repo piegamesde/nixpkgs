@@ -30,8 +30,7 @@
   glew,
   glfw,
   xorg,
-  gamescopeSupport ? true # build mangoapp and mangohudctl
-  ,
+  gamescopeSupport ? true, # build mangoapp and mangohudctl
   nix-update-script,
 }:
 

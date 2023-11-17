@@ -11,8 +11,7 @@
   zlib,
   lcms2,
   jpylyzer,
-  jpipLibSupport ? false # JPIP library & executables
-  ,
+  jpipLibSupport ? false, # JPIP library & executables
   jpipServerSupport ? false,
   curl,
   fcgi, # JPIP Server

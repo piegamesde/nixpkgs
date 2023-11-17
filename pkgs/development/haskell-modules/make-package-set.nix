@@ -3,45 +3,37 @@
 
 {
   # package-set used for build tools (all of nixpkgs)
-  buildPackages
+  buildPackages,
 
-  ,
   # A haskell package set for Setup.hs, compiler plugins, and similar
   # build-time uses.
-  buildHaskellPackages
+  buildHaskellPackages,
 
-  ,
   # package-set used for non-haskell dependencies (all of nixpkgs)
-  pkgs
+  pkgs,
 
-  ,
   # stdenv provides our build and host platforms
-  stdenv
+  stdenv,
 
-  ,
   # this module provides the list of known licenses and maintainers
   lib,
 
   # needed for overrideCabal & packageSourceOverrides
-  haskellLib
+  haskellLib,
 
-  ,
   # hashes for downloading Hackage packages
   # This is either a directory or a .tar.gz containing the cabal files and
   # hashes of Hackage as exemplified by this repository:
   # https://github.com/commercialhaskell/all-cabal-hashes/tree/hackage
-  all-cabal-hashes
+  all-cabal-hashes,
 
-  ,
   # compiler to use
-  ghc
+  ghc,
 
-  ,
   # A function that takes `{ pkgs, lib, callPackage }` as the first arg and
   # `self` as second, and returns a set of haskell packages
-  package-set
+  package-set,
 
-  ,
   # The final, fully overridden package set usable with the nixpkgs fixpoint
   # overriding functionality
   extensible-self,

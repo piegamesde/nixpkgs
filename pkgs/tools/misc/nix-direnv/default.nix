@@ -4,8 +4,7 @@
   fetchFromGitHub,
   gnugrep,
   nix,
-  enableFlakes ? null # deprecated
-  ,
+  enableFlakes ? null, # deprecated
 }:
 stdenv.mkDerivation rec {
   pname = "nix-direnv";

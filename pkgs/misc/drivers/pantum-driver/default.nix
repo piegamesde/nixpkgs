@@ -8,8 +8,7 @@
   libjpeg8,
   makeWrapper,
   autoPatchelfHook,
-  enablePtqpdf ? false # Pantum's version of qpdf
-  ,
+  enablePtqpdf ? false, # Pantum's version of qpdf
 }:
 
 let

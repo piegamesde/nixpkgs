@@ -19,8 +19,7 @@
   pkgs,
   lib,
   options,
-  transformOptions ? lib.id # function for additional transformations of the options
-  ,
+  transformOptions ? lib.id, # function for additional transformations of the options
   documentType ? "appendix",
   # TODO deprecate "appendix" in favor of "none"
   #      and/or rename function to moduleOptionDoc for clean slate
@@ -30,8 +29,7 @@
   variablelistId ? "configuration-variable-list",
   # String to prefix to the option XML/HTML id attributes.
   optionIdPrefix ? "opt-",
-  revision ? "" # Specify revision for the options
-  ,
+  revision ? "", # Specify revision for the options
   # a set of options the docs we are generating will be merged into, as if by recursiveUpdate.
   # used to split the options doc build into a static part (nixos/modules) and a dynamic part
   # (non-nixos modules imported via configuration.nix, other module sources).

@@ -90,8 +90,7 @@
     "device-select"
     "overlay"
     "intel-nullhw"
-  ] # No Vulkan support on Darwin
-  ,
+  ], # No Vulkan support on Darwin
   OpenGL,
   Xplugin,
   withValgrind ?

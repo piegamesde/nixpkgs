@@ -5,8 +5,7 @@
   autoreconfHook,
   libtool,
   fetchpatch,
-  threadingSupport ? true # multi-threading
-  ,
+  threadingSupport ? true, # multi-threading
   openglSupport ? false,
   freeglut,
   libGL,
@@ -19,18 +18,12 @@
   libtiff, # TIFF image format
   gifSupport ? true,
   giflib, # GIF image format
-  alignedSupport ? false # Force aligned memory operations
-  ,
-  swap16bitcspSupport ? false # Byte swap for 16bit color spaces
-  ,
-  experimentalSupport ? false # Experimental code
-  ,
-  libwebpmuxSupport ? true # Build libwebpmux
-  ,
-  libwebpdemuxSupport ? true # Build libwebpdemux
-  ,
-  libwebpdecoderSupport ? true # Build libwebpdecoder
-  ,
+  alignedSupport ? false, # Force aligned memory operations
+  swap16bitcspSupport ? false, # Byte swap for 16bit color spaces
+  experimentalSupport ? false, # Experimental code
+  libwebpmuxSupport ? true, # Build libwebpmux
+  libwebpdemuxSupport ? true, # Build libwebpdemux
+  libwebpdecoderSupport ? true, # Build libwebpdecoder
 
   # for passthru.tests
   freeimage,

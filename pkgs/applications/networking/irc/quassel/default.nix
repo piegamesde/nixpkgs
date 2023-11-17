@@ -1,14 +1,9 @@
 {
-  monolithic ? true # build monolithic Quassel
-  ,
-  enableDaemon ? false # build Quassel daemon
-  ,
-  client ? false # build Quassel client
-  ,
-  tag ? "-kf5" # tag added to the package name
-  ,
-  static ? false # link statically
-  ,
+  monolithic ? true, # build monolithic Quassel
+  enableDaemon ? false, # build Quassel daemon
+  client ? false, # build Quassel client
+  tag ? "-kf5", # tag added to the package name
+  static ? false, # link statically
 
   lib,
   stdenv,
@@ -25,8 +20,7 @@
   libdbusmenu,
   qca-qt5,
 
-  withKDE ? true # enable KDE integration
-  ,
+  withKDE ? true, # enable KDE integration
   extra-cmake-modules,
   kconfigwidgets,
   kcoreaddons,

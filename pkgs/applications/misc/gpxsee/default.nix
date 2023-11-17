@@ -8,15 +8,12 @@
   qtbase,
   qttools,
   qttranslations,
-  qtlocation ? null # qt5 only
-  ,
-  qtpositioning ? null # qt6 only
-  ,
+  qtlocation ? null, # qt5 only
+  qtpositioning ? null, # qt6 only
   qtpbfimageplugin,
   qtserialport,
   qtsvg,
-  qt5compat ? null # qt6 only
-  ,
+  qt5compat ? null, # qt6 only
   wrapQtAppsHook,
 }:
 

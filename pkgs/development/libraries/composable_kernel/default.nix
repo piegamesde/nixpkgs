@@ -12,8 +12,7 @@
   gtest,
   buildTests ? false,
   buildExamples ? false,
-  gpuTargets ? [ ] # gpuTargets = [ "gfx803" "gfx900" "gfx1030" ... ]
-  ,
+  gpuTargets ? [ ], # gpuTargets = [ "gfx803" "gfx900" "gfx1030" ... ]
 }:
 
 let

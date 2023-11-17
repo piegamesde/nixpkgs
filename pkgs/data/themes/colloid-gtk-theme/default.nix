@@ -7,12 +7,9 @@
   gtk-engine-murrine,
   jdupes,
   sassc,
-  themeVariants ? [ ] # default: blue
-  ,
-  colorVariants ? [ ] # default: all
-  ,
-  sizeVariants ? [ ] # default: standard
-  ,
+  themeVariants ? [ ], # default: blue
+  colorVariants ? [ ], # default: all
+  sizeVariants ? [ ], # default: standard
   tweaks ? [ ],
 }:
 

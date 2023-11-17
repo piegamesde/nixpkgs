@@ -14,9 +14,8 @@
   # %L: Log directory root (usually /var/log); see systemd.unit(5)
   logsDir ? "%L/${systemdDir}",
   # Name of file stored in service state directory
-  currentConfigTokenFilename ? ".current-token"
+  currentConfigTokenFilename ? ".current-token",
 
-  ,
   ...
 }:
 

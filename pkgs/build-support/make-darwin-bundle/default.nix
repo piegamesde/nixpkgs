@@ -12,8 +12,7 @@
 {
   name, # The name of the Application file.
   exec, # Executable file.
-  icon ? "" # Optional icon file.
-  ,
+  icon ? "", # Optional icon file.
 }:
 
 writeShellScript "make-darwin-bundle-${name}" (''
