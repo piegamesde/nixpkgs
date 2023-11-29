@@ -149,8 +149,8 @@ stdenv.mkDerivation rec {
     description = "Library for encoding H.265/HEVC video streams";
     homepage = "https://www.x265.org/";
     changelog = "https://x265.readthedocs.io/en/master/releasenotes.html#version-${
-        lib.strings.replaceStrings [ "." ] [ "-" ] version
-      }";
+      lib.strings.replaceStrings [ "." ] [ "-" ] version
+    }";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ codyopel ];
     platforms = platforms.all;

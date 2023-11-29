@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url = "https://github.com/visualvm/visualvm.src/releases/download/${version}/visualvm_${
-        builtins.replaceStrings [ "." ] [ "" ] version
-      }.zip";
+      builtins.replaceStrings [ "." ] [ "" ] version
+    }.zip";
     sha256 = "sha256-RqQEeYMYpBlqla+VmrxOUNyrlIGVL4YjZadg2Gq+f8k=";
   };
 

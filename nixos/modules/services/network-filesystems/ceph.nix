@@ -31,8 +31,8 @@ let
       daemonType: daemonId: clusterName: ceph:
       let
         stateDirectory = "ceph/${
-            if daemonType == "rgw" then "radosgw" else daemonType
-          }/${clusterName}-${daemonId}";
+          if daemonType == "rgw" then "radosgw" else daemonType
+        }/${clusterName}-${daemonId}";
       in
       {
         enable = true;

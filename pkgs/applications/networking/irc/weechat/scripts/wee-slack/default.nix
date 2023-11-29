@@ -22,14 +22,14 @@ stdenv.mkDerivation rec {
     (substituteAll {
       src = ./libpath.patch;
       env = "${
-          buildEnv {
-            name = "wee-slack-env";
-            paths = with python3Packages; [
-              websocket-client
-              six
-            ];
-          }
-        }/${python3Packages.python.sitePackages}";
+        buildEnv {
+          name = "wee-slack-env";
+          paths = with python3Packages; [
+            websocket-client
+            six
+          ];
+        }
+      }/${python3Packages.python.sitePackages}";
     })
     ./load_weemoji_path.patch
   ];

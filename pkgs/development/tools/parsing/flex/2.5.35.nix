@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/westes/flex/archive/flex-${
-        lib.replaceStrings [ "." ] [ "-" ] version
-      }.tar.gz";
+      lib.replaceStrings [ "." ] [ "-" ] version
+    }.tar.gz";
     sha256 = "0wh06nix8bd4w1aq4k2fbbkdq5i30a9lxz3xczf3ff28yy0kfwzm";
   };
 

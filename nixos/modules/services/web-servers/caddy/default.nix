@@ -368,8 +368,8 @@ in
           } --force"
         ];
         ExecStartPre = "${cfg.package}/bin/caddy validate --config ${cfg.configFile} ${
-            optionalString (cfg.adapter != null) "--adapter ${cfg.adapter}"
-          }";
+          optionalString (cfg.adapter != null) "--adapter ${cfg.adapter}"
+        }";
         User = cfg.user;
         Group = cfg.group;
         ReadWriteDirectories = cfg.dataDir;

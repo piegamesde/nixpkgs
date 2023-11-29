@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
   # from the start so this mismatch cannot occur.
   src = fetchzip {
     url = "https://www.cs.kent.ac.uk/people/staff/dat/miranda/src/mira-${
-        builtins.replaceStrings [ "." ] [ "" ] version
-      }-src.tgz";
+      builtins.replaceStrings [ "." ] [ "" ] version
+    }-src.tgz";
     sha256 = "KE/FTL9YW9l7VBAgkFZlqgSM1Bt/BXT6GkkONtyKJjQ=";
   };
 

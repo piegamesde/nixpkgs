@@ -80,8 +80,8 @@ buildPythonPackage {
     description = "Utilities to facilitate the installation of Python packages";
     homepage = "https://github.com/pypa/setuptools";
     changelog = "https://setuptools.pypa.io/en/stable/history.html#v${
-        replaceStrings [ "." ] [ "-" ] version
-      }";
+      replaceStrings [ "." ] [ "-" ] version
+    }";
     license = with licenses; [ mit ];
     platforms = python.meta.platforms;
     priority = 10;

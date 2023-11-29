@@ -91,8 +91,8 @@ stdenv.mkDerivation rec {
       "--with-npth-prefix=${npth}"
     ]
     ++ lib.optional guiSupport "--with-pinentry-pgm=${pinentry}/${
-        pinentry.binaryPath or "bin/pinentry"
-      }"
+      pinentry.binaryPath or "bin/pinentry"
+    }"
     ++ lib.optional stdenv.isDarwin "--disable-ccid-driver";
 
   postInstall =

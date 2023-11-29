@@ -97,8 +97,8 @@ in
             );
             dbName = lib.optionalString (cfg.dbname != null) "/${cfg.dbname}";
             dbUrl = "${dbType}://${dbUser}${dbPass}${
-                lib.optionalString (!isSocket) dbHost
-              }${dbName}${lib.optionalString isSocket dbHost}";
+              lib.optionalString (!isSocket) dbHost
+            }${dbName}${lib.optionalString isSocket dbHost}";
           in
           lib.optionalString (dbPass != "") ''
             export DATABASE_PASSWORD="$(<"${cfg.dbpassFile}")"

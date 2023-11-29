@@ -487,8 +487,8 @@ let
         // {
           name = "passwdEntry ${entryType.name}";
           description = "${
-              optionDescriptionPhrase (class: class == "noun") entryType
-            }, not containing newlines or colons";
+            optionDescriptionPhrase (class: class == "noun") entryType
+          }, not containing newlines or colons";
         };
 
       attrs = mkOptionType {
@@ -539,8 +539,8 @@ let
         mkOptionType rec {
           name = "listOf";
           description = "list of ${
-              optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
-            }";
+            optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
+          }";
           descriptionClass = "composite";
           check = isList;
           merge =
@@ -595,8 +595,8 @@ let
         mkOptionType rec {
           name = "attrsOf";
           description = "attribute set of ${
-              optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
-            }";
+            optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
+          }";
           descriptionClass = "composite";
           check = isAttrs;
           merge =
@@ -642,8 +642,8 @@ let
         mkOptionType rec {
           name = "lazyAttrsOf";
           description = "lazy attribute set of ${
-              optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
-            }";
+            optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
+          }";
           descriptionClass = "composite";
           check = isAttrs;
           merge =
@@ -736,8 +736,8 @@ let
         mkOptionType rec {
           name = "nullOr";
           description = "null or ${
-              optionDescriptionPhrase (class: class == "noun" || class == "conjunction") elemType
-            }";
+            optionDescriptionPhrase (class: class == "noun" || class == "conjunction") elemType
+          }";
           descriptionClass = "conjunction";
           check = x: x == null || elemType.check x;
           merge =
@@ -768,8 +768,8 @@ let
         mkOptionType {
           name = "functionTo";
           description = "function that evaluates to a(n) ${
-              optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
-            }";
+            optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
+          }";
           descriptionClass = "composite";
           check = isFunction;
           merge =
@@ -1034,11 +1034,11 @@ let
         mkOptionType rec {
           name = "either";
           description = "${
-              optionDescriptionPhrase (class: class == "noun" || class == "conjunction") t1
-            } or ${
-              optionDescriptionPhrase (class: class == "noun" || class == "conjunction" || class == "composite")
-                t2
-            }";
+            optionDescriptionPhrase (class: class == "noun" || class == "conjunction") t1
+          } or ${
+            optionDescriptionPhrase (class: class == "noun" || class == "conjunction" || class == "composite")
+              t2
+          }";
           descriptionClass = "conjunction";
           check = x: t1.check x || t2.check x;
           merge =
@@ -1088,8 +1088,8 @@ let
         mkOptionType rec {
           name = "coercedTo";
           description = "${optionDescriptionPhrase (class: class == "noun") finalType} or ${
-              optionDescriptionPhrase (class: class == "noun") coercedType
-            } convertible to it";
+            optionDescriptionPhrase (class: class == "noun") coercedType
+          } convertible to it";
           check = x: (coercedType.check x && finalType.check (coerceFunc x)) || finalType.check x;
           merge =
             loc: defs:

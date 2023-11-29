@@ -28,8 +28,8 @@ let
       version = "7.05.2";
       src = fetchurl {
         url = "https://github.com/Pinegrow/PinegrowReleases/releases/download/pg${
-            builtins.substring 0 4 (versions."7".version)
-          }/PinegrowLinux64.${versions."7".version}.zip";
+          builtins.substring 0 4 (versions."7".version)
+        }/PinegrowLinux64.${versions."7".version}.zip";
         hash = "sha256-Cvy4JwnQHMp7K0mKtIH8lk1bZ9hwa8nvtmimBK0UAf8=";
       };
     };

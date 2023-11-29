@@ -590,13 +590,13 @@ let
                 deviceDependency v.local.dev ++ [ "network-addresses-${v.local.dev}.service" ]
               );
               fouSpec = "port ${toString v.port} ${
-                  if v.protocol != null then "ipproto ${toString v.protocol}" else "gue"
-                } ${
-                  optionalString (v.local != null)
-                    "local ${escapeShellArg v.local.address} ${
-                      optionalString (v.local.dev != null) "dev ${escapeShellArg v.local.dev}"
-                    }"
-                }";
+                if v.protocol != null then "ipproto ${toString v.protocol}" else "gue"
+              } ${
+                optionalString (v.local != null)
+                  "local ${escapeShellArg v.local.address} ${
+                    optionalString (v.local.dev != null) "dev ${escapeShellArg v.local.dev}"
+                  }"
+              }";
             in
             {
               description = "FOU endpoint ${n}";

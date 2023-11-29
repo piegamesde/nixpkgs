@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     # TODO: Compile from src
     url = "https://github.com/toolbox4minecraft/amidst/releases/download/v${version}/amidst-v${
-        lib.replaceStrings [ "." ] [ "-" ] version
-      }.jar";
+      lib.replaceStrings [ "." ] [ "-" ] version
+    }.jar";
     sha256 = "sha256-oecRjD7JUuvFym8N/hSE5cbAFQojS6yxOuxpwWRlW9M=";
   };
 

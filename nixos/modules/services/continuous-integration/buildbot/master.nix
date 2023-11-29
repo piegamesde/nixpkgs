@@ -259,8 +259,8 @@ in
       wantedBy = [ "multi-user.target" ];
       path = cfg.packages ++ cfg.pythonPackages python.pkgs;
       environment.PYTHONPATH = "${
-          python.withPackages (self: cfg.pythonPackages self ++ [ package ])
-        }/${python.sitePackages}";
+        python.withPackages (self: cfg.pythonPackages self ++ [ package ])
+      }/${python.sitePackages}";
 
       preStart = ''
         mkdir -vp "${cfg.buildbotDir}"

@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
   version = "0.7.7.1";
   src = fetchurl {
     url = "mirror://sourceforge/ultimatestunts/ultimatestunts-srcdata-${
-        lib.replaceStrings [ "." ] [ "" ] version
-      }.tar.gz";
+      lib.replaceStrings [ "." ] [ "" ] version
+    }.tar.gz";
     sha256 = "sha256-/MBuSi/yxcG9k3ZwrNsHkUDzzg798AV462VZog67JtM=";
   };
 

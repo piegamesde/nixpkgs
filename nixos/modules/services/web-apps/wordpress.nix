@@ -61,8 +61,8 @@ let
       AUTOMATIC_UPDATER_DISABLED = true;
       DB_NAME = cfg.database.name;
       DB_HOST = "${cfg.database.host}:${
-          if cfg.database.socket != null then cfg.database.socket else toString cfg.database.port
-        }";
+        if cfg.database.socket != null then cfg.database.socket else toString cfg.database.port
+      }";
       DB_USER = cfg.database.user;
       DB_CHARSET = "utf8";
       # Always set DB_PASSWORD even when passwordFile is not set. This is the

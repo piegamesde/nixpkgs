@@ -126,10 +126,10 @@ in
 
       serviceConfig = {
         ExecStart = "${dragonflydb}/bin/dragonfly --alsologtostderr ${
-            builtins.concatStringsSep " " (
-              attrsets.mapAttrsToList (n: v: "--${n} ${strings.escapeShellArg v}") settings
-            )
-          }";
+          builtins.concatStringsSep " " (
+            attrsets.mapAttrsToList (n: v: "--${n} ${strings.escapeShellArg v}") settings
+          )
+        }";
 
         User = cfg.user;
 

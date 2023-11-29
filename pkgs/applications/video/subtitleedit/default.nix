@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url = "https://github.com/SubtitleEdit/subtitleedit/releases/download/${version}/SE${
-        lib.replaceStrings [ "." ] [ "" ] version
-      }.zip";
+      lib.replaceStrings [ "." ] [ "" ] version
+    }.zip";
     sha256 = "08p67krgcignjisbq7nmnb3nga2sad4vl739ak4a5rp3b49l1dmb";
     stripRoot = false;
   };

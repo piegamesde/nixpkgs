@@ -317,13 +317,13 @@ in
           execCommand = "${instance.package}/bin/authelia";
           configFile = format.generate "config.yml" instance.settings;
           configArg = "--config ${
-              builtins.concatStringsSep "," (
-                lib.concatLists [
-                  [ configFile ]
-                  instance.settingsFiles
-                ]
-              )
-            }";
+            builtins.concatStringsSep "," (
+              lib.concatLists [
+                [ configFile ]
+                instance.settingsFiles
+              ]
+            )
+          }";
         in
         {
           description = "Authelia authentication and authorization server";

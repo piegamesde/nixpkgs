@@ -509,8 +509,8 @@ in
     isoImage.volumeID = mkOption {
       # nixos-$EDITION-$RELEASE-$ARCH
       default = "nixos${
-          optionalString (config.isoImage.edition != "") "-${config.isoImage.edition}"
-        }-${config.system.nixos.release}-${pkgs.stdenv.hostPlatform.uname.processor}";
+        optionalString (config.isoImage.edition != "") "-${config.isoImage.edition}"
+      }-${config.system.nixos.release}-${pkgs.stdenv.hostPlatform.uname.processor}";
       description = lib.mdDoc ''
         Specifies the label or volume ID of the generated ISO image.
         Note that the label is used by stage 1 of the boot process to

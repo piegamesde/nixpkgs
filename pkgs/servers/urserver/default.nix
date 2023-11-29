@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.unifiedremote.com/static/builds/server/linux-x64/${
-        builtins.elemAt (builtins.splitVersion version) 3
-      }/urserver-${version}.tar.gz";
+      builtins.elemAt (builtins.splitVersion version) 3
+    }/urserver-${version}.tar.gz";
     sha256 = "sha256-IaLRhia6mb4h7x5MbBRtPJxJ3uTlkfOzmoTwYzwfbWA=";
   };
 

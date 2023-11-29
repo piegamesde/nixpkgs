@@ -28,6 +28,6 @@ genericUpdater {
     patchlevel-unstable
   ;
   versionLister = "${common-updater-scripts}/bin/list-git-tags ${
-      lib.optionalString (url != null) "--url=${url}"
-    }";
+    lib.optionalString (url != null) "--url=${url}"
+  }";
 }

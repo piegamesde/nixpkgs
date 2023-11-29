@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
   pname = "keystore-explorer";
   src = fetchzip {
     url = "https://github.com/kaikramer/keystore-explorer/releases/download/v${version}/kse-${
-        lib.replaceStrings [ "." ] [ "" ] version
-      }.zip";
+      lib.replaceStrings [ "." ] [ "" ] version
+    }.zip";
     sha256 = "sha256-mDi/TSYumCg2hAnMOI2QpdAOSlDMpdJPqzatFotAqUk=";
   };
 

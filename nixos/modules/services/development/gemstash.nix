@@ -99,8 +99,8 @@ in
       serviceConfig = mkMerge [
         {
           ExecStart = "${pkgs.gemstash}/bin/gemstash start --no-daemonize --config-file ${
-              settingsFormat.generate "gemstash.yaml" (prefixColon cfg.settings)
-            }";
+            settingsFormat.generate "gemstash.yaml" (prefixColon cfg.settings)
+          }";
           NoNewPrivileges = true;
           User = "gemstash";
           Group = "gemstash";

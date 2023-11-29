@@ -10,8 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url = "http://vollkorn-typeface.com/download/vollkorn-${
-        builtins.replaceStrings [ "." ] [ "-" ] version
-      }.zip";
+      builtins.replaceStrings [ "." ] [ "-" ] version
+    }.zip";
     stripRoot = false;
     hash = "sha256-oG79GgCwCavbMFAPakza08IPmt13Gwujrkc/NKTai7g=";
   };

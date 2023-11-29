@@ -79,8 +79,8 @@ buildPythonPackage rec {
     '';
     homepage = "https://mutagen.readthedocs.io";
     changelog = "https://mutagen.readthedocs.io/en/latest/changelog.html#release-${
-        lib.replaceStrings [ "." ] [ "-" ] version
-      }";
+      lib.replaceStrings [ "." ] [ "-" ] version
+    }";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ ];
   };

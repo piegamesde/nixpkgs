@@ -60,8 +60,8 @@ let
       else
         fetchurl {
           url = "mirror://mozilla/security/nss/releases/NSS_${
-              lib.replaceStrings [ "." ] [ "_" ] version
-            }_RTM/src/nss-${version}.tar.gz";
+            lib.replaceStrings [ "." ] [ "_" ] version
+          }_RTM/src/nss-${version}.tar.gz";
           sha256 = "sha256-PzhfxoZHa7uoEQNfpoIbVCR11VdHsYwgwiHU1mVzuXU=";
         };
 

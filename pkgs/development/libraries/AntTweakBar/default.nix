@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://sourceforge/project/anttweakbar/AntTweakBar_${
-        lib.replaceStrings [ "." ] [ "" ] version
-      }.zip";
+      lib.replaceStrings [ "." ] [ "" ] version
+    }.zip";
     sha256 = "0z3frxpzf54cjs07m6kg09p7nljhr7140f4pznwi7srwq4cvgkpv";
   };
 

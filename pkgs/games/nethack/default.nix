@@ -56,8 +56,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://nethack.org/download/${version}/nethack-${
-        lib.replaceStrings [ "." ] [ "" ] version
-      }-src.tgz";
+      lib.replaceStrings [ "." ] [ "" ] version
+    }-src.tgz";
     sha256 = "sha256-mM9n323r+WaKYXRaqEwJvKs2Ll0z9blE7FFV1E0qrLI=";
   };
 

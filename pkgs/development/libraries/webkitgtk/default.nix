@@ -75,11 +75,11 @@ stdenv.mkDerivation (
     pname = "webkitgtk";
     version = "2.40.1";
     name = "${finalAttrs.pname}-${finalAttrs.version}+abi=${
-        if lib.versionAtLeast gtk3.version "4.0" then
-          "6.0"
-        else
-          "4.${if lib.versions.major libsoup.version == "2" then "0" else "1"}"
-      }";
+      if lib.versionAtLeast gtk3.version "4.0" then
+        "6.0"
+      else
+        "4.${if lib.versions.major libsoup.version == "2" then "0" else "1"}"
+    }";
 
     outputs = [
       "out"

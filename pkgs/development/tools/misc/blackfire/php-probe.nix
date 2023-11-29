@@ -68,8 +68,8 @@ let
     assert !isLinux -> (phpMajor != null);
     fetchurl {
       url = "https://packages.blackfire.io/binaries/blackfire-php/${version}/blackfire-php-${
-          if isLinux then "linux" else "darwin"
-        }_${hashes.${system}.system}-php-${builtins.replaceStrings [ "." ] [ "" ] phpMajor}.so";
+        if isLinux then "linux" else "darwin"
+      }_${hashes.${system}.system}-php-${builtins.replaceStrings [ "." ] [ "" ] phpMajor}.so";
       sha256 = hashes.${system}.sha256.${phpMajor};
     };
   self = stdenv.mkDerivation rec {

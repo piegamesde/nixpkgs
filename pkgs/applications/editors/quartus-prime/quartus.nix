@@ -56,8 +56,8 @@ let
       inherit name sha256;
       # e.g. "20.1.1.720" -> "20.1std.1/720"
       url = "https://downloads.intel.com/akdlm/software/acdsinst/${lib.versions.majorMinor version}std.${lib.versions.patch version}/${
-          lib.elemAt (lib.splitVersion version) 3
-        }/ib_installers/${name}";
+        lib.elemAt (lib.splitVersion version) 3
+      }/ib_installers/${name}";
     };
 in
 stdenv.mkDerivation rec {

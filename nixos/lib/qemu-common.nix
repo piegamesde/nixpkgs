@@ -56,8 +56,8 @@ rec {
       throwUnsupportedGuestSystem =
         guestMap:
         throw "Unsupported guest system ${guestSystem} for host ${hostSystem}, supported: ${
-            lib.concatStringsSep ", " (lib.attrNames guestMap)
-          }";
+          lib.concatStringsSep ", " (lib.attrNames guestMap)
+        }";
     in
     if hostStdenv.isLinux then
       linuxHostGuestMatrix.${guestSystem} or "${qemuPkg}/bin/qemu-kvm"

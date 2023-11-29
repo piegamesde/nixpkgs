@@ -138,8 +138,8 @@ stdenv.mkDerivation (
       homepage = "https://ccache.dev";
       downloadPage = "https://ccache.dev/download.html";
       changelog = "https://ccache.dev/releasenotes.html#_ccache_${
-          builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version
-        }";
+        builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version
+      }";
       license = licenses.gpl3Plus;
       maintainers = with maintainers; [
         kira-bruneau

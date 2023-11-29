@@ -250,16 +250,16 @@ let
       postFixup =
         let
           path = "PATH=${
-              makeBinPath [
-                coreutils
-                gawk
-                gnused
-                gnugrep
-                util-linux
-                smartmon
-                sysstat
-              ]
-            }:$PATH";
+            makeBinPath [
+              coreutils
+              gawk
+              gnused
+              gnugrep
+              util-linux
+              smartmon
+              sysstat
+            ]
+          }:$PATH";
         in
         ''
           for i in $out/libexec/zfs/zpool.d/*; do

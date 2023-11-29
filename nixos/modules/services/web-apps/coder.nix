@@ -171,10 +171,10 @@ in
         CODER_ACCESS_URL = cfg.accessUrl;
         CODER_WILDCARD_ACCESS_URL = cfg.wildcardAccessUrl;
         CODER_PG_CONNECTION_URL = "user=${cfg.database.username} ${
-            optionalString (cfg.database.password != null) "password=${cfg.database.password}"
-          } database=${cfg.database.database} host=${cfg.database.host} ${
-            optionalString (cfg.database.sslmode != null) "sslmode=${cfg.database.sslmode}"
-          }";
+          optionalString (cfg.database.password != null) "password=${cfg.database.password}"
+        } database=${cfg.database.database} host=${cfg.database.host} ${
+          optionalString (cfg.database.sslmode != null) "sslmode=${cfg.database.sslmode}"
+        }";
         CODER_ADDRESS = cfg.listenAddress;
         CODER_TLS_ENABLE = optionalString (cfg.tlsCert != null) "1";
         CODER_TLS_CERT_FILE = cfg.tlsCert;

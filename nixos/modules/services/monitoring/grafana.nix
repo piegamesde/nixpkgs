@@ -1940,8 +1940,8 @@ in
           opt: defaultValue:
           let
             regex = "${
-                optionalString (defaultValue != null) "^${defaultValue}$|"
-              }^\\$__(file|env)\\{.*}$|^\\$[^_\\$][^ ]+$";
+              optionalString (defaultValue != null) "^${defaultValue}$|"
+            }^\\$__(file|env)\\{.*}$|^\\$[^_\\$][^ ]+$";
           in
           builtins.match regex opt == null;
       in

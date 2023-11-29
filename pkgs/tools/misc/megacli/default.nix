@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/${
-        builtins.replaceStrings [ "." ] [ "-" ] version
-      }_MegaCLI.zip";
+      builtins.replaceStrings [ "." ] [ "-" ] version
+    }_MegaCLI.zip";
     sha256 = "1sdn58fbmd3fj4nzbajq3gcyw71ilgdh45r5p4sa6xmb7np55cfr";
   };
 

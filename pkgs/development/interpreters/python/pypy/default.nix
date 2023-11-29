@@ -54,8 +54,8 @@ let
     implementation = "pypy";
     libPrefix = "pypy${pythonVersion}";
     executable = "pypy${
-        if isPy39OrNewer then lib.versions.majorMinor pythonVersion else lib.optionalString isPy3k "3"
-      }";
+      if isPy39OrNewer then lib.versions.majorMinor pythonVersion else lib.optionalString isPy3k "3"
+    }";
     sitePackages = "${lib.optionalString isPy38OrNewer "lib/${libPrefix}/"}site-packages";
     hasDistutilsCxxPatch = false;
     inherit pythonAttr;

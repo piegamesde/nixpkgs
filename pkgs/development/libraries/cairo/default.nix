@@ -43,8 +43,8 @@ stdenv.mkDerivation (
 
     src = fetchurl {
       url = "https://cairographics.org/${
-          if lib.mod (builtins.fromJSON (lib.versions.minor version)) 2 == 0 then "releases" else "snapshots"
-        }/${pname}-${version}.tar.xz";
+        if lib.mod (builtins.fromJSON (lib.versions.minor version)) 2 == 0 then "releases" else "snapshots"
+      }/${pname}-${version}.tar.xz";
       sha256 = "0c930mk5xr2bshbdljv005j3j8zr47gqmkry3q6qgvqky6rjjysy";
     };
 

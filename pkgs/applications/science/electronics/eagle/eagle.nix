@@ -54,8 +54,8 @@ mkDerivation rec {
 
   src = fetchurl {
     url = "https://eagle-updates.circuits.io/downloads/${
-        builtins.replaceStrings [ "." ] [ "_" ] version
-      }/Autodesk_EAGLE_${version}_English_Linux_64bit.tar.gz";
+      builtins.replaceStrings [ "." ] [ "_" ] version
+    }/Autodesk_EAGLE_${version}_English_Linux_64bit.tar.gz";
     sha256 = "18syygnskl286kn8aqfzzdsyzq59d2w19y1h1ynyxsnrvkyv71h0";
   };
 

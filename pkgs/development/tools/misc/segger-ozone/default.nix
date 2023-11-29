@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.segger.com/downloads/jlink/Ozone_Linux_V${
-        (lib.replaceStrings [ "." ] [ "" ] version)
-      }_x86_64.tgz";
+      (lib.replaceStrings [ "." ] [ "" ] version)
+    }_x86_64.tgz";
     sha256 = "0v1r8qvp1w2f3yip9fys004pa0smlmq69p7w77lfvghs1rmg1649";
   };
 

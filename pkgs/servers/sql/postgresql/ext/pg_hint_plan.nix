@@ -13,17 +13,17 @@ stdenv.mkDerivation rec {
     owner = "ossc-db";
     repo = pname;
     rev = "REL${
-        builtins.replaceStrings
-          [
-            "-"
-            "."
-          ]
-          [
-            "_"
-            "_"
-          ]
-          version
-      }";
+      builtins.replaceStrings
+        [
+          "-"
+          "."
+        ]
+        [
+          "_"
+          "_"
+        ]
+        version
+    }";
     sha256 = "sha256-2hYDn/69264x2lMRVIp/I5chjocL6UqIw5ry1qdRcDM=";
   };
 

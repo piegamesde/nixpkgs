@@ -157,8 +157,8 @@ let
         + optionalString dev.bypassWorkqueues " --perf-no_read_workqueue --perf-no_write_workqueue"
         + optionalString (dev.header != null) " --header=${dev.header}";
       cschange = "cryptsetup luksChangeKey ${dev.device} ${
-          optionalString (dev.header != null) "--header=${dev.header}"
-        }";
+        optionalString (dev.header != null) "--header=${dev.header}"
+      }";
       fido2luksCredentials =
         dev.fido2.credentials
         ++ optional (dev.fido2.credential != null) dev.fido2.credential;

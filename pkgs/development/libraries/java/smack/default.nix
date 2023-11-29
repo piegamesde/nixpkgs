@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://www.igniterealtime.org/downloadServlet?filename=smack/smack_${
-        lib.replaceStrings [ "." ] [ "_" ] version
-      }.tar.gz";
+      lib.replaceStrings [ "." ] [ "_" ] version
+    }.tar.gz";
     sha256 = "009x0qcxd4dkvwcjz2nla470pwbabwvg37wc21pslpw42ldi0bzp";
   };
 

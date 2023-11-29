@@ -35,8 +35,8 @@ buildPythonPackage rec {
       (substituteAll {
         src = ./0001-hardcode-path-to-libgomp.patch;
         gomp = "${
-            if stdenv.cc.isClang then openmp else stdenv.cc.cc.lib
-          }/lib/libgomp${stdenv.hostPlatform.extensions.sharedLibrary}";
+          if stdenv.cc.isClang then openmp else stdenv.cc.cc.lib
+        }/lib/libgomp${stdenv.hostPlatform.extensions.sharedLibrary}";
       })
     ];
 

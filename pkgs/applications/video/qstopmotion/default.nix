@@ -30,8 +30,8 @@ mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://sourceforge/project/${pname}/Version_${
-        builtins.replaceStrings [ "." ] [ "_" ] version
-      }/${pname}-${version}-Source.tar.gz";
+      builtins.replaceStrings [ "." ] [ "_" ] version
+    }/${pname}-${version}-Source.tar.gz";
     sha256 = "sha256-jyBUyadkSuQKXOrr5XZ1jy6of1Qw8S2HPxuOrPc7RnE=";
   };
 

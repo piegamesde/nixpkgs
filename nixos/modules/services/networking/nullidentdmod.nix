@@ -33,8 +33,8 @@ in
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${pkgs.nullidentdmod}/bin/nullidentdmod${
-            optionalString (cfg.userid != null) " ${cfg.userid}"
-          }";
+          optionalString (cfg.userid != null) " ${cfg.userid}"
+        }";
         StandardInput = "socket";
         StandardOutput = "socket";
       };

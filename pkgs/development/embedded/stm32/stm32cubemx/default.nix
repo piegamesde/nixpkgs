@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url = "https://sw-center.st.com/packs/resource/library/stm32cube_mx_v${
-        builtins.replaceStrings [ "." ] [ "" ] version
-      }-lin.zip";
+      builtins.replaceStrings [ "." ] [ "" ] version
+    }-lin.zip";
     sha256 = "sha256-jJeJTg2cCO6fqQ4vFq2dXsfsWmlN5ncZJWMoekJXkLQ=";
     stripRoot = false;
   };

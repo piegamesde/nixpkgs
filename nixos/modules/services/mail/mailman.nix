@@ -714,8 +714,8 @@ in
               # dir in the cwd, change to the (writable) runtime directory before
               # starting uwsgi.
               ExecStart = "${pkgs.coreutils}/bin/env -C $RUNTIME_DIRECTORY ${
-                  pkgs.uwsgi.override { plugins = [ "python3" ]; }
-                }/bin/uwsgi --json ${uwsgiConfigFile}";
+                pkgs.uwsgi.override { plugins = [ "python3" ]; }
+              }/bin/uwsgi --json ${uwsgiConfigFile}";
               User = cfg.webUser;
               Group = "mailman";
               RuntimeDirectory = "mailman-uwsgi";

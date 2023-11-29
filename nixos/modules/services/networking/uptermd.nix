@@ -83,8 +83,8 @@ in
         StateDirectory = "uptermd";
         WorkingDirectory = "/var/lib/uptermd";
         ExecStart = "${pkgs.upterm}/bin/uptermd --ssh-addr ${cfg.listenAddress}:${toString cfg.port} --private-key ${
-            if cfg.hostKey == null then "ssh_host_ed25519_key" else cfg.hostKey
-          } ${concatStringsSep " " cfg.extraFlags}";
+          if cfg.hostKey == null then "ssh_host_ed25519_key" else cfg.hostKey
+        } ${concatStringsSep " " cfg.extraFlags}";
 
         # Hardening
         AmbientCapabilities = mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];

@@ -73,11 +73,11 @@ let
       '';
 
       serviceConfig.ExecStart = "${pkgs.wpa_supplicant}/bin/wpa_supplicant -s ${driverArg} ${confFileArg} -I${extraConfFile} ${bridgeArg} ${suppl.extraCmdArgs} ${
-          if (iface == "WLAN" || iface == "LAN") then
-            "-i%I"
-          else
-            (if (iface == "DBUS") then "-u" else ifaceArg)
-        }";
+        if (iface == "WLAN" || iface == "LAN") then
+          "-i%I"
+        else
+          (if (iface == "DBUS") then "-u" else ifaceArg)
+      }";
     };
 in
 

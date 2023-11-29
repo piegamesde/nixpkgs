@@ -258,20 +258,20 @@ let
               {
                 assertion = config.mergedConfig.useacl -> (config.acl != null || config.aclFile != null);
                 message = "Either ${showPath [ "acl" ]} or ${showPath [ "aclFile" ]} is mandatory if ${
-                    showPath [
-                      "settings"
-                      "useacl"
-                    ]
-                  } is true";
+                  showPath [
+                    "settings"
+                    "useacl"
+                  ]
+                } is true";
               }
               {
                 assertion = config.usersFile != null -> config.mergedConfig.useacl != false;
                 message = "${
-                    showPath [
-                      "settings"
-                      "useacl"
-                    ]
-                  } is required when ${showPath [ "usersFile" ]} is set (Currently defiend as `${config.usersFile}' in ${showFiles options.usersFile.files}).";
+                  showPath [
+                    "settings"
+                    "useacl"
+                  ]
+                } is required when ${showPath [ "usersFile" ]} is set (Currently defiend as `${config.usersFile}' in ${showFiles options.usersFile.files}).";
               }
             ];
           }

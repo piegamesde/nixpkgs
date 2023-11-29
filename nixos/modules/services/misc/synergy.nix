@@ -113,8 +113,8 @@ in
         wantedBy = optional cfgC.autoStart "graphical-session.target";
         path = [ pkgs.synergy ];
         serviceConfig.ExecStart = "${pkgs.synergy}/bin/synergyc -f ${
-            optionalString (cfgC.screenName != "") "-n ${cfgC.screenName}"
-          } ${cfgC.serverAddress}";
+          optionalString (cfgC.screenName != "") "-n ${cfgC.screenName}"
+        } ${cfgC.serverAddress}";
         serviceConfig.Restart = "on-failure";
       };
     })
@@ -128,12 +128,12 @@ in
         wantedBy = optional cfgS.autoStart "graphical-session.target";
         path = [ pkgs.synergy ];
         serviceConfig.ExecStart = "${pkgs.synergy}/bin/synergys -c ${cfgS.configFile} -f${
-            optionalString (cfgS.address != "") " -a ${cfgS.address}"
-          }${
-            optionalString (cfgS.screenName != "") " -n ${cfgS.screenName}"
-          }${optionalString cfgS.tls.enable " --enable-crypto"}${
-            optionalString (cfgS.tls.cert != null) (" --tls-cert ${cfgS.tls.cert}")
-          }";
+          optionalString (cfgS.address != "") " -a ${cfgS.address}"
+        }${
+          optionalString (cfgS.screenName != "") " -n ${cfgS.screenName}"
+        }${optionalString cfgS.tls.enable " --enable-crypto"}${
+          optionalString (cfgS.tls.cert != null) (" --tls-cert ${cfgS.tls.cert}")
+        }";
         serviceConfig.Restart = "on-failure";
       };
     })

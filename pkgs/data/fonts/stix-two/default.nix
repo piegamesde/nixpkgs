@@ -10,8 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url = "https://github.com/stipub/stixfonts/raw/v${version}/zipfiles/STIX${
-        builtins.replaceStrings [ "." ] [ "_" ] version
-      }-all.zip";
+      builtins.replaceStrings [ "." ] [ "_" ] version
+    }-all.zip";
     stripRoot = false;
     hash = "sha256-hfQmrw7HjlhQSA0rVTs84i3j3iMVR0k7tCRBcB6hEpU=";
   };

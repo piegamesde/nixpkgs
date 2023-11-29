@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://www.arkkra.com/ftp/pub/unix/mup${
-        builtins.replaceStrings [ "." ] [ "" ] version
-      }src.tar.gz";
+      builtins.replaceStrings [ "." ] [ "" ] version
+    }src.tar.gz";
     sha256 = "06bv5nyl8rcibyb83zzrfdq6x6f93g3rgnv47i5gsjcaw5w6l31y";
   };
 

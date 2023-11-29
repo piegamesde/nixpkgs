@@ -126,14 +126,14 @@ let
     stdenv.mkDerivation (
       {
         pname = "flutter-artifact${
-            lib.optionalString (platform != null) "-${artifactDirectory}"
-          }-${archiveBasename}";
+          lib.optionalString (platform != null) "-${artifactDirectory}"
+        }-${archiveBasename}";
         version = engineVersion;
 
         src = fetchzip {
           url = "https://storage.googleapis.com/flutter_infra_release/flutter/${engineVersion}${
-              lib.optionalString (platform != null) "/${artifactDirectory}"
-            }/${archive}";
+            lib.optionalString (platform != null) "/${artifactDirectory}"
+          }/${archive}";
           stripRoot = false;
           hash = (if artifactDirectory == null then hashes else hashes.${artifactDirectory}).${archive};
         };

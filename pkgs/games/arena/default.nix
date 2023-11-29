@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://www.playwitharena.de/downloads/arenalinux_64bit_${
-        lib.replaceStrings [ "-" ] [ "" ] version
-      }.tar.gz";
+      lib.replaceStrings [ "-" ] [ "" ] version
+    }.tar.gz";
     sha256 = "1pzb9sg4lzbbi4gbldvlb85p8xyl9xnplxwyb9pkk2mwzvvxkf0d";
   };
 

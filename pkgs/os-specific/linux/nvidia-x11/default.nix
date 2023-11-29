@@ -86,8 +86,8 @@ rec {
     settingsSha256 = "sha256-ck6ra8y8nn5kA3L9/VcRR2W2RaWvfVbgBiOh2dRJr/8=";
     persistencedSha256 = "sha256-dt/Tqxp7ZfnbLel9BavjWDoEdLJvdJRwFjTFOBYYKLI=";
     url = "https://developer.nvidia.com/downloads/vulkan-beta-${
-        lib.concatStrings (lib.splitString "." version)
-      }-linux";
+      lib.concatStrings (lib.splitString "." version)
+    }-linux";
   };
 
   # Update note:

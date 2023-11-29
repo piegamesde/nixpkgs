@@ -26,6 +26,6 @@ genericUpdater {
     patchlevel-unstable
   ;
   versionLister = "${common-updater-scripts}/bin/list-archive-two-levels-versions ${
-      lib.optionalString (url != null) "--url=${lib.escapeShellArg url}"
-    }";
+    lib.optionalString (url != null) "--url=${lib.escapeShellArg url}"
+  }";
 }

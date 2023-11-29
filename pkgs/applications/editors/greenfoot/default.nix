@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     # download, but that is actually a graphical installer that is much harder
     # to unpack than the deb.
     url = "https://www.greenfoot.org/download/files/Greenfoot-linux-${
-        builtins.replaceStrings [ "." ] [ "" ] version
-      }.deb";
+      builtins.replaceStrings [ "." ] [ "" ] version
+    }.deb";
     sha256 = "sha256-wGgKDsA/2luw+Nzs9dWb/HRHMx/0S0CFfoI53OCzxug=";
   };
 

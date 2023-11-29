@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
     description = "A build manager for GNUstep";
     homepage = "http://gnustep.org/";
     changelog = "https://github.com/gnustep/tools-make/releases/tag/make-${
-        builtins.replaceStrings [ "." ] [ "_" ] version
-      }";
+      builtins.replaceStrings [ "." ] [ "_" ] version
+    }";
     license = lib.licenses.lgpl2Plus;
     maintainers = with lib.maintainers; [
       ashalkhakov

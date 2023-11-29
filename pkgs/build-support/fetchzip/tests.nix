@@ -22,11 +22,11 @@ in
 
   hiddenDir = testers.invalidateFetcherByDrvHash fetchzip {
     url = "file://${
-        runCommand "hiddendir.tar" { } ''
-          mkdir .foo
-          tar -cf $out .foo
-        ''
-      }";
+      runCommand "hiddendir.tar" { } ''
+        mkdir .foo
+        tar -cf $out .foo
+      ''
+    }";
     sha256 = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
   };
 }

@@ -262,10 +262,10 @@ in
         script =
           let
             psql = "${
-                lib.optionalString (!localDB) "PGPASSFILE=${cfg.database.passwordFile}"
-              } ${pkgs.postgresql}/bin/psql ${
-                lib.optionalString (!localDB) "-h ${cfg.database.host} -U ${cfg.database.username} "
-              } ${cfg.database.dbname}";
+              lib.optionalString (!localDB) "PGPASSFILE=${cfg.database.passwordFile}"
+            } ${pkgs.postgresql}/bin/psql ${
+              lib.optionalString (!localDB) "-h ${cfg.database.host} -U ${cfg.database.username} "
+            } ${cfg.database.dbname}";
           in
           ''
             version="$(${psql} -t <<< "select value from system where name = 'roundcube-version';" || true)"

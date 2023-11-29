@@ -17,25 +17,25 @@ let
       (map
         (path: {
           name = "rspamd_${
-              replaceStrings
-                [
-                  "["
-                  "."
-                  " "
-                  "]"
-                  "\\"
-                  "'"
-                ]
-                [
-                  "_"
-                  "_"
-                  "_"
-                  ""
-                  ""
-                  ""
-                ]
-                path
-            }";
+            replaceStrings
+              [
+                "["
+                "."
+                " "
+                "]"
+                "\\"
+                "'"
+              ]
+              [
+                "_"
+                "_"
+                "_"
+                ""
+                ""
+                ""
+              ]
+              path
+          }";
           path = "{ .${path} }";
           labels = extraLabels;
         })

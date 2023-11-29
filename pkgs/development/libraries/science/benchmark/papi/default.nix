@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://bitbucket.org/icl/papi/get/papi-${
-        lib.replaceStrings [ "." ] [ "-" ] version
-      }-t.tar.gz";
+      lib.replaceStrings [ "." ] [ "-" ] version
+    }-t.tar.gz";
     sha256 = "sha256-MxiOzfBxLmzsUg4jo2VHThyGE0/WYD3ZEBrq3WRjXGU=";
   };
 

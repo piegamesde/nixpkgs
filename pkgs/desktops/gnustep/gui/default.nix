@@ -17,7 +17,7 @@ gsmakeDerivation rec {
   meta = {
     description = "A GUI class library of GNUstep";
     changelog = "https://github.com/gnustep/libs-gui/releases/tag/gui-${
-        builtins.replaceStrings [ "." ] [ "_" ] version
-      }";
+      builtins.replaceStrings [ "." ] [ "_" ] version
+    }";
   };
 }

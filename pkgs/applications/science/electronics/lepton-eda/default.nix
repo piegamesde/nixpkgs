@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/lepton-eda/lepton-eda/releases/download/${version}/lepton-eda-${
-        builtins.head (lib.splitString "-" version)
-      }.tar.gz";
+      builtins.head (lib.splitString "-" version)
+    }.tar.gz";
     sha256 = "sha256-lOneKeJUcw6jOX/3iv9BDWOJ3xip/vGhzxHHNAbtsS8=";
   };
 

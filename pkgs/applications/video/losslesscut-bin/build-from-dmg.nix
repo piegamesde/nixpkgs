@@ -14,8 +14,8 @@ let
   pname = "losslesscut";
   src = fetchurl {
     url = "https://github.com/mifi/lossless-cut/releases/download/v${version}/LosslessCut-mac-${
-        if isAarch64 then "arm64" else "x64"
-      }.dmg";
+      if isAarch64 then "arm64" else "x64"
+    }.dmg";
     inherit hash;
   };
 in

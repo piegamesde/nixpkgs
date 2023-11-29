@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://sourceforge/msieve/msieve/Msieve%20v${version}/msieve${
-        lib.replaceStrings [ "." ] [ "" ] version
-      }_src.tar.gz";
+      lib.replaceStrings [ "." ] [ "" ] version
+    }_src.tar.gz";
     sha256 = "1d1vv7j4rh3nnxsmvafi73qy7lw7n3akjlm5pjl3m936yapvmz65";
   };
 

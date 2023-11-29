@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/libexpat/libexpat/releases/download/R_${
-        lib.replaceStrings [ "." ] [ "_" ] version
-      }/${pname}-${version}.tar.xz";
+      lib.replaceStrings [ "." ] [ "_" ] version
+    }/${pname}-${version}.tar.xz";
     sha256 = "1gnwihpfz4x18rwd6cbrdggmfqjzwsdfh1gpmc0ph21c4gq2097g";
   };
 
