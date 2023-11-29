@@ -74,9 +74,7 @@ stdenv.mkDerivation (
       done
       # Needed for at least the remote plugin server
       for file in $out/bin/*; do
-          wrapProgram "$file" --prefix SOAPY_SDR_PLUGIN_PATH : ${
-            lib.escapeShellArg extraPackagesSearchPath
-          }
+          wrapProgram "$file" --prefix SOAPY_SDR_PLUGIN_PATH : ${lib.escapeShellArg extraPackagesSearchPath}
       done
     '';
 

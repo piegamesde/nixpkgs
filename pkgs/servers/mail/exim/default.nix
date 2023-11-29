@@ -82,56 +82,42 @@ stdenv.mkDerivation rec {
       s:^# \(TOUCH_COMMAND\)=.*:\1=${coreutils}/bin/touch:
       s:^# \(PERL_COMMAND\)=.*:\1=${perl}/bin/perl:
       s:^# \(LOOKUP_DSEARCH=yes\)$:\1:
-      ${
-        lib.optionalString enableLDAP ''
-          s:^# \(LDAP_LIB_TYPE=OPENLDAP2\)$:\1:
-          s:^# \(LOOKUP_LDAP=yes\)$:\1:
-          s:^\(LOOKUP_LIBS\)=\(.*\):\1=\2 -lldap -llber:
-          s:^# \(LOOKUP_LIBS\)=.*:\1=-lldap -llber:
-        ''
-      }
-      ${
-        lib.optionalString enableMySQL ''
-          s:^# \(LOOKUP_MYSQL=yes\)$:\1:
-          s:^# \(LOOKUP_MYSQL_PC=libmysqlclient\)$:\1:
-          s:^\(LOOKUP_LIBS\)=\(.*\):\1=\2 -lmysqlclient -L${libmysqlclient}/lib/mysql -lssl -lm -lpthread -lz:
-          s:^# \(LOOKUP_LIBS\)=.*:\1=-lmysqlclient -L${libmysqlclient}/lib/mysql -lssl -lm -lpthread -lz:
-          s:^# \(LOOKUP_INCLUDE\)=.*:\1=-I${libmysqlclient.dev}/include/mysql/:
-        ''
-      }
-      ${
-        lib.optionalString enableAuthDovecot ''
-          s:^# \(AUTH_DOVECOT\)=.*:\1=yes:
-        ''
-      }
-      ${
-        lib.optionalString enablePAM ''
-          s:^# \(SUPPORT_PAM\)=.*:\1=yes:
-          s:^\(EXTRALIBS_EXIM\)=\(.*\):\1=\2 -lpam:
-          s:^# \(EXTRALIBS_EXIM\)=.*:\1=-lpam:
-        ''
-      }
-      ${
-        lib.optionalString enableSPF ''
-          s:^# \(SUPPORT_SPF\)=.*:\1=yes:
-          s:^# \(LDFLAGS += -lspf2\):\1:
-        ''
-      }
-      ${
-        lib.optionalString enableDMARC ''
-          s:^# \(SUPPORT_DMARC\)=.*:\1=yes:
-          s:^# \(LDFLAGS += -lopendmarc\):\1:
-        ''
-      }
-      ${
-        lib.optionalString enableRedis ''
-          s:^# \(LOOKUP_REDIS=yes\)$:\1:
-          s:^\(LOOKUP_LIBS\)=\(.*\):\1=\2 -lhiredis -L${hiredis}/lib/hiredis:
-          s:^# \(LOOKUP_LIBS\)=.*:\1=-lhiredis -L${hiredis}/lib/hiredis:
-          s:^\(LOOKUP_INCLUDE\)=\(.*\):\1=\2 -I${hiredis}/include/hiredis/:
-          s:^# \(LOOKUP_INCLUDE\)=.*:\1=-I${hiredis}/include/hiredis/:
-        ''
-      }
+      ${lib.optionalString enableLDAP ''
+      s:^# \(LDAP_LIB_TYPE=OPENLDAP2\)$:\1:
+      s:^# \(LOOKUP_LDAP=yes\)$:\1:
+      s:^\(LOOKUP_LIBS\)=\(.*\):\1=\2 -lldap -llber:
+      s:^# \(LOOKUP_LIBS\)=.*:\1=-lldap -llber:
+    ''}
+      ${lib.optionalString enableMySQL ''
+      s:^# \(LOOKUP_MYSQL=yes\)$:\1:
+      s:^# \(LOOKUP_MYSQL_PC=libmysqlclient\)$:\1:
+      s:^\(LOOKUP_LIBS\)=\(.*\):\1=\2 -lmysqlclient -L${libmysqlclient}/lib/mysql -lssl -lm -lpthread -lz:
+      s:^# \(LOOKUP_LIBS\)=.*:\1=-lmysqlclient -L${libmysqlclient}/lib/mysql -lssl -lm -lpthread -lz:
+      s:^# \(LOOKUP_INCLUDE\)=.*:\1=-I${libmysqlclient.dev}/include/mysql/:
+    ''}
+      ${lib.optionalString enableAuthDovecot ''
+      s:^# \(AUTH_DOVECOT\)=.*:\1=yes:
+    ''}
+      ${lib.optionalString enablePAM ''
+      s:^# \(SUPPORT_PAM\)=.*:\1=yes:
+      s:^\(EXTRALIBS_EXIM\)=\(.*\):\1=\2 -lpam:
+      s:^# \(EXTRALIBS_EXIM\)=.*:\1=-lpam:
+    ''}
+      ${lib.optionalString enableSPF ''
+      s:^# \(SUPPORT_SPF\)=.*:\1=yes:
+      s:^# \(LDFLAGS += -lspf2\):\1:
+    ''}
+      ${lib.optionalString enableDMARC ''
+      s:^# \(SUPPORT_DMARC\)=.*:\1=yes:
+      s:^# \(LDFLAGS += -lopendmarc\):\1:
+    ''}
+      ${lib.optionalString enableRedis ''
+      s:^# \(LOOKUP_REDIS=yes\)$:\1:
+      s:^\(LOOKUP_LIBS\)=\(.*\):\1=\2 -lhiredis -L${hiredis}/lib/hiredis:
+      s:^# \(LOOKUP_LIBS\)=.*:\1=-lhiredis -L${hiredis}/lib/hiredis:
+      s:^\(LOOKUP_INCLUDE\)=\(.*\):\1=\2 -I${hiredis}/include/hiredis/:
+      s:^# \(LOOKUP_INCLUDE\)=.*:\1=-I${hiredis}/include/hiredis/:
+    ''}
       #/^\s*#.*/d
       #/^\s*$/d
     ' < src/EDITME > Local/Makefile

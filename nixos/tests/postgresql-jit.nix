@@ -37,13 +37,11 @@ let
 
         with subtest("Test JIT works fine"):
             output = machine.succeed(
-                "cat ${
-                  pkgs.writeText "test.sql" ''
-                    set jit_above_cost = 1;
-                    EXPLAIN ANALYZE SELECT CONCAT('jit result = ', SUM(id)) FROM demo;
-                    SELECT CONCAT('jit result = ', SUM(id)) from demo;
-                  ''
-                } | sudo -u postgres psql"
+                "cat ${pkgs.writeText "test.sql" ''
+          set jit_above_cost = 1;
+          EXPLAIN ANALYZE SELECT CONCAT('jit result = ', SUM(id)) FROM demo;
+          SELECT CONCAT('jit result = ', SUM(id)) from demo;
+        ''} | sudo -u postgres psql"
             )
             assert "JIT:" in output
             assert "jit result = 15" in output

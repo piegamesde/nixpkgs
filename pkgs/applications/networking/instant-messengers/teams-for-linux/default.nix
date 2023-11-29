@@ -75,9 +75,9 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     mkdir -p $out/share/{applications,teams-for-linux}
-    cp dist/${if stdenv.isDarwin then "darwin-" else "linux-"}${
-      lib.optionalString stdenv.hostPlatform.isAarch64 "arm64-"
-    }unpacked/resources/app.asar $out/share/teams-for-linux/
+    cp dist/${
+      if stdenv.isDarwin then "darwin-" else "linux-"
+    }${lib.optionalString stdenv.hostPlatform.isAarch64 "arm64-"}unpacked/resources/app.asar $out/share/teams-for-linux/
 
     pushd build/icons
     for image in *png; do
@@ -88,22 +88,20 @@ stdenv.mkDerivation rec {
 
     # Linux needs 'aplay' for notification sounds, 'libpulse' for meeting sound, and 'libpipewire' for screen sharing
     makeWrapper '${electron}/bin/electron' "$out/bin/teams-for-linux" \
-      ${
-        lib.optionalString stdenv.isLinux ''
-          --prefix PATH : ${
-            lib.makeBinPath [
-              alsa-utils
-              which
-            ]
-          } \
-          --prefix LD_LIBRARY_PATH : ${
-            lib.makeLibraryPath [
-              libpulseaudio
-              pipewire
-            ]
-          } \
-        ''
+      ${lib.optionalString stdenv.isLinux ''
+      --prefix PATH : ${
+        lib.makeBinPath [
+          alsa-utils
+          which
+        ]
       } \
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          libpulseaudio
+          pipewire
+        ]
+      } \
+    ''} \
       --add-flags "$out/share/teams-for-linux/app.asar" \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
 

@@ -61,9 +61,7 @@ buildGoModule rec {
   installCheckPhase = ''
     runHook preInstallCheck
     $out/bin/k3d --help
-    $out/bin/k3d --version | grep -e "k3d version v${version}" ${
-      lib.optionalString k3sVersionSet ''-e "k3s version v${k3sVersion}"''
-    }
+    $out/bin/k3d --version | grep -e "k3d version v${version}" ${lib.optionalString k3sVersionSet ''-e "k3s version v${k3sVersion}"''}
     runHook postInstallCheck
   '';
 

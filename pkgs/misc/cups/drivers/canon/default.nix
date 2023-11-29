@@ -195,18 +195,10 @@ stdenv.mkDerivation rec {
 
     (
       cd $out/bin
-      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${
-        lib.makeLibraryPath buildInputs
-      }:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" cnsetuputil2
-      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${
-        lib.makeLibraryPath buildInputs
-      }:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" cnpdfdrv
-      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${
-        lib.makeLibraryPath buildInputs
-      }:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64:$out/lib" cnpkbidir
-      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${
-        lib.makeLibraryPath buildInputs
-      }:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64:$out/lib" cnrsdrvufr2
+      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${lib.makeLibraryPath buildInputs}:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" cnsetuputil2
+      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${lib.makeLibraryPath buildInputs}:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" cnpdfdrv
+      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${lib.makeLibraryPath buildInputs}:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64:$out/lib" cnpkbidir
+      patchelf --set-interpreter "$(cat ${ld64})" --set-rpath "${lib.makeLibraryPath buildInputs}:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64:$out/lib" cnrsdrvufr2
 
       mv cnsetuputil2 cnsetuputil2.wrapped
       echo "#!${runtimeShell} -e" > cnsetuputil2

@@ -390,9 +390,7 @@ in
       ${optionalString (cfg.bantime-increment.overalljails != null)
         "bantime.overalljails = ${boolToString cfg.bantime-increment.overalljails}"}
       # Miscellaneous options
-      ignoreip    = 127.0.0.1/8 ${optionalString config.networking.enableIPv6 "::1"} ${
-        concatStringsSep " " cfg.ignoreIP
-      }
+      ignoreip    = 127.0.0.1/8 ${optionalString config.networking.enableIPv6 "::1"} ${concatStringsSep " " cfg.ignoreIP}
       ${optionalString (cfg.bantime != null) ''
         bantime     = ${cfg.bantime}
       ''}

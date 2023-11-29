@@ -3539,9 +3539,7 @@ let
           wantedBy = [ "network-online.target" ];
           serviceConfig.ExecStart = [
             ""
-            "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online ${
-              utils.escapeSystemdExecArgs cfg.wait-online.extraArgs
-            }"
+            "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online ${utils.escapeSystemdExecArgs cfg.wait-online.extraArgs}"
           ];
         };
 
@@ -3553,9 +3551,7 @@ let
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = true;
-            ExecStart = "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online -i %I ${
-                utils.escapeSystemdExecArgs cfg.wait-online.extraArgs
-              }";
+            ExecStart = "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online -i %I ${utils.escapeSystemdExecArgs cfg.wait-online.extraArgs}";
           };
         };
       })

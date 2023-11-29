@@ -54,12 +54,10 @@ let
         ${optionalString (cfg.down != "" || cfg.updateResolvConf)
           "down ${pkgs.writeShellScript "openvpn-${name}-down" downScript}"}
         ${optionalString (cfg.authUserPass != null)
-          "auth-user-pass ${
-            pkgs.writeText "openvpn-credentials-${name}" ''
-              ${cfg.authUserPass.username}
-              ${cfg.authUserPass.password}
-            ''
-          }"}
+          "auth-user-pass ${pkgs.writeText "openvpn-credentials-${name}" ''
+            ${cfg.authUserPass.username}
+            ${cfg.authUserPass.password}
+          ''}"}
       '';
     in
     {

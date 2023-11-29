@@ -60,9 +60,7 @@ stdenv.mkDerivation rec {
             ''
           else
             ''
-              patchelf --set-rpath "$(patchelf --print-rpath $lib):${
-                makeLibraryPath propagatedBuildInputs
-              }" "$lib"
+              patchelf --set-rpath "$(patchelf --print-rpath $lib):${makeLibraryPath propagatedBuildInputs}" "$lib"
             ''
         }
       fi

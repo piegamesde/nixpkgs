@@ -81,9 +81,7 @@ in
       };
 
       serviceConfig = {
-        ExecStart = "${pkgs.greetd.greetd}/bin/greetd --config ${
-            settingsFormat.generate "greetd.toml" cfg.settings
-          }";
+        ExecStart = "${pkgs.greetd.greetd}/bin/greetd --config ${settingsFormat.generate "greetd.toml" cfg.settings}";
 
         Restart = mkIf cfg.restart "always";
 

@@ -61,9 +61,7 @@ in
       '';
       #unitConfig.RequiresMountsFor = "${cfg.settingsDir}";
       serviceConfig = {
-        ExecStart = "${pythonPackages.gateone}/bin/gateone --settings_dir=${cfg.settingsDir} --pid_file=${cfg.pidDir}/gateone.pid --gid=${
-            toString config.ids.gids.gateone
-          } --uid=${toString config.ids.uids.gateone}";
+        ExecStart = "${pythonPackages.gateone}/bin/gateone --settings_dir=${cfg.settingsDir} --pid_file=${cfg.pidDir}/gateone.pid --gid=${toString config.ids.gids.gateone} --uid=${toString config.ids.uids.gateone}";
         User = "gateone";
         Group = "gateone";
         WorkingDirectory = cfg.settingsDir;

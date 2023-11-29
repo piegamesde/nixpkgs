@@ -15,9 +15,7 @@ stdenv.mkDerivation rec {
   version = "1.27b";
 
   src = fetchzip {
-    url = "mirror://sourceforge/eureka-editor/Eureka/${
-        lib.versions.majorMinor version
-      }/eureka-${version}-source.tar.gz";
+    url = "mirror://sourceforge/eureka-editor/Eureka/${lib.versions.majorMinor version}/eureka-${version}-source.tar.gz";
     sha256 = "075w7xxsgbgh6dhndc1pfxb2h1s5fhsw28yl1c025gmx9bb4v3bf";
   };
 

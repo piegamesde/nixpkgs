@@ -99,11 +99,9 @@ stdenv.mkDerivation (
     postUnpack = ''
       (
           cd "$sourceRoot/subprojects"
-          ${
-            lib.optionalString finalAttrs.doCheck ''
-              cp -R --no-preserve=mode,ownership ${cmocka.src} cmocka
-            ''
-          }
+          ${lib.optionalString finalAttrs.doCheck ''
+        cp -R --no-preserve=mode,ownership ${cmocka.src} cmocka
+      ''}
           cp -R --no-preserve=mode,ownership ${imgui.src} imgui-${imgui.version}
           cp -R --no-preserve=mode,ownership ${vulkan-headers.src} Vulkan-Headers-${vulkan-headers.version}
         )'';

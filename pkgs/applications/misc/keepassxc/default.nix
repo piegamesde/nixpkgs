@@ -85,9 +85,7 @@ stdenv.mkDerivation rec {
     export QT_PLUGIN_PATH="${qtbase.bin}/${qtbase.qtPluginPrefix}"
     # testcli, testgui and testkdbx4 are flaky - skip them all
     # testautotype on darwin throws "QWidget: Cannot create a QWidget without QApplication"
-    make test ARGS+="-E 'testcli|testgui${
-      lib.optionalString stdenv.isDarwin "|testautotype|testkdbx4"
-    }' --output-on-failure"
+    make test ARGS+="-E 'testcli|testgui${lib.optionalString stdenv.isDarwin "|testautotype|testkdbx4"}' --output-on-failure"
 
     runHook postCheck
   '';

@@ -125,9 +125,7 @@ let
 
     set -e
 
-    NIX_DISK_IMAGE=$(readlink -f "''${NIX_DISK_IMAGE:-${
-      toString config.virtualisation.diskImage
-    }}") || test -z "$NIX_DISK_IMAGE"
+    NIX_DISK_IMAGE=$(readlink -f "''${NIX_DISK_IMAGE:-${toString config.virtualisation.diskImage}}") || test -z "$NIX_DISK_IMAGE"
 
     if test -n "$NIX_DISK_IMAGE" && ! test -e "$NIX_DISK_IMAGE"; then
         echo "Disk image do not exist, creating the virtualisation disk image..."
@@ -1045,9 +1043,7 @@ in
             concatMapStrings (c: if builtins.elem c alphaNumericChars then c else "_") (stringToCharacters s);
         in
         mkIf (!cfg.useBootLoader) [
-          "-kernel \${NIXPKGS_QEMU_KERNEL_${
-            sanitizeShellIdent config.system.name
-          }:-${config.system.build.toplevel}/kernel}"
+          "-kernel \${NIXPKGS_QEMU_KERNEL_${sanitizeShellIdent config.system.name}:-${config.system.build.toplevel}/kernel}"
           "-initrd ${config.system.build.toplevel}/initrd"
           ''
             -append "$(cat ${config.system.build.toplevel}/kernel-params) init=${config.system.build.toplevel}/init regInfo=${regInfo}/registration ${consoles} $QEMU_KERNEL_PARAMS"''

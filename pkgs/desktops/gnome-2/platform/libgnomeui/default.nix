@@ -24,9 +24,7 @@ stdenv.mkDerivation rec {
   version = "2.24.5";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libgnomeui/${
-        lib.versions.majorMinor version
-      }/libgnomeui-${version}.tar.bz2";
+    url = "mirror://gnome/sources/libgnomeui/${lib.versions.majorMinor version}/libgnomeui-${version}.tar.bz2";
     sha256 = "03rwbli76crkjl6gp422wrc9lqpl174k56cp9i96b7l8jlj2yddf";
   };
 

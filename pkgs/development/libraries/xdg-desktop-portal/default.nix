@@ -96,9 +96,7 @@ stdenv.mkDerivation (
         installedTests = nixosTests.installed-tests.xdg-desktop-portal;
 
         validate-icon = runCommand "test-icon-validation" { } ''
-          ${finalAttrs.finalPackage}/libexec/xdg-desktop-portal-validate-icon --sandbox 512 512 ${
-            ../../../applications/audio/zynaddsubfx/ZynLogo.svg
-          } > "$out"
+          ${finalAttrs.finalPackage}/libexec/xdg-desktop-portal-validate-icon --sandbox 512 512 ${../../../applications/audio/zynaddsubfx/ZynLogo.svg} > "$out"
           grep format=svg "$out"
         '';
       };

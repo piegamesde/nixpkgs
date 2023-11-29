@@ -65,12 +65,10 @@ let
       autologin-session = ${sessionData.autologinSession}
     ''}
     ${optionalString (dmcfg.setupCommands != "") ''
-      display-setup-script=${
-        pkgs.writeScript "lightdm-display-setup" ''
-          #!${pkgs.bash}/bin/bash
-          ${dmcfg.setupCommands}
-        ''
-      }
+      display-setup-script=${pkgs.writeScript "lightdm-display-setup" ''
+        #!${pkgs.bash}/bin/bash
+        ${dmcfg.setupCommands}
+      ''}
     ''}
     ${cfg.extraSeatDefaults}
   '';

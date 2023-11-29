@@ -62,9 +62,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.nextcloud-notify_push =
       let
-        nextcloudUrl = "http${
-            lib.optionalString config.services.nextcloud.https "s"
-          }://${config.services.nextcloud.hostName}";
+        nextcloudUrl = "http${lib.optionalString config.services.nextcloud.https "s"}://${config.services.nextcloud.hostName}";
       in
       {
         description = "Push daemon for Nextcloud clients";
@@ -98,9 +96,9 @@ in
                 "@${cfg.dbhost}"
             );
             dbName = lib.optionalString (cfg.dbname != null) "/${cfg.dbname}";
-            dbUrl = "${dbType}://${dbUser}${dbPass}${lib.optionalString (!isSocket) dbHost}${dbName}${
-                lib.optionalString isSocket dbHost
-              }";
+            dbUrl = "${dbType}://${dbUser}${dbPass}${
+                lib.optionalString (!isSocket) dbHost
+              }${dbName}${lib.optionalString isSocket dbHost}";
           in
           lib.optionalString (dbPass != "") ''
             export DATABASE_PASSWORD="$(<"${cfg.dbpassFile}")"

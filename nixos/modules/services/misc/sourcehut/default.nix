@@ -905,88 +905,74 @@ in
               # - query metasrht-api (through the HTTP API).
               # Using this has the side effect of creating empty files in /usr/bin/
               optionals cfg.builds.enable [
-                "${
-                  pkgs.writeShellScript "buildsrht-keys-wrapper" ''
-                    set -e
-                    cd /run/sourcehut/buildsrht/subdir
-                    set -x
-                    exec -a "$0" ${pkgs.sourcehut.buildsrht}/bin/buildsrht-keys "$@"
-                  ''
-                }:/usr/bin/buildsrht-keys"
+                "${pkgs.writeShellScript "buildsrht-keys-wrapper" ''
+                  set -e
+                  cd /run/sourcehut/buildsrht/subdir
+                  set -x
+                  exec -a "$0" ${pkgs.sourcehut.buildsrht}/bin/buildsrht-keys "$@"
+                ''}:/usr/bin/buildsrht-keys"
                 "${pkgs.sourcehut.buildsrht}/bin/master-shell:/usr/bin/master-shell"
                 "${pkgs.sourcehut.buildsrht}/bin/runner-shell:/usr/bin/runner-shell"
               ]
               ++ optionals cfg.git.enable [
                 # /path/to/gitsrht-keys calls /path/to/gitsrht-shell,
                 # or [git.sr.ht] shell= if set.
-                "${
-                  pkgs.writeShellScript "gitsrht-keys-wrapper" ''
-                    set -e
-                    cd /run/sourcehut/gitsrht/subdir
+                "${pkgs.writeShellScript "gitsrht-keys-wrapper" ''
+                  set -e
+                  cd /run/sourcehut/gitsrht/subdir
+                  set -x
+                  exec -a "$0" ${pkgs.sourcehut.gitsrht}/bin/gitsrht-keys "$@"
+                ''}:/usr/bin/gitsrht-keys"
+                "${pkgs.writeShellScript "gitsrht-shell-wrapper" ''
+                  set -e
+                  cd /run/sourcehut/gitsrht/subdir
+                  set -x
+                  exec -a "$0" ${pkgs.sourcehut.gitsrht}/bin/gitsrht-shell "$@"
+                ''}:/usr/bin/gitsrht-shell"
+                "${pkgs.writeShellScript "gitsrht-update-hook" ''
+                  set -e
+                  test -e "''${PWD%/*}"/config.ini ||
+                  # Git hooks are run relative to their repository's directory,
+                  # but gitsrht-update-hook looks up ../config.ini
+                  ln -s /run/sourcehut/gitsrht/config.ini "''${PWD%/*}"/config.ini
+                  # hooks/post-update calls /usr/bin/gitsrht-update-hook as hooks/stage-3
+                  # but this wrapper being a bash script, it overrides $0 with /usr/bin/gitsrht-update-hook
+                  # hence this hack to put hooks/stage-3 back into gitsrht-update-hook's $0
+                  if test "''${STAGE3:+set}"
+                  then
                     set -x
-                    exec -a "$0" ${pkgs.sourcehut.gitsrht}/bin/gitsrht-keys "$@"
-                  ''
-                }:/usr/bin/gitsrht-keys"
-                "${
-                  pkgs.writeShellScript "gitsrht-shell-wrapper" ''
-                    set -e
-                    cd /run/sourcehut/gitsrht/subdir
+                    exec -a hooks/stage-3 ${pkgs.sourcehut.gitsrht}/bin/gitsrht-update-hook "$@"
+                  else
+                    export STAGE3=set
                     set -x
-                    exec -a "$0" ${pkgs.sourcehut.gitsrht}/bin/gitsrht-shell "$@"
-                  ''
-                }:/usr/bin/gitsrht-shell"
-                "${
-                  pkgs.writeShellScript "gitsrht-update-hook" ''
-                    set -e
-                    test -e "''${PWD%/*}"/config.ini ||
-                    # Git hooks are run relative to their repository's directory,
-                    # but gitsrht-update-hook looks up ../config.ini
-                    ln -s /run/sourcehut/gitsrht/config.ini "''${PWD%/*}"/config.ini
-                    # hooks/post-update calls /usr/bin/gitsrht-update-hook as hooks/stage-3
-                    # but this wrapper being a bash script, it overrides $0 with /usr/bin/gitsrht-update-hook
-                    # hence this hack to put hooks/stage-3 back into gitsrht-update-hook's $0
-                    if test "''${STAGE3:+set}"
-                    then
-                      set -x
-                      exec -a hooks/stage-3 ${pkgs.sourcehut.gitsrht}/bin/gitsrht-update-hook "$@"
-                    else
-                      export STAGE3=set
-                      set -x
-                      exec -a "$0" ${pkgs.sourcehut.gitsrht}/bin/gitsrht-update-hook "$@"
-                    fi
-                  ''
-                }:/usr/bin/gitsrht-update-hook"
+                    exec -a "$0" ${pkgs.sourcehut.gitsrht}/bin/gitsrht-update-hook "$@"
+                  fi
+                ''}:/usr/bin/gitsrht-update-hook"
               ]
               ++ optionals cfg.hg.enable [
                 # /path/to/hgsrht-keys calls /path/to/hgsrht-shell,
                 # or [hg.sr.ht] shell= if set.
-                "${
-                  pkgs.writeShellScript "hgsrht-keys-wrapper" ''
-                    set -e
-                    cd /run/sourcehut/hgsrht/subdir
-                    set -x
-                    exec -a "$0" ${pkgs.sourcehut.hgsrht}/bin/hgsrht-keys "$@"
-                  ''
-                }:/usr/bin/hgsrht-keys"
-                "${
-                  pkgs.writeShellScript "hgsrht-shell-wrapper" ''
-                    set -e
-                    cd /run/sourcehut/hgsrht/subdir
-                    set -x
-                    exec -a "$0" ${pkgs.sourcehut.hgsrht}/bin/hgsrht-shell "$@"
-                  ''
-                }:/usr/bin/hgsrht-shell"
+                "${pkgs.writeShellScript "hgsrht-keys-wrapper" ''
+                  set -e
+                  cd /run/sourcehut/hgsrht/subdir
+                  set -x
+                  exec -a "$0" ${pkgs.sourcehut.hgsrht}/bin/hgsrht-keys "$@"
+                ''}:/usr/bin/hgsrht-keys"
+                "${pkgs.writeShellScript "hgsrht-shell-wrapper" ''
+                  set -e
+                  cd /run/sourcehut/hgsrht/subdir
+                  set -x
+                  exec -a "$0" ${pkgs.sourcehut.hgsrht}/bin/hgsrht-shell "$@"
+                ''}:/usr/bin/hgsrht-shell"
                 # Mercurial's changegroup hooks are run relative to their repository's directory,
                 # but hgsrht-hook-changegroup looks up ./config.ini
-                "${
-                  pkgs.writeShellScript "hgsrht-hook-changegroup" ''
-                    set -e
-                    test -e "$PWD"/config.ini ||
-                    ln -s /run/sourcehut/hgsrht/config.ini "$PWD"/config.ini
-                    set -x
-                    exec -a "$0" ${cfg.python}/bin/hgsrht-hook-changegroup "$@"
-                  ''
-                }:/usr/bin/hgsrht-hook-changegroup"
+                "${pkgs.writeShellScript "hgsrht-hook-changegroup" ''
+                  set -e
+                  test -e "$PWD"/config.ini ||
+                  ln -s /run/sourcehut/hgsrht/config.ini "$PWD"/config.ini
+                  set -x
+                  exec -a "$0" ${cfg.python}/bin/hgsrht-hook-changegroup "$@"
+                ''}:/usr/bin/hgsrht-hook-changegroup"
               ];
           };
         };

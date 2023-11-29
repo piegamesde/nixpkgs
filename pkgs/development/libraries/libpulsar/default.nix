@@ -97,15 +97,13 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   doInstallCheck = true;
   installCheckPhase = ''
-    echo ${
-      lib.escapeShellArg ''
-        #include <pulsar/Client.h>
-        int main (int argc, char **argv) {
-          pulsar::Client client("pulsar://localhost:6650");
-          return 0;
-        }
-      ''
-    } > test.cc
+    echo ${lib.escapeShellArg ''
+      #include <pulsar/Client.h>
+      int main (int argc, char **argv) {
+        pulsar::Client client("pulsar://localhost:6650");
+        return 0;
+      }
+    ''} > test.cc
     $CXX test.cc -L $out/lib -I $out/include -lpulsar -o test
   '';
 

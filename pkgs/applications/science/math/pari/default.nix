@@ -22,9 +22,7 @@ stdenv.mkDerivation rec {
     urls = [
       "https://pari.math.u-bordeaux.fr/pub/pari/unix/${pname}-${version}.tar.gz"
       # old versions are at the url below
-      "https://pari.math.u-bordeaux.fr/pub/pari/OLD/${
-        lib.versions.majorMinor version
-      }/${pname}-${version}.tar.gz"
+      "https://pari.math.u-bordeaux.fr/pub/pari/OLD/${lib.versions.majorMinor version}/${pname}-${version}.tar.gz"
     ];
     hash = "sha256-sEYoER7iKHZRmksc2vsy/rqjTq+iT56B9Y+NBX++4N0=";
   };

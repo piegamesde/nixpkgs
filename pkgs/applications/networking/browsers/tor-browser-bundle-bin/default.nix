@@ -276,9 +276,7 @@ stdenv.mkDerivation rec {
     GeoIPv6File $TBB_IN_STORE/TorBrowser/Data/Tor/geoip6
     EOF
 
-    WRAPPER_LD_PRELOAD=${
-      lib.optionalString useHardenedMalloc "${graphene-hardened-malloc}/lib/libhardened_malloc.so"
-    }
+    WRAPPER_LD_PRELOAD=${lib.optionalString useHardenedMalloc "${graphene-hardened-malloc}/lib/libhardened_malloc.so"}
 
     WRAPPER_XDG_DATA_DIRS=${
       lib.concatMapStringsSep ":" (x: "${x}/share") [

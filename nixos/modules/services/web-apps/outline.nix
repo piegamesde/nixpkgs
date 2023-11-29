@@ -760,19 +760,13 @@ in
             export SLACK_CLIENT_SECRET="$(head -n1 ${lib.escapeShellArg cfg.slackAuthentication.secretFile})"
           ''}
           ${lib.optionalString (cfg.googleAuthentication != null) ''
-            export GOOGLE_CLIENT_SECRET="$(head -n1 ${
-              lib.escapeShellArg cfg.googleAuthentication.clientSecretFile
-            })"
+            export GOOGLE_CLIENT_SECRET="$(head -n1 ${lib.escapeShellArg cfg.googleAuthentication.clientSecretFile})"
           ''}
           ${lib.optionalString (cfg.azureAuthentication != null) ''
-            export AZURE_CLIENT_SECRET="$(head -n1 ${
-              lib.escapeShellArg cfg.azureAuthentication.clientSecretFile
-            })"
+            export AZURE_CLIENT_SECRET="$(head -n1 ${lib.escapeShellArg cfg.azureAuthentication.clientSecretFile})"
           ''}
           ${lib.optionalString (cfg.oidcAuthentication != null) ''
-            export OIDC_CLIENT_SECRET="$(head -n1 ${
-              lib.escapeShellArg cfg.oidcAuthentication.clientSecretFile
-            })"
+            export OIDC_CLIENT_SECRET="$(head -n1 ${lib.escapeShellArg cfg.oidcAuthentication.clientSecretFile})"
           ''}
           ${lib.optionalString (cfg.sslKeyFile != null) ''
             export SSL_KEY="$(head -n1 ${lib.escapeShellArg cfg.sslKeyFile})"
@@ -781,9 +775,7 @@ in
             export SSL_CERT="$(head -n1 ${lib.escapeShellArg cfg.sslCertFile})"
           ''}
           ${lib.optionalString (cfg.slackIntegration != null) ''
-            export SLACK_VERIFICATION_TOKEN="$(head -n1 ${
-              lib.escapeShellArg cfg.slackIntegration.verificationTokenFile
-            })"
+            export SLACK_VERIFICATION_TOKEN="$(head -n1 ${lib.escapeShellArg cfg.slackIntegration.verificationTokenFile})"
           ''}
           ${lib.optionalString (cfg.smtp != null) ''
             export SMTP_PASSWORD="$(head -n1 ${lib.escapeShellArg cfg.smtp.passwordFile})"

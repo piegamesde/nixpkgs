@@ -26,9 +26,7 @@ stdenv.mkDerivation rec {
   version = "2.38.1";
 
   src = fetchurl {
-    url = "mirror://kernel/linux/utils/util-linux/v${
-        lib.versions.majorMinor version
-      }/util-linux-${version}.tar.xz";
+    url = "mirror://kernel/linux/utils/util-linux/v${lib.versions.majorMinor version}/util-linux-${version}.tar.xz";
     hash = "sha256-YEkqGbRObPmj3f9oMlszO4tStsWc4+vWoOyqTFEX6E8=";
   };
 
@@ -104,9 +102,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.kernel.org/pub/linux/utils/util-linux/";
     description = "A set of system utilities for Linux";
-    changelog = "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v${
-        lib.versions.majorMinor version
-      }/v${version}-ReleaseNotes";
+    changelog = "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v${lib.versions.majorMinor version}/v${version}-ReleaseNotes";
     # https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/tree/README.licensing
     license = with licenses; [
       gpl2Only

@@ -142,16 +142,12 @@ runCommand (appendToName "with-packages" emacs).name
           linkEmacsPackage() {
             linkPath "$1" "bin" "bin"
             linkPath "$1" "share/emacs/site-lisp" "share/emacs/site-lisp"
-            ${
-              optionalString nativeComp ''
-                linkPath "$1" "share/emacs/native-lisp" "share/emacs/native-lisp"
-              ''
-            }
-            ${
-              optionalString treeSitter ''
-                linkPath "$1" "lib" "lib"
-              ''
-            }
+            ${optionalString nativeComp ''
+            linkPath "$1" "share/emacs/native-lisp" "share/emacs/native-lisp"
+          ''}
+            ${optionalString treeSitter ''
+            linkPath "$1" "lib" "lib"
+          ''}
           }
 
           # Iterate over the array of inputs (avoiding nix's own interpolation)

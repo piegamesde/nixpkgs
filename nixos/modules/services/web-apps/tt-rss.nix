@@ -709,9 +709,7 @@ in
           '')
 
           + (optionalString (cfg.database.type == "mysql") ''
-            exists=$(${
-              callSql "select count(*) > 0 from information_schema.tables where table_schema = schema()"
-            } \
+            exists=$(${callSql "select count(*) > 0 from information_schema.tables where table_schema = schema()"} \
             | tail -n+2 | sed -e 's/[ \n\t]*//')
 
             if [ "$exists" == '0' ]; then

@@ -32,10 +32,7 @@ stdenv.mkDerivation rec {
     cp $src $out/share/lib/${pname}-${version}/${pname}-${version}.jar
     makeWrapper ${jre}/bin/java $out/bin/selenium-server \
       --add-flags "-cp $out/share/lib/${pname}-${version}/${pname}-${version}.jar:${htmlunit-driver}/share/lib/${htmlunit-driver.name}/${htmlunit-driver.name}.jar" \
-      ${
-        lib.optionalString chromeSupport
-          "--add-flags -Dwebdriver.chrome.driver=${chromedriver}/bin/chromedriver"
-      } \
+      ${lib.optionalString chromeSupport "--add-flags -Dwebdriver.chrome.driver=${chromedriver}/bin/chromedriver"} \
       --add-flags "org.openqa.grid.selenium.GridLauncherV3"
   '';
 

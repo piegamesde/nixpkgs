@@ -53,12 +53,10 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "--libexecdir=${placeholder "out"}/bin"
-    "--cross-file=${
-      writeText "crossfile.ini" ''
-        [binaries]
-        gpg = '${gnupg}/bin/gpg'
-      ''
-    }"
+    "--cross-file=${writeText "crossfile.ini" ''
+      [binaries]
+      gpg = '${gnupg}/bin/gpg'
+    ''}"
   ];
 
   PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";

@@ -527,9 +527,7 @@ let
             auth sufficient ${pkgs.pam_mysql}/lib/security/pam_mysql.so config_file=/etc/security/pam_mysql.conf
           ''
           + optionalString (config.security.pam.enableSSHAgentAuth && cfg.sshAgentAuth) ''
-            auth sufficient ${pkgs.pam_ssh_agent_auth}/libexec/pam_ssh_agent_auth.so file=${
-              lib.concatStringsSep ":" config.services.openssh.authorizedKeysFiles
-            }
+            auth sufficient ${pkgs.pam_ssh_agent_auth}/libexec/pam_ssh_agent_auth.so file=${lib.concatStringsSep ":" config.services.openssh.authorizedKeysFiles}
           ''
           + (
             let
@@ -588,9 +586,9 @@ let
             optionalString cfg.yubicoAuth ''
               auth ${yubi.control} ${pkgs.yubico-pam}/lib/security/pam_yubico.so mode=${toString yubi.mode} ${
                 optionalString (yubi.challengeResponsePath != null) "chalresp_path=${yubi.challengeResponsePath}"
-              } ${optionalString (yubi.mode == "client") "id=${toString yubi.id}"} ${
-                optionalString yubi.debug "debug"
-              }
+              } ${
+                optionalString (yubi.mode == "client") "id=${toString yubi.id}"
+              } ${optionalString yubi.debug "debug"}
             ''
           )
           + optionalString cfg.fprintAuth ''
@@ -625,9 +623,7 @@ let
                   auth optional ${config.systemd.package}/lib/security/pam_systemd_home.so
                 ''
                 + optionalString cfg.unixAuth ''
-                  auth optional pam_unix.so ${optionalString cfg.allowNullPassword "nullok"} ${
-                    optionalString cfg.nodelay "nodelay"
-                  } likeauth
+                  auth optional pam_unix.so ${optionalString cfg.allowNullPassword "nullok"} ${optionalString cfg.nodelay "nodelay"} likeauth
                 ''
                 + optionalString config.security.pam.enableEcryptfs ''
                   auth optional ${pkgs.ecryptfs}/lib/security/pam_ecryptfs.so unwrap
@@ -645,9 +641,7 @@ let
                   auth optional ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
                 ''
                 + optionalString cfg.gnupg.enable ''
-                  auth optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so ${
-                    optionalString cfg.gnupg.storeOnly " store-only"
-                  }
+                  auth optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so ${optionalString cfg.gnupg.storeOnly " store-only"}
                 ''
                 + optionalString cfg.failDelay.enable ''
                   auth optional ${pkgs.pam}/lib/security/pam_faildelay.so delay=${toString cfg.failDelay.delay}
@@ -664,9 +658,7 @@ let
             auth sufficient ${config.systemd.package}/lib/security/pam_systemd_home.so
           ''
           + optionalString cfg.unixAuth ''
-            auth sufficient pam_unix.so ${optionalString cfg.allowNullPassword "nullok"} ${
-              optionalString cfg.nodelay "nodelay"
-            } likeauth try_first_pass
+            auth sufficient pam_unix.so ${optionalString cfg.allowNullPassword "nullok"} ${optionalString cfg.nodelay "nodelay"} likeauth try_first_pass
           ''
           + optionalString cfg.otpwAuth ''
             auth sufficient ${pkgs.otpw}/lib/security/pam_otpw.so
@@ -798,9 +790,7 @@ let
             session optional ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so auto_start
           ''
           + optionalString cfg.gnupg.enable ''
-            session optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so ${
-              optionalString cfg.gnupg.noAutostart " no-autostart"
-            }
+            session optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so ${optionalString cfg.gnupg.noAutostart " no-autostart"}
           ''
           + optionalString (config.virtualisation.lxc.lxcfs.enable) ''
             session optional ${pkgs.lxc}/lib/security/pam_cgfs.so -c all

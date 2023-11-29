@@ -22,20 +22,16 @@ let
 
   cgminerConfig = pkgs.writeText "cgminer.conf" ''
     {
-    ${
-      concatStringsSep
-        ''
-          ,
-        ''
-        mergedHwConfig
-    },
-    ${
-      concatStringsSep
-        ''
-          ,
-        ''
-        mergedConfig
-    },
+    ${concatStringsSep
+      ''
+        ,
+      ''
+      mergedHwConfig},
+    ${concatStringsSep
+      ''
+        ,
+      ''
+      mergedConfig},
     "pools": [
     ${
       concatStringsSep

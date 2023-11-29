@@ -80,9 +80,7 @@ stdenv.mkDerivation rec {
       "-DICAL_GLIB_VAPI=${if withIntrospection then "True" else "False"}"
     ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "-DIMPORT_ICAL_GLIB_SRC_GENERATOR=${
-        lib.getDev pkgsBuildBuild.libical
-      }/lib/cmake/LibIcal/IcalGlibSrcGenerator.cmake"
+      "-DIMPORT_ICAL_GLIB_SRC_GENERATOR=${lib.getDev pkgsBuildBuild.libical}/lib/cmake/LibIcal/IcalGlibSrcGenerator.cmake"
     ];
 
   patches =

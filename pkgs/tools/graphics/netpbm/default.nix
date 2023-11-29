@@ -79,9 +79,7 @@ stdenv.mkDerivation {
       echo 'CC_FOR_BUILD = ${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc' >> config.mk
       echo 'LD_FOR_BUILD = $(CC_FOR_BUILD)' >> config.mk
       echo 'PKG_CONFIG = ${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config' >> config.mk
-      echo 'RANLIB = ${
-        lib.getBin stdenv.cc.bintools.bintools
-      }/bin/${stdenv.cc.targetPrefix}ranlib' >> config.mk
+      echo 'RANLIB = ${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ranlib' >> config.mk
 
       # Use libraries from Nixpkgs
       echo "TIFFLIB = libtiff.so" >> config.mk

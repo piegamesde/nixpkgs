@@ -357,12 +357,10 @@ buildStdenv.mkDerivation ({
           "--with-pgo-profile-path="$TMPDIR/merged.profdata""
           "--with-pgo-jarlog="$TMPDIR/jarlog""
         )
-        ${
-          lib.optionalString stdenv.hostPlatform.isMusl ''
-            LDFLAGS="$OLD_LDFLAGS"
-            unset OLD_LDFLAGS
-          ''
-        }
+        ${lib.optionalString stdenv.hostPlatform.isMusl ''
+        LDFLAGS="$OLD_LDFLAGS"
+        unset OLD_LDFLAGS
+      ''}
       else
         echo "Configuring to generate profiling data"
         configureFlagsArray+=(

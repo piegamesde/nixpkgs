@@ -130,13 +130,13 @@ in
         else if config.networking.useNetworkd then
           "${cfg.package}/bin/systemd-networkd-dns ${iface [ ]}"
         else
-          "${config.security.wrapperDir}/udhcpc --quit --now -f ${iface [ "-i" ]} -O dns --script ${
-            pkgs.writeShellScript "udhcp-script" ''
+          "${config.security.wrapperDir}/udhcpc --quit --now -f ${iface [ "-i" ]} -O dns --script ${pkgs.writeShellScript
+            "udhcp-script"
+            ''
               if [ "$1" = bound ]; then
                 echo "$dns"
               fi
-            ''
-          }"
+            ''}"
       );
 
     security.wrappers.udhcpc = {
@@ -152,16 +152,14 @@ in
       capabilities = "cap_net_raw+p";
       source = pkgs.writeShellScript "captive-browser" ''
         export PREV_CONFIG_HOME="$XDG_CONFIG_HOME"
-        export XDG_CONFIG_HOME=${
-          pkgs.writeTextDir "captive-browser.toml" ''
-            browser = """${cfg.browser}"""
-            dhcp-dns = """${cfg.dhcp-dns}"""
-            socks5-addr = """${cfg.socks5-addr}"""
-            ${optionalString cfg.bindInterface ''
-              bind-device = """${cfg.interface}"""
-            ''}
-          ''
-        }
+        export XDG_CONFIG_HOME=${pkgs.writeTextDir "captive-browser.toml" ''
+          browser = """${cfg.browser}"""
+          dhcp-dns = """${cfg.dhcp-dns}"""
+          socks5-addr = """${cfg.socks5-addr}"""
+          ${optionalString cfg.bindInterface ''
+            bind-device = """${cfg.interface}"""
+          ''}
+        ''}
         exec ${cfg.package}/bin/captive-browser
       '';
     };

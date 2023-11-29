@@ -331,9 +331,7 @@ lib.makeScope pkgs.newScope (
           # need to patch in one of the build phases instead.
           # see upstream issue https://github.com/dillonkearns/elm-pages/issues/305 for dealing with the read-only problem
           preFixup = ''
-            patch $out/lib/node_modules/elm-pages/generator/src/codegen.js ${
-              ./packages/elm-pages-fix-read-only.patch
-            }
+            patch $out/lib/node_modules/elm-pages/generator/src/codegen.js ${./packages/elm-pages-fix-read-only.patch}
           '';
 
           postFixup = ''

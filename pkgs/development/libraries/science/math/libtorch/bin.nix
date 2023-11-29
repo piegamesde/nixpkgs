@@ -69,11 +69,9 @@ stdenv.mkDerivation {
       find $out/lib -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do
         echo "setting rpath for $lib..."
         patchelf --set-rpath "${rpath}:$out/lib" "$lib"
-        ${
-          lib.optionalString cudaSupport ''
-            addOpenGLRunpath "$lib"
-          ''
-        }
+        ${lib.optionalString cudaSupport ''
+        addOpenGLRunpath "$lib"
+      ''}
       done
     ''
     + lib.optionalString stdenv.isDarwin ''

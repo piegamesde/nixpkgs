@@ -84,9 +84,7 @@ let
     postInstall = ''
       # Check that our expected RequiredComponents match the stock session files, but then don't install them.
       # They can be installed using mkSessionForWm.
-      grep '${
-        requiredComponents "metacity" true
-      }' $out/share/gnome-session/sessions/gnome-flashback-metacity.session || (echo "RequiredComponents have changed, please update gnome-flashback/default.nix."; false)
+      grep '${requiredComponents "metacity" true}' $out/share/gnome-session/sessions/gnome-flashback-metacity.session || (echo "RequiredComponents have changed, please update gnome-flashback/default.nix."; false)
 
       rm -r $out/share/gnome-session
       rm -r $out/share/xsessions
@@ -220,10 +218,7 @@ let
                   )
                 }' \
                 "''${gappsWrapperArgs[@]}" \
-                ${
-                  lib.optionalString enableGnomePanel
-                    "--set NIX_GNOME_PANEL_MODULESDIR '${panelModulesEnv}/lib/gnome-panel/modules'"
-                }
+                ${lib.optionalString enableGnomePanel "--set NIX_GNOME_PANEL_MODULESDIR '${panelModulesEnv}/lib/gnome-panel/modules'"}
             '';
           };
         in

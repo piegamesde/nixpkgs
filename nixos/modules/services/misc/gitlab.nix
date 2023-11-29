@@ -167,9 +167,7 @@ let
         host = cfg.registry.externalAddress;
         port = cfg.registry.externalPort;
         key = cfg.registry.keyFile;
-        api_url = "http://${config.services.dockerRegistry.listenAddress}:${
-            toString config.services.dockerRegistry.port
-          }/";
+        api_url = "http://${config.services.dockerRegistry.listenAddress}:${toString config.services.dockerRegistry.port}/";
         issuer = cfg.registry.issuer;
       };
       extra = { };
@@ -1430,11 +1428,9 @@ in
             umask u=rwx,g=,o=
 
             openssl rand -hex 32 > ${cfg.statePath}/gitlab_shell_secret
-            ${
-              optionalString cfg.pages.enable ''
-                openssl rand -base64 32 > ${cfg.pages.settings.api-secret-key}
-              ''
-            }
+            ${optionalString cfg.pages.enable ''
+            openssl rand -base64 32 > ${cfg.pages.settings.api-secret-key}
+          ''}
 
             rm -f '${cfg.statePath}/config/database.yml'
 

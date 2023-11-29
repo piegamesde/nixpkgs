@@ -57,19 +57,17 @@ import ./make-test-python.nix (
 
         server.fail("curl -fsS http://localhost/robots.txt")
 
-        server.succeed("${
-          pkgs.writeShellScript "setup-cgit-test-repo" ''
-            set -e
-            git init --bare -b master /srv/git/some-repo
-            git init -b master reference
-            cd reference
-            git remote add origin /srv/git/some-repo
-            date > date.txt
-            git add date.txt
-            git -c user.name=test -c user.email=test@localhost commit -m 'add date'
-            git push -u origin master
-          ''
-        }")
+        server.succeed("${pkgs.writeShellScript "setup-cgit-test-repo" ''
+          set -e
+          git init --bare -b master /srv/git/some-repo
+          git init -b master reference
+          cd reference
+          git remote add origin /srv/git/some-repo
+          date > date.txt
+          git add date.txt
+          git -c user.name=test -c user.email=test@localhost commit -m 'add date'
+          git push -u origin master
+        ''}")
 
         server.succeed(
             "curl -fsS 'http://localhost/%28c%29git/some-repo/plain/date.txt?id=master' | diff -u reference/date.txt -"

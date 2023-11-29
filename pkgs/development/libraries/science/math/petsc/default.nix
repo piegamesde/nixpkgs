@@ -62,13 +62,11 @@ stdenv.mkDerivation rec {
             "--with-mpi=1"
           ''
       }
-      ${
-        lib.optionalString withp4est ''
-          "--with-p4est=1"
-          "--with-zlib-include=${zlib.dev}/include"
-          "--with-zlib-lib=-L${zlib}/lib -lz"
-        ''
-      }
+      ${lib.optionalString withp4est ''
+      "--with-p4est=1"
+      "--with-zlib-include=${zlib.dev}/include"
+      "--with-zlib-lib=-L${zlib}/lib -lz"
+    ''}
       "--with-blas=1"
       "--with-lapack=1"
     )

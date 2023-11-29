@@ -155,9 +155,7 @@ in
       '';
 
       environment = env // {
-        PYTHONPATH = "${
-            pkg.python.pkgs.makePythonPath pkg.propagatedBuildInputs
-          }:${pkg}/lib/tandoor-recipes";
+        PYTHONPATH = "${pkg.python.pkgs.makePythonPath pkg.propagatedBuildInputs}:${pkg}/lib/tandoor-recipes";
       };
     };
   };

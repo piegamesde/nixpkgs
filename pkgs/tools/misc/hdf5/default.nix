@@ -38,9 +38,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString threadsafe "-threadsafe";
 
   src = fetchurl {
-    url = "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${
-        lib.versions.majorMinor version
-      }/hdf5-${version}/src/hdf5-${version}.tar.bz2";
+    url = "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${lib.versions.majorMinor version}/hdf5-${version}/src/hdf5-${version}.tar.bz2";
     sha256 = "sha256-5OeUM0UO2uKGWkxjKBiLtFORsp10+MU47mmfCxFsK6A=";
   };
 

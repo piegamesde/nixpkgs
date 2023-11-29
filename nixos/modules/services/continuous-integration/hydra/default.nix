@@ -492,9 +492,7 @@ in
             echo "stopping Hydra queue runner due to lack of free space..."
             systemctl stop hydra-queue-runner
         fi
-        if [ $(($(stat -f -c '%a' /nix/store) * $(stat -f -c '%S' /nix/store))) -lt $((${
-          toString cfg.minimumDiskFreeEvaluator
-        } * 1024**3)) ]; then
+        if [ $(($(stat -f -c '%a' /nix/store) * $(stat -f -c '%S' /nix/store))) -lt $((${toString cfg.minimumDiskFreeEvaluator} * 1024**3)) ]; then
             echo "stopping Hydra evaluator due to lack of free space..."
             systemctl stop hydra-evaluator
         fi

@@ -460,9 +460,7 @@ rec {
             mv node_modules $out/libexec/${pname}/node_modules
             mv deps $out/libexec/${pname}/deps
 
-            node ${./internal/fixup_bin.js} $out/bin $out/libexec/${pname}/node_modules ${
-              lib.concatStringsSep " " publishBinsFor_
-            }
+            node ${./internal/fixup_bin.js} $out/bin $out/libexec/${pname}/node_modules ${lib.concatStringsSep " " publishBinsFor_}
 
             runHook postInstall
           '';

@@ -70,9 +70,7 @@ stdenv.mkDerivation rec {
       --replace 'LibraryLoader::libPath("libavutil.so")' '"${lib.getLib ffmpeg}/lib/libavutil.so"' \
       --replace 'LibraryLoader::libPath("libffmpegthumbnailer.so")' '"${lib.getLib ffmpegthumbnailer}/lib/libffmpegthumbnailer.so"' \
       --replace 'LibraryLoader::libPath("libgstreamer-1.0.so")' '"${lib.getLib gst_all_1.gstreamer}/lib/libgstreamer-1.0.so"' \
-      --replace 'LibraryLoader::libPath("libgstpbutils-1.0.so")' '"${
-        lib.getLib gst_all_1.gst-plugins-base
-      }/lib/libgstpbutils-1.0.so"'
+      --replace 'LibraryLoader::libPath("libgstpbutils-1.0.so")' '"${lib.getLib gst_all_1.gst-plugins-base}/lib/libgstpbutils-1.0.so"'
   '';
 
   outputs = [

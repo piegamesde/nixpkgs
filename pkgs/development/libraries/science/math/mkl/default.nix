@@ -128,15 +128,11 @@ stdenvNoCC.mkDerivation (
 
         # Dynamic libraries
         mkdir -p $out/lib
-        cp -a opt/intel/oneapi/mkl/${mklVersion}/lib/${
-          lib.optionalString stdenvNoCC.isLinux "intel64"
-        }/*${shlibExt}* $out/lib
+        cp -a opt/intel/oneapi/mkl/${mklVersion}/lib/${lib.optionalString stdenvNoCC.isLinux "intel64"}/*${shlibExt}* $out/lib
         cp -a opt/intel/oneapi/compiler/${mklVersion}/${
           if stdenvNoCC.isDarwin then "mac" else "linux"
         }/compiler/lib/${lib.optionalString stdenvNoCC.isLinux "intel64_lin"}/*${shlibExt}* $out/lib
-        cp -a opt/intel/oneapi/tbb/${tbbVersion}/lib/${
-          lib.optionalString stdenvNoCC.isLinux "intel64/gcc4.8"
-        }/*${shlibExt}* $out/lib
+        cp -a opt/intel/oneapi/tbb/${tbbVersion}/lib/${lib.optionalString stdenvNoCC.isLinux "intel64/gcc4.8"}/*${shlibExt}* $out/lib
 
         # Headers
         cp -r opt/intel/oneapi/mkl/${mklVersion}/include $out/
@@ -147,16 +143,12 @@ stdenvNoCC.mkDerivation (
       + (
         if enableStatic then
           ''
-            install -Dm0644 -t $out/lib opt/intel/oneapi/mkl/${mklVersion}/lib/${
-              lib.optionalString stdenvNoCC.isLinux "intel64"
-            }/*.a
+            install -Dm0644 -t $out/lib opt/intel/oneapi/mkl/${mklVersion}/lib/${lib.optionalString stdenvNoCC.isLinux "intel64"}/*.a
             install -Dm0644 -t $out/lib/pkgconfig opt/intel/oneapi/mkl/${mklVersion}/tools/pkgconfig/*.pc
           ''
         else
           ''
-            cp opt/intel/oneapi/mkl/${mklVersion}/lib/${
-              lib.optionalString stdenvNoCC.isLinux "intel64"
-            }/*${shlibExt}* $out/lib
+            cp opt/intel/oneapi/mkl/${mklVersion}/lib/${lib.optionalString stdenvNoCC.isLinux "intel64"}/*${shlibExt}* $out/lib
             install -Dm0644 -t $out/lib/pkgconfig opt/intel/oneapi/mkl/${mklVersion}/lib/pkgconfig/*dynamic*.pc
           ''
       )

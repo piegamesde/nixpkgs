@@ -49,9 +49,7 @@ let
     let
       finalCfg = {
         name = "${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel}";
-        params = "init=${config.system.build.toplevel}/init ${additional} ${
-            toString config.boot.kernelParams
-          }";
+        params = "init=${config.system.build.toplevel}/init ${additional} ${toString config.boot.kernelParams}";
         image = "/boot/${config.system.boot.loader.kernelFile}";
         initrd = "/boot/initrd";
       };
@@ -137,9 +135,7 @@ let
     LABEL boot-serial
     MENU LABEL ${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel} (serial console=ttyS0,115200n8)
     LINUX /boot/${config.system.boot.loader.kernelFile}
-    APPEND init=${config.system.build.toplevel}/init ${
-      toString config.boot.kernelParams
-    } console=ttyS0,115200n8
+    APPEND init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams} console=ttyS0,115200n8
     INITRD /boot/${config.system.boot.loader.initrdFile}
   '';
 
@@ -376,10 +372,7 @@ let
           submenu "" {return}
           submenu "Use black on white" --class accessibility-blakconwhite {
             ${grubMenuCfg}
-            ${
-              buildMenuAdditionalParamsGrub2
-                "vt.default_red=0xFF,0xBC,0x4F,0xB4,0x56,0xBC,0x4F,0x00,0xA1,0xCF,0x84,0xCA,0x8D,0xB4,0x84,0x68 vt.default_grn=0xFF,0x55,0xBA,0xBA,0x4D,0x4D,0xB3,0x00,0xA0,0x8F,0xB3,0xCA,0x88,0x93,0xA4,0x68 vt.default_blu=0xFF,0x58,0x5F,0x58,0xC5,0xBD,0xC5,0x00,0xA8,0xBB,0xAB,0x97,0xBD,0xC7,0xC5,0x68"
-            }
+            ${buildMenuAdditionalParamsGrub2 "vt.default_red=0xFF,0xBC,0x4F,0xB4,0x56,0xBC,0x4F,0x00,0xA1,0xCF,0x84,0xCA,0x8D,0xB4,0x84,0x68 vt.default_grn=0xFF,0x55,0xBA,0xBA,0x4D,0x4D,0xB3,0x00,0xA0,0x8F,0xB3,0xCA,0x88,0x93,0xA4,0x68 vt.default_blu=0xFF,0x58,0x5F,0x58,0xC5,0xBD,0xC5,0x00,0xA8,0xBB,0xAB,0x97,0xBD,0xC7,0xC5,0x68"}
           }
 
           # Serial access is a must!

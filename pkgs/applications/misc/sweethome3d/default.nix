@@ -118,9 +118,7 @@ let
         makeWrapper ${jre8}/bin/java $out/bin/$exec \
           --set MESA_GL_VERSION_OVERRIDE 2.1 \
           --prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS:${gtk3.out}/share:${gsettings-desktop-schemas}/share:$out/share:$GSETTINGS_SCHEMAS_PATH" \
-          --add-flags "-Dsun.java2d.opengl=true -jar $out/share/java/${module}-${version}.jar -cp $out/share/java/Furniture.jar:$out/share/java/Textures.jar:$out/share/java/Help.jar -d${
-            toString stdenv.hostPlatform.parsed.cpu.bits
-          }"
+          --add-flags "-Dsun.java2d.opengl=true -jar $out/share/java/${module}-${version}.jar -cp $out/share/java/Furniture.jar:$out/share/java/Textures.jar:$out/share/java/Help.jar -d${toString stdenv.hostPlatform.parsed.cpu.bits}"
 
 
         # remember the store paths found inside the .jar libraries. note that

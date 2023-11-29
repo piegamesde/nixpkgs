@@ -79,9 +79,7 @@ let
               serviceConfig = {
                 inherit User;
                 SyslogIdentifier = "hdfs-${toLower name}";
-                ExecStart = "${cfg.package}/bin/hdfs --config ${hadoopConf} ${toLower name} ${
-                    escapeShellArgs serviceOptions.extraFlags
-                  }";
+                ExecStart = "${cfg.package}/bin/hdfs --config ${hadoopConf} ${toLower name} ${escapeShellArgs serviceOptions.extraFlags}";
                 Restart = "always";
               };
             };

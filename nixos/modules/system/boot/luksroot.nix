@@ -319,37 +319,35 @@ let
             response="$(ykchalresp -${toString dev.yubikey.slot} -x $challenge 2>/dev/null)"
 
             for try in $(seq 3); do
-                ${
-                  optionalString dev.yubikey.twoFactor ''
-                    echo -n "Enter two-factor passphrase: "
-                    k_user=
-                    while true; do
-                        if [ -e /crypt-ramfs/passphrase ]; then
-                            echo "reused"
-                            k_user=$(cat /crypt-ramfs/passphrase)
-                            break
-                        else
-                            # Try reading it from /dev/console with a timeout
-                            IFS= read -t 1 -r k_user
-                            if [ -n "$k_user" ]; then
-                               ${
-                                 if luks.reusePassphrases then
-                                   ''
-                                     # Remember it for the next device
-                                     echo -n "$k_user" > /crypt-ramfs/passphrase
-                                   ''
-                                 else
-                                   ''
-                                     # Don't save it to ramfs. We are very paranoid
-                                   ''
-                               }
-                               echo
-                               break
-                            fi
-                        fi
-                    done
-                  ''
-                }
+                ${optionalString dev.yubikey.twoFactor ''
+          echo -n "Enter two-factor passphrase: "
+          k_user=
+          while true; do
+              if [ -e /crypt-ramfs/passphrase ]; then
+                  echo "reused"
+                  k_user=$(cat /crypt-ramfs/passphrase)
+                  break
+              else
+                  # Try reading it from /dev/console with a timeout
+                  IFS= read -t 1 -r k_user
+                  if [ -n "$k_user" ]; then
+                     ${
+                       if luks.reusePassphrases then
+                         ''
+                           # Remember it for the next device
+                           echo -n "$k_user" > /crypt-ramfs/passphrase
+                         ''
+                       else
+                         ''
+                           # Don't save it to ramfs. We are very paranoid
+                         ''
+                     }
+                     echo
+                     break
+                  fi
+              fi
+          done
+        ''}
 
                 if [ ! -z "$k_user" ]; then
                     k_luks="$(echo -n $k_user | pbkdf2-sha512 ${toString dev.yubikey.keyLength} $iterations $response | rbtohex)"
@@ -527,11 +525,7 @@ let
               ''
             }
               echo "Waiting for your FIDO2 device..."
-              fido2luks open${
-                optionalString dev.allowDiscards " --allow-discards"
-              } ${dev.device} ${dev.name} "${
-                builtins.concatStringsSep "," fido2luksCredentials
-              }" --await-dev ${toString dev.fido2.gracePeriod} --salt string:$passphrase
+              fido2luks open${optionalString dev.allowDiscards " --allow-discards"} ${dev.device} ${dev.name} "${builtins.concatStringsSep "," fido2luksCredentials}" --await-dev ${toString dev.fido2.gracePeriod} --salt string:$passphrase
             if [ $? -ne 0 ]; then
               echo "No FIDO2 key found, falling back to normal open procedure"
               open_normally

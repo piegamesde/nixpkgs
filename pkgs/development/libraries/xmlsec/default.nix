@@ -87,18 +87,16 @@ lib.fix (
           ];
         }
         ''
-          $CC $(pkg-config --cflags --libs xmlsec1) -o crypto-test ${
-            writeText "crypto-test.c" ''
-              #include <xmlsec/xmlsec.h>
-              #include <xmlsec/crypto.h>
+          $CC $(pkg-config --cflags --libs xmlsec1) -o crypto-test ${writeText "crypto-test.c" ''
+            #include <xmlsec/xmlsec.h>
+            #include <xmlsec/crypto.h>
 
-              int main(int argc, char **argv) {
-                return xmlSecInit() ||
-                  xmlSecCryptoDLLoadLibrary(argc > 1 ? argv[1] : 0) ||
-                  xmlSecCryptoInit();
-              }
-            ''
-          }
+            int main(int argc, char **argv) {
+              return xmlSecInit() ||
+                xmlSecCryptoDLLoadLibrary(argc > 1 ? argv[1] : 0) ||
+                xmlSecCryptoInit();
+            }
+          ''}
 
           for crypto in "" gcrypt gnutls nss openssl; do
             ./crypto-test $crypto

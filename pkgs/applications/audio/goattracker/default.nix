@@ -37,9 +37,7 @@ stdenv.mkDerivation rec {
       "2.76"; # normal
 
   src = fetchurl {
-    url = "mirror://sourceforge/goattracker2/GoatTracker_${version}${
-        lib.optionalString isStereo "_Stereo"
-      }.zip";
+    url = "mirror://sourceforge/goattracker2/GoatTracker_${version}${lib.optionalString isStereo "_Stereo"}.zip";
     sha256 =
       if isStereo then
         "1hiig2d152sv9kazwz33i56x1c54h5sh21ipkqnp6qlnwj8x1ksy" # stereo

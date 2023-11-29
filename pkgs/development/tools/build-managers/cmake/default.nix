@@ -186,9 +186,7 @@ stdenv.mkDerivation rec {
       configuration files, and generate native makefiles and workspaces that can
       be used in the compiler environment of your choice.
     '';
-    changelog = "https://cmake.org/cmake/help/v${lib.versions.majorMinor version}/release/${
-        lib.versions.majorMinor version
-      }.html";
+    changelog = "https://cmake.org/cmake/help/v${lib.versions.majorMinor version}/release/${lib.versions.majorMinor version}.html";
     license = licenses.bsd3;
     maintainers = with maintainers; [
       ttuegel

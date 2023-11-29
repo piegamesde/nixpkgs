@@ -175,14 +175,12 @@ buildFHSEnv {
       aprutil
     ];
 
-  runScript = "${bash}/bin/bash ${
-      writeText "davinci-wrapper" ''
-        export QT_XKB_CONFIG_ROOT="${xkeyboard_config}/share/X11/xkb"
-        export QT_PLUGIN_PATH="${davinci}/libs/plugins:$QT_PLUGIN_PATH"
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${davinci}/libs
-        ${davinci}/bin/resolve
-      ''
-    }";
+  runScript = "${bash}/bin/bash ${writeText "davinci-wrapper" ''
+    export QT_XKB_CONFIG_ROOT="${xkeyboard_config}/share/X11/xkb"
+    export QT_PLUGIN_PATH="${davinci}/libs/plugins:$QT_PLUGIN_PATH"
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${davinci}/libs
+    ${davinci}/bin/resolve
+  ''}";
 
   meta = with lib; {
     description = "Professional Video Editing, Color, Effects and Audio Post";

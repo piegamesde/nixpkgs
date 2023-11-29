@@ -50,9 +50,7 @@ stdenv.mkDerivation rec {
   preInstall = ''
     # Install our override for plank dockitems as the desktop file path is different.
     schema_dir=$out/share/glib-2.0/schemas
-    install -D ${
-      ./overrides/plank-dockitems.gschema.override
-    } $schema_dir/plank-dockitems.gschema.override
+    install -D ${./overrides/plank-dockitems.gschema.override} $schema_dir/plank-dockitems.gschema.override
 
     # Our launchers that use paths at /run/current-system/sw/bin
     mkdir -p $out/etc/skel/.config/plank/dock1

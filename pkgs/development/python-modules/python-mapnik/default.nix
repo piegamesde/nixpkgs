@@ -85,9 +85,7 @@ buildPythonPackage rec {
   disabled = isPyPy;
 
   preBuild = ''
-    export BOOST_PYTHON_LIB="boost_python${
-      "${lib.versions.major python.version}${lib.versions.minor python.version}"
-    }"
+    export BOOST_PYTHON_LIB="boost_python${"${lib.versions.major python.version}${lib.versions.minor python.version}"}"
     export BOOST_THREAD_LIB="boost_thread"
     export BOOST_SYSTEM_LIB="boost_system"
     export PYCAIRO=true

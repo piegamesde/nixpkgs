@@ -186,9 +186,7 @@ let
     pkgs.writeText "mounts.sh" (
       concatMapStringsSep "\n"
         (mount: ''
-          specialMount "${mount.device}" "${mount.mountPoint}" "${
-            concatStringsSep "," mount.options
-          }" "${mount.fsType}"
+          specialMount "${mount.device}" "${mount.mountPoint}" "${concatStringsSep "," mount.options}" "${mount.fsType}"
         '')
         mounts
     );

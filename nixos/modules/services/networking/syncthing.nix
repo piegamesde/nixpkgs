@@ -663,17 +663,15 @@ in
           Group = cfg.group;
           ExecStartPre =
             mkIf (cfg.cert != null || cfg.key != null)
-              "+${
-                pkgs.writers.writeBash "syncthing-copy-keys" ''
-                  install -dm700 -o ${cfg.user} -g ${cfg.group} ${cfg.configDir}
-                  ${optionalString (cfg.cert != null) ''
-                    install -Dm400 -o ${cfg.user} -g ${cfg.group} ${toString cfg.cert} ${cfg.configDir}/cert.pem
-                  ''}
-                  ${optionalString (cfg.key != null) ''
-                    install -Dm400 -o ${cfg.user} -g ${cfg.group} ${toString cfg.key} ${cfg.configDir}/key.pem
-                  ''}
-                ''
-              }";
+              "+${pkgs.writers.writeBash "syncthing-copy-keys" ''
+                install -dm700 -o ${cfg.user} -g ${cfg.group} ${cfg.configDir}
+                ${optionalString (cfg.cert != null) ''
+                  install -Dm400 -o ${cfg.user} -g ${cfg.group} ${toString cfg.cert} ${cfg.configDir}/cert.pem
+                ''}
+                ${optionalString (cfg.key != null) ''
+                  install -Dm400 -o ${cfg.user} -g ${cfg.group} ${toString cfg.key} ${cfg.configDir}/key.pem
+                ''}
+              ''}";
           ExecStart = ''
             ${cfg.package}/bin/syncthing \
               -no-browser \

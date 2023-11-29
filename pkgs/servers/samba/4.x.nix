@@ -257,9 +257,7 @@ stdenv.mkDerivation rec {
       # Samba does its own shebang patching, but uses build Python
       find $out/bin -type f -executable | while read file; do
         isScript "$file" || continue
-        sed -i 's^${lib.getBin buildPackages.python3Packages.python}/bin^${
-          lib.getBin python3Packages.python
-        }/bin^' "$file"
+        sed -i 's^${lib.getBin buildPackages.python3Packages.python}/bin^${lib.getBin python3Packages.python}/bin^' "$file"
       done
     '';
 

@@ -22,9 +22,7 @@ let
     buildPhase = ''
       runHook preBuild
 
-      jlink --module-path ${jdk}/lib/openjdk/jmods --add-modules ${
-        lib.concatStringsSep "," modules
-      } --output $out
+      jlink --module-path ${jdk}/lib/openjdk/jmods --add-modules ${lib.concatStringsSep "," modules} --output $out
 
       runHook postBuild
     '';

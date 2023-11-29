@@ -128,14 +128,12 @@ python3Packages.buildPythonApplication rec {
 
     tmphome="$(mktemp -d)"
 
-    EDITOR="${
-      writeScript "beetconfig.sh" ''
-        #!${runtimeShell}
-        cat > "$1" <<CFG
-        plugins: ${lib.concatStringsSep " " (attrNames enabledPlugins)}
-        CFG
-      ''
-    }" HOME="$tmphome" "$out/bin/beet" config -e
+    EDITOR="${writeScript "beetconfig.sh" ''
+      #!${runtimeShell}
+      cat > "$1" <<CFG
+      plugins: ${lib.concatStringsSep " " (attrNames enabledPlugins)}
+      CFG
+    ''}" HOME="$tmphome" "$out/bin/beet" config -e
     EDITOR=true HOME="$tmphome" "$out/bin/beet" config -e
 
     runHook postInstallCheck

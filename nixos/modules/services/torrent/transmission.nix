@@ -527,16 +527,12 @@ in
       ''}
       profile dirs {
         rw ${cfg.settings.download-dir}/**,
-        ${
-          optionalString cfg.settings.incomplete-dir-enabled ''
-            rw ${cfg.settings.incomplete-dir}/**,
-          ''
-        }
-        ${
-          optionalString cfg.settings.watch-dir-enabled ''
-            r${optionalString cfg.settings.trash-original-torrent-files "w"} ${cfg.settings.watch-dir}/**,
-          ''
-        }
+        ${optionalString cfg.settings.incomplete-dir-enabled ''
+        rw ${cfg.settings.incomplete-dir}/**,
+      ''}
+        ${optionalString cfg.settings.watch-dir-enabled ''
+        r${optionalString cfg.settings.trash-original-torrent-files "w"} ${cfg.settings.watch-dir}/**,
+      ''}
       }
 
       ${optionalString

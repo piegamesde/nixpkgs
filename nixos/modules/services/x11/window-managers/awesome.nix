@@ -60,9 +60,7 @@ in
     services.xserver.windowManager.session = singleton {
       name = "awesome";
       start = ''
-        ${awesome}/bin/awesome ${
-          lib.optionalString cfg.noArgb "--no-argb"
-        } ${makeSearchPath cfg.luaModules} &
+        ${awesome}/bin/awesome ${lib.optionalString cfg.noArgb "--no-argb"} ${makeSearchPath cfg.luaModules} &
         waitPID=$!
       '';
     };

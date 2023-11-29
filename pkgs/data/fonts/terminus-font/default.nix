@@ -12,9 +12,7 @@ stdenv.mkDerivation rec {
   version = "4.49.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/${pname}/${pname}-${
-        lib.versions.majorMinor version
-      }/${pname}-${version}.tar.gz";
+    url = "mirror://sourceforge/project/${pname}/${pname}-${lib.versions.majorMinor version}/${pname}-${version}.tar.gz";
     sha256 = "0yggffiplk22lgqklfmd2c0rw8gwchynjh5kz4bz8yv2h6vw2qfr";
   };
 

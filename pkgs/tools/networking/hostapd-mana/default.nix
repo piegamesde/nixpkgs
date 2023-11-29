@@ -74,9 +74,7 @@ stdenv.mkDerivation rec {
     cd hostapd
     cp -v defconfig .config
     echo "$extraConfig" >> .config
-    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config --cflags libnl-${
-      lib.versions.major libnl.version
-    }.0)"
+    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config --cflags libnl-${lib.versions.major libnl.version}.0)"
     runHook postConfigure
   '';
 

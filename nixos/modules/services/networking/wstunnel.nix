@@ -350,9 +350,7 @@ let
                 } \
                 ${optionalString verboseLogging "--verbose"} \
                 ${attrsToArgs extraArgs} \
-                ${
-                  utils.escapeSystemdExecArg "${if enableHTTPS then "wss" else "ws"}://${hostPortToString listen}"
-                }
+                ${utils.escapeSystemdExecArg "${if enableHTTPS then "wss" else "ws"}://${hostPortToString listen}"}
             '';
           EnvironmentFile = optional (serverCfg.environmentFile != null) serverCfg.environmentFile;
           DynamicUser = true;
@@ -412,9 +410,7 @@ let
             --udpTimeoutSec=${toString udpTimeout} \
             ${optionalString verboseLogging "--verbose"} \
             ${attrsToArgs extraArgs} \
-            ${
-              utils.escapeSystemdExecArg "${if enableHTTPS then "wss" else "ws"}://${hostPortToString connectTo}"
-            }
+            ${utils.escapeSystemdExecArg "${if enableHTTPS then "wss" else "ws"}://${hostPortToString connectTo}"}
         '';
         EnvironmentFile = optional (clientCfg.environmentFile != null) clientCfg.environmentFile;
         DynamicUser = true;

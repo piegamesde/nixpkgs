@@ -463,9 +463,7 @@ let
       --substituters ""
 
     ${optionalString (additionalPaths' != [ ]) ''
-      nix --extra-experimental-features nix-command copy --to $root --no-check-sigs ${
-        concatStringsSep " " additionalPaths'
-      }
+      nix --extra-experimental-features nix-command copy --to $root --no-check-sigs ${concatStringsSep " " additionalPaths'}
     ''}
 
     diskImage=nixos.raw

@@ -517,11 +517,9 @@ stdenv.mkDerivation {
         -DLLDB_ENABLE_LUA=OFF
         -DLLDB_INCLUDE_TESTS=OFF
         -DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON
-        ${
-          lib.optionalString stdenv.isDarwin ''
-            -DLLDB_USE_SYSTEM_DEBUGSERVER=ON
-          ''
-        }
+        ${lib.optionalString stdenv.isDarwin ''
+        -DLLDB_USE_SYSTEM_DEBUGSERVER=ON
+      ''}
         -DLibEdit_INCLUDE_DIRS=${libedit.dev}/include
         -DLibEdit_LIBRARIES=${libedit}/lib/libedit${stdenv.hostPlatform.extensions.sharedLibrary}
         -DCURSES_INCLUDE_DIRS=${if stdenv.isDarwin then "/var/empty" else ncurses.dev}/include

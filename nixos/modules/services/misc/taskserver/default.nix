@@ -595,14 +595,12 @@ in
               --bits ${toString cfg.pki.auto.bits} \
               --outfile "${cfg.dataDir}/keys/ca.key"
             silent_certtool -s \
-              --template "${
-                pkgs.writeText "taskserver-ca.template" ''
-                  cn = ${cfg.fqdn}
-                  expiration_days = ${toString cfg.pki.auto.expiration.ca}
-                  cert_signing_key
-                  ca
-                ''
-              }" \
+              --template "${pkgs.writeText "taskserver-ca.template" ''
+            cn = ${cfg.fqdn}
+            expiration_days = ${toString cfg.pki.auto.expiration.ca}
+            cert_signing_key
+            ca
+          ''}" \
               --load-privkey "${cfg.dataDir}/keys/ca.key" \
               --outfile "${cfg.dataDir}/keys/ca.cert"
 
@@ -616,15 +614,13 @@ in
               --outfile "${cfg.dataDir}/keys/server.key"
 
             silent_certtool -c \
-              --template "${
-                pkgs.writeText "taskserver-cert.template" ''
-                  cn = ${cfg.fqdn}
-                  expiration_days = ${toString cfg.pki.auto.expiration.server}
-                  tls_www_server
-                  encryption_key
-                  signing_key
-                ''
-              }" \
+              --template "${pkgs.writeText "taskserver-cert.template" ''
+            cn = ${cfg.fqdn}
+            expiration_days = ${toString cfg.pki.auto.expiration.server}
+            tls_www_server
+            encryption_key
+            signing_key
+          ''}" \
               --load-ca-privkey "${cfg.dataDir}/keys/ca.key" \
               --load-ca-certificate "${cfg.dataDir}/keys/ca.cert" \
               --load-privkey "${cfg.dataDir}/keys/server.key" \
@@ -641,11 +637,9 @@ in
 
           if [ ! -e "${cfg.dataDir}/keys/server.crl" ]; then
             silent_certtool --generate-crl \
-              --template "${
-                pkgs.writeText "taskserver-crl.template" ''
-                  expiration_days = ${toString cfg.pki.auto.expiration.crl}
-                ''
-              }" \
+              --template "${pkgs.writeText "taskserver-crl.template" ''
+            expiration_days = ${toString cfg.pki.auto.expiration.crl}
+          ''}" \
               --load-ca-privkey "${cfg.dataDir}/keys/ca.key" \
               --load-ca-certificate "${cfg.dataDir}/keys/ca.cert" \
               --outfile "${cfg.dataDir}/keys/server.crl"

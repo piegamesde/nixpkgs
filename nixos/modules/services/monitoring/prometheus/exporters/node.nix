@@ -40,9 +40,7 @@ in
         ${pkgs.prometheus-node-exporter}/bin/node_exporter \
           ${concatMapStringsSep " " (x: "--collector." + x) cfg.enabledCollectors} \
           ${concatMapStringsSep " " (x: "--no-collector." + x) cfg.disabledCollectors} \
-          --web.listen-address ${cfg.listenAddress}:${toString cfg.port} ${
-            concatStringsSep " " cfg.extraFlags
-          }
+          --web.listen-address ${cfg.listenAddress}:${toString cfg.port} ${concatStringsSep " " cfg.extraFlags}
       '';
       RestrictAddressFamilies =
         optionals (collectorIsEnabled "logind" || collectorIsEnabled "systemd")

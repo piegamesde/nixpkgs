@@ -151,15 +151,13 @@ let
           echo '1 + 1' | $out/bin/jshell
         ''}
 
-        echo ${
-          lib.escapeShellArg ''
-            public class HelloWorld {
-              public static void main(String[] args) {
-                System.out.println("Hello World");
-              }
+        echo ${lib.escapeShellArg ''
+          public class HelloWorld {
+            public static void main(String[] args) {
+              System.out.println("Hello World");
             }
-          ''
-        } > HelloWorld.java
+          }
+        ''} > HelloWorld.java
         $out/bin/javac HelloWorld.java
 
         # run on JVM with Graal Compiler

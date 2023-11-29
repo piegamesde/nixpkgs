@@ -51,9 +51,7 @@ in
       description = "Fluentd Daemon";
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/fluentd -c ${
-            pkgs.writeText "fluentd.conf" cfg.config
-          } ${pluginArgs}";
+        ExecStart = "${cfg.package}/bin/fluentd -c ${pkgs.writeText "fluentd.conf" cfg.config} ${pluginArgs}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };
     };

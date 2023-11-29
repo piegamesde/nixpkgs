@@ -221,9 +221,7 @@ stdenv.mkDerivation rec {
       export TERM="xterm";
       export HOME="$TMPDIR";
 
-      ${pythonForPypy.interpreter} ./pypy/test_all.py --pypy=./${executable}-c -k 'not (${
-        lib.concatStringsSep " or " disabledTests
-      })' lib-python
+      ${pythonForPypy.interpreter} ./pypy/test_all.py --pypy=./${executable}-c -k 'not (${lib.concatStringsSep " or " disabledTests})' lib-python
     '';
 
   # verify cffi modules

@@ -29,15 +29,9 @@ stdenv.mkDerivation rec {
     make clean
 
     substituteInPlace Makefile --replace "./find_sizes" "./find_sizes_build"
-    substituteInPlace Makefile --replace "ar cr" "${
-      lib.getBin stdenv.cc.bintools.bintools
-    }/bin/${stdenv.cc.targetPrefix}ar cr"
-    substituteInPlace Makefile --replace "ranlib" "${
-      lib.getBin stdenv.cc.bintools.bintools
-    }/bin/${stdenv.cc.targetPrefix}ranlib"
-    substituteInPlace Makefile --replace "STRIP=strip" "STRIP=${
-      lib.getBin stdenv.cc.bintools.bintools
-    }/bin/${stdenv.cc.targetPrefix}strip"
+    substituteInPlace Makefile --replace "ar cr" "${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar cr"
+    substituteInPlace Makefile --replace "ranlib" "${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ranlib"
+    substituteInPlace Makefile --replace "STRIP=strip" "STRIP=${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}strip"
   '';
   nativeBuildInputs = [
     perl

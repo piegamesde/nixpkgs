@@ -249,20 +249,10 @@ in
           --listen-address ${cfg.beacon.address} \
           --network ${cfg.network} \
           --datadir ${cfg.beacon.dataDir}/${cfg.network} \
-          --execution-endpoint http://${cfg.beacon.execution.address}:${
-            toString cfg.beacon.execution.port
-          } \
+          --execution-endpoint http://${cfg.beacon.execution.address}:${toString cfg.beacon.execution.port} \
           --execution-jwt ''${CREDENTIALS_DIRECTORY}/LIGHTHOUSE_JWT \
-          ${
-            lib.optionalString cfg.beacon.http.enable
-              "--http --http-address ${cfg.beacon.http.address} --http-port ${toString cfg.beacon.http.port}"
-          } \
-          ${
-            lib.optionalString cfg.beacon.metrics.enable
-              "--metrics --metrics-address ${cfg.beacon.metrics.address} --metrics-port ${
-                toString cfg.beacon.metrics.port
-              }"
-          } \
+          ${lib.optionalString cfg.beacon.http.enable "--http --http-address ${cfg.beacon.http.address} --http-port ${toString cfg.beacon.http.port}"} \
+          ${lib.optionalString cfg.beacon.metrics.enable "--metrics --metrics-address ${cfg.beacon.metrics.address} --metrics-port ${toString cfg.beacon.metrics.port}"} \
           ${cfg.extraArgs} ${cfg.beacon.extraArgs}
       '';
       serviceConfig = {
@@ -307,12 +297,7 @@ in
           --network ${cfg.network} \
           --beacon-nodes ${lib.concatStringsSep "," cfg.validator.beaconNodes} \
           --datadir ${cfg.validator.dataDir}/${cfg.network} \
-          ${
-            optionalString cfg.validator.metrics.enable
-              "--metrics --metrics-address ${cfg.validator.metrics.address} --metrics-port ${
-                toString cfg.validator.metrics.port
-              }"
-          } \
+          ${optionalString cfg.validator.metrics.enable "--metrics --metrics-address ${cfg.validator.metrics.address} --metrics-port ${toString cfg.validator.metrics.port}"} \
           ${cfg.extraArgs} ${cfg.validator.extraArgs}
       '';
 

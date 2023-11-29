@@ -89,9 +89,7 @@ stdenv.mkDerivation rec {
     in
     ''
       runHook preCheck
-      ${python3.interpreter} ./cpp/allTests.py ${configFlag} --rfilter='${
-        concatStringsSep "|" brokenTests
-      }'
+      ${python3.interpreter} ./cpp/allTests.py ${configFlag} --rfilter='${concatStringsSep "|" brokenTests}'
       runHook postCheck
     '';
 

@@ -237,11 +237,9 @@ import ./make-test-python.nix (
             "unbound-extra2.conf".text = ''
               auth-zone:
                 name: something.local.
-                zonefile: ${
-                  pkgs.writeText "zone" ''
-                    something.local. IN A 3.4.5.6
-                  ''
-                }
+                zonefile: ${pkgs.writeText "zone" ''
+                something.local. IN A 3.4.5.6
+              ''}
             '';
           };
         };

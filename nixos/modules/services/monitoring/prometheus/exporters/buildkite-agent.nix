@@ -59,9 +59,7 @@ in
           -interval ${cfg.interval} \
           -endpoint ${cfg.endpoint} \
           ${optionalString (cfg.queues != null) queues} \
-          -prometheus-addr "${cfg.listenAddress}:${toString cfg.port}" ${
-            concatStringsSep " " cfg.extraFlags
-          }
+          -prometheus-addr "${cfg.listenAddress}:${toString cfg.port}" ${concatStringsSep " " cfg.extraFlags}
       '';
     serviceConfig = {
       DynamicUser = false;

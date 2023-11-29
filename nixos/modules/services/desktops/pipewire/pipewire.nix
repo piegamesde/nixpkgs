@@ -162,17 +162,11 @@ in
       text = ''
         pcm_type.pipewire {
           libs.native = ${cfg.package.lib}/lib/alsa-lib/libasound_module_pcm_pipewire.so ;
-          ${
-            optionalString enable32BitAlsaPlugins
-              "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_pcm_pipewire.so ;"
-          }
+          ${optionalString enable32BitAlsaPlugins "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_pcm_pipewire.so ;"}
         }
         ctl_type.pipewire {
           libs.native = ${cfg.package.lib}/lib/alsa-lib/libasound_module_ctl_pipewire.so ;
-          ${
-            optionalString enable32BitAlsaPlugins
-              "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_ctl_pipewire.so ;"
-          }
+          ${optionalString enable32BitAlsaPlugins "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_ctl_pipewire.so ;"}
         }
       '';
     };

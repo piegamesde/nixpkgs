@@ -51,9 +51,7 @@ stdenv.mkDerivation rec {
       hash = "sha256-ElcAOvyQjXNns35p4J+jnGu8orZR81Itz/fxYh7Usbs=";
     })
     (fetchurl {
-      url = "https://dev.mysql.com/get/Downloads/MySQL-${
-          lib.versions.majorMinor version
-        }/mysql-${version}.tar.gz";
+      url = "https://dev.mysql.com/get/Downloads/MySQL-${lib.versions.majorMinor version}/mysql-${version}.tar.gz";
       hash = "sha256-liAC9dkG9C9AsnejnS25OTEkjB8H/49DEsKI5jgD3RI=";
     })
   ];
@@ -131,9 +129,7 @@ stdenv.mkDerivation rec {
   ];
 
   postFixup = ''
-    wrapProgram $out/bin/mysqlsh --set PYTHONPATH "${
-      lib.makeSearchPath python3.sitePackages pythonDeps
-    }"
+    wrapProgram $out/bin/mysqlsh --set PYTHONPATH "${lib.makeSearchPath python3.sitePackages pythonDeps}"
   '';
 
   meta = with lib; {

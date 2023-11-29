@@ -23,9 +23,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-autoar/${
-        lib.versions.majorMinor version
-      }/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-autoar/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "wK++MzvPPLFEGh9XTMjsexuBl3eRRdTt7uKJb9rPw8I=";
   };
 

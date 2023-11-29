@@ -75,12 +75,7 @@ import ./make-test-python.nix (
             curl ${lib.escapeShellArg url} >/dev/null
             config="$(curl ${lib.escapeShellArg "${url}/api/v4/config/client?format=old"})"
             echo "Config: $(echo "$config" | ${pkgs.jq}/bin/jq)" >&2
-            [[ "$(echo "$config" | ${pkgs.jq}/bin/jq -r ${
-              lib.escapeShellArg
-                ".SiteName == $siteName and .Version == ($mattermostName / $sep)[-1] and (${jqExpression})"
-            } --arg siteName ${lib.escapeShellArg siteName} --arg mattermostName ${
-              lib.escapeShellArg pkgs.mattermost.name
-            } --arg sep '-')" = "true" ]]
+            [[ "$(echo "$config" | ${pkgs.jq}/bin/jq -r ${lib.escapeShellArg ".SiteName == $siteName and .Version == ($mattermostName / $sep)[-1] and (${jqExpression})"} --arg siteName ${lib.escapeShellArg siteName} --arg mattermostName ${lib.escapeShellArg pkgs.mattermost.name} --arg sep '-')" = "true" ]]
           '';
 
         setConfig =
@@ -101,9 +96,7 @@ import ./make-test-python.nix (
         mutable.wait_for_open_port(8065)
 
         # Get the initial config
-        mutable.succeed("${
-          expectConfig ''.AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''
-        }")
+        mutable.succeed("${expectConfig ''.AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''}")
 
         # Edit the config
         mutable.succeed("${setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''}")
@@ -112,10 +105,7 @@ import ./make-test-python.nix (
         mutable.wait_for_open_port(8065)
 
         # AboutLink and HelpLink should be changed
-        mutable.succeed("${
-          expectConfig
-            ''.AboutLink == "https://mattermost.com" and .HelpLink == "https://nixos.org/nixos/manual"''
-        }")
+        mutable.succeed("${expectConfig ''.AboutLink == "https://mattermost.com" and .HelpLink == "https://nixos.org/nixos/manual"''}")
 
         ## Mostly mutable node tests ##
         mostlyMutable.wait_for_unit("mattermost.service")
@@ -126,25 +116,19 @@ import ./make-test-python.nix (
 
         # Edit the config
         mostlyMutable.succeed("${setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''}")
-        mostlyMutable.succeed("${
-          setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
-        }")
+        mostlyMutable.succeed("${setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''}")
         mostlyMutable.systemctl("restart mattermost.service")
         mostlyMutable.wait_for_open_port(8065)
 
         # AboutLink should be overridden by NixOS configuration; HelpLink should be what we set above
-        mostlyMutable.succeed("${
-          expectConfig ''.AboutLink == "https://nixos.org" and .HelpLink == "https://nixos.org/nixos/manual"''
-        }")
+        mostlyMutable.succeed("${expectConfig ''.AboutLink == "https://nixos.org" and .HelpLink == "https://nixos.org/nixos/manual"''}")
 
         ## Immutable node tests ##
         immutable.wait_for_unit("mattermost.service")
         immutable.wait_for_open_port(8065)
 
         # Get the initial config
-        immutable.succeed("${
-          expectConfig ''.AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''
-        }")
+        immutable.succeed("${expectConfig ''.AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''}")
 
         # Edit the config
         immutable.succeed("${setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''}")
@@ -153,9 +137,7 @@ import ./make-test-python.nix (
         immutable.wait_for_open_port(8065)
 
         # Our edits should be ignored on restart
-        immutable.succeed("${
-          expectConfig ''.AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''
-        }")
+        immutable.succeed("${expectConfig ''.AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''}")
 
 
         ## Environment File node tests ##

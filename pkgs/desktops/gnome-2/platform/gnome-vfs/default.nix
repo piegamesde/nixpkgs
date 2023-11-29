@@ -29,9 +29,7 @@ stdenv.mkDerivation (
         inherit (finalAttrs) pname version;
       in
       fetchurl {
-        url = "mirror://gnome/sources/gnome-vfs/${
-            lib.versions.majorMinor version
-          }/${pname}-${version}.tar.bz2";
+        url = "mirror://gnome/sources/gnome-vfs/${lib.versions.majorMinor version}/${pname}-${version}.tar.bz2";
         sha256 = "1ajg8jb8k3snxc7rrgczlh8daxkjidmcv3zr9w809sq4p2sn9pk2";
       };
 

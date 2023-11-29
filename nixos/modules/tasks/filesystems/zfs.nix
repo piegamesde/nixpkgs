@@ -179,34 +179,32 @@ let
           done
           poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
           if poolImported "${pool}"; then
-            ${
-              optionalString keyLocations.hasKeys ''
-                ${keyLocations.command} | while IFS=$'\t' read ds kl ks; do
-                  {
-                  if [[ "$ks" != unavailable ]]; then
-                    continue
-                  fi
-                  case "$kl" in
-                    none )
-                      ;;
-                    prompt )
-                      tries=3
-                      success=false
-                      while [[ $success != true ]] && [[ $tries -gt 0 ]]; do
-                        ${systemd}/bin/systemd-ask-password "Enter key for $ds:" | ${cfgZfs.package}/sbin/zfs load-key "$ds" \
-                          && success=true \
-                          || tries=$((tries - 1))
-                      done
-                      [[ $success = true ]]
-                      ;;
-                    * )
-                      ${cfgZfs.package}/sbin/zfs load-key "$ds"
-                      ;;
-                  esac
-                  } < /dev/null # To protect while read ds kl in case anything reads stdin
-                done
-              ''
-            }
+            ${optionalString keyLocations.hasKeys ''
+            ${keyLocations.command} | while IFS=$'\t' read ds kl ks; do
+              {
+              if [[ "$ks" != unavailable ]]; then
+                continue
+              fi
+              case "$kl" in
+                none )
+                  ;;
+                prompt )
+                  tries=3
+                  success=false
+                  while [[ $success != true ]] && [[ $tries -gt 0 ]]; do
+                    ${systemd}/bin/systemd-ask-password "Enter key for $ds:" | ${cfgZfs.package}/sbin/zfs load-key "$ds" \
+                      && success=true \
+                      || tries=$((tries - 1))
+                  done
+                  [[ $success = true ]]
+                  ;;
+                * )
+                  ${cfgZfs.package}/sbin/zfs load-key "$ds"
+                  ;;
+              esac
+              } < /dev/null # To protect while read ds kl in case anything reads stdin
+            done
+          ''}
             echo "Successfully imported ${pool}"
           else
             exit 1

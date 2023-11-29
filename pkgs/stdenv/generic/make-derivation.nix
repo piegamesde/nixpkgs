@@ -677,9 +677,7 @@ let
           assert lib.assertMsg envIsExportable
               "When using structured attributes, `env` must be an attribute set of environment variables.";
           assert lib.assertMsg (overlappingNames == [ ])
-              "The ‘env’ attribute set cannot contain any attributes passed to derivation. The following attributes are overlapping: ${
-                lib.concatStringsSep ", " overlappingNames
-              }";
+              "The ‘env’ attribute set cannot contain any attributes passed to derivation. The following attributes are overlapping: ${lib.concatStringsSep ", " overlappingNames}";
           lib.mapAttrs
             (
               n: v:

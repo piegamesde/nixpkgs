@@ -752,13 +752,11 @@ in
                   ${exe} generate secret JWT_SECRET > '${oauth2JwtSecret}'
               fi
 
-              ${
-                lib.optionalString cfg.lfs.enable ''
-                  if [ ! -s '${lfsJwtSecret}' ]; then
-                      ${exe} generate secret LFS_JWT_SECRET > '${lfsJwtSecret}'
-                  fi
-                ''
-              }
+              ${lib.optionalString cfg.lfs.enable ''
+              if [ ! -s '${lfsJwtSecret}' ]; then
+                  ${exe} generate secret LFS_JWT_SECRET > '${lfsJwtSecret}'
+              fi
+            ''}
 
               if [ ! -s '${internalToken}' ]; then
                   ${exe} generate secret INTERNAL_TOKEN > '${internalToken}'
@@ -770,11 +768,9 @@ in
               ${replaceSecretBin} '#oauth2jwtsecret#' '${oauth2JwtSecret}' '${runConfig}'
               ${replaceSecretBin} '#internaltoken#' '${internalToken}' '${runConfig}'
 
-              ${
-                lib.optionalString cfg.lfs.enable ''
-                  ${replaceSecretBin} '#lfsjwtsecret#' '${lfsJwtSecret}' '${runConfig}'
-                ''
-              }
+              ${lib.optionalString cfg.lfs.enable ''
+              ${replaceSecretBin} '#lfsjwtsecret#' '${lfsJwtSecret}' '${runConfig}'
+            ''}
 
               ${
                 lib.optionalString (cfg.mailerPasswordFile != null) ''

@@ -10,9 +10,7 @@ stdenv.mkDerivation rec {
   version = "2.34.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-common/${
-        lib.versions.majorMinor version
-      }/gnome-common-${version}.tar.bz2";
+    url = "mirror://gnome/sources/gnome-common/${lib.versions.majorMinor version}/gnome-common-${version}.tar.bz2";
     sha256 = "1pz13mpp09q5s3bikm8ml92s1g0scihsm4iipqv1ql3mp6d4z73s";
   };
 

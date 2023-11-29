@@ -61,9 +61,7 @@ let
                              `capacity`, `downed`, `backoff`)
           VALUES (1, 1, '${cfg.singleNode.url}', ${toString cfg.singleNode.capacity},
           0, ${toString cfg.singleNode.capacity}, 0, 0)
-          ON DUPLICATE KEY UPDATE node = '${cfg.singleNode.url}', capacity=${
-            toString cfg.singleNode.capacity
-          };
+          ON DUPLICATE KEY UPDATE node = '${cfg.singleNode.url}', capacity=${toString cfg.singleNode.capacity};
 
         COMMIT;
     EOF

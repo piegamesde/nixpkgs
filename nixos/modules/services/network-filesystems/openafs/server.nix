@@ -27,24 +27,16 @@ let
     ''
     + (optionalString cfg.roles.database.enable ''
       bnode simple vlserver 1
-      parm ${openafsSrv}/libexec/openafs/vlserver ${
-        optionalString cfg.dottedPrincipals "-allow-dotted-principals"
-      } ${cfg.roles.database.vlserverArgs}
+      parm ${openafsSrv}/libexec/openafs/vlserver ${optionalString cfg.dottedPrincipals "-allow-dotted-principals"} ${cfg.roles.database.vlserverArgs}
       end
       bnode simple ptserver 1
-      parm ${openafsSrv}/libexec/openafs/ptserver ${
-        optionalString cfg.dottedPrincipals "-allow-dotted-principals"
-      } ${cfg.roles.database.ptserverArgs}
+      parm ${openafsSrv}/libexec/openafs/ptserver ${optionalString cfg.dottedPrincipals "-allow-dotted-principals"} ${cfg.roles.database.ptserverArgs}
       end
     '')
     + (optionalString cfg.roles.fileserver.enable ''
       bnode dafs dafs 1
-      parm ${openafsSrv}/libexec/openafs/dafileserver ${
-        optionalString cfg.dottedPrincipals "-allow-dotted-principals"
-      } -udpsize ${udpSizeStr} ${cfg.roles.fileserver.fileserverArgs}
-      parm ${openafsSrv}/libexec/openafs/davolserver ${
-        optionalString cfg.dottedPrincipals "-allow-dotted-principals"
-      } -udpsize ${udpSizeStr} ${cfg.roles.fileserver.volserverArgs}
+      parm ${openafsSrv}/libexec/openafs/dafileserver ${optionalString cfg.dottedPrincipals "-allow-dotted-principals"} -udpsize ${udpSizeStr} ${cfg.roles.fileserver.fileserverArgs}
+      parm ${openafsSrv}/libexec/openafs/davolserver ${optionalString cfg.dottedPrincipals "-allow-dotted-principals"} -udpsize ${udpSizeStr} ${cfg.roles.fileserver.volserverArgs}
       parm ${openafsSrv}/libexec/openafs/salvageserver ${cfg.roles.fileserver.salvageserverArgs}
       parm ${openafsSrv}/libexec/openafs/dasalvager ${cfg.roles.fileserver.salvagerArgs}
       end
@@ -53,9 +45,7 @@ let
       (cfg.roles.database.enable && cfg.roles.backup.enable && (!cfg.roles.backup.enableFabs))
       ''
         bnode simple buserver 1
-        parm ${openafsSrv}/libexec/openafs/buserver ${cfg.roles.backup.buserverArgs} ${
-          optionalString useBuCellServDB "-cellservdb /etc/openafs/backup/"
-        }
+        parm ${openafsSrv}/libexec/openafs/buserver ${cfg.roles.backup.buserverArgs} ${optionalString useBuCellServDB "-cellservdb /etc/openafs/backup/"}
         end
       ''
     )

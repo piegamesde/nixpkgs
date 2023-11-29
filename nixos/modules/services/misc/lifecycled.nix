@@ -156,9 +156,7 @@ in
         environment = optionalAttrs (cfg.awsRegion != null) { AWS_REGION = cfg.awsRegion; };
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = "${pkgs.lifecycled}/bin/lifecycled-queue-cleaner -parallel ${
-              toString cfg.queueCleaner.parallel
-            }";
+          ExecStart = "${pkgs.lifecycled}/bin/lifecycled-queue-cleaner -parallel ${toString cfg.queueCleaner.parallel}";
         };
       };
 

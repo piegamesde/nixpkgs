@@ -108,9 +108,7 @@ in
       environment.TREMOR_PATH = "${pkgs.tremor-rs}/lib:${cfg.tremorLibDir}";
 
       serviceConfig = {
-        ExecStart = "${pkgs.tremor-rs}/bin/tremor --logger-config ${loggerConfigFile} server run ${
-            concatStringsSep " " cfg.troyFileList
-          } --api-host ${cfg.host}:${toString cfg.port}";
+        ExecStart = "${pkgs.tremor-rs}/bin/tremor --logger-config ${loggerConfigFile} server run ${concatStringsSep " " cfg.troyFileList} --api-host ${cfg.host}:${toString cfg.port}";
         DynamicUser = true;
         Restart = "always";
         NoNewPrivileges = true;

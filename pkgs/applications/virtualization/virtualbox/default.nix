@@ -274,9 +274,9 @@ stdenv.mkDerivation {
       -name src -o -exec cp -avt "$libexec" {} +
 
     mkdir -p $out/bin
-    for file in ${optionalString (!headless) "VirtualBox VBoxSDL"} ${
-      optionalString enableWebService "vboxwebsrv"
-    } VBoxManage VBoxBalloonCtrl VBoxHeadless; do
+    for file in ${
+      optionalString (!headless) "VirtualBox VBoxSDL"
+    } ${optionalString enableWebService "vboxwebsrv"} VBoxManage VBoxBalloonCtrl VBoxHeadless; do
         echo "Linking $file to /bin"
         test -x "$libexec/$file"
         ln -s "$libexec/$file" $out/bin/$file

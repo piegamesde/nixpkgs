@@ -44,9 +44,7 @@ stdenv.mkDerivation rec {
 
   installPhase =
     ''
-      install -D ${
-        lib.optionalString stdenv.isDarwin "wxsqliteplus.app/Contents/MacOS/"
-      }wxsqliteplus $out/bin/wxsqliteplus
+      install -D ${lib.optionalString stdenv.isDarwin "wxsqliteplus.app/Contents/MacOS/"}wxsqliteplus $out/bin/wxsqliteplus
     ''
     + lib.optionalString stdenv.isDarwin ''
       mkdir -p $out/Applications

@@ -70,9 +70,7 @@ in
 
     services.tomcat.enable = cfg.useWebServiceInterface;
     services.tomcat.extraGroups = [ "disnix" ];
-    services.tomcat.javaOpts = "${
-        optionalString cfg.useWebServiceInterface "-Djava.library.path=${pkgs.libmatthew_java}/lib/jni"
-      } ";
+    services.tomcat.javaOpts = "${optionalString cfg.useWebServiceInterface "-Djava.library.path=${pkgs.libmatthew_java}/lib/jni"} ";
     services.tomcat.sharedLibs =
       optional cfg.useWebServiceInterface "${pkgs.DisnixWebService}/share/java/DisnixConnection.jar"
       ++ optional cfg.useWebServiceInterface "${pkgs.dbus_java}/share/java/dbus.jar";

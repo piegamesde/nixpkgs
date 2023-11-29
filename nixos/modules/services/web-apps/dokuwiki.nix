@@ -275,9 +275,7 @@ let
                       "settings"
                       "useacl"
                     ]
-                  } is required when ${showPath [ "usersFile" ]} is set (Currently defiend as `${config.usersFile}' in ${
-                    showFiles options.usersFile.files
-                  }).";
+                  } is required when ${showPath [ "usersFile" ]} is set (Currently defiend as `${config.usersFile}' in ${showFiles options.usersFile.files}).";
               }
             ];
           }

@@ -129,26 +129,22 @@ mapAttrs
               with machine.nested("Creating a new Chromium window"):
                   machine.wait_until_succeeds(
                       ru(
-                          "${
-                            xdo "create_new_win-select_main_window" ''
-                              search --onlyvisible --name "startup done"
-                              windowfocus --sync
-                              windowactivate --sync
-                            ''
-                          }"
+                          "${xdo "create_new_win-select_main_window" ''
+            search --onlyvisible --name "startup done"
+            windowfocus --sync
+            windowactivate --sync
+          ''}"
                       )
                   )
                   machine.send_key("ctrl-n")
                   # Wait until the new window appears:
                   machine.wait_until_succeeds(
                       ru(
-                          "${
-                            xdo "create_new_win-wait_for_window" ''
-                              search --onlyvisible --name "New Tab"
-                              windowfocus --sync
-                              windowactivate --sync
-                            ''
-                          }"
+                          "${xdo "create_new_win-wait_for_window" ''
+            search --onlyvisible --name "New Tab"
+            windowfocus --sync
+            windowactivate --sync
+          ''}"
                       )
                   )
 
@@ -157,24 +153,20 @@ mapAttrs
               """Closes the Chromium window with the title "New Tab"."""
               machine.wait_until_succeeds(
                   ru(
-                      "${
-                        xdo "close_new_tab_win-select_main_window" ''
-                          search --onlyvisible --name "New Tab"
-                          windowfocus --sync
-                          windowactivate --sync
-                        ''
-                      }"
+                      "${xdo "close_new_tab_win-select_main_window" ''
+            search --onlyvisible --name "New Tab"
+            windowfocus --sync
+            windowactivate --sync
+          ''}"
                   )
               )
               machine.send_key("ctrl-w")
               # Wait until the closed window disappears:
               machine.wait_until_fails(
                   ru(
-                      "${
-                        xdo "close_new_tab_win-wait_for_close" ''
-                          search --onlyvisible --name "New Tab"
-                        ''
-                      }"
+                      "${xdo "close_new_tab_win-wait_for_close" ''
+            search --onlyvisible --name "New Tab"
+          ''}"
                   )
               )
 
@@ -188,11 +180,9 @@ mapAttrs
               machine.screenshot(description)
               machine.succeed(
                   ru(
-                      "${
-                        xdo "copy-all" ''
-                          key --delay 1000 Ctrl+a Ctrl+c
-                        ''
-                      }"
+                      "${xdo "copy-all" ''
+            key --delay 1000 Ctrl+a Ctrl+c
+          ''}"
                   )
               )
               clipboard = machine.succeed(
@@ -214,15 +204,13 @@ mapAttrs
           machine.wait_for_text("startup done")
           machine.wait_until_succeeds(
               ru(
-                  "${
-                    xdo "check-startup" ''
-                      search --sync --onlyvisible --name "startup done"
-                      # close first start help popup
-                      key -delay 1000 Escape
-                      windowfocus --sync
-                      windowactivate --sync
-                    ''
-                  }"
+                  "${xdo "check-startup" ''
+            search --sync --onlyvisible --name "startup done"
+            # close first start help popup
+            key -delay 1000 Escape
+            windowfocus --sync
+            windowactivate --sync
+          ''}"
               )
           )
 
@@ -251,11 +239,9 @@ mapAttrs
               machine.sleep(1)
               machine.succeed(
                   ru(
-                      "${
-                        xdo "find-window-after-copy" ''
-                          search --onlyvisible --name "Sandbox Status"
-                        ''
-                      }"
+                      "${xdo "find-window-after-copy" ''
+            search --onlyvisible --name "Sandbox Status"
+          ''}"
                   )
               )
 
@@ -266,11 +252,9 @@ mapAttrs
               )
               machine.succeed(
                   ru(
-                      "${
-                        xdo "copy-sandbox-info" ''
-                          key --delay 1000 Ctrl+a Ctrl+c
-                        ''
-                      }"
+                      "${xdo "copy-sandbox-info" ''
+            key --delay 1000 Ctrl+a Ctrl+c
+          ''}"
                   )
               )
 

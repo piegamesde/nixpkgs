@@ -21,9 +21,9 @@ let
           command,
           ...
         }:
-        "${concatMapStringsSep "+" toString keys}:${concatStringsSep "," events}:${
-          concatStringsSep "," attributes
-        }:${command}"
+        "${
+          concatMapStringsSep "+" toString keys
+        }:${concatStringsSep "," events}:${concatStringsSep "," attributes}:${command}"
       )
       cfg.bindings}
     ${cfg.extraConfig}

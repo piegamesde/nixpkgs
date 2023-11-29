@@ -99,21 +99,17 @@ let
             </sqlite3>
           </storage>
           <protocolInfo extend="${optionYesNo cfg.ps3Support}"/>
-          ${
-            optionalString cfg.dsmSupport ''
-              <custom-http-headers>
-                <add header="X-User-Agent: redsonic"/>
-              </custom-http-headers>
+          ${optionalString cfg.dsmSupport ''
+      <custom-http-headers>
+        <add header="X-User-Agent: redsonic"/>
+      </custom-http-headers>
 
-              <manufacturerURL>redsonic.com</manufacturerURL>
-              <modelNumber>105</modelNumber>
-            ''
-          }
-            ${
-              optionalString cfg.tg100Support ''
-                <upnp-string-limit>101</upnp-string-limit>
-              ''
-            }
+      <manufacturerURL>redsonic.com</manufacturerURL>
+      <modelNumber>105</modelNumber>
+    ''}
+            ${optionalString cfg.tg100Support ''
+      <upnp-string-limit>101</upnp-string-limit>
+    ''}
           <extended-runtime-options>
             <mark-played-items enabled="yes" suppress-cds-updates="yes">
               <string mode="prepend">*</string>
@@ -155,16 +151,12 @@ let
               <map from="flv" to="video/x-flv"/>
               <map from="mkv" to="video/x-matroska"/>
               <map from="mka" to="audio/x-matroska"/>
-              ${
-                optionalString cfg.ps3Support ''
-                  <map from="avi" to="video/divx"/>
-                ''
-              }
-              ${
-                optionalString cfg.dsmSupport ''
-                  <map from="avi" to="video/avi"/>
-                ''
-              }
+              ${optionalString cfg.ps3Support ''
+      <map from="avi" to="video/divx"/>
+    ''}
+              ${optionalString cfg.dsmSupport ''
+      <map from="avi" to="video/avi"/>
+    ''}
             </extension-mimetype>
             <mimetype-upnpclass>
               <map from="audio/*" to="object.item.audioItem.musicTrack"/>

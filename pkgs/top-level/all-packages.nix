@@ -17454,9 +17454,7 @@ with pkgs;
           inherit version;
           hash = "sha256-/rHfYXOM/B9eiTtCouwafeMpd9Z+hnB7Retj0MXDwjY=";
         };
-        meta.changelog = "https://github.com/ansible/ansible/blob/v${version}/changelogs/CHANGELOG-v${
-            lib.versions.majorMinor version
-          }.rst";
+        meta.changelog = "https://github.com/ansible/ansible/blob/v${version}/changelogs/CHANGELOG-v${lib.versions.majorMinor version}.rst";
       }
     )
   );

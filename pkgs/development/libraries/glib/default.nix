@@ -76,9 +76,7 @@ stdenv.mkDerivation (
     version = "2.76.2";
 
     src = fetchurl {
-      url = "mirror://gnome/sources/glib/${
-          lib.versions.majorMinor finalAttrs.version
-        }/glib-${finalAttrs.version}.tar.xz";
+      url = "mirror://gnome/sources/glib/${lib.versions.majorMinor finalAttrs.version}/glib-${finalAttrs.version}.tar.xz";
       sha256 = "JPOEeFex2GdM2wOJo27ewPE8ZmzTznJ+zTQOudqKyp4=";
     };
 

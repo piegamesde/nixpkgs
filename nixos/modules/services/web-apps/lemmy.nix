@@ -192,9 +192,7 @@ in
       serviceConfig = {
         DynamicUser = true;
         RuntimeDirectory = "lemmy";
-        ExecStartPre = "${pkgs.coreutils}/bin/install -m 600 ${
-            settingsFormat.generate "config.hjson" cfg.settings
-          } /run/lemmy/config.hjson";
+        ExecStartPre = "${pkgs.coreutils}/bin/install -m 600 ${settingsFormat.generate "config.hjson" cfg.settings} /run/lemmy/config.hjson";
         ExecStart = "${pkgs.lemmy-server}/bin/lemmy_server";
       };
     };

@@ -410,20 +410,14 @@ in
         touch /var/run/xen/dnsmasq.etherfile
         touch /var/run/xen/dnsmasq.leasefile
 
-        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${
-          toString cfg.bridge.prefixLength
-        } | grep Usable\ range`
+        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${toString cfg.bridge.prefixLength} | grep Usable\ range`
         export XEN_BRIDGE_IP_RANGE_START="${"\${data[1]//[[:blank:]]/}"}"
         export XEN_BRIDGE_IP_RANGE_END="${"\${data[2]//[[:blank:]]/}"}"
 
-        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${
-          toString cfg.bridge.prefixLength
-        } | grep Network\ address`
+        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${toString cfg.bridge.prefixLength} | grep Network\ address`
         export XEN_BRIDGE_NETWORK_ADDRESS="${"\${data[1]//[[:blank:]]/}"}"
 
-        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${
-          toString cfg.bridge.prefixLength
-        } | grep Network\ mask`
+        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${toString cfg.bridge.prefixLength} | grep Network\ mask`
         export XEN_BRIDGE_NETMASK="${"\${data[1]//[[:blank:]]/}"}"
 
         echo "${cfg.bridge.address} host gw dns" > /var/run/xen/dnsmasq.hostsfile
@@ -458,12 +452,8 @@ in
         EOF
 
         # DHCP
-        ${pkgs.iptables}/bin/iptables -w -I INPUT  -i ${cfg.bridge.name} -p tcp -s $XEN_BRIDGE_NETWORK_ADDRESS/${
-          toString cfg.bridge.prefixLength
-        } --sport 68 --dport 67 -j ACCEPT
-        ${pkgs.iptables}/bin/iptables -w -I INPUT  -i ${cfg.bridge.name} -p udp -s $XEN_BRIDGE_NETWORK_ADDRESS/${
-          toString cfg.bridge.prefixLength
-        } --sport 68 --dport 67 -j ACCEPT
+        ${pkgs.iptables}/bin/iptables -w -I INPUT  -i ${cfg.bridge.name} -p tcp -s $XEN_BRIDGE_NETWORK_ADDRESS/${toString cfg.bridge.prefixLength} --sport 68 --dport 67 -j ACCEPT
+        ${pkgs.iptables}/bin/iptables -w -I INPUT  -i ${cfg.bridge.name} -p udp -s $XEN_BRIDGE_NETWORK_ADDRESS/${toString cfg.bridge.prefixLength} --sport 68 --dport 67 -j ACCEPT
         # DNS
         ${pkgs.iptables}/bin/iptables -w -I INPUT  -i ${cfg.bridge.name} -p tcp -d ${cfg.bridge.address} --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
         ${pkgs.iptables}/bin/iptables -w -I INPUT  -i ${cfg.bridge.name} -p udp -d ${cfg.bridge.address} --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
@@ -475,9 +465,7 @@ in
       '';
       serviceConfig.ExecStart = "${pkgs.dnsmasq}/bin/dnsmasq --conf-file=/var/run/xen/dnsmasq.conf";
       postStop = ''
-        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${
-          toString cfg.bridge.prefixLength
-        } | grep Network\ address`
+        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${toString cfg.bridge.prefixLength} | grep Network\ address`
         export XEN_BRIDGE_NETWORK_ADDRESS="${"\${data[1]//[[:blank:]]/}"}"
 
         ${pkgs.inetutils}/bin/ifconfig ${cfg.bridge.name} down
@@ -487,12 +475,8 @@ in
         ${pkgs.iptables}/bin/iptables -w -D INPUT  -i ${cfg.bridge.name} -p udp -d ${cfg.bridge.address} --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
         ${pkgs.iptables}/bin/iptables -w -D INPUT  -i ${cfg.bridge.name} -p tcp -d ${cfg.bridge.address} --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
         # DHCP
-        ${pkgs.iptables}/bin/iptables -w -D INPUT  -i ${cfg.bridge.name} -p udp -s $XEN_BRIDGE_NETWORK_ADDRESS/${
-          toString cfg.bridge.prefixLength
-        } --sport 68 --dport 67 -j ACCEPT
-        ${pkgs.iptables}/bin/iptables -w -D INPUT  -i ${cfg.bridge.name} -p tcp -s $XEN_BRIDGE_NETWORK_ADDRESS/${
-          toString cfg.bridge.prefixLength
-        } --sport 68 --dport 67 -j ACCEPT
+        ${pkgs.iptables}/bin/iptables -w -D INPUT  -i ${cfg.bridge.name} -p udp -s $XEN_BRIDGE_NETWORK_ADDRESS/${toString cfg.bridge.prefixLength} --sport 68 --dport 67 -j ACCEPT
+        ${pkgs.iptables}/bin/iptables -w -D INPUT  -i ${cfg.bridge.name} -p tcp -s $XEN_BRIDGE_NETWORK_ADDRESS/${toString cfg.bridge.prefixLength} --sport 68 --dport 67 -j ACCEPT
       '';
     };
 

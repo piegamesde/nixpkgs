@@ -31,9 +31,7 @@ stdenv.mkDerivation rec {
   separateDebugInfo = true;
 
   src = fetchurl {
-    url = "mirror://kernel/linux/utils/cryptsetup/v${
-        lib.versions.majorMinor version
-      }/${pname}-${version}.tar.xz";
+    url = "mirror://kernel/linux/utils/cryptsetup/v${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     hash = "sha256-QQ3tZaEHKrnI5Brd7Te5cpwIf+9NLbArtO9SmtbaRpM=";
   };
 

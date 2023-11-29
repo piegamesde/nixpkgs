@@ -187,9 +187,7 @@ let
             in
             if (unsupported != [ ]) then
               throw
-                "Feature(s) ${
-                  lib.concatStringsSep " " unsupported
-                } are not supported on ${stdenv.hostPlatform.system}"
+                "Feature(s) ${lib.concatStringsSep " " unsupported} are not supported on ${stdenv.hostPlatform.system}"
             else
               features;
     in

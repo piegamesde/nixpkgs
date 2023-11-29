@@ -134,10 +134,7 @@ in
       sound.extraConfig = ''
         pcm_type.jack {
           libs.native = ${pkgs.alsa-plugins}/lib/alsa-lib/libasound_module_pcm_jack.so ;
-          ${
-            lib.optionalString enable32BitAlsaPlugins
-              "libs.32Bit = ${pkgs.pkgsi686Linux.alsa-plugins}/lib/alsa-lib/libasound_module_pcm_jack.so ;"
-          }
+          ${lib.optionalString enable32BitAlsaPlugins "libs.32Bit = ${pkgs.pkgsi686Linux.alsa-plugins}/lib/alsa-lib/libasound_module_pcm_jack.so ;"}
         }
         pcm.!default {
           @func getenv

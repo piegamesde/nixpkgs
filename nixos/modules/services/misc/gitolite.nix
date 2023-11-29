@@ -142,16 +142,14 @@ in
           cat "$out/gitolite.rc.default" >>"$out/gitolite.rc"
         ''
         + optionalString (cfg.extraGitoliteRc != "") ''
-          echo -n ${
-            escapeShellArg ''
+          echo -n ${escapeShellArg ''
 
-              # Added by NixOS:
-              ${removeSuffix "\n" cfg.extraGitoliteRc}
+            # Added by NixOS:
+            ${removeSuffix "\n" cfg.extraGitoliteRc}
 
-              # per perl rules, this should be the last line in such a file:
-              1;
-            ''
-          } >>"$out/gitolite.rc"
+            # per perl rules, this should be the last line in such a file:
+            1;
+          ''} >>"$out/gitolite.rc"
         '';
     in
     {

@@ -649,9 +649,7 @@ rec {
             passthru
             // optionalAttrs (substitutions ? passthru) (
               warn
-                "makeSetupHook (name = ${
-                  lib.strings.escapeNixString name
-                }): `substitutions.passthru` is deprecated. Please set `passthru` directly."
+                "makeSetupHook (name = ${lib.strings.escapeNixString name}): `substitutions.passthru` is deprecated. Please set `passthru` directly."
                 substitutions.passthru
             );
         }

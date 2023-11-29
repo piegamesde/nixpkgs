@@ -742,9 +742,7 @@ in
             after = [ "network.target" ];
 
             serviceConfig = {
-              ExecStart = "${cfg.package}/bin/redis-server /var/lib/${redisName name}/redis.conf ${
-                  escapeShellArgs conf.extraParams
-                }";
+              ExecStart = "${cfg.package}/bin/redis-server /var/lib/${redisName name}/redis.conf ${escapeShellArgs conf.extraParams}";
               ExecStartPre =
                 "+"
                 + pkgs.writeShellScript "${redisName name}-prep-conf" (

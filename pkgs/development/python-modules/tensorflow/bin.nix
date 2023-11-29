@@ -178,11 +178,9 @@ buildPythonPackage {
         echo "about to patchelf $lib..."
         chmod a+rx "$lib"
         patchelf --set-rpath "$rrPath" "$lib"
-        ${
-          lib.optionalString cudaSupport ''
-            addOpenGLRunpath "$lib"
-          ''
-        }
+        ${lib.optionalString cudaSupport ''
+        addOpenGLRunpath "$lib"
+      ''}
       done
     '';
 

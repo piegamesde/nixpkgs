@@ -189,48 +189,42 @@ let
         }
         ${upstreamConfig}
 
-        ${
-          optionalString cfg.recommendedOptimisation ''
-            # optimisation
-            sendfile on;
-            tcp_nopush on;
-            tcp_nodelay on;
-            keepalive_timeout 65;
-          ''
-        }
+        ${optionalString cfg.recommendedOptimisation ''
+        # optimisation
+        sendfile on;
+        tcp_nopush on;
+        tcp_nodelay on;
+        keepalive_timeout 65;
+      ''}
 
         ssl_protocols ${cfg.sslProtocols};
         ${optionalString (cfg.sslCiphers != null) "ssl_ciphers ${cfg.sslCiphers};"}
         ${optionalString (cfg.sslDhparam != null) "ssl_dhparam ${cfg.sslDhparam};"}
 
-        ${
-          optionalString cfg.recommendedTlsSettings ''
-            # Keep in sync with https://ssl-config.mozilla.org/#server=nginx&config=intermediate
+        ${optionalString cfg.recommendedTlsSettings ''
+        # Keep in sync with https://ssl-config.mozilla.org/#server=nginx&config=intermediate
 
-            ssl_session_timeout 1d;
-            ssl_session_cache shared:SSL:10m;
-            # Breaks forward secrecy: https://github.com/mozilla/server-side-tls/issues/135
-            ssl_session_tickets off;
-            # We don't enable insecure ciphers by default, so this allows
-            # clients to pick the most performant, per https://github.com/mozilla/server-side-tls/issues/260
-            ssl_prefer_server_ciphers off;
+        ssl_session_timeout 1d;
+        ssl_session_cache shared:SSL:10m;
+        # Breaks forward secrecy: https://github.com/mozilla/server-side-tls/issues/135
+        ssl_session_tickets off;
+        # We don't enable insecure ciphers by default, so this allows
+        # clients to pick the most performant, per https://github.com/mozilla/server-side-tls/issues/260
+        ssl_prefer_server_ciphers off;
 
-            # OCSP stapling
-            ssl_stapling on;
-            ssl_stapling_verify on;
-          ''
-        }
+        # OCSP stapling
+        ssl_stapling on;
+        ssl_stapling_verify on;
+      ''}
 
-        ${
-          optionalString cfg.recommendedBrotliSettings ''
-            brotli on;
-            brotli_static on;
-            brotli_comp_level 5;
-            brotli_window 512k;
-            brotli_min_length 256;
-            brotli_types ${lib.concatStringsSep " " compressMimeTypes};
-          ''
-        }
+        ${optionalString cfg.recommendedBrotliSettings ''
+        brotli on;
+        brotli_static on;
+        brotli_comp_level 5;
+        brotli_window 512k;
+        brotli_min_length 256;
+        brotli_types ${lib.concatStringsSep " " compressMimeTypes};
+      ''}
 
         ${
           optionalString cfg.recommendedGzipSettings
@@ -246,29 +240,25 @@ let
             ''
         }
 
-        ${
-          optionalString cfg.recommendedZstdSettings ''
-            zstd on;
-            zstd_comp_level 9;
-            zstd_min_length 256;
-            zstd_static on;
-            zstd_types ${lib.concatStringsSep " " compressMimeTypes};
-          ''
-        }
+        ${optionalString cfg.recommendedZstdSettings ''
+        zstd on;
+        zstd_comp_level 9;
+        zstd_min_length 256;
+        zstd_static on;
+        zstd_types ${lib.concatStringsSep " " compressMimeTypes};
+      ''}
 
-        ${
-          optionalString cfg.recommendedProxySettings ''
-            proxy_redirect          off;
-            proxy_connect_timeout   ${cfg.proxyTimeout};
-            proxy_send_timeout      ${cfg.proxyTimeout};
-            proxy_read_timeout      ${cfg.proxyTimeout};
-            proxy_http_version      1.1;
-            # don't let clients close the keep-alive connection to upstream. See the nginx blog for details:
-            # https://www.nginx.com/blog/avoiding-top-10-nginx-configuration-mistakes/#no-keepalives
-            proxy_set_header        "Connection" "";
-            include ${recommendedProxyConfig};
-          ''
-        }
+        ${optionalString cfg.recommendedProxySettings ''
+        proxy_redirect          off;
+        proxy_connect_timeout   ${cfg.proxyTimeout};
+        proxy_send_timeout      ${cfg.proxyTimeout};
+        proxy_read_timeout      ${cfg.proxyTimeout};
+        proxy_http_version      1.1;
+        # don't let clients close the keep-alive connection to upstream. See the nginx blog for details:
+        # https://www.nginx.com/blog/avoiding-top-10-nginx-configuration-mistakes/#no-keepalives
+        proxy_set_header        "Connection" "";
+        include ${recommendedProxyConfig};
+      ''}
 
         ${
           optionalString (cfg.mapHashBucketSize != null) ''
@@ -307,24 +297,22 @@ let
 
         ${proxyCachePathConfig}
 
-        ${
-          optionalString cfg.statusPage ''
-            server {
-              listen ${toString cfg.defaultHTTPListenPort};
-              ${optionalString enableIPv6 "listen [::]:${toString cfg.defaultHTTPListenPort};"}
+        ${optionalString cfg.statusPage ''
+        server {
+          listen ${toString cfg.defaultHTTPListenPort};
+          ${optionalString enableIPv6 "listen [::]:${toString cfg.defaultHTTPListenPort};"}
 
-              server_name localhost;
+          server_name localhost;
 
-              location /nginx_status {
-                stub_status on;
-                access_log off;
-                allow 127.0.0.1;
-                ${optionalString enableIPv6 "allow ::1;"}
-                deny all;
-              }
-            }
-          ''
+          location /nginx_status {
+            stub_status on;
+            access_log off;
+            allow 127.0.0.1;
+            ${optionalString enableIPv6 "allow ::1;"}
+            deny all;
+          }
         }
+      ''}
 
         ${vhosts}
 
@@ -472,22 +460,18 @@ let
                 }
               ''
             }
-            ${
-              optionalString hasSSL ''
-                ssl_certificate ${vhost.sslCertificate};
-                ssl_certificate_key ${vhost.sslCertificateKey};
-              ''
-            }
+            ${optionalString hasSSL ''
+            ssl_certificate ${vhost.sslCertificate};
+            ssl_certificate_key ${vhost.sslCertificateKey};
+          ''}
             ${
               optionalString (hasSSL && vhost.sslTrustedCertificate != null) ''
                 ssl_trusted_certificate ${vhost.sslTrustedCertificate};
               ''
             }
-            ${
-              optionalString vhost.rejectSSL ''
-                ssl_reject_handshake on;
-              ''
-            }
+            ${optionalString vhost.rejectSSL ''
+            ssl_reject_handshake on;
+          ''}
             ${
               optionalString (hasSSL && vhost.kTLS) ''
                 ssl_conf_command Options KTLS;
@@ -528,13 +512,11 @@ let
                 proxy_pass $nix_proxy_target;
               ''
             }
-            ${
-              optionalString config.proxyWebsockets ''
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection $connection_upgrade;
-              ''
-            }
+            ${optionalString config.proxyWebsockets ''
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+          ''}
             ${
               concatStringsSep "\n" (
                 mapAttrsToList (n: v: ''fastcgi_param ${n} "${v}";'') (

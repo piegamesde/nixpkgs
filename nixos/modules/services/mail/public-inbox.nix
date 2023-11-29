@@ -477,14 +477,12 @@ in
           # Specifying a nexthop when using the transport
           # (eg. test public-inbox:test) allows to
           # receive mails with an extension (eg. test+foo).
-          "argv=${
-            pkgs.writeShellScript "public-inbox-transport" ''
-              export HOME="${stateDir}"
-              export ORIGINAL_RECIPIENT="''${2:-1}"
-              export PATH="${makeBinPath cfg.path}:$PATH"
-              exec ${cfg.package}/bin/public-inbox-mda ${escapeShellArgs cfg.mda.args}
-            ''
-          } \${original_recipient} \${nexthop}"
+          "argv=${pkgs.writeShellScript "public-inbox-transport" ''
+            export HOME="${stateDir}"
+            export ORIGINAL_RECIPIENT="''${2:-1}"
+            export PATH="${makeBinPath cfg.path}:$PATH"
+            exec ${cfg.package}/bin/public-inbox-mda ${escapeShellArgs cfg.mda.args}
+          ''} \${original_recipient} \${nexthop}"
         ];
       };
     };
