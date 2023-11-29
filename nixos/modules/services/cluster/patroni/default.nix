@@ -33,8 +33,7 @@ in
 
     postgresqlDataDir = mkOption {
       type = types.path;
-      defaultText = literalExpression ''
-        "/var/lib/postgresql/''${config.services.patroni.postgresqlPackage.psqlSchema}"'';
+      defaultText = literalExpression ''"/var/lib/postgresql/''${config.services.patroni.postgresqlPackage.psqlSchema}"'';
       example = "/var/lib/postgresql/14";
       default = "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}";
       description = mdDoc ''

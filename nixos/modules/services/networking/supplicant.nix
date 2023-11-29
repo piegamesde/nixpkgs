@@ -248,10 +248,9 @@ in
               iface:
               flip (concatMapStringsSep "\n") (splitString " " iface) (
                 i:
-                ''
-                  ACTION=="add", SUBSYSTEM=="net", ENV{INTERFACE}=="${i}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="supplicant-${
-                    replaceStrings [ " " ] [ "-" ] iface
-                  }.service", TAG+="SUPPLICANT_ASSIGNED"''
+                ''ACTION=="add", SUBSYSTEM=="net", ENV{INTERFACE}=="${i}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="supplicant-${
+                  replaceStrings [ " " ] [ "-" ] iface
+                }.service", TAG+="SUPPLICANT_ASSIGNED"''
               )
             )}
 

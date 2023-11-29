@@ -25,8 +25,7 @@ let
 
   createEmptySettingsCmd = ''mkdir -p .vscode && echo "{}" > ${vscodeSettingsFile}'';
   fileName = builtins.baseNameOf vscodeSettingsFile;
-  symlinkFromUserSettingCmd = lib.optionalString symlinkFromUserSetting ''
-    && mkdir -p "${userSettingsFolder}" && ln -sfv "$(pwd)/${vscodeSettingsFile}" "${userSettingsFolder}/" '';
+  symlinkFromUserSettingCmd = lib.optionalString symlinkFromUserSetting ''&& mkdir -p "${userSettingsFolder}" && ln -sfv "$(pwd)/${vscodeSettingsFile}" "${userSettingsFolder}/" '';
 in
 
 writeShellScriptBin "vscodeNixUpdate-${lib.removeSuffix ".json" (fileName)}" (

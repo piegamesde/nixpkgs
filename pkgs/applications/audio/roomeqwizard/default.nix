@@ -89,8 +89,7 @@ stdenv.mkDerivation rec {
     cp -r "$desktopItem/share/applications" $out/share/
     cp $out/share/roomeqwizard/.install4j/s_*.png "$out/share/icons/hicolor/256x256/apps/${pname}.png"
 
-    ${lib.optionalString recommendedUdevRules ''
-      echo "$udevRules" > $out/lib/udev/rules.d/90-roomeqwizard.rules''}
+    ${lib.optionalString recommendedUdevRules ''echo "$udevRules" > $out/lib/udev/rules.d/90-roomeqwizard.rules''}
 
     runHook postInstall
   '';

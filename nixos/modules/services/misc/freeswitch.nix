@@ -40,10 +40,8 @@ in
       configTemplate = mkOption {
         type = types.path;
         default = "${config.services.freeswitch.package}/share/freeswitch/conf/vanilla";
-        defaultText = literalExpression ''
-          "''${config.services.freeswitch.package}/share/freeswitch/conf/vanilla"'';
-        example = literalExpression ''
-          "''${config.services.freeswitch.package}/share/freeswitch/conf/minimal"'';
+        defaultText = literalExpression ''"''${config.services.freeswitch.package}/share/freeswitch/conf/vanilla"'';
+        example = literalExpression ''"''${config.services.freeswitch.package}/share/freeswitch/conf/minimal"'';
         description = lib.mdDoc ''
           Configuration template to use.
           See available templates in [FreeSWITCH repository](https://github.com/signalwire/freeswitch/tree/master/conf).

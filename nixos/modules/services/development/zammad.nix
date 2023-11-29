@@ -221,8 +221,7 @@ in
     assertions = [
       {
         assertion = cfg.database.createLocally -> cfg.database.user == "zammad";
-        message = ''
-          services.zammad.database.user must be set to "zammad" if services.zammad.database.createLocally is set to true'';
+        message = ''services.zammad.database.user must be set to "zammad" if services.zammad.database.createLocally is set to true'';
       }
       {
         assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;

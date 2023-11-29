@@ -58,8 +58,7 @@ let
     # libccp4 tries to read syminfo.lib by looking at an environment variable, which hinders reproducibility.
     # We hard-code this by providing a little patch and then passing the absolute path to syminfo.lib as a
     # preprocessor flag.
-    env.NIX_CFLAGS_COMPILE = ''
-      -DNIX_PROVIDED_SYMOP_FILE="${placeholder "out"}/share/ccp4/syminfo.lib"'';
+    env.NIX_CFLAGS_COMPILE = ''-DNIX_PROVIDED_SYMOP_FILE="${placeholder "out"}/share/ccp4/syminfo.lib"'';
 
     patches = [ ./libccp4-use-hardcoded-syminfo-lib.patch ];
 

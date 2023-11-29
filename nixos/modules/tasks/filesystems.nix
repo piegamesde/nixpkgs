@@ -402,10 +402,9 @@ in
             let
               fs = head (filter notAutoResizable fileSystems);
             in
-            ''
-              Mountpoint '${fs.mountPoint}': 'autoResize = true' is not supported for 'fsType = "${fs.fsType}"':${
-                optionalString (fs.fsType == "auto") " fsType has to be explicitly set and"
-              } only the ext filesystems and f2fs support it.'';
+            ''Mountpoint '${fs.mountPoint}': 'autoResize = true' is not supported for 'fsType = "${fs.fsType}"':${
+              optionalString (fs.fsType == "auto") " fsType has to be explicitly set and"
+            } only the ext filesystems and f2fs support it.'';
         }
       ];
 

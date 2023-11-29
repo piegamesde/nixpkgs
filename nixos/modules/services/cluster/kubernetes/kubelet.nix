@@ -338,11 +338,9 @@ in
             (img: ''
               echo "Seeding container image: ${img}"
               ${if (lib.hasSuffix "gz" img) then
-                ''
-                  ${pkgs.gzip}/bin/zcat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''
+                ''${pkgs.gzip}/bin/zcat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''
               else
-                ''
-                  ${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''}
+                ''${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''}
             '')
             cfg.seedDockerImages}
 

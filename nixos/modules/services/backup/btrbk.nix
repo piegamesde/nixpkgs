@@ -283,10 +283,9 @@ in
                 .${cfg.ioSchedulingClass};
               sudo_doas_flag = "--${sudo_doas}";
             in
-            ''
-              command="${pkgs.util-linux}/bin/ionice -t -c ${toString ioniceClass} ${
-                optionalString (cfg.niceness >= 1) "${pkgs.coreutils}/bin/nice -n ${toString cfg.niceness}"
-              } ${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh ${sudo_doas_flag} ${options}" ${v.key}''
+            ''command="${pkgs.util-linux}/bin/ionice -t -c ${toString ioniceClass} ${
+              optionalString (cfg.niceness >= 1) "${pkgs.coreutils}/bin/nice -n ${toString cfg.niceness}"
+            } ${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh ${sudo_doas_flag} ${options}" ${v.key}''
           )
           cfg.sshAccess;
     };

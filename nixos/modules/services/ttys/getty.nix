@@ -49,8 +49,7 @@ in
         "getty"
         "serialSpeed"
       ]
-      ''
-        set non-standard baudrates with `boot.kernelParams` i.e. boot.kernelParams = ["console=ttyS2,1500000"];''
+      ''set non-standard baudrates with `boot.kernelParams` i.e. boot.kernelParams = ["console=ttyS2,1500000"];''
     )
   ];
 

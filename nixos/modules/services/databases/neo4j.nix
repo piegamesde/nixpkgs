@@ -719,13 +719,11 @@ in
         }
         {
           assertion = elem cfg.bolt.sslPolicy validPolicyNameList;
-          message = ''
-            Invalid policy assigned: `services.neo4j.bolt.sslPolicy = "${cfg.bolt.sslPolicy}"`, defined policies are: ${validPolicyNameString}'';
+          message = ''Invalid policy assigned: `services.neo4j.bolt.sslPolicy = "${cfg.bolt.sslPolicy}"`, defined policies are: ${validPolicyNameString}'';
         }
         {
           assertion = elem cfg.https.sslPolicy validPolicyNameList;
-          message = ''
-            Invalid policy assigned: `services.neo4j.https.sslPolicy = "${cfg.https.sslPolicy}"`, defined policies are: ${validPolicyNameString}'';
+          message = ''Invalid policy assigned: `services.neo4j.https.sslPolicy = "${cfg.https.sslPolicy}"`, defined policies are: ${validPolicyNameString}'';
         }
       ];
 

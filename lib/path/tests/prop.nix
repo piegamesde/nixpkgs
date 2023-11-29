@@ -44,13 +44,11 @@ let
     assert assertMsg (originalValid -> tryTwice.success)
         ''For valid subpath "${str}", the normalisation "${tryOnce.value}" was not a valid subpath'';
     assert assertMsg (originalValid -> tryOnce.value == tryTwice.value)
-        ''
-          For valid subpath "${str}", normalising it once gives "${tryOnce.value}" but normalising it twice gives a different result: "${tryTwice.value}"'';
+        ''For valid subpath "${str}", normalising it once gives "${tryOnce.value}" but normalising it twice gives a different result: "${tryTwice.value}"'';
 
     # Check that normalisation doesn't change a string when appended to an absolute Nix path value
     assert assertMsg (originalValid -> absConcatOrig == absConcatNormalised)
-        ''
-          For valid subpath "${str}", appending to an absolute Nix path value gives "${absConcatOrig}", but appending the normalised result "${tryOnce.value}" gives a different value "${absConcatNormalised}"'';
+        ''For valid subpath "${str}", appending to an absolute Nix path value gives "${absConcatOrig}", but appending the normalised result "${tryOnce.value}" gives a different value "${absConcatNormalised}"'';
 
     # Return an empty string when failed
     if tryOnce.success then tryOnce.value else "";

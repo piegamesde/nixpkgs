@@ -964,10 +964,9 @@ let
                 if intersecting == { } then
                   lhs.specialArgs // rhs.specialArgs
                 else
-                  throw ''
-                    A submoduleWith option is declared multiple times with the same specialArgs "${
-                      toString (attrNames intersecting)
-                    }"'';
+                  throw ''A submoduleWith option is declared multiple times with the same specialArgs "${
+                    toString (attrNames intersecting)
+                  }"'';
               shorthandOnlyDefinesConfig =
                 if lhs.shorthandOnlyDefinesConfig == null then
                   rhs.shorthandOnlyDefinesConfig

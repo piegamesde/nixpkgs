@@ -28,17 +28,16 @@ let
     if needsEscaping s then
       s
     else
-      ''
-        "${
-          lib.escape
-            [
-              "$"
-              ''"''
-              "\\"
-              "`"
-            ]
-            s
-        }"'';
+      ''"${
+        lib.escape
+          [
+            "$"
+            ''"''
+            "\\"
+            "`"
+          ]
+          s
+      }"'';
   attrsToText =
     attrs:
     concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs)

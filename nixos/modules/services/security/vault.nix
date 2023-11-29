@@ -207,8 +207,7 @@ in
     assertions = [
       {
         assertion = cfg.storageBackend == "inmem" -> (cfg.storagePath == null && cfg.storageConfig == null);
-        message = ''
-          The "inmem" storage expects no services.vault.storagePath nor services.vault.storageConfig'';
+        message = ''The "inmem" storage expects no services.vault.storagePath nor services.vault.storageConfig'';
       }
       {
         assertion =

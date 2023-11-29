@@ -111,8 +111,7 @@ in
               sourcePort = mkOption {
                 type = types.either types.int (types.strMatching "[[:digit:]]+:[[:digit:]]+");
                 example = 8080;
-                description = lib.mdDoc ''
-                  Source port of the external interface; to specify a port range, use a string with a colon (e.g. "60000:61000")'';
+                description = lib.mdDoc ''Source port of the external interface; to specify a port range, use a string with a colon (e.g. "60000:61000")'';
               };
 
               destination = mkOption {

@@ -77,8 +77,7 @@ buildPerlPackage rec {
     touch Makefile.PL
     export PERL_MB_OPT="--install_base=$out --prefix=$out"
   '';
-  buildPhase = ''
-    perl Build.PL --install_base=$out --install_path="lib=$out/${perl.libPrefix}"; ./Build build'';
+  buildPhase = ''perl Build.PL --install_base=$out --install_path="lib=$out/${perl.libPrefix}"; ./Build build'';
 
   # Disabling tests on musl
   # Void linux package have investigated the failure and tracked it down to differences in gettext behavior. They decided to disable tests.

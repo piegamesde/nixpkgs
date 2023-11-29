@@ -19235,8 +19235,7 @@ with self;
       URI
     ];
 
-    buildPhase = ''
-      perl Build.PL --install_base=$out --install_path="sbin=$out/bin" --install_path="lib=$out/${perl.libPrefix}"; ./Build build '';
+    buildPhase = ''perl Build.PL --install_base=$out --install_path="sbin=$out/bin" --install_path="lib=$out/${perl.libPrefix}"; ./Build build '';
 
     doCheck = false; # The main test performs network access
     meta = {

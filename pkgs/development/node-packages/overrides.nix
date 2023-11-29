@@ -347,8 +347,7 @@ final: prev: {
     nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
     postFixup = ''
       wrapProgram "$out/bin/makam" --prefix PATH : ${lib.makeBinPath [ nodejs ]}
-      ${lib.optionalString stdenv.isLinux ''
-        patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux-x86-64.so.2 "$out/lib/node_modules/makam/makam-bin-linux64"''}
+      ${lib.optionalString stdenv.isLinux ''patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux-x86-64.so.2 "$out/lib/node_modules/makam/makam-bin-linux64"''}
     '';
   };
 

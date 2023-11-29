@@ -269,18 +269,15 @@ in
             (hostName: cfg: [
               {
                 assertion = cfg.database.createLocally -> cfg.database.user == user;
-                message = ''
-                  services.invoiceplane.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
+                message = ''services.invoiceplane.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
               }
               {
                 assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
-                message = ''
-                  services.invoiceplane.sites."${hostName}".database.passwordFile cannot be specified if services.invoiceplane.sites."${hostName}".database.createLocally is set to true.'';
+                message = ''services.invoiceplane.sites."${hostName}".database.passwordFile cannot be specified if services.invoiceplane.sites."${hostName}".database.createLocally is set to true.'';
               }
               {
                 assertion = cfg.cron.enable -> cfg.cron.key != null;
-                message = ''
-                  services.invoiceplane.sites."${hostName}".cron.key must be set in order to use cron service.'';
+                message = ''services.invoiceplane.sites."${hostName}".cron.key must be set in order to use cron service.'';
               }
             ])
             eachSite

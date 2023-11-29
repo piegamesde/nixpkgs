@@ -87,8 +87,7 @@ in
       package = mkOption {
         type = types.package;
         default = if config.networking.nftables.enable then pkgs.nftables else pkgs.iptables;
-        defaultText = literalExpression ''
-          if config.networking.nftables.enable then "pkgs.nftables" else "pkgs.iptables"'';
+        defaultText = literalExpression ''if config.networking.nftables.enable then "pkgs.nftables" else "pkgs.iptables"'';
         example = literalExpression "pkgs.iptables-legacy";
         description = lib.mdDoc ''
           The package to use for running the firewall service.

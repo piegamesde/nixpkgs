@@ -1060,8 +1060,7 @@ in
             plugins = mkOption {
               description = lib.mdDoc "Directory where grafana will automatically scan and look for plugins";
               default = if (cfg.declarativePlugins == null) then "${cfg.dataDir}/plugins" else declarativePlugins;
-              defaultText = literalExpression ''
-                if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins'';
+              defaultText = literalExpression ''if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins'';
               type = types.path;
             };
 

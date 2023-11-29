@@ -54,8 +54,7 @@ in
 
       accessTokenFile = mkOption {
         default = "${config.services.jenkins.home}/secrets/initialAdminPassword";
-        defaultText = literalExpression ''
-          "''${config.services.jenkins.home}/secrets/initialAdminPassword"'';
+        defaultText = literalExpression ''"''${config.services.jenkins.home}/secrets/initialAdminPassword"'';
         type = types.str;
         example = "/run/keys/jenkins-job-builder-access-token";
         description = lib.mdDoc ''
