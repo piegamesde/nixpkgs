@@ -87,9 +87,7 @@ in
     };
 
     namespaces = mkOption {
-      description =
-        lib.mdDoc
-          "Configure the 'namespaces' section of the registration.yml for the bridge and the server";
+      description = lib.mdDoc "Configure the 'namespaces' section of the registration.yml for the bridge and the server";
       # TODO link to Matrix documentation of the format
       type = types.submodule { freeformType = jsonType; };
 
@@ -114,9 +112,7 @@ in
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      description =
-        lib.mdDoc
-          "Heisenbridge is configured over the command line. Append extra arguments here";
+      description = lib.mdDoc "Heisenbridge is configured over the command line. Append extra arguments here";
       default = [ ];
     };
   };

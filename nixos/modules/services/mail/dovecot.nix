@@ -159,9 +159,7 @@ let
           ];
           default = "no";
           example = "subscribe";
-          description =
-            lib.mdDoc
-              "Whether to automatically create or create and subscribe to the mailbox or not.";
+          description = lib.mdDoc "Whether to automatically create or create and subscribe to the mailbox or not.";
         };
         specialUse = mkOption {
           type = types.nullOr (
@@ -177,9 +175,7 @@ let
           );
           default = null;
           example = "Junk";
-          description =
-            lib.mdDoc
-              "Null if no special use flag is set. Other than that every use flag mentioned in the RFC is valid.";
+          description = lib.mdDoc "Null if no special use flag is set. Other than that every use flag mentioned in the RFC is valid.";
         };
         autoexpunge = mkOption {
           type = types.nullOr types.str;
@@ -250,9 +246,7 @@ in
               enable = mkOption {
                 type = types.listOf types.str;
                 default = [ ];
-                description =
-                  lib.mdDoc
-                    "mail plugins to enable as a list of strings to append to the ${hint} `$mail_plugins` configuration variable";
+                description = lib.mdDoc "mail plugins to enable as a list of strings to append to the ${hint} `$mail_plugins` configuration variable";
               };
             };
           };
@@ -282,9 +276,7 @@ in
               };
             };
           };
-        description =
-          lib.mdDoc
-            "Additional entries to add to the mail_plugins variable, globally and per protocol";
+        description = lib.mdDoc "Additional entries to add to the mail_plugins variable, globally and per protocol";
         example = {
           globally.enable = [ "acl" ];
           perProtocol.imap.enable = [ "imap_acl" ];
@@ -378,9 +370,7 @@ in
     sieveScripts = mkOption {
       type = types.attrsOf types.path;
       default = { };
-      description =
-        lib.mdDoc
-          "Sieve scripts to be executed. Key is a sequence, e.g. 'before2', 'after' etc.";
+      description = lib.mdDoc "Sieve scripts to be executed. Key is a sequence, e.g. 'before2', 'after' etc.";
     };
 
     showPAMFailure = mkEnableOption (

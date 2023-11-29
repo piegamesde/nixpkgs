@@ -18,8 +18,7 @@ in
       );
       package = mkPackageOptionMD pkgs "input-remapper" { };
       enableUdevRules = mkEnableOption (
-        lib.mdDoc
-          "udev rules added by input-remapper to handle hotplugged devices. Currently disabled by default due to https://github.com/sezanzeb/input-remapper/issues/140"
+        lib.mdDoc "udev rules added by input-remapper to handle hotplugged devices. Currently disabled by default due to https://github.com/sezanzeb/input-remapper/issues/140"
       );
       serviceWantedBy = mkOption {
         default = [ "graphical.target" ];

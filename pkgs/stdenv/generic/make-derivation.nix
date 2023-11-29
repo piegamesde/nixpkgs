@@ -272,8 +272,7 @@ let
           else if lib.isList dep then
             checkDependencyList' ([ index ] ++ positions) name dep
           else
-            throw
-              "Dependency is not of a valid type: ${
+            throw "Dependency is not of a valid type: ${
                 lib.concatMapStrings (ix: "element ${toString ix} of ") ([ index ] ++ positions)
               }${name} for ${attrs.name or attrs.pname}"
         );
@@ -674,8 +673,7 @@ let
           let
             overlappingNames = lib.attrNames (builtins.intersectAttrs env derivationArg);
           in
-          assert lib.assertMsg envIsExportable
-              "When using structured attributes, `env` must be an attribute set of environment variables.";
+          assert lib.assertMsg envIsExportable "When using structured attributes, `env` must be an attribute set of environment variables.";
           assert lib.assertMsg (overlappingNames == [ ])
               "The ‘env’ attribute set cannot contain any attributes passed to derivation. The following attributes are overlapping: ${lib.concatStringsSep ", " overlappingNames}";
           lib.mapAttrs

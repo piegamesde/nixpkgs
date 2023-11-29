@@ -356,9 +356,7 @@ in
             "oracle"
           ];
           default = "mysql";
-          description =
-            lib.mdDoc
-              "Database engine to use. MySQL/MariaDB is the database of choice by MediaWiki developers.";
+          description = lib.mdDoc "Database engine to use. MySQL/MariaDB is the database of choice by MediaWiki developers.";
         };
 
         host = mkOption {

@@ -121,9 +121,7 @@ in
       type = types.int;
       default = 3600;
       example = 0;
-      description =
-        lib.mdDoc
-          "Interval (in seconds) at which a memory report is printed (set to 0 to disable).";
+      description = lib.mdDoc "Interval (in seconds) at which a memory report is printed (set to 0 to disable).";
     };
 
     extraArgs = mkOption {

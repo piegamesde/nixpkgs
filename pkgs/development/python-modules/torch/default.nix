@@ -145,12 +145,8 @@ let
   #   lists.subtractLists a b = b - a
 
   # For CUDA
-  supportedCudaCapabilities =
-    lists.intersectLists cudaFlags.cudaCapabilities
-      supportedTorchCudaCapabilities;
-  unsupportedCudaCapabilities =
-    lists.subtractLists supportedCudaCapabilities
-      cudaFlags.cudaCapabilities;
+  supportedCudaCapabilities = lists.intersectLists cudaFlags.cudaCapabilities supportedTorchCudaCapabilities;
+  unsupportedCudaCapabilities = lists.subtractLists supportedCudaCapabilities cudaFlags.cudaCapabilities;
 
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
@@ -196,9 +192,7 @@ let
       path = "${cudatoolkit}/lib/stubs/libcuda.so";
     }
   ];
-  cudaStubEnv =
-    lib.optionalString cudaSupport
-      "LD_LIBRARY_PATH=${cudaStub}\${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH ";
+  cudaStubEnv = lib.optionalString cudaSupport "LD_LIBRARY_PATH=${cudaStub}\${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH ";
 
   rocmtoolkit_joined = symlinkJoin {
     name = "rocm-merged";

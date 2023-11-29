@@ -99,9 +99,7 @@ let
       (
         nameVer: hash:
         let
-          unusedHash =
-            throw
-              "A hash was specified for ${nameVer}, but there is no corresponding git dependency.";
+          unusedHash = throw "A hash was specified for ${nameVer}, but there is no corresponding git dependency.";
           rev = namesGitShas.${nameVer} or unusedHash;
         in
         {

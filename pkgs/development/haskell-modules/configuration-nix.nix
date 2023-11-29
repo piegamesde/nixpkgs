@@ -457,9 +457,7 @@ builtins.intersectAttrs super {
   mattermost-api = dontCheck super.mattermost-api;
 
   # Expect to find sendmail(1) in $PATH.
-  mime-mail =
-    appendConfigureFlag ''--ghc-option=-DMIME_MAIL_SENDMAIL_PATH="sendmail"''
-      super.mime-mail;
+  mime-mail = appendConfigureFlag ''--ghc-option=-DMIME_MAIL_SENDMAIL_PATH="sendmail"'' super.mime-mail;
 
   # Help the test suite find system timezone data.
   tz = overrideCabal (drv: { preConfigure = "export TZDIR=${pkgs.tzdata}/share/zoneinfo"; }) super.tz;

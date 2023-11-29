@@ -235,9 +235,7 @@ in
       domain = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to announce the locally used domain name for browsing by other hosts.";
+        description = lib.mdDoc "Whether to announce the locally used domain name for browsing by other hosts.";
       };
     };
 

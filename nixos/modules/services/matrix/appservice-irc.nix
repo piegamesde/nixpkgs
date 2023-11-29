@@ -54,9 +54,7 @@ in
 
     needBindingCap = mkOption {
       type = bool;
-      description =
-        lib.mdDoc
-          "Whether the daemon needs to bind to ports below 1024 (e.g. for the ident service)";
+      description = lib.mdDoc "Whether the daemon needs to bind to ports below 1024 (e.g. for the ident service)";
       default = false;
     };
 

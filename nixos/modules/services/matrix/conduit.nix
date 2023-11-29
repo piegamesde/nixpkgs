@@ -46,16 +46,12 @@ in
           global.server_name = mkOption {
             type = types.str;
             example = "example.com";
-            description =
-              lib.mdDoc
-                "The server_name is the name of this server. It is used as a suffix for user # and room ids.";
+            description = lib.mdDoc "The server_name is the name of this server. It is used as a suffix for user # and room ids.";
           };
           global.port = mkOption {
             type = types.port;
             default = 6167;
-            description =
-              lib.mdDoc
-                "The port Conduit will be running on. You need to set up a reverse proxy in your web server (e.g. apache or nginx), so all requests to /_matrix on port 443 and 8448 will be forwarded to the Conduit instance running on this port";
+            description = lib.mdDoc "The port Conduit will be running on. You need to set up a reverse proxy in your web server (e.g. apache or nginx), so all requests to /_matrix on port 443 and 8448 will be forwarded to the Conduit instance running on this port";
           };
           global.max_request_size = mkOption {
             type = types.ints.positive;
@@ -70,9 +66,7 @@ in
           global.allow_encryption = mkOption {
             type = types.bool;
             default = true;
-            description =
-              lib.mdDoc
-                "Whether new encrypted rooms can be created. Note: existing rooms will continue to work.";
+            description = lib.mdDoc "Whether new encrypted rooms can be created. Note: existing rooms will continue to work.";
           };
           global.allow_federation = mkOption {
             type = types.bool;

@@ -37,9 +37,8 @@ in
       type = types.package;
       default =
         if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3") then pkgs.jdk11 else pkgs.jre8;
-      defaultText =
-        literalExpression
-          ''if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3" then pkgs.jdk11 else pkgs.jre8'';
+      defaultText = literalExpression ''
+        if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3" then pkgs.jdk11 else pkgs.jre8'';
       description = lib.mdDoc ''
         The JRE package to use. Check the release notes to ensure it is supported.
       '';

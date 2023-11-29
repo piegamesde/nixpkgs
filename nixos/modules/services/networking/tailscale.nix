@@ -30,17 +30,14 @@ in
     interfaceName = mkOption {
       type = types.str;
       default = "tailscale0";
-      description =
-        lib.mdDoc
-          ''The interface name for tunnel traffic. Use "userspace-networking" (beta) to not use TUN.'';
+      description = lib.mdDoc ''
+        The interface name for tunnel traffic. Use "userspace-networking" (beta) to not use TUN.'';
     };
 
     permitCertUid = mkOption {
       type = types.nullOr types.nonEmptyStr;
       default = null;
-      description =
-        lib.mdDoc
-          "Username or user ID of the user allowed to to fetch Tailscale TLS certificates for the node.";
+      description = lib.mdDoc "Username or user ID of the user allowed to to fetch Tailscale TLS certificates for the node.";
     };
 
     package = mkOption {

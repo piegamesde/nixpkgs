@@ -1,8 +1,6 @@
 let
   # The warning is in a top-level let binding so it is only printed once.
-  minimalModulesWarning =
-    warn "lib.nixos.evalModules is experimental and subject to change. See nixos/lib/default.nix"
-      null;
+  minimalModulesWarning = warn "lib.nixos.evalModules is experimental and subject to change. See nixos/lib/default.nix" null;
   inherit (nonExtendedLib) warn;
   nonExtendedLib = import ../../lib;
 in

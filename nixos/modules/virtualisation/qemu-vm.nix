@@ -55,9 +55,7 @@ let
         name = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description =
-            lib.mdDoc
-              "A name for the drive. Must be unique in the drives list. Not passed to qemu.";
+          description = lib.mdDoc "A name for the drive. Must be unique in the drives list. Not passed to qemu.";
         };
       };
     };
@@ -808,9 +806,7 @@ in
           (pkgs.OVMF.override {
                     secureBoot = cfg.useSecureBoot;
                   }).fd'';
-        description =
-          lib.mdDoc
-            "OVMF firmware package, defaults to OVMF configured with secure boot if needed.";
+        description = lib.mdDoc "OVMF firmware package, defaults to OVMF configured with secure boot if needed.";
       };
 
       firmware = mkOption {

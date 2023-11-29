@@ -74,9 +74,7 @@ in
         default = config.networking.firewall.package;
         defaultText = literalExpression "config.networking.firewall.package";
         type = types.package;
-        description =
-          lib.mdDoc
-            "The firewall package used by fail2ban service. Defaults to the package for your firewall (iptables or nftables).";
+        description = lib.mdDoc "The firewall package used by fail2ban service. Defaults to the package for your firewall (iptables or nftables).";
       };
 
       extraPackages = mkOption {
@@ -104,9 +102,8 @@ in
 
       banaction = mkOption {
         default = if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport";
-        defaultText =
-          literalExpression
-            ''if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"'';
+        defaultText = literalExpression ''
+          if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"'';
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,
@@ -118,9 +115,8 @@ in
 
       banaction-allports = mkOption {
         default = if config.networking.nftables.enable then "nftables-allport" else "iptables-allport";
-        defaultText =
-          literalExpression
-            ''if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"'';
+        defaultText = literalExpression ''
+          if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"'';
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,

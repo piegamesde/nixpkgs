@@ -166,10 +166,7 @@ stdenv.mkDerivation rec {
           packageName = "evolution-data-server";
           versionPolicy = "odd-unstable";
         };
-        updatePatch =
-          _experimental-update-script-combinators.copyAttrOutputToFile
-            "evolution-data-server.hardcodeGsettingsPatch"
-            ./hardcode-gsettings.patch;
+        updatePatch = _experimental-update-script-combinators.copyAttrOutputToFile "evolution-data-server.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
       in
       _experimental-update-script-combinators.sequence [
         updateSource

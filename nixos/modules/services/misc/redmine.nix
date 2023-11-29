@@ -338,9 +338,7 @@ in
         scm_git_command = optionalString cfg.components.git "${pkgs.git}/bin/git";
         scm_cvs_command = optionalString cfg.components.cvs "${pkgs.cvs}/bin/cvs";
         scm_bazaar_command = optionalString cfg.components.breezy "${pkgs.breezy}/bin/bzr";
-        imagemagick_convert_command =
-          optionalString cfg.components.imagemagick
-            "${pkgs.imagemagick}/bin/convert";
+        imagemagick_convert_command = optionalString cfg.components.imagemagick "${pkgs.imagemagick}/bin/convert";
         gs_command = optionalString cfg.components.ghostscript "${pkgs.ghostscript}/bin/gs";
         minimagick_font_path = "${cfg.components.minimagick_font_path}";
       };

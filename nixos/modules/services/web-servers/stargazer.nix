@@ -45,9 +45,8 @@ in
     listen = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]";
-      defaultText =
-        lib.literalExpression
-          ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"'';
+      defaultText = lib.literalExpression ''
+        [ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"'';
       example = lib.literalExpression ''[ "10.0.0.12" "[2002:a00:1::]" ]'';
       description = lib.mdDoc ''
         Address and port to listen on.

@@ -55,9 +55,7 @@ in
       type = types.submodule {
         options = {
           enable = mkEnableOption "" // {
-            description =
-              lib.mdDoc
-                "Whether to start the web-ui. This is the preferred way of configuring things such as the steam guard token.";
+            description = lib.mdDoc "Whether to start the web-ui. This is the preferred way of configuring things such as the steam guard token.";
           };
 
           package = mkOption {
@@ -81,9 +79,7 @@ in
       type = types.package;
       default = pkgs.ArchiSteamFarm;
       defaultText = lib.literalExpression "pkgs.ArchiSteamFarm";
-      description =
-        lib.mdDoc
-          "Package to use. Should always be the latest version, for security reasons, since this module uses very new features and to not get out of sync with the Steam API.";
+      description = lib.mdDoc "Package to use. Should always be the latest version, for security reasons, since this module uses very new features and to not get out of sync with the Steam API.";
     };
 
     dataDir = mkOption {
@@ -111,9 +107,7 @@ in
     ipcPasswordFile = mkOption {
       type = types.nullOr types.path;
       default = null;
-      description =
-        lib.mdDoc
-          "Path to a file containing the password. The file must be readable by the `asf` user/group.";
+      description = lib.mdDoc "Path to a file containing the password. The file must be readable by the `asf` user/group.";
     };
 
     ipcSettings = mkOption {
@@ -145,9 +139,7 @@ in
             };
             passwordFile = mkOption {
               type = types.path;
-              description =
-                lib.mdDoc
-                  "Path to a file containing the password. The file must be readable by the `asf` user/group.";
+              description = lib.mdDoc "Path to a file containing the password. The file must be readable by the `asf` user/group.";
             };
             enabled = mkOption {
               type = types.bool;

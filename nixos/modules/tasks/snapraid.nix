@@ -59,9 +59,7 @@ in
     touchBeforeSync = mkOption {
       default = true;
       example = false;
-      description =
-        lib.mdDoc
-          "Whether {command}`snapraid touch` should be run before {command}`snapraid sync`.";
+      description = lib.mdDoc "Whether {command}`snapraid touch` should be run before {command}`snapraid sync`.";
       type = bool;
     };
     sync.interval = mkOption {
@@ -86,9 +84,7 @@ in
       olderThan = mkOption {
         default = 10;
         example = 20;
-        description =
-          lib.mdDoc
-            "Number of days since data was last scrubbed before it can be scrubbed again.";
+        description = lib.mdDoc "Number of days since data was last scrubbed before it can be scrubbed again.";
         type = int;
       };
     };

@@ -89,9 +89,7 @@ let
         ++ commonWrapperArgs;
     in
     assert withPython2
-      ->
-        throw
-          "Python2 support has been removed from the neovim wrapper, please remove withPython2 and python2Env.";
+      -> throw "Python2 support has been removed from the neovim wrapper, please remove withPython2 and python2Env.";
 
     symlinkJoin {
       name = "neovim-${lib.getVersion neovim}${extraName}";

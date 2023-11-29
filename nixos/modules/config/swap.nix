@@ -276,9 +276,7 @@ in
             unitConfig.DefaultDependencies = false; # needed to prevent a cycle
             serviceConfig.Type = "oneshot";
             serviceConfig.RemainAfterExit = sw.randomEncryption.enable;
-            serviceConfig.ExecStop =
-              optionalString sw.randomEncryption.enable
-                "${pkgs.cryptsetup}/bin/cryptsetup luksClose ${sw.deviceName}";
+            serviceConfig.ExecStop = optionalString sw.randomEncryption.enable "${pkgs.cryptsetup}/bin/cryptsetup luksClose ${sw.deviceName}";
             restartIfChanged = false;
           };
       in

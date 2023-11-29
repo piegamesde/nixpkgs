@@ -86,9 +86,7 @@ in
             alias_prefix = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "The user_friendly_names prefix to use for this device type, instead of the default mpath";
+              description = lib.mdDoc "The user_friendly_names prefix to use for this device type, instead of the default mpath";
             };
 
             vpd_vendor = mkOption {
@@ -151,9 +149,7 @@ in
                 ]
               );
               default = null; # real default: "service-time 0"
-              description =
-                lib.mdDoc
-                  "The default path selector algorithm to use; they are offered by the kernel multipath target";
+              description = lib.mdDoc "The default path selector algorithm to use; they are offered by the kernel multipath target";
             };
 
             path_checker = mkOption {
@@ -210,9 +206,7 @@ in
             failback = mkOption {
               type = nullOr str;
               default = null; # real default: "manual"
-              description =
-                lib.mdDoc
-                  "Tell multipathd how to manage path group failback. Quote integers as strings";
+              description = lib.mdDoc "Tell multipathd how to manage path group failback. Quote integers as strings";
             };
 
             rr_weight = mkOption {
@@ -402,9 +396,7 @@ in
             marginal_path_err_sample_time = mkOption {
               type = nullOr int;
               default = null;
-              description =
-                lib.mdDoc
-                  "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
+              description = lib.mdDoc "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
             };
 
             marginal_path_err_rate_threshold = mkOption {
@@ -416,17 +408,13 @@ in
             marginal_path_err_recheck_gap_time = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
+              description = lib.mdDoc "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
             };
 
             marginal_path_double_failed_time = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
+              description = lib.mdDoc "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
             };
 
             delay_watch_checks = mkOption {
@@ -449,25 +437,19 @@ in
                 ]
               );
               default = null; # real default: "no"
-              description =
-                lib.mdDoc
-                  "If set to yes, kpartx will not automatically create partitions on the device";
+              description = lib.mdDoc "If set to yes, kpartx will not automatically create partitions on the device";
             };
 
             max_sectors_kb = mkOption {
               type = nullOr int;
               default = null;
-              description =
-                lib.mdDoc
-                  "Sets the max_sectors_kb device parameter on all path devices and the multipath device to the specified value";
+              description = lib.mdDoc "Sets the max_sectors_kb device parameter on all path devices and the multipath device to the specified value";
             };
 
             ghost_delay = mkOption {
               type = nullOr int;
               default = null;
-              description =
-                lib.mdDoc
-                  "Sets the number of seconds that multipath will wait after creating a device with only ghost paths before marking it ready for use in systemd";
+              description = lib.mdDoc "Sets the number of seconds that multipath will wait after creating a device with only ghost paths before marking it ready for use in systemd";
             };
 
             all_tg_pt = mkOption {

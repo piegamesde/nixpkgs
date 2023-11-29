@@ -63,8 +63,7 @@ with lib;
     };
     programs.evolution = {
       enable = mkEnableOption (
-        lib.mdDoc
-          "Evolution, a Personal information management application that provides integrated mail, calendaring and address book functionality"
+        lib.mdDoc "Evolution, a Personal information management application that provides integrated mail, calendaring and address book functionality"
       );
       plugins = mkOption {
         type = types.listOf types.package;

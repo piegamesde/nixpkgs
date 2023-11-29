@@ -234,17 +234,13 @@ in
     kubeconfig = top.lib.mkKubeConfigOptions "Kubelet";
 
     manifests = mkOption {
-      description =
-        lib.mdDoc
-          "List of manifests to bootstrap with kubelet (only pods can be created as manifest entry)";
+      description = lib.mdDoc "List of manifests to bootstrap with kubelet (only pods can be created as manifest entry)";
       type = attrsOf attrs;
       default = { };
     };
 
     nodeIp = mkOption {
-      description =
-        lib.mdDoc
-          "IP address of the node. If set, kubelet will use this IP address for the node.";
+      description = lib.mdDoc "IP address of the node. If set, kubelet will use this IP address for the node.";
       default = null;
       type = nullOr str;
     };
@@ -268,9 +264,7 @@ in
     };
 
     taints = mkOption {
-      description =
-        lib.mdDoc
-          "Node taints (https://kubernetes.io/docs/concepts/configuration/assign-pod-node/).";
+      description = lib.mdDoc "Node taints (https://kubernetes.io/docs/concepts/configuration/assign-pod-node/).";
       default = { };
       type = attrsOf (submodule [ taintOptions ]);
     };
@@ -288,9 +282,7 @@ in
     };
 
     unschedulable = mkOption {
-      description =
-        lib.mdDoc
-          "Whether to set node taint to unschedulable=true as it is the case of node that has only master role.";
+      description = lib.mdDoc "Whether to set node taint to unschedulable=true as it is the case of node that has only master role.";
       default = false;
       type = bool;
     };

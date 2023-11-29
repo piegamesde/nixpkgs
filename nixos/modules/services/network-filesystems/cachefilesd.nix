@@ -37,9 +37,7 @@ in
         type = types.lines;
         default = "";
         example = "brun 10%";
-        description =
-          lib.mdDoc
-            "Additional configuration file entries. See cachefilesd.conf(5) for more information.";
+        description = lib.mdDoc "Additional configuration file entries. See cachefilesd.conf(5) for more information.";
       };
     };
   };

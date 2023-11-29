@@ -175,9 +175,7 @@ let
       uid = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description =
-          lib.mdDoc
-            "Custom UID which can be used to reference this datasource in other parts of the configuration, if not specified will be generated automatically.";
+        description = lib.mdDoc "Custom UID which can be used to reference this datasource in other parts of the configuration, if not specified will be generated automatically.";
       };
       url = mkOption {
         type = types.str;
@@ -220,9 +218,7 @@ let
       };
       options.path = mkOption {
         type = types.path;
-        description =
-          lib.mdDoc
-            "Path grafana will watch for dashboards. Required when using the 'file' type.";
+        description = lib.mdDoc "Path grafana will watch for dashboards. Required when using the 'file' type.";
       };
     };
   };
@@ -280,9 +276,7 @@ let
       send_reminder = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Should the notifier be sent reminder notifications while alerts continue to fire.";
+        description = lib.mdDoc "Should the notifier be sent reminder notifications while alerts continue to fire.";
       };
       frequency = mkOption {
         type = types.str;
@@ -1032,9 +1026,7 @@ in
     declarativePlugins = mkOption {
       type = with types; nullOr (listOf path);
       default = null;
-      description =
-        lib.mdDoc
-          "If non-null, then a list of packages containing Grafana plugins to install. If set, plugins cannot be manually installed.";
+      description = lib.mdDoc "If non-null, then a list of packages containing Grafana plugins to install. If set, plugins cannot be manually installed.";
       example = literalExpression "with pkgs.grafanaPlugins; [ grafana-piechart-panel ]";
       # Make sure each plugin is added only once; otherwise building
       # the link farm fails, since the same path is added multiple
@@ -1068,9 +1060,8 @@ in
             plugins = mkOption {
               description = lib.mdDoc "Directory where grafana will automatically scan and look for plugins";
               default = if (cfg.declarativePlugins == null) then "${cfg.dataDir}/plugins" else declarativePlugins;
-              defaultText =
-                literalExpression
-                  ''if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins'';
+              defaultText = literalExpression ''
+                if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins'';
               type = types.path;
             };
 
@@ -1156,9 +1147,7 @@ in
             };
 
             socket = mkOption {
-              description =
-                lib.mdDoc
-                  "Path where the socket should be created when protocol=socket. Make sure that Grafana has appropriate permissions before you change this setting.";
+              description = lib.mdDoc "Path where the socket should be created when protocol=socket. Make sure that Grafana has appropriate permissions before you change this setting.";
               default = "/run/grafana/grafana.sock";
               type = types.str;
             };
@@ -1206,9 +1195,7 @@ in
             };
 
             path = mkOption {
-              description =
-                lib.mdDoc
-                  "Only applicable to sqlite3 database. The file path where the database will be stored.";
+              description = lib.mdDoc "Only applicable to sqlite3 database. The file path where the database will be stored.";
               default = "${cfg.dataDir}/data/grafana.db";
               defaultText = literalExpression ''"''${config.${opt.dataDir}}/data/grafana.db"'';
               type = types.path;

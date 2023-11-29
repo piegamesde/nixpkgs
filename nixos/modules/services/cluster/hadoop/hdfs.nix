@@ -136,9 +136,7 @@ in
                   path = mkOption {
                     type = path;
                     example = [ "/var/lib/hadoop/hdfs/dn" ];
-                    description =
-                      lib.mdDoc
-                        "Determines where on the local filesystem a data node should store its blocks.";
+                    description = lib.mdDoc "Determines where on the local filesystem a data node should store its blocks.";
                   };
                 };
               }
@@ -173,8 +171,7 @@ in
         8019 # dfs.ha.zkfc.port
       ];
       preStart =
-        (mkIf cfg.hdfs.namenode.formatOnInit
-          "${cfg.package}/bin/hdfs --config ${hadoopConf} namenode -format -nonInteractive || true"
+        (mkIf cfg.hdfs.namenode.formatOnInit "${cfg.package}/bin/hdfs --config ${hadoopConf} namenode -format -nonInteractive || true"
         );
     })
 

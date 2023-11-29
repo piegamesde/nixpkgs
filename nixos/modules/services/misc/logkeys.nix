@@ -15,9 +15,7 @@ in
     enable = mkEnableOption (lib.mdDoc "logkeys service");
 
     device = mkOption {
-      description =
-        lib.mdDoc
-          "Use the given device as keyboard input event device instead of /dev/input/eventX default.";
+      description = lib.mdDoc "Use the given device as keyboard input event device instead of /dev/input/eventX default.";
       default = null;
       type = types.nullOr types.str;
       example = "/dev/input/event15";

@@ -39,9 +39,7 @@ let
       inherit sha256;
     };
 
-  clang-tools-extra_src =
-    fetch "clang-tools-extra"
-      "1r9a4fdz9ci58b5z2inwvm4z4cdp6scrivnaw05dggkxz7yrwrb5";
+  clang-tools-extra_src = fetch "clang-tools-extra" "1r9a4fdz9ci58b5z2inwvm4z4cdp6scrivnaw05dggkxz7yrwrb5";
 
   llvm_meta = {
     license = lib.licenses.ncsa;

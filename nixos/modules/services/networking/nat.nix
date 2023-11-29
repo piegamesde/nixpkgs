@@ -111,18 +111,14 @@ in
               sourcePort = mkOption {
                 type = types.either types.int (types.strMatching "[[:digit:]]+:[[:digit:]]+");
                 example = 8080;
-                description =
-                  lib.mdDoc
-                    ''
-                      Source port of the external interface; to specify a port range, use a string with a colon (e.g. "60000:61000")'';
+                description = lib.mdDoc ''
+                  Source port of the external interface; to specify a port range, use a string with a colon (e.g. "60000:61000")'';
               };
 
               destination = mkOption {
                 type = types.str;
                 example = "10.0.0.1:80";
-                description =
-                  lib.mdDoc
-                    "Forward connection to destination ip:port (or [ipv6]:port); to specify a port range, use ip:start-end";
+                description = lib.mdDoc "Forward connection to destination ip:port (or [ipv6]:port); to specify a port range, use ip:start-end";
               };
 
               proto = mkOption {
@@ -136,9 +132,7 @@ in
                 type = types.listOf types.str;
                 default = [ ];
                 example = literalExpression ''[ "55.1.2.3" ]'';
-                description =
-                  lib.mdDoc
-                    "Public IPs for NAT reflection; for connections to `loopbackip:sourcePort` from the host itself and from other hosts behind NAT";
+                description = lib.mdDoc "Public IPs for NAT reflection; for connections to `loopbackip:sourcePort` from the host itself and from other hosts behind NAT";
               };
             };
           }

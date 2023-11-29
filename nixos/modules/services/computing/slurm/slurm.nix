@@ -204,9 +204,8 @@ in
       partitionName = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example =
-          literalExpression
-            ''[ "debug Nodes=linux[1-32] Default=YES MaxTime=INFINITE State=UP" ];'';
+        example = literalExpression ''
+          [ "debug Nodes=linux[1-32] Default=YES MaxTime=INFINITE State=UP" ];'';
         description = lib.mdDoc ''
           Name by which the partition may be referenced. Note that now you have
           to write the partition's parameters after the name.

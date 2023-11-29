@@ -82,17 +82,13 @@ in
     publicAddress = mkOption {
       type = types.str;
       default = "auto";
-      description =
-        lib.mdDoc
-          "Publicly visible IP address of the process. Port is determined by process ID";
+      description = lib.mdDoc "Publicly visible IP address of the process. Port is determined by process ID";
     };
 
     listenAddress = mkOption {
       type = types.str;
       default = "public";
-      description =
-        lib.mdDoc
-          "Publicly visible IP address of the process. Port is determined by process ID";
+      description = lib.mdDoc "Publicly visible IP address of the process. Port is determined by process ID";
     };
 
     listenPortStart = mkOption {

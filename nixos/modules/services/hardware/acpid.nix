@@ -65,10 +65,8 @@ in
             options = {
               event = mkOption {
                 type = types.str;
-                example =
-                  literalExpression
-                    ''
-                      "button/power.*" "button/lid.*" "ac_adapter.*" "button/mute.*" "button/volumedown.*" "cd/play.*" "cd/next.*"'';
+                example = literalExpression ''
+                  "button/power.*" "button/lid.*" "ac_adapter.*" "button/mute.*" "button/volumedown.*" "cd/play.*" "cd/next.*"'';
                 description = lib.mdDoc "Event type.";
               };
 

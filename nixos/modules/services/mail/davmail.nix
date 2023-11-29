@@ -49,9 +49,7 @@ in
 
     url = mkOption {
       type = types.str;
-      description =
-        lib.mdDoc
-          "Outlook Web Access URL to access the exchange server, i.e. the base webmail URL.";
+      description = lib.mdDoc "Outlook Web Access URL to access the exchange server, i.e. the base webmail URL.";
       example = "https://outlook.office365.com/EWS/Exchange.asmx";
     };
 

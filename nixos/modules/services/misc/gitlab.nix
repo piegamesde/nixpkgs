@@ -718,9 +718,7 @@ in
         authentication = mkOption {
           type = with types; nullOr str;
           default = null;
-          description =
-            lib.mdDoc
-              "Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
+          description = lib.mdDoc "Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
         };
 
         enableStartTLSAuto = mkOption {
@@ -738,9 +736,7 @@ in
         opensslVerifyMode = mkOption {
           type = types.str;
           default = "peer";
-          description =
-            lib.mdDoc
-              "How OpenSSL checks the certificate, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
+          description = lib.mdDoc "How OpenSSL checks the certificate, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
         };
       };
 
@@ -1699,8 +1695,7 @@ in
           set -o errexit -o pipefail -o nounset
           shopt -s dotglob nullglob inherit_errexit
 
-          ${utils.genJqSecretsReplacementSnippet cfg.workhorse.config
-            "${cfg.statePath}/config/gitlab-workhorse.json"}
+          ${utils.genJqSecretsReplacementSnippet cfg.workhorse.config "${cfg.statePath}/config/gitlab-workhorse.json"}
 
           json2toml "${cfg.statePath}/config/gitlab-workhorse.json" "${cfg.statePath}/config/gitlab-workhorse.toml"
           rm "${cfg.statePath}/config/gitlab-workhorse.json"

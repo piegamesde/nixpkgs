@@ -397,10 +397,7 @@ rec {
         inherit text;
       };
 
-  literalExample =
-    lib.warn
-      "literalExample is deprecated, use literalExpression instead, or use literalDocBook for a non-Nix description."
-      literalExpression;
+  literalExample = lib.warn "literalExample is deprecated, use literalExpression instead, or use literalDocBook for a non-Nix description." literalExpression;
 
   /* For use in the `defaultText` and `example` option attributes. Causes the
      given DocBook text to be inserted verbatim in the documentation, for when

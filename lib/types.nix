@@ -748,8 +748,7 @@ let
             if nrNulls == length defs then
               null
             else if nrNulls != 0 then
-              throw
-                "The option `${showOption loc}` is defined both null and not null, in ${showFiles (getFiles defs)}."
+              throw "The option `${showOption loc}` is defined both null and not null, in ${showFiles (getFiles defs)}."
             else
               elemType.merge loc defs;
           emptyValue = {
@@ -965,11 +964,10 @@ let
                 if intersecting == { } then
                   lhs.specialArgs // rhs.specialArgs
                 else
-                  throw
-                    ''
-                      A submoduleWith option is declared multiple times with the same specialArgs "${
-                        toString (attrNames intersecting)
-                      }"'';
+                  throw ''
+                    A submoduleWith option is declared multiple times with the same specialArgs "${
+                      toString (attrNames intersecting)
+                    }"'';
               shorthandOnlyDefinesConfig =
                 if lhs.shorthandOnlyDefinesConfig == null then
                   rhs.shorthandOnlyDefinesConfig
@@ -978,8 +976,7 @@ let
                 else if lhs.shorthandOnlyDefinesConfig == rhs.shorthandOnlyDefinesConfig then
                   lhs.shorthandOnlyDefinesConfig
                 else
-                  throw
-                    "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values";
+                  throw "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values";
               description =
                 if lhs.description == null then
                   rhs.description

@@ -117,9 +117,7 @@ in
       greylistText = mkOption {
         type = str;
         default = "Greylisted for %%s seconds";
-        description =
-          lib.mdDoc
-            "Response status text for greylisted messages; use %%s for seconds left until greylisting is over and %%r for mail domain of recipient";
+        description = lib.mdDoc "Response status text for greylisted messages; use %%s for seconds left until greylisting is over and %%r for mail domain of recipient";
       };
       greylistAction = mkOption {
         type = str;
@@ -129,9 +127,7 @@ in
       greylistHeader = mkOption {
         type = str;
         default = "X-Greylist: delayed %%t seconds by postgrey-%%v at %%h; %%d";
-        description =
-          lib.mdDoc
-            "Prepend header to greylisted mails; use %%t for seconds delayed due to greylisting, %%v for the version of postgrey, %%d for the date, and %%h for the host";
+        description = lib.mdDoc "Prepend header to greylisted mails; use %%t for seconds delayed due to greylisting, %%v for the version of postgrey, %%d for the date, and %%h for the host";
       };
       delay = mkOption {
         type = natural;
@@ -147,16 +143,12 @@ in
         type = either str natural;
         default = 2;
         example = "12h";
-        description =
-          lib.mdDoc
-            "Allow N days for the first retry. Use string with appended 'h' to specify time in hours";
+        description = lib.mdDoc "Allow N days for the first retry. Use string with appended 'h' to specify time in hours";
       };
       lookupBySubnet = mkOption {
         type = bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Strip the last N bits from IP addresses, determined by IPv4CIDR and IPv6CIDR";
+        description = lib.mdDoc "Strip the last N bits from IP addresses, determined by IPv4CIDR and IPv6CIDR";
       };
       IPv4CIDR = mkOption {
         type = natural;

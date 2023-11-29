@@ -54,9 +54,7 @@ buildPythonPackage rec {
   ];
 
   LLVM = llvm;
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isDarwin
-      "-isystem ${lib.getDev libcxx}/include/c++/v1";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-isystem ${lib.getDev libcxx}/include/c++/v1";
 
   # test suite is very cpu intensive, only run small subset to ensure package is working as expected
   pytestFlagsArray = [ "tests/test-sets.py" ];

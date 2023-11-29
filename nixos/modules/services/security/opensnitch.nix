@@ -212,8 +212,6 @@ in
       ''
     );
 
-    environment.etc."opensnitchd/default-config.json".source =
-      format.generate "default-config.json"
-        cfg.settings;
+    environment.etc."opensnitchd/default-config.json".source = format.generate "default-config.json" cfg.settings;
   };
 }

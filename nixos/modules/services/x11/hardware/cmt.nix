@@ -20,9 +20,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Enable chrome multitouch input (cmt). Touchpad drivers that are configured for chromebooks.";
+        description = lib.mdDoc "Enable chrome multitouch input (cmt). Touchpad drivers that are configured for chromebooks.";
       };
       models = mkOption {
         type = types.enum [

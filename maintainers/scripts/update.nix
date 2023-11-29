@@ -110,8 +110,7 @@ let
     let
       maintainer =
         if !builtins.hasAttr maintainer' lib.maintainers then
-          builtins.throw
-            "Maintainer with name `${maintainer'} does not exist in `maintainers/maintainer-list.nix`."
+          builtins.throw "Maintainer with name `${maintainer'} does not exist in `maintainers/maintainer-list.nix`."
         else
           builtins.getAttr maintainer' lib.maintainers;
     in
@@ -151,8 +150,7 @@ let
     if package == null then
       builtins.throw "Package with an attribute name `${path}` does not exist."
     else if !builtins.hasAttr "updateScript" package then
-      builtins.throw
-        "Package with an attribute name `${path}` does not have a `passthru.updateScript` attribute defined."
+      builtins.throw "Package with an attribute name `${path}` does not have a `passthru.updateScript` attribute defined."
     else
       {
         attrPath = path;

@@ -83,33 +83,19 @@ in
         openjdk // { headless = openjdk.override { headless = true; }; };
     in
     rec {
-      adoptopenjdk-8 =
-        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk8-linux.nix
-          ../development/compilers/adoptopenjdk-bin/jdk8-darwin.nix;
+      adoptopenjdk-8 = mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk8-linux.nix ../development/compilers/adoptopenjdk-bin/jdk8-darwin.nix;
 
-      adoptopenjdk-11 =
-        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk11-linux.nix
-          ../development/compilers/adoptopenjdk-bin/jdk11-darwin.nix;
+      adoptopenjdk-11 = mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk11-linux.nix ../development/compilers/adoptopenjdk-bin/jdk11-darwin.nix;
 
-      adoptopenjdk-13 =
-        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk13-linux.nix
-          ../development/compilers/adoptopenjdk-bin/jdk13-darwin.nix;
+      adoptopenjdk-13 = mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk13-linux.nix ../development/compilers/adoptopenjdk-bin/jdk13-darwin.nix;
 
-      adoptopenjdk-14 =
-        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk14-linux.nix
-          ../development/compilers/adoptopenjdk-bin/jdk14-darwin.nix;
+      adoptopenjdk-14 = mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk14-linux.nix ../development/compilers/adoptopenjdk-bin/jdk14-darwin.nix;
 
-      adoptopenjdk-15 =
-        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk15-linux.nix
-          ../development/compilers/adoptopenjdk-bin/jdk15-darwin.nix;
+      adoptopenjdk-15 = mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk15-linux.nix ../development/compilers/adoptopenjdk-bin/jdk15-darwin.nix;
 
-      adoptopenjdk-16 =
-        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk16-linux.nix
-          ../development/compilers/adoptopenjdk-bin/jdk16-darwin.nix;
+      adoptopenjdk-16 = mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk16-linux.nix ../development/compilers/adoptopenjdk-bin/jdk16-darwin.nix;
 
-      adoptopenjdk-17 =
-        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk17-linux.nix
-          ../development/compilers/adoptopenjdk-bin/jdk17-darwin.nix;
+      adoptopenjdk-17 = mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk17-linux.nix ../development/compilers/adoptopenjdk-bin/jdk17-darwin.nix;
 
       openjdk8-bootstrap = mkBootstrap adoptopenjdk-8 ../development/compilers/openjdk/bootstrap.nix {
         version = "8";

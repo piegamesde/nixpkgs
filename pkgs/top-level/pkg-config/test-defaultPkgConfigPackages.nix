@@ -23,12 +23,10 @@ let
   makePkgConfigTestMaybe =
     moduleName: pkg:
     if !lib.isDerivation pkg then
-      throw
-        "pkg-config module `${escapeNixIdentifier moduleName}` is not defined to be a derivation. Please check the attribute value for `${escapeNixIdentifier moduleName}` in `pkgs/top-level/pkg-config-packages.nix` in Nixpkgs."
+      throw "pkg-config module `${escapeNixIdentifier moduleName}` is not defined to be a derivation. Please check the attribute value for `${escapeNixIdentifier moduleName}` in `pkgs/top-level/pkg-config-packages.nix` in Nixpkgs."
 
     else if !pkg ? meta.unsupported then
-      throw
-        "pkg-config module `${escapeNixIdentifier moduleName}` does not have a `meta.unsupported` attribute. This can't be right. Please check the attribute value for `${escapeNixIdentifier moduleName}` in `pkgs/top-level/pkg-config-packages.nix` in Nixpkgs."
+      throw "pkg-config module `${escapeNixIdentifier moduleName}` does not have a `meta.unsupported` attribute. This can't be right. Please check the attribute value for `${escapeNixIdentifier moduleName}` in `pkgs/top-level/pkg-config-packages.nix` in Nixpkgs."
 
     else if pkg.meta.unsupported then
       # We return `null` instead of doing a `filterAttrs`, because with
@@ -39,8 +37,7 @@ let
       null
 
     else if !pkg ? meta.broken then
-      throw
-        "pkg-config module `${escapeNixIdentifier moduleName}` does not have a `meta.broken` attribute. This can't be right. Please check the attribute value for `${escapeNixIdentifier moduleName}` in `pkgs/top-level/pkg-config.packages.nix` in Nixpkgs."
+      throw "pkg-config module `${escapeNixIdentifier moduleName}` does not have a `meta.broken` attribute. This can't be right. Please check the attribute value for `${escapeNixIdentifier moduleName}` in `pkgs/top-level/pkg-config.packages.nix` in Nixpkgs."
 
     else if pkg.meta.broken then
       null

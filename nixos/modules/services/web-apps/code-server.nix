@@ -71,9 +71,7 @@ in
 
       hashedPassword = mkOption {
         default = "";
-        description =
-          lib.mdDoc
-            "Create the password with: `echo -n 'thisismypassword' | npx argon2-cli -e`.";
+        description = lib.mdDoc "Create the password with: `echo -n 'thisismypassword' | npx argon2-cli -e`.";
         type = types.str;
       };
 

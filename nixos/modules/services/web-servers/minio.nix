@@ -38,9 +38,7 @@ in
     dataDir = mkOption {
       default = [ "/var/lib/minio/data" ];
       type = types.listOf types.path;
-      description =
-        lib.mdDoc
-          "The list of data directories for storing the objects. Use one path for regular operation and the minimum of 4 endpoints for Erasure Code mode.";
+      description = lib.mdDoc "The list of data directories for storing the objects. Use one path for regular operation and the minimum of 4 endpoints for Erasure Code mode.";
     };
 
     configDir = mkOption {

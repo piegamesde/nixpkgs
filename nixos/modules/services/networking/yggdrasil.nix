@@ -88,9 +88,7 @@ in
         type = types.nullOr types.str;
         default = null;
         example = "wheel";
-        description =
-          lib.mdDoc
-            "Group to grant access to the Yggdrasil control socket. If `null`, only root can access the socket.";
+        description = lib.mdDoc "Group to grant access to the Yggdrasil control socket. If `null`, only root can access the socket.";
       };
 
       openMulticastPort = mkOption {
@@ -190,8 +188,8 @@ in
               "echo "
 
               + (lib.optionalString settingsProvided "'${builtins.toJSON cfg.settings}'")
-              + (lib.optionalString configFileProvided
-                ''$(${binHjson} -c "$CREDENTIALS_DIRECTORY/yggdrasil.conf")''
+              + (lib.optionalString configFileProvided ''
+                $(${binHjson} -c "$CREDENTIALS_DIRECTORY/yggdrasil.conf")''
               )
               + (lib.optionalString cfg.persistentKeys "$(cat ${keysPath})")
               + " | ${pkgs.jq}/bin/jq -s add | ${binYggdrasil} -normaliseconf -useconf"

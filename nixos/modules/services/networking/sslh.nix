@@ -79,9 +79,7 @@ in
       transparent = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Will the services behind sslh (Apache, sshd and so on) see the external IP and ports as if the external world connected directly to them";
+        description = lib.mdDoc "Will the services behind sslh (Apache, sshd and so on) see the external IP and ports as if the external world connected directly to them";
       };
 
       listenAddresses = mkOption {

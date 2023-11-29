@@ -46,9 +46,7 @@ stdenv.mkDerivation rec {
   PREFIX = placeholder "out";
   LIBDIRNAME = "/lib";
 
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.cc.isClang
-      "-Wno-error=cast-function-type -Wno-error=format-truncation";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=cast-function-type -Wno-error=format-truncation";
 
   nativeCheckInputs = [ perl ];
 

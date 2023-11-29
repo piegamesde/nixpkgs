@@ -177,9 +177,7 @@ in
       };
 
     environment.etc."jitsi/jicofo/sip-communicator.properties".text = "";
-    environment.etc."jitsi/jicofo/logging.properties".source =
-      mkDefault
-        "${pkgs.jicofo}/etc/jitsi/jicofo/logging.properties-journal";
+    environment.etc."jitsi/jicofo/logging.properties".source = mkDefault "${pkgs.jicofo}/etc/jitsi/jicofo/logging.properties-journal";
   };
 
   meta.maintainers = lib.teams.jitsi.members;

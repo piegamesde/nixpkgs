@@ -14,9 +14,7 @@ in
   options = {
     services.networking.websockify = {
       enable = mkOption {
-        description =
-          lib.mdDoc
-            "Whether to enable websockify to forward websocket connections to TCP connections.";
+        description = lib.mdDoc "Whether to enable websockify to forward websocket connections to TCP connections.";
 
         default = false;
 

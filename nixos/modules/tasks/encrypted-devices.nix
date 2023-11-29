@@ -15,9 +15,7 @@ let
       enable = mkOption {
         default = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "The block device is backed by an encrypted one, adds this device as a initrd luks entry.";
+        description = lib.mdDoc "The block device is backed by an encrypted one, adds this device as a initrd luks entry.";
       };
 
       blkDev = mkOption {
@@ -31,9 +29,7 @@ let
         default = null;
         example = "rootfs";
         type = types.nullOr types.str;
-        description =
-          lib.mdDoc
-            "Label of the unlocked encrypted device. Set `fileSystems.<name?>.device` to `/dev/mapper/<label>` to mount the unlocked device.";
+        description = lib.mdDoc "Label of the unlocked encrypted device. Set `fileSystems.<name?>.device` to `/dev/mapper/<label>` to mount the unlocked device.";
       };
 
       keyFile = mkOption {

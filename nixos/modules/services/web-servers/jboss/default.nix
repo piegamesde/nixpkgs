@@ -38,9 +38,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable JBoss. WARNING : this package is outdated and is known to have vulnerabilities.";
+        description = lib.mdDoc "Whether to enable JBoss. WARNING : this package is outdated and is known to have vulnerabilities.";
       };
 
       tempDir = mkOption {

@@ -285,9 +285,7 @@ in
           gid = 1;
         };
 
-        contents."/etc/ssh/authorized_keys.d/root".text =
-          concatStringsSep "\n"
-            config.boot.initrd.network.ssh.authorizedKeys;
+        contents."/etc/ssh/authorized_keys.d/root".text = concatStringsSep "\n" config.boot.initrd.network.ssh.authorizedKeys;
         contents."/etc/ssh/sshd_config".text = sshdConfig;
         storePaths = [ "${package}/bin/sshd" ];
 

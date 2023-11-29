@@ -229,9 +229,7 @@ in
         celeryConfig = mkOption {
           type = types.lines;
           default = "";
-          description =
-            lib.mdDoc
-              "Content of the `celeryconfig.py` used by the Celery responsible for webhooks.";
+          description = lib.mdDoc "Content of the `celeryconfig.py` used by the Celery responsible for webhooks.";
         };
       };
     };
@@ -312,9 +310,7 @@ in
           { "${srv}.sr.ht".origin = mkDefault "https://${srv}.${cfg.settings."sr.ht".global-domain}"; }
 
           (mkIf cfg.postgresql.enable {
-            "${srv}.sr.ht".connection-string =
-              mkDefault
-                "postgresql:///${srvCfg.postgresql.database}?user=${srvCfg.user}&host=/run/postgresql";
+            "${srv}.sr.ht".connection-string = mkDefault "postgresql:///${srvCfg.postgresql.database}?user=${srvCfg.user}&host=/run/postgresql";
           })
         ];
 

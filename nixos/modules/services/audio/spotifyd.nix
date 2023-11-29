@@ -12,8 +12,7 @@ let
   toml = pkgs.formats.toml { };
   warnConfig =
     if cfg.config != "" then
-      lib.trace
-        "Using the stringly typed .config attribute is discouraged. Use the TOML typed .settings attribute instead."
+      lib.trace "Using the stringly typed .config attribute is discouraged. Use the TOML typed .settings attribute instead."
     else
       id;
   spotifydConf =

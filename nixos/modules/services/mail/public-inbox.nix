@@ -44,17 +44,13 @@ let
       type = with types; nullOr str;
       default = null;
       example = "/path/to/fullchain.pem";
-      description =
-        lib.mdDoc
-          "Path to TLS certificate to use for connections to {manpage}`public-inbox-${proto}d(1)`.";
+      description = lib.mdDoc "Path to TLS certificate to use for connections to {manpage}`public-inbox-${proto}d(1)`.";
     };
     key = mkOption {
       type = with types; nullOr str;
       default = null;
       example = "/path/to/key.pem";
-      description =
-        lib.mdDoc
-          "Path to TLS key to use for connections to {manpage}`public-inbox-${proto}d(1)`.";
+      description = lib.mdDoc "Path to TLS key to use for connections to {manpage}`public-inbox-${proto}d(1)`.";
     };
   };
 

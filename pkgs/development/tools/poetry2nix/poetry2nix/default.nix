@@ -464,9 +464,7 @@ lib.makeScope pkgs.newScope (
             // editablePackageSources
           );
 
-        editablePackageSources' =
-          builtins.removeAttrs allEditablePackageSources
-            excludedEditablePackageNames;
+        editablePackageSources' = builtins.removeAttrs allEditablePackageSources excludedEditablePackageNames;
 
         poetryPython = self.mkPoetryPackages {
           inherit

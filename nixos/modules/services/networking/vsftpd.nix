@@ -173,9 +173,8 @@ in
             '')
             cfg.userlist
         );
-        defaultText =
-          literalExpression
-            ''pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)'';
+        defaultText = literalExpression ''
+          pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)'';
         description = lib.mdDoc ''
           Newline separated list of names to be allowed/denied if {option}`userlistEnable`
           is `true`. Meaning see {option}`userlistDeny`.
@@ -272,9 +271,7 @@ in
         type = types.lines;
         default = "";
         example = "ftpd_banner=Hello";
-        description =
-          lib.mdDoc
-            "Extra configuration to add at the bottom of the generated configuration file.";
+        description = lib.mdDoc "Extra configuration to add at the bottom of the generated configuration file.";
       };
     } // (listToAttrs (catAttrs "nixosOption" optionDescription));
   };

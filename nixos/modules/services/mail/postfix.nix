@@ -554,9 +554,7 @@ in
           ];
         default = "hash";
         example = "regexp";
-        description =
-          lib.mdDoc
-            "The format the alias map should have. Use regexp if you want to use regular expressions.";
+        description = lib.mdDoc "The format the alias map should have. Use regexp if you want to use regular expressions.";
       };
 
       config = mkOption {

@@ -80,9 +80,7 @@ in
         default = plugins: [ ];
         defaultText = literalExpression "plugins: []";
         example = literalExpression "plugins: with plugins; [ themeify stlviewer ]";
-        description =
-          lib.mdDoc
-            "Additional plugins to be used. Available plugins are passed through the plugins input.";
+        description = lib.mdDoc "Additional plugins to be used. Available plugins are passed through the plugins input.";
       };
 
       extraConfig = mkOption {

@@ -151,9 +151,7 @@ let
         extraConfig = mkOption {
           type = types.lines;
           default = "";
-          description =
-            lib.mdDoc
-              "Additional entries to put verbatim into worker section of rspamd config file.";
+          description = lib.mdDoc "Additional entries to put verbatim into worker section of rspamd config file.";
         };
       };
       config =

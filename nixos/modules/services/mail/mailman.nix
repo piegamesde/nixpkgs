@@ -131,9 +131,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Enable Mailman on this host. Requires an active MTA on the host (e.g. Postfix).";
+        description = lib.mdDoc "Enable Mailman on this host. Requires an active MTA on the host (e.g. Postfix).";
       };
 
       ldap = {
@@ -376,8 +374,7 @@ in
           if cfg.enablePostfix then
             "${postfixMtaConfig}"
           else
-            throw
-              "When Mailman Postfix integration is disabled, set `services.mailman.settings.mta.configuration` to the path of the config file required to integrate with your MTA."
+            throw "When Mailman Postfix integration is disabled, set `services.mailman.settings.mta.configuration` to the path of the config file required to integrate with your MTA."
         );
 
         "archiver.hyperkitty" = lib.mkIf cfg.hyperkitty.enable {

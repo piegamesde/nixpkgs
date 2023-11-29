@@ -188,16 +188,12 @@ let
           description = lib.mdDoc "Alias of {option}${showOption toPath}";
           apply =
             x:
-            builtins.trace
-              "Obsolete option `${showOption fromPath}' is used. It was renamed to ${showOption toPath}"
-              toOp;
+            builtins.trace "Obsolete option `${showOption fromPath}' is used. It was renamed to ${showOption toPath}" toOp;
         }
       );
       config = mkMerge [
         {
-          warnings =
-            optional fromOpt.isDefined
-              "The option `${showOption fromPath}' defined in ${showFiles fromOpt.files} has been renamed to `${showOption toPath}'.";
+          warnings = optional fromOpt.isDefined "The option `${showOption fromPath}' defined in ${showFiles fromOpt.files} has been renamed to `${showOption toPath}'.";
         }
         (lib.modules.mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt)
       ];

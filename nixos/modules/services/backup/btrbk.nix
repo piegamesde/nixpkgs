@@ -99,24 +99,18 @@ in
   options = {
     services.btrbk = {
       extraPackages = mkOption {
-        description =
-          lib.mdDoc
-            "Extra packages for btrbk, like compression utilities for `stream_compress`";
+        description = lib.mdDoc "Extra packages for btrbk, like compression utilities for `stream_compress`";
         type = types.listOf types.package;
         default = [ ];
         example = literalExpression "[ pkgs.xz ]";
       };
       niceness = mkOption {
-        description =
-          lib.mdDoc
-            "Niceness for local instances of btrbk. Also applies to remote ones connecting via ssh when positive.";
+        description = lib.mdDoc "Niceness for local instances of btrbk. Also applies to remote ones connecting via ssh when positive.";
         type = types.ints.between (-20) 19;
         default = 10;
       };
       ioSchedulingClass = mkOption {
-        description =
-          lib.mdDoc
-            "IO scheduling class for btrbk (see ionice(1) for a quick description). Applies to local instances, and remote ones connecting by ssh if set to idle.";
+        description = lib.mdDoc "IO scheduling class for btrbk (see ionice(1) for a quick description). Applies to local instances, and remote ones connecting by ssh if set to idle.";
         type = types.enum [
           "idle"
           "best-effort"
@@ -163,9 +157,7 @@ in
                       };
                     };
                   };
-                  description =
-                    lib.mdDoc
-                      "configuration options for btrbk. Nested attrsets translate to subsections.";
+                  description = lib.mdDoc "configuration options for btrbk. Nested attrsets translate to subsections.";
                 };
               };
             }
@@ -173,9 +165,7 @@ in
         default = { };
       };
       sshAccess = mkOption {
-        description =
-          lib.mdDoc
-            "SSH keys that should be able to make or push snapshots on this system remotely with btrbk";
+        description = lib.mdDoc "SSH keys that should be able to make or push snapshots on this system remotely with btrbk";
         type =
           with types;
           listOf (
@@ -202,9 +192,7 @@ in
                     "info"
                     "send"
                   ];
-                  description =
-                    lib.mdDoc
-                      "What actions can be performed with this SSH key. See ssh_filter_btrbk(1) for details";
+                  description = lib.mdDoc "What actions can be performed with this SSH key. See ssh_filter_btrbk(1) for details";
                 };
               };
             }

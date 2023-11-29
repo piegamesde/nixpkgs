@@ -52,12 +52,10 @@ rec {
         let
           supportedSystems = [ "linux" ] ++ (lib.attrNames otherHostGuestMatrix);
         in
-        throw
-          "Unsupported host system ${hostSystem}, supported: ${lib.concatStringsSep ", " supportedSystems}";
+        throw "Unsupported host system ${hostSystem}, supported: ${lib.concatStringsSep ", " supportedSystems}";
       throwUnsupportedGuestSystem =
         guestMap:
-        throw
-          "Unsupported guest system ${guestSystem} for host ${hostSystem}, supported: ${
+        throw "Unsupported guest system ${guestSystem} for host ${hostSystem}, supported: ${
             lib.concatStringsSep ", " (lib.attrNames guestMap)
           }";
     in

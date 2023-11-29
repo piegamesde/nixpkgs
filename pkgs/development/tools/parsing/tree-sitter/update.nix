@@ -44,9 +44,7 @@ let
     "tree-sitter-tsq"
     "tree-sitter-toml"
   ];
-  knownTreeSitterOrgGrammarReposJson =
-    jsonFile "known-tree-sitter-org-grammar-repos"
-      knownTreeSitterOrgGrammarRepos;
+  knownTreeSitterOrgGrammarReposJson = jsonFile "known-tree-sitter-org-grammar-repos" knownTreeSitterOrgGrammarRepos;
 
   # repos of the tree-sitter github orga we want to ignore (not grammars)
   ignoredTreeSitterOrgRepos = [

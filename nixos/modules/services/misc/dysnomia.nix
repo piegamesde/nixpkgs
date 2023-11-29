@@ -128,49 +128,37 @@ in
       };
 
       properties = mkOption {
-        description =
-          lib.mdDoc
-            "An attribute set in which each attribute represents a machine property. Optionally, these values can be shell substitutions.";
+        description = lib.mdDoc "An attribute set in which each attribute represents a machine property. Optionally, these values can be shell substitutions.";
         default = { };
         type = types.attrs;
       };
 
       containers = mkOption {
-        description =
-          lib.mdDoc
-            "An attribute set in which each key represents a container and each value an attribute set providing its configuration properties";
+        description = lib.mdDoc "An attribute set in which each key represents a container and each value an attribute set providing its configuration properties";
         default = { };
         type = types.attrsOf types.attrs;
       };
 
       components = mkOption {
-        description =
-          lib.mdDoc
-            "An attribute set in which each key represents a container and each value an attribute set in which each key represents a component and each value a derivation constructing its initial state";
+        description = lib.mdDoc "An attribute set in which each key represents a container and each value an attribute set in which each key represents a component and each value a derivation constructing its initial state";
         default = { };
         type = types.attrsOf types.attrs;
       };
 
       extraContainerProperties = mkOption {
-        description =
-          lib.mdDoc
-            "An attribute set providing additional container settings in addition to the default properties";
+        description = lib.mdDoc "An attribute set providing additional container settings in addition to the default properties";
         default = { };
         type = types.attrs;
       };
 
       extraContainerPaths = mkOption {
-        description =
-          lib.mdDoc
-            "A list of paths containing additional container configurations that are added to the search folders";
+        description = lib.mdDoc "A list of paths containing additional container configurations that are added to the search folders";
         default = [ ];
         type = types.listOf types.path;
       };
 
       extraModulePaths = mkOption {
-        description =
-          lib.mdDoc
-            "A list of paths containing additional modules that are added to the search folders";
+        description = lib.mdDoc "A list of paths containing additional modules that are added to the search folders";
         default = [ ];
         type = types.listOf types.path;
       };

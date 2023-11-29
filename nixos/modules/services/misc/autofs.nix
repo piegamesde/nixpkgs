@@ -58,9 +58,7 @@ in
       timeout = mkOption {
         type = types.int;
         default = 600;
-        description =
-          lib.mdDoc
-            "Set the global minimum timeout, in seconds, until directories are unmounted";
+        description = lib.mdDoc "Set the global minimum timeout, in seconds, until directories are unmounted";
       };
 
       debug = mkOption {

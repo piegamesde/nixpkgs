@@ -24,9 +24,7 @@ in
       };
 
       host = mkOption {
-        description =
-          lib.mdDoc
-            "Remote host where snapshots should be sent. `lz4` is expected to be installed on this host.";
+        description = lib.mdDoc "Remote host where snapshots should be sent. `lz4` is expected to be installed on this host.";
         example = "example.com";
         type = types.str;
       };
@@ -38,9 +36,7 @@ in
       };
 
       localFilesystem = mkOption {
-        description =
-          lib.mdDoc
-            "Local ZFS filesystem from which snapshots should be sent.  Defaults to the attribute name.";
+        description = lib.mdDoc "Local ZFS filesystem from which snapshots should be sent.  Defaults to the attribute name.";
         example = "pool/file/path";
         type = types.str;
       };

@@ -90,8 +90,9 @@ stdenv.mkDerivation rec {
       "--with-ksba-prefix=${libksba.dev}"
       "--with-npth-prefix=${npth}"
     ]
-    ++ lib.optional guiSupport
-      "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
+    ++ lib.optional guiSupport "--with-pinentry-pgm=${pinentry}/${
+        pinentry.binaryPath or "bin/pinentry"
+      }"
     ++ lib.optional stdenv.isDarwin "--disable-ccid-driver";
 
   postInstall =

@@ -132,9 +132,7 @@ in
     configPath = mkOption {
       type = types.nullOr types.path;
       default = null;
-      description =
-        lib.mdDoc
-          "File path containing the k3s YAML config. This is useful when the config is generated (for example on boot).";
+      description = lib.mdDoc "File path containing the k3s YAML config. This is useful when the config is generated (for example on boot).";
     };
   };
 

@@ -118,9 +118,7 @@ in
                 );
                 serial = mkOption {
                   type = types.nullOr path;
-                  description =
-                    lib.mdDoc
-                      "Path to serial port this printer is connected to. Leave `null` to derive it from `service.klipper.settings`.";
+                  description = lib.mdDoc "Path to serial port this printer is connected to. Leave `null` to derive it from `service.klipper.settings`.";
                 };
                 configFile = mkOption {
                   type = path;

@@ -33,9 +33,7 @@ in
       device = mkOption {
         type = types.str;
         default = "0000:00:02.0";
-        description =
-          lib.mdDoc
-            "PCI ID of graphics card. You can figure it with {command}`ls /sys/class/mdev_bus`.";
+        description = lib.mdDoc "PCI ID of graphics card. You can figure it with {command}`ls /sys/class/mdev_bus`.";
       };
       vgpus = mkOption {
         default = { };

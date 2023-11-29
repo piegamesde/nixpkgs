@@ -271,9 +271,7 @@ in
       serviceFdlimit = mkOption {
         type = types.nullOr types.int;
         default = null;
-        description =
-          lib.mdDoc
-            "The fdlimit for the Kubo systemd unit or `null` to have the daemon attempt to manage it";
+        description = lib.mdDoc "The fdlimit for the Kubo systemd unit or `null` to have the daemon attempt to manage it";
         example = 64 * 1024;
       };
 

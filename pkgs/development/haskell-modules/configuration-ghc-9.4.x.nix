@@ -7,8 +7,7 @@ let
     if builtins.compareVersions pkg.version ver <= 0 then
       act
     else
-      builtins.throw
-        "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
+      builtins.throw "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
 in
 
 with haskellLib;
@@ -252,9 +251,7 @@ in
   # The gtk2hs setup hook provided by this package lacks the ppOrdering field that
   # recent versions of Cabal require. This leads to builds like cairo and glib
   # failing during the Setup.hs phase: https://github.com/gtk2hs/gtk2hs/issues/323.
-  gtk2hs-buildtools =
-    appendPatch ./patches/gtk2hs-buildtools-fix-ghc-9.4.x.patch
-      super.gtk2hs-buildtools;
+  gtk2hs-buildtools = appendPatch ./patches/gtk2hs-buildtools-fix-ghc-9.4.x.patch super.gtk2hs-buildtools;
 
   # Pending text-2.0 support https://github.com/gtk2hs/gtk2hs/issues/327
   gtk = doJailbreak super.gtk;

@@ -31,9 +31,7 @@ in
 
     specialisation = mkOption {
       default = { };
-      example =
-        lib.literalExpression
-          "{ fewJobsManyCores.configuration = { nix.settings = { core = 0; max-jobs = 1; }; }; }";
+      example = lib.literalExpression "{ fewJobsManyCores.configuration = { nix.settings = { core = 0; max-jobs = 1; }; }; }";
       description = lib.mdDoc ''
         Additional configurations to build. If
         `inheritParentConfig` is true, the system
@@ -56,9 +54,7 @@ in
             options.inheritParentConfig = mkOption {
               type = types.bool;
               default = true;
-              description =
-                lib.mdDoc
-                  "Include the entire system's configuration. Set to false to make a completely differently configured system.";
+              description = lib.mdDoc "Include the entire system's configuration. Set to false to make a completely differently configured system.";
             };
 
             options.configuration = mkOption {

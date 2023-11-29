@@ -58,9 +58,7 @@ let
     saslauth = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Authentication for clients and servers. Recommended if you want to log in.";
+      description = lib.mdDoc "Authentication for clients and servers. Recommended if you want to log in.";
     };
 
     tls = mkOption {
@@ -91,17 +89,13 @@ let
     csi = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Implements the CSI protocol that allows clients to report their active/inactive state to the server";
+      description = lib.mdDoc "Implements the CSI protocol that allows clients to report their active/inactive state to the server";
     };
 
     cloud_notify = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Push notifications to inform users of new messages or other pertinent information even when they have no XMPP clients online";
+      description = lib.mdDoc "Push notifications to inform users of new messages or other pertinent information even when they have no XMPP clients online";
     };
 
     pep = mkOption {
@@ -137,9 +131,7 @@ let
     bookmarks = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Allows interop between older clients that use XEP-0048: Bookmarks in its 1.0 version and recent clients which use it in PEP";
+      description = lib.mdDoc "Allows interop between older clients that use XEP-0048: Bookmarks in its 1.0 version and recent clients which use it in PEP";
     };
 
     # Nice to have
@@ -170,9 +162,7 @@ let
     register = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Allow users to register on this server using a client and change passwords";
+      description = lib.mdDoc "Allow users to register on this server using a client and change passwords";
     };
 
     mam = mkOption {
@@ -309,9 +299,7 @@ let
         };
         name = mkOption {
           type = types.str;
-          description =
-            lib.mdDoc
-              "The name to return in service discovery responses for the MUC service itself";
+          description = lib.mdDoc "The name to return in service discovery responses for the MUC service itself";
           default = "Prosody Chatrooms";
         };
         restrictRoomCreation = mkOption {

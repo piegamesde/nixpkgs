@@ -30,8 +30,7 @@ let
   checkConfigLocation =
     file:
     if lib.hasPrefix "/tmp/" file then
-      throw
-        "${logPrefix}: configuration file must not reside within /tmp - it won't be visible to the systemd service."
+      throw "${logPrefix}: configuration file must not reside within /tmp - it won't be visible to the systemd service."
     else
       true;
   checkConfig =

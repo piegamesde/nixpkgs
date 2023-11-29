@@ -14,8 +14,7 @@ in
   options = {
     services.whitebophir = {
       enable = mkEnableOption (
-        lib.mdDoc
-          "whitebophir, an online collaborative whiteboard server (persistent state will be maintained under {file}`/var/lib/whitebophir`)"
+        lib.mdDoc "whitebophir, an online collaborative whiteboard server (persistent state will be maintained under {file}`/var/lib/whitebophir`)"
       );
 
       package = mkOption {

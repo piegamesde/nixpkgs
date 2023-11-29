@@ -109,9 +109,7 @@ in
 
     loadDirectory = mkOption {
       type = types.nullOr types.path;
-      description =
-        lib.mdDoc
-          "Directory where to load services from, such as tasks, templates and handlers (or null to disable service loading on startup)";
+      description = lib.mdDoc "Directory where to load services from, such as tasks, templates and handlers (or null to disable service loading on startup)";
       default = null;
     };
 

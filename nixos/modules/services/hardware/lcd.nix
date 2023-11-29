@@ -100,9 +100,7 @@ with lib; {
         usbGroup = mkOption {
           type = str;
           default = "dialout";
-          description =
-            lib.mdDoc
-              "The group to use for settings permissions. This group must exist or you will have to create it.";
+          description = lib.mdDoc "The group to use for settings permissions. This group must exist or you will have to create it.";
         };
 
         extraConfig = mkOption {

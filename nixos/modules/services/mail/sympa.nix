@@ -240,9 +240,8 @@ in
       name = mkOption {
         type = str;
         default = if cfg.database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa";
-        defaultText =
-          literalExpression
-            ''if database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa"'';
+        defaultText = literalExpression ''
+          if database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa"'';
         description = lib.mdDoc ''
           Database name. When using SQLite this must be an absolute
           path to the database file.
@@ -355,9 +354,7 @@ in
               enable = mkOption {
                 type = bool;
                 default = true;
-                description =
-                  lib.mdDoc
-                    "Whether this file should be generated. This option allows specific files to be disabled.";
+                description = lib.mdDoc "Whether this file should be generated. This option allows specific files to be disabled.";
               };
               text = mkOption {
                 default = null;

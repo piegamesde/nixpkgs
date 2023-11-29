@@ -230,9 +230,7 @@ in
 
     users.groups.privoxy = { };
 
-    systemd.tmpfiles.rules =
-      optional cfg.inspectHttps
-        "d ${cfg.settings.certificate-directory} 0770 privoxy privoxy ${cfg.certsLifetime}";
+    systemd.tmpfiles.rules = optional cfg.inspectHttps "d ${cfg.settings.certificate-directory} 0770 privoxy privoxy ${cfg.certsLifetime}";
 
     systemd.services.privoxy = {
       description = "Filtering web proxy";

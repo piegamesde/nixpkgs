@@ -128,9 +128,7 @@ self: super: {
 
   mime-string = disableOptimization super.mime-string;
 
-  haskell-language-server =
-    throw
-      "haskell-language-server dropped support for ghc 8.8 in version 1.9.0.0 please use a newer ghc version or an older nixpkgs version";
+  haskell-language-server = throw "haskell-language-server dropped support for ghc 8.8 in version 1.9.0.0 please use a newer ghc version or an older nixpkgs version";
 
   hlint = self.hlint_3_2_8;
 

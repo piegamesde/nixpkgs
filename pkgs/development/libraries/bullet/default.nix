@@ -60,9 +60,7 @@ stdenv.mkDerivation rec {
       "-DBUILD_BULLET_ROBOTICS_GUI_EXTRA=OFF"
     ];
 
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.cc.isClang
-      "-Wno-error=argument-outside-range -Wno-error=c++11-narrowing";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=argument-outside-range -Wno-error=c++11-narrowing";
 
   meta = with lib; {
     description = "A professional free 3D Game Multiphysics Library";

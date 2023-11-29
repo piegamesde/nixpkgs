@@ -89,8 +89,8 @@ let
 
       ${optionalString (!config.boot.isContainer && config.boot.bootspec.enable) ''
         ${config.boot.bootspec.writer}
-        ${optionalString config.boot.bootspec.enableValidation
-          ''${config.boot.bootspec.validator} "$out/${config.boot.bootspec.filename}"''}
+        ${optionalString config.boot.bootspec.enableValidation ''
+          ${config.boot.bootspec.validator} "$out/${config.boot.bootspec.filename}"''}
       ''}
 
       ${config.system.extraSystemBuilderCmds}
@@ -314,9 +314,7 @@ in
 
     system.replaceRuntimeDependencies = mkOption {
       default = [ ];
-      example =
-        lib.literalExpression
-          "[ ({ original = pkgs.openssl; replacement = pkgs.callPackage /path/to/openssl { }; }) ]";
+      example = lib.literalExpression "[ ({ original = pkgs.openssl; replacement = pkgs.callPackage /path/to/openssl { }; }) ]";
       type = types.listOf (
         types.submodule (
           { ... }:

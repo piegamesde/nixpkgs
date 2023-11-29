@@ -219,9 +219,7 @@ in
       useWizard = mkOption {
         default = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "Do not generate a configuration and use gitea' installation wizard instead. The first registered user will be administrator.";
+        description = lib.mdDoc "Do not generate a configuration and use gitea' installation wizard instead. The first registered user will be administrator.";
       };
 
       stateDir = mkOption {
@@ -234,9 +232,7 @@ in
         default = "${cfg.stateDir}/custom";
         defaultText = literalExpression ''"''${config.${opt.stateDir}}/custom"'';
         type = types.str;
-        description =
-          lib.mdDoc
-            "Gitea custom directory. Used for config, custom templates and other options.";
+        description = lib.mdDoc "Gitea custom directory. Used for config, custom templates and other options.";
       };
 
       user = mkOption {
@@ -389,9 +385,7 @@ in
         file = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description =
-            lib.mdDoc
-              "Filename to be used for the dump. If `null` a default name is chosen by gitea.";
+          description = lib.mdDoc "Filename to be used for the dump. If `null` a default name is chosen by gitea.";
           example = "gitea-dump";
         };
       };
@@ -496,10 +490,8 @@ in
                 type = types.either types.str types.path;
                 default =
                   if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0";
-                defaultText =
-                  literalExpression
-                    ''
-                      if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"'';
+                defaultText = literalExpression ''
+                  if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"'';
                 description = lib.mdDoc "Listen address. Must be a path when using a unix socket.";
               };
 
@@ -518,10 +510,8 @@ in
               ROOT_URL = mkOption {
                 type = types.str;
                 default = "http://${cfg.settings.server.DOMAIN}:${toString cfg.settings.server.HTTP_PORT}/";
-                defaultText =
-                  literalExpression
-                    ''
-                      "http://''${config.services.gitea.settings.server.DOMAIN}:''${toString config.services.gitea.settings.server.HTTP_PORT}/"'';
+                defaultText = literalExpression ''
+                  "http://''${config.services.gitea.settings.server.DOMAIN}:''${toString config.services.gitea.settings.server.HTTP_PORT}/"'';
                 description = lib.mdDoc "Full public URL of gitea server.";
               };
 

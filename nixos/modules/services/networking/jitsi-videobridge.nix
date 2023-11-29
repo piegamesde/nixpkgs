@@ -299,9 +299,7 @@ in
         };
       };
 
-    environment.etc."jitsi/videobridge/logging.properties".source =
-      mkDefault
-        "${pkgs.jitsi-videobridge}/etc/jitsi/videobridge/logging.properties-journal";
+    environment.etc."jitsi/videobridge/logging.properties".source = mkDefault "${pkgs.jitsi-videobridge}/etc/jitsi/videobridge/logging.properties-journal";
 
     # (from videobridge2 .deb)
     # this sets the max, so that we can bump the JVB UDP single port buffer size.

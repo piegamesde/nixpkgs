@@ -137,9 +137,7 @@ in
     };
 
     qemu.package = mkOption {
-      description =
-        mdDoc
-          "Which qemu package to use for the virtualisation of [{option}`nodes`](#test-opt-nodes).";
+      description = mdDoc "Which qemu package to use for the virtualisation of [{option}`nodes`](#test-opt-nodes).";
       type = types.package;
       default = hostPkgs.qemu_test;
       defaultText = "hostPkgs.qemu_test";

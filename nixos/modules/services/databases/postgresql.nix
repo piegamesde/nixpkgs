@@ -93,9 +93,8 @@ in
 
       dataDir = mkOption {
         type = types.path;
-        defaultText =
-          literalExpression
-            ''"/var/lib/postgresql/''${config.services.postgresql.package.psqlSchema}"'';
+        defaultText = literalExpression ''
+          "/var/lib/postgresql/''${config.services.postgresql.package.psqlSchema}"'';
         example = "/var/lib/postgresql/11";
         description = lib.mdDoc ''
           The data directory for PostgreSQL. If left as the default value

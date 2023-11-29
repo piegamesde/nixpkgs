@@ -212,9 +212,7 @@ let
     IOFWDVComponents = fetchApple "osx-10.10.5" "sha256-KenCX9C/Z2ErUK8tpKpm65gEmhn2NsXFxlzK7NKomaI=";
     IOFireWireAVC = fetchApple "osx-10.10.5" "sha256-Gd8+PK/mk+xEXgF8dGAx+3jsXv4NX1GiBFyjyrf6sTo=";
     IOFireWireSBP2 = fetchApple "osx-10.10.5" "sha256-Z3nP8pX1YG4Fbt7MrnqO06ihE9aYOex5Eib/rqOpoPk=";
-    IOFireWireSerialBusProtocolTransport =
-      fetchApple "osx-10.10.5"
-        "sha256-zdYE0UCKiVhDRGdWaH8L51ArbYTnsQOmcN/OMmpNdFA=";
+    IOFireWireSerialBusProtocolTransport = fetchApple "osx-10.10.5" "sha256-zdYE0UCKiVhDRGdWaH8L51ArbYTnsQOmcN/OMmpNdFA=";
     IOGraphics = fetchApple "osx-10.10.5" "sha256-lXoW4sx3pyl5fg5Qde3sQi2i8rTLnpeCdDaTHjbfaMI=";
     IOHIDFamily = fetchApple "osx-10.10.5" "sha256-b+S1p3p5d8olYE18VrBns4euerVINaQSFEp34sko5rM=";
     IONetworkingFamily = fetchApple "osx-10.10.5" "sha256-NOpFOBKS6iwFj9DJxduZYZfZJuhDyBQw2QMKHbu7j40=";

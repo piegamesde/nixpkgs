@@ -93,9 +93,7 @@ in
         https = mkOption {
           type = types.bool;
           default = false;
-          description =
-            lib.mdDoc
-              "Set secure attribute on cookies. Keep it disabled to enable cookies when not using HTTPS.";
+          description = lib.mdDoc "Set secure attribute on cookies. Keep it disabled to enable cookies when not using HTTPS.";
         };
 
         httpMaxConnections = mkOption {

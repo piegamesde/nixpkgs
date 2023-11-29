@@ -58,9 +58,7 @@ in
       extraOptions = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "A list of extra options that will be added as a suffix when running memcached.";
+        description = lib.mdDoc "A list of extra options that will be added as a suffix when running memcached.";
       };
     };
   };

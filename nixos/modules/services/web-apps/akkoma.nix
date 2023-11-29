@@ -592,9 +592,7 @@ in
           ffmpeg_5-headless
           graphicsmagick-imagemagick-compat
         ];
-        defaultText =
-          literalExpression
-            "with pkgs; [ exiftool graphicsmagick-imagemagick-compat ffmpeg_5-headless ]";
+        defaultText = literalExpression "with pkgs; [ exiftool graphicsmagick-imagemagick-compat ffmpeg_5-headless ]";
         example = literalExpression "with pkgs; [ exiftool imagemagick ffmpeg_5-full ]";
         description = mdDoc ''
           List of extra packages to include in the executable search path of the service unit.

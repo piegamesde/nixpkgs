@@ -290,12 +290,8 @@ in
 
         linux_xanmod_tt = throw "linux_xanmod_tt was removed because upstream no longer offers this option";
 
-        linux_5_18_hardened =
-          throw
-            "linux 5.18 was removed because it has reached its end of life upstream";
-        linux_5_19_hardened =
-          throw
-            "linux 5.19 was removed because it has reached its end of life upstream";
+        linux_5_18_hardened = throw "linux 5.18 was removed because it has reached its end of life upstream";
+        linux_5_19_hardened = throw "linux 5.19 was removed because it has reached its end of life upstream";
         linux_6_0_hardened = throw "linux 6.0 was removed because it has reached its end of life upstream";
       }
     )
@@ -612,9 +608,7 @@ in
       }
       // lib.optionalAttrs config.allowAliases {
         ati_drivers_x11 = throw "ati drivers are no longer supported by any kernel >=4.1"; # added 2021-05-18;
-        xmm7360-pci =
-          throw
-            "Support for the XMM7360 WWAN card was added to the iosm kmod in mainline kernel version 5.18";
+        xmm7360-pci = throw "Support for the XMM7360 WWAN card was added to the iosm kmod in mainline kernel version 5.18";
       }
     );
 
@@ -707,12 +701,8 @@ in
       linux_latest_libre = recurseIntoAttrs (packagesFor kernels.linux_latest_libre);
     }
     // lib.optionalAttrs config.allowAliases {
-      linux_5_18_hardened =
-        throw
-          "linux 5.18 was removed because it has reached its end of life upstream";
-      linux_5_19_hardened =
-        throw
-          "linux 5.19 was removed because it has reached its end of life upstream";
+      linux_5_18_hardened = throw "linux 5.18 was removed because it has reached its end of life upstream";
+      linux_5_19_hardened = throw "linux 5.19 was removed because it has reached its end of life upstream";
       linux_6_0_hardened = throw "linux 6.0 was removed because it has reached its end of life upstream";
       linux_xanmod_tt = throw "linux_xanmod_tt was removed because upstream no longer offers this option";
     }

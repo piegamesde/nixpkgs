@@ -286,9 +286,7 @@ in
     };
 
     extraSANs = mkOption {
-      description =
-        lib.mdDoc
-          "Extra x509 Subject Alternative Names to be added to the kubernetes apiserver tls cert.";
+      description = lib.mdDoc "Extra x509 Subject Alternative Names to be added to the kubernetes apiserver tls cert.";
       default = [ ];
       type = listOf str;
     };

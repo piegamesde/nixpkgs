@@ -70,9 +70,7 @@ in
       };
       password = mkOption {
         type = types.str;
-        description =
-          lib.mdDoc
-            "Password for the postgresql connection. Do not use: the password will be stored world readable in the store; use `passwordFile` instead.";
+        description = lib.mdDoc "Password for the postgresql connection. Do not use: the password will be stored world readable in the store; use `passwordFile` instead.";
         default = "";
       };
       passwordFile = mkOption {

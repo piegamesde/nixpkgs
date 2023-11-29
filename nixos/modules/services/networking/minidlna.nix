@@ -76,9 +76,7 @@ in
         type = types.path;
         default = "/var/cache/minidlna";
         example = "/tmp/minidlna";
-        description =
-          lib.mdDoc
-            "Specify the directory where you want MiniDLNA to store its database and album art cache.";
+        description = lib.mdDoc "Specify the directory where you want MiniDLNA to store its database and album art cache.";
       };
       options.friendly_name = mkOption {
         type = types.str;
@@ -91,17 +89,13 @@ in
         type = types.str;
         default = "B";
         example = ".";
-        description =
-          lib.mdDoc
-            "Use a different container as the root of the directory tree presented to clients.";
+        description = lib.mdDoc "Use a different container as the root of the directory tree presented to clients.";
       };
       options.log_level = mkOption {
         type = types.str;
         default = "warn";
         example = "general,artwork,database,inotify,scanner,metadata,http,ssdp,tivo=warn";
-        description =
-          lib.mdDoc
-            "Defines the type of messages that should be logged and down to which level of importance.";
+        description = lib.mdDoc "Defines the type of messages that should be logged and down to which level of importance.";
       };
       options.inotify = mkOption {
         type = types.enum [
@@ -125,9 +119,7 @@ in
           "no"
         ];
         default = "no";
-        description =
-          lib.mdDoc
-            "Set this to yes to allow symlinks that point outside user-defined `media_dir`.";
+        description = lib.mdDoc "Set this to yes to allow symlinks that point outside user-defined `media_dir`.";
       };
     };
   };

@@ -109,9 +109,7 @@ in
       initUser = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
-        description =
-          lib.mdDoc
-            "Initial user account for Apache NiFi. Username must be at least 4 characters.";
+        description = lib.mdDoc "Initial user account for Apache NiFi. Username must be at least 4 characters.";
       };
 
       initPasswordFile = lib.mkOption {

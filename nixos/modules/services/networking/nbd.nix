@@ -107,9 +107,7 @@ in
                       "10.10.0.0/24"
                       "127.0.0.1"
                     ];
-                    description =
-                      lib.mdDoc
-                        "IPs and subnets that are authorized to connect for this device. If not specified, the server will allow all connections.";
+                    description = lib.mdDoc "IPs and subnets that are authorized to connect for this device. If not specified, the server will allow all connections.";
                   };
 
                   extraOptions = mkOption {
@@ -130,9 +128,7 @@ in
 
         listenAddress = mkOption {
           type = with types; nullOr str;
-          description =
-            lib.mdDoc
-              "Address to listen on. If not specified, the server will listen on all interfaces.";
+          description = lib.mdDoc "Address to listen on. If not specified, the server will listen on all interfaces.";
           default = null;
           example = "10.10.0.1";
         };

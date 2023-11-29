@@ -284,17 +284,13 @@ in
       };
 
       sidekiqThreads = lib.mkOption {
-        description =
-          lib.mdDoc
-            "Worker threads used by the mastodon-sidekiq-all service. If `sidekiqProcesses` is configured and any processes specify null `threads`, this value is used.";
+        description = lib.mdDoc "Worker threads used by the mastodon-sidekiq-all service. If `sidekiqProcesses` is configured and any processes specify null `threads`, this value is used.";
         type = lib.types.int;
         default = 25;
       };
 
       sidekiqProcesses = lib.mkOption {
-        description =
-          lib.mdDoc
-            "How many Sidekiq processes should be used to handle background jobs, and which job classes they handle. *Read the [upstream documentation](https://docs.joinmastodon.org/admin/scaling/#sidekiq) before configuring this!*";
+        description = lib.mdDoc "How many Sidekiq processes should be used to handle background jobs, and which job classes they handle. *Read the [upstream documentation](https://docs.joinmastodon.org/admin/scaling/#sidekiq) before configuring this!*";
         type =
           with lib.types;
           attrsOf (
@@ -311,15 +307,11 @@ in
                       "ingress"
                     ]
                   );
-                  description =
-                    lib.mdDoc
-                      "If not empty, which job classes should be executed by this process. *Only one process should handle the 'scheduler' class. If left empty, this process will handle the 'scheduler' class.*";
+                  description = lib.mdDoc "If not empty, which job classes should be executed by this process. *Only one process should handle the 'scheduler' class. If left empty, this process will handle the 'scheduler' class.*";
                 };
                 threads = lib.mkOption {
                   type = nullOr int;
-                  description =
-                    lib.mdDoc
-                      "Number of threads this process should use for executing jobs. If null, the configured `sidekiqThreads` are used.";
+                  description = lib.mdDoc "Number of threads this process should use for executing jobs. If null, the configured `sidekiqThreads` are used.";
                 };
               };
             }

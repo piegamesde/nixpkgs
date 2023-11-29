@@ -85,25 +85,19 @@ in
       plantumlStats = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Set it to on to enable statistics report (https://plantuml.com/statistics-report).";
+        description = lib.mdDoc "Set it to on to enable statistics report (https://plantuml.com/statistics-report).";
       };
 
       httpAuthorization = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description =
-          lib.mdDoc
-            "When calling the proxy endpoint, the value of HTTP_AUTHORIZATION will be used to set the HTTP Authorization header.";
+        description = lib.mdDoc "When calling the proxy endpoint, the value of HTTP_AUTHORIZATION will be used to set the HTTP Authorization header.";
       };
 
       allowPlantumlInclude = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Enables !include processing which can read files from the server into diagrams. Files are read relative to the current working directory.";
+        description = lib.mdDoc "Enables !include processing which can read files from the server into diagrams. Files are read relative to the current working directory.";
       };
     };
   };

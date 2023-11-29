@@ -66,9 +66,7 @@ in
       enableAuth = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Enable client authentication. Creates a default superuser with username root!";
+        description = lib.mdDoc "Enable client authentication. Creates a default superuser with username root!";
       };
 
       initialRootPassword = mkOption {

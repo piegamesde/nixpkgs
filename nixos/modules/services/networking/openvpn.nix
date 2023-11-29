@@ -34,14 +34,12 @@ let
         done
 
         ${cfg.up}
-        ${optionalString cfg.updateResolvConf
-          "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf"}
+        ${optionalString cfg.updateResolvConf "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf"}
       '';
 
       downScript = ''
         export PATH=${path}
-        ${optionalString cfg.updateResolvConf
-          "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf"}
+        ${optionalString cfg.updateResolvConf "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf"}
         ${cfg.down}
       '';
 

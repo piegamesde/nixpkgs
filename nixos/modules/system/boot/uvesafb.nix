@@ -22,9 +22,7 @@ in
       gfx-mode = mkOption {
         type = types.str;
         default = "1024x768-32";
-        description =
-          mdDoc
-            "Screen resolution in modedb format. See [uvesafb](https://docs.kernel.org/fb/uvesafb.html) and [modedb](https://docs.kernel.org/fb/modedb.html) documentation for more details. The default value is a sensible default but may be not ideal for all setups.";
+        description = mdDoc "Screen resolution in modedb format. See [uvesafb](https://docs.kernel.org/fb/uvesafb.html) and [modedb](https://docs.kernel.org/fb/modedb.html) documentation for more details. The default value is a sensible default but may be not ideal for all setups.";
       };
 
       v86d.package = mkOption {

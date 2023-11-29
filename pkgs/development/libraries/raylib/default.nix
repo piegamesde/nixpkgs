@@ -70,10 +70,8 @@ stdenv.mkDerivation rec {
 
   # fix libasound.so/libpulse.so not being found
   preFixup = ''
-    ${lib.optionalString alsaSupport
-      "patchelf --add-needed ${alsa-lib}/lib/libasound.so $out/lib/libraylib.so.${version}"}
-    ${lib.optionalString pulseSupport
-      "patchelf --add-needed ${libpulseaudio}/lib/libpulse.so $out/lib/libraylib.so.${version}"}
+    ${lib.optionalString alsaSupport "patchelf --add-needed ${alsa-lib}/lib/libasound.so $out/lib/libraylib.so.${version}"}
+    ${lib.optionalString pulseSupport "patchelf --add-needed ${libpulseaudio}/lib/libpulse.so $out/lib/libraylib.so.${version}"}
   '';
 
   passthru.tests = [ raylib-games ];

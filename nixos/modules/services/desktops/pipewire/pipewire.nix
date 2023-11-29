@@ -52,9 +52,7 @@ in
           type = lib.types.bool;
           # this is for backwards compatibility
           default = cfg.alsa.enable || cfg.jack.enable || cfg.pulse.enable;
-          defaultText =
-            lib.literalExpression
-              "config.services.pipewire.alsa.enable || config.services.pipewire.jack.enable || config.services.pipewire.pulse.enable";
+          defaultText = lib.literalExpression "config.services.pipewire.alsa.enable || config.services.pipewire.jack.enable || config.services.pipewire.pulse.enable";
           description = lib.mdDoc "Whether to use PipeWire as the primary sound server";
         };
       };

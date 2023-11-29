@@ -69,9 +69,8 @@ in
 
       font = mkOption {
         default = "${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf";
-        defaultText =
-          literalExpression
-            ''"''${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf"'';
+        defaultText = literalExpression ''
+          "''${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf"'';
         type = types.path;
         description = lib.mdDoc ''
           Font file made available for displaying text on the splash screen.

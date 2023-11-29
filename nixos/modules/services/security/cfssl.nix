@@ -45,9 +45,7 @@ in
     ca = mkOption {
       defaultText = literalExpression ''"''${cfg.dataDir}/ca.pem"'';
       type = types.str;
-      description =
-        lib.mdDoc
-          "CA used to sign the new certificate -- accepts '[file:]fname' or 'env:varname'.";
+      description = lib.mdDoc "CA used to sign the new certificate -- accepts '[file:]fname' or 'env:varname'.";
     };
 
     caKey = mkOption {
@@ -94,9 +92,7 @@ in
     configFile = mkOption {
       default = null;
       type = types.nullOr types.str;
-      description =
-        lib.mdDoc
-          "Path to configuration file. Do not put this in nix-store as it might contain secrets.";
+      description = lib.mdDoc "Path to configuration file. Do not put this in nix-store as it might contain secrets.";
     };
 
     responder = mkOption {
@@ -144,17 +140,13 @@ in
     mutualTlsClientCert = mkOption {
       default = null;
       type = types.nullOr types.path;
-      description =
-        lib.mdDoc
-          "Mutual TLS - client certificate to call remote instance requiring client certs.";
+      description = lib.mdDoc "Mutual TLS - client certificate to call remote instance requiring client certs.";
     };
 
     mutualTlsClientKey = mkOption {
       default = null;
       type = types.nullOr types.path;
-      description =
-        lib.mdDoc
-          "Mutual TLS - client key to call remote instance requiring client certs. Do not put this in nix-store.";
+      description = lib.mdDoc "Mutual TLS - client key to call remote instance requiring client certs. Do not put this in nix-store.";
     };
 
     dbConfig = mkOption {

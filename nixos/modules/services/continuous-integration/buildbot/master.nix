@@ -99,9 +99,7 @@ in
 
       masterCfg = mkOption {
         type = types.path;
-        description =
-          lib.mdDoc
-            "Optionally pass master.cfg path. Other options in this configuration will be ignored.";
+        description = lib.mdDoc "Optionally pass master.cfg path. Other options in this configuration will be ignored.";
         default = defaultMasterCfg;
         defaultText = literalMD "generated configuration file";
         example = "/etc/nixos/buildbot/master.cfg";

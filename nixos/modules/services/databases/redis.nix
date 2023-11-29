@@ -481,17 +481,13 @@ in
                     type = types.str;
                     default = "notice"; # debug, verbose, notice, warning
                     example = "debug";
-                    description =
-                      lib.mdDoc
-                        "Specify the server verbosity level, options: debug, verbose, notice, warning.";
+                    description = lib.mdDoc "Specify the server verbosity level, options: debug, verbose, notice, warning.";
                   };
 
                   logfile = mkOption {
                     type = types.str;
                     default = "/dev/null";
-                    description =
-                      lib.mdDoc
-                        "Specify the log file name. Also 'stdout' can be used to force Redis to log on the standard output.";
+                    description = lib.mdDoc "Specify the log file name. Also 'stdout' can be used to force Redis to log on the standard output.";
                     example = "/var/log/redis.log";
                   };
 
@@ -598,9 +594,7 @@ in
                   appendOnly = mkOption {
                     type = types.bool;
                     default = false;
-                    description =
-                      lib.mdDoc
-                        "By default data is only periodically persisted to disk, enable this option to use an append-only file for improved persistence.";
+                    description = lib.mdDoc "By default data is only periodically persisted to disk, enable this option to use an append-only file for improved persistence.";
                   };
 
                   appendFsync = mkOption {

@@ -105,17 +105,13 @@ in
       catalinaOpts = mkOption {
         type = types.either (types.listOf types.str) types.str;
         default = "";
-        description =
-          lib.mdDoc
-            "Parameters to pass to the Java Virtual Machine which spawns the Catalina servlet container";
+        description = lib.mdDoc "Parameters to pass to the Java Virtual Machine which spawns the Catalina servlet container";
       };
 
       sharedLibs = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "List containing JAR files or directories with JAR files which are libraries shared by the web applications";
+        description = lib.mdDoc "List containing JAR files or directories with JAR files which are libraries shared by the web applications";
       };
 
       serverXml = mkOption {
@@ -130,18 +126,14 @@ in
       commonLibs = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "List containing JAR files or directories with JAR files which are libraries shared by the web applications and the servlet container";
+        description = lib.mdDoc "List containing JAR files or directories with JAR files which are libraries shared by the web applications and the servlet container";
       };
 
       webapps = mkOption {
         type = types.listOf types.path;
         default = [ tomcat.webapps ];
         defaultText = literalExpression "[ config.services.tomcat.package.webapps ]";
-        description =
-          lib.mdDoc
-            "List containing WAR files or directories with WAR files which are web applications to be deployed on Tomcat";
+        description = lib.mdDoc "List containing WAR files or directories with WAR files which are web applications to be deployed on Tomcat";
       };
 
       virtualHosts = mkOption {
@@ -169,9 +161,7 @@ in
           }
         );
         default = [ ];
-        description =
-          lib.mdDoc
-            "List consisting of a virtual host name and a list of web applications to deploy on each virtual host";
+        description = lib.mdDoc "List consisting of a virtual host name and a list of web applications to deploy on each virtual host";
       };
 
       logPerVirtualHost = mkOption {
@@ -198,9 +188,7 @@ in
         services = mkOption {
           default = [ ];
           type = types.listOf types.str;
-          description =
-            lib.mdDoc
-              "List containing AAR files or directories with AAR files which are web services to be deployed on Axis2";
+          description = lib.mdDoc "List containing AAR files or directories with AAR files which are web services to be deployed on Axis2";
         };
       };
     };

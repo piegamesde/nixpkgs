@@ -153,9 +153,7 @@ in
             ];
           };
           role = lib.mkOption {
-            description =
-              lib.mdDoc
-                "The role of this server. This affects the replication relationship and thereby available features.";
+            description = lib.mdDoc "The role of this server. This affects the replication relationship and thereby available features.";
             default = "WriteReplica";
             type = lib.types.enum [
               "WriteReplica"

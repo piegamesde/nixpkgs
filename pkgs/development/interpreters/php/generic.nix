@@ -331,20 +331,18 @@ let
           passthru = {
             updateScript =
               let
-                script =
-                  writeShellScript "php${lib.versions.major version}${lib.versions.minor version}-update-script"
-                    ''
-                      set -o errexit
-                      PATH=${
-                        lib.makeBinPath [
-                          common-updater-scripts
-                          curl
-                          jq
-                        ]
-                      }
-                      new_version=$(curl --silent "https://www.php.net/releases/active" | jq --raw-output '."${lib.versions.major version}"."${lib.versions.majorMinor version}".version')
-                      update-source-version "$UPDATE_NIX_ATTR_PATH.unwrapped" "$new_version" "--file=$1"
-                    '';
+                script = writeShellScript "php${lib.versions.major version}${lib.versions.minor version}-update-script" ''
+                  set -o errexit
+                  PATH=${
+                    lib.makeBinPath [
+                      common-updater-scripts
+                      curl
+                      jq
+                    ]
+                  }
+                  new_version=$(curl --silent "https://www.php.net/releases/active" | jq --raw-output '."${lib.versions.major version}"."${lib.versions.majorMinor version}".version')
+                  update-source-version "$UPDATE_NIX_ATTR_PATH.unwrapped" "$new_version" "--file=$1"
+                '';
               in
               [
                 script

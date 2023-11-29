@@ -627,10 +627,7 @@ rec {
       ];
 
   # warning added 12-12-2022
-  replaceChars =
-    lib.warn
-      "replaceChars is a deprecated alias of replaceStrings, replace usages of it with replaceStrings."
-      builtins.replaceStrings;
+  replaceChars = lib.warn "replaceChars is a deprecated alias of replaceStrings, replace usages of it with replaceStrings." builtins.replaceStrings;
 
   # Case conversion utilities.
   lowerChars = stringToCharacters "abcdefghijklmnopqrstuvwxyz";

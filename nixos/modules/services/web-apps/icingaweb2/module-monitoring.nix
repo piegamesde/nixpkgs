@@ -58,9 +58,7 @@ in
       mutable = mkOption {
         type = bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Make config.ini of the monitoring module mutable (e.g. via the web interface).";
+        description = lib.mdDoc "Make config.ini of the monitoring module mutable (e.g. via the web interface).";
       };
 
       protectedVars = mkOption {
@@ -70,18 +68,14 @@ in
           "*pass*"
           "community"
         ];
-        description =
-          lib.mdDoc
-            "List of string patterns for custom variables which should be excluded from user’s view.";
+        description = lib.mdDoc "List of string patterns for custom variables which should be excluded from user’s view.";
       };
     };
 
     mutableBackends = mkOption {
       type = bool;
       default = false;
-      description =
-        lib.mdDoc
-          "Make backends.ini of the monitoring module mutable (e.g. via the web interface).";
+      description = lib.mdDoc "Make backends.ini of the monitoring module mutable (e.g. via the web interface).";
     };
 
     backends = mkOption {
@@ -122,9 +116,7 @@ in
     mutableTransports = mkOption {
       type = bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Make commandtransports.ini of the monitoring module mutable (e.g. via the web interface).";
+      description = lib.mdDoc "Make commandtransports.ini of the monitoring module mutable (e.g. via the web interface).";
     };
 
     transports = mkOption {

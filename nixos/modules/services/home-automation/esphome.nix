@@ -42,9 +42,7 @@ in
     enableUnixSocket = mkOption {
       type = types.bool;
       default = false;
-      description =
-        lib.mdDoc
-          "Listen on a unix socket `/run/esphome/esphome.sock` instead of the TCP port.";
+      description = lib.mdDoc "Listen on a unix socket `/run/esphome/esphome.sock` instead of the TCP port.";
     };
 
     address = mkOption {

@@ -48,8 +48,7 @@ let
       bridgeArg = optionalString (suppl.bridge != "") "-b${suppl.bridge}";
       confFileArg = optionalString (suppl.configFile.path != null) "-c${suppl.configFile.path}";
       extraConfFile = pkgs.writeText "supplicant-extra-conf-${replaceStrings [ " " ] [ "-" ] iface}" ''
-        ${optionalString suppl.userControlled.enable
-          "ctrl_interface=DIR=${suppl.userControlled.socketDir} GROUP=${suppl.userControlled.group}"}
+        ${optionalString suppl.userControlled.enable "ctrl_interface=DIR=${suppl.userControlled.socketDir} GROUP=${suppl.userControlled.group}"}
         ${optionalString suppl.configFile.writable "update_config=1"}
         ${suppl.extraConf}
       '';

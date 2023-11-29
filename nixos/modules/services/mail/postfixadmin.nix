@@ -72,9 +72,7 @@ in
       };
       passwordFile = mkOption {
         type = types.path;
-        description =
-          lib.mdDoc
-            "Password file for the postgresql connection. Must be readable by user `nginx`.";
+        description = lib.mdDoc "Password file for the postgresql connection. Must be readable by user `nginx`.";
       };
       dbname = mkOption {
         type = types.str;
@@ -86,9 +84,7 @@ in
     extraConfig = mkOption {
       type = types.lines;
       default = "";
-      description =
-        lib.mdDoc
-          "Extra configuration for the postfixadmin instance, see postfixadmin's config.inc.php for available options.";
+      description = lib.mdDoc "Extra configuration for the postfixadmin instance, see postfixadmin's config.inc.php for available options.";
     };
   };
 

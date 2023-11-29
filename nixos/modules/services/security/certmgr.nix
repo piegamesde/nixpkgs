@@ -68,17 +68,13 @@ in
     validMin = mkOption {
       default = "72h";
       type = types.str;
-      description =
-        lib.mdDoc
-          "The interval before a certificate expires to start attempting to renew it.";
+      description = lib.mdDoc "The interval before a certificate expires to start attempting to renew it.";
     };
 
     renewInterval = mkOption {
       default = "30m";
       type = types.str;
-      description =
-        lib.mdDoc
-          "How often to check certificate expirations and how often to update the cert_next_expires metric.";
+      description = lib.mdDoc "How often to check certificate expirations and how often to update the cert_next_expires metric.";
     };
 
     metricsAddress = mkOption {

@@ -237,27 +237,17 @@ lib.makeScope pkgs.newScope (
 
   # They need to be outside the scope or they will shadow the attributes from parent scope.
 
-  vala =
-    throw
-      "The ‘pantheon.vala’ alias was removed on 2022-02-02, please use ‘pkgs.vala’ directly."; # added 2019-10-10
+  vala = throw "The ‘pantheon.vala’ alias was removed on 2022-02-02, please use ‘pkgs.vala’ directly."; # added 2019-10-10
 
-  cerbere =
-    throw
-      "Cerbere is now obsolete https://github.com/elementary/cerbere/releases/tag/2.5.1."; # added 2020-04-06
+  cerbere = throw "Cerbere is now obsolete https://github.com/elementary/cerbere/releases/tag/2.5.1."; # added 2020-04-06
 
-  elementary-screenshot-tool =
-    throw
-      "The ‘pantheon.elementary-screenshot-tool’ alias was removed on 2022-02-02, please use ‘pantheon.elementary-screenshot’ directly."; # added 2021-07-21
+  elementary-screenshot-tool = throw "The ‘pantheon.elementary-screenshot-tool’ alias was removed on 2022-02-02, please use ‘pantheon.elementary-screenshot’ directly."; # added 2021-07-21
 
   evince = pkgs.gnome.evince; # added 2022-03-18
 
-  extra-elementary-contracts =
-    throw
-      "extra-elementary-contracts has been removed as all contracts have been upstreamed."; # added 2021-12-01
+  extra-elementary-contracts = throw "extra-elementary-contracts has been removed as all contracts have been upstreamed."; # added 2021-12-01
 
   file-roller = pkgs.gnome.file-roller; # added 2022-03-12
 
-  notes-up =
-    throw
-      "The ‘pantheon.notes-up’ alias was removed on 2022-02-02, please use ‘pkgs.notes-up’ directly."; # added 2021-12-18
+  notes-up = throw "The ‘pantheon.notes-up’ alias was removed on 2022-02-02, please use ‘pkgs.notes-up’ directly."; # added 2021-12-18
 }

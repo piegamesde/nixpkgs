@@ -197,9 +197,7 @@ in
       };
 
       whitelist = mkOption {
-        description =
-          lib.mdDoc
-            "Only metrics received which match one of the expressions will be persisted.";
+        description = lib.mdDoc "Only metrics received which match one of the expressions will be persisted.";
         default = null;
         type = types.nullOr types.str;
         example = ".*";
@@ -220,9 +218,7 @@ in
       };
 
       enableRelay = mkOption {
-        description =
-          lib.mdDoc
-            "Whether to enable carbon relay, the carbon replication and sharding service.";
+        description = lib.mdDoc "Whether to enable carbon relay, the carbon replication and sharding service.";
         default = false;
         type = types.bool;
       };
@@ -277,9 +273,8 @@ in
 
       graphiteUrl = mkOption {
         default = "http://${cfg.web.listenAddress}:${toString cfg.web.port}";
-        defaultText =
-          literalExpression
-            ''"http://''${config.${opt.web.listenAddress}}:''${toString config.${opt.web.port}}"'';
+        defaultText = literalExpression ''
+          "http://''${config.${opt.web.listenAddress}}:''${toString config.${opt.web.port}}"'';
         description = lib.mdDoc "Host where graphite service runs.";
         type = types.str;
       };

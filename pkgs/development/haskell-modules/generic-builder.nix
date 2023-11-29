@@ -280,8 +280,7 @@ let
         "--ghc-option=-optl=-Wl,-headerpad_max_install_names"
       )
       (optionalString enableParallelBuilding "--ghc-options=${parallelBuildingFlags}")
-      (optionalString useCpphs
-        "--with-cpphs=${cpphs}/bin/cpphs --ghc-options=-cpp --ghc-options=-pgmP${cpphs}/bin/cpphs --ghc-options=-optP--cpp"
+      (optionalString useCpphs "--with-cpphs=${cpphs}/bin/cpphs --ghc-options=-cpp --ghc-options=-pgmP${cpphs}/bin/cpphs --ghc-options=-optP--cpp"
       )
       (enableFeature
         (

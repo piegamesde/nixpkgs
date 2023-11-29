@@ -122,8 +122,9 @@ let
 
   disabled =
     drv:
-    throw
-      "${removePythonPrefix (drv.pname or drv.name)} not supported for interpreter ${python.executable}";
+    throw "${
+        removePythonPrefix (drv.pname or drv.name)
+      } not supported for interpreter ${python.executable}";
 
   disabledIf = x: drv: if x then disabled drv else drv;
 in

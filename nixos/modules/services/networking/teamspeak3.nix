@@ -105,9 +105,7 @@ in
       openFirewallServerQuery = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Open ports in the firewall for the TeamSpeak3 serverquery (administration) system. Requires openFirewall.";
+        description = lib.mdDoc "Open ports in the firewall for the TeamSpeak3 serverquery (administration) system. Requires openFirewall.";
       };
     };
   };

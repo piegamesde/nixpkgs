@@ -71,15 +71,13 @@ buildGoModule rec {
     ${lib.optionalString enableAWS "echo - github.com/prometheus/prometheus/discovery/aws"}
     ${lib.optionalString enableAzure "echo - github.com/prometheus/prometheus/discovery/azure"}
     ${lib.optionalString enableConsul "echo - github.com/prometheus/prometheus/discovery/consul"}
-    ${lib.optionalString enableDigitalOcean
-      "echo - github.com/prometheus/prometheus/discovery/digitalocean"}
+    ${lib.optionalString enableDigitalOcean "echo - github.com/prometheus/prometheus/discovery/digitalocean"}
     ${lib.optionalString enableDNS "echo - github.com/prometheus/prometheus/discovery/dns"}
     ${lib.optionalString enableEureka "echo - github.com/prometheus/prometheus/discovery/eureka"}
     ${lib.optionalString enableGCE "echo - github.com/prometheus/prometheus/discovery/gce"}
     ${lib.optionalString enableHetzner "echo - github.com/prometheus/prometheus/discovery/hetzner"}
     ${lib.optionalString enableIONOS "echo - github.com/prometheus/prometheus/discovery/ionos"}
-    ${lib.optionalString enableKubernetes
-      "echo - github.com/prometheus/prometheus/discovery/kubernetes"}
+    ${lib.optionalString enableKubernetes "echo - github.com/prometheus/prometheus/discovery/kubernetes"}
     ${lib.optionalString enableLinode "echo - github.com/prometheus/prometheus/discovery/linode"}
     ${lib.optionalString enableMarathon "echo - github.com/prometheus/prometheus/discovery/marathon"}
     ${lib.optionalString enableMoby "echo - github.com/prometheus/prometheus/discovery/moby"}

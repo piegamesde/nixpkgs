@@ -27,9 +27,7 @@ with lib; {
       type = bool;
       default = true;
       example = true;
-      description =
-        lib.mdDoc
-          "Whether to run the kernel RNG entropy seeding script from the Digital Ocean vendor data";
+      description = lib.mdDoc "Whether to run the kernel RNG entropy seeding script from the Digital Ocean vendor data";
     };
   };
   config =

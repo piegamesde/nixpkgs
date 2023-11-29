@@ -217,17 +217,13 @@ in
     };
 
     masterAddress = mkOption {
-      description =
-        lib.mdDoc
-          "Clusterwide available network address or hostname for the kubernetes master server.";
+      description = lib.mdDoc "Clusterwide available network address or hostname for the kubernetes master server.";
       example = "master.example.com";
       type = types.str;
     };
 
     path = mkOption {
-      description =
-        lib.mdDoc
-          "Packages added to the services' PATH environment variable. Both the bin and sbin subdirectories of each package are added.";
+      description = lib.mdDoc "Packages added to the services' PATH environment variable. Both the bin and sbin subdirectories of each package are added.";
       type = types.listOf types.package;
       default = [ ];
     };

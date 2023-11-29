@@ -136,9 +136,7 @@ let
             ]
           );
           default = null;
-          description =
-            lib.mdDoc
-              "The network to connect to. Mainnet (null) is the default ethereum network.";
+          description = lib.mdDoc "The network to connect to. Mainnet (null) is the default ethereum network.";
         };
 
         syncmode = mkOption {

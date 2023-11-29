@@ -132,13 +132,9 @@ in
         };
     };
 
-    environment.etc."containers/containers.conf".source =
-      toml.generate "containers.conf"
-        cfg.containersConf.settings;
+    environment.etc."containers/containers.conf".source = toml.generate "containers.conf" cfg.containersConf.settings;
 
-    environment.etc."containers/storage.conf".source =
-      toml.generate "storage.conf"
-        cfg.storage.settings;
+    environment.etc."containers/storage.conf".source = toml.generate "storage.conf" cfg.storage.settings;
 
     environment.etc."containers/registries.conf".source = toml.generate "registries.conf" {
       registries = lib.mapAttrs (n: v: { registries = v; }) cfg.registries;

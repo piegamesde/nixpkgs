@@ -93,8 +93,9 @@ stdenv.mkDerivation rec {
       "--with-ksba-prefix=${libksba.dev}"
       "--with-npth-prefix=${npth}"
     ]
-    ++ lib.optional guiSupport
-      "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
+    ++ lib.optional guiSupport "--with-pinentry-pgm=${pinentry}/${
+        pinentry.binaryPath or "bin/pinentry"
+      }"
     ++ lib.optional withTpm2Tss "--with-tss=intel"
     ++ lib.optional stdenv.isDarwin "--disable-ccid-driver";
 

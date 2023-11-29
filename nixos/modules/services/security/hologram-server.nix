@@ -91,9 +91,7 @@ in
       groupClassAttr = mkOption {
         type = types.str;
         default = "groupOfNames";
-        description =
-          lib.mdDoc
-            "The objectclass attribute to search for groups when enableLdapRoles is true";
+        description = lib.mdDoc "The objectclass attribute to search for groups when enableLdapRoles is true";
       };
 
       roleAttr = mkOption {

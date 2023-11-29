@@ -140,9 +140,7 @@ in
       config = mkOption {
         type = types.attrsOf types.attrs;
         default = { };
-        description =
-          lib.mdDoc
-            "netdata.conf configuration as nix attributes. cannot be combined with configText.";
+        description = lib.mdDoc "netdata.conf configuration as nix attributes. cannot be combined with configText.";
         example = literalExpression ''
           global = {
             "debug log" = "syslog";

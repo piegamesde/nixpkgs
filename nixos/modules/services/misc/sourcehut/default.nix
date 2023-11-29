@@ -485,9 +485,7 @@ in
             (defaults to where the hgsrht code is)
           '';
           clone_bundle_threshold = mkOption {
-            description =
-              lib.mdDoc
-                ".hg/store size (in MB) past which the nightly job generates clone bundles.";
+            description = lib.mdDoc ".hg/store size (in MB) past which the nightly job generates clone bundles.";
             type = types.ints.unsigned;
             default = 50;
           };
@@ -576,10 +574,8 @@ in
               description = lib.mdDoc "Origin URL for API, 100 more than web.";
               type = types.str;
               default = "http://${cfg.listenAddress}:${toString (cfg.meta.port + 100)}";
-              defaultText =
-                lib.literalMD
-                  ''
-                    `"http://''${`[](#opt-services.sourcehut.listenAddress)`}:''${toString (`[](#opt-services.sourcehut.meta.port)` + 100)}"`'';
+              defaultText = lib.literalMD ''
+                `"http://''${`[](#opt-services.sourcehut.listenAddress)`}:''${toString (`[](#opt-services.sourcehut.meta.port)` + 100)}"`'';
             };
             webhooks = mkOption {
               description = lib.mdDoc "The Redis connection used for the webhooks worker.";
@@ -613,9 +609,7 @@ in
         };
         options."meta.sr.ht::billing" = {
           enabled = mkEnableOption (lib.mdDoc "the billing system");
-          stripe-public-key =
-            mkOptionNullOrStr
-              "Public key for Stripe. Get your keys at https://dashboard.stripe.com/account/apikeys";
+          stripe-public-key = mkOptionNullOrStr "Public key for Stripe. Get your keys at https://dashboard.stripe.com/account/apikeys";
           stripe-secret-key =
             mkOptionNullOrStr ''
               An absolute file path (which should be outside the Nix-store)
@@ -814,9 +808,7 @@ in
         celeryConfig = mkOption {
           type = types.lines;
           default = "";
-          description =
-            lib.mdDoc
-              "Content of the `celeryconfig.py` used by the Celery of `listssrht-process`.";
+          description = lib.mdDoc "Content of the `celeryconfig.py` used by the Celery of `listssrht-process`.";
         };
       };
     };
@@ -1077,9 +1069,7 @@ in
               {
                 # Note that git.sr.ht::dispatch is not a typo,
                 # gitsrht-dispatch always use this section
-                "git.sr.ht::dispatch"."/usr/bin/buildsrht-keys" =
-                  mkDefault
-                    "${cfg.builds.user}:${cfg.builds.group}";
+                "git.sr.ht::dispatch"."/usr/bin/buildsrht-keys" = mkDefault "${cfg.builds.user}:${cfg.builds.group}";
               }
               (mkIf cfg.builds.enableWorker {
                 "builds.sr.ht::worker".shell = "/usr/bin/runner-shell";
@@ -1515,9 +1505,7 @@ in
             touch ${stateDir}/webhook
           '';
           serviceConfig = {
-            ExecStart =
-              mkForce
-                "${pkgs.sourcehut.pagessrht}/bin/pages.sr.ht -b ${cfg.listenAddress}:${toString cfg.pages.port}";
+            ExecStart = mkForce "${pkgs.sourcehut.pagessrht}/bin/pages.sr.ht -b ${cfg.listenAddress}:${toString cfg.pages.port}";
           };
         };
     })

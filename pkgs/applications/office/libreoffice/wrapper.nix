@@ -115,9 +115,7 @@ runCommand "${unwrapped.name}-wrapped"
     passthru = {
       inherit unwrapped;
       # For backwards compatibility:
-      libreoffice =
-        lib.warn "libreoffice: Use the unwrapped attributed, using libreoffice.libreoffice is deprecated."
-          unwrapped;
+      libreoffice = lib.warn "libreoffice: Use the unwrapped attributed, using libreoffice.libreoffice is deprecated." unwrapped;
       inherit (unwrapped) kdeIntegration;
     };
   }

@@ -172,9 +172,7 @@ in
       background = mkOption {
         type = types.either types.path (types.strMatching "^#[0-9]{6}$");
         # Manual cannot depend on packages, we are actually setting the default in config below.
-        defaultText =
-          literalExpression
-            "pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath";
+        defaultText = literalExpression "pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath";
         description = lib.mdDoc ''
           The background image or color to use.
         '';
@@ -225,9 +223,7 @@ in
     ];
 
     # Keep in sync with the defaultText value from the option definition.
-    services.xserver.displayManager.lightdm.background =
-      mkDefault
-        pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
+    services.xserver.displayManager.lightdm.background = mkDefault pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
 
     # Set default session in session chooser to a specified values – basically ignore session history.
     # Auto-login is already covered by a config value.

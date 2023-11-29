@@ -180,9 +180,7 @@ let
     stdenv.targetPlatform.darwinMinVersion
   );
 
-  darwinMinVersionVariable =
-    optionalString stdenv.targetPlatform.isDarwin
-      stdenv.targetPlatform.darwinMinVersionVariable;
+  darwinMinVersionVariable = optionalString stdenv.targetPlatform.isDarwin stdenv.targetPlatform.darwinMinVersionVariable;
 in
 
 # Ensure bintools matches

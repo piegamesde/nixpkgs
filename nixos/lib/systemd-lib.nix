@@ -33,9 +33,7 @@ rec {
       ];
 
   # a type for options that take a unit name
-  unitNameType =
-    types.strMatching
-      "[a-zA-Z0-9@%:_.\\-]+[.](service|socket|device|mount|automount|swap|target|path|timer|scope|slice)";
+  unitNameType = types.strMatching "[a-zA-Z0-9@%:_.\\-]+[.](service|socket|device|mount|automount|swap|target|path|timer|scope|slice)";
 
   makeUnit =
     name: unit:
@@ -532,8 +530,7 @@ rec {
             # systemd max line length is now 1MiB
             # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
             if stringLength s >= 1048576 then
-              throw
-                "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
+              throw "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
             else
               s
           )

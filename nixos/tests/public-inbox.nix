@@ -224,14 +224,12 @@ import ./make-test-python.nix (
       # Read a mail through public-inbox-imapd
       machine.wait_for_open_port(993)
       machine.wait_for_unit("public-inbox-imapd.service")
-      machine.succeed("openssl s_client -ign_eof -crlf -connect machine.${domain}:993 <${pkgs.writeText
-        "imap-commands"
-        ''
-          tag login anonymous@${domain} anonymous
-          tag SELECT INBOX.comp.${orga}.repo1.0
-          tag FETCH 1 (BODY[HEADER])
-          tag LOGOUT
-        ''} | grep '^Message-ID: <repo1@root-1>'")
+      machine.succeed("openssl s_client -ign_eof -crlf -connect machine.${domain}:993 <${pkgs.writeText "imap-commands" ''
+        tag login anonymous@${domain} anonymous
+        tag SELECT INBOX.comp.${orga}.repo1.0
+        tag FETCH 1 (BODY[HEADER])
+        tag LOGOUT
+      ''} | grep '^Message-ID: <repo1@root-1>'")
 
       # TODO: Read a mail through public-inbox-nntpd
       #machine.wait_for_open_port(563)

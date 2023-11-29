@@ -304,9 +304,7 @@ in
             '''
           ]
         '';
-        description =
-          lib.mdDoc
-            "Content of additional InputClass sections of the X server configuration file.";
+        description = lib.mdDoc "Content of additional InputClass sections of the X server configuration file.";
       };
 
       modules = mkOption {
@@ -507,9 +505,7 @@ in
       extraConfig = mkOption {
         type = types.lines;
         default = "";
-        description =
-          lib.mdDoc
-            "Additional contents (sections) included in the X server configuration file";
+        description = lib.mdDoc "Additional contents (sections) included in the X server configuration file";
       };
 
       xrandrHeads = mkOption {

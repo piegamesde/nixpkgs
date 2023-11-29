@@ -183,9 +183,9 @@ let
   distSetName = if stdenv.hostPlatform.isMusl then "musl" else "defaultLibc";
 
   binDistUsed =
-    ghcBinDists.${distSetName}.${stdenv.hostPlatform.system} or (throw
-      "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')"
-    );
+    ghcBinDists.${distSetName}.${stdenv.hostPlatform.system}
+      or (throw "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')"
+      );
 
   gmpUsed =
     (builtins.head (

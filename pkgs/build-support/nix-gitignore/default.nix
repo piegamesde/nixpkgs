@@ -244,8 +244,8 @@ rec {
       type = typeOf patterns;
     in
     if (type == "string" && pathExists patterns) || type == "path" then
-      throw "type error in gitignoreSource(patterns -> source -> path), "
-        ''use [] or "" if there are no additional patterns''
+      throw "type error in gitignoreSource(patterns -> source -> path), " ''
+        use [] or "" if there are no additional patterns''
     else
       gitignoreFilterSource (_: _: true) patterns;
 

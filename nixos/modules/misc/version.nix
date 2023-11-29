@@ -174,9 +174,7 @@ in
     nixos.variant_id = mkOption {
       type = types.nullOr (types.strMatching "^[a-z0-9._-]+$");
       default = null;
-      description =
-        lib.mdDoc
-          "A lower-case string identifying a specific variant or edition of the operating system";
+      description = lib.mdDoc "A lower-case string identifying a specific variant or edition of the operating system";
       example = "installer";
     };
 
@@ -221,9 +219,7 @@ in
     configurationRevision = mkOption {
       type = types.nullOr types.str;
       default = null;
-      description =
-        lib.mdDoc
-          "The Git revision of the top-level flake from which this configuration was built.";
+      description = lib.mdDoc "The Git revision of the top-level flake from which this configuration was built.";
     };
   };
 

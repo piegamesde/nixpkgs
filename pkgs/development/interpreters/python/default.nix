@@ -55,9 +55,7 @@
                     lib.extendDerivation
                       (
                         valid value
-                        ||
-                          throw
-                            "${name} should use `buildPythonPackage` or `toPythonModule` if it is to be part of the Python packages set."
+                        || throw "${name} should use `buildPythonPackage` or `toPythonModule` if it is to be part of the Python packages set."
                       )
                       { }
                       value

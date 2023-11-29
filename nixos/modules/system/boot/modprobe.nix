@@ -14,8 +14,7 @@ with lib;
   options = {
     boot.modprobeConfig.enable =
       mkEnableOption (
-        lib.mdDoc
-          "modprobe config. This is useful for systems like containers which do not require a kernel"
+        lib.mdDoc "modprobe config. This is useful for systems like containers which do not require a kernel"
       )
       // {
         default = true;

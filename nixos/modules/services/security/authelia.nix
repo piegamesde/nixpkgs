@@ -215,9 +215,7 @@ let
                   type = types.nullOr types.path;
                   default = null;
                   example = "/var/log/authelia/authelia.log";
-                  description =
-                    mdDoc
-                      "File path where the logs will be written. If not set logs are written to stdout.";
+                  description = mdDoc "File path where the logs will be written. If not set logs are written to stdout.";
                 };
 
                 keep_stdout = mkOption {
@@ -241,9 +239,7 @@ let
                     type = types.str;
                     default = "tcp://127.0.0.1:9959";
                     example = "tcp://0.0.0.0:8888";
-                    description =
-                      mdDoc
-                        "The address to listen on for metrics. This should be on a different port to the main `server.port` value.";
+                    description = mdDoc "The address to listen on for metrics. This should be on a different port to the main `server.port` value.";
                   };
                 };
               };

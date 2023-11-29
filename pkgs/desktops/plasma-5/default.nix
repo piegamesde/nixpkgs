@@ -209,9 +209,7 @@ let
     }
     // lib.optionalAttrs config.allowAliases {
       ksysguard = throw "ksysguard has been replaced with plasma-systemmonitor";
-      plasma-phone-components =
-        throw
-          "'plasma-phone-components' has been renamed to/replaced by 'plasma-mobile'";
+      plasma-phone-components = throw "'plasma-phone-components' has been renamed to/replaced by 'plasma-mobile'";
     };
 in
 lib.makeScope libsForQt5.newScope packages

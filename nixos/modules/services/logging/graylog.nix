@@ -94,25 +94,19 @@ in
       elasticsearchHosts = mkOption {
         type = types.listOf types.str;
         example = literalExpression ''[ "http://node1:9200" "http://user:password@node2:19200" ]'';
-        description =
-          lib.mdDoc
-            "List of valid URIs of the http ports of your elastic nodes. If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that requires authentication";
+        description = lib.mdDoc "List of valid URIs of the http ports of your elastic nodes. If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that requires authentication";
       };
 
       messageJournalDir = mkOption {
         type = types.str;
         default = "/var/lib/graylog/data/journal";
-        description =
-          lib.mdDoc
-            "The directory which will be used to store the message journal. The directory must be exclusively used by Graylog and must not contain any other files than the ones created by Graylog itself";
+        description = lib.mdDoc "The directory which will be used to store the message journal. The directory must be exclusively used by Graylog and must not contain any other files than the ones created by Graylog itself";
       };
 
       mongodbUri = mkOption {
         type = types.str;
         default = "mongodb://localhost/graylog";
-        description =
-          lib.mdDoc
-            "MongoDB connection string. See http://docs.mongodb.org/manual/reference/connection-string/ for details";
+        description = lib.mdDoc "MongoDB connection string. See http://docs.mongodb.org/manual/reference/connection-string/ for details";
       };
 
       extraConfig = mkOption {

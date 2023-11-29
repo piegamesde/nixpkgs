@@ -73,9 +73,7 @@ in
       default = { };
     };
     extraSettingsFile = lib.mkOption {
-      description =
-        lib.mdDoc
-          "YAML file to merge into the schleuder config at runtime. This can be used for secrets such as API keys.";
+      description = lib.mdDoc "YAML file to merge into the schleuder config at runtime. This can be used for secrets such as API keys.";
       type = lib.types.nullOr lib.types.path;
       default = null;
     };
@@ -170,9 +168,7 @@ in
     environment.etc."schleuder/schleuder.yml" = lib.mkIf (cfg.extraSettingsFile == null) {
       source = settingsFormat.generate "schleuder.yml" cfg.settings;
     };
-    environment.etc."schleuder/list-defaults.yml".source =
-      settingsFormat.generate "list-defaults.yml"
-        cfg.listDefaults;
+    environment.etc."schleuder/list-defaults.yml".source = settingsFormat.generate "list-defaults.yml" cfg.listDefaults;
 
     services.schleuder = {
       #lists_dir = "/var/lib/schleuder.lists";
