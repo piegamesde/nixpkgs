@@ -29,9 +29,7 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-calculator/${
-        lib.versions.major version
-      }/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-calculator/${lib.versions.major version}/${pname}-${version}.tar.xz";
     sha256 = "FOdjMp+IMJp+FSeA1XNhtUMQDjI5BrNOBlX9wxW3EEM=";
   };
 

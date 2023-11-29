@@ -217,9 +217,7 @@ in
           sed -e 's,port="8090",port="${toString cfg.listenPort}" address="${cfg.listenAddress}",' \
         ''
         + (lib.optionalString cfg.proxy.enable ''
-          -e 's,protocol="org.apache.coyote.http11.Http11NioProtocol",protocol="org.apache.coyote.http11.Http11NioProtocol" proxyName="${cfg.proxy.name}" proxyPort="${
-            toString cfg.proxy.port
-          }" scheme="${cfg.proxy.scheme}",' \
+          -e 's,protocol="org.apache.coyote.http11.Http11NioProtocol",protocol="org.apache.coyote.http11.Http11NioProtocol" proxyName="${cfg.proxy.name}" proxyPort="${toString cfg.proxy.port}" scheme="${cfg.proxy.scheme}",' \
         '')
         + ''
             ${pkg}/conf/server.xml.dist > ${cfg.home}/server.xml

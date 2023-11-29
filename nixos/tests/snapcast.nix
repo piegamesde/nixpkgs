@@ -70,9 +70,7 @@ import ./make-test-python.nix (
 
       with subtest("test http json-rpc"):
           server.succeed(
-              "curl --fail http://localhost:${
-                toString httpPort
-              }/jsonrpc -d '{json.dumps(get_rpc_version)}'"
+              "curl --fail http://localhost:${toString httpPort}/jsonrpc -d '{json.dumps(get_rpc_version)}'"
           )
 
       with subtest("test a ipv6 connection"):
@@ -80,18 +78,14 @@ import ./make-test-python.nix (
           server.wait_until_succeeds(
               "journalctl -o cat -u snapserver.service | grep -q 'Hello from'"
           )
-          server.wait_until_succeeds("journalctl -o cat -u snapcast-local-client | grep -q 'buffer: ${
-            toString bufferSize
-          }'")
+          server.wait_until_succeeds("journalctl -o cat -u snapcast-local-client | grep -q 'buffer: ${toString bufferSize}'")
 
       with subtest("test a connection"):
           client.execute("systemd-run --unit=snapcast-client snapclient -h server -p ${toString port}")
           server.wait_until_succeeds(
               "journalctl -o cat -u snapserver.service | grep -q 'Hello from'"
           )
-          client.wait_until_succeeds("journalctl -o cat -u snapcast-client | grep -q 'buffer: ${
-            toString bufferSize
-          }'")
+          client.wait_until_succeeds("journalctl -o cat -u snapcast-client | grep -q 'buffer: ${toString bufferSize}'")
     '';
   }
 )

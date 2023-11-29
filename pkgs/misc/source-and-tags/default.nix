@@ -83,9 +83,7 @@
               # *.*hs.* to catch gtk2hs .hs.pp files
               tagCmd = "\n                   srcs=\"`find . -type f -name \"*.*hs\"; find . -type f -name \"*.*hs*\";`\"\n                   [ -z \"$srcs\" ] || {\n                    # without this creating tag files for lifted-base fails\n                    export LC_ALL=en_US.UTF-8\n                    export LANG=en_US.UTF-8\n                    ${
                                       lib.optionalString stdenv.isLinux "export LOCALE_ARCHIVE=${glibcLocales}/lib/locale/locale-archive;"
-                                    }\n\n                    ${
-                                      toString hasktags
-                                    }/bin/hasktags --ignore-close-implementation --ctags .\n                    mv tags $TAG_FILE\n                   }";
+                                    }\n\n                    ${toString hasktags}/bin/hasktags --ignore-close-implementation --ctags .\n                    mv tags $TAG_FILE\n                   }";
             }
           ];
         };

@@ -745,9 +745,7 @@ in
               export PGPASSFILE
               PGPASSFILE=$(mktemp)
               cat > $PGPASSFILE <<EOF
-              ${cfg.database.host}:${
-                toString cfg.database.port
-              }:${cfg.database.name}:${cfg.database.user}:$(cat ${cfg.database.passwordFile})
+              ${cfg.database.host}:${toString cfg.database.port}:${cfg.database.name}:${cfg.database.user}:$(cat ${cfg.database.passwordFile})
               EOF
 
             ''

@@ -226,9 +226,7 @@ lib.makeOverridable (
           if [ -f "$file" ]; then
             substituteInPlace "$file" \
               --replace NIXOS_RANDSTRUCT_SEED \
-              $(echo ${randstructSeed}${src} ${
-                placeholder "configfile"
-              } | sha256sum | cut -d ' ' -f 1 | tr -d '\n')
+              $(echo ${randstructSeed}${src} ${placeholder "configfile"} | sha256sum | cut -d ' ' -f 1 | tr -d '\n')
             break
           fi
         done

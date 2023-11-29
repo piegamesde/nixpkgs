@@ -248,9 +248,7 @@ in
             # arguments to $(tahoe run). The node directory must come first,
             # and arguments which alter Twisted's behavior come afterwards.
             ExecStart = ''
-              ${settings.package}/bin/tahoe run ${lib.escapeShellArg nodedir} --pidfile=${
-                lib.escapeShellArg pidfile
-              }
+              ${settings.package}/bin/tahoe run ${lib.escapeShellArg nodedir} --pidfile=${lib.escapeShellArg pidfile}
             '';
           };
           preStart = ''
@@ -354,9 +352,7 @@ in
             # arguments to $(tahoe run). The node directory must come first,
             # and arguments which alter Twisted's behavior come afterwards.
             ExecStart = ''
-              ${settings.package}/bin/tahoe run ${lib.escapeShellArg nodedir} --pidfile=${
-                lib.escapeShellArg pidfile
-              }
+              ${settings.package}/bin/tahoe run ${lib.escapeShellArg nodedir} --pidfile=${lib.escapeShellArg pidfile}
             '';
           };
           preStart = ''

@@ -73,9 +73,7 @@ in
           throwIfNot
           (derivation.outputs == [ "out" ])
           # Supporting multiple outputs should be a matter of inheriting more attrs.
-          "The derivation ${
-            derivation.name or "<unknown>"
-          } has multiple outputs. This is not supported by lazySimpleDerivation yet. Support could be added, and be useful as long as the set of outputs is known in advance, without evaluating the actual derivation."
+          "The derivation ${derivation.name or "<unknown>"} has multiple outputs. This is not supported by lazySimpleDerivation yet. Support could be added, and be useful as long as the set of outputs is known in advance, without evaluating the actual derivation."
           derivation;
     in
     {

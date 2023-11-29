@@ -226,9 +226,7 @@ stdenv.mkDerivation {
         if stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf" then
           ''
             patchelf --set-soname libblas${canonicalExtension} $out/lib/libblas${canonicalExtension}
-            patchelf --set-rpath "$(patchelf --print-rpath $out/lib/libblas${canonicalExtension}):${
-              lib.getLib blasProvider'
-            }/lib" $out/lib/libblas${canonicalExtension}
+            patchelf --set-rpath "$(patchelf --print-rpath $out/lib/libblas${canonicalExtension}):${lib.getLib blasProvider'}/lib" $out/lib/libblas${canonicalExtension}
           ''
         else
           lib.optionalString (stdenv.hostPlatform.isDarwin) ''
@@ -267,9 +265,7 @@ stdenv.mkDerivation {
         if stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf" then
           ''
             patchelf --set-soname libcblas${canonicalExtension} $out/lib/libcblas${canonicalExtension}
-            patchelf --set-rpath "$(patchelf --print-rpath $out/lib/libcblas${canonicalExtension}):${
-              lib.getLib blasProvider'
-            }/lib" $out/lib/libcblas${canonicalExtension}
+            patchelf --set-rpath "$(patchelf --print-rpath $out/lib/libcblas${canonicalExtension}):${lib.getLib blasProvider'}/lib" $out/lib/libcblas${canonicalExtension}
           ''
         else
           lib.optionalString stdenv.hostPlatform.isDarwin ''
@@ -296,9 +292,7 @@ stdenv.mkDerivation {
       ''
       + lib.optionalString (blasImplementation == "mkl") ''
         mkdir -p $out/nix-support
-        echo 'export MKL_INTERFACE_LAYER=${
-          lib.optionalString isILP64 "I"
-        }LP64,GNU' > $out/nix-support/setup-hook
+        echo 'export MKL_INTERFACE_LAYER=${lib.optionalString isILP64 "I"}LP64,GNU' > $out/nix-support/setup-hook
         ln -s $out/lib/libblas${canonicalExtension} $out/lib/libmkl_rt${stdenv.hostPlatform.extensions.sharedLibrary}
         ln -sf ${blasProvider'}/include/* $dev/include
       ''

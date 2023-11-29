@@ -91,9 +91,7 @@ stdenv.mkDerivation rec {
 
   postFixup =
     let
-      introspectionPy = "${
-          placeholder "installedTests"
-        }/libexec/installed-tests/graphene-1.0/introspection.py";
+      introspectionPy = "${placeholder "installedTests"}/libexec/installed-tests/graphene-1.0/introspection.py";
     in
     ''
       if [ -x '${introspectionPy}' ] ; then

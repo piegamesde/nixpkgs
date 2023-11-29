@@ -75,9 +75,7 @@ with lib;
     mkMerge [
       (mkIf cfg.enable {
         services.udev.extraRules = ''
-          ACTION=="add|change", SUBSYSTEM=="input", ATTR{name}=="${cfg.device}", ATTR{device/speed}="${
-            toString cfg.speed
-          }", ATTR{device/sensitivity}="${toString cfg.sensitivity}"
+          ACTION=="add|change", SUBSYSTEM=="input", ATTR{name}=="${cfg.device}", ATTR{device/speed}="${toString cfg.speed}", ATTR{device/sensitivity}="${toString cfg.sensitivity}"
         '';
 
         system.activationScripts.trackpoint = ''

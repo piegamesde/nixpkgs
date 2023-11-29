@@ -247,9 +247,9 @@ in
           if pkgs.lib.hasPrefix "/" cfg.network.listenAddress then
             cfg.network.listenAddress
           else
-            "${optionalString (cfg.network.listenAddress != "any") "${cfg.network.listenAddress}:"}${
-              toString cfg.network.port
-            }"
+            "${
+              optionalString (cfg.network.listenAddress != "any") "${cfg.network.listenAddress}:"
+            }${toString cfg.network.port}"
         )
       ];
     };
@@ -267,9 +267,7 @@ in
             imap0
               (
                 i: c:
-                "${pkgs.replace-secret}/bin/replace-secret '{{password-${
-                  toString i
-                }}}' '${c.passwordFile}' /run/mpd/mpd.conf"
+                "${pkgs.replace-secret}/bin/replace-secret '{{password-${toString i}}}' '${c.passwordFile}' /run/mpd/mpd.conf"
               )
               cfg.credentials
           )

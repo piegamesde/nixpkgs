@@ -85,9 +85,7 @@ buildPythonPackage {
   meta = with lib; {
     description = "Radically simple IT automation";
     homepage = "https://www.ansible.com";
-    changelog = "https://github.com/ansible-community/ansible-build-data/blob/${version}/${
-        lib.versions.major version
-      }/CHANGELOG-v${lib.versions.major version}.rst";
+    changelog = "https://github.com/ansible-community/ansible-build-data/blob/${version}/${lib.versions.major version}/CHANGELOG-v${lib.versions.major version}.rst";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ];
   };

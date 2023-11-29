@@ -488,9 +488,7 @@ in
     # the queue/evaluator to prevent builds from failing or aborting.
     systemd.services.hydra-check-space = {
       script = ''
-        if [ $(($(stat -f -c '%a' /nix/store) * $(stat -f -c '%S' /nix/store))) -lt $((${
-          toString cfg.minimumDiskFree
-        } * 1024**3)) ]; then
+        if [ $(($(stat -f -c '%a' /nix/store) * $(stat -f -c '%S' /nix/store))) -lt $((${toString cfg.minimumDiskFree} * 1024**3)) ]; then
             echo "stopping Hydra queue runner due to lack of free space..."
             systemctl stop hydra-queue-runner
         fi

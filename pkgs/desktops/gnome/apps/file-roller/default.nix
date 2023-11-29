@@ -29,9 +29,7 @@ stdenv.mkDerivation rec {
   version = "43.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/file-roller/${
-        lib.versions.major version
-      }/file-roller-${version}.tar.xz";
+    url = "mirror://gnome/sources/file-roller/${lib.versions.major version}/file-roller-${version}.tar.xz";
     sha256 = "KYcp/b252oEywLvGCQdRfWVoWwVhiuBRZzNeZIT1c6E=";
   };
 

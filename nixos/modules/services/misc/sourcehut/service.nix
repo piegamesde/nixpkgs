@@ -359,9 +359,7 @@ in
                     StateDirectory = [ "sourcehut/${srvsrht}" ];
                     StateDirectoryMode = "2750";
                     ExecStart =
-                      "${cfg.python}/bin/gunicorn ${srvsrht}.app:app --name ${srvsrht} --bind ${cfg.listenAddress}:${
-                        toString srvCfg.port
-                      } "
+                      "${cfg.python}/bin/gunicorn ${srvsrht}.app:app --name ${srvsrht} --bind ${cfg.listenAddress}:${toString srvCfg.port} "
                       + concatStringsSep " " srvCfg.gunicorn.extraArgs;
                   };
                   preStart =

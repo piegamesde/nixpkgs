@@ -352,13 +352,9 @@ let
                 }
 
                 if [ ! -z "$k_user" ]; then
-                    k_luks="$(echo -n $k_user | pbkdf2-sha512 ${
-                      toString dev.yubikey.keyLength
-                    } $iterations $response | rbtohex)"
+                    k_luks="$(echo -n $k_user | pbkdf2-sha512 ${toString dev.yubikey.keyLength} $iterations $response | rbtohex)"
                 else
-                    k_luks="$(echo | pbkdf2-sha512 ${
-                      toString dev.yubikey.keyLength
-                    } $iterations $response | rbtohex)"
+                    k_luks="$(echo | pbkdf2-sha512 ${toString dev.yubikey.keyLength} $iterations $response | rbtohex)"
                 fi
 
                 echo -n "$k_luks" | hextorb | ${csopen} --key-file=-
@@ -404,13 +400,9 @@ let
             new_response="$(ykchalresp -${toString dev.yubikey.slot} -x $new_challenge 2>/dev/null)"
 
             if [ ! -z "$k_user" ]; then
-                new_k_luks="$(echo -n $k_user | pbkdf2-sha512 ${
-                  toString dev.yubikey.keyLength
-                } $new_iterations $new_response | rbtohex)"
+                new_k_luks="$(echo -n $k_user | pbkdf2-sha512 ${toString dev.yubikey.keyLength} $new_iterations $new_response | rbtohex)"
             else
-                new_k_luks="$(echo | pbkdf2-sha512 ${
-                  toString dev.yubikey.keyLength
-                } $new_iterations $new_response | rbtohex)"
+                new_k_luks="$(echo | pbkdf2-sha512 ${toString dev.yubikey.keyLength} $new_iterations $new_response | rbtohex)"
             fi
 
             echo -n "$new_k_luks" | hextorb > /crypt-ramfs/new_key
@@ -537,9 +529,9 @@ let
               echo "Waiting for your FIDO2 device..."
               fido2luks open${
                 optionalString dev.allowDiscards " --allow-discards"
-              } ${dev.device} ${dev.name} "${builtins.concatStringsSep "," fido2luksCredentials}" --await-dev ${
-                toString dev.fido2.gracePeriod
-              } --salt string:$passphrase
+              } ${dev.device} ${dev.name} "${
+                builtins.concatStringsSep "," fido2luksCredentials
+              }" --await-dev ${toString dev.fido2.gracePeriod} --salt string:$passphrase
             if [ $? -ne 0 ]; then
               echo "No FIDO2 key found, falling back to normal open procedure"
               open_normally

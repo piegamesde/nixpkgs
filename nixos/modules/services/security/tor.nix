@@ -1571,17 +1571,13 @@ in
                         name: onion:
                         optional (onion.authorizedClients != [ ]) ''
                           rm -rf ${escapeShellArg onion.path}/authorized_clients
-                          install -d -o tor -g tor -m 0700 ${escapeShellArg onion.path} ${
-                            escapeShellArg onion.path
-                          }/authorized_clients
+                          install -d -o tor -g tor -m 0700 ${escapeShellArg onion.path} ${escapeShellArg onion.path}/authorized_clients
                         ''
                         ++
                           imap0
                             (i: pubKey: ''
                               echo ${pubKey} |
-                              install -o tor -g tor -m 0400 /dev/stdin ${escapeShellArg onion.path}/authorized_clients/${
-                                toString i
-                              }.auth
+                              install -o tor -g tor -m 0400 /dev/stdin ${escapeShellArg onion.path}/authorized_clients/${toString i}.auth
                             '')
                             onion.authorizedClients
                         ++ optional (onion.secretKey != null) ''
@@ -1589,9 +1585,7 @@ in
                           key="$(cut -f1 -d: ${escapeShellArg onion.secretKey} | head -1)"
                           case "$key" in
                            ("== ed25519v"*"-secret")
-                            install -o tor -g tor -m 0400 ${escapeShellArg onion.secretKey} ${
-                              escapeShellArg onion.path
-                            }/hs_ed25519_secret_key;;
+                            install -o tor -g tor -m 0400 ${escapeShellArg onion.secretKey} ${escapeShellArg onion.path}/hs_ed25519_secret_key;;
                            (*) echo >&2 "NixOS does not (yet) support secret key type for onion: ${name}"; exit 1;;
                           esac
                         ''

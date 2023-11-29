@@ -119,9 +119,7 @@ let
           mkdir -p "$out/nix-support"
           ${lib.concatMapStrings
             (file: ''
-              echo "file binary-dist ${installDir}/${
-                builtins.baseNameOf file
-              }" >> "$out/nix-support/hydra-build-products"
+              echo "file binary-dist ${installDir}/${builtins.baseNameOf file}" >> "$out/nix-support/hydra-build-products"
             '')
             filesToInstall}
 

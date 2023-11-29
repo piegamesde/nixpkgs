@@ -26,9 +26,7 @@ stdenv.mkDerivation rec {
   version = "40.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-robots/${
-        lib.versions.major version
-      }/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-robots/${lib.versions.major version}/${pname}-${version}.tar.xz";
     sha256 = "04fbykj576dq1h6cycgfhh8wd6yxmlsqykvj188sbwahay42zgvg";
   };
 

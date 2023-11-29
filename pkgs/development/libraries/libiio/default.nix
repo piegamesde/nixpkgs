@@ -71,9 +71,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     # Hardcode path to the shared library into the bindings.
-    sed "s#@libiio@#$lib/lib/libiio${stdenv.hostPlatform.extensions.sharedLibrary}#g" ${
-      ./hardcode-library-path.patch
-    } | patch -p1
+    sed "s#@libiio@#$lib/lib/libiio${stdenv.hostPlatform.extensions.sharedLibrary}#g" ${./hardcode-library-path.patch} | patch -p1
 
     substituteInPlace libiio.rules.cmakein \
       --replace /bin/sh ${runtimeShell}

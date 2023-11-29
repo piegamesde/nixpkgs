@@ -64,9 +64,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  PKG_CONFIG_BASH_COMPLETION_COMPLETIONSDIR = "${
-      placeholder "out"
-    }/share/bash-completion/completions";
+  PKG_CONFIG_BASH_COMPLETION_COMPLETIONSDIR = "${placeholder "out"}/share/bash-completion/completions";
 
   postInstall = ''
     wrapProgram $out/bin/wflinfo \

@@ -26,9 +26,7 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase = ''
-    install asus-ec-sensors.ko -Dm444 -t ${
-      placeholder "out"
-    }/lib/modules/${kernel.modDirVersion}/kernel/drivers/hwmon
+    install asus-ec-sensors.ko -Dm444 -t ${placeholder "out"}/lib/modules/${kernel.modDirVersion}/kernel/drivers/hwmon
   '';
 
   meta = with lib; {

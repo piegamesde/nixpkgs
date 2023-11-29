@@ -144,9 +144,7 @@ stdenv.mkDerivation rec {
       ' .airgeddonrc
 
     sed -Ei '
-      s|\$\(pwd\)|${placeholder "out"}/share/airgeddon;scriptfolder=${
-        placeholder "out"
-      }/share/airgeddon/|
+      s|\$\(pwd\)|${placeholder "out"}/share/airgeddon;scriptfolder=${placeholder "out"}/share/airgeddon/|
       s|\$\{0\}|${placeholder "out"}/bin/airgeddon|
       s|tmux send-keys -t "([^"]+)" "|tmux send-keys -t "\1" "export PATH=\\"$PATH\\"; |
       ' airgeddon.sh

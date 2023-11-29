@@ -197,9 +197,7 @@ let
         {
           warnings =
             optional fromOpt.isDefined
-              "The option `${showOption fromPath}' defined in ${showFiles fromOpt.files} has been renamed to `${
-                showOption toPath
-              }'.";
+              "The option `${showOption fromPath}' defined in ${showFiles fromOpt.files} has been renamed to `${showOption toPath}'.";
         }
         (lib.modules.mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt)
       ];
@@ -258,9 +256,7 @@ let
               {
                 assertion = !ecOpt.isDefined;
                 message = ''
-                  The option definition `${ecPath}' in ${
-                    showFiles ecOpt.files
-                  } no longer has any effect; please remove it.
+                  The option definition `${ecPath}' in ${showFiles ecOpt.files} no longer has any effect; please remove it.
                   ${replaceExtraConfig}'';
               }
               {
@@ -279,9 +275,9 @@ let
                       "settings"
                       "useacl"
                     ]
-                  } is required when ${
-                    showPath [ "usersFile" ]
-                  } is set (Currently defiend as `${config.usersFile}' in ${showFiles options.usersFile.files}).";
+                  } is required when ${showPath [ "usersFile" ]} is set (Currently defiend as `${config.usersFile}' in ${
+                    showFiles options.usersFile.files
+                  }).";
               }
             ];
           }
@@ -627,14 +623,10 @@ in
               ]
               ++
                 lib.optional (cfg.aclFile != null)
-                  "C ${cfg.aclFile} 0640 ${user} ${webserver.group} - ${
-                    pkg hostName cfg
-                  }/share/dokuwiki/conf/acl.auth.php.dist"
+                  "C ${cfg.aclFile} 0640 ${user} ${webserver.group} - ${pkg hostName cfg}/share/dokuwiki/conf/acl.auth.php.dist"
               ++
                 lib.optional (cfg.usersFile != null)
-                  "C ${cfg.usersFile} 0640 ${user} ${webserver.group} - ${
-                    pkg hostName cfg
-                  }/share/dokuwiki/conf/users.auth.php.dist"
+                  "C ${cfg.usersFile} 0640 ${user} ${webserver.group} - ${pkg hostName cfg}/share/dokuwiki/conf/users.auth.php.dist"
             )
             eachSite
         );

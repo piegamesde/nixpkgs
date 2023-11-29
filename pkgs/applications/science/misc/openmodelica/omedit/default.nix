@@ -38,9 +38,7 @@ mkOpenModelicaDerivation rec {
   ];
 
   postPatch = ''
-    sed -i $(find -name qmake.m4) -e '/^\s*LRELEASE=/ s|LRELEASE=.*$|LRELEASE=${
-      lib.getDev qttools
-    }/bin/lrelease|'
+    sed -i $(find -name qmake.m4) -e '/^\s*LRELEASE=/ s|LRELEASE=.*$|LRELEASE=${lib.getDev qttools}/bin/lrelease|'
   '';
 
   dontUseQmakeConfigure = true;

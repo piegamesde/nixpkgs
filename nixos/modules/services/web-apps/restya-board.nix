@@ -297,9 +297,7 @@ in
               if cfg.database.passwordFile == null then "''" else "'$(cat ${cfg.database.passwordFile})');/g"
             }" "${runDir}/server/php/config.inc.php"
           ''}
-        sed -i "s/^.*'R_DB_PORT'.*$/define('R_DB_PORT', '${
-          toString cfg.database.port
-        }');/g" "${runDir}/server/php/config.inc.php"
+        sed -i "s/^.*'R_DB_PORT'.*$/define('R_DB_PORT', '${toString cfg.database.port}');/g" "${runDir}/server/php/config.inc.php"
         sed -i "s/^.*'R_DB_NAME'.*$/define('R_DB_NAME', '${cfg.database.name}');/g" "${runDir}/server/php/config.inc.php"
         sed -i "s/^.*'R_DB_USER'.*$/define('R_DB_USER', '${cfg.database.user}');/g" "${runDir}/server/php/config.inc.php"
 

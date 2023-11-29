@@ -40,9 +40,7 @@ import ./make-test-python.nix (
         someContentIsShared =
           loc:
           pkgs.writeShellScript "some-content-is-shared" ''
-            [[ $(btrfs fi du -s --raw ${
-              lib.escapeShellArg loc
-            }/dedup-me-{1,2} | awk 'BEGIN { count=0; } NR>1 && $3 == 0 { count++ } END { print count }') -eq 0 ]]
+            [[ $(btrfs fi du -s --raw ${lib.escapeShellArg loc}/dedup-me-{1,2} | awk 'BEGIN { count=0; } NR>1 && $3 == 0 { count++ } END { print count }') -eq 0 ]]
           '';
       in
       ''

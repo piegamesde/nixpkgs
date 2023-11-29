@@ -49,9 +49,7 @@ stdenv.mkDerivation rec {
     "-DBUILD_SHARED_LIBS=ON"
     "-DPicoSAT_INCLUDE_DIR=${lib.getDev picosat}/include/picosat"
     "-DBtor2Tools_INCLUDE_DIR=${lib.getDev btor2tools}/include/btor2parser"
-    "-DBtor2Tools_LIBRARIES=${
-      lib.getLib btor2tools
-    }/lib/libbtor2parser${stdenv.hostPlatform.extensions.sharedLibrary}"
+    "-DBtor2Tools_LIBRARIES=${lib.getLib btor2tools}/lib/libbtor2parser${stdenv.hostPlatform.extensions.sharedLibrary}"
   ] ++ lib.optional doCheck "-DTESTING=YES";
 
   nativeCheckInputs = [

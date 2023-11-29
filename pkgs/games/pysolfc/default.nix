@@ -39,9 +39,7 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ desktop-file-utils ];
   postPatch = ''
-    desktop-file-edit --set-key Icon --set-value ${
-      placeholder "out"
-    }/share/icons/pysol01.png data/pysol.desktop
+    desktop-file-edit --set-key Icon --set-value ${placeholder "out"}/share/icons/pysol01.png data/pysol.desktop
     desktop-file-edit --set-key Comment --set-value "${meta.description}" data/pysol.desktop
   '';
 

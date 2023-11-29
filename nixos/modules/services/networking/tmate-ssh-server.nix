@@ -97,9 +97,7 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/tmate-ssh-server -h ${cfg.host} -p ${toString cfg.port} -q ${
-            toString cfg.advertisedPort
-          } -k ${keysDir}";
+        ExecStart = "${cfg.package}/bin/tmate-ssh-server -h ${cfg.host} -p ${toString cfg.port} -q ${toString cfg.advertisedPort} -k ${keysDir}";
       };
       preStart = mkIf (cfg.keysDir == null) ''
         if [[ ! -d ${defaultKeysDir} ]]

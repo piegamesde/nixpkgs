@@ -75,9 +75,7 @@ stdenv.mkDerivation {
 
       echo $pkg-config > $out/nix-support/orig-pkg-config
 
-      wrap ${targetPrefix}${baseBinName} ${./pkg-config-wrapper.sh} "${
-        getBin pkg-config
-      }/bin/${baseBinName}"
+      wrap ${targetPrefix}${baseBinName} ${./pkg-config-wrapper.sh} "${getBin pkg-config}/bin/${baseBinName}"
     ''
     # symlink in share for autoconf to find macros
 

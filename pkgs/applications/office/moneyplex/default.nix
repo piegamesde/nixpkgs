@@ -94,12 +94,8 @@ stdenv.mkDerivation {
     if [ ! -d "\$MDIR/pcsc" ]; then
         ${coreutils}/bin/mkdir -p \$MDIR/pcsc
     fi
-    if [ ! -e "\$MDIR/pcsc/libpcsclite.so.1" ] || [ ! \`${coreutils}/bin/readlink -f "\$MDIR/pcsc/libpcsclite.so.1"\` -ef "${
-      lib.getLib pcsclite
-    }/lib/libpcsclite.so.1" ]; then
-        ${coreutils}/bin/ln -sf "${
-          lib.getLib pcsclite
-        }/lib/libpcsclite.so.1" "\$MDIR/pcsc/libpcsclite.so.1"
+    if [ ! -e "\$MDIR/pcsc/libpcsclite.so.1" ] || [ ! \`${coreutils}/bin/readlink -f "\$MDIR/pcsc/libpcsclite.so.1"\` -ef "${lib.getLib pcsclite}/lib/libpcsclite.so.1" ]; then
+        ${coreutils}/bin/ln -sf "${lib.getLib pcsclite}/lib/libpcsclite.so.1" "\$MDIR/pcsc/libpcsclite.so.1"
     fi
 
 

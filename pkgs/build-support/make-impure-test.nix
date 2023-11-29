@@ -91,9 +91,7 @@ let
 
     ${prepareRunCommands}
 
-    sudo nix-build --option extra-sandbox-paths '${sandboxPathsList}' ${
-      lib.escapeShellArgs nixFlags
-    } -A ${testPath} "$@"
+    sudo nix-build --option extra-sandbox-paths '${sandboxPathsList}' ${lib.escapeShellArgs nixFlags} -A ${testPath} "$@"
   '';
 in
 # The main output is the run script, inject the derivation for the actual test

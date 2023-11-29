@@ -132,15 +132,11 @@ stdenv.mkDerivation {
     chmod a+x $out/bin/playonlinux
 
     bunzip2 $out/share/playonlinux/bin/check_dd_x86.bz2
-    patchelf --set-interpreter $(cat ${ld32}) --set-rpath ${
-      libs pkgsi686Linux
-    } $out/share/playonlinux/bin/check_dd_x86
+    patchelf --set-interpreter $(cat ${ld32}) --set-rpath ${libs pkgsi686Linux} $out/share/playonlinux/bin/check_dd_x86
     ${if stdenv.hostPlatform.system == "x86_64-linux" then
       ''
         bunzip2 $out/share/playonlinux/bin/check_dd_amd64.bz2
-        patchelf --set-interpreter $(cat ${ld64}) --set-rpath ${
-          libs pkgs
-        } $out/share/playonlinux/bin/check_dd_amd64
+        patchelf --set-interpreter $(cat ${ld64}) --set-rpath ${libs pkgs} $out/share/playonlinux/bin/check_dd_amd64
       ''
     else
       ''

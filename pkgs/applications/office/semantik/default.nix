@@ -63,9 +63,7 @@ mkDerivation rec {
       --replace @Qt5Svg_dev@ "${lib.getDev qtsvg}" \
       --replace @Qt5WebEngine@ "${qtwebengine}" \
       --replace @Qt5WebEngine_dev@ "${lib.getDev qtwebengine}" \
-      --replace /usr/include/KF5/KDELibs4Support "${
-        lib.getDev kdelibs4support
-      }/include/KF5/KDELibs4Support"
+      --replace /usr/include/KF5/KDELibs4Support "${lib.getDev kdelibs4support}/include/KF5/KDELibs4Support"
   '';
 
   nativeBuildInputs = [

@@ -384,9 +384,7 @@ rec {
 
     postFixup = ''
       wrapPythonPrograms
-      wrapProgram $out/bin/ceph-mgr --prefix PYTHONPATH ":" "$(toPythonPath ${
-        placeholder "out"
-      }):$(toPythonPath ${ceph-python-env})"
+      wrapProgram $out/bin/ceph-mgr --prefix PYTHONPATH ":" "$(toPythonPath ${placeholder "out"}):$(toPythonPath ${ceph-python-env})"
 
       # Test that ceph-volume exists since the build system has a tendency to
       # silently drop it with misconfigurations.

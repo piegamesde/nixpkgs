@@ -66,9 +66,7 @@ stdenvNoCC.mkDerivation {
   prepareParsec = ''
     if [[ ! -e "$HOME/.parsec/appdata.json" ]]; then
       mkdir -p "$HOME/.parsec"
-      cp --no-preserve=mode,ownership,timestamps ${
-        placeholder "out"
-      }/share/parsec/skel/* "$HOME/.parsec/"
+      cp --no-preserve=mode,ownership,timestamps ${placeholder "out"}/share/parsec/skel/* "$HOME/.parsec/"
     fi
   '';
 

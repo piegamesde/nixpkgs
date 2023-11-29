@@ -398,9 +398,7 @@ rec {
             ];
           in
           throw
-            "Module imports can't be nested lists. Perhaps you meant to remove one level of lists? Definitions: ${
-              showDefs defs
-            }"
+            "Module imports can't be nested lists. Perhaps you meant to remove one level of lists? Definitions: ${showDefs defs}"
         else
           unifyModuleSyntax (toString m) (toString m) (
             applyModuleArgsIfFunction (toString m) (import m) args
@@ -484,9 +482,7 @@ rec {
             else if isConvertibleWithToString m then
               if m ? key && m.key != toString m then
                 throw
-                  "Module `${file}` contains a disabledModules item that is an attribute set that can be converted to a string (${
-                    toString m
-                  }) but also has a `.key` attribute (${m.key}) with a different value. This makes it ambiguous which module should be disabled."
+                  "Module `${file}` contains a disabledModules item that is an attribute set that can be converted to a string (${toString m}) but also has a `.key` attribute (${m.key}) with a different value. This makes it ambiguous which module should be disabled."
               else
                 toString m
 
@@ -498,9 +494,7 @@ rec {
                 "Module `${file}` contains a disabledModules item that is an attribute set, presumably a module, that does not have a `key` attribute. This means that the module system doesn't have any means to identify the module that should be disabled. Make sure that you've put the correct value in disabledModules: a string path relative to modulesPath, a path value, or an attribute set with a `key` attribute."
             else
               throw
-                "Each disabledModules item must be a path, string, or a attribute set with a key attribute, or a value supported by toString. However, one of the disabledModules items in `${
-                  toString file
-                }` is none of that, but is of type ${builtins.typeOf m}.";
+                "Each disabledModules item must be a path, string, or a attribute set with a key attribute, or a value supported by toString. However, one of the disabledModules items in `${toString file}` is none of that, but is of type ${builtins.typeOf m}.";
 
           disabledKeys = concatMap ({ file, disabled }: map (moduleKey file) disabled) disabled;
           keyFilter = filter (attrs: !elem attrs.key disabledKeys);
@@ -561,11 +555,7 @@ rec {
       in
       if badAttrs != { } then
         throw
-          "Module `${key}' has an unsupported attribute `${
-            head (attrNames badAttrs)
-          }'. This is caused by introducing a top-level `config' or `options' attribute. Add configuration attributes immediately on the top level instead, or move all of them (namely: ${
-            toString (attrNames badAttrs)
-          }) into the explicit `config' attribute."
+          "Module `${key}' has an unsupported attribute `${head (attrNames badAttrs)}'. This is caused by introducing a top-level `config' or `options' attribute. Add configuration attributes immediately on the top level instead, or move all of them (namely: ${toString (attrNames badAttrs)}) into the explicit `config' attribute."
       else
         {
           _file = toString m._file or file;
@@ -822,9 +812,7 @@ rec {
                   nonOptions = filter (m: !isOption m.options) decls;
                 in
                 throw ''
-                  The option `${showOption loc}' in module `${
-                    (lib.head optionDecls)._file
-                  }' would be a parent of the following options, but its type `${
+                  The option `${showOption loc}' in module `${(lib.head optionDecls)._file}' would be a parent of the following options, but its type `${
                     (lib.head optionDecls).options.type.description or "<no description>"
                   }' does not support nested options.
                   ${showRawDecls loc nonOptions}''
@@ -904,9 +892,7 @@ rec {
           || (bothHave "type" && (!typesMergeable))
         then
           throw
-            "The option `${showOption loc}' in `${opt._file}' is already declared in ${
-              showFiles res.declarations
-            }."
+            "The option `${showOption loc}' in `${opt._file}' is already declared in ${showFiles res.declarations}."
         else
           let
             getSubModules = opt.options.type.getSubModules or null;
@@ -956,9 +942,7 @@ rec {
                 defs';
           in
           throw
-            "The option `${showOption loc}' is read-only, but it's set multiple times. Definition values:${
-              showDefs separateDefs
-            }"
+            "The option `${showOption loc}' is read-only, but it's set multiple times. Definition values:${showDefs separateDefs}"
         else
           mergeDefinitions loc opt.type defs';
 
@@ -968,9 +952,7 @@ rec {
 
       warnDeprecation =
         warnIf (opt.type.deprecationMessage != null)
-          "The type `types.${opt.type.name}' of option `${showOption loc}' defined in ${
-            showFiles opt.declarations
-          } is deprecated. ${opt.type.deprecationMessage}";
+          "The type `types.${opt.type.name}' of option `${showOption loc}' defined in ${showFiles opt.declarations} is deprecated. ${opt.type.deprecationMessage}";
     in
     warnDeprecation opt
     // {
@@ -1033,9 +1015,7 @@ rec {
             allInvalid = filter (def: !type.check def.value) defsFinal;
           in
           throw
-            "A definition for option `${
-              showOption loc
-            }' is not of type `${type.description}'. Definition values:${showDefs allInvalid}"
+            "A definition for option `${showOption loc}' is not of type `${type.description}'. Definition values:${showDefs allInvalid}"
       else
         # (nixos-option detects this specific error message and gives it special
         # handling.  If changed here, please change it there too.)
@@ -1287,9 +1267,7 @@ rec {
           apply =
             x:
             throw
-              "The option `${
-                showOption optionName
-              }' can no longer be used since it's been removed. ${replacementInstructions}";
+              "The option `${showOption optionName}' can no longer be used since it's been removed. ${replacementInstructions}";
         }
       );
       config.assertions =
@@ -1300,9 +1278,7 @@ rec {
           {
             assertion = !opt.isDefined;
             message = ''
-              The option definition `${showOption optionName}' in ${
-                showFiles opt.files
-              } no longer has any effect; please remove it.
+              The option definition `${showOption optionName}' in ${showFiles opt.files} no longer has any effect; please remove it.
               ${replacementInstructions}
             '';
           }
@@ -1413,11 +1389,7 @@ rec {
                   opt = getAttrFromPath f options;
                 in
                 optionalString (val != "_mkMergedOptionModule")
-                  "The option `${showOption f}' defined in ${showFiles opt.files} has been changed to `${
-                    showOption to
-                  }' that has a different type. Please read `${
-                    showOption to
-                  }' documentation and update your configuration accordingly."
+                  "The option `${showOption f}' defined in ${showFiles opt.files} has been changed to `${showOption to}' that has a different type. Please read `${showOption to}' documentation and update your configuration accordingly."
               )
               from
           );
@@ -1531,9 +1503,7 @@ rec {
         (optionalAttrs (options ? warnings) {
           warnings =
             optional (warn && fromOpt.isDefined)
-              "The option `${showOption from}' defined in ${showFiles fromOpt.files} has been renamed to `${
-                showOption to
-              }'.";
+              "The option `${showOption from}' defined in ${showFiles fromOpt.files} has been renamed to `${showOption to}'.";
         })
         (
           if withPriority then

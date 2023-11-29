@@ -172,15 +172,9 @@ stdenv.mkDerivation rec {
       ln -sf libufr2filterr.so.1.0.0 libufr2filterr.so
       ln -sf libufr2filterr.so.1.0.0 libufr2filterr.so.1
 
-      patchelf --set-rpath "$(cat ${i686_NIX_GCC}/nix-support/orig-cc)/lib:${
-        libs pkgsi686Linux
-      }:${pkgsi686Linux.stdenv.cc.libc}/lib:${pkgsi686Linux.libxml2.out}/lib:$out/lib32" libcanonufr2r.so.1.0.0
-      patchelf --set-rpath "$(cat ${i686_NIX_GCC}/nix-support/orig-cc)/lib:${
-        libs pkgsi686Linux
-      }:${pkgsi686Linux.stdenv.cc.libc}/lib" libcaepcmufr2.so.1.0
-      patchelf --set-rpath "$(cat ${i686_NIX_GCC}/nix-support/orig-cc)/lib:${
-        libs pkgsi686Linux
-      }:${pkgsi686Linux.stdenv.cc.libc}/lib" libColorGearCufr2.so.2.0.0
+      patchelf --set-rpath "$(cat ${i686_NIX_GCC}/nix-support/orig-cc)/lib:${libs pkgsi686Linux}:${pkgsi686Linux.stdenv.cc.libc}/lib:${pkgsi686Linux.libxml2.out}/lib:$out/lib32" libcanonufr2r.so.1.0.0
+      patchelf --set-rpath "$(cat ${i686_NIX_GCC}/nix-support/orig-cc)/lib:${libs pkgsi686Linux}:${pkgsi686Linux.stdenv.cc.libc}/lib" libcaepcmufr2.so.1.0
+      patchelf --set-rpath "$(cat ${i686_NIX_GCC}/nix-support/orig-cc)/lib:${libs pkgsi686Linux}:${pkgsi686Linux.stdenv.cc.libc}/lib" libColorGearCufr2.so.2.0.0
     )
 
     (
@@ -194,15 +188,9 @@ stdenv.mkDerivation rec {
       ln -sf libufr2filterr.so.1.0.0 libufr2filterr.so
       ln -sf libufr2filterr.so.1.0.0 libufr2filterr.so.1
 
-      patchelf --set-rpath "$(cat $NIX_CC/nix-support/orig-cc)/lib:${
-        libs pkgs
-      }:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64:$out/lib" libcanonufr2r.so.1.0.0
-      patchelf --set-rpath "$(cat $NIX_CC/nix-support/orig-cc)/lib:${
-        libs pkgs
-      }:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" libcaepcmufr2.so.1.0
-      patchelf --set-rpath "$(cat $NIX_CC/nix-support/orig-cc)/lib:${
-        libs pkgs
-      }:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" libColorGearCufr2.so.2.0.0
+      patchelf --set-rpath "$(cat $NIX_CC/nix-support/orig-cc)/lib:${libs pkgs}:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64:$out/lib" libcanonufr2r.so.1.0.0
+      patchelf --set-rpath "$(cat $NIX_CC/nix-support/orig-cc)/lib:${libs pkgs}:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" libcaepcmufr2.so.1.0
+      patchelf --set-rpath "$(cat $NIX_CC/nix-support/orig-cc)/lib:${libs pkgs}:${stdenv.cc.cc.lib}/lib64:${stdenv.cc.libc}/lib64" libColorGearCufr2.so.2.0.0
     )
 
     (

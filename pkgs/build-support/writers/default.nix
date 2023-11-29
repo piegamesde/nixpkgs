@@ -223,9 +223,7 @@ let
         {
           compileScript = ''
             cp "$contentPath" tmp.rs
-            PATH=${makeBinPath [ pkgs.gcc ]} ${lib.getBin rustc}/bin/rustc ${lib.escapeShellArgs rustcArgs} ${
-              lib.escapeShellArgs darwinArgs
-            } -o "$out" tmp.rs
+            PATH=${makeBinPath [ pkgs.gcc ]} ${lib.getBin rustc}/bin/rustc ${lib.escapeShellArgs rustcArgs} ${lib.escapeShellArgs darwinArgs} -o "$out" tmp.rs
           '';
           inherit strip;
         }

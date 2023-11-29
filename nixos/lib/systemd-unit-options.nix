@@ -41,9 +41,7 @@ rec {
               def.value
             else
               throw
-                "The definitions for systemd unit options should be either all lists, representing repeatable options, or all non-lists, but for the option ${
-                  showOption loc
-                }, the definitions are a mix of list and non-list ${lib.options.showDefs defs'}"
+                "The definitions for systemd unit options should be either all lists, representing repeatable options, or all non-lists, but for the option ${showOption loc}, the definitions are a mix of list and non-list ${lib.options.showDefs defs'}"
           )
           defs'
 

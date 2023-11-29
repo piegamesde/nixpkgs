@@ -18,9 +18,7 @@ import ./make-test-python.nix (
       machine.start()
       machine.wait_for_unit("languagetool.service")
       machine.wait_for_open_port(${toString port})
-      machine.wait_until_succeeds('curl -d "language=en-US" -d "text=a simple test" http://localhost:${
-        toString port
-      }/v2/check')
+      machine.wait_until_succeeds('curl -d "language=en-US" -d "text=a simple test" http://localhost:${toString port}/v2/check')
     '';
   }
 )

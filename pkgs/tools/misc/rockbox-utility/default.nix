@@ -36,9 +36,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     sed -i rbutil/rbutilqt/rbutilqt.pro \
-        -e '/^lrelease.commands =/ s|$$\[QT_INSTALL_BINS\]/lrelease -silent|${
-          lib.getDev qt5.qttools
-        }/bin/lrelease|'
+        -e '/^lrelease.commands =/ s|$$\[QT_INSTALL_BINS\]/lrelease -silent|${lib.getDev qt5.qttools}/bin/lrelease|'
   '';
 
   preConfigure = ''

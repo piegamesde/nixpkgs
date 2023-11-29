@@ -27,9 +27,7 @@ rustPlatform.buildRustPackage {
     clang
   ];
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
-  BINDGEN_EXTRA_CLANG_ARGS = "-isystem ${llvmPackages.libclang.lib}/lib/clang/${
-      lib.getVersion clang
-    }/include";
+  BINDGEN_EXTRA_CLANG_ARGS = "-isystem ${llvmPackages.libclang.lib}/lib/clang/${lib.getVersion clang}/include";
 
   postPatch = ''
     substituteInPlace src/main.rs --replace "./config.cfg" "$out/etc/sonic/config.cfg"

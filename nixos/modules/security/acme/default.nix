@@ -466,9 +466,7 @@ let
             # Avoids #85794 and resolves #129838
             if ! lego ${renewOpts} --days ${toString data.validMinDays}; then
               if is_expiration_skippable out/full.pem; then
-                echo 1>&2 "nixos-acme: Ignoring failed renewal because expiration isn't within the coming ${
-                  toString data.validMinDays
-                } days"
+                echo 1>&2 "nixos-acme: Ignoring failed renewal because expiration isn't within the coming ${toString data.validMinDays} days"
               else
                 # High number to avoid Systemd reserved codes.
                 exit 11

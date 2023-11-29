@@ -469,15 +469,11 @@ let
               (
                 if lib.isString configureFlags then
                   lib.warn
-                    "String 'configureFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
-                      pos.file or "unknown file"
-                    }"
+                    "String 'configureFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${pos.file or "unknown file"}"
                     [ configureFlags ]
                 else if configureFlags == null then
                   lib.warn
-                    "Null 'configureFlags' is deprecated and will be removed in release 23.05. Please use a empty list instead '[]'. Derivation name: ${derivationArg.name}, file: ${
-                      pos.file or "unknown file"
-                    }"
+                    "Null 'configureFlags' is deprecated and will be removed in release 23.05. Please use a empty list instead '[]'. Derivation name: ${derivationArg.name}, file: ${pos.file or "unknown file"}"
                     [ ]
                 else
                   configureFlags
@@ -491,15 +487,11 @@ let
                 explicitFlags =
                   if lib.isString cmakeFlags then
                     lib.warn
-                      "String 'cmakeFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
-                        pos.file or "unknown file"
-                      }"
+                      "String 'cmakeFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${pos.file or "unknown file"}"
                       [ cmakeFlags ]
                   else if cmakeFlags == null then
                     lib.warn
-                      "Null 'cmakeFlags' is deprecated and will be removed in release 23.05. Please use a empty list instead '[]'. Derivation name: ${derivationArg.name}, file: ${
-                        pos.file or "unknown file"
-                      }"
+                      "Null 'cmakeFlags' is deprecated and will be removed in release 23.05. Please use a empty list instead '[]'. Derivation name: ${derivationArg.name}, file: ${pos.file or "unknown file"}"
                       [ ]
                   else
                     cmakeFlags;
@@ -538,15 +530,11 @@ let
                 explicitFlags =
                   if lib.isString mesonFlags then
                     lib.warn
-                      "String 'mesonFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
-                        pos.file or "unknown file"
-                      }"
+                      "String 'mesonFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${pos.file or "unknown file"}"
                       [ mesonFlags ]
                   else if mesonFlags == null then
                     lib.warn
-                      "Null 'mesonFlags' is deprecated and will be removed in release 23.05. Please use a empty list instead '[]'. Derivation name: ${derivationArg.name}, file: ${
-                        pos.file or "unknown file"
-                      }"
+                      "Null 'mesonFlags' is deprecated and will be removed in release 23.05. Please use a empty list instead '[]'. Derivation name: ${derivationArg.name}, file: ${pos.file or "unknown file"}"
                       [ ]
                   else
                     mesonFlags;
@@ -696,9 +684,7 @@ let
             (
               n: v:
               assert lib.assertMsg (lib.isString v || lib.isBool v || lib.isInt v || lib.isDerivation v)
-                  "The ‘env’ attribute set can only contain derivation, string, boolean or integer attributes. The ‘${n}’ attribute is of type ${
-                    builtins.typeOf v
-                  }.";
+                  "The ‘env’ attribute set can only contain derivation, string, boolean or integer attributes. The ‘${n}’ attribute is of type ${builtins.typeOf v}.";
               v
             )
             env;

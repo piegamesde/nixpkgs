@@ -60,8 +60,6 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     mkdir -p $out/share/java
     mv target/$name.jar $out/share/java/
-    makeWrapper ${jdk}/bin/java $out/bin/startExhibitor.sh --add-flags "-jar $out/share/java/$name.jar" --suffix PATH : ${
-      lib.makeBinPath [ jdk ]
-    }
+    makeWrapper ${jdk}/bin/java $out/bin/startExhibitor.sh --add-flags "-jar $out/share/java/$name.jar" --suffix PATH : ${lib.makeBinPath [ jdk ]}
   '';
 }

@@ -22,9 +22,7 @@ import ./make-test-python.nix (
 
       machine.wait_for_open_port(${toString port})
 
-      machine.succeed("curl --fail -H 'Accept: text/html, application/xml, */*' localhost:${
-        toString port
-      }/Stats")
+      machine.succeed("curl --fail -H 'Accept: text/html, application/xml, */*' localhost:${toString port}/Stats")
     '';
   }
 )

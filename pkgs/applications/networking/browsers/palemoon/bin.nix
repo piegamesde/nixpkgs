@@ -24,12 +24,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     urls = [
-      "https://rm-eu.palemoon.org/release/palemoon-${version}.linux-x86_64-gtk${
-        if withGTK3 then "3" else "2"
-      }.tar.xz"
-      "https://rm-us.palemoon.org/release/palemoon-${version}.linux-x86_64-gtk${
-        if withGTK3 then "3" else "2"
-      }.tar.xz"
+      "https://rm-eu.palemoon.org/release/palemoon-${version}.linux-x86_64-gtk${if withGTK3 then "3" else "2"}.tar.xz"
+      "https://rm-us.palemoon.org/release/palemoon-${version}.linux-x86_64-gtk${if withGTK3 then "3" else "2"}.tar.xz"
     ];
     hash =
       if withGTK3 then
@@ -142,9 +138,7 @@ stdenv.mkDerivation rec {
     # > Please do not take this as permission to change, remove, or alter any other preferences as that is forbidden
     # > without express permission according to the Pale Moon Redistribution License.
     # > We are allowing this one and **ONLY** one exception in order to properly facilitate [package manager] repacks.
-    install -Dm644 ${
-      ./zz-disableUpdater.js
-    } $out/lib/palemoon/browser/defaults/preferences/zz-disableUpdates.js
+    install -Dm644 ${./zz-disableUpdater.js} $out/lib/palemoon/browser/defaults/preferences/zz-disableUpdates.js
 
     runHook postInstall
   '';

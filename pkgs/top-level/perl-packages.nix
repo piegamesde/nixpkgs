@@ -37078,9 +37078,7 @@ with self;
       hash = "sha256-Rr4uoQg5g9/ZLVnFQiLAz5MB+Uj39U24YWEa+o2+9HE=";
     };
     env.NIX_CFLAGS_COMPILE = "-I${pkgs.openssl.dev}/include -I${pkgs.libidn2}.dev}/include";
-    NIX_CFLAGS_LINK = "-L${lib.getLib pkgs.openssl}/lib -L${
-        lib.getLib pkgs.libidn2
-      }/lib -lcrypto -lidn2";
+    NIX_CFLAGS_LINK = "-L${lib.getLib pkgs.openssl}/lib -L${lib.getLib pkgs.libidn2}/lib -lcrypto -lidn2";
 
     makeMakerFlags = [ "--prefix-openssl=${pkgs.openssl.dev}" ];
 

@@ -77,9 +77,7 @@ buildPythonPackage rec {
       export CMAKE_ARGS="-DCMAKE_INSTALL_LIBDIR=lib -DONNX_USE_PROTOBUF_SHARED_LIBS=ON"
     ''
     + lib.optionalString doCheck ''
-      export CMAKE_ARGS+=" -Dgoogletest_STATIC_LIBRARIES=${gtestStatic}/lib/libgtest.a -Dgoogletest_INCLUDE_DIRS=${
-        lib.getDev gtestStatic
-      }/include"
+      export CMAKE_ARGS+=" -Dgoogletest_STATIC_LIBRARIES=${gtestStatic}/lib/libgtest.a -Dgoogletest_INCLUDE_DIRS=${lib.getDev gtestStatic}/include"
       export ONNX_BUILD_TESTS=1
     '';
 

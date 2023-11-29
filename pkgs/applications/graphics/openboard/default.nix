@@ -67,9 +67,7 @@ stdenv.mkDerivation {
 
   postPatch = ''
     substituteInPlace OpenBoard.pro \
-      --replace '/usr/include/quazip5' '${
-        lib.getDev quazip
-      }/include/QuaZip-Qt5-${quazip.version}/quazip' \
+      --replace '/usr/include/quazip5' '${lib.getDev quazip}/include/QuaZip-Qt5-${quazip.version}/quazip' \
       --replace '-lquazip5' '-lquazip1-qt5' \
       --replace '/usr/include/poppler' '${lib.getDev poppler}/include/poppler'
   '';

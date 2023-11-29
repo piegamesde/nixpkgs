@@ -460,9 +460,7 @@ let
       mapAttrsToList
         (key: val: ''
           mkdir -p $out/frontends/${escapeShellArg val.name}/
-          ln -s ${escapeShellArg val.package} $out/frontends/${escapeShellArg val.name}/${
-            escapeShellArg val.ref
-          }
+          ln -s ${escapeShellArg val.package} $out/frontends/${escapeShellArg val.name}/${escapeShellArg val.ref}
         '')
         cfg.frontends
     )}

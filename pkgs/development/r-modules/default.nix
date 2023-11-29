@@ -1359,9 +1359,7 @@ let
       attrs: {
         postPatch = ''
           substituteInPlace "R/quarto.R" \
-            --replace "path_env <- Sys.getenv(\"QUARTO_PATH\", unset = NA)" "path_env <- Sys.getenv(\"QUARTO_PATH\", unset = '${
-              lib.getBin pkgs.quarto
-            }/bin/quarto')"
+            --replace "path_env <- Sys.getenv(\"QUARTO_PATH\", unset = NA)" "path_env <- Sys.getenv(\"QUARTO_PATH\", unset = '${lib.getBin pkgs.quarto}/bin/quarto')"
         '';
       }
     );
@@ -1369,9 +1367,7 @@ let
     s2 = old.s2.overrideAttrs (
       attrs: {
         PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
-        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
-            lib.getLib pkgs.openssl
-          }/lib -lssl -lcrypto";
+        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${lib.getLib pkgs.openssl}/lib -lssl -lcrypto";
       }
     );
 
@@ -1431,18 +1427,14 @@ let
           patchShebangs configure
         '';
         PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
-        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
-            lib.getLib pkgs.openssl
-          }/lib -lssl -lcrypto";
+        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${lib.getLib pkgs.openssl}/lib -lssl -lcrypto";
       }
     );
 
     websocket = old.websocket.overrideAttrs (
       attrs: {
         PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
-        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
-            lib.getLib pkgs.openssl
-          }/lib -lssl -lcrypto";
+        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${lib.getLib pkgs.openssl}/lib -lssl -lcrypto";
       }
     );
 
@@ -1577,9 +1569,7 @@ let
           patchShebangs configure
         '';
         PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include -I${pkgs.cyrus_sasl.dev}/include -I${pkgs.zlib.dev}/include";
-        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
-            lib.getLib pkgs.openssl
-          }/lib -L${pkgs.cyrus_sasl.out}/lib -L${pkgs.zlib.out}/lib -lssl -lcrypto -lsasl2 -lz";
+        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${lib.getLib pkgs.openssl}/lib -L${pkgs.cyrus_sasl.out}/lib -L${pkgs.zlib.out}/lib -lssl -lcrypto -lsasl2 -lz";
       }
     );
 

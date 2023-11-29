@@ -27,9 +27,7 @@ stdenv.mkDerivation rec {
 
   # The upstream unit both assumes the install location, and tries to run in a virtualenv
   postPatch = ''
-    sed -e 's|ExecStart=.*|ExecStart=${
-      placeholder "out"
-    }/bin/throttled.py|' -i systemd/throttled.service
+    sed -e 's|ExecStart=.*|ExecStart=${placeholder "out"}/bin/throttled.py|' -i systemd/throttled.service
 
     substituteInPlace throttled.py --replace "'setpci'" "'${pciutils}/bin/setpci'"
   '';

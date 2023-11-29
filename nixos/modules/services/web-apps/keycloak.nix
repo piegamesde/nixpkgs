@@ -709,9 +709,7 @@ in
               [ ];
           secretPaths = catAttrs "_secret" (collect isSecret cfg.settings);
           mkSecretReplacement = file: ''
-            replace-secret ${hashString "sha256" file} $CREDENTIALS_DIRECTORY/${
-              baseNameOf file
-            } /run/keycloak/conf/keycloak.conf
+            replace-secret ${hashString "sha256" file} $CREDENTIALS_DIRECTORY/${baseNameOf file} /run/keycloak/conf/keycloak.conf
           '';
           secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
         in

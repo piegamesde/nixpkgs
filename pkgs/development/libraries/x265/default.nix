@@ -110,9 +110,7 @@ stdenv.mkDerivation rec {
   preBuild = lib.optionalString (multibitdepthSupport) ''
     cmake -S ../ -B ../build-10bits ${toString cmakeCommonFlags} ${toString cmakeStaticLibFlags}
     make -C ../build-10bits -j $NIX_BUILD_CORES
-    cmake -S ../ -B ../build-12bits ${toString cmakeCommonFlags} ${
-      toString cmakeStaticLibFlags
-    } -DMAIN12=ON
+    cmake -S ../ -B ../build-12bits ${toString cmakeCommonFlags} ${toString cmakeStaticLibFlags} -DMAIN12=ON
     make -C ../build-12bits -j $NIX_BUILD_CORES
     ln -s ../build-10bits/libx265.a ./libx265-10.a
     ln -s ../build-12bits/libx265.a ./libx265-12.a

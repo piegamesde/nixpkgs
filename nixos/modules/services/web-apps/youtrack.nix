@@ -134,9 +134,7 @@ in
         User = "youtrack";
         Group = "youtrack";
         Restart = "on-failure";
-        ExecStart = "${cfg.package}/bin/youtrack --J-Xmx${cfg.maxMemory} --J-XX:MaxMetaspaceSize=${cfg.maxMetaspaceSize} ${cfg.jvmOpts} ${cfg.address}:${
-            toString cfg.port
-          }";
+        ExecStart = "${cfg.package}/bin/youtrack --J-Xmx${cfg.maxMemory} --J-XX:MaxMetaspaceSize=${cfg.maxMetaspaceSize} ${cfg.jvmOpts} ${cfg.address}:${toString cfg.port}";
       };
     };
 

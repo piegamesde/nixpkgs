@@ -39,13 +39,9 @@ writeShellApplication {
       exit 1
     fi
     if ${lib.boolToString (boardArch == "stm32")}; then
-      make -C ${klipper.src} FLASH_DEVICE="${
-        toString flashDevice
-      }" OUT="${klipper-firmware}/" KCONFIG_CONFIG="${klipper-firmware}/config" serialflash
+      make -C ${klipper.src} FLASH_DEVICE="${toString flashDevice}" OUT="${klipper-firmware}/" KCONFIG_CONFIG="${klipper-firmware}/config" serialflash
     else
-      make -C ${klipper.src} FLASH_DEVICE="${
-        toString flashDevice
-      }" OUT="${klipper-firmware}/" KCONFIG_CONFIG="${klipper-firmware}/config" flash
+      make -C ${klipper.src} FLASH_DEVICE="${toString flashDevice}" OUT="${klipper-firmware}/" KCONFIG_CONFIG="${klipper-firmware}/config" flash
     fi
   '';
 }

@@ -1256,9 +1256,7 @@ in
               add_header Referrer-Policy no-referrer;
             ''}
             ${optionalString (cfg.https) ''
-              add_header Strict-Transport-Security "max-age=${
-                toString cfg.nginx.hstsMaxAge
-              }; includeSubDomains" always;
+              add_header Strict-Transport-Security "max-age=${toString cfg.nginx.hstsMaxAge}; includeSubDomains" always;
             ''}
             client_max_body_size ${cfg.maxUploadSize};
             fastcgi_buffers 64 4K;

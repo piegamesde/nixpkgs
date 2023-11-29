@@ -50,9 +50,7 @@ stdenv.mkDerivation rec {
   src =
     with lib.versions;
     fetchurl {
-      url = "https://www.open-mpi.org/software/ompi/v${major version}.${
-          minor version
-        }/downloads/${pname}-${version}.tar.bz2";
+      url = "https://www.open-mpi.org/software/ompi/v${major version}.${minor version}/downloads/${pname}-${version}.tar.bz2";
       sha256 = "sha256-pkCYa8JXOJ3TeYhv2uYmTIz6VryYtxzjrj372M5h2+M=";
     };
 

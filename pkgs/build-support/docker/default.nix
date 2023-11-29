@@ -425,9 +425,7 @@ rec {
         # Tar up the layer and throw it into 'layer.tar'.
         echo "Packing layer..."
         mkdir $out
-        tarhash=$(tar -C layer --hard-dereference --sort=name --mtime="@$SOURCE_DATE_EPOCH" --owner=${
-          toString uid
-        } --group=${toString gid} -cf - . | tee -p $out/layer.tar | tarsum)
+        tarhash=$(tar -C layer --hard-dereference --sort=name --mtime="@$SOURCE_DATE_EPOCH" --owner=${toString uid} --group=${toString gid} -cf - . | tee -p $out/layer.tar | tarsum)
 
         # Add a 'checksum' field to the JSON, with the value set to the
         # checksum of the tarball.
@@ -958,9 +956,7 @@ rec {
       passthru ? { },
     }:
     assert (lib.assertMsg (maxLayers > 1)
-      "the maxLayers argument of dockerTools.buildLayeredImage function must be greather than 1 (current value: ${
-        toString maxLayers
-      })"
+      "the maxLayers argument of dockerTools.buildLayeredImage function must be greather than 1 (current value: ${toString maxLayers})"
     );
     let
       baseName = baseNameOf name;

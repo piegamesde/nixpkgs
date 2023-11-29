@@ -79,11 +79,11 @@ in
       description = "ZFS Snapshot Replication";
       documentation = [ "https://github.com/alunduil/zfs-replicate" ];
       restartIfChanged = false;
-      serviceConfig.ExecStart = "${pkgs.zfs-replicate}/bin/zfs-replicate${recursive} -l ${
-          escapeShellArg cfg.username
-        } -i ${escapeShellArg cfg.identityFilePath}${followDelete} ${escapeShellArg cfg.host} ${
-          escapeShellArg cfg.remoteFilesystem
-        } ${escapeShellArg cfg.localFilesystem}";
+      serviceConfig.ExecStart = "${pkgs.zfs-replicate}/bin/zfs-replicate${recursive} -l ${escapeShellArg cfg.username} -i ${
+          escapeShellArg cfg.identityFilePath
+        }${followDelete} ${escapeShellArg cfg.host} ${escapeShellArg cfg.remoteFilesystem} ${
+          escapeShellArg cfg.localFilesystem
+        }";
       wantedBy = [
         "zfs-snapshot-daily.service"
         "zfs-snapshot-frequent.service"

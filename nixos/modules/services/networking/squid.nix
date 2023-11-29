@@ -87,9 +87,9 @@ let
         http_access deny all
 
         # Squid normally listens to port 3128
-        http_port ${optionalString (cfg.proxyAddress != null) "${cfg.proxyAddress}:"}${
-          toString cfg.proxyPort
-        }
+        http_port ${
+          optionalString (cfg.proxyAddress != null) "${cfg.proxyAddress}:"
+        }${toString cfg.proxyPort}
 
         # Leave coredumps in the first cache dir
         coredump_dir /var/cache/squid

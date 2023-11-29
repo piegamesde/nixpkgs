@@ -251,9 +251,7 @@ pythonPackages.buildPythonApplication rec {
     '';
     homepage = "https://www.pgadmin.org/";
     license = licenses.mit;
-    changelog = "https://www.pgadmin.org/docs/pgadmin4/latest/release_notes_${
-        lib.versions.major version
-      }_${lib.versions.minor version}.html";
+    changelog = "https://www.pgadmin.org/docs/pgadmin4/latest/release_notes_${lib.versions.major version}_${lib.versions.minor version}.html";
     maintainers = with maintainers; [ gador ];
     mainProgram = "pgadmin4";
   };

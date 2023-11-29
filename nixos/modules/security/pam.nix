@@ -578,9 +578,7 @@ let
               oath = config.security.pam.oath;
             in
             optionalString cfg.oathAuth ''
-              auth requisite ${pkgs.oath-toolkit}/lib/security/pam_oath.so window=${
-                toString oath.window
-              } usersfile=${toString oath.usersFile} digits=${toString oath.digits}
+              auth requisite ${pkgs.oath-toolkit}/lib/security/pam_oath.so window=${toString oath.window} usersfile=${toString oath.usersFile} digits=${toString oath.digits}
             ''
           )
           + (

@@ -1216,9 +1216,7 @@ in
         extraServices.gitsrht-api = {
           serviceConfig.Restart = "always";
           serviceConfig.RestartSec = "5s";
-          serviceConfig.ExecStart = "${pkgs.sourcehut.gitsrht}/bin/gitsrht-api -b ${cfg.listenAddress}:${
-              toString (cfg.git.port + 100)
-            }";
+          serviceConfig.ExecStart = "${pkgs.sourcehut.gitsrht}/bin/gitsrht-api -b ${cfg.listenAddress}:${toString (cfg.git.port + 100)}";
         };
         extraServices.gitsrht-fcgiwrap = mkIf cfg.nginx.enable {
           serviceConfig = {
@@ -1283,9 +1281,7 @@ in
         extraServices.hgsrht-api = {
           serviceConfig.Restart = "always";
           serviceConfig.RestartSec = "5s";
-          serviceConfig.ExecStart = "${pkgs.sourcehut.hgsrht}/bin/hgsrht-api -b ${cfg.listenAddress}:${
-              toString (cfg.hg.port + 100)
-            }";
+          serviceConfig.ExecStart = "${pkgs.sourcehut.hgsrht}/bin/hgsrht-api -b ${cfg.listenAddress}:${toString (cfg.hg.port + 100)}";
         };
         extraConfig = mkMerge [
           {
@@ -1440,9 +1436,7 @@ in
                 cfg.settings
             )
           );
-        serviceConfig.ExecStart = "${pkgs.sourcehut.metasrht}/bin/metasrht-api -b ${cfg.listenAddress}:${
-            toString (cfg.meta.port + 100)
-          }";
+        serviceConfig.ExecStart = "${pkgs.sourcehut.metasrht}/bin/metasrht-api -b ${cfg.listenAddress}:${toString (cfg.meta.port + 100)}";
       };
       extraConfig = mkMerge [
         {
@@ -1554,9 +1548,7 @@ in
       extraServices.todosrht-api = {
         serviceConfig.Restart = "always";
         serviceConfig.RestartSec = "5s";
-        serviceConfig.ExecStart = "${pkgs.sourcehut.todosrht}/bin/todosrht-api -b ${cfg.listenAddress}:${
-            toString (cfg.todo.port + 100)
-          }";
+        serviceConfig.ExecStart = "${pkgs.sourcehut.todosrht}/bin/todosrht-api -b ${cfg.listenAddress}:${toString (cfg.todo.port + 100)}";
       };
       extraServices.todosrht-lmtp = {
         wants = [ "postfix.service" ];

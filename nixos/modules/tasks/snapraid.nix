@@ -153,9 +153,7 @@ in
           startAt = scrub.interval;
           serviceConfig = {
             Type = "oneshot";
-            ExecStart = "${pkgs.snapraid}/bin/snapraid scrub -p ${toString scrub.plan} -o ${
-                toString scrub.olderThan
-              }";
+            ExecStart = "${pkgs.snapraid}/bin/snapraid scrub -p ${toString scrub.plan} -o ${toString scrub.olderThan}";
             Nice = 19;
             IOSchedulingPriority = 7;
             CPUSchedulingPolicy = "batch";

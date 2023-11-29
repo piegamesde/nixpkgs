@@ -1817,9 +1817,7 @@ in
                 ${flip (concatMapStringsSep "\n") (wlanListDeviceFirst device wlanDeviceInterfaces.${device}) (
                   interface:
                   ''
-                    ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${
-                      systemdAttrs interface._iName
-                    }, RUN+="${newInterfaceScript interface}"''
+                    ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${systemdAttrs interface._iName}, RUN+="${newInterfaceScript interface}"''
                 )}
 
                 # Add the required, new WLAN interfaces to the default WLAN interface with the

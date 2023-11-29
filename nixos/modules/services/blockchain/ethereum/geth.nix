@@ -254,9 +254,9 @@ in
                     optionalString cfg.metrics.enable
                       "--metrics --metrics.addr ${cfg.metrics.address} --metrics.port ${toString cfg.metrics.port}"
                   } \
-                  --authrpc.addr ${cfg.authrpc.address} --authrpc.port ${
-                    toString cfg.authrpc.port
-                  } --authrpc.vhosts ${lib.concatStringsSep "," cfg.authrpc.vhosts} \
+                  --authrpc.addr ${cfg.authrpc.address} --authrpc.port ${toString cfg.authrpc.port} --authrpc.vhosts ${
+                    lib.concatStringsSep "," cfg.authrpc.vhosts
+                  } \
                   ${
                     if (cfg.authrpc.jwtsecret != "") then
                       "--authrpc.jwtsecret ${cfg.authrpc.jwtsecret}"

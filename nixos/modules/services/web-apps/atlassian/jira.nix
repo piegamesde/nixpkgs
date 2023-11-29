@@ -202,9 +202,7 @@ in
           sed -e 's,port="8080",port="${toString cfg.listenPort}" address="${cfg.listenAddress}",' \
         ''
         + (lib.optionalString cfg.proxy.enable ''
-          -e 's,protocol="HTTP/1.1",protocol="HTTP/1.1" proxyName="${cfg.proxy.name}" proxyPort="${
-            toString cfg.proxy.port
-          }" scheme="${cfg.proxy.scheme}" secure="${toString cfg.proxy.secure}",' \
+          -e 's,protocol="HTTP/1.1",protocol="HTTP/1.1" proxyName="${cfg.proxy.name}" proxyPort="${toString cfg.proxy.port}" scheme="${cfg.proxy.scheme}" secure="${toString cfg.proxy.secure}",' \
         '')
         + ''
             ${pkg}/conf/server.xml.dist > ${cfg.home}/server.xml

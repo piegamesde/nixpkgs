@@ -19,9 +19,7 @@ let
         }:
         # Fetch a wheel. By default we fetch an universal wheel.
         # See https://www.python.org/dev/peps/pep-0427/#file-name-convention for details regarding the optional arguments.
-        "https://files.pythonhosted.org/packages/${dist}/${
-          builtins.substring 0 1 pname
-        }/${pname}/${pname}-${version}-${python}-${abi}-${platform}.whl";
+        "https://files.pythonhosted.org/packages/${dist}/${builtins.substring 0 1 pname}/${pname}/${pname}-${version}-${python}-${abi}-${platform}.whl";
 
       computeSourceUrl =
         {

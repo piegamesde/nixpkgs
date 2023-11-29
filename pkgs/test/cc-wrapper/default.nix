@@ -68,9 +68,7 @@ stdenv.mkDerivation {
       -o foo/lib/libfoo${stdenv.hostPlatform.extensions.sharedLibrary} \
       ${./foo.c}
 
-    NIX_LDFLAGS="-L$NIX_BUILD_TOP/foo/lib -rpath $NIX_BUILD_TOP/foo/lib" $CC -lfoo -o ldflags-check ${
-      ./ldflags-main.c
-    }
+    NIX_LDFLAGS="-L$NIX_BUILD_TOP/foo/lib -rpath $NIX_BUILD_TOP/foo/lib" $CC -lfoo -o ldflags-check ${./ldflags-main.c}
     ${emulator} ./ldflags-check
 
     printf "Check whether -nostdinc and -nostdinc++ is handled correctly" >&2

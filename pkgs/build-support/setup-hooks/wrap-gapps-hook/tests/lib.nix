@@ -24,9 +24,7 @@ rec {
   '';
 
   expectSomeLineContainingYInFileXToMentionZ = file: filter: expected: ''
-    file=${lib.escapeShellArg file} filter=${lib.escapeShellArg filter} expected=${
-      lib.escapeShellArg expected
-    }
+    file=${lib.escapeShellArg file} filter=${lib.escapeShellArg filter} expected=${lib.escapeShellArg expected}
 
     if ! grep --text --quiet "$filter" "$file"; then
         ${fail "The file “$file” should include a line containing “$filter”."}

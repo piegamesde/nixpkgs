@@ -145,9 +145,7 @@ in
         StateDirectory = "dgraph-alpha";
         WorkingDirectory = "/var/lib/dgraph-alpha";
         DynamicUser = true;
-        ExecStart = "${dgraphWithNode}/bin/dgraph alpha --config ${configFile} --my ${cfg.alpha.host}:${
-            toString cfg.alpha.port
-          } --zero ${cfg.zero.host}:${toString cfg.zero.port}";
+        ExecStart = "${dgraphWithNode}/bin/dgraph alpha --config ${configFile} --my ${cfg.alpha.host}:${toString cfg.alpha.port} --zero ${cfg.zero.host}:${toString cfg.zero.port}";
         ExecStop = ''
           ${pkgs.curl}/bin/curl --data "mutation { shutdown { response { message code } } }" \
               --header 'Content-Type: application/graphql' \

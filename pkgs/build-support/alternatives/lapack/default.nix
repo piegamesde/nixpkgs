@@ -103,9 +103,7 @@ stdenv.mkDerivation {
       ''
       + (lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") ''
         patchelf --set-soname liblapacke${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
-        patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapacke${canonicalExtension}):${
-          lib.getLib lapackProvider'
-        }/lib" $out/lib/liblapacke${canonicalExtension}
+        patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapacke${canonicalExtension}):${lib.getLib lapackProvider'}/lib" $out/lib/liblapacke${canonicalExtension}
       '')
       + ''
 
@@ -125,9 +123,7 @@ stdenv.mkDerivation {
       ''
       + lib.optionalString (lapackImplementation == "mkl") ''
         mkdir -p $out/nix-support
-        echo 'export MKL_INTERFACE_LAYER=${
-          lib.optionalString isILP64 "I"
-        }LP64,GNU' > $out/nix-support/setup-hook
+        echo 'export MKL_INTERFACE_LAYER=${lib.optionalString isILP64 "I"}LP64,GNU' > $out/nix-support/setup-hook
         ln -s $out/lib/liblapack${canonicalExtension} $out/lib/libmkl_rt${stdenv.hostPlatform.extensions.sharedLibrary}
         ln -sf ${lapackProvider'}/include/* $dev/include
       ''

@@ -83,9 +83,7 @@ in
       unitConfig.Documentation = "https://pinnwand.readthedocs.io/en/latest/";
 
       serviceConfig = {
-        ExecStart = "${pkgs.pinnwand}/bin/pinnwand --configuration-path ${configFile} http --port ${
-            toString cfg.port
-          }";
+        ExecStart = "${pkgs.pinnwand}/bin/pinnwand --configuration-path ${configFile} http --port ${toString cfg.port}";
         User = "pinnwand";
         DynamicUser = true;
 

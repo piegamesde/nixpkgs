@@ -228,9 +228,7 @@ in
                       } \
                       ${
                         optionalString (cfg.ws.enable)
-                          "--ws --wsaddr ${cfg.ws.address} --wsport ${
-                            toString cfg.ws.port
-                          } --wsapi ${cfg.ws.api} --wsorigins ${cfg.ws.origins}"
+                          "--ws --wsaddr ${cfg.ws.address} --wsport ${toString cfg.ws.port} --wsapi ${cfg.ws.api} --wsorigins ${cfg.ws.origins}"
                       } \
                       --emitcheckpoints \
                       --datadir ${dataDir} \

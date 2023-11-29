@@ -66,9 +66,7 @@ stdenv.mkDerivation rec {
   };
 
   postPatch = ''
-    substituteInPlace Source/init.cpp --replace "/usr/share/diasurgical/devilutionx/" "${
-      placeholder "out"
-    }/share/diasurgical/devilutionx/"
+    substituteInPlace Source/init.cpp --replace "/usr/share/diasurgical/devilutionx/" "${placeholder "out"}/share/diasurgical/devilutionx/"
 
     # download dependencies ahead of time
     substituteInPlace 3rdParty/asio/CMakeLists.txt --replace "${asio.url}" "${asio}"

@@ -124,9 +124,7 @@ in
                 || changed=1
               # Also check the content of the token file
               [[ -f "${currentConfigTokenPath}" ]] \
-                && ${pkgs.diffutils}/bin/diff -q "${currentConfigTokenPath}" ${
-                  escapeShellArg cfg.tokenFile
-                } >/dev/null 2>&1 \
+                && ${pkgs.diffutils}/bin/diff -q "${currentConfigTokenPath}" ${escapeShellArg cfg.tokenFile} >/dev/null 2>&1 \
                 || changed=1
               # If the config has changed, remove old state and copy tokens
               if [[ "$changed" -eq 1 ]]; then

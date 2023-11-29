@@ -408,9 +408,7 @@ let
     # we compile with it, and doing so can result in having multiple copies of
     # e.g. Cabal in the database with the same name and version, which is
     # ambiguous.
-    if [ -d "$p/${
-      mkGhcLibdir thisGhc
-    }/package.conf.d" ] && [ "$p" != "${ghc}" ] && [ "$p" != "${nativeGhc}" ]; then
+    if [ -d "$p/${mkGhcLibdir thisGhc}/package.conf.d" ] && [ "$p" != "${ghc}" ] && [ "$p" != "${nativeGhc}" ]; then
       cp -f "$p/${mkGhcLibdir thisGhc}/package.conf.d/"*.conf ${packageConfDir}/
       continue
     fi
@@ -466,9 +464,7 @@ lib.fix (
 
       setupCompilerEnvironmentPhase =
         ''
-          NIX_BUILD_CORES=$(( NIX_BUILD_CORES < ${toString maxBuildCores} ? NIX_BUILD_CORES : ${
-            toString maxBuildCores
-          } ))
+          NIX_BUILD_CORES=$(( NIX_BUILD_CORES < ${toString maxBuildCores} ? NIX_BUILD_CORES : ${toString maxBuildCores} ))
           runHook preSetupCompilerEnvironment
 
           echo "Build with ${ghc}."

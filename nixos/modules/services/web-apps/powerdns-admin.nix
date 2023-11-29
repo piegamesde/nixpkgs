@@ -83,9 +83,7 @@ in
       environment.FLASK_CONF = builtins.toFile "powerdns-admin-config.py" configText;
       environment.PYTHONPATH = pkgs.powerdns-admin.pythonPath;
       serviceConfig = {
-        ExecStart = "${pkgs.powerdns-admin}/bin/powerdns-admin --pid /run/powerdns-admin/pid ${
-            escapeShellArgs cfg.extraArgs
-          }";
+        ExecStart = "${pkgs.powerdns-admin}/bin/powerdns-admin --pid /run/powerdns-admin/pid ${escapeShellArgs cfg.extraArgs}";
         ExecStartPre = "${pkgs.coreutils}/bin/env FLASK_APP=${pkgs.powerdns-admin}/share/powerdnsadmin/__init__.py ${pkgs.python3Packages.flask}/bin/flask db upgrade -d ${pkgs.powerdns-admin}/share/migrations";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         ExecStop = "${pkgs.coreutils}/bin/kill -TERM $MAINPID";

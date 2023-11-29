@@ -54,9 +54,7 @@ in
       before = [ "network-pre.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.ulogd}/bin/ulogd -c ${settingsFile} --verbose --loglevel ${
-            toString cfg.logLevel
-          }";
+        ExecStart = "${pkgs.ulogd}/bin/ulogd -c ${settingsFile} --verbose --loglevel ${toString cfg.logLevel}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };
     };

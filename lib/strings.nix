@@ -224,9 +224,7 @@ rec {
     s:
     warnIf (isPath s)
       ''
-        lib.strings.normalizePath: The argument (${
-          toString s
-        }) is a path value, but only strings are supported.
+        lib.strings.normalizePath: The argument (${toString s}) is a path value, but only strings are supported.
             Path values are always normalised in Nix, so there's no need to call this function on them.
             This function also copies the path to the Nix store and returns the store path, the same as "''${path}" will, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
@@ -271,9 +269,7 @@ rec {
     # to strings and comparing. This was surprising and confusing.
     warnIf (isPath pref)
       ''
-        lib.strings.hasPrefix: The first argument (${
-          toString pref
-        }) is a path value, but only strings are supported.
+        lib.strings.hasPrefix: The first argument (${toString pref}) is a path value, but only strings are supported.
             There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
             This function also copies the path to the Nix store, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
@@ -302,9 +298,7 @@ rec {
     # to strings and comparing. This was surprising and confusing.
     warnIf (isPath suffix)
       ''
-        lib.strings.hasSuffix: The first argument (${
-          toString suffix
-        }) is a path value, but only strings are supported.
+        lib.strings.hasSuffix: The first argument (${toString suffix}) is a path value, but only strings are supported.
             There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
             This function also copies the path to the Nix store, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
@@ -330,9 +324,7 @@ rec {
     # to strings and comparing. This was surprising and confusing.
     warnIf (isPath infix)
       ''
-        lib.strings.hasInfix: The first argument (${
-          toString infix
-        }) is a path value, but only strings are supported.
+        lib.strings.hasInfix: The first argument (${toString infix}) is a path value, but only strings are supported.
             There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
             This function also copies the path to the Nix store, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
@@ -716,9 +708,7 @@ rec {
     # to strings and comparing. This was surprising and confusing.
     warnIf (isPath prefix)
       ''
-        lib.strings.removePrefix: The first argument (${
-          toString prefix
-        }) is a path value, but only strings are supported.
+        lib.strings.removePrefix: The first argument (${toString prefix}) is a path value, but only strings are supported.
             There is almost certainly a bug in the calling code, since this function never removes any prefix in such a case.
             This function also copies the path to the Nix store, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
@@ -749,9 +739,7 @@ rec {
     # to strings and comparing. This was surprising and confusing.
     warnIf (isPath suffix)
       ''
-        lib.strings.removeSuffix: The first argument (${
-          toString suffix
-        }) is a path value, but only strings are supported.
+        lib.strings.removeSuffix: The first argument (${toString suffix}) is a path value, but only strings are supported.
             There is almost certainly a bug in the calling code, since this function never removes any suffix in such a case.
             This function also copies the path to the Nix store, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
@@ -969,9 +957,7 @@ rec {
       reqWidth = width - (lib.stringLength filler);
     in
     assert lib.assertMsg (strw <= width)
-        "fixedWidthString: requested string length (${
-          toString width
-        }) must not be shorter than actual length (${toString strw})";
+        "fixedWidthString: requested string length (${toString width}) must not be shorter than actual length (${toString strw})";
     if strw == width then str else filler + fixedWidthString reqWidth filler str;
 
   /* Format a number adding leading zeroes up to fixed width.

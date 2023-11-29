@@ -70,9 +70,7 @@ stdenv.mkDerivation {
     libmpg123path=${lib.getLib mpg123}/lib/libmpg123.so.0
     EOF
     else
-      sed -i 's,^\(libmpg123path=\).*,\1${
-        lib.getLib mpg123
-      }/lib/libmpg123.so.0,' "$kega_localdir/Fusion.ini"
+      sed -i 's,^\(libmpg123path=\).*,\1${lib.getLib mpg123}/lib/libmpg123.so.0,' "$kega_localdir/Fusion.ini"
     fi
 
     # here we go!

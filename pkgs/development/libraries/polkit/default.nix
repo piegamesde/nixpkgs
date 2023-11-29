@@ -175,9 +175,7 @@ stdenv.mkDerivation rec {
     runHook preCheck
 
     # tests need access to the system bus
-    dbus-run-session --config-file=${
-      ./system_bus.conf
-    } -- sh -c 'DBUS_SYSTEM_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS meson test --print-errorlogs'
+    dbus-run-session --config-file=${./system_bus.conf} -- sh -c 'DBUS_SYSTEM_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS meson test --print-errorlogs'
 
     runHook postCheck
   '';

@@ -128,9 +128,7 @@ let
       p = cfg.settings.cfsProfiles.${name};
     in
     ''
-      ${name} latency=${toString p.latency} nr-latency=${toString p.nr-latency} wakeup-granularity=${
-        toString p.wakeup-granularity
-      } bandwidth-size=${toString p.bandwidth-size} preempt="${p.preempt}"'';
+      ${name} latency=${toString p.latency} nr-latency=${toString p.nr-latency} wakeup-granularity=${toString p.wakeup-granularity} bandwidth-size=${toString p.bandwidth-size} preempt="${p.preempt}"'';
 
   prioToString = class: prio: if prio == null then ''"${class}"'' else "(${class})${toString prio}";
 

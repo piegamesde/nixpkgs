@@ -46,9 +46,7 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace tauon.py \
       --replace 'install_mode = False' 'install_mode = True' \
-      --replace 'install_directory = os.path.dirname(os.path.abspath(__file__))' 'install_directory = "${
-        placeholder "out"
-      }/share/tauon"'
+      --replace 'install_directory = os.path.dirname(os.path.abspath(__file__))' 'install_directory = "${placeholder "out"}/share/tauon"'
 
     substituteInPlace t_modules/t_main.py \
       --replace 'install_mode = False' 'install_mode = True' \
@@ -62,9 +60,7 @@ stdenv.mkDerivation rec {
 
     substituteInPlace compile-phazor.sh --replace 'gcc' '${stdenv.cc.targetPrefix}cc'
 
-    substituteInPlace extra/tauonmb.desktop --replace 'Exec=/opt/tauon-music-box/tauonmb.sh' 'Exec=${
-      placeholder "out"
-    }/bin/tauon'
+    substituteInPlace extra/tauonmb.desktop --replace 'Exec=/opt/tauon-music-box/tauonmb.sh' 'Exec=${placeholder "out"}/bin/tauon'
   '';
 
   postBuild = ''

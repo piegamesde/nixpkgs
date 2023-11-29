@@ -46,9 +46,7 @@ runCommand "gnome-gsettings-overrides" { preferLocalBuild = true; } ''
     (
       pkg:
       ''
-        cp -rf "${glib.getSchemaPath pkg}"/*.xml "${
-          glib.getSchemaPath pkg
-        }"/*.gschema.override "$schema_dir"''
+        cp -rf "${glib.getSchemaPath pkg}"/*.xml "${glib.getSchemaPath pkg}"/*.gschema.override "$schema_dir"''
     )
     gsettingsOverridePackages}
 
