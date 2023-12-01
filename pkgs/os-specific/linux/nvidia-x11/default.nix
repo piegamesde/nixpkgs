@@ -23,7 +23,8 @@ let
     };
 
   kernel =
-    callPackage # a hacky way of extracting parameters from callPackage
+    # a hacky way of extracting parameters from callPackage
+    callPackage
       (
         {
           kernel,

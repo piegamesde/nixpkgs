@@ -319,9 +319,9 @@ let
         check =
           x:
           x == {}
-          || ( # Accept {} for tests that are unsupported
-            isDerivation x && x ? meta.timeout
-          );
+          ||
+            # Accept {} for tests that are unsupported
+            (isDerivation x && x ? meta.timeout);
         merge = lib.options.mergeOneOption;
       }
     );
