@@ -14,7 +14,7 @@ let
     mkIf
     mkMerge
     mkOption
-  ;
+    ;
   inherit (lib)
     concatStringsSep
     literalExpression
@@ -23,7 +23,7 @@ let
     optionals
     optionalString
     types
-  ;
+    ;
 
   cfg = config.services.mediawiki;
   fpm = config.services.phpfpm.pools.mediawiki;

@@ -19,7 +19,7 @@ let
     mkOption
     optionalAttrs
     types
-  ;
+    ;
 
   package = pkgs.dolibarr.override { inherit (cfg) stateDir; };
 

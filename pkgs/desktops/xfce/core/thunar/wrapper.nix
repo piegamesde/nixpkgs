@@ -43,7 +43,7 @@ symlinkJoin {
       license
       platforms
       maintainers
-    ;
+      ;
 
     description =
       thunar.meta.description

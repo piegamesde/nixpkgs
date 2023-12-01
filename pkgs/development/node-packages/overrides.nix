@@ -11,7 +11,7 @@ let
     fetchurl
     fetchpatch
     nixosTests
-  ;
+    ;
 
   since = version: lib.versionAtLeast nodejs.version version;
   before = version: lib.versionOlder nodejs.version version;

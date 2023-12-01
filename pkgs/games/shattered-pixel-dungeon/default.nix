@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     version
     src
     postPatch
-  ;
+    ;
 
   nativeBuildInputs = [
     gradle_6

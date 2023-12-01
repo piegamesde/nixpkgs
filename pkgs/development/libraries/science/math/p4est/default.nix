@@ -55,7 +55,7 @@ stdenv.mkDerivation {
     enableParallelBuilding
     preCheck
     doCheck
-  ;
+    ;
 
   meta = {
     branch = "prev3-develop";

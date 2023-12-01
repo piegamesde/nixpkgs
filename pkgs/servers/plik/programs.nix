@@ -41,7 +41,7 @@ in
       src
       vendorSha256
       postPatch
-    ;
+      ;
 
     subPackages = [ "client" ];
     postInstall = ''
@@ -56,7 +56,7 @@ in
       src
       vendorSha256
       postPatch
-    ;
+      ;
 
     subPackages = [ "server" ];
     postFixup = ''

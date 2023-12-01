@@ -129,7 +129,7 @@ let
         pkgsHostHost
         pkgsHostTarget
         pkgsTargetTarget
-      ;
+        ;
     }
     // {
       # These should never be spliced under any circumstances
@@ -143,7 +143,7 @@ let
         buildPackages
         pkgs
         targetPackages
-      ;
+        ;
       inherit (pkgs.stdenv) buildPlatform targetPlatform hostPlatform;
     };
 

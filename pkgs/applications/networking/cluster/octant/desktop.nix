@@ -36,7 +36,7 @@ let
       src
       passthru
       meta
-    ;
+      ;
 
     profile = ''
       export LC_ALL=C.UTF-8
@@ -64,7 +64,7 @@ let
       src
       passthru
       meta
-    ;
+      ;
 
     nativeBuildInputs = [ undmg ];
     sourceRoot = "Octant.app";

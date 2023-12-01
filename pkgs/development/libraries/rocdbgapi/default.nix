@@ -36,7 +36,7 @@ let
       helvetic
       wasy
       courier
-    ;
+      ;
   };
 in
 stdenv.mkDerivation (

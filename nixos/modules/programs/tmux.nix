@@ -11,7 +11,7 @@ let
     mkIf
     types
     optionalString
-  ;
+    ;
 
   cfg = config.programs.tmux;
 

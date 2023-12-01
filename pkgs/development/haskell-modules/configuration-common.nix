@@ -116,7 +116,7 @@ self: super:
     cabal-install
     cabal-install-solver
     guardian
-  ;
+    ;
 
   #######################################
   ### HASKELL-LANGUAGE-SERVER SECTION ###
@@ -2924,7 +2924,7 @@ self: super:
     )
     purescript
     purenix
-  ;
+    ;
 
   # 2022-11-05: https://github.com/ysangkok/haskell-tzdata/issues/3
   tzdata = dontCheck super.tzdata;

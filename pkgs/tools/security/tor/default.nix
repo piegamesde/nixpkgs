@@ -128,7 +128,7 @@ stdenv.mkDerivation rec {
         gnugrep
         gnused
         nix
-      ;
+        ;
     };
   };
 

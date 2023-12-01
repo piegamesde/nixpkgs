@@ -42,7 +42,7 @@ let
           mutableExtensions
           vscodeExtsFolderName
           user-data-dir
-        ;
+          ;
       };
 
   updateSettings = import ./updateSettings.nix { inherit lib writeShellScriptBin jq; };

@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
       normalize
       streamripper
       vlc
-    ;
+      ;
     ocaml-mad = ocamlPackages.mad;
   };
 

@@ -15,7 +15,7 @@ buildGoModule {
     src
     ldflags
     postBuild
-  ;
+    ;
   vendorSha256 = null;
 
   postPatch = ''

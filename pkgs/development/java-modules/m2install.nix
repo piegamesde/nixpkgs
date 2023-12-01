@@ -27,7 +27,7 @@ stdenv.mkDerivation {
     m2Path
     m2File
     src
-  ;
+    ;
   pname = artifactId;
 
   dontUnpack = true;

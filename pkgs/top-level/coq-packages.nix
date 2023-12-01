@@ -51,7 +51,7 @@ let
           coq2html
           lib
           stdenv
-        ;
+          ;
       };
       coq-bits = callPackage ../development/coq-modules/coq-bits { };
       coq-elpi = callPackage ../development/coq-modules/coq-elpi { };
@@ -175,7 +175,7 @@ let
         ocamlPackages_4_10
         ocamlPackages_4_12
         ocamlPackages_4_14
-      ;
+        ;
     };
 in
 rec {

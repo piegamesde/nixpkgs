@@ -143,7 +143,7 @@ let
           release
           repo
           owner
-        ;
+          ;
 
         namePrefix = [
           "coq"

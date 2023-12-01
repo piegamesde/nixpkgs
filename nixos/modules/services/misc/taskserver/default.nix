@@ -155,7 +155,7 @@ let
               user
               group
               fqdn
-            ;
+              ;
             certBits = cfg.pki.auto.bits;
             clientExpiration = cfg.pki.auto.expiration.client;
             crlExpiration = cfg.pki.auto.expiration.crl;

@@ -172,7 +172,7 @@ rec {
       fetchFromGitHub
       lib
       passthruFun
-    ;
+      ;
   };
 
   luajit_2_1 = import ../luajit/2.1.nix {

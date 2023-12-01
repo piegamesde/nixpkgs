@@ -82,7 +82,7 @@ if stdenv.isDarwin then
       version
       src
       meta
-    ;
+      ;
 
     nativeBuildInputs = [ undmg ];
 
@@ -100,7 +100,7 @@ else
       version
       src
       meta
-    ;
+      ;
 
     nativeBuildInputs = [
       autoPatchelfHook

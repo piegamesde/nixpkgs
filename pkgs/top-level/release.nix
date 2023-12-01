@@ -56,7 +56,7 @@ let
         nixpkgs
         officialRelease
         supportedSystems
-      ;
+        ;
     };
 
     metrics = import ./metrics.nix { inherit pkgs nixpkgs; };

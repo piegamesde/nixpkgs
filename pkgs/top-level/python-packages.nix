@@ -3423,7 +3423,7 @@ with self; {
       xz
       zlib
       zstd
-    ;
+      ;
   };
 
   extras = callPackage ../development/python-modules/extras { };
@@ -4918,7 +4918,7 @@ with self; {
       libpng
       libtiff
       libwebp
-    ;
+      ;
   };
 
   imutils = callPackage ../development/python-modules/imutils { };
@@ -6148,7 +6148,7 @@ with self; {
       envisage
       apptools
       pyqt5
-    ;
+      ;
   };
 
   mbddns = callPackage ../development/python-modules/mbddns { };
@@ -7587,7 +7587,7 @@ with self; {
       tcl
       lcms2
       tk
-    ;
+      ;
     inherit (pkgs.xorg) libX11 libxcb;
   };
 
@@ -7601,7 +7601,7 @@ with self; {
       tcl
       lcms2
       tk
-    ;
+      ;
     inherit (pkgs.xorg) libX11;
   };
 
@@ -9413,7 +9413,7 @@ with self; {
       expat
       neon
       openssl
-    ;
+      ;
   };
 
   pyswitchbee = callPackage ../development/python-modules/pyswitchbee { };
@@ -9837,7 +9837,7 @@ with self; {
       libwebp
       proj
       zlib
-    ;
+      ;
     boost = pkgs.boost.override {
       enablePython = true;
       inherit python;
@@ -9887,7 +9887,7 @@ with self; {
         libXi
         libXmu
         libXext
-      ;
+        ;
       inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
     }
   );
@@ -12002,7 +12002,7 @@ with self; {
       CoreFoundation
       CoreGraphics
       CoreVideo
-    ;
+      ;
   };
 
   threadloop = callPackage ../development/python-modules/threadloop { };
@@ -12809,7 +12809,7 @@ with self; {
     wasmer-compiler-cranelift
     wasmer-compiler-llvm
     wasmer-compiler-singlepass
-  ;
+    ;
 
   watchdog = callPackage ../development/python-modules/watchdog {
     inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices;
@@ -13068,7 +13068,7 @@ with self; {
       libtool
       pkg-config
       xmlsec
-    ;
+      ;
   };
 
   xmltodict = callPackage ../development/python-modules/xmltodict { };

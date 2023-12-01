@@ -14,7 +14,7 @@ let
     mkMerge
     types
     optional
-  ;
+    ;
 
   cfg = config.services.uptime;
   opt = options.services.uptime;

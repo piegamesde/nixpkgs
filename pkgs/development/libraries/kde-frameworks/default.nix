@@ -129,7 +129,7 @@ let
                 setupHook
                 src
                 version
-              ;
+                ;
             }
           );
       };

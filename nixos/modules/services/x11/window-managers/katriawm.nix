@@ -12,7 +12,7 @@ let
     mkIf
     mkPackageOptionMD
     singleton
-  ;
+    ;
   cfg = config.services.xserver.windowManager.katriawm;
 in
 {

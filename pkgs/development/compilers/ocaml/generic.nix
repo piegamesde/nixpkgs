@@ -53,7 +53,7 @@ let
     optionalString
     strings
     concatStrings
-  ;
+    ;
   pname = concatStrings [
     "ocaml"
     (optionalString aflSupport "+afl")

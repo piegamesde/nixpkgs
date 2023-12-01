@@ -10,7 +10,7 @@ let
     types
     literalMD
     mdDoc
-  ;
+    ;
 
   # Reifies and correctly wraps the python test driver for
   # the respective qemu version and with or without ocr support

@@ -65,7 +65,7 @@ let
           makeWrapper
           retroarch
           zlib
-        ;
+          ;
       }
       // args
     );

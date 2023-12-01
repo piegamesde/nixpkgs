@@ -15,7 +15,7 @@ let
     mapAttrs
     mkDefault
     mdDoc
-  ;
+    ;
 
   system = hostPkgs.stdenv.hostPlatform.system;
 

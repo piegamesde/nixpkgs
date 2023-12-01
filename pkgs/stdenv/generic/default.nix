@@ -153,7 +153,7 @@ let
           shell
           defaultNativeBuildInputs
           defaultBuildInputs
-        ;
+          ;
       }
       // lib.optionalAttrs buildPlatform.isDarwin {
         __sandboxProfile = stdenvSandboxProfile;
@@ -175,7 +175,7 @@ let
         extraBuildInputs
         __extraImpureHostDeps
         extraSandboxProfile
-      ;
+        ;
 
       # Utility flags to test the type of platform.
       inherit (hostPlatform)
@@ -195,7 +195,7 @@ let
         isAarch64
         isMips
         isBigEndian
-      ;
+        ;
 
       # Override `system` so that packages can get the system of the host
       # platform through `stdenv.system`. `system` is originally set to the

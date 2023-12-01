@@ -11,7 +11,7 @@ let
     sort
     toLower
     trace
-  ;
+    ;
 
   maintainers = import ../maintainer-list.nix;
   simplify =

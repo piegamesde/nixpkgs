@@ -42,7 +42,7 @@ let
       version
       src
       meta
-    ;
+      ;
 
     nativeBuildInputs = [
       unzip
@@ -75,7 +75,7 @@ let
       version
       src
       meta
-    ;
+      ;
 
     nativeBuildInputs = [
       unzip

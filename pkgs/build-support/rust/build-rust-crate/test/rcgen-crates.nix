@@ -4345,7 +4345,7 @@ rec {
                     testInputs
                     testPreRun
                     testPostRun
-                  ;
+                    ;
                 }
               else
                 drv;
@@ -4361,7 +4361,7 @@ rec {
             testInputs
             testPreRun
             testPostRun
-          ;
+            ;
         };
 
     /* Returns an attr set with packageId mapped to the result of buildRustCrateForPkgsFunc
@@ -4484,7 +4484,7 @@ rec {
                 buildDependencies
                 crateRenames
                 release
-              ;
+                ;
             }
           );
       in
@@ -4670,7 +4670,7 @@ rec {
                   target
                   runTests
                   rootPackageId
-                ;
+                  ;
               }
           );
         cacheWithSelf =

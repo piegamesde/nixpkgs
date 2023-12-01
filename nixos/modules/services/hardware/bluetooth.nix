@@ -23,7 +23,7 @@ let
     optionalAttrs
     recursiveUpdate
     types
-  ;
+    ;
 
   cfgFmt = pkgs.formats.ini { };
 

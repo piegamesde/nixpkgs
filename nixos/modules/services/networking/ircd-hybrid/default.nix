@@ -28,7 +28,7 @@ let
       iproute2
       gnugrep
       procps
-    ;
+      ;
 
     ipv6Enabled = boolToString config.networking.enableIPv6;
 
@@ -38,7 +38,7 @@ let
       description
       adminEmail
       extraPort
-    ;
+      ;
 
     cryptoSettings =
       (optionalString (cfg.rsaKey != null) ''

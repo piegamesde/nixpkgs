@@ -6,7 +6,7 @@ let
     mkOption
     types
     optionalString
-  ;
+    ;
 in
 {
 

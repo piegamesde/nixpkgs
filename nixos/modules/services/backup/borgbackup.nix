@@ -148,7 +148,7 @@ let
           extraInitArgs
           extraCreateArgs
           extraPruneArgs
-        ;
+          ;
       } // (mkPassEnv cfg) // cfg.environment;
     };
 

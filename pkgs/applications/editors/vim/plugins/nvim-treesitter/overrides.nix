@@ -83,7 +83,7 @@ in
       grammarToPlugin
       withPlugins
       withAllGrammars
-    ;
+      ;
 
     grammarPlugins = lib.mapAttrs (_: grammarToPlugin) generatedDerivations;
 

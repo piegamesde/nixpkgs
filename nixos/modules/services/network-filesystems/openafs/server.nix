@@ -17,7 +17,7 @@ let
     mkEnableOption
     optionalString
     types
-  ;
+    ;
 
   bosConfig = pkgs.writeText "BosConfig" (
     ''

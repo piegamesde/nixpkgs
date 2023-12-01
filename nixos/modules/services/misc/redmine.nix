@@ -14,7 +14,7 @@ let
     mkOption
     mkRemovedOptionModule
     types
-  ;
+    ;
   inherit (lib) concatStringsSep literalExpression mapAttrsToList;
   inherit (lib) optional optionalAttrs optionalString;
 

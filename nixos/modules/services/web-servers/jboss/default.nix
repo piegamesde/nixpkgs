@@ -23,7 +23,7 @@ let
       serverDir
       user
       useJK
-    ;
+      ;
   };
 in
 

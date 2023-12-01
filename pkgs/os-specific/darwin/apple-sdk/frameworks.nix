@@ -19,7 +19,7 @@ with libs; {
       CoreGraphics
       CoreMedia
       MediaToolbox
-    ;
+      ;
   };
   AVKit = { };
   Accounts = { };
@@ -34,7 +34,7 @@ with libs; {
       Foundation
       QuartzCore
       UIFoundation
-    ;
+      ;
   };
   AppKitScripting = { };
   AppleScriptKit = { };
@@ -71,7 +71,7 @@ with libs; {
       IOKit
       IOSurface
       SystemConfiguration
-    ;
+      ;
   };
   CoreImage = { };
   CoreLocation = { };
@@ -87,7 +87,7 @@ with libs; {
       CoreAudio
       CoreGraphics
       CoreVideo
-    ;
+      ;
   };
   CoreMediaIO = {
     inherit CoreMedia;
@@ -101,7 +101,7 @@ with libs; {
       CoreGraphics
       IOSurface
       OpenGL
-    ;
+      ;
   };
   CoreWLAN = {
     inherit SecurityFoundation;
@@ -128,7 +128,7 @@ with libs; {
       Security
       ApplicationServices
       SystemConfiguration
-    ;
+      ;
   };
   GLKit = { };
   GLUT = {
@@ -149,7 +149,7 @@ with libs; {
       ModelIO
       SceneKit
       SpriteKit
-    ;
+      ;
   };
   GameplayKit = { };
   Hypervisor = { };
@@ -222,7 +222,7 @@ with libs; {
       MediaToolbox
       QuickTime
       VideoToolbox
-    ;
+      ;
   };
   QuickLook = {
     inherit ApplicationServices;
@@ -265,7 +265,7 @@ with libs; {
       Carbon
       JavaScriptCore
       OpenGL
-    ;
+      ;
   };
 
   # Umbrellas
@@ -278,7 +278,7 @@ with libs; {
       CoreServices
       CoreText
       ImageIO
-    ;
+      ;
   };
   Carbon = {
     inherit
@@ -289,7 +289,7 @@ with libs; {
       IOKit
       Security
       QuartzCore
-    ;
+      ;
   };
   CoreBluetooth = { };
   # TODO: figure out which part of the umbrella depends on CoreFoundation and move it there.
@@ -304,7 +304,7 @@ with libs; {
       NetFS
       OpenDirectory
       ServiceManagement
-    ;
+      ;
   };
   IOBluetooth = {
     inherit CoreBluetooth IOKit;
@@ -322,7 +322,7 @@ with libs; {
       OpenCL
       CoreImage
       Metal
-    ;
+      ;
   };
   QuickTime = {
     inherit
@@ -333,7 +333,7 @@ with libs; {
       CoreServices
       OpenGL
       QuartzCore
-    ;
+      ;
   };
 
   vmnet = { };

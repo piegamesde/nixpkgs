@@ -188,7 +188,7 @@ let
           withRuby
           viAlias
           vimAlias
-        ;
+          ;
         customRC = configure.customRC or "";
         inherit plugins;
         inherit extraName;

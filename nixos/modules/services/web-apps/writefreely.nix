@@ -12,13 +12,13 @@ let
     mkIf
     mkOption
     mkDefault
-  ;
+    ;
   inherit (lib)
     optional
     optionals
     optionalAttrs
     optionalString
-  ;
+    ;
 
   inherit (pkgs) sqlite;
 

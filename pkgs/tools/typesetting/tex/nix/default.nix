@@ -38,7 +38,7 @@ rec {
         extraFiles
         compressBlanksInIndex
         copySources
-      ;
+        ;
 
       includes =
         map

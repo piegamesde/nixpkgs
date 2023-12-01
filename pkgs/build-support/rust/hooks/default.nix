@@ -46,7 +46,7 @@ in
                 rustBuildPlatform
                 rustTargetPlatform
                 rustTargetPlatformSpec
-              ;
+                ;
             };
           }
           ./cargo-build-hook.sh
@@ -157,7 +157,7 @@ in
                 rustBuildPlatform
                 rustTargetPlatform
                 rustTargetPlatformSpec
-              ;
+                ;
             };
           }
           ./maturin-build-hook.sh

@@ -25,7 +25,7 @@ let
       slnFile
       targets
       verbosity
-    ;
+      ;
     inherit options assemblyInputs preBuild;
     inherit modifyPublicMain mainClassFile;
   };

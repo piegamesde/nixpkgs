@@ -252,7 +252,7 @@ in
         nixos-option
         nixos-rebuild
         nixos-enter
-      ;
+        ;
     };
   };
 }

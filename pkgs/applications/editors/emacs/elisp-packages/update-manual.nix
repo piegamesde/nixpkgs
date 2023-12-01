@@ -7,7 +7,7 @@ let
     filterAttrs
     mapAttrs
     attrValues
-  ;
+    ;
 
   # Extract updateScript's from manually package emacs packages
   hasScript =

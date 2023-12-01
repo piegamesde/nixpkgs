@@ -98,7 +98,7 @@ let
           overlays
           localSystem
           crossSystem
-        ;
+          ;
       };
 
   finalPkgs = if opt.pkgs.isDefined then cfg.pkgs.appendOverlays cfg.overlays else defaultPkgs;

@@ -29,7 +29,7 @@
         runCommand
         wrapBintoolsWith
         wrapCCWith
-      ;
+        ;
       # buildPackages.foo rather than buildPackages.buildPackages.foo would work,
       # but for splicing messing up on infinite recursion for the variants we
       # *dont't* use. Using this workaround, but also making a test to ensure
@@ -61,7 +61,7 @@
         runCommand
         wrapBintoolsWith
         wrapCCWith
-      ;
+        ;
       # buildPackages.foo rather than buildPackages.buildPackages.foo would work,
       # but for splicing messing up on infinite recursion for the variants we
       # *dont't* use. Using this workaround, but also making a test to ensure
@@ -93,7 +93,7 @@
         runCommand
         wrapBintoolsWith
         wrapCCWith
-      ;
+        ;
       # buildPackages.foo rather than buildPackages.buildPackages.foo would work,
       # but for splicing messing up on infinite recursion for the variants we
       # *dont't* use. Using this workaround, but also making a test to ensure

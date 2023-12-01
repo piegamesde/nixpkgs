@@ -11,7 +11,7 @@ let
     mkIf
     mkOption
     types
-  ;
+    ;
   inherit (pkgs) solanum util-linux;
   cfg = config.services.solanum;
 

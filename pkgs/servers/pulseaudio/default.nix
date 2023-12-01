@@ -162,7 +162,7 @@ stdenv.mkDerivation rec {
             gst-plugins-good
             gst-plugins-base
             gstreamer
-          ;
+            ;
         }
       )
       ++ lib.optional remoteControlSupport lirc

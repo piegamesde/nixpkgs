@@ -33,7 +33,7 @@ let
     isFunction
     mapAttrs
     trace
-  ;
+    ;
 in
 
 rec {

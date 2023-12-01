@@ -10,7 +10,7 @@ let
           src
           patchPhase
           nativeBuildInputs
-        ;
+          ;
         buildFlags = [ variant ];
 
         meta =

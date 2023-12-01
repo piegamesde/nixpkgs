@@ -10,7 +10,7 @@ let
     pytest
     mock
     pexpect
-  ;
+    ;
   repo = "lesspass";
 in
 buildPythonApplication rec {

@@ -29,7 +29,7 @@ let
     )
     hostarch
     efiPlatform
-  ;
+    ;
 in
 
 stdenv.mkDerivation rec {

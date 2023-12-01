@@ -101,7 +101,7 @@ stdenv.mkDerivation {
     src
     passthru
     meta
-  ;
+    ;
 
   dontUnpack = true;
   dontPatch = true;

@@ -86,7 +86,7 @@ lib.makeOverridable (
               rev
               sha256
               fetchSubmodules
-            ;
+              ;
           }
         else if type == "url" then
           fetchurl attrs.source

@@ -47,7 +47,7 @@ buildPythonPackage rec {
       httpie
       rich-rst
       textual
-    ;
+      ;
   };
 
   meta = with lib; {

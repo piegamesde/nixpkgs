@@ -86,7 +86,7 @@ let
             unpackPhase
             postUnpack
             cargoUpdateHook
-          ;
+            ;
           name = cargoDepsName;
           patches = cargoPatches;
         }

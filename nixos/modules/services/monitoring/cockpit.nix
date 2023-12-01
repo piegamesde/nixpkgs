@@ -15,7 +15,7 @@ let
     mdDoc
     literalMD
     mkPackageOptionMD
-  ;
+    ;
   settingsFormat = pkgs.formats.ini { };
 in
 {

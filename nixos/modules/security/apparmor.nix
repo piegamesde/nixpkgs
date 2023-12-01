@@ -14,7 +14,7 @@ let
     map
     match
     readFile
-  ;
+    ;
   inherit (lib) types;
   inherit (config.environment) etc;
   cfg = config.security.apparmor;

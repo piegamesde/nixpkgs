@@ -28,7 +28,7 @@ let
             description
             link
             pname
-          ;
+            ;
           inherit (extension.shell_version_map.${shell-version}) version sha256 metadata;
         }
       ))

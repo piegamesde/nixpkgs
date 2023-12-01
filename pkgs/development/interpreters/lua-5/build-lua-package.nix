@@ -105,7 +105,7 @@ let
           knownRockspec
           externalDeps
           nativeCheckInputs
-        ;
+          ;
 
         buildInputs =
           let

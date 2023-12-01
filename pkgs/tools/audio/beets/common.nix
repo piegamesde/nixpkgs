@@ -49,7 +49,7 @@ let
         propagatedBuildInputs
         testPaths
         wrapperBins
-      ;
+        ;
     };
 
   basePlugins = lib.mapAttrs (_: a: { builtin = true; } // a) (import ./builtin-plugins.nix inputs);

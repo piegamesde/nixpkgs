@@ -23,7 +23,7 @@ buildPythonPackage {
     version
     src
     meta
-  ;
+    ;
 
   nativeBuildInputs = [
     tblite

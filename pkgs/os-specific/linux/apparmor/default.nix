@@ -409,5 +409,5 @@ in
     apparmor-profiles
     apparmor-kernel-patches
     apparmorRulesFromClosure
-  ;
+    ;
 }

@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       btrbk-no-timer
       btrbk-section-order
       btrbk-doas
-    ;
+      ;
   };
 
   passthru.updateScript = genericUpdater {

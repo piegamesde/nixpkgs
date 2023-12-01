@@ -93,7 +93,7 @@ lib.makeOverridable (
       optionalAttrs
       maintainers
       platforms
-    ;
+      ;
 
     # Dependencies that are required to build kernel modules
     moduleBuildDependencies = [
@@ -472,7 +472,7 @@ lib.makeOverridable (
           configfile
           moduleBuildDependencies
           stdenv
-        ;
+          ;
         inherit isZen isHardened isLibre;
         isXen = lib.warn "The isXen attribute is deprecated. All Nixpkgs kernels that support it now have Xen enabled." true;
         baseVersion = lib.head (lib.splitString "-rc" version);

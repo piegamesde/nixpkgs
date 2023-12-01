@@ -23,7 +23,7 @@ let
     requests-mock
     python-dateutil
     setuptools
-  ;
+    ;
 
   version = "4.20";
 in

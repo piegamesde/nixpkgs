@@ -16,7 +16,7 @@ let
     mkMerge
     optional
     versionOlder
-  ;
+    ;
   cfg = config.hardware.system76;
   opt = options.hardware.system76;
 

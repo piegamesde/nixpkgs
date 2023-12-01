@@ -48,7 +48,7 @@ let
     makeLibraryPath
     makeSearchPath
     recurseIntoAttrs
-  ;
+    ;
 
   inherit (builtins)
     head
@@ -56,7 +56,7 @@ let
     elem
     split
     storeDir
-  ;
+    ;
 
   inherit (pkgs) substituteAll;
 
@@ -171,7 +171,7 @@ let
           program
           flags
           faslExt
-        ;
+          ;
 
         # When src is null, we are building a lispWithPackages and only
         # want to make use of the dependency environment variables
@@ -199,7 +199,7 @@ let
             program
             flags
             faslExt
-          ;
+            ;
         };
 
         buildScript = substituteAll {
@@ -322,7 +322,7 @@ let
         flags
         faslExt
         asdf
-      ;
+        ;
       # See dontUnpack in build-asdf-system
       src = null;
       pname = first.pkg.pname;
@@ -368,7 +368,7 @@ let
           program
           flags
           asdf
-        ;
+          ;
       };
       pkgs = (commonLispPackagesFor spec).overrideScope' packageOverrides;
       withPackages = lispWithPackages pkgs;
@@ -381,7 +381,7 @@ let
             program
             flags
             asdf
-          ;
+            ;
           inherit packageOverrides;
         };
       buildASDFSystem = args: build-asdf-system (args // spec);
@@ -393,7 +393,7 @@ let
         withPackages
         withOverrides
         buildASDFSystem
-      ;
+        ;
     };
 in
 wrapLisp

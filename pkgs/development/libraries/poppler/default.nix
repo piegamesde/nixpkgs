@@ -127,7 +127,7 @@ stdenv.mkDerivation (
           cups-filters
           texlive
           scribus
-        ;
+          ;
       };
     };
 

@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       curl
       common-updater-scripts
       runtimeShell
-    ;
+      ;
   };
 
   meta = {

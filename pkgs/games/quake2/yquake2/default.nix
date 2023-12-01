@@ -25,7 +25,7 @@ let
       buildEnv
       makeWrapper
       yquake2
-    ;
+      ;
   };
 
   yquake2 = stdenv.mkDerivation rec {

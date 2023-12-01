@@ -19,7 +19,7 @@ let
     path
     str
     submodule
-  ;
+    ;
   inherit (lib.modules) mkDefault mkIf mkMerge;
 
   commonDescr = ''
@@ -45,7 +45,7 @@ let
         coercedTo
         int
         listOf
-      ;
+        ;
       innerType = coercedTo bool (x: if x then "Yes" else "No") (coercedTo int (toString) str);
     in
     attrsOf (coercedTo innerType lib.singleton (listOf innerType));

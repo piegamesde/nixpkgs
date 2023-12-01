@@ -901,7 +901,7 @@ in
             layout
             xkbVariant
             xkbOptions
-          ;
+            ;
           nativeBuildInputs = with pkgs.buildPackages; [ xkbvalidate ];
           preferLocalBuild = true;
         }

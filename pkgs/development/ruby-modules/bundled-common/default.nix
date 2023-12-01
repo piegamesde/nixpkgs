@@ -150,7 +150,7 @@ let
         gems
         confFiles
         envPaths
-      ;
+        ;
 
       wrappedRuby = stdenv.mkDerivation {
         name = "wrapped-ruby-${pname'}";

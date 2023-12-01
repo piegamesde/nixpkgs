@@ -6,7 +6,7 @@ let
     version
     src
     npmDepsHash
-  ;
+    ;
 in
 buildNpmPackage {
   pname = "${pname}-web";

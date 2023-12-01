@@ -472,7 +472,7 @@ in
                 wmLabel
                 wmCommand
                 enableGnomePanel
-              ;
+                ;
               inherit (cfg.flashback) panelModulePackages;
             }
           )

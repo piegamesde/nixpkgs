@@ -304,6 +304,6 @@ stdenv.mkDerivation rec {
       enableJemalloc
       enableS3
       enableGcs
-    ;
+      ;
   };
 }

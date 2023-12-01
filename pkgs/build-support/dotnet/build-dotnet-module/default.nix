@@ -104,7 +104,7 @@ let
         dotnet-runtime
         runtimeDeps
         buildType
-      ;
+        ;
       runtimeId =
         if runtimeId != null then
           runtimeId
@@ -116,7 +116,7 @@ let
     dotnetCheckHook
     dotnetInstallHook
     dotnetFixupHook
-  ;
+    ;
 
   localDeps =
     if (projectReferences != [ ]) then

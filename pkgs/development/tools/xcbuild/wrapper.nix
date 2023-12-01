@@ -31,7 +31,7 @@ let
       ImageIO
       CoreGraphics
       stdenv
-    ;
+      ;
   };
 
   toolchains = callPackage ./toolchains.nix { inherit toolchainName stdenv; };
@@ -43,7 +43,7 @@ let
       xcodePlatform
       sdkVer
       productBuildVer
-    ;
+      ;
   };
 
   platforms = callPackage ./platforms.nix { inherit sdks xcodePlatform stdenv; };

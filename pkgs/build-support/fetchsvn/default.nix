@@ -71,7 +71,7 @@ else
       rev
       ignoreExternals
       ignoreKeywords
-    ;
+      ;
 
     impureEnvVars = lib.fetchers.proxyImpureEnvVars;
     inherit preferLocalBuild;

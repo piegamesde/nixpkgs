@@ -51,7 +51,7 @@ let
     mkOption
     mkPackageOptionMD
     types
-  ;
+    ;
 
   activationScript = ''
     ${set_XDG_CONFIG_HOME}

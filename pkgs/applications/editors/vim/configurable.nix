@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
     hardeningDisable
     enableParallelBuilding
     meta
-  ;
+    ;
 
   src = builtins.getAttr source {
     default = common.src; # latest release

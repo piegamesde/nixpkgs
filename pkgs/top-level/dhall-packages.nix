@@ -34,7 +34,7 @@ let
         buildDhallDirectoryPackage
         buildDhallUrl
         generateDhallDirectoryPackage
-      ;
+        ;
 
       lib = import ../development/dhall-modules/lib.nix { inherit lib; };
 

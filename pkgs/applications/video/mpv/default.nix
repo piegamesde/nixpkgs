@@ -115,7 +115,7 @@ let
     CoreAudio
     MediaPlayer
     Accelerate
-  ;
+    ;
   luaEnv = lua.withPackages (ps: with ps; [ luasocket ]);
 in
 stdenv.mkDerivation (
@@ -304,7 +304,7 @@ stdenv.mkDerivation (
         # build vapoursynth.
         vapoursynthSupport
         vapoursynth
-      ;
+        ;
     };
 
     meta = with lib; {

@@ -538,7 +538,7 @@ stdenv.mkDerivation {
             runAccuracyTests
             runPerformanceTests
             testDataSrc
-          ;
+            ;
           inherit opencv4;
         };
       };

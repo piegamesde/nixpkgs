@@ -24,7 +24,7 @@ let
     mountToUnit
     automountToUnit
     sliceToUnit
-  ;
+    ;
 
   upstreamSystemUnits =
     [

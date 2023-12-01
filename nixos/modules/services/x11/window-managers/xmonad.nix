@@ -13,7 +13,7 @@ let
     optionals
     literalExpression
     optionalString
-  ;
+    ;
   cfg = config.services.xserver.windowManager.xmonad;
 
   ghcWithPackages = cfg.haskellPackages.ghcWithPackages;

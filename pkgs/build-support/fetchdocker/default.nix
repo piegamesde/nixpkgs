@@ -75,13 +75,13 @@ stdenv.mkDerivation {
     imageName
     repository
     tag
-  ;
+    ;
   inherit
     bash
     gnutar
     manifest
     repositories
-  ;
+    ;
   inherit imageFileStorePaths;
 
   passthru = {

@@ -51,7 +51,7 @@ rec {
         pname
         version
         nativeBuildInputs
-      ;
+        ;
       passthru = {
         inherit gerbil-package version-path;
       };

@@ -33,7 +33,7 @@ let
     fb-re2
     pygit2
     pygments
-  ;
+    ;
 
   self = python3Packages.buildPythonApplication rec {
     pname = "mercurial${lib.optionalString fullBuild "-full"}";

@@ -32,7 +32,7 @@
         zabbix50
         zabbix60
         zeroadPackages
-      ;
+        ;
 
       haskellPackages = super.haskellPackages // {
         # mesos, which this depends on, has been removed from nixpkgs. We are keeping

@@ -62,7 +62,7 @@ let
       libpng
       librsvg
       libheif
-    ;
+      ;
     libjpeg = libjpeg_turbo;
     inherit (netsurf) libnsgif;
   };

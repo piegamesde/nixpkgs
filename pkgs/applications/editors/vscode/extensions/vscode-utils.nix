@@ -47,7 +47,7 @@ let
           buildPhase
           dontPatchELF
           dontStrip
-        ;
+          ;
 
         installPrefix = "share/vscode/extensions/${vscodeExtUniqueId}";
 
@@ -131,7 +131,7 @@ let
       writeShellScriptBin
       extensionsFromVscodeMarketplace
       jq
-    ;
+      ;
     vscodeDefault = vscode;
   };
 
@@ -177,5 +177,5 @@ in
     vscodeEnv
     toExtensionJsonEntry
     toExtensionJson
-  ;
+    ;
 }

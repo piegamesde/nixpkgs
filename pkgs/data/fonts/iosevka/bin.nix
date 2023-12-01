@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       description
       license
       platforms
-    ;
+      ;
     maintainers = with lib.maintainers; [
       cstrahan
       montchr

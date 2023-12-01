@@ -185,7 +185,7 @@ stdenv.mkDerivation rec {
         luaversion
         packageOverrides
         luaAttr
-      ;
+        ;
       executable = "lua";
       luaOnBuildForBuild = override pkgsBuildBuild.${luaAttr};
       luaOnBuildForHost = override pkgsBuildHost.${luaAttr};

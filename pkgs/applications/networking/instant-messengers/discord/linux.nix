@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     version
     src
     meta
-  ;
+    ;
 
   nativeBuildInputs = [
     alsa-lib

@@ -21,7 +21,7 @@ let
       rustPlatform
       buildPackages
       originalCargoToml
-    ;
+      ;
   };
 in
 rustPlatform.buildRustPackage {

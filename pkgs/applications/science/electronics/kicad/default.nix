@@ -117,7 +117,7 @@ let
     flatten
     optionalString
     optionals
-  ;
+    ;
 in
 stdenv.mkDerivation rec {
 

@@ -264,7 +264,7 @@ let
         gnupg
         nix
         runtimeShell
-      ;
+        ;
       inherit lib;
       inherit majorVersion;
     };

@@ -36,7 +36,7 @@ pythonPackages.callPackage
         fetchFromLegacy
         fetchFromPypi
         normalizePackageName
-      ;
+        ;
 
       inherit
         (import ./pep425.nix {
@@ -45,10 +45,10 @@ pythonPackages.callPackage
             poetryLib
             python
             stdenv
-          ;
+            ;
         })
         selectWheel
-      ;
+        ;
       fileCandidates =
         let
           supportedRegex = ("^.*(" + builtins.concatStringsSep "|" supportedExtensions + ")");

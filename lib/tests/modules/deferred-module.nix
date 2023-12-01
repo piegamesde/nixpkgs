@@ -8,7 +8,7 @@ let
     str
     raw
     enum
-  ;
+    ;
 in
 {
   imports = [

@@ -17,7 +17,7 @@ let
     sipbuild
     pyqt5
     pyqt-builder
-  ;
+    ;
 in
 buildPythonPackage rec {
   pname = "qscintilla-qt5";

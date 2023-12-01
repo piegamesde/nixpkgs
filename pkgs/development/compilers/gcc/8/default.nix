@@ -108,7 +108,7 @@ let
       crossMingw
       stageNameAddon
       crossNameAddon
-    ;
+      ;
     # inherit generated with 'nix eval --json --impure --expr "with import ./. {}; lib.attrNames (lib.functionArgs gcc8.cc.override)" | jq '.[]' --raw-output'
     inherit
       binutils
@@ -150,7 +150,7 @@ let
       which
       zip
       zlib
-    ;
+      ;
   };
 in
 
@@ -239,7 +239,7 @@ stdenv.mkDerivation (
       crossStageStatic
       libcCross
       crossMingw
-    ;
+      ;
 
     inherit (callFile ../common/dependencies.nix { })
       depsBuildBuild
@@ -247,7 +247,7 @@ stdenv.mkDerivation (
       depsBuildTarget
       buildInputs
       depsTargetTarget
-    ;
+      ;
 
     NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
@@ -294,7 +294,7 @@ stdenv.mkDerivation (
     inherit (callFile ../common/extra-target-flags.nix { })
       EXTRA_FLAGS_FOR_TARGET
       EXTRA_LDFLAGS_FOR_TARGET
-    ;
+      ;
 
     passthru = {
       inherit
@@ -305,7 +305,7 @@ stdenv.mkDerivation (
         langFortran
         langGo
         version
-      ;
+        ;
       isGNU = true;
       hardeningUnsupportedFlags = [ "fortify3" ];
     };
@@ -321,7 +321,7 @@ stdenv.mkDerivation (
         longDescription
         platforms
         maintainers
-      ;
+        ;
       badPlatforms = [ "aarch64-darwin" ];
     };
   }

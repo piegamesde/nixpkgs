@@ -382,7 +382,7 @@ stdenv.mkDerivation rec {
               extracted
               bazelTest
               distDir
-            ;
+              ;
             bazel = bazel_self;
           };
         }
@@ -400,7 +400,7 @@ stdenv.mkDerivation rec {
           bazelTest
           bazel-examples
           distDir
-        ;
+          ;
         bazel = bazel_self;
       };
       java = callPackage ../java-test.nix {
@@ -409,7 +409,7 @@ stdenv.mkDerivation rec {
           bazelTest
           bazel-examples
           distDir
-        ;
+          ;
         bazel = bazel_self;
       };
       protobuf = callPackage ../protobuf-test.nix {
@@ -432,7 +432,7 @@ stdenv.mkDerivation rec {
           bazelTest
           bazel-examples
           distDir
-        ;
+          ;
         bazel = bazelWithNixHacks;
       };
       javaWithNixHacks = callPackage ../java-test.nix {
@@ -441,7 +441,7 @@ stdenv.mkDerivation rec {
           bazelTest
           bazel-examples
           distDir
-        ;
+          ;
         bazel = bazelWithNixHacks;
       };
       protobufWithNixHacks = callPackage ../protobuf-test.nix {

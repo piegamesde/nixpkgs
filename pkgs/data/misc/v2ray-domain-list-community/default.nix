@@ -30,7 +30,7 @@ stdenv.mkDerivation {
     version
     src
     meta
-  ;
+    ;
   buildPhase = ''
     runHook preBuild
     ${generator}/bin/domain-list-community -datapath $src/data --exportlists=category-ads-all,tld-cn,cn,tld-\!cn,geolocation-\!cn,apple,icloud

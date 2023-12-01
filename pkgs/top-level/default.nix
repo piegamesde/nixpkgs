@@ -137,7 +137,7 @@ let
       config
       overlays
       crossOverlays
-    ;
+      ;
   };
 
   pkgs = boot stages;

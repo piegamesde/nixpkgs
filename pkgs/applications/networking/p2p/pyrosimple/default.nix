@@ -55,7 +55,7 @@ buildPythonPackage {
     version
     src
     propagatedBuildInputs
-  ;
+    ;
 
   passthru = {
     updateScript = nix-update-script { };

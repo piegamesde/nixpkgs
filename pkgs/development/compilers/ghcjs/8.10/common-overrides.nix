@@ -12,7 +12,7 @@ let
     doJailbreak
     markUnbroken
     overrideCabal
-  ;
+    ;
 in
 self: super: {
   ghcjs =

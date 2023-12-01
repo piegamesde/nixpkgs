@@ -128,7 +128,7 @@ let
             version
             monorepoSrc
             buildLlvmTools
-          ;
+            ;
         }
       );
       major = lib.versions.major release_version;
@@ -314,7 +314,7 @@ let
             release_version
             version
             monorepoSrc
-          ;
+            ;
         }
       );
     in

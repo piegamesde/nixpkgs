@@ -20,7 +20,7 @@ let
     optionalString
     sort
     types
-  ;
+    ;
 
   # The priority of an option or section.
   # The configurations format are order-sensitive. Pairs are added as children of

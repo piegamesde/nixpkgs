@@ -93,7 +93,7 @@ let
       MetalKit
       CoreFoundation
       ApplicationServices
-    ;
+      ;
   };
 in
 stdenv.mkDerivation rec {

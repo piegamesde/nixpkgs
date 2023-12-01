@@ -93,7 +93,7 @@ stdenvNoCC.mkDerivation rec {
       jq
       yarn
       yarn2nix
-    ;
+      ;
   };
 
   meta = with lib; {

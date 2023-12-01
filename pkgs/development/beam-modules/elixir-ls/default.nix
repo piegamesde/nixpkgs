@@ -26,7 +26,7 @@ mixRelease {
     version
     src
     elixir
-  ;
+    ;
 
   mixFodDeps = fetchMixDeps {
     pname = "mix-deps-${pname}";

@@ -45,7 +45,7 @@ mkYarnPackage {
     pkgConfig
     name
     version
-  ;
+    ;
 
   extraBuildInputs = [ libsass ];
 

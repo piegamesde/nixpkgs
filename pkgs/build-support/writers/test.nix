@@ -255,7 +255,7 @@ runCommand "test-writers"
         bin
         simple
         path
-      ;
+        ;
     };
     meta.platforms = lib.platforms.all;
   }

@@ -33,7 +33,7 @@ let
       chineseFonts
       japaneseFonts
       koreanFonts
-    ;
+      ;
   };
 in
 mkDerivation {

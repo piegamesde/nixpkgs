@@ -73,7 +73,7 @@ let
             version
             src
             buildLlvmTools
-          ;
+            ;
         }
       );
       mkExtraBuildCommands0 = cc: ''
@@ -267,7 +267,7 @@ let
             release_version
             version
             src
-          ;
+            ;
         }
       );
     in

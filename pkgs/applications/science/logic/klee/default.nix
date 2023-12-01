@@ -49,7 +49,7 @@ let
       extraKleeuClibcConfig
       debugRuntime
       runtimeAsserts
-    ;
+      ;
   };
 in
 stdenv.mkDerivation rec {

@@ -35,7 +35,7 @@ rec {
     toJSON
     typeOf
     unsafeDiscardStringContext
-  ;
+    ;
 
   /* Concatenate a list of strings.
 

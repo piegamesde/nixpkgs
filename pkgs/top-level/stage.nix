@@ -114,7 +114,7 @@ let
         stdenv
         stdenvNoCC
         haskell
-      ;
+        ;
       inherit (self.pkgsBuildHost) shellcheck;
       inherit (self.pkgsBuildHost.xorg) lndir;
     };
@@ -167,7 +167,7 @@ let
               noSysDirs
               config
               overlays
-            ;
+              ;
           }
           res
           self

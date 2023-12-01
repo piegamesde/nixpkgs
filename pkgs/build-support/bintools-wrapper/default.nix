@@ -155,7 +155,7 @@ stdenv.mkDerivation {
       nativePrefix
       isGNU
       isLLVM
-    ;
+      ;
 
     emacsBufferSetup = pkgs: ''
       ; We should handle propagation here too
@@ -415,7 +415,7 @@ stdenv.mkDerivation {
           darwinSdkVersion
           darwinMinVersion
           darwinMinVersionVariable
-        ;
+          ;
       in
       ''
         export darwinPlatform=${darwinPlatform}
@@ -460,13 +460,13 @@ stdenv.mkDerivation {
       targetPrefix
       suffixSalt
       coreutils_bin
-    ;
+      ;
     inherit
       bintools_bin
       libc_bin
       libc_dev
       libc_lib
-    ;
+      ;
   };
 
   meta =

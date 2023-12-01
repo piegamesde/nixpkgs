@@ -84,7 +84,7 @@ stdenv.mkDerivation (
           gettext
           socat
           gtk3
-        ;
+          ;
         smi = shared-mime-info;
         dfu = desktop-file-utils;
         hicolorIconTheme = hicolor-icon-theme;

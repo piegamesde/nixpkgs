@@ -21,7 +21,7 @@ let
     pygobject3
     urllib3
     setuptools
-  ;
+    ;
 in
 buildPythonApplication rec {
   pname = "devede";

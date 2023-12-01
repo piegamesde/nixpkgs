@@ -18,7 +18,7 @@ let
     types
     literalExpression
     optionalString
-  ;
+    ;
 
   cfg = config.services.strongswan;
 
@@ -202,7 +202,7 @@ in
               secretsFile
               managePlugins
               enabledPlugins
-            ;
+              ;
           };
         };
         serviceConfig = {

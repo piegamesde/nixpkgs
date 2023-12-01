@@ -47,7 +47,7 @@
       courier
       helvetic
       ly1
-    ;
+      ;
   },
 }:
 

@@ -33,7 +33,7 @@ in
       pname
       program
       year
-    ;
+      ;
     version = "${year}.2.4";
     longDescription = ''
       PDF Studio Viewer is an easy to use, full-featured PDF editing software. This is the free edition. For the standard/pro edition, see the package pdfstudio.
@@ -52,7 +52,7 @@ in
       pname
       program
       year
-    ;
+      ;
     version = "${year}.2.1";
     src = fetchurl {
       url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${dot2dash version}_linux64.deb";
@@ -71,7 +71,7 @@ in
       pname
       program
       year
-    ;
+      ;
     version = "${year}.2.4";
     src = fetchurl {
       url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${dot2dash version}_linux64.deb";

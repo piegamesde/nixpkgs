@@ -9,7 +9,7 @@ let
       minor
       tiny
       tail
-    ;
+      ;
 
     # Contains the patch number "223" if tail is "p223" or null
     patchLevel =

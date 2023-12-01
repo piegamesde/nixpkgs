@@ -19,7 +19,7 @@ let
     mkIf
     mkMerge
     mkOption
-  ;
+    ;
   inherit (lib)
     attrValues
     concatMapStringsSep
@@ -29,7 +29,7 @@ let
     optionalAttrs
     optionalString
     types
-  ;
+    ;
   inherit (lib.generators) toKeyValue;
 
   user = "zabbix";

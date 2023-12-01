@@ -286,7 +286,7 @@ let
             hardeningDisable
             hardeningEnable
             supportedHardeningFlags
-          ;
+            ;
         }
       )
     else
@@ -665,7 +665,7 @@ let
             attrs
             pos
             references
-          ;
+            ;
         };
         validity = checkMeta.assertValidity { inherit meta attrs; };
 

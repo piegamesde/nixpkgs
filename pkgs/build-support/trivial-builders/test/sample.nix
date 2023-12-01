@@ -11,7 +11,7 @@ let
     hello
     writeText
     runCommand
-  ;
+    ;
 in
 {
   hello = hello;

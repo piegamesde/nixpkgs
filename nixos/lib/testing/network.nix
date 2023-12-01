@@ -18,7 +18,7 @@ let
     zipListsWith
     zipLists
     mdDoc
-  ;
+    ;
 
   nodeNumbers = listToAttrs (zipListsWith nameValuePair (attrNames nodes) (range 1 254));
 

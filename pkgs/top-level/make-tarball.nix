@@ -49,7 +49,7 @@ pkgs.releaseTools.sourceTarball {
       pkgs
       nixpkgs
       supportedSystems
-    ;
+      ;
   };
 
   dontBuild = false;

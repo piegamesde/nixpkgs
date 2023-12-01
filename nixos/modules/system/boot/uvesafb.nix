@@ -12,7 +12,7 @@ let
     mkOption
     mdDoc
     types
-  ;
+    ;
 in
 {
   options = {

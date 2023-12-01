@@ -131,7 +131,7 @@ let
             releaseRev
             repo
             owner
-          ;
+            ;
 
           mlPlugin = versions.isLe "8.6" coq.coq-version;
           nativeBuildInputs = optionals withDoc [

@@ -42,7 +42,7 @@ rec {
             addonInfo
             preInstall
             postInstall
-          ;
+            ;
 
           installPhase = ''
             runHook preInstall

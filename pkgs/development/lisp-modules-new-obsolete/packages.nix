@@ -21,7 +21,7 @@ let
     remove
     optionalString
     stringLength
-  ;
+    ;
 
   # Used by builds that would otherwise attempt to write into storeDir.
   #
@@ -278,7 +278,7 @@ let
         version
         src
         lispLibs
-      ;
+        ;
       nativeBuildInputs = [ pkgs.fuse ];
       nativeLibs = [ pkgs.fuse ];
     };
@@ -298,7 +298,7 @@ let
         version
         src
         lispLibs
-      ;
+        ;
       patches = [ ./patches/swank-pure-paths.patch ];
       postConfigure = ''
         substituteAllInPlace swank-loader.lisp
@@ -334,7 +334,7 @@ let
         src
         asds
         lisp
-      ;
+        ;
       lispLibs = ql.mathkit.lispLibs ++ [ ql.sb-cga ];
     };
 
@@ -503,7 +503,7 @@ let
         version
         src
         nativeLibs
-      ;
+        ;
       lispLibs = [ qt ] ++ remove ql.qt_plus_libs ql.qtools.lispLibs ++ [ qt-libs ];
       patches = [ ./patches/qtools-use-nix-libs.patch ];
     };
@@ -514,7 +514,7 @@ let
         version
         src
         lispLibs
-      ;
+        ;
       nativeBuildInputs = [ pkgs.gfortran ];
       nativeLibs = [ pkgs.openblas ];
       patches = [ ./patches/magicl-dont-build-fortran-twice.patch ];

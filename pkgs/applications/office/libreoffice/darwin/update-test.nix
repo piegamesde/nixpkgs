@@ -9,7 +9,7 @@ let
     extractLatestVersionFromHtml
     extractSha256FromHtml
     getLatestStableVersion
-  ;
+    ;
 in
 nixt.mkSuite "LibreOffice Updater" {
   "should extract latest stable version from html" =

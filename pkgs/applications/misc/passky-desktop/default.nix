@@ -38,7 +38,7 @@ let
       version
       src
       meta
-    ;
+      ;
 
     extraInstallCommands = ''
       mv $out/bin/${pname}-${version} $out/bin/${pname}
@@ -59,7 +59,7 @@ let
       version
       src
       meta
-    ;
+      ;
 
     nativeBuildInputs = [ undmg ];
 

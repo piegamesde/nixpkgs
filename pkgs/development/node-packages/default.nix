@@ -11,7 +11,7 @@ let
     extends
     makeExtensible
     mapAttrs
-  ;
+    ;
 
   nodePackages =
     final:

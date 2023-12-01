@@ -12,7 +12,7 @@ import ./generic.nix {
     stdenv
     unzip
     findXMLCatalogs
-  ;
+    ;
   version = "4.4";
   src = fetchurl {
     url = "https://docbook.org/xml/4.4/docbook-xml-4.4.zip";

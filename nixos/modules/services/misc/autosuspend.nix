@@ -19,7 +19,7 @@ let
     flatten
     maintainers
     attrValues
-  ;
+    ;
 
   cfg = config.services.autosuspend;
 

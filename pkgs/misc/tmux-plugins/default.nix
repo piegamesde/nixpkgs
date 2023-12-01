@@ -50,7 +50,7 @@ let
               addonInfo
               preInstall
               postInstall
-            ;
+              ;
 
             installPhase = ''
               runHook preInstall

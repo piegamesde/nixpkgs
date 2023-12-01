@@ -18,7 +18,7 @@ let
     optionalAttrs
     optionalString
     types
-  ;
+    ;
 
   confOptions =
     {

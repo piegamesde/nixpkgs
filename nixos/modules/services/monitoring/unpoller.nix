@@ -18,7 +18,7 @@ let
         loki
         prometheus
         unifi
-      ;
+        ;
     }
   );
 in

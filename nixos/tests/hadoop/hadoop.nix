@@ -134,7 +134,7 @@ import ../make-test-python.nix (
                 coreSite
                 hdfsSite
                 yarnSite
-              ;
+                ;
               yarn.resourcemanager = {
                 enable = true;
                 openFirewall = true;
@@ -150,7 +150,7 @@ import ../make-test-python.nix (
                 coreSite
                 hdfsSite
                 yarnSite
-              ;
+                ;
               yarn.resourcemanager = {
                 enable = true;
                 openFirewall = true;
@@ -167,7 +167,7 @@ import ../make-test-python.nix (
                 coreSite
                 hdfsSite
                 yarnSite
-              ;
+                ;
               yarn.nodemanager = {
                 enable = true;
                 openFirewall = true;
@@ -184,7 +184,7 @@ import ../make-test-python.nix (
                 coreSite
                 hdfsSite
                 yarnSite
-              ;
+                ;
             };
           };
       };

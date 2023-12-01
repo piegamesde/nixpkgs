@@ -17,7 +17,7 @@ let
       Security
       CoreFoundation
       cctools
-    ;
+      ;
   };
   variants =
     if stdenv.isLinux then

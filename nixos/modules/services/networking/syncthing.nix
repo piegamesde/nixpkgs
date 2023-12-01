@@ -23,7 +23,7 @@ let
           addresses
           introducer
           autoAcceptFolders
-        ;
+          ;
       })
       cfg.devices;
 
@@ -35,7 +35,7 @@ let
           id
           label
           type
-        ;
+          ;
         devices = map (device: { deviceId = cfg.devices.${device}.id; }) folder.devices;
         rescanIntervalS = folder.rescanInterval;
         fsWatcherEnabled = folder.watch;

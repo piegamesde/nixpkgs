@@ -114,7 +114,7 @@ stdenv.mkDerivation (
         poppler
         texmacs
         ttfautohint
-      ;
+        ;
       inherit (python3.pkgs) freetype-py;
       inherit (qt5) qtbase;
       pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;

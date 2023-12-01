@@ -21,13 +21,13 @@ let
     splitString
     pipe
     optionals
-  ;
+    ;
   inherit (haskell.lib.compose)
     justStaticExecutables
     overrideCabal
     enableCabalFlag
     disableCabalFlag
-  ;
+    ;
   getPackages = version: haskell.packages."ghc${version}";
   tunedHls =
     hsPkgs:

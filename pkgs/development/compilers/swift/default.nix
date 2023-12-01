@@ -48,7 +48,7 @@ let
           configd
           IOKit
           Security
-        ;
+          ;
         CF = apple_sdk.CoreFoundation;
       }
     );

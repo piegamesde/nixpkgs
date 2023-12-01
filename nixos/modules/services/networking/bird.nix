@@ -12,7 +12,7 @@ let
     mkOption
     optionalString
     types
-  ;
+    ;
 
   cfg = config.services.bird2;
   caps = [

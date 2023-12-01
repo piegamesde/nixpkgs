@@ -159,7 +159,7 @@ stdenv.mkDerivation {
     src
     passthru
     meta
-  ;
+    ;
 
   outputs = [
     "out"

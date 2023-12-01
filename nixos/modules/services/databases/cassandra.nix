@@ -20,7 +20,7 @@ let
     mkOption
     types
     versionAtLeast
-  ;
+    ;
 
   cfg = config.services.cassandra;
 

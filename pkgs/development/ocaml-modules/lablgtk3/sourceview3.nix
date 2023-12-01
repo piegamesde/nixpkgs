@@ -13,5 +13,5 @@ buildDunePackage {
     version
     meta
     nativeBuildInputs
-  ;
+    ;
 }

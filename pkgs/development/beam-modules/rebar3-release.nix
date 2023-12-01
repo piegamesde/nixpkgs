@@ -38,7 +38,7 @@ let
       configurePhase
       buildPhase
       installPhase
-    ;
+      ;
   };
 
   # When using the `beamDeps` argument, it is important that we use

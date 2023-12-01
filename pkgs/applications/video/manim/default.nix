@@ -142,7 +142,7 @@ let
       gnu-freefont
       mathastext
       cbfonts-fd
-    ;
+      ;
   };
 in
 python3.pkgs.buildPythonApplication rec {

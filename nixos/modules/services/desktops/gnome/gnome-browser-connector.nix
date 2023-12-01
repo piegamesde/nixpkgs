@@ -12,7 +12,7 @@ let
     mkIf
     mkRenamedOptionModule
     teams
-  ;
+    ;
 in
 
 {

@@ -118,7 +118,7 @@ stdenv.mkDerivation rec {
         gdal
         openimageio
         freeimage
-      ;
+        ;
       inherit (python3Packages) pillow imread;
     };
     updateScript = nix-update-script { };

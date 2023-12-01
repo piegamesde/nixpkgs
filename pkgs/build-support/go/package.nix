@@ -80,7 +80,7 @@ let
             repo
             rev
             sha256
-          ;
+            ;
         }
       else
         abort "Unrecognized package fetch type: ${goDep.fetch.type}";

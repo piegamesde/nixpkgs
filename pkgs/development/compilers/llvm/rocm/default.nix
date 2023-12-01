@@ -167,7 +167,7 @@ rec {
     lld
     bintools
     bintools-unwrapped
-  ;
+    ;
 
   # Runtimes
   libc = callPackage ./llvm.nix rec {

@@ -21,7 +21,7 @@ let
     optional
     optionals
     optionalString
-  ;
+    ;
 
   generic =
     {

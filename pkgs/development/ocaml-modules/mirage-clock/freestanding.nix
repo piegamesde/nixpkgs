@@ -12,7 +12,7 @@ buildDunePackage {
     src
     useDune2
     minimumOCamlVersion
-  ;
+    ;
 
   propagatedBuildInputs = [ mirage-clock ];
 

@@ -115,7 +115,7 @@ let
           baseModules
           extraModules
           modules
-        ;
+          ;
       };
     };
   };

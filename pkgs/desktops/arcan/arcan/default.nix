@@ -132,7 +132,7 @@ stdenv.mkDerivation (
           freetype-src
           libuvc-src
           luajit-src
-        ;
+          ;
       in
       ''
         pushd $sourceRoot/external/git/

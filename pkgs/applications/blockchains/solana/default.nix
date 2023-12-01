@@ -53,7 +53,7 @@ let
     IOKit
     AppKit
     Security
-  ;
+    ;
 in
 rustPlatform.buildRustPackage rec {
   pname = "solana-cli";

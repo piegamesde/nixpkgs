@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
         libgnomekbd
         tzdata
         shadow
-      ;
+        ;
       inherit cups networkmanagerapplet;
     })
   ];

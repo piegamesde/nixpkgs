@@ -13,7 +13,7 @@ let
     isInt
     isList
     literalExpression
-  ;
+    ;
   inherit (lib)
     mapAttrs
     mapAttrsToList
@@ -23,7 +23,7 @@ let
     mkOption
     optional
     types
-  ;
+    ;
 
   cfg = config.services.automysqlbackup;
   pkg = pkgs.automysqlbackup;

@@ -197,5 +197,5 @@ rec {
     cygwin
     all
     mesaPlatforms
-  ;
+    ;
 }

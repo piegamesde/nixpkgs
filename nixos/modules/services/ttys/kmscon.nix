@@ -12,7 +12,7 @@ let
     optional
     optionals
     types
-  ;
+    ;
 
   cfg = config.services.kmscon;
 

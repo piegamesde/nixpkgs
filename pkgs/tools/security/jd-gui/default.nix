@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
     version
     src
     patches
-  ;
+    ;
   name = "${pname}-${version}";
 
   nativeBuildInputs = [

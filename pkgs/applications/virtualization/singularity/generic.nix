@@ -110,7 +110,7 @@ in
       projectName
       removeCompat
       starterSuidPath
-    ;
+      ;
   };
 
   nativeBuildInputs = [

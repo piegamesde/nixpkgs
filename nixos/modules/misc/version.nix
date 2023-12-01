@@ -20,7 +20,7 @@ let
     mkOption
     trivial
     types
-  ;
+    ;
 
   needsEscaping = s: null != builtins.match "[a-zA-Z0-9]+" s;
   escapeIfNeccessary =

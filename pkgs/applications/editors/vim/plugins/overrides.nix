@@ -949,7 +949,7 @@ self: super:
       src
       meta
       version
-    ;
+      ;
     postPatch = ''
       substituteInPlace plugin/phpactor.vim \
         --replace "g:phpactorpath = expand('<sfile>:p:h') . '/..'" "g:phpactorpath = '${phpactor}'"

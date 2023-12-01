@@ -246,7 +246,7 @@ rec {
           docker-proxy
           docker-tini
           moby
-        ;
+          ;
       }
       // rec {
         pname = "docker";

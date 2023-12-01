@@ -34,5 +34,5 @@
     simpleUefiSystemdBoot
     # swraid
     zfsroot
-  ;
+    ;
 }

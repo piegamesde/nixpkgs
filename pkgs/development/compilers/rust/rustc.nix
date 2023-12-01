@@ -41,7 +41,7 @@ let
     optional
     optionalString
     concatStringsSep
-  ;
+    ;
   inherit (darwin.apple_sdk.frameworks) Security;
 in
 stdenv.mkDerivation rec {

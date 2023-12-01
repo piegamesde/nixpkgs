@@ -13,7 +13,7 @@ let
       fetchurl
       makeWrapper
       jre
-    ;
+      ;
   };
 in
 

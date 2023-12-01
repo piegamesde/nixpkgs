@@ -105,7 +105,7 @@ let
       version
       src
       meta
-    ;
+      ;
 
     passthru.updateScript = ./update.sh;
 
@@ -213,7 +213,7 @@ let
       version
       src
       meta
-    ;
+      ;
 
     passthru.updateScript = ./update.sh;
 

@@ -184,7 +184,7 @@ lib.throwIf (enableTWBT && !enableDFHack) "dwarf-fortress: TWBT requires DFHack 
         dwarf-therapist
         twbt
         env
-      ;
+        ;
       dfhack = dfhack_;
     };
 

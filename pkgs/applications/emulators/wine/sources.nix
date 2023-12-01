@@ -24,7 +24,7 @@ let
         repo
         rev
         hash
-      ;
+        ;
     }
     // args;
   fetchFromGitLab =
@@ -43,7 +43,7 @@ let
         repo
         rev
         hash
-      ;
+        ;
     }
     // args;
 

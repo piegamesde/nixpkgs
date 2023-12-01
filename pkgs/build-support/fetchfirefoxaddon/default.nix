@@ -34,7 +34,7 @@ let
           sha256
           sha512
           hash
-        ;
+          ;
       };
 in
 stdenv.mkDerivation {

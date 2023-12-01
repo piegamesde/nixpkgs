@@ -55,7 +55,7 @@ stdenv.mkDerivation (
       version
       src
       meta
-    ;
+      ;
 
     # Don't remove runtime deps.
     dontPatchELF = true;

@@ -47,7 +47,7 @@ mkYarnPackage rec {
       yarnNix
       yarnPreBuild
       distPhase
-    ;
+      ;
 
     buildPhase = ''
       yarn build:prod

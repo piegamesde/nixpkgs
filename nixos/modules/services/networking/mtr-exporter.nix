@@ -15,7 +15,7 @@ let
     literalExpression
     escapeShellArg
     escapeShellArgs
-  ;
+    ;
   cfg = config.services.mtr-exporter;
 in
 {

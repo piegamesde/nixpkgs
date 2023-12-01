@@ -58,7 +58,7 @@ import ./make-test-python.nix (
                 pruneOpts
                 backupPrepareCommand
                 backupCleanupCommand
-              ;
+                ;
               repository = remoteRepository;
               initialize = true;
             };
@@ -68,7 +68,7 @@ import ./make-test-python.nix (
                 paths
                 exclude
                 pruneOpts
-              ;
+                ;
               initialize = true;
               repositoryFile = pkgs.writeText "repositoryFile" remoteFromFileRepository;
             };
@@ -78,7 +78,7 @@ import ./make-test-python.nix (
                 paths
                 exclude
                 pruneOpts
-              ;
+                ;
               initialize = true;
               repository = rcloneRepository;
               rcloneConfig = {

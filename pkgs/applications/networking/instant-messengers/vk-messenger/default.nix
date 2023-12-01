@@ -54,7 +54,7 @@ let
       version
       src
       meta
-    ;
+      ;
 
     nativeBuildInputs = [
       rpmextract
@@ -106,7 +106,7 @@ let
       version
       src
       meta
-    ;
+      ;
 
     nativeBuildInputs = [ undmg ];
 

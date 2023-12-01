@@ -29,7 +29,7 @@ let
     clang
     compiler-rt
     lld
-  ;
+    ;
 in
 
 buildGoModule rec {

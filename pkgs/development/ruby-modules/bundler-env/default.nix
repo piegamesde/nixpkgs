@@ -36,10 +36,10 @@ let
         ruby
         gemConfig
         groups
-      ;
+        ;
     })
     genStubsScript
-  ;
+    ;
 
   basicEnv = (callPackage ../bundled-common { inherit bundler; }) (
     args
@@ -78,7 +78,7 @@ else
             ruby
             bundler
             groups
-          ;
+            ;
           confFiles = basicEnv.confFiles;
           binPaths = [ basicEnv.gems.${pname} ];
         }

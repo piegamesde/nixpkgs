@@ -295,7 +295,7 @@ in
             group
             setuid
             permissions
-          ;
+            ;
         };
         sudoedit = {
           source = "${cfg.package.out}/bin/sudoedit";
@@ -304,7 +304,7 @@ in
             group
             setuid
             permissions
-          ;
+            ;
         };
       };
 

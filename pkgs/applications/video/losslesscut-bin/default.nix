@@ -52,7 +52,7 @@ in
           x86_64-dmg
           aarch64-dmg
           x86_64-windows
-        ;
+          ;
       };
       meta = oldAttrs.meta // {
         platforms = lib.unique (

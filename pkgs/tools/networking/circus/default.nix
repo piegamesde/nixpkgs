@@ -15,7 +15,7 @@ let
     tornado
     mock
     six
-  ;
+    ;
 in
 
 buildPythonApplication rec {

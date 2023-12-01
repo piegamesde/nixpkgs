@@ -16,7 +16,7 @@ let
     optionalAttrs
     pipe
     warn
-  ;
+    ;
 
   licenseMap = flip concatMapAttrs licenses (
     k: v: optionalAttrs (v ? spdxId && !v.deprecated) { ${v.spdxId} = k; }

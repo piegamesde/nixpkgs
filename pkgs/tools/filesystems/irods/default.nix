@@ -65,7 +65,7 @@ let
       fmt
       nlohmann_json
       spdlog
-    ;
+      ;
   };
 in
 rec {

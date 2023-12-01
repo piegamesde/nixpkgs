@@ -219,7 +219,7 @@ stdenv.mkDerivation {
       nativePrefix
       isGNU
       isClang
-    ;
+      ;
 
     emacsBufferSetup = pkgs: ''
       ; We should handle propagation here too

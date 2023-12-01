@@ -71,7 +71,7 @@ let
       version
       src
       meta
-    ;
+      ;
 
     nativeBuildInputs = [ undmg ];
 

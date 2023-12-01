@@ -18,7 +18,7 @@ let
     mkOption
     mkOptionDefault
     types
-  ;
+    ;
 
   browserDefault =
     chromium:

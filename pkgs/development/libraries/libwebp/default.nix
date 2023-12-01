@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
       libjxl
       opencv
       vips
-    ;
+      ;
     inherit (python3.pkgs) pillow imread;
     haskell-webp = haskellPackages.webp;
   };

@@ -518,7 +518,7 @@ let
               subGidRanges
               initialPassword
               initialHashedPassword
-            ;
+              ;
             shell = utils.toShellPath u.shell;
           })
           cfg.users;

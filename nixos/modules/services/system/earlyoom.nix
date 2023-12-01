@@ -20,7 +20,7 @@ let
     concatStringsSep
     optional
     optionalString
-  ;
+    ;
 in
 {
   options.services.earlyoom = {

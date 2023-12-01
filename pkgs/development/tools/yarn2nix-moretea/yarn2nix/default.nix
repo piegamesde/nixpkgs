@@ -13,7 +13,7 @@ let
     git
     rsync
     runCommandLocal
-  ;
+    ;
 
   compose =
     f: g: x:
@@ -301,7 +301,7 @@ rec {
                     yarn
                     packageResolutions
                     workspaceDependencies
-                  ;
+                    ;
                 }
                 // lib.attrByPath [ name ] { } packageOverrides
               );
@@ -360,7 +360,7 @@ rec {
           yarnFlags
           pkgConfig
           packageResolutions
-        ;
+          ;
       };
 
       publishBinsFor_ = unlessNull publishBinsFor [ pname ];
@@ -482,7 +482,7 @@ rec {
             package
             packageJSON
             deps
-          ;
+            ;
           workspaceDependencies = workspaceDependenciesTransitive;
         } // (attrs.passthru or { });
 
@@ -518,7 +518,7 @@ rec {
               hasPrefix
               elemAt
               splitString
-            ;
+              ;
 
             subpath = elemAt (splitString "${toString root}/" path) 1;
             spdir = elemAt (splitString "/" subpath) 0;

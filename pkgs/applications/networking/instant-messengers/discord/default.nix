@@ -86,7 +86,7 @@ let
               version
               openasar
               branch
-            ;
+              ;
             meta = meta // {
               mainProgram = value.binaryName;
             };

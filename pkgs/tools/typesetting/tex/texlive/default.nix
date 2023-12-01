@@ -55,7 +55,7 @@ let
       coreutils
       libfaketime
       makeFontsConf
-    ;
+      ;
     ghostscript = ghostscript_headless;
   };
 
@@ -345,7 +345,7 @@ tl
             scheme-minimal
             scheme-small
             scheme-tetex
-          ;
+            ;
         }
     );
 }

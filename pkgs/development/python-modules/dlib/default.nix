@@ -17,7 +17,7 @@ buildPythonPackage {
     nativeBuildInputs
     buildInputs
     meta
-  ;
+    ;
 
   patches = [ ./build-cores.patch ];
 

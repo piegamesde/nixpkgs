@@ -96,7 +96,7 @@ let
         substring
         tail
         trace
-      ;
+        ;
       inherit (self.trivial)
         id
         const
@@ -139,7 +139,7 @@ let
         toHexString
         toBaseDigits
         inPureEvalMode
-      ;
+        ;
       inherit (self.fixedPoints)
         fix
         fix'
@@ -149,7 +149,7 @@ let
         composeManyExtensions
         makeExtensible
         makeExtensibleWithCustomName
-      ;
+        ;
       inherit (self.attrsets)
         attrByPath
         hasAttrByPath
@@ -195,7 +195,7 @@ let
         dontRecurseIntoAttrs
         cartesianProductOfSets
         updateManyAttrsByPath
-      ;
+        ;
       inherit (self.lists)
         singleton
         forEach
@@ -239,7 +239,7 @@ let
         mutuallyExclusive
         groupBy
         groupBy'
-      ;
+        ;
       inherit (self.strings)
         concatStrings
         concatMapStrings
@@ -297,7 +297,7 @@ let
         toIntBase10
         readPathsFromFile
         fileContents
-      ;
+        ;
       inherit (self.stringsWithDeps)
         textClosureList
         textClosureMap
@@ -305,7 +305,7 @@ let
         fullDepEntry
         packEntry
         stringAfter
-      ;
+        ;
       inherit (self.customisation)
         overrideDerivation
         makeOverridable
@@ -315,7 +315,7 @@ let
         hydraJob
         makeScope
         makeScopeWithSplicing
-      ;
+        ;
       inherit (self.derivations) lazyDerivation;
       inherit (self.meta)
         addMetaAttrs
@@ -331,7 +331,7 @@ let
         hiPrioSet
         getLicenseFromSpdxId
         getExe
-      ;
+        ;
       inherit (self.sources)
         pathType
         pathIsDirectory
@@ -345,7 +345,7 @@ let
         canCleanSource
         pathIsRegularFile
         pathIsGitRepo
-      ;
+        ;
       inherit (self.modules)
         evalModules
         setDefaultModuleLocation
@@ -386,7 +386,7 @@ let
         mkDerivedConfig
         doRename
         mkAliasOptionModuleMD
-      ;
+        ;
       inherit (self.options)
         isOption
         mkEnableOption
@@ -412,7 +412,7 @@ let
         mkPackageOptionMD
         mdDoc
         literalMD
-      ;
+        ;
       inherit (self.types)
         isType
         setType
@@ -420,7 +420,7 @@ let
         defaultFunctor
         isOptionType
         mkOptionType
-      ;
+        ;
       inherit (self.asserts) assertMsg assertOneOf;
       inherit (self.debug)
         traceIf
@@ -435,7 +435,7 @@ let
         traceFnSeqN
         runTests
         testAllTrue
-      ;
+        ;
       inherit (self.misc)
         maybeEnv
         defaultMergeArg
@@ -471,7 +471,7 @@ let
         fakeSha512
         nixType
         imap
-      ;
+        ;
       inherit (self.versions) splitVersion;
     }
   );

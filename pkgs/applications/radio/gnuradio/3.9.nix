@@ -256,7 +256,7 @@ let
         sourceSha256
         overrideSrc
         fetchFromGitHub
-      ;
+        ;
       qt = qt5;
       gtk = gtk3;
     });
@@ -277,7 +277,7 @@ stdenv.mkDerivation {
     dontWrapPythonPrograms
     dontWrapQtApps
     meta
-  ;
+    ;
   patches =
     [
       # Not accepted upstream, see https://github.com/gnuradio/gnuradio/pull/5227

@@ -15,7 +15,7 @@ let
       runCommand
       writeTextFile
       writeShellScript
-    ;
+      ;
     inherit pkgs nodejs;
     libtool = if pkgs.stdenv.isDarwin then pkgs.darwin.cctools else null;
   };
@@ -27,6 +27,6 @@ import ./node-packages-generated.nix {
     stdenv
     lib
     fetchgit
-  ;
+    ;
   inherit nodeEnv;
 }

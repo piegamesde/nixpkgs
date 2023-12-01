@@ -151,7 +151,7 @@ let
         camlp5
         findlib
         num
-      ;
+        ;
       emacsBufferSetup = pkgs: ''
         ; Propagate coq paths to children
         (inherit-local-permanent coq-prog-name "${self}/bin/coqtop")

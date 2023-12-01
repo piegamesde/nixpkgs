@@ -13,7 +13,7 @@ let
     map
     toString
     attrNames
-  ;
+    ;
   inherit (lib)
     boolToString
     types
@@ -23,7 +23,7 @@ let
     optional
     mkIf
     mkMerge
-  ;
+    ;
   inherit (types)
     nullOr
     listOf
@@ -33,7 +33,7 @@ let
     float
     str
     enum
-  ;
+    ;
 
   withDefaults =
     optionSpecs: defaults:

@@ -37,7 +37,7 @@ let
             version
             metadata
             repository-id
-          ;
+            ;
           versionDir = dep.unresolved-version or version;
           authenticated = dep.authenticated or false;
           url = dep.url or "";

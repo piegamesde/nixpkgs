@@ -462,11 +462,11 @@ rec {
         stdenv
         rtpPath
         toVimPlugin
-      ;
+        ;
     })
     buildVimPlugin
     buildVimPluginFrom2Nix
-  ;
+    ;
 
   # used to figure out which python dependencies etc. neovim needs
   requiredPlugins =

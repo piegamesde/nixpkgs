@@ -53,7 +53,7 @@ stdenv.mkDerivation {
     version
     src
     meta
-  ;
+    ;
 
   nativeBuildInputs = [
     makeShellWrapper

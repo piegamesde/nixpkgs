@@ -16,7 +16,7 @@ let
     types
     listToAttrs
     recursiveUpdate
-  ;
+    ;
 
   iniFmt = pkgs.formats.ini { };
 

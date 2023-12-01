@@ -43,7 +43,7 @@ let
       configurePhase
       buildPhase
       installPhase
-    ;
+      ;
   };
 
   pkg =

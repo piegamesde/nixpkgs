@@ -32,5 +32,5 @@ import ./base.nix
       nativeBuildRoot
       testers
       buildRootOnly
-    ;
+      ;
   }

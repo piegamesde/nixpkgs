@@ -23,7 +23,7 @@ buildPythonPackage rec {
     version
     src
     meta
-  ;
+    ;
 
   # The python interface requires eigen3, but builds from a checkout in tree.
   # Using the nixpkgs version instead.

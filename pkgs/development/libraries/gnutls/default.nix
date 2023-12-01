@@ -165,7 +165,7 @@ stdenv.mkDerivation rec {
       emacs
       qemu
       knot-resolver
-    ;
+      ;
     inherit (ocamlPackages) ocamlnet;
     haskell-gnutls = haskellPackages.gnutls;
     python3-gnutls = python3Packages.python3-gnutls;

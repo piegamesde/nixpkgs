@@ -38,7 +38,7 @@ stdenvNoCC.mkDerivation {
       )
       url
       sha256
-    ;
+      ;
   };
 
   nativeBuildInputs = [ undmg ];

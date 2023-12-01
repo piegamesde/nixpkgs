@@ -153,7 +153,7 @@ let
                 libcharset
                 libunwind
                 objc4
-              ;
+                ;
               apple_sdk = prev.darwin.apple_sdk_11_0;
               CF = prev.darwin.apple_sdk_11_0.CoreFoundation;
             }

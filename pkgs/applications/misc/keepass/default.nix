@@ -25,7 +25,7 @@ let
     unsafeDiscardStringContext
     toString
     map
-  ;
+    ;
 in
 buildDotnetPackage rec {
   pname = "keepass";

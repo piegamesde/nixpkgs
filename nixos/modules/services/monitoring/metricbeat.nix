@@ -13,7 +13,7 @@ let
     mkIf
     mkOption
     types
-  ;
+    ;
   cfg = config.services.metricbeat;
 
   settingsFormat = pkgs.formats.yaml { };

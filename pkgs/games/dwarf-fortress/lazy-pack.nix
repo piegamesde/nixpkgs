@@ -53,7 +53,7 @@ buildEnv {
           enableFPS
           enableTextMode
           enableSound
-        ;
+          ;
       })
     ]
     ++ lib.optional enableDwarfTherapist dwarf-therapist

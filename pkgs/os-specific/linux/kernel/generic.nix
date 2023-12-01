@@ -157,7 +157,7 @@ let
       preferBuiltin
       kernelArch
       extraMakeFlags
-    ;
+      ;
     pname = "linux-config";
     inherit version;
 
@@ -265,7 +265,7 @@ let
         extraMakeFlags
         extraMeta
         configfile
-      ;
+        ;
       pos = builtins.unsafeGetAttrPos "version" args;
 
       config = {
@@ -285,7 +285,7 @@ let
       isZen
       isHardened
       isLibre
-    ;
+      ;
     isXen = lib.warn "The isXen attribute is deprecated. All Nixpkgs kernels that support it now have Xen enabled." true;
 
     # Adds dependencies needed to edit the config:

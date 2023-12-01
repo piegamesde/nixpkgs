@@ -51,7 +51,7 @@ let
       version
       meta
       passthru
-    ;
+      ;
 
     src = fetchurl {
       url = "${baseUrl}/${version}/Ubuntu/Installer/x86_64/synology-drive-client-${buildNumber}.x86_64.deb";
@@ -94,7 +94,7 @@ let
       version
       meta
       passthru
-    ;
+      ;
 
     src = fetchurl {
       url = "${baseUrl}/${version}/Mac/Installer/synology-drive-client-${buildNumber}.dmg";

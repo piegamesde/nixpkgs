@@ -14,7 +14,7 @@ let
     literalExpression
     types
     optionalString
-  ;
+    ;
 
   cfg = config.services.quorum;
   opt = options.services.quorum;

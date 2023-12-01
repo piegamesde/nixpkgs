@@ -16,7 +16,7 @@ let
       localSystem
       crossSystem
       overlays
-    ;
+      ;
     # Remove config.replaceStdenv to ensure termination.
     config = builtins.removeAttrs config [ "replaceStdenv" ];
   };

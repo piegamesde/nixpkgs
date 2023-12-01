@@ -133,7 +133,7 @@ stdenv.mkDerivation rec {
         ethtool
         gnused
         systemd
-      ;
+        ;
       inherit runtimeShell;
     })
 

@@ -25,7 +25,7 @@ rec {
         fetchurl
         unzip
         makeWrapper
-      ;
+        ;
     };
 
   buildApp = import ./build-app.nix {
@@ -37,7 +37,7 @@ rec {
       file
       jdk
       nodejs
-    ;
+      ;
     inherit (pkgs.nodePackages) alloy titanium;
     inherit (androidenv) composeAndroidPackages;
     inherit (xcodeenv) composeXcodeWrapper;

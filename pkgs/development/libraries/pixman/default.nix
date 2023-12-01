@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       tigervnc
       wlroots
       xwayland
-    ;
+      ;
   };
 
   meta = with lib; {

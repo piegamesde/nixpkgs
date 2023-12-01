@@ -176,7 +176,7 @@ let
           file
           hash
           kind
-        ;
+          ;
       };
     in
     (pkgs.stdenvNoCC.mkDerivation {
@@ -197,7 +197,7 @@ let
         version
         curlOpts
         predictedURL
-      ;
+        ;
 
       builder = ./fetch-from-pypi.sh;
 
@@ -327,5 +327,5 @@ in
     normalizePackageSet
     getPythonVersion
     getTargetMachine
-  ;
+    ;
 }

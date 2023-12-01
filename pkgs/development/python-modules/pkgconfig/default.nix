@@ -18,7 +18,7 @@ buildPythonPackage rec {
     suffixSalt
     targetPrefix
     baseBinName
-  ;
+    ;
 
   src = fetchFromGitHub {
     owner = "matze";

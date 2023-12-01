@@ -13,7 +13,7 @@ let
     version
     src
     vendorHash
-  ;
+    ;
   web = callPackage ./web.nix { };
 in
 buildGoModule rec {
@@ -22,7 +22,7 @@ buildGoModule rec {
     version
     src
     vendorHash
-  ;
+    ;
 
   nativeBuildInputs = [ installShellFiles ];
 

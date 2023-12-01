@@ -287,7 +287,7 @@ rec {
     luahbtex
     luajittex
     xetex
-  ;
+    ;
   core-big = stdenv.mkDerivation {
     # TODO: upmendex
     pname = "texlive-core-big.bin";

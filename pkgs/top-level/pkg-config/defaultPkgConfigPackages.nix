@@ -19,7 +19,7 @@ let
     mapAttrsToList
     getAttrFromPath
     importJSON
-  ;
+    ;
 
   data = importJSON ./pkg-config-data.json;
   inherit (data) modules;

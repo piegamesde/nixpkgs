@@ -91,7 +91,7 @@ let
               releaseRev
               repo
               owner
-            ;
+              ;
 
             mlPlugin = true;
             propagatedBuildInputs = [

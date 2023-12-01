@@ -13,7 +13,7 @@ let
       stdenv
       fetchgit
       bash
-    ;
+      ;
   };
 in
 mkOpenModelicaDerivation {

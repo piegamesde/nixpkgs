@@ -101,7 +101,7 @@ let
     optionals
     optionalAttrs
     optionalString
-  ;
+    ;
   wxPackages2 = if stdenv.isDarwin then [ wxGTK ] else wxPackages;
 in
 stdenv.mkDerivation (

@@ -26,7 +26,7 @@ let
       src
       version
       python3
-    ;
+      ;
   };
 in
 py.pkgs.toPythonApplication (

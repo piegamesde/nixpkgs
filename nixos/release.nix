@@ -171,7 +171,7 @@ rec {
       nixpkgs
       version
       versionSuffix
-    ;
+      ;
   };
 
   manualHTML = buildFromConfig ({ ... }: { }) (config: config.system.build.manual.manualHTML);

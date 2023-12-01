@@ -45,7 +45,7 @@ let
         version
         src
         description
-      ;
+        ;
       exec = sweetExec module;
       editorItem = makeDesktopItem {
         inherit exec desktopName;

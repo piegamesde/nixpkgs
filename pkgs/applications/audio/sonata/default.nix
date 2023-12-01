@@ -20,7 +20,7 @@ let
     pygobject3
     mpd2
     setuptools
-  ;
+    ;
 in
 buildPythonApplication rec {
   pname = "sonata";

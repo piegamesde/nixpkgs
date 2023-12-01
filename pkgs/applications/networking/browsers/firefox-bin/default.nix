@@ -217,7 +217,7 @@ stdenv.mkDerivation {
       gnupg
       curl
       runtimeShell
-    ;
+      ;
     baseUrl =
       if channel == "devedition" then
         "https://archive.mozilla.org/pub/devedition/releases/"

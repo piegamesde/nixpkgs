@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
         vapoursynth
         makeWrapper
         withPlugins
-      ;
+        ;
     };
 
     tests.version = testers.testVersion {

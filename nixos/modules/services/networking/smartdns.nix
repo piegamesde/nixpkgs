@@ -16,7 +16,7 @@ let
     str
     int
     bool
-  ;
+    ;
   cfg = config.services.smartdns;
 
   confFile = pkgs.writeText "smartdns.conf" (

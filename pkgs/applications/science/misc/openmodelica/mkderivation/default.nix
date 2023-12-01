@@ -19,7 +19,7 @@ let
     getAttr
     length
     elemAt
-  ;
+    ;
   inherit (lib) attrByPath concatStringsSep;
 
   # A few helpers functions:
@@ -111,7 +111,7 @@ stdenv.mkDerivation (
       preBuild
       makeFlags
       installFlags
-    ;
+      ;
 
     src = fetchgit (import ./src-main.nix);
     version = "1.18.0";

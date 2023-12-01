@@ -14,7 +14,7 @@ let
     splitString
     removePrefix
     removeSuffix
-  ;
+    ;
   targetMachine = poetryLib.getTargetMachine stdenv;
 
   pythonVer =

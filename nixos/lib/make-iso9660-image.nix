@@ -71,7 +71,7 @@ stdenv.mkDerivation {
     efiBootable
     isohybridMbrImage
     usbBootable
-  ;
+    ;
 
   # !!! should use XML.
   sources = map (x: x.source) contents;

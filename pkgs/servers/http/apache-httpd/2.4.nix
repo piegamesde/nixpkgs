@@ -126,7 +126,7 @@ stdenv.mkDerivation rec {
       ldapSupport
       luaSupport
       lua5
-    ;
+      ;
     tests = {
       acme-integration = nixosTests.acme;
       proxy = nixosTests.proxy;

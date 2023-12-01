@@ -13,7 +13,7 @@ let
     mkRenamedOptionModule
     teams
     types
-  ;
+    ;
 in
 
 {

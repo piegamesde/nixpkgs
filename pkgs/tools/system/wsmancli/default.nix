@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
       license
       maintainers
       platforms
-    ;
+      ;
   };
 }

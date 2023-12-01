@@ -47,7 +47,7 @@ stdenv.mkDerivation {
     extraArgs
     extraCommands
     compressCommand
-  ;
+    ;
 
   # !!! should use XML.
   sources = map (x: x.source) contents;

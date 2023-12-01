@@ -649,7 +649,7 @@ in
                       databases
                       maxclients
                       appendOnly
-                    ;
+                      ;
                     daemonize = false;
                     supervised = "systemd";
                     loglevel = config.logLevel;

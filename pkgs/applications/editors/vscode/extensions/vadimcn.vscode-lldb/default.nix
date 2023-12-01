@@ -79,7 +79,7 @@ stdenv.mkDerivation {
     vscodeExtUniqueId
     vscodeExtPublisher
     vscodeExtName
-  ;
+    ;
 
   installPrefix = "share/vscode/extensions/${vscodeExtUniqueId}";
 

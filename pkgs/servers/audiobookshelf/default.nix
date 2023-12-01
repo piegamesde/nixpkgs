@@ -46,7 +46,7 @@ let
       tone
       pname
       nodejs
-    ;
+      ;
   };
 in
 buildNpmPackage {

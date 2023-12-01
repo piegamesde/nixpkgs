@@ -26,7 +26,7 @@ let
     mapTestOn
     packagePlatforms
     pkgs
-  ;
+    ;
 
   # Helper function which traverses a (nested) set
   # of derivations produced by mapTestOn and flattens
@@ -367,7 +367,7 @@ let
         xmonad-with-packages
         yi
         zsh-git-prompt
-      ;
+        ;
 
       # Members of the elmPackages set that are Haskell derivations
       elmPackages = {
@@ -376,7 +376,7 @@ let
           elm-format
           elm-instrument
           elmi-to-json
-        ;
+          ;
       };
 
       # GHCs linked to musl.
@@ -432,7 +432,7 @@ let
                 cabal2nix
                 terminfo # isn't bundled for cross
                 xhtml # isn't bundled for cross
-              ;
+                ;
             };
 
             haskell.packages.native-bignum.ghc927 = {
@@ -444,7 +444,7 @@ let
                 cabal2nix
                 terminfo # isn't bundled for cross
                 xhtml # isn't bundled for cross
-              ;
+                ;
             };
           };
 

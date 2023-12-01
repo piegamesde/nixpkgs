@@ -17,7 +17,7 @@ let
     isStorePath
     toDerivation
     toList
-  ;
+    ;
   inherit (lib.lists)
     all
     concatLists
@@ -30,7 +30,7 @@ let
     last
     length
     tail
-  ;
+    ;
   inherit (lib.attrsets)
     attrNames
     filterAttrs
@@ -38,7 +38,7 @@ let
     mapAttrs
     optionalAttrs
     zipAttrsWith
-  ;
+    ;
   inherit (lib.options)
     getFiles
     getValues
@@ -48,14 +48,14 @@ let
     mergeUniqueOption
     showFiles
     showOption
-  ;
+    ;
   inherit (lib.strings)
     concatMapStringsSep
     concatStringsSep
     escapeNixString
     hasInfix
     isStringLike
-  ;
+    ;
   inherit (lib.trivial) boolToString;
 
   inherit (lib.modules) mergeDefinitions fixupOptionType mergeOptionDecls;
@@ -183,7 +183,7 @@ let
           deprecationMessage
           nestedTypes
           descriptionClass
-        ;
+          ;
         description = if description == null then name else description;
       };
 
@@ -430,7 +430,7 @@ let
               ?'')
             check
             merge
-          ;
+            ;
         in
         mkOptionType {
           name = "singleLineStr";
@@ -953,7 +953,7 @@ let
                 specialArgs
                 shorthandOnlyDefinesConfig
                 description
-              ;
+                ;
             };
             binOp = lhs: rhs: {
               modules = lhs.modules ++ rhs.modules;

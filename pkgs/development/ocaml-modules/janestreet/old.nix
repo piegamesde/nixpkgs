@@ -21,7 +21,7 @@ let
     re
     zarith
     num
-  ;
+    ;
 in
 
 with self;

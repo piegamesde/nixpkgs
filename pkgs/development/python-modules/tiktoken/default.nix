@@ -28,7 +28,7 @@ buildPythonPackage {
     version
     src
     postPatch
-  ;
+    ;
   format = "setuptools";
 
   disabled = pythonOlder "3.8";

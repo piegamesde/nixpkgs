@@ -13,7 +13,7 @@ buildDunePackage rec {
     src
     useDune2
     meta
-  ;
+    ;
 
   propagatedBuildInputs = [
     lablgtk

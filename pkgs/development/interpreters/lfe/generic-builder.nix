@@ -32,7 +32,7 @@ let
     versionAtLeast
     versionOlder
     versions
-  ;
+    ;
 
   mainVersion = versions.major (getVersion erlang);
 

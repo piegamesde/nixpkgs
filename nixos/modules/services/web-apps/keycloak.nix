@@ -32,7 +32,7 @@ let
     collect
     splitString
     hasPrefix
-  ;
+    ;
 
   inherit (builtins)
     elem
@@ -41,7 +41,7 @@ let
     isString
     hashString
     isPath
-  ;
+    ;
 
   prefixUnlessEmpty = prefix: string: optionalString (string != "") "${prefix}${string}";
 in
@@ -136,7 +136,7 @@ in
         enum
         package
         port
-      ;
+        ;
 
       assertStringPath =
         optionName: value:

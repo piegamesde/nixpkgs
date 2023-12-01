@@ -50,7 +50,7 @@ stdenv.mkDerivation {
     version
     src
     appimage
-  ;
+    ;
 
   nativeBuildInputs = [
     makeWrapper

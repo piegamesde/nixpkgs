@@ -28,7 +28,7 @@ let
       buildTileSet
       wrapCDDA
       attachPkgs
-    ;
+      ;
 
     inherit pkgs;
   };

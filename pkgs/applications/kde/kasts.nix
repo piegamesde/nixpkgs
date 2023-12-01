@@ -27,7 +27,7 @@ let
     gst-plugins-base
     gst-plugins-good
     gst-plugins-bad
-  ;
+    ;
 in
 mkDerivation rec {
   pname = "kasts";

@@ -15,7 +15,7 @@ let
     replaceStrings
     singleton
     splitString
-  ;
+    ;
 
   # The attrset `exporterTests` contains one attribute
   # for each exporter test. Each of these attributes

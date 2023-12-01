@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       szip
       mpiSupport
       mpi
-    ;
+      ;
   };
 
   outputs = [

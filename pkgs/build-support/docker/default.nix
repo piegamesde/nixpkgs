@@ -84,16 +84,16 @@ rec {
       shadowSetup
       buildImageWithNixDb
       streamNixShellImage
-    ;
+      ;
   };
 
   tests = {
     inherit (nixosTests)
       docker-tools
       docker-tools-overlay
-    # requires remote builder
-    # docker-tools-cross
-    ;
+      # requires remote builder
+      # docker-tools-cross
+      ;
   };
 
   pullImage =
@@ -350,7 +350,7 @@ rec {
         fromImageName
         fromImageTag
         diskSize
-      ;
+        ;
 
       postMount = ''
         echo "Packing raw image..."
@@ -482,7 +482,7 @@ rec {
         fromImageTag
         diskSize
         buildVMMemorySize
-      ;
+        ;
 
       preMount = lib.optionalString (copyToRoot != null && copyToRoot != [ ]) ''
         echo "Adding contents..."
@@ -639,7 +639,7 @@ rec {
               extraCommands
               uid
               gid
-            ;
+              ;
             copyToRoot = rootContents;
           }
         else
@@ -655,7 +655,7 @@ rec {
               diskSize
               buildVMMemorySize
               extraCommands
-            ;
+              ;
             copyToRoot = rootContents;
           };
       result =

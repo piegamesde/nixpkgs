@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation {
     meta
     src
     version
-  ;
+    ;
   desktopName = product;
   installPhase = ''
     runHook preInstall

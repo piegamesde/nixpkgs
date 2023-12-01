@@ -35,7 +35,7 @@ import ./generic.nix
       texinfo
       writeText
       gcc
-    ;
+      ;
   }
   (
     {

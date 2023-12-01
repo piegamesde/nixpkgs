@@ -79,7 +79,7 @@ let
                 revision
                 schema_version
                 version
-              ;
+                ;
             };
           })
           components

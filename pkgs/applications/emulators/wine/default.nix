@@ -82,7 +82,7 @@ let
             mingwSupport
             waylandSupport
             embedInstallers
-          ;
+            ;
         };
         inherit moltenvk;
       }

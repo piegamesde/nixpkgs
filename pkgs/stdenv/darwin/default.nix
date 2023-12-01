@@ -129,7 +129,7 @@ rec {
         bzip2
         cpio
         tarball
-      ;
+        ;
 
       __impureHostDeps = commonImpureHostDeps;
     }
@@ -599,7 +599,7 @@ rec {
             ninja
             brotli
             libiconv
-          ;
+            ;
 
           "${finalLlvmPackages}" =
             super."${finalLlvmPackages}"
@@ -655,7 +655,7 @@ rec {
                 sigtool
                 postLinkSignHook
                 signingUtils
-              ;
+                ;
             }
           );
         };
@@ -761,7 +761,7 @@ rec {
             nghttp2
             libkrb5
             ninja
-          ;
+            ;
 
           # Avoid pulling in a full python and its extra dependencies for the llvm/clang builds.
           libxml2 = super.libxml2.override { pythonSupport = false; };
@@ -791,7 +791,7 @@ rec {
                 locale
                 darwin-stubs
                 sigtool
-              ;
+                ;
             }
           );
         };
@@ -893,7 +893,7 @@ rec {
             patchutils
             ninja
             libxml2
-          ;
+            ;
 
           # Hack to make sure we don't link ncurses in bootstrap tools. The proper
           # solution is to avoid passing -L/nix-store/...-bootstrap-tools/lib,
@@ -929,7 +929,7 @@ rec {
                 libiconv
                 locale
                 darwin-stubs
-              ;
+                ;
 
               # See useAppleSDKLibs in darwin-packages.nix
               CF =
@@ -990,7 +990,7 @@ rec {
             diffutils
             patchutils
             pbzx
-          ;
+            ;
 
           darwin = super.darwin.overrideScope (
             _: _:
@@ -1002,7 +1002,7 @@ rec {
                 Csu
                 libiconv
                 rewrite-tbd
-              ;
+                ;
             }
             // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
               inherit (darwin) binutils binutils-unwrapped cctools;

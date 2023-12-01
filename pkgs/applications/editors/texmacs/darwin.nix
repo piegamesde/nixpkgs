@@ -30,7 +30,7 @@ let
       chineseFonts
       japaneseFonts
       koreanFonts
-    ;
+      ;
   };
 in
 stdenv.mkDerivation {

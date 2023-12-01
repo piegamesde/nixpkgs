@@ -289,7 +289,7 @@ stdenv.mkDerivation (
       nativeBuildInputs
       preConfigure
       configureFlags
-    ;
+      ;
 
     LDFLAGS = lib.optionalString (!stdenv.isDarwin) "-lgcc_s";
     inherit (mkPaths buildInputs) C_INCLUDE_PATH LIBRARY_PATH;

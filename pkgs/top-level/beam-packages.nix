@@ -107,7 +107,7 @@ in
       elixir-ls
       lfe
       lfe_2_1
-    ;
+      ;
   } // interpretersAliases;
 
   # Helper function to generate package set with a specific Erlang version.

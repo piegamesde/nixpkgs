@@ -497,7 +497,7 @@ rec {
       requiredBy
       enable
       overrideStrategy
-    ;
+      ;
     text = ''
       [Unit]
       ${attrsToSection def.unitConfig}
@@ -511,7 +511,7 @@ rec {
       requiredBy
       enable
       overrideStrategy
-    ;
+      ;
     text =
       commonUnitText def
       + ''
@@ -557,7 +557,7 @@ rec {
       requiredBy
       enable
       overrideStrategy
-    ;
+      ;
     text =
       commonUnitText def
       + ''
@@ -575,7 +575,7 @@ rec {
       requiredBy
       enable
       overrideStrategy
-    ;
+      ;
     text =
       commonUnitText def
       + ''
@@ -591,7 +591,7 @@ rec {
       requiredBy
       enable
       overrideStrategy
-    ;
+      ;
     text =
       commonUnitText def
       + ''
@@ -607,7 +607,7 @@ rec {
       requiredBy
       enable
       overrideStrategy
-    ;
+      ;
     text =
       commonUnitText def
       + ''
@@ -623,7 +623,7 @@ rec {
       requiredBy
       enable
       overrideStrategy
-    ;
+      ;
     text =
       commonUnitText def
       + ''
@@ -639,7 +639,7 @@ rec {
       requiredBy
       enable
       overrideStrategy
-    ;
+      ;
     text =
       commonUnitText def
       + ''

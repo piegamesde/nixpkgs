@@ -81,7 +81,7 @@ lib.trivial.pipe super [
             lm_sensors
             procps
             smartmontools
-          ;
+            ;
           netcat = netcat-gnu;
           nvmecli = nvme-cli;
         })

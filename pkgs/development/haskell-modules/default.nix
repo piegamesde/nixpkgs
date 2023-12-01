@@ -31,7 +31,7 @@ let
       buildHaskellPackages
       extensible-self
       all-cabal-hashes
-    ;
+      ;
   };
 
   platformConfigurations =

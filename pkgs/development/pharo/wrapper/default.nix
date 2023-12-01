@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     spur32
     spur64
     file
-  ;
+    ;
   magic = ./magic;
   desktopItem = makeDesktopItem {
     inherit name;

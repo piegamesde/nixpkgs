@@ -12,7 +12,7 @@ stdenv.mkDerivation {
     version
     src
     meta
-  ;
+    ;
 
   nativeBuildInputs = [ undmg ];
 

@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       coreutils
       jre
       seednodes
-    ;
+      ;
   };
 
   # https://github.com/freenet/fred/blob/next/build-offline.sh

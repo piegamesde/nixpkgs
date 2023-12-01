@@ -130,7 +130,7 @@ stdenv.mkDerivation rec {
         terminator
         termite
         xfce4-terminal
-      ;
+        ;
     };
   };
 

@@ -50,7 +50,7 @@ rec {
       iso_minimal
       amazonImage
       dummy
-    ;
+      ;
     tests = {
       inherit (nixos'.tests)
         acme
@@ -67,7 +67,7 @@ rec {
         predictable-interface-names
         proxy
         simple
-      ;
+        ;
       installer = {
         inherit (nixos'.tests.installer) lvm separateBoot simple;
       };
@@ -101,7 +101,7 @@ rec {
       tarball
       vim
       tests-stdenv-gcc-stageCompare
-    ;
+      ;
   };
 
   tested =

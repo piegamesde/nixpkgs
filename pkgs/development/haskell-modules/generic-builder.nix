@@ -22,7 +22,7 @@ let
     gnugrep
     gnused
     glibcLocales
-  ;
+    ;
 in
 
 {
@@ -168,7 +168,7 @@ let
     concatStringsSep
     enableFeature
     optionalAttrs
-  ;
+    ;
 
   isGhcjs = ghc.isGhcjs or false;
   isHaLVM = ghc.isHaLVM or false;
@@ -715,7 +715,7 @@ lib.fix (
               libraryToolDepends
               pkg-configDepends
               setupHaskellDepends
-            ;
+              ;
           }
           // lib.optionalAttrs doCheck {
             inherit
@@ -725,7 +725,7 @@ lib.fix (
               testPkgconfigDepends
               testSystemDepends
               testToolDepends
-            ;
+              ;
           }
           // lib.optionalAttrs doBenchmark {
             inherit
@@ -735,7 +735,7 @@ lib.fix (
               benchmarkPkgconfigDepends
               benchmarkSystemDepends
               benchmarkToolDepends
-            ;
+              ;
           };
 
         # Attributes for the old definition of `shellFor`. Should be removed but

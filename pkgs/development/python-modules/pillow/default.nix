@@ -52,7 +52,7 @@ import ./generic.nix (
         pilkit
         pydicom
         reportlab
-      ;
+        ;
     };
 
     meta = with lib; {

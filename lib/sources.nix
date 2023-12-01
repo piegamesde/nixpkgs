@@ -9,7 +9,7 @@ let
     split
     storeDir
     tryEval
-  ;
+    ;
   inherit (lib)
     boolToString
     filter
@@ -17,7 +17,7 @@ let
     isString
     pathExists
     readFile
-  ;
+    ;
 
   # Returns the type of a path: regular (for file), symlink, or directory.
   pathType = path: getAttr (baseNameOf path) (readDir (dirOf path));
@@ -333,5 +333,5 @@ in
     sourceFilesBySuffices
 
     trace
-  ;
+    ;
 }

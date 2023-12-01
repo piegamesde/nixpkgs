@@ -200,7 +200,7 @@ stdenv.mkDerivation rec {
       libspectre
       lilypond
       pstoedit
-    ;
+      ;
     inherit (python3.pkgs) matplotlib;
   };
 

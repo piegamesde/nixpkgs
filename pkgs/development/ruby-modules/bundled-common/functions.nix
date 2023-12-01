@@ -8,7 +8,7 @@ let
     filterAttrs
     getAttrs
     intersectLists
-  ;
+    ;
 in
 rec {
   bundlerFiles =

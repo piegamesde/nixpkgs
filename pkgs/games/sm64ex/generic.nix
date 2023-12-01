@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     version
     src
     postInstall
-  ;
+    ;
 
   nativeBuildInputs = [
     python3

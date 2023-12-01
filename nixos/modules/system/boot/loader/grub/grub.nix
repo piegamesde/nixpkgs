@@ -100,7 +100,7 @@ let
           gfxmodeBios
           gfxpayloadEfi
           gfxpayloadBios
-        ;
+          ;
         path =
           with pkgs;
           makeBinPath (

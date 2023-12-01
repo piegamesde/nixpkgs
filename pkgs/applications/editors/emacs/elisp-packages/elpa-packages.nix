@@ -54,7 +54,7 @@ let
       texinfo
       writeText
       gcc
-    ;
+      ;
     inherit (self) emacs;
   };
 

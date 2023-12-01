@@ -86,7 +86,7 @@ let
             deepClone
             fetchSubmodules
             sparseCheckout
-          ;
+            ;
           url = gitRepoUrl;
         }
         // lib.optionalAttrs (leaveDotGit != null) { inherit leaveDotGit; }

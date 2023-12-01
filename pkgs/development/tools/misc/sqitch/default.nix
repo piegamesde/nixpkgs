@@ -55,6 +55,6 @@ stdenv.mkDerivation {
       homepage
       license
       platforms
-    ;
+      ;
   };
 }

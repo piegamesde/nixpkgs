@@ -47,7 +47,7 @@ let
     optionals
     optional
     makeBinPath
-  ;
+    ;
 
   smartmon = smartmontools.override { inherit enableMail; };
 

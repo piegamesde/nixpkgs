@@ -77,7 +77,7 @@ let
       noisily
       mkRustcDepArgs
       mkRustcFeatureArgs
-    ;
+      ;
   };
 
   buildCrate = import ./build-crate.nix {
@@ -88,7 +88,7 @@ let
       mkRustcFeatureArgs
       needUnstableCLI
       rust
-    ;
+      ;
   };
 
   installCrate = import ./install-crate.nix { inherit stdenv; };
@@ -285,7 +285,7 @@ lib.makeOverridable
           preInstall
           postInstall
           buildTests
-        ;
+          ;
 
         src = crate.src or (fetchCrate { inherit (crate) crateName version sha256; });
         name = "rust_${crate.crateName}-${crate.version}${lib.optionalString buildTests_ "-test"}";
@@ -393,7 +393,7 @@ lib.makeOverridable
             verbose
             colors
             codegenUnits
-          ;
+            ;
         };
         buildPhase = buildCrate {
           inherit
@@ -413,7 +413,7 @@ lib.makeOverridable
             extraRustcOpts
             buildTests
             codegenUnits
-          ;
+            ;
         };
         dontStrip = !release;
         installPhase = installCrate crateName metadata buildTests;

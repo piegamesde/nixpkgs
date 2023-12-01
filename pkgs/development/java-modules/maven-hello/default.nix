@@ -29,7 +29,7 @@ rec {
         version
         skipTests
         quiet
-      ;
+        ;
 
       name = "maven-hello-${version}";
       src = pkgs.fetchFromGitHub {

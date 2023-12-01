@@ -77,7 +77,7 @@ let
             deepClone
             fetchSubmodules
             leaveDotGit
-          ;
+            ;
           url = gitRepoUrl;
         }
       else

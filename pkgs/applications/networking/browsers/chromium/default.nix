@@ -80,7 +80,7 @@ let
           cupsSupport
           pulseSupport
           ungoogled
-        ;
+          ;
         gnChromium = gn.overrideAttrs (
           oldAttrs: {
             inherit (upstream-info.deps.gn) version;
@@ -100,7 +100,7 @@ let
         chromiumVersionAtLeast
         enableWideVine
         ungoogled
-      ;
+        ;
     };
 
     ungoogled-chromium = callPackage ./ungoogled.nix { };

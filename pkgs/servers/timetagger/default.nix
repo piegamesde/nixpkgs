@@ -19,7 +19,7 @@ python3.pkgs.buildPythonApplication {
     version
     src
     meta
-  ;
+    ;
 
   propagatedBuildInputs = with python3.pkgs; [
     setuptools

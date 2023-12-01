@@ -22,7 +22,7 @@ let
     qtmultimedia
     qttools
     wrapQtAppsHook
-  ;
+    ;
 in
 stdenv.mkDerivation (
   finalAttrs: {

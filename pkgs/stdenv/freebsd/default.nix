@@ -203,7 +203,7 @@ in
             cpio
             sed
             curl
-          ;
+            ;
 
           name = "trivial-bootstrap-tools";
           builder = bashExe;
@@ -266,7 +266,7 @@ in
         hostPlatform
         targetPlatform
         shell
-      ;
+        ;
       fetchurlBoot = prevStage.fetchurl;
       cc = null;
     };
@@ -285,7 +285,7 @@ in
         initialPath
         shell
         fetchurlBoot
-      ;
+        ;
 
       cc = lib.makeOverridable (import ../../build-support/cc-wrapper) {
         inherit lib;

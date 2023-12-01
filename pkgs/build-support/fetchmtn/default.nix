@@ -33,7 +33,7 @@ stdenvNoCC.mkDerivation {
     cacheDB
     name
     selector
-  ;
+    ;
 
   impureEnvVars = lib.fetchers.proxyImpureEnvVars;
 }

@@ -20,7 +20,7 @@ let
       cpio
       xar
       lib
-    ;
+      ;
   };
 in
 

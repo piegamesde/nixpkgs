@@ -51,7 +51,7 @@ let
         version
         deleteVendor
         proxyVendor
-      ;
+        ;
       subPackages = [ "." ];
       doCheck = false;
       # https://github.com/hashicorp/terraform-provider-scaffolding/blob/a8ac8375a7082befe55b71c8cbb048493dd220c2/.goreleaser.yml
@@ -70,7 +70,7 @@ let
           repo
           rev
           hash
-        ;
+          ;
       };
 
       meta = {

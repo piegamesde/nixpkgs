@@ -18,7 +18,7 @@ let
     hasSuffix
     splitString
     remove
-  ;
+    ;
 
   # Used by builds that would otherwise attempt to write into storeDir.
   #
@@ -97,7 +97,7 @@ let
           lispLibs
           nativeLibs
           nativeBuildInputs
-        ;
+          ;
         src = pkgs.fetchzip {
           url = "https://github.com/cffi/cffi/archive/3f842b92ef808900bf20dae92c2d74232c2f6d3a.tar.gz";
           sha256 = "1jilvmbbfrmb23j07lwmkbffc6r35wnvas5s4zjc84i856ccclm2";
@@ -258,7 +258,7 @@ let
           version
           src
           lispLibs
-        ;
+          ;
         nativeBuildInputs = [ pkgs.fuse ];
         nativeLibs = [ pkgs.fuse ];
       };
@@ -278,7 +278,7 @@ let
           version
           src
           lispLibs
-        ;
+          ;
         patches = [ ./patches/swank-pure-paths.patch ];
         postConfigure = ''
           substituteAllInPlace swank-loader.lisp
@@ -313,7 +313,7 @@ let
           version
           src
           asds
-        ;
+          ;
         lispLibs = super.mathkit.lispLibs ++ [ super.sb-cga ];
       };
 
@@ -512,7 +512,7 @@ let
           version
           src
           nativeLibs
-        ;
+          ;
         lispLibs = [ self.qt ] ++ remove super.qt_plus_libs super.qtools.lispLibs ++ [ self.qt-libs ];
         patches = [ ./patches/qtools-use-nix-libs.patch ];
       };
@@ -523,7 +523,7 @@ let
           version
           src
           lispLibs
-        ;
+          ;
         nativeBuildInputs = [ pkgs.gfortran ];
         nativeLibs = [ pkgs.openblas ];
         patches = [ ./patches/magicl-dont-build-fortran-twice.patch ];

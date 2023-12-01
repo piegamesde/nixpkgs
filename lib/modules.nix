@@ -38,7 +38,7 @@ let
     types
     warnIf
     zipAttrsWith
-  ;
+    ;
   inherit (lib.options)
     isOption
     mkOption
@@ -46,7 +46,7 @@ let
     showFiles
     showOption
     unknownModule
-  ;
+    ;
   inherit (lib.strings) isConvertibleWithToString;
 
   showDeclPrefix =
@@ -269,7 +269,7 @@ rec {
                 options
                 config
                 specialArgs
-              ;
+                ;
             }
             // specialArgs
           );

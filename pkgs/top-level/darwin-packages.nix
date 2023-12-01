@@ -182,7 +182,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           Foundation
           Metal
           QuartzCore
-        ;
+          ;
         inherit (apple_sdk_11_0) MacOSX-SDK Libsystem;
         inherit (pkgs.darwin) cctools sigtool;
       };
@@ -237,7 +237,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
         xcode_14
         xcode_14_1
         xcode
-      ;
+        ;
 
       CoreSymbolication = callPackage ../os-specific/darwin/CoreSymbolication { };
 

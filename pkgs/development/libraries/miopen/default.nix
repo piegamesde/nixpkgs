@@ -47,7 +47,7 @@ let
       tabulary
       varwidth
       titlesec
-    ;
+      ;
   };
 
   kdbs = lib.optionalAttrs fetchKDBs import ./deps.nix {

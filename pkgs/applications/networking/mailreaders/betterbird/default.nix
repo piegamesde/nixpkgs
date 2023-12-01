@@ -103,7 +103,7 @@
       badPlatforms
       broken
       license
-    ;
+      ;
   };
 }).override
   {

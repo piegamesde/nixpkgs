@@ -117,7 +117,7 @@ in
           user
           database
           path
-        ;
+          ;
       };
       service = {
         frontendurl = "${cfg.frontendScheme}://${cfg.frontendHostname}/";

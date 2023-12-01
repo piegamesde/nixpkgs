@@ -17,7 +17,7 @@ buildPythonPackage rec {
     version
     src
     meta
-  ;
+    ;
   format = "pyproject";
   disabled = pythonOlder "3.8";
 

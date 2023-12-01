@@ -194,7 +194,7 @@ stdenv.mkDerivation rec {
       enableSzip
       enableWX
       enableXWin
-    ;
+      ;
   };
 
   meta = with lib; {

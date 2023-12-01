@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
         xorgserver
         xwayland
         dbus
-      ;
+        ;
     })
 
     # The following patches implement certain environment variables in GDM which are set by

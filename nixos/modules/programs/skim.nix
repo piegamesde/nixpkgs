@@ -11,7 +11,7 @@ let
     mkPackageOptionMD
     optional
     optionalString
-  ;
+    ;
   cfg = config.programs.skim;
 in
 {

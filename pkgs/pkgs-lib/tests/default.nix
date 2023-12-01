@@ -18,7 +18,7 @@ let
     foldl'
     attrValues
     recurseIntoAttrs
-  ;
+    ;
 
   structured = {
     formats = import ./formats.nix { inherit pkgs; };

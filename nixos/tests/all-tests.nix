@@ -65,7 +65,7 @@ let
     })
     runTest
     runTestOn
-  ;
+    ;
 in
 {
   _3proxy = runTest ./3proxy.nix;

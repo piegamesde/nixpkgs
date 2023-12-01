@@ -64,7 +64,7 @@ let
       version
       src
       desktopItems
-    ;
+      ;
 
     nativeBuildInputs = [
       makeWrapper

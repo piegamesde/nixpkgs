@@ -54,7 +54,7 @@ let
         plugins
         extraConfig
         config
-      ;
+        ;
     });
 
   filterEmbeddedMetadata =

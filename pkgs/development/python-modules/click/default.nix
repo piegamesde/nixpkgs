@@ -35,7 +35,7 @@ buildPythonPackage rec {
       magic-wormhole
       mitmproxy
       typer
-    ;
+      ;
   };
 
   meta = with lib; {

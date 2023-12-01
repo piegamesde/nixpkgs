@@ -41,7 +41,7 @@ in
     toRustTarget
     toRustTargetSpec
     IsNoStdTarget
-  ;
+    ;
 
   # This just contains tools for now. But it would conceivably contain
   # libraries too, say if we picked some default/recommended versions to build
@@ -88,7 +88,7 @@ in
               llvmSharedForHost
               llvmSharedForTarget
               llvmPackages
-            ;
+              ;
 
             patches = rustcPatches;
 

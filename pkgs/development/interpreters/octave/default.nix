@@ -99,7 +99,7 @@ let
       stdenv
       fetchurl
       newScope
-    ;
+      ;
     octave = self;
   };
 

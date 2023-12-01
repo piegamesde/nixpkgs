@@ -87,7 +87,7 @@ runCommand name
       makeUInitrd
       uInitrdArch
       prepend
-    ;
+      ;
     ${if makeUInitrd then "uInitrdCompression" else null} = uInitrdCompression;
 
     passAsFile = [ "contents" ];

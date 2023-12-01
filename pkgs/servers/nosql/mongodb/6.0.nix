@@ -19,7 +19,7 @@ let
       CoreFoundation
       cctools
       stdenv
-    ;
+      ;
   };
 in
 buildMongoDB {

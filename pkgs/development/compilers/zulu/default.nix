@@ -57,7 +57,7 @@ stdenv.mkDerivation {
     platform
     hash
     extension
-  ;
+    ;
 
   pname = "zulu";
 

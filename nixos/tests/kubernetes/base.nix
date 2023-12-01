@@ -100,7 +100,7 @@ let
                     pkgs
                     lib
                     nodes
-                  ;
+                    ;
                 }
               ))
               (optionalAttrs (extraConfiguration != null) (
@@ -110,7 +110,7 @@ let
                     pkgs
                     lib
                     nodes
-                  ;
+                    ;
                 }
               ))
             ]

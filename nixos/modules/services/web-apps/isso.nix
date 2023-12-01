@@ -12,7 +12,7 @@ let
     mkOption
     types
     literalExpression
-  ;
+    ;
 
   cfg = config.services.isso;
 

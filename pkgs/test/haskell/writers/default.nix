@@ -11,7 +11,7 @@ let
     bin
     simple
     path
-  ;
+    ;
 in
 
 runCommand "test-haskell-writers"

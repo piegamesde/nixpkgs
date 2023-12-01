@@ -126,7 +126,7 @@ makeScope newScope (
         fftwSinglePrec
         portaudio
         jdk
-      ;
+        ;
       inherit (pkgs) fftwFloat fftwLongDouble;
     };
 

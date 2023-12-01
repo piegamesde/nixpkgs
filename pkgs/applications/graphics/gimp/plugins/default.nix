@@ -17,7 +17,7 @@ let
     intltool
     glib
     fetchFromGitHub
-  ;
+    ;
 in
 
 lib.makeScope pkgs.newScope (

@@ -75,7 +75,7 @@ let
           name
           secret
           refresh
-        ;
+          ;
         httponly = cookie.httpOnly;
       };
       set-xauthrequest = setXauthrequest;

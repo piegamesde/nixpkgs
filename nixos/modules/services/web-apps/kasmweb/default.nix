@@ -168,7 +168,7 @@ in
               defaultManagerToken
               defaultRegistrationToken
               defaultGuacToken
-            ;
+              ;
           };
         };
       };

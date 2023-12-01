@@ -50,7 +50,7 @@ let
         version
         src
         meta
-      ;
+        ;
 
       patches =
         lib.optionals (pname != "gammastep")

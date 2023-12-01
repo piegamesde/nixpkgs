@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     src
     setupHook
     meta
-  ;
+    ;
 
   nativeBuildInputs = [
     gnat

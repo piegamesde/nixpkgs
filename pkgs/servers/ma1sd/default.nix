@@ -68,7 +68,7 @@ stdenv.mkDerivation {
     src
     version
     patches
-  ;
+    ;
   nativeBuildInputs = [
     gradle
     perl

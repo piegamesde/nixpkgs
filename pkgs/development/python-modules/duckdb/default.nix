@@ -19,7 +19,7 @@ buildPythonPackage rec {
     version
     src
     patches
-  ;
+    ;
   format = "setuptools";
 
   # we can't use sourceRoot otherwise patches don't apply, because the patches

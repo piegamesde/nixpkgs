@@ -21,7 +21,7 @@ let
     timerToUnit
     mountToUnit
     automountToUnit
-  ;
+    ;
 
   cfg = config.boot.initrd.systemd;
 

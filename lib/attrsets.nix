@@ -8,13 +8,13 @@ let
     id
     mergeAttrs
     pipe
-  ;
+    ;
   inherit (lib.strings)
     concatStringsSep
     concatMapStringsSep
     escapeNixIdentifier
     sanitizeDerivationName
-  ;
+    ;
   inherit (lib.lists)
     foldr
     foldl'
@@ -26,7 +26,7 @@ let
     groupBy
     take
     foldl
-  ;
+    ;
 in
 
 rec {
@@ -37,7 +37,7 @@ rec {
     isAttrs
     getAttr
     removeAttrs
-  ;
+    ;
 
   /* Return an attribute from nested attribute sets.
 

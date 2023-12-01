@@ -50,7 +50,7 @@ symlinkJoin {
       license
       maintainers
       platforms
-    ;
+      ;
     longDescription =
       ''
         RetroArch is the reference frontend for the libretro API.

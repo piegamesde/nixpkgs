@@ -97,7 +97,7 @@ let
         version
         src
         patches
-      ;
+        ;
 
       propagatedBuildInputs = [
         core

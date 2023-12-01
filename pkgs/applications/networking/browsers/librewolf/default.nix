@@ -20,7 +20,7 @@ in
     extraPatches
     extraPostPatch
     extraPassthru
-  ;
+    ;
 
   meta = {
     description = "A fork of Firefox, focused on privacy, security and freedom";

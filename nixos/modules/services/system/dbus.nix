@@ -25,7 +25,7 @@ let
     mkIf
     mkMerge
     types
-  ;
+    ;
 in
 
 {

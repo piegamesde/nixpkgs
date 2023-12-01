@@ -17,7 +17,7 @@ let
     mkOption
     optionalString
     types
-  ;
+    ;
 
   configFile = pkgs.writeText "ergo.conf" (
     ''

@@ -23,7 +23,7 @@ let
         desktopName
         comment
         terminal
-      ;
+        ;
       icon = "trackma";
       exec = name + " %u";
       type = "Application";

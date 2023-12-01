@@ -40,7 +40,7 @@ let
     optional
     optionals
     optionalString
-  ;
+    ;
   isCross = (stdenv.hostPlatform != stdenv.buildPlatform);
 in
 stdenv.mkDerivation rec {

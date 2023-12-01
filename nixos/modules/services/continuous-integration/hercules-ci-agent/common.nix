@@ -20,7 +20,7 @@ let
     mkRemovedOptionModule
     mkRenamedOptionModule
     types
-  ;
+    ;
 
   cfg = config.services.hercules-ci-agent;
 

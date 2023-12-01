@@ -67,7 +67,7 @@ ocamlPackages.buildDunePackage {
     version
     src
     configureScript
-  ;
+    ;
 
   configureFlags = [ pname ];
 

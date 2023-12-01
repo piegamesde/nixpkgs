@@ -21,7 +21,7 @@ let
       Cocoa
       debug
       useXdgDir
-    ;
+      ;
   };
 
   self = common.overrideAttrs (

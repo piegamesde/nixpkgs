@@ -18,7 +18,7 @@ in
         mdDoc
         mkEnableOption
         types
-      ;
+        ;
     in
     {
       servers = mkOption {
@@ -102,7 +102,7 @@ in
         optionalString
         concatMapStringsSep
         escapeShellArgs
-      ;
+        ;
     in
     mkIf (cfg.servers != { }) {
       systemd.services =

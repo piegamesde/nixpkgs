@@ -153,7 +153,7 @@ rec {
             linux-kernel
             gcc
             rustc
-          ;
+            ;
 
           linuxArch =
             if final.isAarch32 then

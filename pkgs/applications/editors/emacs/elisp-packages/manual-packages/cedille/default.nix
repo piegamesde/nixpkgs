@@ -32,7 +32,7 @@ stdenv.mkDerivation {
       license
       maintainers
       platforms
-    ;
+      ;
     description = "Emacs major mode for Cedille";
   };
 }

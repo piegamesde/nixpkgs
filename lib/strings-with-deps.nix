@@ -47,7 +47,7 @@ let
     isAttrs
     listToAttrs
     tail
-  ;
+    ;
 in
 rec {
 

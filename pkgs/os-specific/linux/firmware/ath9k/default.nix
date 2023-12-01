@@ -59,7 +59,7 @@ stdenv.mkDerivation (
           last
           listToAttrs
           pipe
-        ;
+          ;
         inherit (builtins) map;
         urls-and-hashes = import (./. + "/urls-and-hashes-${finalAttrs.version}.nix");
         make-links =

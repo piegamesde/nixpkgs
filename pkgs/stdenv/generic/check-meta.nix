@@ -539,7 +539,7 @@ let
         broken
         unsupported
         insecure
-      ;
+        ;
 
       available =
         validity.valid != "no"

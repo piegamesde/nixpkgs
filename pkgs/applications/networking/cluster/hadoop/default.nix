@@ -50,7 +50,7 @@ let
         libPatches
         untarDir
         openssl
-      ;
+        ;
       version = platformAttrs.${stdenv.system}.version or (throw "Unsupported system: ${stdenv.system}");
       src = fetchurl {
         url =

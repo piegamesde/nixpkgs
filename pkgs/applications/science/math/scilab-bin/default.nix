@@ -50,7 +50,7 @@ let
       version
       src
       meta
-    ;
+      ;
 
     nativeBuildInputs = [
       makeWrapper
@@ -76,7 +76,7 @@ let
       version
       src
       meta
-    ;
+      ;
 
     nativeBuildInputs = [ autoPatchelfHook ];
 

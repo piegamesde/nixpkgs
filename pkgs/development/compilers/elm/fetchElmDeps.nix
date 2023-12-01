@@ -17,7 +17,7 @@ let
       lib
       fetchurl
       registryDat
-    ;
+      ;
   };
 in
 ''

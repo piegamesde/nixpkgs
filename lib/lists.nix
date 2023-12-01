@@ -19,7 +19,7 @@ rec {
     elem
     genList
     map
-  ;
+    ;
 
   /* Create a list consisting of a single element.  `singleton x` is
       sometimes more convenient with respect to indentation than `[x]`

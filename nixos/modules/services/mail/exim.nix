@@ -12,7 +12,7 @@ let
     mkOption
     singleton
     types
-  ;
+    ;
   inherit (pkgs) coreutils;
   cfg = config.services.exim;
 in

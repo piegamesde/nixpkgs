@@ -13,7 +13,7 @@ rec {
           autoconf
           automake
           libtool
-        ;
+          ;
       }
       // args
     );
@@ -67,7 +67,7 @@ rec {
           stdenv
           vmTools
           checkinstall
-        ;
+          ;
       }
       // args
     );

@@ -717,7 +717,7 @@ stdenv.mkDerivation {
       swiftLibSubdir
       swiftStaticModuleSubdir
       swiftStaticLibSubdir
-    ;
+      ;
 
     # Internal attr for the wrapper.
     _wrapperParams = wrapperParams;

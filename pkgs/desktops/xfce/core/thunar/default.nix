@@ -73,6 +73,6 @@ else
       symlinkJoin
       thunarPlugins
       lib
-    ;
+      ;
     thunar = unwrapped;
   }

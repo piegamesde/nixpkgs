@@ -43,7 +43,7 @@ buildPythonPackage rec {
       flask-restful
       flask-restx
       moto
-    ;
+      ;
   };
   passthru.optional-dependencies = {
     dotenv = [ python-dotenv ];

@@ -45,7 +45,7 @@ let
       version
       src
       meta
-    ;
+      ;
     unpackPhase = ''
       ar x $src
       tar xfz data.tar.gz
@@ -94,7 +94,7 @@ let
       version
       src
       meta
-    ;
+      ;
     nativeBuildInputs = [ unzip ];
 
     installPhase = ''

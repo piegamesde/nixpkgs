@@ -76,7 +76,7 @@ let
       flint
       pythonEnv
       maxima
-    ;
+      ;
     pkg-config = pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
   };
 
@@ -198,6 +198,6 @@ callPackage ./sage.nix {
     sagedoc
     jupyter-kernel-definition
     jupyter-kernel-specs
-  ;
+    ;
   inherit withDoc requireSageTests;
 }

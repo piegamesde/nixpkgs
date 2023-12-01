@@ -31,7 +31,7 @@ let
       writeText
       fetchFromGitHub
       haskellPackages
-    ;
+      ;
   };
 
   remixPacks =

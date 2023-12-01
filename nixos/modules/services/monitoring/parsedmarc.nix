@@ -36,7 +36,7 @@ let
     isList
     typeOf
     hashString
-  ;
+    ;
 in
 {
   options.services.parsedmarc = {

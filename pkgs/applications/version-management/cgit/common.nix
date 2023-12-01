@@ -37,7 +37,7 @@ stdenv.mkDerivation {
     version
     src
     gitSrc
-  ;
+    ;
 
   nativeBuildInputs =
     [

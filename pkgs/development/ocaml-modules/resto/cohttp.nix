@@ -12,7 +12,7 @@ buildDunePackage {
     version
     meta
     doCheck
-  ;
+    ;
   duneVersion = "3";
 
   propagatedBuildInputs = [

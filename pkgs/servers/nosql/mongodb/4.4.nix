@@ -18,7 +18,7 @@ let
       Security
       CoreFoundation
       cctools
-    ;
+      ;
   };
 in
 buildMongoDB {

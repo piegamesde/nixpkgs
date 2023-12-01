@@ -155,7 +155,7 @@ let
     optionals
     optionalString
     versions
-  ;
+    ;
 in
 let
   self = stdenv.mkDerivation rec {

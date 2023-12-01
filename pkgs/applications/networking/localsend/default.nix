@@ -31,7 +31,7 @@ let
       version
       src
       meta
-    ;
+      ;
 
     extraPkgs = p: [
       p.ayatana-ido
@@ -61,7 +61,7 @@ let
       version
       src
       meta
-    ;
+      ;
 
     nativeBuildInputs = [ undmg ];
 

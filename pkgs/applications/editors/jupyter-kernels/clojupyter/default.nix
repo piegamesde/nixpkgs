@@ -66,7 +66,7 @@ rec {
           version
           meta
           shellScript
-        ;
+          ;
       }
       ''
         mkdir -p $out/bin

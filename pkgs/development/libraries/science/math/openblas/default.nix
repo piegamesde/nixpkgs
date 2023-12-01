@@ -291,7 +291,7 @@ stdenv.mkDerivation rec {
       giac
       octave
       opencv
-    ;
+      ;
   };
 
   meta = with lib; {

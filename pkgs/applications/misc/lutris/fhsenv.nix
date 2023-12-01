@@ -291,7 +291,7 @@ buildFHSEnv {
       license
       maintainers
       broken
-    ;
+      ;
 
     mainProgram = "lutris";
   };

@@ -54,7 +54,7 @@ stdenvNoCC.mkDerivation {
     repoRepoURL
     repoRepoRev
     referenceDir
-  ; # TODO
+    ; # TODO
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";

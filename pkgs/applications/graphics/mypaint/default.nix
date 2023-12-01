@@ -25,7 +25,7 @@ let
     pygobject3
     numpy
     buildPythonApplication
-  ;
+    ;
 in
 buildPythonApplication rec {
   pname = "mypaint";

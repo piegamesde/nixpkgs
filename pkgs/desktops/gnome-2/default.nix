@@ -69,7 +69,7 @@ lib.makeScope pkgs.newScope (
       rarian
 
       gvfs # added 2019-09-03
-    ;
+      ;
 
     gtk = pkgs.gtk2;
     gtkmm = pkgs.gtkmm2;

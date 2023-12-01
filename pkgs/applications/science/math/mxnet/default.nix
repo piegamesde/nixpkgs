@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
       cudnnSupport
       cudatoolkit
       cudnn
-    ;
+      ;
   };
 
   meta = with lib; {

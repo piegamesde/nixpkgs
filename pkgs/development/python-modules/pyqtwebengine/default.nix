@@ -20,7 +20,7 @@ let
     enum34
     sip
     pyqt-builder
-  ;
+    ;
   inherit (darwin) autoSignDarwinBinariesHook;
 in
 buildPythonPackage rec {

@@ -45,7 +45,7 @@ let
       varwidth
       titlesec
       epstopdf
-    ;
+      ;
   };
 in
 stdenv.mkDerivation (

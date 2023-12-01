@@ -33,7 +33,7 @@ stdenv.mkDerivation {
     enableParallelBuilding
     enableParallelInstalling
     meta
-  ;
+    ;
 
   nativeBuildInputs = [
     gettext

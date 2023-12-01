@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
       maintainers
       platforms
       broken
-    ;
+      ;
   };
 }

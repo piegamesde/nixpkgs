@@ -169,7 +169,7 @@ builtins.foldl'
             kind
             source
             dependencies
-          ;
+            ;
         }
       )
     else

@@ -14,7 +14,7 @@ let
     isList
     typeOf
     hashString
-  ;
+    ;
 in
 {
   imports = [

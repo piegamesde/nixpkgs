@@ -18,7 +18,7 @@ let
         })
         withPackages
         mkDerivation
-      ;
+        ;
     in
     {
       inherit mkDerivation;

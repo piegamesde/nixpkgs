@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       stdenv
       fetchurl
       unzip
-    ;
+      ;
   };
 
   # Note: -fPIC causes the VM to segfault.

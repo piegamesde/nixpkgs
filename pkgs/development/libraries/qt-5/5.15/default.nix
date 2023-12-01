@@ -157,7 +157,7 @@ let
           qtModule
           srcs
           stdenv
-        ;
+          ;
       };
     in
     {
@@ -167,7 +167,7 @@ let
         qtCompatVersion
         qtModule
         srcs
-      ;
+        ;
 
       mkDerivationWith = import ../mkDerivation.nix {
         inherit lib;
@@ -185,7 +185,7 @@ let
           cups
           harfbuzz
           libGL
-        ;
+          ;
         withGtk3 = !stdenv.isDarwin;
         inherit dconf gtk3;
         inherit developerBuild decryptSslTraffic;
@@ -205,7 +205,7 @@ let
           OpenGL
           MetalKit
           IOKit
-        ;
+          ;
         libobjc = darwin.apple_sdk_11_0.objc4;
         xcbuild = darwin.apple_sdk_11_0.xcodebuild;
       };
@@ -274,7 +274,7 @@ let
           CoreML
           OpenDirectory
           Accelerate
-        ;
+          ;
         libobjc = darwin.apple_sdk_11_0.objc4;
       };
       qtwebglplugin = callPackage ../modules/qtwebglplugin.nix { };

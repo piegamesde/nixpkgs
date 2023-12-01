@@ -116,7 +116,7 @@ rec {
         features
         featuresInfo
         python
-      ;
+        ;
     }
     // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit qt; }
     // lib.optionalAttrs (hasFeature "gnuradio-companion") { inherit gtk; };

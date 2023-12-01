@@ -21,7 +21,7 @@ mkDerivation {
     meta
     dontAddPrefix
     nativeBuildInputs
-  ;
+    ;
 
   pname = "backintime-qt";
 

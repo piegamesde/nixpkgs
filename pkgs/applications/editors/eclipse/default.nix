@@ -63,7 +63,7 @@ rec {
       gsettings-desktop-schemas
       webkitgtk
       makeWrapper
-    ;
+      ;
   };
   buildEclipse =
     eclipseData:

@@ -14,7 +14,7 @@ let
       python2
       runCommand
       writeTextFile
-    ;
+      ;
     inherit pkgs nodejs;
     libtool = if pkgs.stdenv.isDarwin then pkgs.darwin.cctools else null;
   };
@@ -25,7 +25,7 @@ let
       stdenv
       lib
       fetchgit
-    ;
+      ;
     inherit nodeEnv;
   };
 

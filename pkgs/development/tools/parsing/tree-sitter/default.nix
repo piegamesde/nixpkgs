@@ -53,7 +53,7 @@ let
           rev
           sha256
           fetchSubmodules
-        ;
+          ;
       }
     );
 
@@ -202,7 +202,7 @@ rustPlatform.buildRustPackage {
       builtGrammars
       withPlugins
       allGrammars
-    ;
+      ;
 
     tests = {
       # make sure all grammars build

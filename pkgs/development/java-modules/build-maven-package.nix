@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     name
     meta
     m2Path
-  ;
+    ;
 
   flatDeps = unique (flatten (mavenDeps ++ mavenMinimal.mavenMinimal));
 

@@ -117,7 +117,7 @@ else
         branchName
         nonConeMode
         postFetch
-      ;
+        ;
 
       postHook =
         if netrcPhase == null then

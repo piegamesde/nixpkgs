@@ -204,7 +204,7 @@ buildPythonPackage rec {
         txrequests
         txtorcon
         thrift
-      ;
+        ;
       inherit (nixosTests) buildbot matrix-synapse;
     };
   };

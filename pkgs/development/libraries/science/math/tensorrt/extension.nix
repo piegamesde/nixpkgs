@@ -7,7 +7,7 @@ let
     cudaVersion
     lib
     pkgs
-  ;
+    ;
 
   ### TensorRT
 

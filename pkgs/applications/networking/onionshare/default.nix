@@ -77,7 +77,7 @@ rec {
             meek
             obfs4
             snowflake
-          ;
+            ;
           inherit (tor) geoip;
         })
       ];
@@ -134,7 +134,7 @@ rec {
             meek
             obfs4
             snowflake
-          ;
+            ;
           inherit (tor) geoip;
         })
       ];

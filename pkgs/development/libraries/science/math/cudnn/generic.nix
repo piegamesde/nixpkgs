@@ -34,7 +34,7 @@ let
     strings
     trivial
     versions
-  ;
+    ;
 
   # majorMinorPatch :: String -> String
   majorMinorPatch = (trivial.flip trivial.pipe) [

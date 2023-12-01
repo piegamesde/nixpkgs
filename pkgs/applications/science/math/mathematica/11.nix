@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     name
     src
     version
-  ;
+    ;
 
   buildInputs =
     [

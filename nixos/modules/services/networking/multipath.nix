@@ -578,7 +578,7 @@ in
           blacklist
           blacklist_exceptions
           overrides
-        ;
+          ;
 
         mkDeviceBlock =
           cfg:

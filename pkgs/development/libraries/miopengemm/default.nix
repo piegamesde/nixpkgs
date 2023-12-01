@@ -30,7 +30,7 @@ let
       tabulary
       varwidth
       titlesec
-    ;
+      ;
   };
 in
 stdenv.mkDerivation (

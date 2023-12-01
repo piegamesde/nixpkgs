@@ -75,7 +75,7 @@ if stdenv.isDarwin then
       version
       src
       meta
-    ;
+      ;
   }
 else
   callPackage ./linux.nix {
@@ -85,5 +85,5 @@ else
       src
       meta
       polkitPolicyOwners
-    ;
+      ;
   }

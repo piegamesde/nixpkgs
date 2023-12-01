@@ -74,7 +74,7 @@ stdenv.mkDerivation {
     name
     src
     version
-  ;
+    ;
 
   nativeBuildInputs = [
     autoPatchelfHook

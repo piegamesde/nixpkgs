@@ -289,7 +289,7 @@ rec {
               GameCenterUI
               GameCenterUICore
               ReplayKit
-            ;
+              ;
           };
           ICADevices = {
             inherit Carbon libobjc;
@@ -327,7 +327,7 @@ rec {
               CoreMediaIO
               MediaToolbox
               VideoToolbox
-            ;
+              ;
           };
           Quartz = {
             inherit QTKit;
@@ -340,7 +340,7 @@ rec {
               Metal
               OpenCL
               libobjc
-            ;
+              ;
           };
           Security = {
             inherit IOKit libDER;

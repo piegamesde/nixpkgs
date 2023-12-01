@@ -7,7 +7,7 @@ let
     isAttrs
     isInt
     attrNames
-  ;
+    ;
 in
 
 with lib.lists;

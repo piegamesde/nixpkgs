@@ -59,7 +59,7 @@ stdenv.mkDerivation {
       libs
       bins
       overridePkgs
-    ;
+      ;
     arch = steamArch;
   };
 

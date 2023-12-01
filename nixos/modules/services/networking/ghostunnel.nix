@@ -19,7 +19,7 @@ let
     nameValuePair
     optional
     types
-  ;
+    ;
 
   mainCfg = config.services.ghostunnel;
 

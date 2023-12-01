@@ -24,7 +24,7 @@ makeOverridable (
       meta
       passthru
       preferLocalBuild
-    ;
+      ;
     pname = pname + "-src";
     pkgname = pname;
     builder = ./builder.sh;

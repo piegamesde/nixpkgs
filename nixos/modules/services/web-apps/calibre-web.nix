@@ -16,7 +16,7 @@ let
     optional
     optionalString
     types
-  ;
+    ;
 in
 {
   options = {

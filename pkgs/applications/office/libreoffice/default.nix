@@ -170,7 +170,7 @@ let
     getLib
     optionals
     optionalString
-  ;
+    ;
 
   jre' = jre17_minimal.override {
     modules = [

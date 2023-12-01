@@ -38,7 +38,7 @@ bootStages
           binutils
           coreutils
           gnugrep
-        ;
+          ;
         cc = prevStage.gcc.cc;
         isGNU = true;
         shell = prevStage.bash + "/bin/sh";
@@ -66,7 +66,7 @@ bootStages
           gnugrep
           gnupatch
           perl
-        ;
+          ;
       };
     };
   })

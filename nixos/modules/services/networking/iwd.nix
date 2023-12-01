@@ -12,7 +12,7 @@ let
     mkOption
     types
     recursiveUpdate
-  ;
+    ;
 
   cfg = config.networking.wireless.iwd;
   ini = pkgs.formats.ini { };

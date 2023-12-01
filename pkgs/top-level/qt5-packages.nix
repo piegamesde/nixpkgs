@@ -86,7 +86,7 @@
         kdeGear
         mauiPackages
         qt5
-      ;
+        ;
 
       # Alias for backwards compatibility. Added 2021-05-07.
       kdeApplications = kdeGear;
@@ -161,7 +161,7 @@
           AGL
           Cocoa
           Foundation
-        ;
+          ;
       };
 
       libqglviewer = callPackage ../development/libraries/libqglviewer {

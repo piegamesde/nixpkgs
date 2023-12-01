@@ -248,7 +248,7 @@ stdenv.mkDerivation {
         nginx-pubhtml
         nginx-sandbox
         nginx-sso
-      ;
+        ;
       variants = lib.recurseIntoAttrs nixosTests.nginx-variants;
       acme-integration = nixosTests.acme;
     } // passthru.tests;

@@ -13,7 +13,7 @@ buildDunePackage {
     version
     useDune2
     doCheck
-  ;
+    ;
 
   propagatedBuildInputs = [
     printbox

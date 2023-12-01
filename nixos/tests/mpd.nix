@@ -23,7 +23,7 @@ import ./make-test-python.nix (
         musicDirectory
         user
         group
-      ;
+        ;
       enable = true;
     };
 

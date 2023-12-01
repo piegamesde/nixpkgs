@@ -36,7 +36,7 @@ python.pkgs.buildPythonPackage rec {
     format
     nativeBuildInputs
     preConfigure
-  ;
+    ;
 
   pythonImportsCheck = [ "word_count" ];
 

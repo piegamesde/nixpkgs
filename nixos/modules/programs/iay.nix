@@ -14,7 +14,7 @@ let
     mkPackageOptionMD
     optionalString
     types
-  ;
+    ;
 in
 {
   options.programs.iay = {

@@ -38,7 +38,7 @@ let
       baseOptionsJSON
       warningsAreErrors
       allowDocBook
-    ;
+      ;
     transformOptions =
       opt:
       opt
@@ -235,7 +235,7 @@ rec {
     optionsNix
     optionsDocBook
     optionsUsedDocbook
-  ;
+    ;
 
   # Generate the NixOS manual.
   manualHTML =

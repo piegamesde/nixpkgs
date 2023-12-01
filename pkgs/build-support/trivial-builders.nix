@@ -150,7 +150,7 @@ rec {
           meta
           allowSubstitutes
           preferLocalBuild
-        ;
+          ;
         passAsFile = [ "text" ];
       }
       ''
@@ -418,7 +418,7 @@ rec {
           checkPhase
           meta
           destination
-        ;
+          ;
       }
       ''
         file=$out$destination
@@ -930,7 +930,7 @@ rec {
         src
         patches
         postPatch
-      ;
+        ;
       preferLocalBuild = true;
       allowSubstitutes = false;
       phases = "unpackPhase patchPhase installPhase";

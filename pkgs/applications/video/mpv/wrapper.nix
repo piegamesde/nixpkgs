@@ -116,7 +116,7 @@ let
           description
           longDescription
           maintainers
-        ;
+          ;
         mainProgram = "mpv";
       };
     };

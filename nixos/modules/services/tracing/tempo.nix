@@ -11,7 +11,7 @@ let
     mkIf
     mkOption
     types
-  ;
+    ;
 
   cfg = config.services.tempo;
 

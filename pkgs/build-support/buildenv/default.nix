@@ -70,7 +70,7 @@ lib.makeOverridable (
         postBuild
         nativeBuildInputs
         buildInputs
-      ;
+        ;
       pkgs = builtins.toJSON (
         map
           (drv: {

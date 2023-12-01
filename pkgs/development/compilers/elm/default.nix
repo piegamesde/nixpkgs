@@ -372,7 +372,7 @@ lib.makeScope pkgs.newScope (
         elm-xref
         elm-analyse
         elm-git-install
-      ;
+        ;
     }
   )
 )

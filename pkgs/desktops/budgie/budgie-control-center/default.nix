@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
         glibc
         libgnomekbd
         shadow
-      ;
+        ;
       inherit networkmanagerapplet tzdata;
     })
   ];

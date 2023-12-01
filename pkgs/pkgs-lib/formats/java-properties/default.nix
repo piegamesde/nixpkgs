@@ -10,7 +10,7 @@ let
     int
     float
     package
-  ;
+    ;
 in
 {
   javaProperties =

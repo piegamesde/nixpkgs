@@ -12,7 +12,7 @@ let
     fetchurl
     stdenv
     lib
-  ;
+    ;
 
   buildRPackage = pkgs.callPackage ./generic-builder.nix {
     inherit R;

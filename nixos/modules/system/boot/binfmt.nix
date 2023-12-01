@@ -11,7 +11,7 @@ let
     types
     optionalString
     stringAfter
-  ;
+    ;
 
   cfg = config.boot.binfmt;
 

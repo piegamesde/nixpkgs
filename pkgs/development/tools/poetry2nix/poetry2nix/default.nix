@@ -15,7 +15,7 @@ let
     readTOML
     normalizePackageName
     normalizePackageSet
-  ;
+    ;
 
   # Map SPDX identifiers to license names
   spdxLicenses = lib.listToAttrs (
@@ -146,7 +146,7 @@ lib.makeScope pkgs.newScope (
           lib
           poetryLib
           editablePackageSources
-        ;
+          ;
       };
 
     # Returns a package containing scripts defined in tool.poetry.scripts.
@@ -328,7 +328,7 @@ lib.makeScope pkgs.newScope (
                     python
                     poetryLib
                     evalPep508
-                  ;
+                    ;
                 };
 
                 # # Use poetry-core from the poetry build (pep517/518 build-system)
@@ -390,7 +390,7 @@ lib.makeScope pkgs.newScope (
             groups
             checkGroups
             extras
-          ;
+            ;
           attrs = { };
           includeBuildSystem = false;
         };
@@ -477,7 +477,7 @@ lib.makeScope pkgs.newScope (
             pyProject
             groups
             extras
-          ;
+            ;
           editablePackageSources = editablePackageSources';
         };
 
@@ -529,7 +529,7 @@ lib.makeScope pkgs.newScope (
             groups
             checkGroups
             extras
-          ;
+            ;
         };
         py = poetryPython.python;
 
@@ -554,7 +554,7 @@ lib.makeScope pkgs.newScope (
             groups
             checkGroups
             extras
-          ;
+            ;
         };
 
         app = py.pkgs.buildPythonPackage (

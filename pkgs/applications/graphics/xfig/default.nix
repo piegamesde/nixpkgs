@@ -71,6 +71,6 @@ stdenv.mkDerivation rec {
       homepage
       platforms
       maintainers
-    ;
+      ;
   };
 }

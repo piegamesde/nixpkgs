@@ -14,7 +14,7 @@ buildGoModule {
     src
     ldflags
     postBuild
-  ;
+    ;
   vendorSha256 = null;
 
   subPackages = "cmd/cli";

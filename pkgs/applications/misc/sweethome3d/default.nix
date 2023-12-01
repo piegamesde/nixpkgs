@@ -51,7 +51,7 @@ let
         version
         src
         description
-      ;
+        ;
       exec = lib.toLower module;
       sweethome3dItem = makeDesktopItem {
         inherit exec desktopName;

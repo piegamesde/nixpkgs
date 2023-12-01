@@ -19,7 +19,7 @@ buildDunePackage {
     meta
     doCheck
     minimalOCamlVersion
-  ;
+    ;
 
   duneVersion = "3";
 

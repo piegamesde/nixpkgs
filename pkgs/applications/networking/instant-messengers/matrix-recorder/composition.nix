@@ -15,7 +15,7 @@ let
       util-linux
       runCommand
       writeTextFile
-    ;
+      ;
     inherit nodejs;
     libtool = if pkgs.stdenv.isDarwin then pkgs.darwin.cctools else null;
   };

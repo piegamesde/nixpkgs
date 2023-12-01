@@ -22,7 +22,7 @@ import <nix/fetchurl.nix> {
     hash
     sha256
     name
-  ;
+    ;
 
   url =
     # Handle mirror:// URIs. Since <nix/fetchurl.nix> currently

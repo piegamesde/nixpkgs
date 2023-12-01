@@ -51,7 +51,7 @@ let
     isMips
     isDarwin
     isCygwin
-  ;
+    ;
   inherit (lib) enableFeature optional optionals;
 in
 

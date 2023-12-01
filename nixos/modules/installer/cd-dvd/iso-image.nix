@@ -840,7 +840,7 @@ in
           compressImage
           volumeID
           contents
-        ;
+          ;
         bootable = config.isoImage.makeBiosBootable && canx86BiosBoot;
         bootImage = "/isolinux/isolinux.bin";
         syslinux = if config.isoImage.makeBiosBootable && canx86BiosBoot then pkgs.syslinux else null;

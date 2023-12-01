@@ -36,7 +36,7 @@ let
         version
         description
         sha256
-      ;
+        ;
       inherit title;
 
       pname = "yquake2-${title}";

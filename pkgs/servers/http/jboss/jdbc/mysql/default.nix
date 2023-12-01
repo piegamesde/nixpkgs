@@ -25,7 +25,7 @@ stdenv.mkDerivation {
       license
       platforms
       homepage
-    ;
+      ;
     maintainers = with maintainers; [ ];
   };
 }

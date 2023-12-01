@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       vaapiIntel
       mpv
       vlc
-    ;
+      ;
   };
 
   meta = with lib; {

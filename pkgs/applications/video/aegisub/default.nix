@@ -65,7 +65,7 @@ let
     Carbon
     IOKit
     Cocoa
-  ;
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "aegisub";

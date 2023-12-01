@@ -5,7 +5,7 @@ let
     mkOption
     setDefaultModuleLocation
     evalModules
-  ;
+    ;
   inherit (types)
     deferredModule
     lazyAttrsOf
@@ -13,7 +13,7 @@ let
     str
     raw
     enum
-  ;
+    ;
 in
 {
   options = {

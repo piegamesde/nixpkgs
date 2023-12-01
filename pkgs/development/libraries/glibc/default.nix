@@ -23,7 +23,7 @@ in
     withGd
     profilingLibraries
     withLibcrypt
-  ;
+    ;
   pname = "glibc" + lib.optionalString withGd "-gd";
 }).overrideAttrs
   (

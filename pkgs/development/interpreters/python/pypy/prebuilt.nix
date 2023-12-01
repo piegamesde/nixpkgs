@@ -35,7 +35,7 @@ let
       sourceVersion
       pythonVersion
       packageOverrides
-    ;
+      ;
     implementation = "pypy";
     libPrefix = "pypy${pythonVersion}";
     executable = "pypy${lib.optionalString isPy3k "3"}";

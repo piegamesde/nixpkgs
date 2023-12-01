@@ -35,5 +35,5 @@ stdenvNoCC.mkDerivation {
     sha256
     tag
     date
-  ;
+    ;
 }

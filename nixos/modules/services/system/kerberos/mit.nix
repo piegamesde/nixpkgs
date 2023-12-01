@@ -14,7 +14,7 @@ let
     toList
     mapAttrs
     mapAttrsToList
-  ;
+    ;
   cfg = config.services.kerberos_server;
   kerberos = config.krb5.kerberos;
   stateDir = "/var/lib/krb5kdc";

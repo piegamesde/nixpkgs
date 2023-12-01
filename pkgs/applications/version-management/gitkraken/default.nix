@@ -96,7 +96,7 @@ let
       version
       src
       meta
-    ;
+      ;
 
     dontBuild = true;
     dontConfigure = true;
@@ -201,7 +201,7 @@ let
       version
       src
       meta
-    ;
+      ;
 
     nativeBuildInputs = [ unzip ];
 

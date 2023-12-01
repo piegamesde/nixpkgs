@@ -129,7 +129,7 @@ stdenv.mkDerivation rec {
       szip
       javaSupport
       jdk
-    ;
+      ;
   };
 
   meta = with lib; {

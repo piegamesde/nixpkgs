@@ -399,7 +399,7 @@ let
             coreutils
             gnutar
             bzip2
-          ;
+            ;
         };
 
         dune-rpc = callPackage ../development/ocaml-modules/dune-rpc { };
@@ -508,7 +508,7 @@ let
             ForceFeedback
             OpenGL
             VideoToolbox
-          ;
+            ;
         };
         ffmpeg-avfilter = callPackage ../development/ocaml-modules/ffmpeg/ffmpeg-avfilter.nix {
           inherit (pkgs) ffmpeg;
@@ -517,7 +517,7 @@ let
             CoreImage
             OpenGL
             VideoToolbox
-          ;
+            ;
         };
         ffmpeg-avutil = callPackage ../development/ocaml-modules/ffmpeg/ffmpeg-avutil.nix {
           inherit (pkgs) ffmpeg;
@@ -737,7 +737,7 @@ let
                 lib
                 openssl
                 zstd
-              ;
+                ;
             }
           else if lib.versionOlder "4.08" ocaml.version then
             import ../development/ocaml-modules/janestreet/0.14.nix {
@@ -747,7 +747,7 @@ let
                 lib
                 openssl
                 zstd
-              ;
+                ;
             }
           else if lib.versionOlder "4.07" ocaml.version then
             import ../development/ocaml-modules/janestreet/0.12.nix {
@@ -1631,7 +1631,7 @@ let
             CoreAudio
             CoreVideo
             ForceFeedback
-          ;
+            ;
         };
 
         tsdl-image = callPackage ../development/ocaml-modules/tsdl-image { };

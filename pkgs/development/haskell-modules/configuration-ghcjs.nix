@@ -22,7 +22,7 @@ self: super:
     gtk2hs-buildtools
     rehoo
     hoogle
-  ;
+    ;
 
   # Test suite fails; https://github.com/ghcjs/ghcjs-base/issues/133
   ghcjs-base = dontCheck (

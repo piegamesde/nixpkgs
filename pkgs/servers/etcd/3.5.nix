@@ -37,7 +37,7 @@ let
       meta
       src
       version
-    ;
+      ;
 
     vendorHash = "sha256-w/aWrQF/PAWTGMFUcpHiiDef6cvLLdYP06iwBdxrGkQ=";
 
@@ -62,7 +62,7 @@ let
       meta
       src
       version
-    ;
+      ;
 
     vendorHash = "sha256-Bq5vOZCflLDAhhmwSww9JCahfL/JHKa3ZT4cwNXzW90=";
 
@@ -77,7 +77,7 @@ let
       meta
       src
       version
-    ;
+      ;
 
     vendorHash = "sha256-KUr0SrfuE5sh54THdvJwuMO/U6O+civ6onEPzNGqf18=";
 

@@ -13,7 +13,7 @@ let
     mkOption
     optional
     types
-  ;
+    ;
 
   cfg = config.hardware.ipu6;
 in

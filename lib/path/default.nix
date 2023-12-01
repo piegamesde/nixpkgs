@@ -7,7 +7,7 @@ let
     isPath
     split
     match
-  ;
+    ;
 
   inherit (lib.lists)
     length
@@ -18,7 +18,7 @@ let
     all
     concatMap
     foldl'
-  ;
+    ;
 
   inherit (lib.strings) concatStringsSep substring;
 

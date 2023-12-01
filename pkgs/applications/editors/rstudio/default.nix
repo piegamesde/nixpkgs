@@ -84,7 +84,7 @@ in
       RSTUDIO_VERSION_MINOR
       RSTUDIO_VERSION_PATCH
       RSTUDIO_VERSION_SUFFIX
-    ;
+      ;
 
     nativeBuildInputs = [
       cmake

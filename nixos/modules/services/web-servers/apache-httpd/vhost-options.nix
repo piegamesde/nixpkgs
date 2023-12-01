@@ -10,7 +10,7 @@ let
     mkOption
     nameValuePair
     types
-  ;
+    ;
 in
 {
   options = {

@@ -27,7 +27,7 @@ let
     optional
     optionals
     optionalString
-  ;
+    ;
   runtimePath = makeBinPath (
     optional tiffSupport libraw
     ++ optionals jpgSupport [

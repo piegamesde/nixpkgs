@@ -21,7 +21,7 @@ let
     nameValuePair
     optionals
     types
-  ;
+    ;
   inherit (utils) escapeSystemdPath;
 
   cfg = config.services.v4l2-relayd;

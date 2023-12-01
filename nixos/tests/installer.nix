@@ -159,7 +159,7 @@ let
                       grubIdentifier
                       grubUseEfi
                       extraConfig
-                    ;
+                      ;
                   }
                 }",
                 "/mnt/etc/nixos/configuration.nix",
@@ -239,7 +239,7 @@ let
                       grubIdentifier
                       grubUseEfi
                       extraConfig
-                    ;
+                      ;
                     forceGrubReinstallCount = 1;
                   }
                 }",
@@ -275,7 +275,7 @@ let
                   grubIdentifier
                   grubUseEfi
                   extraConfig
-                ;
+                  ;
                 forceGrubReinstallCount = 2;
               }
             }",
@@ -468,7 +468,7 @@ let
           grubUseEfi
           extraConfig
           testSpecialisationConfig
-        ;
+          ;
       };
     };
 

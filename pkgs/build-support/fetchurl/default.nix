@@ -229,7 +229,7 @@ stdenvNoCC.mkDerivation (
       postFetch
       downloadToTemp
       executable
-    ;
+      ;
 
     impureEnvVars = impureEnvVars ++ netrcImpureEnvVars;
 

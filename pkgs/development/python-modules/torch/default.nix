@@ -106,7 +106,7 @@ let
     cudaFlags
     cudnn
     nccl
-  ;
+    ;
 in
 
 assert cudaSupport -> (cudaPackages.cudaMajorVersion == "11");

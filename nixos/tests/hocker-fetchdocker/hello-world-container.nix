@@ -15,7 +15,7 @@ fetchdocker rec {
       registry
       repository
       imageName
-    ;
+      ;
     sha256 = "1ivbd23hyindkahzfw4kahgzi6ibzz2ablmgsz6340vc6qr1gagj";
   };
   imageLayers =

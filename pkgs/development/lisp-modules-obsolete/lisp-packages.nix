@@ -15,7 +15,7 @@ let
       pkgs
       clwrapper
       stdenv
-    ;
+      ;
     nixLib = pkgs.lib;
     callPackage = nixLib.callPackageWith lispPackages;
 

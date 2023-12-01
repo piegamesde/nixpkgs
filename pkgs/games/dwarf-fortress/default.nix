@@ -68,7 +68,7 @@ let
         sidecap
         preprint
         enumitem
-      ;
+        ;
     };
   };
 
@@ -107,7 +107,7 @@ let
               twbt
               dfhack
               dwarf-therapist
-            ;
+              ;
 
             jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
           };

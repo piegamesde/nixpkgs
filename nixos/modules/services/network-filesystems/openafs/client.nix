@@ -17,7 +17,7 @@ let
     optionalString
     singleton
     types
-  ;
+    ;
 
   cfg = config.services.openafsClient;
 

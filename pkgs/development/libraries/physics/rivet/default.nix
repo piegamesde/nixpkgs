@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       xcolor
       xkeyval
       xstring
-    ;
+      ;
   };
 
   nativeBuildInputs = [

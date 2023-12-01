@@ -18,7 +18,7 @@ let
       wcfPath
       referenceAssembly30Path
       referenceAssembly35Path
-    ;
+      ;
   };
 in
 dotnetenv

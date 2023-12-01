@@ -14,7 +14,7 @@ let
     findlib
     cryptokit
     num
-  ;
+    ;
 in
 
 stdenv.mkDerivation rec {

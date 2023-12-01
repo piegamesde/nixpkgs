@@ -50,7 +50,7 @@ let
       prePatch
       patches
       postPatch
-    ;
+      ;
     name = "${name}-npm-deps";
     hash = npmDepsHash;
   };

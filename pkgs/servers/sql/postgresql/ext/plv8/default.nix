@@ -112,7 +112,7 @@ stdenv.mkDerivation (
               nativeBuildInputs
               buildInputs
               dontConfigure
-            ;
+              ;
 
             buildPhase = ''
               runHook preBuild

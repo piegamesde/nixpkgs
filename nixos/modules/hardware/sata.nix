@@ -10,7 +10,7 @@ let
     mkIf
     mkOption
     types
-  ;
+    ;
 
   cfg = config.hardware.sata.timeout;
 

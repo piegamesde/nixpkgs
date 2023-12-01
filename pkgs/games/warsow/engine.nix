@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
         libvorbis
         libtheora
         freetype
-      ;
+        ;
     })
   ];
 

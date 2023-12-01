@@ -37,7 +37,7 @@ rec {
       rustc
       cargo
       cargo-auditable
-    ;
+      ;
   };
 
   importCargoLock = buildPackages.callPackage ../../../build-support/rust/import-cargo-lock.nix {
@@ -57,5 +57,5 @@ rec {
     cargoSetupHook
     maturinBuildHook
     bindgenHook
-  ;
+    ;
 }

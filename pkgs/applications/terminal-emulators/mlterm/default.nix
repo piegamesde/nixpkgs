@@ -202,7 +202,7 @@ stdenv.mkDerivation rec {
       enableTools
       enableGuis
       enableFeatures
-    ;
+      ;
   };
 
   meta = with lib; {

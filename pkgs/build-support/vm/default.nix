@@ -36,7 +36,7 @@ let
     writeScript
     writeText
     runCommand
-  ;
+    ;
 in
 rec {
   qemu-common = import ../../../nixos/lib/qemu-common.nix { inherit lib pkgs; };
@@ -501,7 +501,7 @@ rec {
           rpms
           QEMU_OPTS
           memSize
-        ;
+          ;
         preVM = createEmptyImage { inherit size fullName; };
 
         buildCommand = ''
@@ -683,7 +683,7 @@ rec {
           postInstall
           QEMU_OPTS
           memSize
-        ;
+          ;
 
         debs = (lib.intersperse "|" debs);
 
@@ -851,7 +851,7 @@ rec {
         unifiedSystemDir
         QEMU_OPTS
         memSize
-      ;
+        ;
       rpms =
         import
           (rpmClosureGenerator {
@@ -860,7 +860,7 @@ rec {
               packagesLists
               urlPrefixes
               archs
-            ;
+              ;
             packages = packages ++ extraPackages;
           })
           { inherit fetchurl; };
@@ -945,7 +945,7 @@ rec {
         createRootFS
         QEMU_OPTS
         memSize
-      ;
+        ;
       debs = import expr { inherit fetchurl; } ++ extraDebs;
     })
     // {

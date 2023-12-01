@@ -20,7 +20,7 @@ let
     cudnn
     cutensor
     nccl
-  ;
+    ;
 in
 buildPythonPackage rec {
   pname = "cupy";

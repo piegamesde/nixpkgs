@@ -15,7 +15,7 @@ let
     mapAttrs
     mapAttrsToList
     optionalAttrs
-  ;
+    ;
   inherit (lib.modules) mkDefault mkIf;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.strings) concatLines optionalString toLower;
@@ -31,7 +31,7 @@ let
     str
     strMatching
     submodule
-  ;
+    ;
 
   # Checks if given list of strings contains unique
   # elements when compared without considering case.

@@ -53,7 +53,7 @@ elasticmq-server.overrideAttrs (
         runCommand
         python3Packages
         writeText
-      ;
+        ;
     };
   }
 )

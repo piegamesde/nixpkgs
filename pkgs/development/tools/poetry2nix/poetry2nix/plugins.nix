@@ -75,7 +75,7 @@ in
                 postInstall
                 nativeBuildInputs
                 buildInputs
-              ;
+                ;
               drv = finalDrv;
             };
         };

@@ -110,7 +110,7 @@ let
             pname
             version
             ruby
-          ;
+            ;
         }
       );
     in
@@ -437,7 +437,7 @@ let
         rake
         mkDiscoursePlugin
         assets
-      ;
+        ;
       enabledPlugins = plugins;
       plugins = callPackage ./plugins/all-plugins.nix { inherit mkDiscoursePlugin; };
       ruby = rubyEnv.wrappedRuby;

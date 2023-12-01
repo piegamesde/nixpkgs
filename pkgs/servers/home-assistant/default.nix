@@ -547,7 +547,7 @@ python.pkgs.buildPythonApplication rec {
       getPackages
       python
       supportedComponentsWithTests
-    ;
+      ;
     pythonPath = python3.pkgs.makePythonPath (componentBuildInputs ++ extraBuildInputs);
     frontend = python.pkgs.home-assistant-frontend;
     intents = python.pkgs.home-assistant-intents;

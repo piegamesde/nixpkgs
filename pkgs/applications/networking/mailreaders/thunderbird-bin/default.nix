@@ -217,7 +217,7 @@ stdenv.mkDerivation {
       curl
       gnupg
       runtimeShell
-    ;
+      ;
     pname = "thunderbird-bin";
     baseName = "thunderbird";
     channel = "release";

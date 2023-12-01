@@ -334,7 +334,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           coreutils
           gnugrep
           binutils
-        ;
+          ;
 
         ${localSystem.libc} = getLibc prevStage;
 
@@ -382,7 +382,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           gnum4
           perl
           patchelf
-        ;
+          ;
         ${localSystem.libc} = getLibc prevStage;
         gmp = prev.gmp.override { cxx = false; };
         gcc-unwrapped =
@@ -486,7 +486,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           bison
           texinfo
           which
-        ;
+          ;
         dejagnu = super.dejagnu.overrideAttrs (a: { doCheck = false; });
 
         # We need libidn2 and its dependency libunistring as glibc dependency.
@@ -609,7 +609,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             libidn2
             libunistring
             libxcrypt
-          ;
+            ;
           # We build a special copy of libgmp which doesn't use libstdc++, because
           # xgcc++'s libstdc++ references the bootstrap-files (which is what
           # compiles xgcc++).
@@ -628,7 +628,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                       mpfr
                       libmpc
                       isl
-                    ;
+                      ;
                   };
                 }
               );
@@ -672,7 +672,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           linuxHeaders
           libidn2
           libunistring
-        ;
+          ;
         ${localSystem.libc} = getLibc prevStage;
         binutils = super.binutils.override {
           # Don't use stdenv's shell but our own
@@ -858,7 +858,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               zlib
               pcre
               libunistring
-            ;
+              ;
             ${localSystem.libc} = getLibc prevStage;
 
             # Hack: avoid libidn2.{bin,dev} referencing bootstrap tools.  There's a logical cycle.
@@ -870,7 +870,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                 runCommandLocal
                 patchelf
                 libunistring
-              ;
+                ;
             };
 
             gnumake = super.gnumake.override { inBootstrap = false; };

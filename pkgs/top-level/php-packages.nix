@@ -61,7 +61,7 @@ lib.makeScope pkgs.newScope (
         fetchurl
         re2c
         nix-update-script
-      ;
+        ;
     };
 
     # Wrap mkDerivation to prepend pname with "php-" to make names consistent
@@ -133,7 +133,7 @@ lib.makeScope pkgs.newScope (
             buildInputs
             zendExtension
             doCheck
-          ;
+            ;
 
           preConfigurePhases = [ "cdToExtensionRootPhase" ];
 

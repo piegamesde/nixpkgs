@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       stdenv
       fetchurl
       unzip
-    ;
+      ;
   };
 
   hardeningDisable = [

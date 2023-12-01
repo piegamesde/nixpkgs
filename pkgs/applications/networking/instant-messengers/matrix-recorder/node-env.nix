@@ -459,7 +459,7 @@ let
           preRebuild
           unpackPhase
           buildPhase
-        ;
+          ;
 
         compositionScript = composePackage args;
         pinpointDependenciesScript = pinpointDependenciesOfPackage args;
@@ -484,7 +484,7 @@ let
               reconstructLock
               npmFlags
               production
-            ;
+              ;
           }}
 
           # Create symlink to the deployed executable folder, if applicable
@@ -593,7 +593,7 @@ let
                 reconstructLock
                 npmFlags
                 production
-              ;
+                ;
             }}
 
             # Expose the executables that were installed

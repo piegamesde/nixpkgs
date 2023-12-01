@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
           enumitem
           multirow
           preprint
-        ;
+          ;
       })
     ];
 

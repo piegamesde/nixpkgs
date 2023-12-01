@@ -13,7 +13,7 @@ rec {
     cuda-samples_cudatoolkit_11_2
     cuda-samples_cudatoolkit_11_3
     cuda-samples_cudatoolkit_11_4
-  ;
+    ;
 
   cuda-library-samplesPackages = callPackage ./cuda-library-samples { };
   inherit (cuda-library-samplesPackages)
@@ -26,5 +26,5 @@ rec {
     cuda-library-samples_cudatoolkit_11_2
     cuda-library-samples_cudatoolkit_11_3
     cuda-library-samples_cudatoolkit_11_4
-  ;
+    ;
 }

@@ -35,7 +35,7 @@
       Foundation
       MediaToolbox
       VideoToolbox
-    ;
+      ;
   };
 
   gst-plugins-ugly = callPackage ./ugly { inherit CoreFoundation DiskArbitration IOKit; };

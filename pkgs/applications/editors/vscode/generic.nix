@@ -51,7 +51,7 @@ let
       src
       sourceRoot
       dontFixup
-    ;
+      ;
 
     passthru = {
       inherit
@@ -59,7 +59,7 @@ let
         longName
         tests
         updateScript
-      ;
+        ;
       fhs = fhs { };
       fhsWithPackages = f: fhs { additionalPkgs = f; };
     };

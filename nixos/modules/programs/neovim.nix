@@ -183,7 +183,7 @@ in
         withNodeJs
         withRuby
         configure
-      ;
+        ;
     };
   };
 }

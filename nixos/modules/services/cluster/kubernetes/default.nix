@@ -93,7 +93,7 @@ let
         hosts
         fields
         action
-      ;
+        ;
       cert = secret name;
       key = secret "${name}-key";
       privateKeyOptions = {

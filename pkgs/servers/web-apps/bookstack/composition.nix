@@ -14,7 +14,7 @@ let
       writeTextFile
       fetchurl
       unzip
-    ;
+      ;
     inherit php phpPackages;
   };
 in
@@ -25,5 +25,5 @@ import ./php-packages.nix {
     fetchgit
     fetchhg
     fetchsvn
-  ;
+    ;
 }

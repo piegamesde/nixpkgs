@@ -23,7 +23,7 @@ let
     socketToUnit
     timerToUnit
     pathToUnit
-  ;
+    ;
 
   upstreamUserUnits = [
     "app.slice"

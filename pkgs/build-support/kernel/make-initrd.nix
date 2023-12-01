@@ -91,7 +91,7 @@ stdenvNoCC.mkDerivation rec {
     extension
     uInitrdArch
     prepend
-  ;
+    ;
 
   ${if makeUInitrd then "uInitrdCompression" else null} = uInitrdCompression;
 

@@ -34,7 +34,7 @@ let
       pname
       version
       meta
-    ;
+      ;
 
     src = fetchurl (osu-lazer-bin-src);
 
@@ -59,7 +59,7 @@ let
       pname
       version
       meta
-    ;
+      ;
 
     src = fetchzip (osu-lazer-bin-src // { stripRoot = false; });
 

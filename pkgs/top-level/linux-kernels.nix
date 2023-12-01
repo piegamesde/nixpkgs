@@ -597,7 +597,7 @@ in
           })
           zfsStable
           zfsUnstable
-        ;
+          ;
         zfs = zfsStable;
 
         can-isotp = callPackage ../os-specific/linux/can-isotp { };
@@ -737,7 +737,7 @@ in
             modDirVersion
             configfile
             allowImportFromDerivation
-          ;
+            ;
         }
       )
     );

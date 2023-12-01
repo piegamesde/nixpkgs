@@ -21,7 +21,7 @@ let
           src
           vendorHash
           version
-        ;
+          ;
 
         sourceRoot = "${src.name}/provider";
 
@@ -60,7 +60,7 @@ let
             meta
             src
             version
-          ;
+            ;
           format = "setuptools";
 
           disabled = pythonOlder "3.7";
@@ -119,7 +119,7 @@ let
       rev
       hash
       fetchSubmodules
-    ;
+      ;
   };
 
   pulumi-gen = mkBasePackage rec {
@@ -128,7 +128,7 @@ let
       version
       vendorHash
       extraLdflags
-    ;
+      ;
 
     cmd = cmdGen;
     pname = cmdGen;
@@ -142,7 +142,7 @@ mkBasePackage (
       version
       vendorHash
       extraLdflags
-    ;
+      ;
 
     pname = repo;
 

@@ -12,7 +12,7 @@ let
     mkIf
     mkOption
     types
-  ;
+    ;
 
   cfg = config.services.https-dns-proxy;
 

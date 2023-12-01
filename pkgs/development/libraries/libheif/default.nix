@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       imlib2Full
       imv
       vips
-    ;
+      ;
   };
 
   meta = {

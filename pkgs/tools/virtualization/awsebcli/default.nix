@@ -20,7 +20,7 @@ let
             requests
             websocket-client
             paramiko
-          ;
+            ;
         }
       ).overridePythonAttrs
       "1.25.5"

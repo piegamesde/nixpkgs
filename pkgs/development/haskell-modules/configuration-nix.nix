@@ -139,7 +139,7 @@ builtins.intersectAttrs super {
     hls-floskell-plugin
     hls-fourmolu-plugin
     hls-cabal-plugin
-  ;
+    ;
 
   # PLUGINS WITH DISABLED TESTS
   # 2023-04-01: TODO: We should reenable all these tests to figure if they are still broken.
@@ -193,7 +193,7 @@ builtins.intersectAttrs super {
 
     # 2023-04-03: https://github.com/haskell/haskell-language-server/issues/3549
     hls-retrie-plugin
-  ;
+    ;
 
   ###########################################
   ### END HASKELL-LANGUAGE-SERVER SECTION ###

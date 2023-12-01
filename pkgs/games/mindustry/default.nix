@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
     version
     unpackPhase
     patches
-  ;
+    ;
 
   postPatch = cleanupMindustrySrc;
 

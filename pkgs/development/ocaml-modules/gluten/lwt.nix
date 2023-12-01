@@ -11,7 +11,7 @@ buildDunePackage rec {
     meta
     src
     version
-  ;
+    ;
 
   duneVersion = "3";
 

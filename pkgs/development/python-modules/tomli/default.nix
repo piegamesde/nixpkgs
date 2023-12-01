@@ -38,7 +38,7 @@ buildPythonPackage rec {
       black
       mypy
       setuptools-scm
-    ;
+      ;
   };
 
   meta = with lib; {

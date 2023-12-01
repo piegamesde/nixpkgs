@@ -413,14 +413,14 @@ let
                       makeBinaryWrapper
                       buildRubyGem
                       buildEnv
-                    ;
+                      ;
                     gemConfig = defaultGemConfig;
                     ruby = self;
                   })
                   withPackages
                   buildGems
                   gems
-                ;
+                  ;
               } // lib.optionalAttrs useBaseRuby { inherit baseRuby; };
             }
           )

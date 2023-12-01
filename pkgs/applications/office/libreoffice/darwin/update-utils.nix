@@ -47,5 +47,5 @@ in
     extractSha256FromHtml
     getSha256
     getSha256Url
-  ;
+    ;
 }

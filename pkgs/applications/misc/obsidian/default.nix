@@ -61,7 +61,7 @@ let
       src
       desktopItem
       icon
-    ;
+      ;
     meta = meta // {
       platforms = [
         "x86_64-linux"
@@ -104,7 +104,7 @@ let
       version
       src
       appname
-    ;
+      ;
     meta = meta // {
       platforms = [
         "x86_64-darwin"

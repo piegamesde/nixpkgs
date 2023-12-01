@@ -16,7 +16,7 @@ let
     mkIf
     mkOption
     types
-  ;
+    ;
 
   cfg = config.services.xserver.desktopManager.budgie;
 

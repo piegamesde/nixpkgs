@@ -49,7 +49,7 @@ let
     makeSearchPath
     recurseIntoAttrs
     dontRecurseIntoAttrs
-  ;
+    ;
 
   inherit (builtins)
     head
@@ -57,7 +57,7 @@ let
     elem
     split
     storeDir
-  ;
+    ;
 
   # Returns a flattened dependency tree without duplicates
   # This is probably causing performance problems...
@@ -165,7 +165,7 @@ let
             lisp
             systems
             asds
-          ;
+            ;
 
           # When src is null, we are building a lispWithPackages and only
           # want to make use of the dependency environment variables
@@ -465,7 +465,7 @@ let
       lispWithPackagesInternal
       lispPackagesFor
       lispWithPackages
-    ;
+      ;
 
     # TODO: uncomment clasp when clasp 1.0.0 is packaged
 

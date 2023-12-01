@@ -386,7 +386,7 @@ let
           go-modules
           vendorSha256
           vendorHash
-        ;
+          ;
       };
 
       meta = {

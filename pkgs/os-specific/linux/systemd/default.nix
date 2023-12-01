@@ -885,7 +885,7 @@ stdenv.mkDerivation (
         util-linux
         kmod
         kbd
-      ;
+        ;
 
       tests = {
         inherit (nixosTests) switchTest;

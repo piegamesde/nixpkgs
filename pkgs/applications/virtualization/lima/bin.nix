@@ -48,7 +48,7 @@ stdenvNoCC.mkDerivation {
       )
       url
       sha256
-    ;
+      ;
   };
 
   sourceRoot = ".";

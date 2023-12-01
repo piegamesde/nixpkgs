@@ -78,7 +78,7 @@ let
     optionalString
     strings
     escapeShellArg
-  ;
+    ;
 
   deps = [
     alsa-lib

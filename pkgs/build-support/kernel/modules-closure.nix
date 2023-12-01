@@ -25,6 +25,6 @@ stdenvNoCC.mkDerivation {
     firmware
     rootModules
     allowMissing
-  ;
+    ;
   allowedReferences = [ "out" ];
 }

@@ -25,7 +25,7 @@ with frameworks; {
       QuartzCore
       UniformTypeIdentifiers
       simd
-    ;
+      ;
   };
   AVKit = {
     inherit
@@ -33,7 +33,7 @@ with frameworks; {
       AppKit
       Cocoa
       Foundation
-    ;
+      ;
   };
   Accelerate = {
     inherit
@@ -43,7 +43,7 @@ with frameworks; {
       Foundation
       IOKit
       Metal
-    ;
+      ;
   };
   Accessibility = {
     inherit CoreGraphics Foundation;
@@ -63,7 +63,7 @@ with frameworks; {
       Cocoa
       CoreFoundation
       Foundation
-    ;
+      ;
   };
   AppKit = {
     inherit
@@ -79,7 +79,7 @@ with frameworks; {
       Metal
       OpenGL
       QuartzCore
-    ;
+      ;
   };
   AppTrackingTransparency = {
     inherit Foundation;
@@ -96,7 +96,7 @@ with frameworks; {
       CoreServices
       CoreText
       ImageIO
-    ;
+      ;
   };
   AudioToolbox = {
     inherit
@@ -106,7 +106,7 @@ with frameworks; {
       CoreFoundation
       CoreMIDI
       Foundation
-    ;
+      ;
   };
   AudioUnit = {
     inherit AudioToolbox;
@@ -126,7 +126,7 @@ with frameworks; {
       Cocoa
       Foundation
       OSAKit
-    ;
+      ;
   };
   BackgroundTasks = {
     inherit Foundation;
@@ -144,7 +144,7 @@ with frameworks; {
       CoreGraphics
       Foundation
       IOKit
-    ;
+      ;
   };
   Carbon = {
     inherit
@@ -152,7 +152,7 @@ with frameworks; {
       CoreServices
       Foundation
       Security
-    ;
+      ;
   };
   ClassKit = {
     inherit CoreGraphics Foundation;
@@ -164,7 +164,7 @@ with frameworks; {
       CoreLocation
       Foundation
       IOKit
-    ;
+      ;
   };
   Cocoa = {
     inherit AppKit CoreData Foundation;
@@ -182,7 +182,7 @@ with frameworks; {
       CoreGraphics
       Foundation
       IOKit
-    ;
+      ;
   };
   ContactsUI = {
     inherit AppKit;
@@ -196,7 +196,7 @@ with frameworks; {
       AudioUnit
       Cocoa
       Foundation
-    ;
+      ;
   };
   CoreAudioTypes = {
     inherit CoreFoundation;
@@ -213,7 +213,7 @@ with frameworks; {
       CoreLocation
       Foundation
       IOKit
-    ;
+      ;
   };
   CoreDisplay = { };
   CoreFoundation = { };
@@ -235,7 +235,7 @@ with frameworks; {
       ImageIO
       Metal
       OpenGL
-    ;
+      ;
   };
   CoreLocation = {
     inherit
@@ -243,7 +243,7 @@ with frameworks; {
       CoreGraphics
       Foundation
       IOKit
-    ;
+      ;
   };
   CoreMIDI = {
     inherit
@@ -251,7 +251,7 @@ with frameworks; {
       CoreGraphics
       Foundation
       IOKit
-    ;
+      ;
   };
   CoreMIDIServer = { };
   CoreML = {
@@ -263,7 +263,7 @@ with frameworks; {
       IOKit
       ImageIO
       Metal
-    ;
+      ;
   };
   CoreMedia = {
     inherit
@@ -275,7 +275,7 @@ with frameworks; {
       Foundation
       IOKit
       Metal
-    ;
+      ;
   };
   CoreMediaIO = {
     inherit CoreFoundation CoreMedia;
@@ -289,7 +289,7 @@ with frameworks; {
       CoreFoundation
       DiskArbitration
       Security
-    ;
+      ;
   };
   CoreSpotlight = {
     inherit Foundation UniformTypeIdentifiers;
@@ -306,7 +306,7 @@ with frameworks; {
       IOSurface
       Metal
       OpenGL
-    ;
+      ;
   };
   CoreWLAN = {
     inherit Foundation IOKit;
@@ -319,7 +319,7 @@ with frameworks; {
       IOKit
       LocalAuthentication
       Security
-    ;
+      ;
   };
   CryptoTokenKit = {
     inherit
@@ -328,7 +328,7 @@ with frameworks; {
       Foundation
       IOKit
       Security
-    ;
+      ;
   };
   DVDPlayback = {
     inherit ApplicationServices CoreFoundation Security;
@@ -388,7 +388,7 @@ with frameworks; {
       CoreServices
       IOKit
       Security
-    ;
+      ;
   };
   GLKit = {
     inherit
@@ -406,7 +406,7 @@ with frameworks; {
       OpenGL
       QuartzCore
       simd
-    ;
+      ;
   };
   GLUT = {
     inherit OpenGL;
@@ -432,7 +432,7 @@ with frameworks; {
       SceneKit
       SpriteKit
       simd
-    ;
+      ;
   };
   GameplayKit = {
     inherit
@@ -452,7 +452,7 @@ with frameworks; {
       SceneKit
       SpriteKit
       simd
-    ;
+      ;
   };
   HIDDriverKit = {
     inherit IOKit USBDriverKit;
@@ -464,7 +464,7 @@ with frameworks; {
       CoreGraphics
       CoreServices
       IOBluetooth
-    ;
+      ;
   };
   IMServicePlugIn = {
     inherit Foundation;
@@ -476,7 +476,7 @@ with frameworks; {
       CoreServices
       Foundation
       IOKit
-    ;
+      ;
   };
   IOBluetoothUI = {
     inherit Cocoa IOBluetooth;
@@ -511,7 +511,7 @@ with frameworks; {
       CoreLocation
       Foundation
       IOKit
-    ;
+      ;
   };
   JavaNativeFoundation = {
     inherit Foundation;
@@ -522,7 +522,7 @@ with frameworks; {
       Cocoa
       Foundation
       QuartzCore
-    ;
+      ;
   };
   JavaScriptCore = {
     inherit CoreFoundation CoreGraphics Foundation;
@@ -549,7 +549,7 @@ with frameworks; {
       Foundation
       IOKit
       Metal
-    ;
+      ;
   };
   MapKit = {
     inherit
@@ -564,7 +564,7 @@ with frameworks; {
       IOKit
       Metal
       QuartzCore
-    ;
+      ;
   };
   MediaAccessibility = {
     inherit
@@ -572,7 +572,7 @@ with frameworks; {
       CoreGraphics
       CoreText
       QuartzCore
-    ;
+      ;
   };
   MediaLibrary = {
     inherit Foundation;
@@ -591,7 +591,7 @@ with frameworks; {
       Foundation
       IOKit
       IOSurface
-    ;
+      ;
   };
   MetalKit = {
     inherit
@@ -608,7 +608,7 @@ with frameworks; {
       ModelIO
       QuartzCore
       simd
-    ;
+      ;
   };
   MetalPerformanceShaders = {
     inherit
@@ -616,7 +616,7 @@ with frameworks; {
       Foundation
       Metal
       simd
-    ;
+      ;
   };
   MetalPerformanceShadersGraph = {
     inherit Foundation MetalPerformanceShaders;
@@ -627,7 +627,7 @@ with frameworks; {
       CoreGraphics
       Foundation
       IOKit
-    ;
+      ;
   };
   ModelIO = {
     inherit
@@ -636,7 +636,7 @@ with frameworks; {
       Foundation
       IOKit
       simd
-    ;
+      ;
   };
   MultipeerConnectivity = {
     inherit Cocoa Foundation;
@@ -647,7 +647,7 @@ with frameworks; {
       CoreGraphics
       Foundation
       IOKit
-    ;
+      ;
   };
   NearbyInteraction = {
     inherit
@@ -656,7 +656,7 @@ with frameworks; {
       Foundation
       IOKit
       simd
-    ;
+      ;
   };
   NetFS = {
     inherit CoreFoundation;
@@ -680,7 +680,7 @@ with frameworks; {
       CoreGraphics
       Foundation
       IOKit
-    ;
+      ;
   };
   OpenAL = { };
   OpenCL = {
@@ -704,7 +704,7 @@ with frameworks; {
       Foundation
       IOSurface
       Metal
-    ;
+      ;
   };
   PassKit = {
     inherit
@@ -712,7 +712,7 @@ with frameworks; {
       Contacts
       CoreGraphics
       Foundation
-    ;
+      ;
   };
   PencilKit = {
     inherit
@@ -728,7 +728,7 @@ with frameworks; {
       IOKit
       Metal
       QuartzCore
-    ;
+      ;
   };
   Photos = {
     inherit
@@ -747,7 +747,7 @@ with frameworks; {
       QuartzCore
       UniformTypeIdentifiers
       simd
-    ;
+      ;
   };
   PhotosUI = {
     inherit
@@ -755,7 +755,7 @@ with frameworks; {
       Foundation
       MapKit
       Photos
-    ;
+      ;
   };
   PreferencePanes = {
     inherit Cocoa;
@@ -778,7 +778,7 @@ with frameworks; {
       PDFKit
       QuartzCore
       QuickLook
-    ;
+      ;
   };
   QuartzCore = {
     inherit
@@ -790,7 +790,7 @@ with frameworks; {
       IOKit
       Metal
       OpenGL
-    ;
+      ;
   };
   QuickLook = {
     inherit ApplicationServices CoreFoundation;
@@ -819,7 +819,7 @@ with frameworks; {
       MultipeerConnectivity
       QuartzCore
       simd
-    ;
+      ;
   };
   ReplayKit = {
     inherit AVFoundation AppKit Foundation;
@@ -838,7 +838,7 @@ with frameworks; {
       IOKit
       Metal
       QuartzCore
-    ;
+      ;
   };
   SceneKit = {
     inherit
@@ -856,7 +856,7 @@ with frameworks; {
       ModelIO
       QuartzCore
       simd
-    ;
+      ;
   };
   ScreenSaver = {
     inherit AppKit Foundation;
@@ -879,7 +879,7 @@ with frameworks; {
       Cocoa
       Security
       SecurityFoundation
-    ;
+      ;
   };
   SensorKit = {
     inherit CoreFoundation CoreLocation Foundation;
@@ -896,7 +896,7 @@ with frameworks; {
       CoreML
       CoreMedia
       Foundation
-    ;
+      ;
   };
   Speech = {
     inherit
@@ -913,7 +913,7 @@ with frameworks; {
       QuartzCore
       UniformTypeIdentifiers
       simd
-    ;
+      ;
   };
   SpriteKit = {
     inherit
@@ -932,7 +932,7 @@ with frameworks; {
       ModelIO
       QuartzCore
       simd
-    ;
+      ;
   };
   StoreKit = {
     inherit AppKit CoreGraphics Foundation;
@@ -953,7 +953,7 @@ with frameworks; {
       Metal
       QuartzCore
       UniformTypeIdentifiers
-    ;
+      ;
   };
   SyncServices = { };
   System = { };
@@ -975,7 +975,7 @@ with frameworks; {
       CoreGraphics
       Foundation
       IOKit
-    ;
+      ;
   };
   UserNotifications = {
     inherit Foundation;
@@ -993,7 +993,7 @@ with frameworks; {
       CoreGraphics
       CoreMedia
       CoreVideo
-    ;
+      ;
   };
   Virtualization = {
     inherit
@@ -1001,7 +1001,7 @@ with frameworks; {
       CoreGraphics
       Foundation
       IOKit
-    ;
+      ;
   };
   Vision = {
     inherit
@@ -1016,7 +1016,7 @@ with frameworks; {
       ImageIO
       Metal
       simd
-    ;
+      ;
   };
   WebKit = {
     inherit
@@ -1033,7 +1033,7 @@ with frameworks; {
       Metal
       OpenGL
       QuartzCore
-    ;
+      ;
   };
   WidgetKit = {
     inherit
@@ -1046,7 +1046,7 @@ with frameworks; {
       Intents
       Metal
       SwiftUI
-    ;
+      ;
   };
   iTunesLibrary = {
     inherit Foundation;

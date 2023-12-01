@@ -18,7 +18,7 @@ let
     })
     mailmanEnv
     webEnv
-  ;
+    ;
 
   withPostgresql = config.services.postgresql.enable;
 

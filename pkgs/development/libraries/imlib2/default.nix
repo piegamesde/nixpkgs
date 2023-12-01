@@ -96,7 +96,7 @@ stdenv.mkDerivation (
         openbox
         fluxbox
         enlightenment
-      ;
+        ;
     };
 
     passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;

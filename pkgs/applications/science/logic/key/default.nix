@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     version
     src
     sourceRoot
-  ;
+    ;
 
   nativeBuildInputs = [
     jdk

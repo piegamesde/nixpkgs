@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
       mjpegtools
       opencv
       vips
-    ;
+      ;
     inherit (python3.pkgs) pillow imread pyturbojpeg;
   };
 

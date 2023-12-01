@@ -20,7 +20,7 @@ in
     ninja
     nodejs
     python3
-  ;
+    ;
   version = "8.2.0";
   ocaml-version = "4.06.1";
 

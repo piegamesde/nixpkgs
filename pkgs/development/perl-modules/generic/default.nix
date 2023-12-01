@@ -66,7 +66,7 @@ lib.throwIf (attrs ? name)
             doCheck
             checkTarget
             enableParallelBuilding
-          ;
+            ;
           env = {
             inherit PERL_AUTOINSTALL AUTOMATED_TESTING PERL_USE_UNSAFE_INC;
             fullperl = perl.__spliced.buildHost or perl;

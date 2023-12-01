@@ -22,7 +22,7 @@ with src; {
       supportFlags
       patches
       moltenvk
-    ;
+      ;
     pkgArches = [ pkgsi686Linux ];
     geckos = [ gecko32 ];
     mingwGccs = with pkgsCross; [ mingw32.buildPackages.gcc ];
@@ -40,7 +40,7 @@ with src; {
       supportFlags
       patches
       moltenvk
-    ;
+      ;
     pkgArches = [ pkgs ];
     mingwGccs = with pkgsCross; [ mingwW64.buildPackages.gcc ];
     geckos = [ gecko64 ];
@@ -60,7 +60,7 @@ with src; {
       supportFlags
       patches
       moltenvk
-    ;
+      ;
     stdenv = stdenv_32bit;
     pkgArches = [
       pkgs

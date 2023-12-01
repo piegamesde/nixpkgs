@@ -2051,7 +2051,7 @@ mapAliases ({
     xdg-desktop-portal-kde
     yakuake
     zanshin
-  ;
+    ;
 
   inherit (plasma5Packages.thirdParty)
     krohnkite
@@ -2061,7 +2061,7 @@ mapAliases ({
     kwin-tiling
     plasma-applet-caffeine-plus
     plasma-applet-virtual-desktop-bar
-  ;
+    ;
 
   inherit (libsForQt5) sddm;
 })

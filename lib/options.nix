@@ -24,7 +24,7 @@ let
     optional
     optionals
     take
-  ;
+    ;
   inherit (lib.attrsets) attrByPath optionalAttrs;
   inherit (lib.strings) concatMapStrings concatStringsSep;
   inherit (lib.types) mkOptionType;

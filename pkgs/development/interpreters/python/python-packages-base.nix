@@ -20,7 +20,7 @@ let
     isPyPy
     pythonAtLeast
     pythonOlder
-  ;
+    ;
 
   namePrefix = python.libPrefix + "-";
 
@@ -142,7 +142,7 @@ in
     isPyPy
     pythonAtLeast
     pythonOlder
-  ;
+    ;
   inherit buildPythonPackage buildPythonApplication;
   inherit (pkgs) fetchPypi;
   inherit
@@ -151,7 +151,7 @@ in
     makePythonPath
     disabled
     disabledIf
-  ;
+    ;
   inherit toPythonModule toPythonApplication;
   inherit buildSetupcfg;
 

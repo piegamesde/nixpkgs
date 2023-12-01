@@ -14,14 +14,14 @@ let
     mkIf
     mkMerge
     mkOption
-  ;
+    ;
   inherit (lib)
     literalExpression
     mapAttrs
     optional
     optionalString
     types
-  ;
+    ;
 
   cfg = config.services.limesurvey;
   fpm = config.services.phpfpm.pools.limesurvey;

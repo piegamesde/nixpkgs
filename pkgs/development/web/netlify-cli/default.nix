@@ -18,7 +18,7 @@ nodePackages.package.override {
       repo
       rev
       sha256
-    ;
+      ;
   };
   bypassCache = true;
   reconstructLock = true;

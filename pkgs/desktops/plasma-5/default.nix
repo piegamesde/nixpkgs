@@ -126,7 +126,7 @@ let
                 setupHook
                 src
                 nativeBuildInputs
-              ;
+                ;
             }
           );
       };

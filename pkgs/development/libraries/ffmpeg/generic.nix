@@ -297,7 +297,7 @@ let
     optionalString
     enableFeature
     versionAtLeast
-  ;
+    ;
 in
 
 assert lib.elem ffmpegVariant [

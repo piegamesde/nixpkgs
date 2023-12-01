@@ -7,7 +7,7 @@ let
     types
     length
     attrNames
-  ;
+    ;
   cfg = config.services.kerberos_server;
   kerberos = config.krb5.kerberos;
 

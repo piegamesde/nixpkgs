@@ -23,7 +23,7 @@ lib.makeScope newScope (
           boost
           volk
           logLib
-        ;
+          ;
         inherit mkDerivationWith mkDerivation;
       }
       // lib.optionalAttrs (gnuradio.hasFeature "gr-uhd") { inherit (gnuradio) uhd; }

@@ -67,7 +67,7 @@ let
       meta
       srcIcon
       desktopItem
-    ;
+      ;
 
     preferLocalBuild = true;
 

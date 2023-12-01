@@ -1282,7 +1282,7 @@ lib.composeManyExtensions [
             tcl
             wayland
             qhull
-          ;
+            ;
           inherit (pkgs.xorg) libX11;
           inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
         in
@@ -2873,7 +2873,7 @@ lib.composeManyExtensions [
                 name
                 version
                 src
-              ;
+                ;
             }
           );
 

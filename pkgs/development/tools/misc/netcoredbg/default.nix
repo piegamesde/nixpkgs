@@ -65,7 +65,7 @@ let
       version
       src
       dotnet-sdk
-    ;
+      ;
 
     projectFile = "src/managed/ManagedPart.csproj";
     nugetDeps = ./deps.nix;

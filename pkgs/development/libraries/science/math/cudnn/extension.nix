@@ -18,7 +18,7 @@ let
     versions
     strings
     trivial
-  ;
+    ;
 
   # Utilities
   # majorMinorPatch :: String -> String

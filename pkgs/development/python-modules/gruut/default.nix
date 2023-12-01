@@ -71,7 +71,7 @@ buildPythonPackage rec {
             version
             format
             src
-          ;
+            ;
         }
       )
       langPkgs

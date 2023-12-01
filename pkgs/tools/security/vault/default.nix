@@ -61,7 +61,7 @@ buildGoModule rec {
       vault-postgresql
       vault-dev
       vault-agent
-    ;
+      ;
   };
 
   meta = with lib; {

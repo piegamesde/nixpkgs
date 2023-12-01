@@ -70,7 +70,7 @@ buildPythonPackage rec {
       fastapi
       paramiko
       twisted
-    ;
+      ;
   };
 
   meta = with lib; {

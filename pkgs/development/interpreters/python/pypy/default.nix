@@ -50,7 +50,7 @@ let
       sourceVersion
       pythonVersion
       packageOverrides
-    ;
+      ;
     implementation = "pypy";
     libPrefix = "pypy${pythonVersion}";
     executable = "pypy${

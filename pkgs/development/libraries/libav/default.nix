@@ -43,7 +43,7 @@ let
     optionals
     hasPrefix
     enableFeature
-  ;
+    ;
 in
 
 /* ToDo:

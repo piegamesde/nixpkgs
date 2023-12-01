@@ -39,7 +39,7 @@ let
       pango
       gd
       libwebp
-    ;
+      ;
   };
 in
 let

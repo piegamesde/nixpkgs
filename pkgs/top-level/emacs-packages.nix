@@ -40,7 +40,7 @@ let
         gcc
         pkgs
         buildPackages
-      ;
+        ;
       inherit lib;
     };
 

@@ -16,7 +16,7 @@ let
     concatMap
     id
     mapAttrsToList
-  ;
+    ;
 in
 buildGoModule rec {
   pname = "pomerium";

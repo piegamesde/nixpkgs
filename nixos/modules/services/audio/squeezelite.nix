@@ -12,7 +12,7 @@ let
     mkOption
     optionalString
     types
-  ;
+    ;
 
   dataDir = "/var/lib/squeezelite";
   cfg = config.services.squeezelite;

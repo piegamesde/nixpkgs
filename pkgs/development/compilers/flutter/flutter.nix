@@ -109,7 +109,7 @@ let
                               os
                               architecture
                               variant
-                            ;
+                              ;
                           }
                         )
                         engineArtifacts.platform.${os}.${architecture}.variants.${variant}

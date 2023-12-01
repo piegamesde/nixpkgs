@@ -25,7 +25,7 @@ let
     mkOptionDefault
     flip
     attrNames
-  ;
+    ;
 
   cfg = config.services.prometheus.exporters;
 
@@ -114,7 +114,7 @@ let
             lib
             pkgs
             options
-          ;
+            ;
         }
       );
 

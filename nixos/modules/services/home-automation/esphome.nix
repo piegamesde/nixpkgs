@@ -14,7 +14,7 @@ let
     mkOption
     mdDoc
     types
-  ;
+    ;
 
   cfg = config.services.esphome;
 

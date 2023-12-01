@@ -56,7 +56,7 @@ let
       ghc
       ghcWithHoogle
       ghcWithPackages
-    ;
+      ;
     inherit (self.buildHaskellPackages) jailbreak-cabal;
     hscolour =
       overrideCabal
@@ -242,7 +242,7 @@ package-set { inherit pkgs lib callPackage; } self
     haskellSrc2nix
     hackage2nix
     buildHaskellPackages
-  ;
+    ;
 
   inherit (haskellLib) packageSourceOverrides;
 

@@ -74,7 +74,7 @@ let
           textx-flow-codegen
           textx-flow-dsl
           textx-types-dsl
-        ;
+          ;
       };
     };
 

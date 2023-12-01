@@ -39,7 +39,7 @@ let
     optional
     optionals
     optionalString
-  ;
+    ;
 
   phase = name: args: ''
     runHook pre${name}

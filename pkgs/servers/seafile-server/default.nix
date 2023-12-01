@@ -30,7 +30,7 @@ let
       fetchFromGitHub
       cmake
       libevent
-    ;
+      ;
   };
 in
 stdenv.mkDerivation rec {

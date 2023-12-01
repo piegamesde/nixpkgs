@@ -51,7 +51,7 @@ beamPackages.mixRelease {
     version
     src
     mixFodDeps
-  ;
+    ;
 
   nativeBuildInputs = [ nodejs ];
 
